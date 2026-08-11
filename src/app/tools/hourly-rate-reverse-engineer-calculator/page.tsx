@@ -63,7 +63,7 @@ export default function HourlyRateCalculatorPage() {
             How to Calculate Your Freelance Hourly Rate
           </h2>
           
-          <blockquote className="pl-4 border-l-4 border-primary text-xl font-medium text-foreground italic mb-12">
+          <blockquote className="bg-primary/5 border border-primary/20 p-6 mb-8 text-foreground/80 rounded-xl leading-relaxed shadow-sm">
             To calculate a sustainable freelance hourly rate, you must add your target net income, annual business overhead, estimated taxes, and profit buffer together, and divide that total by your true annual billable hours (not standard 40-hour work weeks).
           </blockquote>
           

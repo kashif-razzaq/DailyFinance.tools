@@ -36,7 +36,7 @@ export default function NomadCOLPage() {
       {(isPro) => (
         <>
           {/* 1. Direct Answer Block for AEO */}
-          <blockquote className="border-l-4 border-amber-500 bg-amber-50 p-4 mb-8 text-amber-900 italic rounded-r-lg">
+          <blockquote className="bg-primary/5 border border-primary/20 p-6 mb-8 text-foreground/80 rounded-xl leading-relaxed shadow-sm">
             <strong>Quick Answer:</strong> Geo-arbitrage allows freelancers to instantly increase their profit margins by keeping their income the same while slashing their expenses. For example, moving from a city that costs $5,000/month to one that costs $2,000/month saves you $36,000 a year. Even if it costs $3,000 to relocate, your "payback period" is just 1 month.
           </blockquote>
 

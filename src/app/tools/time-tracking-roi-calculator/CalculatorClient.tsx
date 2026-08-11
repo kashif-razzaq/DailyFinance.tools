@@ -1,4 +1,5 @@
 'use client'
+import { CalculatorActions } from "@/components/calculator/CalculatorActions"
 
 import React, { useState, useEffect } from 'react'
 import { useGlobalSettingsStore } from '@/store/global-settings.store'
@@ -7,9 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Slider } from "@/components/ui/slider"
 import { Save, Lock, Share2, Clock, CheckCircle2, TrendingUp, DollarSign } from "lucide-react"
-import { ExportEngine } from "@/components/shared/ExportEngine"
 import { saveCalculatorAction, getSharedCalculatorAction } from '@/actions/calculator.actions'
-import { ShareCalculatorModal } from "@/components/shared/ShareCalculatorModal"
 import { ProUpgradeModal } from "@/components/shared/ProUpgradeModal"
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
@@ -87,7 +86,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     : `${baseUrl}/tools/time-tracking-roi-calculator`
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch relative pb-24 md:pb-0">
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch relative">
       
       {/* LEFT COLUMN: Inputs */}
       <div className="lg:col-span-12 xl:col-span-5 bg-card border shadow-sm rounded-2xl p-6 md:p-8 flex flex-col space-y-10">
@@ -114,7 +113,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <div className="space-y-4 pt-4">
             <div className="flex justify-between items-end">
               <div>
-                <label className="text-sm font-semibold text-amber-700">Weekly Unbilled Scope Creep</label>
+                <label className="text-sm font-semibold text-foreground/80">Weekly Unbilled Scope Creep</label>
                 <p className="text-xs text-muted-foreground">Hours spent on "quick favors" and extra client requests.</p>
               </div>
               <span className="text-lg font-bold text-foreground">{store.weeklyUnbilledScopeCreep} hrs</span>
@@ -130,7 +129,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <div className="space-y-4 pt-4 border-t border-border/50">
             <div className="flex justify-between items-end">
               <div>
-                <label className="text-sm font-semibold text-amber-700">Weekly Manual Admin</label>
+                <label className="text-sm font-semibold text-foreground/80">Weekly Manual Admin</label>
                 <p className="text-xs text-muted-foreground">Hours spent tracking time in spreadsheets and building invoices.</p>
               </div>
               <span className="text-lg font-bold text-foreground">{store.weeklyAdminTimeTracking} hrs</span>
@@ -170,7 +169,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       <div className="lg:col-span-12 xl:col-span-7 flex flex-col gap-6">
         
         {showToast && (
-          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-emerald-50 text-emerald-600 border border-emerald-200 p-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 fade-in duration-300">
+          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-primary/5 text-emerald-600 border border-primary/20 p-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 fade-in duration-300">
             <CheckCircle2 className="h-5 w-5" />
             <span className="font-semibold text-sm">Saved to Scenario Vault!</span>
           </div>
@@ -185,25 +184,25 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
 
           {/* Loss Breakdown */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-            <div className="bg-red-50 border border-red-100 rounded-xl p-5">
+            <div className="bg-primary/5 border border-primary/20 rounded-2xl p-6 shadow-sm text-foreground/80">
               <h4 className="text-xs uppercase tracking-wider font-bold text-red-800 mb-1">Lost Revenue</h4>
               <p className="text-3xl font-black text-red-700">{currencySymbol}{Math.round(metrics.annualLostRevenue).toLocaleString()}</p>
               <p className="text-xs text-red-900/60 mt-1">From unbilled scope creep.</p>
             </div>
             
-            <div className="bg-amber-50 border border-amber-100 rounded-xl p-5">
-              <h4 className="text-xs uppercase tracking-wider font-bold text-amber-800 mb-1">Admin Cost</h4>
-              <p className="text-3xl font-black text-amber-700">{currencySymbol}{Math.round(metrics.annualAdminCost).toLocaleString()}</p>
-              <p className="text-xs text-amber-900/60 mt-1">From manual invoicing & spreadsheets.</p>
+            <div className="bg-primary/5 border border-primary/20 rounded-2xl p-6 shadow-sm text-foreground/80">
+              <h4 className="text-xs uppercase tracking-wider font-bold text-foreground/80 mb-1">Admin Cost</h4>
+              <p className="text-3xl font-black text-foreground/80">{currencySymbol}{Math.round(metrics.annualAdminCost).toLocaleString()}</p>
+              <p className="text-xs text-foreground/80/60 mt-1">From manual invoicing & spreadsheets.</p>
             </div>
           </div>
 
-          <div className="bg-slate-100 rounded-xl p-5 mb-8 flex justify-between items-center border border-slate-200">
+          <div className="bg-slate-100 rounded-xl p-5 mb-8 flex justify-between items-center border border-primary/20">
             <div>
-              <h4 className="font-bold text-slate-800">Software Cost</h4>
-              <p className="text-sm text-slate-500">Annual investment in automation.</p>
+              <h4 className="font-bold text-foreground/80">Software Cost</h4>
+              <p className="text-sm text-muted-foreground">Annual investment in automation.</p>
             </div>
-            <span className="text-2xl font-black text-slate-700">-${Math.round(metrics.annualSoftwareCost).toLocaleString()}</span>
+            <span className="text-2xl font-black text-foreground/80">-${Math.round(metrics.annualSoftwareCost).toLocaleString()}</span>
           </div>
 
           {/* Net ROI Hero */}
@@ -229,29 +228,16 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
 
         {/* Action Buttons */}
-        <div className="bg-card border rounded-2xl p-6 flex flex-col sm:flex-row gap-3 mt-auto shadow-sm">
-          <Button onClick={handleSave} disabled={isSaving} className="flex-1 justify-center gap-2 bg-amber-600 hover:bg-amber-700 text-white" size="lg">
-            <Save className="h-4 w-4" /> Save to Dashboard
-            {!isPro && <Lock className="h-4 w-4 text-white/70 ml-auto" />}
-          </Button>
-          <div className="flex-1 flex gap-3">
-            <div className="flex-1">
-              <ExportEngine 
-                data={exportData} 
-                filename="TimeTrackingROI" 
-                isPro={isPro}
-                onRequirePro={() => setShowProModal(true)}
-              />
-            </div>
-            <div className="flex-1">
-            <ShareCalculatorModal url={shareUrl} slug="time-tracking-roi-calculator" isPro={isPro}>
-              <Button variant="outline" className="w-full flex gap-2 justify-center">
-                <Share2 className="h-4 w-4" /> Share
-              </Button>
-            </ShareCalculatorModal>
-            </div>
-          </div>
-        </div>
+                <CalculatorActions
+              slug="time-tracking-roi-calculator"
+              onSave={handleSave}
+              isSaving={isSaving}
+              isPro={isPro}
+              exportData={exportData}
+              exportFilename="TimeTrackingROI"
+              onRequirePro={() => setShowProModal(true)}
+              shareUrl={shareUrl}
+            />
       </div>
 
       <ProUpgradeModal isOpen={showProModal} onClose={() => setShowProModal(false)} />

@@ -65,7 +65,7 @@ export function ProUpgradeModal({ isOpen, onClose }: ProUpgradeModalProps) {
             </div>
           </div>
           
-          <Button onClick={() => window.location.href = '/pricing'} className="w-full py-6 text-lg font-bold shadow-md group rounded-xl bg-amber-600 hover:bg-amber-700 text-white border-none transition-all">
+          <Button onClick={() => window.location.href = '/pricing'} className="w-full py-6 text-lg font-bold shadow-md group rounded-xl bg-accent hover:bg-accent/90 text-accent-foreground border-none transition-all">
             Upgrade to Pro — $2.99/mo
             <ArrowRight className="ml-2 h-5 w-5 opacity-70 group-hover:translate-x-1 group-hover:opacity-100 transition-all" />
           </Button>

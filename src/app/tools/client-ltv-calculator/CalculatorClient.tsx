@@ -1,4 +1,5 @@
 'use client'
+import { CalculatorActions } from "@/components/calculator/CalculatorActions"
 
 import React, { useState, useEffect } from 'react'
 import { useGlobalSettingsStore } from '@/store/global-settings.store'
@@ -7,9 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Slider } from "@/components/ui/slider"
 import { Save, Lock, Share2, Users, Target, Activity, AlertTriangle, CheckCircle2 } from "lucide-react"
-import { ExportEngine } from "@/components/shared/ExportEngine"
 import { saveCalculatorAction, getSharedCalculatorAction } from '@/actions/calculator.actions'
-import { ShareCalculatorModal } from "@/components/shared/ShareCalculatorModal"
 import { ProUpgradeModal } from "@/components/shared/ProUpgradeModal"
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
@@ -90,7 +89,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     : `${baseUrl}/tools/client-ltv-calculator`
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch relative pb-24 md:pb-0">
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch relative">
       
       {/* LEFT COLUMN: Inputs */}
       <div className="lg:col-span-6 bg-card border shadow-sm rounded-2xl p-6 md:p-8 flex flex-col space-y-10">
@@ -207,7 +206,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       <div className="lg:col-span-6 flex flex-col gap-6">
         
         {showToast && (
-          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-emerald-50 text-emerald-600 border border-emerald-200 p-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 fade-in duration-300">
+          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-primary/5 text-emerald-600 border border-primary/20 p-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 fade-in duration-300">
             <CheckCircle2 className="h-5 w-5" />
             <span className="font-semibold text-sm">Saved to Scenario Vault!</span>
           </div>
@@ -244,7 +243,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
             
             <div className={`mt-2 border-t pt-2 text-xs font-bold ${
               metrics.healthRating === 'Strong' ? 'text-emerald-600' :
-              metrics.healthRating === 'Fair' ? 'text-amber-600' : 'text-red-600'
+              metrics.healthRating === 'Fair' ? 'text-primary' : 'text-red-600'
             }`}>
               {metrics.healthRating === 'Strong' ? 'Excellent Cashflow' :
                metrics.healthRating === 'Fair' ? 'Average Cashflow' : 'Cashflow Warning'}
@@ -253,36 +252,23 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
 
         {metrics.healthRating === 'Critical' && (
-          <div className="bg-red-50 text-red-700 p-4 rounded-xl flex gap-3 items-start border border-red-100">
+          <div className="bg-primary/5 text-foreground/80 p-5 rounded-2xl flex gap-3 items-start border border-primary/20 shadow-sm">
             <AlertTriangle className="h-5 w-5 shrink-0 mt-0.5" />
             <p className="text-sm font-medium"><strong>High Churn Alert:</strong> With {store.monthlyChurnPct}% of clients leaving every month, your retention is too low to sustain paid acquisition. Focus entirely on product delivery and client success before spending money on marketing.</p>
           </div>
         )}
 
         {/* Action Buttons */}
-        <div className="bg-card border rounded-2xl p-6 flex flex-col sm:flex-row gap-3 mt-auto shadow-sm">
-          <Button onClick={handleSave} disabled={isSaving} className="flex-1 justify-center gap-2 bg-amber-600 hover:bg-amber-700 text-white" size="lg">
-            <Save className="h-4 w-4" /> Save to Dashboard
-            {!isPro && <Lock className="h-4 w-4 text-white/70 ml-auto" />}
-          </Button>
-          <div className="flex-1 flex gap-3">
-            <div className="flex-1">
-              <ExportEngine 
-                data={exportData} 
-                filename="ClientLTV" 
-                isPro={isPro}
-                onRequirePro={() => setShowProModal(true)}
-              />
-            </div>
-            <div className="flex-1">
-            <ShareCalculatorModal url={shareUrl} slug="client-ltv-calculator" isPro={isPro}>
-              <Button variant="outline" className="w-full flex gap-2 justify-center">
-                <Share2 className="h-4 w-4" /> Share
-              </Button>
-            </ShareCalculatorModal>
-            </div>
-          </div>
-        </div>
+                <CalculatorActions
+              slug="client-ltv-calculator"
+              onSave={handleSave}
+              isSaving={isSaving}
+              isPro={isPro}
+              exportData={exportData}
+              exportFilename="ClientLTV"
+              onRequirePro={() => setShowProModal(true)}
+              shareUrl={shareUrl}
+            />
       </div>
 
       <ProUpgradeModal isOpen={showProModal} onClose={() => setShowProModal(false)} />

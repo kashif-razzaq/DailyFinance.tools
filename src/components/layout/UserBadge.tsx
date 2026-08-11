@@ -17,11 +17,21 @@ export function UserBadge({ user, isPremium }: { user: any, isPremium?: boolean 
   }
 
   return (
-    <div className="relative" onMouseEnter={() => setIsOpen(true)} onMouseLeave={() => setIsOpen(false)}>
+    <div className="relative">
+      {/* Invisible overlay to close menu when clicking outside */}
+      {isOpen && (
+        <div 
+          className="fixed inset-0 z-40"
+          onClick={() => setIsOpen(false)}
+        />
+      )}
       
       {/* Desktop View */}
-      <button className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full border bg-background hover:bg-muted transition-colors">
-        <div className="bg-primary/10 text-primary p-1 rounded-full">
+      <button 
+        className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg border bg-background hover:bg-muted transition-colors"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <div className="bg-accent/10 text-accent p-1 rounded-lg">
           <User className="h-4 w-4" />
         </div>
         <span className="text-sm font-medium truncate max-w-[120px]">
@@ -31,10 +41,10 @@ export function UserBadge({ user, isPremium }: { user: any, isPremium?: boolean 
 
       {/* Mobile View */}
       <button 
-        className="sm:hidden flex items-center justify-center p-1 rounded-full hover:bg-muted/50 transition-colors focus:outline-none"
+        className="sm:hidden flex items-center justify-center hover:opacity-80 transition-opacity focus:outline-none group"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <div className="bg-primary/10 text-primary rounded-full flex items-center justify-center w-8 h-8">
+        <div className="bg-primary/10 text-accent rounded-lg flex items-center justify-center w-9 h-9 group-hover:bg-primary/20 transition-colors">
           <User className="h-5 w-5" />
         </div>
       </button>
@@ -44,7 +54,7 @@ export function UserBadge({ user, isPremium }: { user: any, isPremium?: boolean 
           <div className="p-4 border-b bg-muted/30 flex flex-col gap-1.5">
             <p className="text-sm font-semibold truncate text-foreground">{user.email}</p>
             {isPremium ? (
-              <div className="flex w-fit items-center gap-1.5 px-2 py-0.5 rounded-full bg-amber-500/10 text-xs font-semibold text-amber-600 border border-amber-500/20">
+              <div className="flex w-fit items-center gap-1.5 px-2 py-0.5 rounded-full bg-accent/10 text-xs font-semibold text-accent border border-accent/20">
                 <Crown className="h-3 w-3" />
                 Premium Member
               </div>

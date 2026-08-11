@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @next/next/no-location-assign-relative-destination */
 'use client'
+import { CalculatorActions } from "@/components/calculator/CalculatorActions"
 
 import React, { useState, useEffect } from 'react'
 import { useGlobalSettingsStore } from '@/store/global-settings.store'
@@ -10,10 +11,8 @@ import { Button } from "@/components/ui/button"
 import { Slider } from "@/components/ui/slider"
 import { Target, Save, Lock, ArrowRight, ShieldCheck, Download, Percent, Clock, CheckCircle2, Loader2, Share2, Code, ThumbsUp, ThumbsDown, Copy, X } from "lucide-react"
 import { ResponsiveContainer, Tooltip, Legend } from 'recharts'
-import { ExportEngine } from "@/components/shared/ExportEngine"
 import { saveCalculatorAction, getSharedCalculatorAction } from '@/actions/calculator.actions'
 import { getFeedbackAction, voteFeedbackAction } from '@/actions/feedback.actions'
-import { ShareCalculatorModal } from "@/components/shared/ShareCalculatorModal"
 import { ProUpgradeModal } from "@/components/shared/ProUpgradeModal"
 
 // Simple PDF template
@@ -62,18 +61,11 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     const [showProModal, setShowProModal] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
   const [showToast, setShowToast] = useState(false)
-  const [helpfulCount, setHelpfulCount] = useState(0)
-  const [userVote, setUserVote] = useState<'up' | 'down' | null>(null)
-  const [savedScenarioId, setSavedScenarioId] = useState<string | null>(null)
+      const [savedScenarioId, setSavedScenarioId] = useState<string | null>(null)
   const [showMobileExport, setShowMobileExport] = useState(false)
 
   useEffect(() => {
-    // Load feedback stats
-    getFeedbackAction('hourly-rate-reverse-engineer-calculator').then(res => {
-      setHelpfulCount(res.upvotes - res.downvotes)
-    }).catch(console.error)
-
-    // Load saved scenario if savedId is in URL
+        // Load saved scenario if savedId is in URL
     const urlParams = new URLSearchParams(window.location.search)
     const urlSavedId = urlParams.get('savedId')
     if (urlSavedId) {
@@ -93,28 +85,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     }
   }, [])
 
-  const handleVote = async (type: 'up' | 'down') => {
-    if (userVote === type) return // already voted this
-    
-    // Optimistic UI update
-    if (userVote) {
-      // Swapping vote
-      setHelpfulCount(prev => type === 'up' ? prev + 2 : prev - 2)
-    } else {
-      // First vote
-      setHelpfulCount(prev => type === 'up' ? prev + 1 : prev - 1)
-    }
-    setUserVote(type)
-
-    // Push to DB
-    try {
-      await voteFeedbackAction('hourly-rate-reverse-engineer-calculator', type)
-    } catch (error) {
-      console.error("Failed to record vote", error)
-    }
-  }
-
-  // Handlers for exporting and saving
+    // Handlers for exporting and saving
   const handleSave = async () => {
     if (!isPro) return setShowProModal(true)
     
@@ -167,7 +138,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     : `${baseUrl}/tools/hourly-rate-reverse-engineer-calculator`
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch relative pb-24 md:pb-0">
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch relative">
       
       {/* LEFT COLUMN: Inputs */}
       <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 flex flex-col justify-between h-full space-y-10">
@@ -307,7 +278,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         
         {/* Success Toast Popup - Slide in from bottom right */}
         {showToast && (
-          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-emerald-50 text-emerald-600 border border-emerald-200 p-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 slide-in-from-bottom-8 fade-in duration-300 ease-out">
+          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-primary/5 text-emerald-600 border border-primary/20 p-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 slide-in-from-bottom-8 fade-in duration-300 ease-out">
             <CheckCircle2 className="h-5 w-5" />
             <span className="font-semibold text-sm">Successfully saved to Scenario Vault!</span>
           </div>
@@ -346,7 +317,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
             <div className="w-full h-4 rounded-full flex overflow-hidden">
               <div style={{width: `${(store.targetAnnualIncome / (metrics.grossWithProfit || 1)) * 100}%`}} className="bg-emerald-600 transition-all duration-300" />
               <div style={{width: `${(metrics.taxAmount / (metrics.grossWithProfit || 1)) * 100}%`}} className="bg-red-500 transition-all duration-300" />
-              <div style={{width: `${(store.annualBusinessExpenses / (metrics.grossWithProfit || 1)) * 100}%`}} className="bg-amber-500 transition-all duration-300" />
+              <div style={{width: `${(store.annualBusinessExpenses / (metrics.grossWithProfit || 1)) * 100}%`}} className="bg-primary transition-all duration-300" />
               <div style={{width: `${(metrics.profitAmount / (metrics.grossWithProfit || 1)) * 100}%`}} className="bg-indigo-500 transition-all duration-300" />
             </div>
             
@@ -367,7 +338,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
               </div>
               <div>
                 <div className="flex items-center gap-2 mb-1">
-                  <div className="w-3 h-3 rounded-full bg-amber-500"></div>
+                  <div className="w-3 h-3 rounded-full bg-primary"></div>
                   <span className="text-muted-foreground font-medium text-xs">Expenses</span>
                 </div>
                 <div className="font-bold">{currencySymbol}{Math.round(store.annualBusinessExpenses || 0).toLocaleString()}</div>
@@ -383,103 +354,17 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           </div>
         </div>
 
-        {/* Desktop Save Actions (Hidden on mobile via app-like sticky bar) */}
-        <div className="hidden md:block bg-card border rounded-2xl p-6">
-          <div className="space-y-3">
-            <Button onClick={handleSave} disabled={isSaving} className="w-full justify-center gap-2 bg-amber-600 hover:bg-amber-700 text-white border-none transition-all active:scale-95" size="lg">
-              {isSaving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
-              Save to Dashboard
-              {!isPro && <Lock className="h-4 w-4 text-white/70 ml-auto" />}
-            </Button>
-            
-            <div className="flex gap-3">
-              <div className="flex-1 pointer-events-auto">
-                <ExportEngine 
-                  data={exportData} 
-                  filename="HourlyRate" 
-                  pdfDocument={<RateReportPDF data={{...store, ...metrics}} currencySymbol={currencySymbol} />} 
-                  isPro={isPro}
-                  onRequirePro={() => setShowProModal(true)}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Share, Embed, and Feedback Widgets */}
-        <div className="hidden md:flex bg-card border rounded-2xl p-4 items-center justify-between shadow-sm">
-          <div className="flex gap-2">
-            <div className="flex-1">
-            <ShareCalculatorModal url={shareUrl} slug="hourly-rate-reverse-engineer-calculator" isPro={isPro}>
-              <div className="w-full flex gap-2 justify-center">
-                <Share2 className="h-4 w-4 mr-2" /> Share & Embed
-              </div>
-            </ShareCalculatorModal>
-            </div>
-          </div>
-          <div className="flex items-center gap-2 border-l border-border/50 pl-4">
-            <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mr-1">
-              {helpfulCount} Helpful?
-            </span>
-            <Button variant="ghost" size="icon" onClick={() => handleVote('up')} className={`h-8 w-8 rounded-full transition-colors ${userVote === 'up' ? 'text-emerald-600 bg-emerald-50' : 'text-muted-foreground hover:text-emerald-600 hover:bg-emerald-50'}`}>
-              <ThumbsUp className="h-4 w-4" />
-            </Button>
-            <Button variant="ghost" size="icon" onClick={() => handleVote('down')} className={`h-8 w-8 rounded-full transition-colors ${userVote === 'down' ? 'text-red-600 bg-red-50' : 'text-muted-foreground hover:text-red-600 hover:bg-red-50'}`}>
-              <ThumbsDown className="h-4 w-4" />
-            </Button>
-          </div>
-        </div>
-      </div>
-
-      {/* MOBILE STICKY ACTION BAR */}
-      <div className="md:hidden fixed bottom-0 left-0 w-full bg-background/90 backdrop-blur-xl border-t p-3 z-50 flex gap-2 shadow-[0_-10px_40px_rgba(0,0,0,0.1)] pb-safe">
-        
-        <div className="flex-1 flex">
-          <Button onClick={handleSave} disabled={isSaving} className="w-full flex gap-1.5 h-10 rounded-xl font-semibold text-[13px] bg-amber-600 hover:bg-amber-700 text-white border-none active:scale-95 transition-transform px-2">
-            {isSaving ? <Loader2 className="h-3.5 w-3.5 animate-spin shrink-0" /> : <Save className="h-3.5 w-3.5 shrink-0" />} 
-            <span className="truncate">Save</span>
-            {!isPro && <Lock className="h-3 w-3 opacity-70 shrink-0" />}
-          </Button>
-        </div>
-        
-        <div className="flex-1 flex [&>button]:w-full [&>button]:flex-1">
-          <ShareCalculatorModal url={shareUrl} slug="hourly-rate-reverse-engineer-calculator" isPro={isPro}>
-            <div className="w-full flex gap-1.5 h-10 rounded-xl font-semibold text-[13px] border border-input bg-secondary text-secondary-foreground items-center justify-center cursor-pointer hover:bg-secondary/80 transition-colors px-2">
-              <Share2 className="h-3.5 w-3.5 shrink-0" /> 
-              <span className="truncate">Share</span>
-            </div>
-          </ShareCalculatorModal>
-        </div>
-
-        <div className="flex-1 flex relative">
-          <Button variant="secondary" onClick={() => setShowMobileExport(!showMobileExport)} className="w-full flex gap-1.5 h-10 rounded-xl font-semibold text-[13px] border px-2">
-            <Download className="h-3.5 w-3.5 shrink-0" /> 
-            <span className="truncate">Export</span>
-            {!isPro && <Lock className="h-3 w-3 opacity-70 shrink-0" />}
-          </Button>
-          
-          {/* Mobile Export Popup */}
-          {showMobileExport && (
-            <div className="absolute bottom-[calc(100%+12px)] right-0 w-[280px] bg-background border shadow-2xl rounded-2xl p-4 animate-in slide-in-from-bottom-2 fade-in duration-200">
-              <div className="flex justify-between items-center mb-3">
-                <span className="font-bold text-sm">Export Data</span>
-                <button onClick={() => setShowMobileExport(false)} className="text-muted-foreground hover:text-foreground">
-                  <X className="h-4 w-4" />
-                </button>
-              </div>
-              <ExportEngine 
-                data={exportData} 
-                filename="HourlyRate" 
-                pdfDocument={<RateReportPDF data={{...store, ...metrics}} currencySymbol={currencySymbol} />} 
-                isPro={isPro}
-                onRequirePro={() => {
-                  setShowMobileExport(false)
-                  setShowProModal(true)
-                }}
-              />
-            </div>
-          )}
-        </div>
+                <CalculatorActions
+              slug="hourly-rate-reverse-engineer-calculator"
+              onSave={handleSave}
+              isSaving={isSaving}
+              isPro={isPro}
+              exportData={exportData}
+              exportFilename="HourlyRate"
+              onRequirePro={() => setShowProModal(true)}
+              shareUrl={shareUrl}
+              pdfDocument={<RateReportPDF data={{...store, ...metrics}} currencySymbol={currencySymbol} />}
+            />
       </div>
 
       <ProUpgradeModal isOpen={showProModal} onClose={() => setShowProModal(false)} />

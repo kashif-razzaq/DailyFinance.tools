@@ -36,7 +36,7 @@ export default function TimeTrackingROIPage() {
       {(isPro) => (
         <>
           {/* 1. Direct Answer Block for AEO */}
-          <blockquote className="border-l-4 border-amber-500 bg-amber-50 p-4 mb-8 text-amber-900 italic rounded-r-lg">
+          <blockquote className="bg-primary/5 border border-primary/20 p-6 mb-8 text-foreground/80 rounded-xl leading-relaxed shadow-sm">
             <strong>Quick Answer:</strong> The average freelancer loses 4 to 6 hours a week to undocumented scope creep (unbilled "quick favors" for clients) and manual administrative work (invoicing and spreadsheet management). At $100/hour, this results in over <strong>$20,000 per year</strong> in lost revenue. Investing in a $15/month automated time-tracking tool routinely yields a 100x return on investment.
           </blockquote>
 

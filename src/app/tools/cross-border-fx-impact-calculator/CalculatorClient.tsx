@@ -1,4 +1,5 @@
 'use client'
+import { CalculatorActions } from "@/components/calculator/CalculatorActions"
 
 import React, { useState, useEffect } from 'react'
 import { useGlobalSettingsStore } from '@/store/global-settings.store'
@@ -6,9 +7,7 @@ import { useCrossBorderFXStore } from '@/store/cross-border-fx.store'
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Save, Lock, Share2, Globe, TrendingDown, ArrowRightLeft, DollarSign } from "lucide-react"
-import { ExportEngine } from "@/components/shared/ExportEngine"
 import { saveCalculatorAction, getSharedCalculatorAction } from '@/actions/calculator.actions'
-import { ShareCalculatorModal } from "@/components/shared/ShareCalculatorModal"
 import { ProUpgradeModal } from "@/components/shared/ProUpgradeModal"
 
 const CURRENCIES = ['USD', 'EUR', 'GBP', 'CAD', 'AUD', 'INR']
@@ -90,7 +89,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     : `${baseUrl}/tools/cross-border-fx-impact-calculator`
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch relative pb-24 md:pb-0">
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch relative">
       
       {/* LEFT COLUMN: Inputs */}
       <div className="lg:col-span-12 xl:col-span-4 bg-card border shadow-sm rounded-2xl p-6 md:p-8 flex flex-col space-y-10">
@@ -169,7 +168,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       <div className="lg:col-span-12 xl:col-span-8 flex flex-col gap-6">
         
         {showToast && (
-          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-emerald-50 text-emerald-600 border border-emerald-200 p-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 fade-in duration-300">
+          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-primary/5 text-emerald-600 border border-primary/20 p-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 fade-in duration-300">
             <span className="font-semibold text-sm">Saved to Scenario Vault!</span>
           </div>
         )}
@@ -218,11 +217,11 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
               <div className="space-y-2 text-xs border-t pt-3">
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Fee Drag</span>
-                  <span className="font-semibold text-amber-600">{metrics.stripeDragPct.toFixed(2)}%</span>
+                  <span className="font-semibold text-primary">{metrics.stripeDragPct.toFixed(2)}%</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">FX Markup</span>
-                  <span className="font-semibold text-amber-600">~1.00%</span>
+                  <span className="font-semibold text-primary">~1.00%</span>
                 </div>
               </div>
             </div>
@@ -260,29 +259,16 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
 
         {/* Action Buttons */}
-        <div className="bg-card border rounded-2xl p-6 flex flex-col sm:flex-row gap-3 mt-auto">
-          <Button onClick={handleSave} disabled={isSaving} className="flex-1 justify-center gap-2 bg-amber-600 hover:bg-amber-700 text-white" size="lg">
-            <Save className="h-4 w-4" /> Save to Dashboard
-            {!isPro && <Lock className="h-4 w-4 text-white/70 ml-auto" />}
-          </Button>
-          <div className="flex-1 flex gap-3">
-            <div className="flex-1">
-              <ExportEngine 
-                data={exportData} 
-                filename="FXImpact" 
-                isPro={isPro}
-                onRequirePro={() => setShowProModal(true)}
-              />
-            </div>
-            <div className="flex-1">
-            <ShareCalculatorModal url={shareUrl} slug="cross-border-fx-impact-calculator" isPro={isPro}>
-              <Button variant="outline" className="w-full flex gap-2 justify-center">
-                <Share2 className="h-4 w-4" /> Share
-              </Button>
-            </ShareCalculatorModal>
-            </div>
-          </div>
-        </div>
+                <CalculatorActions
+              slug="cross-border-fx-impact-calculator"
+              onSave={handleSave}
+              isSaving={isSaving}
+              isPro={isPro}
+              exportData={exportData}
+              exportFilename="FXImpact"
+              onRequirePro={() => setShowProModal(true)}
+              shareUrl={shareUrl}
+            />
       </div>
 
       <ProUpgradeModal isOpen={showProModal} onClose={() => setShowProModal(false)} />

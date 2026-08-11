@@ -13,10 +13,11 @@ interface ExportEngineProps {
   pdfDocument?: React.ReactElement; // The JSX structure for @react-pdf/renderer
   isPro?: boolean;
   onRequirePro?: () => void;
+  variant?: 'dropdown' | 'inline';
 }
 import { useGlobalSettingsStore } from '@/store/global-settings.store'
 
-export function ExportEngine({ data, filename, pdfDocument, isPro = true, onRequirePro }: ExportEngineProps) {
+export function ExportEngine({ data, filename, pdfDocument, isPro = true, onRequirePro, variant = 'dropdown' }: ExportEngineProps) {
   
   const handleExportXLSX = () => {
     // 1. Create a new workbook
@@ -72,6 +73,54 @@ export function ExportEngine({ data, filename, pdfDocument, isPro = true, onRequ
     return () => document.removeEventListener("mousedown", handleClickOutside)
   }, [])
 
+  const ActionButtons = (
+    <>
+      <Button 
+        variant="ghost" 
+        size="sm" 
+        onClick={() => { handleExportCSV(); setIsOpen(false) }} 
+        className="w-full justify-start gap-2.5 text-sm font-medium hover:bg-muted"
+      >
+        <FileText className="h-4 w-4 text-muted-foreground" />
+        Download CSV
+      </Button>
+      <Button 
+        variant="ghost" 
+        size="sm" 
+        onClick={() => { handleExportXLSX(); setIsOpen(false) }} 
+        className="w-full justify-start gap-2.5 text-sm font-medium hover:bg-muted"
+      >
+        <FileSpreadsheet className="h-4 w-4 text-muted-foreground" />
+        Download Excel
+      </Button>
+      
+      <div className="h-px bg-border my-1 mx-2" />
+      
+      <Button 
+        variant="ghost" 
+        size="sm" 
+        onClick={() => { 
+          if(isPro) handleExportPDF()
+          else if(onRequirePro) onRequirePro()
+          setIsOpen(false) 
+        }} 
+        className="w-full justify-start gap-2.5 text-sm font-medium text-accent hover:bg-accent/10 hover:text-foreground/80"
+      >
+        <Download className="h-4 w-4" />
+        Download PDF Report
+        {!isPro && <Lock className="h-3 w-3 ml-auto opacity-70" />}
+      </Button>
+    </>
+  )
+
+  if (variant === 'inline') {
+    return (
+      <div className="flex flex-col gap-1 w-full p-2">
+        {ActionButtons}
+      </div>
+    )
+  }
+
   return (
     <div className="relative w-full" ref={dropdownRef}>
       <Button 
@@ -88,40 +137,7 @@ export function ExportEngine({ data, filename, pdfDocument, isPro = true, onRequ
 
       {isOpen && (
         <div className="absolute top-full left-0 w-full mt-2 bg-background border shadow-lg rounded-xl z-50 flex flex-col p-1.5 animate-in fade-in slide-in-from-top-2">
-          <Button 
-            variant="ghost" 
-            size="sm" 
-            onClick={() => { handleExportCSV(); setIsOpen(false) }} 
-            className="w-full justify-start gap-2.5 text-sm font-medium hover:bg-muted"
-          >
-            <FileText className="h-4 w-4 text-muted-foreground" />
-            Download CSV
-          </Button>
-          <Button 
-            variant="ghost" 
-            size="sm" 
-            onClick={() => { handleExportXLSX(); setIsOpen(false) }} 
-            className="w-full justify-start gap-2.5 text-sm font-medium hover:bg-muted"
-          >
-            <FileSpreadsheet className="h-4 w-4 text-emerald-600" />
-            Download Excel
-          </Button>
-          
-          <div className="h-px bg-border my-1 mx-2" />
-          
-          <Button 
-            variant="ghost" 
-            size="sm" 
-            onClick={() => { 
-              if(isPro) handleExportPDF()
-              else if(onRequirePro) onRequirePro()
-              setIsOpen(false) 
-            }} 
-            className="w-full justify-start gap-2.5 text-sm font-medium text-amber-600 hover:bg-amber-500/10 hover:text-amber-700"
-          >
-            {isPro ? <Download className="h-4 w-4" /> : <Lock className="h-4 w-4 opacity-70" />}
-            Download PDF Report
-          </Button>
+          {ActionButtons}
         </div>
       )}
     </div>

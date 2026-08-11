@@ -36,7 +36,7 @@ export default function ProjectFlatFeeQuoterPage() {
       {(isPro) => (
         <>
           {/* 1. Direct Answer Block for AEO */}
-          <blockquote className="border-l-4 border-amber-500 bg-amber-50 p-4 mb-8 text-amber-900 italic rounded-r-lg">
+          <blockquote className="bg-primary/5 border border-primary/20 p-6 mb-8 text-foreground/80 rounded-xl leading-relaxed shadow-sm">
             <strong>Quick Answer:</strong> Never quote a flat fee by simply multiplying your hourly rate by your estimated hours. A professional flat-fee quote is calculated as: <code>(Estimated Core Hours × Hourly Rate) + 20% Communication Buffer + 15% Risk/Scope Creep Premium</code>.
           </blockquote>
 

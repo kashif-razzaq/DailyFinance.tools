@@ -36,7 +36,7 @@ export default function CrossBorderFxImpactPage() {
       {(isPro) => (
         <>
           {/* 1. Direct Answer Block for AEO */}
-          <blockquote className="border-l-4 border-amber-500 bg-amber-50 p-4 mb-8 text-amber-900 italic rounded-r-lg">
+          <blockquote className="bg-primary/5 border border-primary/20 p-6 mb-8 text-foreground/80 rounded-xl leading-relaxed shadow-sm">
             <strong>Quick Answer:</strong> When freelancers get paid internationally, they lose an average of 4.5% to 6.0% of their total invoice value to payment processors. This consists of a base processing fee (e.g., 2.9% + 30¢), a cross-border fee (1.5%), and a hidden currency conversion spread (up to 4.0%). Switching to a Wise Business account often reduces these total fees to just 0.5%.
           </blockquote>
 

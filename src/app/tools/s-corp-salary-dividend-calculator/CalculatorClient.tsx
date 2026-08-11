@@ -1,4 +1,5 @@
 'use client'
+import { CalculatorActions } from "@/components/calculator/CalculatorActions"
 
 import React, { useState, useEffect } from 'react'
 import { useGlobalSettingsStore } from '@/store/global-settings.store'
@@ -7,9 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Slider } from "@/components/ui/slider"
 import { Save, Lock, Share2, Building2, Calculator, ArrowRight, CheckCircle2, AlertTriangle, TrendingDown } from "lucide-react"
-import { ExportEngine } from "@/components/shared/ExportEngine"
 import { saveCalculatorAction, getSharedCalculatorAction } from '@/actions/calculator.actions'
-import { ShareCalculatorModal } from "@/components/shared/ShareCalculatorModal"
 import { ProUpgradeModal } from "@/components/shared/ProUpgradeModal"
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
@@ -83,7 +82,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     : `${baseUrl}/tools/s-corp-salary-dividend-calculator`
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch relative pb-24 md:pb-0">
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch relative">
       
       {/* LEFT COLUMN: Inputs */}
       <div className="lg:col-span-12 xl:col-span-5 bg-card border shadow-sm rounded-2xl p-6 md:p-8 flex flex-col space-y-10">
@@ -135,11 +134,11 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           {/* Split Visualization */}
           <div className="bg-muted/30 rounded-xl p-4 border border-border/50">
             <div className="flex w-full h-3 rounded-full overflow-hidden mb-3">
-              <div style={{ width: `${store.salaryRatio}%` }} className="bg-amber-500 h-full"></div>
+              <div style={{ width: `${store.salaryRatio}%` }} className="bg-primary h-full"></div>
               <div style={{ width: `${100 - store.salaryRatio}%` }} className="bg-emerald-500 h-full"></div>
             </div>
             <div className="flex justify-between text-sm font-semibold">
-              <div className="text-amber-700">W-2 Salary: ${Math.round(metrics.sCorpW2Salary).toLocaleString()}</div>
+              <div className="text-foreground/80">W-2 Salary: ${Math.round(metrics.sCorpW2Salary).toLocaleString()}</div>
               <div className="text-emerald-700">Distribution: ${Math.round(metrics.sCorpDistribution).toLocaleString()}</div>
             </div>
           </div>
@@ -151,7 +150,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       <div className="lg:col-span-12 xl:col-span-7 flex flex-col gap-6">
         
         {showToast && (
-          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-emerald-50 text-emerald-600 border border-emerald-200 p-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 fade-in duration-300">
+          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-primary/5 text-emerald-600 border border-primary/20 p-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 fade-in duration-300">
             <CheckCircle2 className="h-5 w-5" />
             <span className="font-semibold text-sm">Saved to Scenario Vault!</span>
           </div>
@@ -179,12 +178,12 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           </div>
 
           {/* S-Corp Card */}
-          <div className="bg-amber-50/50 border-2 border-amber-200 rounded-xl p-6 relative overflow-hidden">
-            <div className="absolute top-0 right-0 bg-amber-500 text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase shadow-sm">Optimized</div>
+          <div className="bg-amber-50/50 border-2 border-primary/20 rounded-xl p-6 relative overflow-hidden">
+            <div className="absolute top-0 right-0 bg-primary text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase shadow-sm">Optimized</div>
             
-            <h3 className="text-sm font-bold uppercase tracking-wider text-amber-800 mb-4">S-Corp Election</h3>
+            <h3 className="text-sm font-bold uppercase tracking-wider text-foreground/80 mb-4">S-Corp Election</h3>
             
-            <div className="space-y-4 font-mono text-sm border-b border-amber-200/50 pb-4 mb-4 text-amber-900/80">
+            <div className="space-y-4 font-mono text-sm border-b border-primary/20/50 pb-4 mb-4 text-foreground/80/80">
               <div className="flex justify-between items-center">
                 <span>FICA Tax (on salary only)</span>
                 <span>{currencySymbol}{Math.round(metrics.sCorpFicaTax).toLocaleString()}</span>
@@ -195,15 +194,15 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
               </div>
             </div>
 
-            <p className="text-xs text-amber-800 mb-1 uppercase font-bold tracking-wider">Total Payroll Taxes</p>
-            <p className="text-3xl font-black text-amber-700">{currencySymbol}{Math.round(metrics.totalSCorpPayrollTaxes).toLocaleString()}</p>
+            <p className="text-xs text-foreground/80 mb-1 uppercase font-bold tracking-wider">Total Payroll Taxes</p>
+            <p className="text-3xl font-black text-foreground/80">{currencySymbol}{Math.round(metrics.totalSCorpPayrollTaxes).toLocaleString()}</p>
           </div>
 
         </div>
 
         {/* Savings Banner */}
         <div className={`mt-2 rounded-2xl p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-lg border relative overflow-hidden ${
-          metrics.isWorthIt ? 'bg-emerald-600 border-emerald-500 text-white' : 'bg-slate-100 border-slate-300 text-slate-800'
+          metrics.isWorthIt ? 'bg-emerald-600 border-emerald-500 text-white' : 'bg-slate-100 border-slate-300 text-foreground/80'
         }`}>
           {metrics.isWorthIt && (
             <div className="absolute right-0 top-0 w-64 h-64 bg-white/10 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
@@ -214,18 +213,18 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
               {metrics.isWorthIt ? <TrendingDown className="h-6 w-6" /> : <AlertTriangle className="h-6 w-6" />}
               Gross FICA Savings
             </h4>
-            <p className={`text-sm ${metrics.isWorthIt ? 'text-emerald-100' : 'text-slate-500'}`}>
+            <p className={`text-sm ${metrics.isWorthIt ? 'text-emerald-100' : 'text-muted-foreground'}`}>
               Savings on payroll taxes by electing S-Corp status.
             </p>
           </div>
           <div className="text-right">
             <span className="text-5xl font-black">{currencySymbol}{Math.round(metrics.annualTaxSavings).toLocaleString()}</span>
-            <span className={`text-sm ml-1 ${metrics.isWorthIt ? 'text-emerald-100' : 'text-slate-500'}`}>/ year</span>
+            <span className={`text-sm ml-1 ${metrics.isWorthIt ? 'text-emerald-100' : 'text-muted-foreground'}`}>/ year</span>
           </div>
         </div>
 
         {/* Advisory Warning */}
-        <div className="bg-blue-50 text-blue-900 p-4 rounded-xl text-sm border border-blue-100 mt-2">
+        <div className="bg-primary/5 text-foreground/80 p-5 rounded-2xl text-sm border border-primary/20 mt-4 shadow-sm">
           <strong>Hidden Costs Advisory:</strong> Running an S-Corp typically costs <strong>$1,500 to $2,500/year</strong> in extra CPA fees, corporate tax return (Form 1120-S) preparation, and payroll software (like Gusto). 
           {metrics.isWorthIt ? (
             <span className="block mt-2 text-emerald-700 font-bold">✓ Since your gross savings (${Math.round(metrics.annualTaxSavings).toLocaleString()}) exceed these admin costs, an S-Corp election is likely highly profitable for you.</span>
@@ -235,29 +234,16 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
 
         {/* Action Buttons */}
-        <div className="bg-card border rounded-2xl p-6 flex flex-col sm:flex-row gap-3 mt-auto shadow-sm">
-          <Button onClick={handleSave} disabled={isSaving} className="flex-1 justify-center gap-2 bg-amber-600 hover:bg-amber-700 text-white" size="lg">
-            <Save className="h-4 w-4" /> Save to Dashboard
-            {!isPro && <Lock className="h-4 w-4 text-white/70 ml-auto" />}
-          </Button>
-          <div className="flex-1 flex gap-3">
-            <div className="flex-1">
-              <ExportEngine 
-                data={exportData} 
-                filename="SCorpOptimizer" 
-                isPro={isPro}
-                onRequirePro={() => setShowProModal(true)}
-              />
-            </div>
-            <div className="flex-1">
-            <ShareCalculatorModal url={shareUrl} slug="s-corp-salary-dividend-calculator" isPro={isPro}>
-              <Button variant="outline" className="w-full flex gap-2 justify-center">
-                <Share2 className="h-4 w-4" /> Share
-              </Button>
-            </ShareCalculatorModal>
-            </div>
-          </div>
-        </div>
+                <CalculatorActions
+              slug="s-corp-salary-dividend-calculator"
+              onSave={handleSave}
+              isSaving={isSaving}
+              isPro={isPro}
+              exportData={exportData}
+              exportFilename="SCorpOptimizer"
+              onRequirePro={() => setShowProModal(true)}
+              shareUrl={shareUrl}
+            />
       </div>
 
       <ProUpgradeModal isOpen={showProModal} onClose={() => setShowProModal(false)} />

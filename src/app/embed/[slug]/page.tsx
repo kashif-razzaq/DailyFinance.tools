@@ -8,7 +8,7 @@ const calculators = {
   'project-flat-fee-quoter': dynamic(() => import('@/app/tools/project-flat-fee-quoter/CalculatorClient').then(m => m.CalculatorClient)),
   'client-ltv-calculator': dynamic(() => import('@/app/tools/client-ltv-calculator/CalculatorClient').then(m => m.CalculatorClient)),
   'freelance-tax-deductions-calculator': dynamic(() => import('@/app/tools/freelance-tax-deductions-calculator/CalculatorClient').then(m => m.CalculatorClient)),
-  's-corp-salary-dividend-calculator': dynamic(() => import('@/app/tools/s-corp-salary-vs-dividend-calculator/CalculatorClient').then(m => m.CalculatorClient)),
+  's-corp-salary-dividend-calculator': dynamic(() => import('@/app/tools/s-corp-salary-dividend-calculator/CalculatorClient').then(m => m.CalculatorClient)),
   'time-tracking-roi-calculator': dynamic(() => import('@/app/tools/time-tracking-roi-calculator/CalculatorClient').then(m => m.CalculatorClient)),
   'nomad-cost-of-living-calculator': dynamic(() => import('@/app/tools/nomad-cost-of-living-calculator/CalculatorClient').then(m => m.CalculatorClient)),
   'hourly-rate-reverse-engineer-calculator': dynamic(() => import('@/app/tools/hourly-rate-reverse-engineer-calculator/CalculatorClient').then(m => m.CalculatorClient)),

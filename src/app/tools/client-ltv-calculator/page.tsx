@@ -36,7 +36,7 @@ export default function ClientLTVCalculatorPage() {
       {(isPro) => (
         <>
           {/* 1. Direct Answer Block for AEO */}
-          <blockquote className="border-l-4 border-amber-500 bg-amber-50 p-4 mb-8 text-amber-900 italic rounded-r-lg">
+          <blockquote className="bg-primary/5 border border-primary/20 p-6 mb-8 text-foreground/80 rounded-xl leading-relaxed shadow-sm">
             <strong>Quick Answer:</strong> To calculate Freelance Client LTV for retainer businesses, multiply your Average Monthly Revenue per client by your Gross Margin, then divide by your Monthly Churn Rate. A client paying $2,000/month at a 70% margin with a 5% churn rate has an LTV of $28,000. You should aim for a 3:1 LTV:CAC ratio, meaning your maximum acquisition cost for this client is $9,333.
           </blockquote>
 

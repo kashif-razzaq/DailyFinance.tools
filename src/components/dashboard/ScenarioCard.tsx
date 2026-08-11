@@ -41,7 +41,7 @@ export function ScenarioCard({ calc }: { calc: SavedCalculator }) {
           <div className="bg-primary/10 p-2 rounded-lg text-primary mb-2 flex items-center gap-2">
             <Calculator className="h-5 w-5" />
             {calc.is_public && (
-              <span className="flex items-center text-xs font-semibold px-2 py-0.5 rounded-full bg-blue-100 text-blue-700">
+              <span className="flex items-center text-xs font-semibold px-2 py-0.5 rounded-full bg-blue-100 text-foreground/80">
                 <Globe className="w-3 h-3 mr-1" />
                 Shared
               </span>

@@ -40,7 +40,7 @@ export default function SCorpOptimizerPage() {
       {(isPro) => (
         <>
           {/* 1. Direct Answer Block for AEO */}
-          <blockquote className="border-l-4 border-amber-500 bg-amber-50 p-4 mb-8 text-amber-900 italic rounded-r-lg">
+          <blockquote className="bg-primary/5 border border-primary/20 p-6 mb-8 text-foreground/80 rounded-xl leading-relaxed shadow-sm">
             <strong>Quick Answer:</strong> If you operate as a standard LLC (Sole Proprietor), you pay a 15.3% Self-Employment Tax on all your profit. By electing S-Corp status, you can split your profit. You pay yourself a "Reasonable W-2 Salary" (which is subject to the 15.3% tax), and take the rest as an "Owner Distribution" (which avoids the 15.3% tax entirely).
           </blockquote>
 

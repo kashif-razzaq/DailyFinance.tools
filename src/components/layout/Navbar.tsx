@@ -73,7 +73,7 @@ export async function Navbar() {
               </AuthModal>
               <AuthModal>
                 <div 
-                  className="flex sm:hidden items-center justify-center bg-primary/10 rounded-full w-9 h-9 text-primary hover:bg-primary/20 transition-colors cursor-pointer"
+                  className="flex sm:hidden items-center justify-center bg-primary/10 rounded-lg w-9 h-9 text-primary hover:bg-primary/20 transition-colors cursor-pointer"
                   aria-label="Sign In"
                   role="button"
                 >

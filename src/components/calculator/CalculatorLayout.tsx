@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/components/ui/dialog"
-import { Save, Share2, Code2, Link as LinkIcon, Crown } from 'lucide-react'
+import { Save, Share2, Code2, Link as LinkIcon, Crown, Quote } from 'lucide-react'
 
 interface CalculatorLayoutProps {
   title: string
@@ -103,7 +103,7 @@ export function CalculatorLayout({ title, description, inputs, results, seoConte
                 {/* Share/Embed Dialog */}
                 <Dialog>
                   <DialogTrigger render={
-                    <Button variant="outline" className="flex-1" size="lg">
+                    <Button variant="outline" className="flex-1 lg:flex-none" size="lg">
                       <Share2 className="mr-2 h-4 w-4" />
                       Share & Embed
                     </Button>

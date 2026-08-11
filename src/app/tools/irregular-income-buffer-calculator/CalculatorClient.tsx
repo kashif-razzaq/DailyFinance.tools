@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
+import { CalculatorActions } from "@/components/calculator/CalculatorActions"
 
 import React, { useState, useEffect } from 'react'
 import { useGlobalSettingsStore } from '@/store/global-settings.store'
@@ -8,9 +9,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Slider } from "@/components/ui/slider"
 import { Save, Lock, Download, CheckCircle2, Share2, ShieldAlert, Activity, Target, AlertTriangle } from "lucide-react"
-import { ExportEngine } from "@/components/shared/ExportEngine"
 import { saveCalculatorAction, getSharedCalculatorAction } from '@/actions/calculator.actions'
-import { ShareCalculatorModal } from "@/components/shared/ShareCalculatorModal"
 import { ProUpgradeModal } from "@/components/shared/ProUpgradeModal"
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
@@ -109,7 +108,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     : `${baseUrl}/tools/irregular-income-buffer-calculator`
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch relative pb-24 md:pb-0">
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch relative">
       
       {/* LEFT COLUMN: Inputs */}
       <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 flex flex-col space-y-10">
@@ -236,14 +235,14 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       <div className="lg:col-span-5 space-y-6 lg:sticky lg:top-8 relative z-20">
         
         {showToast && (
-          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-emerald-50 text-emerald-600 border border-emerald-200 p-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 fade-in duration-300">
+          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-primary/5 text-emerald-600 border border-primary/20 p-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 fade-in duration-300">
             <CheckCircle2 className="h-5 w-5" />
             <span className="font-semibold text-sm">Saved to Scenario Vault!</span>
           </div>
         )}
 
         <div className="bg-card border shadow-sm rounded-2xl p-0 overflow-hidden relative">
-          <div className={`absolute top-0 left-0 w-full h-1 ${metrics.bufferGap === 0 ? 'bg-emerald-500' : 'bg-amber-500'}`}></div>
+          <div className={`absolute top-0 left-0 w-full h-1 ${metrics.bufferGap === 0 ? 'bg-emerald-500' : 'bg-primary'}`}></div>
           
           <div className="p-6 md:p-8">
             <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-2">
@@ -256,7 +255,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
             </div>
 
             {metrics.meanIncome < metrics.baselineExpense && (
-              <div className="bg-red-50 text-red-700 p-3 rounded-lg flex gap-2 items-start text-sm mb-6 border border-red-100">
+              <div className="bg-primary/5 text-foreground/80 p-4 rounded-2xl flex gap-2 items-start text-sm mb-6 border border-primary/20 shadow-sm">
                 <AlertTriangle className="h-5 w-5 shrink-0" />
                 <p><strong>Warning:</strong> Your average monthly income (${Math.round(metrics.meanIncome)}) is lower than your baseline expenses (${Math.round(metrics.baselineExpense)}). Focus on increasing rates before building a buffer.</p>
               </div>
@@ -270,7 +269,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
               
               <div className="flex justify-between items-center py-2 border-b border-dashed border-border/60">
                 <span className="text-muted-foreground">Income Volatility Class</span>
-                <span className={`font-semibold ${metrics.volatilityCategory === 'High' ? 'text-red-500' : metrics.volatilityCategory === 'Medium' ? 'text-amber-500' : 'text-emerald-500'}`}>
+                <span className={`font-semibold ${metrics.volatilityCategory === 'High' ? 'text-red-500' : metrics.volatilityCategory === 'Medium' ? 'text-primary' : 'text-emerald-500'}`}>
                   {metrics.volatilityCategory} ({Math.round(metrics.volatilityIndex * 100)}%)
                 </span>
               </div>
@@ -282,17 +281,17 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
             </div>
 
             {metrics.bufferGap > 0 ? (
-              <div className="mt-8 bg-amber-50 rounded-xl p-6 border border-amber-100">
-                <h4 className="text-xs uppercase tracking-wider font-bold text-amber-800/60 mb-2">Buffer Gap Remaining</h4>
-                <div className="flex items-baseline gap-2 text-amber-900 mb-2">
+              <div className="mt-8 bg-primary/5 rounded-2xl p-6 border border-primary/20 shadow-sm text-foreground/80">
+                <h4 className="text-xs uppercase tracking-wider font-bold text-foreground/80/60 mb-2">Buffer Gap Remaining</h4>
+                <div className="flex items-baseline gap-2 text-foreground/80 mb-2">
                   <span className="text-3xl font-black tracking-tighter">{currencySymbol}{Math.round(metrics.bufferGap).toLocaleString()}</span>
                 </div>
-                <p className="text-sm font-medium text-amber-900/70">
+                <p className="text-sm font-medium text-foreground/80/70">
                   Save <strong>{currencySymbol}{Math.round(metrics.monthlySavingsTarget).toLocaleString()} / month</strong> for the next {store.targetMonthsToBuild} months to hit your target.
                 </p>
               </div>
             ) : (
-              <div className="mt-8 bg-emerald-50 rounded-xl p-6 border border-emerald-100">
+              <div className="mt-8 bg-primary/5 rounded-2xl p-6 border border-primary/20 shadow-sm text-foreground/80">
                 <h4 className="text-xs uppercase tracking-wider font-bold text-emerald-800/60 mb-2">Goal Achieved</h4>
                 <div className="flex items-baseline gap-2 text-emerald-900 mb-2">
                   <span className="text-2xl font-black tracking-tighter">Fully Funded!</span>
@@ -306,29 +305,16 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
 
         {/* Action Buttons */}
-        <div className="bg-card border rounded-2xl p-6 space-y-3">
-          <Button onClick={handleSave} disabled={isSaving} className="w-full justify-center gap-2 bg-amber-600 hover:bg-amber-700 text-white transition-all" size="lg">
-            <Save className="h-4 w-4" /> Save to Dashboard
-            {!isPro && <Lock className="h-4 w-4 text-white/70 ml-auto" />}
-          </Button>
-          <div className="flex gap-3">
-            <div className="flex-1">
-              <ExportEngine 
-                data={exportData} 
-                filename="IncomeBuffer" 
-                isPro={isPro}
-                onRequirePro={() => setShowProModal(true)}
-              />
-            </div>
-            <div className="flex-1">
-            <ShareCalculatorModal url={shareUrl} slug="irregular-income-buffer-calculator" isPro={isPro}>
-              <Button variant="outline" className="w-full flex gap-2 justify-center">
-                <Share2 className="h-4 w-4" /> Share
-              </Button>
-            </ShareCalculatorModal>
-            </div>
-          </div>
-        </div>
+                <CalculatorActions
+              slug="irregular-income-buffer-calculator"
+              onSave={handleSave}
+              isSaving={isSaving}
+              isPro={isPro}
+              exportData={exportData}
+              exportFilename="IncomeBuffer"
+              onRequirePro={() => setShowProModal(true)}
+              shareUrl={shareUrl}
+            />
       </div>
 
       <ProUpgradeModal isOpen={showProModal} onClose={() => setShowProModal(false)} />

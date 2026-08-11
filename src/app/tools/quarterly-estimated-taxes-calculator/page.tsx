@@ -64,7 +64,7 @@ export default function QuarterlyTaxesCalculatorPage() {
           </h2>
           
           {/* AEO Direct Answer Block */}
-          <blockquote className="pl-4 border-l-4 border-primary text-xl font-medium text-foreground italic mb-12">
+          <blockquote className="bg-primary/5 border border-primary/20 p-6 mb-8 text-foreground/80 rounded-xl leading-relaxed shadow-sm">
             To calculate 1099 quarterly estimated taxes, multiply net freelance income by 92.35% to find self-employment taxable earnings (taxed at 15.3%). Subtract half of self-employment tax and standard deduction to determine federal taxable income. Apply progressive income tax brackets, add state tax, and divide the total by 4.
           </blockquote>
           

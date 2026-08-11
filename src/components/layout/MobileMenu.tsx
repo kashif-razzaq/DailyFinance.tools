@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 'use client'
 
 import React, { useState } from 'react'
@@ -142,10 +143,10 @@ export function MobileMenu({ user }: { user?: any }) {
     <div className="lg:hidden">
       <button 
         onClick={() => setIsOpen(true)}
-        className="group flex items-center justify-center p-1 rounded-full hover:bg-muted/50 transition-colors focus:outline-none"
+        className="group flex items-center justify-center hover:opacity-80 transition-opacity focus:outline-none"
         aria-label="Open Menu"
       >
-        <div className="flex flex-col justify-center items-start gap-[5px] bg-primary/10 rounded-full w-9 h-9 pl-[9px]">
+        <div className="flex flex-col justify-center items-start gap-[5px] bg-primary/10 rounded-lg w-9 h-9 pl-[9px] group-hover:bg-primary/20 transition-colors">
           <div className="w-[18px] h-[2px] bg-primary rounded-full transition-all duration-300" />
           <div className="w-[12px] h-[2px] bg-primary rounded-full transition-all duration-300 group-hover:w-[18px]" />
           <div className="w-[14px] h-[2px] bg-primary rounded-full transition-all duration-300 group-hover:w-[18px]" />

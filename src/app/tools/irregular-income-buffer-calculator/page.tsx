@@ -32,7 +32,7 @@ export default function IrregularIncomeBufferPage() {
       {(isPro) => (
         <>
           {/* 1. Direct Answer Block for AEO */}
-          <blockquote className="border-l-4 border-amber-500 bg-amber-50 p-4 mb-8 text-amber-900 italic rounded-r-lg">
+          <blockquote className="bg-primary/5 border border-primary/20 p-6 mb-8 text-foreground/80 rounded-xl leading-relaxed shadow-sm">
             <strong>Quick Answer:</strong> Freelancers should maintain a cash buffer of at least <strong>6 to 12 months</strong> of essential expenses, compared to 3-6 months for W-2 employees. Your exact target depends on your income volatility, client concentration risk (if one client is &gt;40% of revenue), and average invoice payment delays (DSO).
           </blockquote>
 

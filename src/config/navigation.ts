@@ -45,7 +45,7 @@ export const navigationCategories: Category[] = [
       { title: "Project Flat Fee Quoter", slug: generateSlug("Project Flat Fee Quoter", "quoter"), description: "Convert hourly rates to profitable flat fees.", icon: FileText },
       { title: "Client LTV Calculator", slug: generateSlug("Client LTV Calculator", "calculator"), description: "Calculate the lifetime value of a retainer client.", icon: Target },
       { title: "Freelance Tax Deductions", slug: generateSlug("Freelance Tax Deductions", "calculator"), description: "See how much your home office saves you.", icon: Receipt },
-      { title: "S-Corp Salary vs Dividend", slug: generateSlug("S-Corp Salary vs Dividend", "calculator"), description: "Optimize your W2 payroll ratio.", icon: Building },
+      { title: "S-Corp Salary vs Dividend", slug: generateSlug("S-Corp Salary Dividend", "calculator"), description: "Optimize your W2 payroll ratio.", icon: Building },
       { title: "Time Tracking ROI", slug: generateSlug("Time Tracking ROI", "calculator"), description: "Find out how much unbilled time costs you.", icon: Clock },
       { title: "Nomad Cost of Living", slug: generateSlug("Nomad Cost of Living", "calculator"), description: "Geo-arbitrage your freelance income.", icon: Map },
     ]
@@ -56,7 +56,7 @@ export const navigationCategories: Category[] = [
     seoSlug: "creator-economy-tools",
     icon: Video,
     description: "Model YouTube, Patreon, and Sponsor revenue.",
-    colorClass: "bg-amber-500/10 text-amber-600 dark:text-amber-400",
+    colorClass: "bg-primary/10 text-primary dark:text-primary",
     calculators: [
       { title: "YouTube AdSense Estimator", slug: generateSlug("YouTube AdSense Estimator", "estimator"), description: "Project revenue based on RPM and views.", icon: Video },
       { title: "Sponsorship Pricing Calculator", slug: generateSlug("Sponsorship Pricing Calculator", "calculator"), description: "Price your dedicated integrations.", icon: Camera },
@@ -76,7 +76,7 @@ export const navigationCategories: Category[] = [
     seoSlug: "ecommerce-profit-calculators",
     icon: TrendingUp,
     description: "ROAS, margins, and break-even points.",
-    colorClass: "bg-blue-500/10 text-blue-600 dark:text-blue-400",
+    colorClass: "bg-primary/50/10 text-blue-600 dark:text-blue-400",
     calculators: [
       { title: "Target ROAS Break-Even", slug: generateSlug("Target ROAS Break-Even", "calculator"), description: "Know exactly when your ads are profitable.", icon: TrendingUp },
       { title: "Shopify Margin Calculator", slug: generateSlug("Shopify Margin Calculator", "calculator"), description: "Factor in shipping, COGS, and payment fees.", icon: Calculator },

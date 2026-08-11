@@ -1,4 +1,5 @@
 'use client'
+import { CalculatorActions } from "@/components/calculator/CalculatorActions"
 
 import React, { useState, useEffect } from 'react'
 import { useGlobalSettingsStore } from '@/store/global-settings.store'
@@ -8,10 +9,8 @@ import { Button } from "@/components/ui/button"
 import { Slider } from "@/components/ui/slider"
 import { Switch } from "@/components/ui/switch"
 import { Target, Save, Lock, CheckCircle2, Loader2, Share2, Download, Percent, Briefcase, Info, ThumbsUp, ThumbsDown, X } from "lucide-react"
-import { ExportEngine } from "@/components/shared/ExportEngine"
 import { saveCalculatorAction, getSharedCalculatorAction } from '@/actions/calculator.actions'
 import { getFeedbackAction, voteFeedbackAction } from '@/actions/feedback.actions'
-import { ShareCalculatorModal } from "@/components/shared/ShareCalculatorModal"
 import { ProUpgradeModal } from "@/components/shared/ProUpgradeModal"
 
 // Simple PDF template
@@ -64,15 +63,10 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     const [showProModal, setShowProModal] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
   const [showToast, setShowToast] = useState(false)
-  const [helpfulCount, setHelpfulCount] = useState(0)
-  const [userVote, setUserVote] = useState<'up' | 'down' | null>(null)
-  const [savedScenarioId, setSavedScenarioId] = useState<string | null>(null)
+      const [savedScenarioId, setSavedScenarioId] = useState<string | null>(null)
   const [showMobileExport, setShowMobileExport] = useState(false)
 
   useEffect(() => {
-    getFeedbackAction('quarterly-estimated-taxes-calculator').then(res => {
-      setHelpfulCount(res.upvotes - res.downvotes)
-    }).catch(console.error)
 
     const urlParams = new URLSearchParams(window.location.search)
     const urlSavedId = urlParams.get('savedId')
@@ -89,24 +83,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     }
   }, [])
 
-  const handleVote = async (type: 'up' | 'down') => {
-    if (userVote === type) return 
-    
-    if (userVote) {
-      setHelpfulCount(prev => type === 'up' ? prev + 2 : prev - 2)
-    } else {
-      setHelpfulCount(prev => type === 'up' ? prev + 1 : prev - 1)
-    }
-    setUserVote(type)
-
-    try {
-      await voteFeedbackAction('quarterly-estimated-taxes-calculator', type)
-    } catch (error) {
-      console.error("Failed to record vote", error)
-    }
-  }
-
-  const handleSave = async () => {
+    const handleSave = async () => {
     if (!isPro) return setShowProModal(true)
     
     setIsSaving(true)
@@ -151,7 +128,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     : `${baseUrl}/tools/quarterly-estimated-taxes-calculator`
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch relative pb-24 md:pb-0">
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch relative">
       
       {/* LEFT COLUMN: Inputs */}
       <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 flex flex-col space-y-10">
@@ -222,7 +199,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       <div className="lg:col-span-5 space-y-6 lg:sticky lg:top-8 relative z-20">
         
         {showToast && (
-          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-emerald-50 text-emerald-600 border border-emerald-200 p-4 rounded-xl shadow-lg flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 slide-in-from-bottom-8 fade-in duration-300">
+          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-primary/5 text-emerald-600 border border-primary/20 p-4 rounded-xl shadow-lg flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 slide-in-from-bottom-8 fade-in duration-300">
             <CheckCircle2 className="h-5 w-5" />
             <span className="font-semibold text-sm">Successfully saved to Scenario Vault!</span>
           </div>
@@ -230,11 +207,11 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
 
         {/* Tax Breakdown Receipt */}
         <div className="bg-card border shadow-sm rounded-2xl p-0 overflow-hidden relative">
-          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600"></div>
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-primary/80 to-primary"></div>
           
           <div className="p-6 md:p-8">
             <h3 className="text-xl font-bold flex items-center gap-2 mb-6 text-foreground">
-              <span className="bg-amber-100 text-amber-700 p-2 rounded-lg">
+              <span className="bg-primary/10 text-foreground/80 p-2 rounded-lg">
                 <Target className="h-5 w-5" />
               </span>
               Estimated Tax Ledger
@@ -274,9 +251,9 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
               </div>
             </div>
 
-            <div className="mt-8 bg-amber-50 rounded-xl p-6 border border-amber-100">
-              <h4 className="text-xs uppercase tracking-wider font-bold text-amber-800/60 mb-2">Quarterly Payment Due</h4>
-              <div className="flex items-baseline gap-2 text-amber-900">
+            <div className="mt-8 bg-primary/5 rounded-2xl p-6 border border-primary/20 shadow-sm text-foreground/80">
+              <h4 className="text-xs uppercase tracking-wider font-bold text-foreground/80/60 mb-2">Quarterly Payment Due</h4>
+              <div className="flex items-baseline gap-2 text-foreground/80">
                 <span className="text-5xl font-black tracking-tighter">{currencySymbol}{Math.round(metrics.quarterlyPayment).toLocaleString()}</span>
                 <span className="text-sm font-semibold opacity-70">/ quarter</span>
               </div>
@@ -289,95 +266,17 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           </div>
         </div>
 
-        {/* Desktop Save Actions */}
-        <div className="hidden md:block bg-card border rounded-2xl p-6">
-          <div className="space-y-3">
-            <Button onClick={handleSave} disabled={isSaving} className="w-full justify-center gap-2 bg-amber-600 hover:bg-amber-700 text-white border-none transition-all active:scale-95" size="lg">
-              {isSaving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
-              Save to Dashboard
-              {!isPro && <Lock className="h-4 w-4 text-white/70 ml-auto" />}
-            </Button>
-            
-            <div className="flex gap-3">
-              <div className="flex-1 pointer-events-auto">
-                <ExportEngine 
-                  data={exportData} 
-                  filename="QuarterlyTaxes" 
-                  pdfDocument={<TaxReportPDF data={{...store, ...metrics}} currencySymbol={currencySymbol} />} 
-                  isPro={isPro}
-                  onRequirePro={() => setShowProModal(true)}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Share & Feedback */}
-        <div className="hidden md:flex bg-card border rounded-2xl p-4 items-center justify-between shadow-sm">
-          <div className="flex gap-2">
-            <div className="flex-1">
-            <ShareCalculatorModal url={shareUrl} slug="quarterly-estimated-taxes-calculator" isPro={isPro}>
-              <div className="w-full flex gap-2 justify-center">
-                <Share2 className="h-4 w-4 mr-2" /> Share & Embed
-              </div>
-            </ShareCalculatorModal>
-            </div>
-          </div>
-          <div className="flex items-center gap-2 border-l border-border/50 pl-4">
-            <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mr-1">
-              {helpfulCount} Helpful?
-            </span>
-            <Button variant="ghost" size="icon" onClick={() => handleVote('up')} className={`h-8 w-8 rounded-full ${userVote === 'up' ? 'text-emerald-600 bg-emerald-50' : 'text-muted-foreground hover:text-emerald-600 hover:bg-emerald-50'}`}>
-              <ThumbsUp className="h-4 w-4" />
-            </Button>
-            <Button variant="ghost" size="icon" onClick={() => handleVote('down')} className={`h-8 w-8 rounded-full ${userVote === 'down' ? 'text-red-600 bg-red-50' : 'text-muted-foreground hover:text-red-600 hover:bg-red-50'}`}>
-              <ThumbsDown className="h-4 w-4" />
-            </Button>
-          </div>
-        </div>
-      </div>
-
-      {/* MOBILE STICKY ACTION BAR */}
-      <div className="md:hidden fixed bottom-0 left-0 w-full bg-background/90 backdrop-blur-xl border-t p-3 z-50 flex gap-2 shadow-[0_-10px_40px_rgba(0,0,0,0.1)] pb-safe">
-        <div className="flex-1 flex">
-          <Button onClick={handleSave} disabled={isSaving} className="w-full flex gap-1.5 h-10 rounded-xl font-semibold text-[13px] bg-amber-600 hover:bg-amber-700 text-white border-none active:scale-95 transition-transform px-2">
-            {isSaving ? <Loader2 className="h-3.5 w-3.5 animate-spin shrink-0" /> : <Save className="h-3.5 w-3.5 shrink-0" />} 
-            <span className="truncate">Save</span>
-            {!isPro && <Lock className="h-3 w-3 opacity-70 shrink-0" />}
-          </Button>
-        </div>
-        <div className="flex-1 flex [&>button]:w-full [&>button]:flex-1">
-          <ShareCalculatorModal url={shareUrl} slug="quarterly-estimated-taxes-calculator" isPro={isPro}>
-            <div className="w-full flex gap-1.5 h-10 rounded-xl font-semibold text-[13px] border border-input bg-secondary text-secondary-foreground items-center justify-center cursor-pointer hover:bg-secondary/80 transition-colors px-2">
-              <Share2 className="h-3.5 w-3.5 shrink-0" /> 
-              <span className="truncate">Share</span>
-            </div>
-          </ShareCalculatorModal>
-        </div>
-        <div className="flex-1 flex relative">
-          <Button variant="secondary" onClick={() => setShowMobileExport(!showMobileExport)} className="w-full flex gap-1.5 h-10 rounded-xl font-semibold text-[13px] border px-2">
-            <Download className="h-3.5 w-3.5 shrink-0" /> 
-            <span className="truncate">Export</span>
-            {!isPro && <Lock className="h-3 w-3 opacity-70 shrink-0" />}
-          </Button>
-          {showMobileExport && (
-            <div className="absolute bottom-[calc(100%+12px)] right-0 w-[280px] bg-background border shadow-2xl rounded-2xl p-4 animate-in slide-in-from-bottom-2 fade-in duration-200">
-              <div className="flex justify-between items-center mb-3">
-                <span className="font-bold text-sm">Export Data</span>
-                <button onClick={() => setShowMobileExport(false)} className="text-muted-foreground hover:text-foreground">
-                  <X className="h-4 w-4" />
-                </button>
-              </div>
-              <ExportEngine 
-                data={exportData} 
-                filename="QuarterlyTaxes" 
-                pdfDocument={<TaxReportPDF data={{...store, ...metrics}} currencySymbol={currencySymbol} />} 
-                isPro={isPro}
-                onRequirePro={() => { setShowMobileExport(false); setShowProModal(true) }}
-              />
-            </div>
-          )}
-        </div>
+                <CalculatorActions
+              slug="quarterly-estimated-taxes-calculator"
+              onSave={handleSave}
+              isSaving={isSaving}
+              isPro={isPro}
+              exportData={exportData}
+              exportFilename="QuarterlyTaxes"
+              onRequirePro={() => setShowProModal(true)}
+              shareUrl={shareUrl}
+              pdfDocument={<TaxReportPDF data={{...store, ...metrics}} currencySymbol={currencySymbol} />}
+            />
       </div>
 
       <ProUpgradeModal isOpen={showProModal} onClose={() => setShowProModal(false)} />

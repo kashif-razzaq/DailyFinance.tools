@@ -1,4 +1,5 @@
 'use client'
+import { CalculatorActions } from "@/components/calculator/CalculatorActions"
 
 import React, { useState, useEffect } from 'react'
 import { useGlobalSettingsStore } from '@/store/global-settings.store'
@@ -7,9 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Slider } from "@/components/ui/slider"
 import { Save, Lock, Share2, Home, Receipt, Calculator, CheckCircle2, AlertTriangle, ArrowRight } from "lucide-react"
-import { ExportEngine } from "@/components/shared/ExportEngine"
 import { saveCalculatorAction, getSharedCalculatorAction } from '@/actions/calculator.actions'
-import { ShareCalculatorModal } from "@/components/shared/ShareCalculatorModal"
 import { ProUpgradeModal } from "@/components/shared/ProUpgradeModal"
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
@@ -99,7 +98,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     : `${baseUrl}/tools/freelance-tax-deductions-calculator`
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch relative pb-24 md:pb-0">
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch relative">
       
       {/* LEFT COLUMN: Inputs */}
       <div className="lg:col-span-6 xl:col-span-5 bg-card border shadow-sm rounded-2xl p-6 md:p-8 flex flex-col space-y-10">
@@ -115,14 +114,14 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
             <div className="grid grid-cols-2 gap-2">
               <Button 
                 variant={store.homeStatus === 'Renter' ? 'default' : 'outline'} 
-                className={store.homeStatus === 'Renter' ? 'bg-amber-600 hover:bg-amber-700' : ''}
+                className={store.homeStatus === 'Renter' ? 'bg-primary hover:bg-primary/90' : ''}
                 onClick={() => store.setHomeStatus('Renter')}
               >
                 Renter
               </Button>
               <Button 
                 variant={store.homeStatus === 'Homeowner' ? 'default' : 'outline'} 
-                className={store.homeStatus === 'Homeowner' ? 'bg-amber-600 hover:bg-amber-700' : ''}
+                className={store.homeStatus === 'Homeowner' ? 'bg-primary hover:bg-primary/90' : ''}
                 onClick={() => store.setHomeStatus('Homeowner')}
               >
                 Homeowner
@@ -158,7 +157,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           </div>
           <div className="flex justify-between text-xs text-muted-foreground font-semibold px-2">
             <span>Business Use %:</span>
-            <span className="text-amber-600">{metrics.businessUsePct.toFixed(1)}%</span>
+            <span className="text-primary">{metrics.businessUsePct.toFixed(1)}%</span>
           </div>
         </div>
 
@@ -213,7 +212,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
             <div className="space-y-3 pt-4 border-t border-border/50">
               <label className="text-sm font-semibold text-foreground flex justify-between">
                 <span>Total Home Value</span>
-                <span className="text-amber-600 text-xs font-normal">For Depreciation calc</span>
+                <span className="text-primary text-xs font-normal">For Depreciation calc</span>
               </label>
               <div className="relative">
                 <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">{currencySymbol}</span>
@@ -268,7 +267,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       <div className="lg:col-span-6 xl:col-span-7 flex flex-col gap-6">
         
         {showToast && (
-          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-emerald-50 text-emerald-600 border border-emerald-200 p-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 fade-in duration-300">
+          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-primary/5 text-emerald-600 border border-primary/20 p-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 fade-in duration-300">
             <CheckCircle2 className="h-5 w-5" />
             <span className="font-semibold text-sm">Saved to Scenario Vault!</span>
           </div>
@@ -302,7 +301,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
               <li className="flex gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0"/> No complicated Form 8829 needed</li>
               <li className="flex gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0"/> No depreciation recapture on home sale</li>
               {store.officeSpace > 300 && (
-                <li className="flex gap-2"><AlertTriangle className="w-4 h-4 text-amber-500 shrink-0"/> Limited: Cap reached at 300 sq ft.</li>
+                <li className="flex gap-2"><AlertTriangle className="w-4 h-4 text-primary shrink-0"/> Limited: Cap reached at 300 sq ft.</li>
               )}
             </ul>
           </div>
@@ -331,18 +330,18 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
             <ul className="text-xs space-y-2 text-muted-foreground">
               <li className="flex gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0"/> Higher deduction ceiling</li>
               {store.homeStatus === 'Homeowner' ? (
-                <li className="flex gap-2"><AlertTriangle className="w-4 h-4 text-amber-500 shrink-0"/> Triggers deprecation recapture on sale</li>
+                <li className="flex gap-2"><AlertTriangle className="w-4 h-4 text-primary shrink-0"/> Triggers deprecation recapture on sale</li>
               ) : (
                 <li className="flex gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0"/> Includes rent payments</li>
               )}
-              <li className="flex gap-2"><AlertTriangle className="w-4 h-4 text-amber-500 shrink-0"/> Requires keeping all expense receipts</li>
+              <li className="flex gap-2"><AlertTriangle className="w-4 h-4 text-primary shrink-0"/> Requires keeping all expense receipts</li>
             </ul>
           </div>
 
         </div>
 
         {store.homeStatus === 'Homeowner' && metrics.optimalMethod === 'Actual Expenses' && (
-          <div className="bg-amber-50 text-amber-900 border border-amber-200 rounded-xl p-5">
+          <div className="bg-primary/5 text-foreground/80 border border-primary/20 rounded-2xl p-6 shadow-sm">
             <h4 className="font-bold mb-2 flex items-center gap-2"><AlertTriangle className="w-5 h-5"/> Depreciation Warning</h4>
             <p className="text-sm leading-relaxed">
               While the Actual Expenses method yields a higher deduction today, it includes <strong>{currencySymbol}{Math.round(metrics.depreciationAmount).toLocaleString()}</strong> in mandatory depreciation. When you eventually sell this home, the IRS will tax this accumulated depreciation as "recapture" at up to 25%. Ensure the current tax savings justify the future tax liability.
@@ -351,8 +350,8 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         )}
         
         {store.homeStatus === 'Homeowner' && metrics.optimalMethod === 'Simplified' && (
-          <div className="bg-slate-50 text-slate-700 border rounded-xl p-5">
-            <h4 className="font-bold mb-2 flex items-center gap-2 text-slate-800">Why we recommend Simplified</h4>
+          <div className="bg-primary/5 text-foreground/80 border rounded-xl p-5">
+            <h4 className="font-bold mb-2 flex items-center gap-2 text-foreground/80">Why we recommend Simplified</h4>
             <p className="text-sm leading-relaxed">
               Even though Actual Expenses might show a slightly higher write-off, the Simplified method avoids the headache of <strong>depreciation recapture</strong> when you sell your home. For small differences in deductions, the Simplified method is universally safer for homeowners.
             </p>
@@ -360,29 +359,16 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         )}
 
         {/* Action Buttons */}
-        <div className="bg-card border rounded-2xl p-6 flex flex-col sm:flex-row gap-3 mt-auto shadow-sm">
-          <Button onClick={handleSave} disabled={isSaving} className="flex-1 justify-center gap-2 bg-amber-600 hover:bg-amber-700 text-white" size="lg">
-            <Save className="h-4 w-4" /> Save to Dashboard
-            {!isPro && <Lock className="h-4 w-4 text-white/70 ml-auto" />}
-          </Button>
-          <div className="flex-1 flex gap-3">
-            <div className="flex-1">
-              <ExportEngine 
-                data={exportData} 
-                filename="TaxDeduction" 
-                isPro={isPro}
-                onRequirePro={() => setShowProModal(true)}
-              />
-            </div>
-            <div className="flex-1">
-            <ShareCalculatorModal url={shareUrl} slug="freelance-tax-deductions-calculator" isPro={isPro}>
-              <Button variant="outline" className="w-full flex gap-2 justify-center">
-                <Share2 className="h-4 w-4" /> Share
-              </Button>
-            </ShareCalculatorModal>
-            </div>
-          </div>
-        </div>
+                <CalculatorActions
+              slug="freelance-tax-deductions-calculator"
+              onSave={handleSave}
+              isSaving={isSaving}
+              isPro={isPro}
+              exportData={exportData}
+              exportFilename="TaxDeduction"
+              onRequirePro={() => setShowProModal(true)}
+              shareUrl={shareUrl}
+            />
       </div>
 
       <ProUpgradeModal isOpen={showProModal} onClose={() => setShowProModal(false)} />

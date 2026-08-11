@@ -90,14 +90,14 @@ export function MegaMenu() {
                       key={calc.slug} 
                       href={`/tools/${calc.slug}`}
                       onClick={() => setIsOpen(false)}
-                      className="group p-4 rounded-xl border bg-background hover:border-primary/30 hover:shadow-md transition-all duration-300 hover:-translate-y-0.5"
+                      className="group p-4 rounded-xl border bg-background hover:border-accent/30 hover:shadow-md transition-all duration-300 hover:-translate-y-0.5"
                     >
                       <div className="flex items-start gap-3">
                         <div className="mt-0.5">
-                          <CalcIcon className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                          <CalcIcon className="h-4 w-4 text-muted-foreground group-hover:text-accent transition-colors" />
                         </div>
                         <div>
-                          <h4 className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors">{calc.title}</h4>
+                          <h4 className="text-sm font-semibold text-foreground group-hover:text-accent transition-colors">{calc.title}</h4>
                           <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{calc.description}</p>
                         </div>
                       </div>

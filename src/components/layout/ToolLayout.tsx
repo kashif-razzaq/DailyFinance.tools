@@ -4,6 +4,10 @@ import Script from "next/script"
 import { CheckCircle2 } from "lucide-react"
 import Image from "next/image"
 import React from "react"
+import { TahirLeadGenCTA } from "@/components/shared/TahirLeadGenCTA"
+import { RelatedToolsWidget } from "@/components/shared/RelatedToolsWidget"
+import { SidebarAdSpace } from "@/components/shared/SidebarAdSpace"
+import { ProDashboardWidget } from "@/components/shared/ProDashboardWidget"
 
 export interface FAQ {
   question: string;
@@ -41,6 +45,7 @@ export async function ToolLayout({
   )
 
   let isPro = false
+  let vaultCount = 0
   const { data: { user } } = await supabase.auth.getUser()
   
   if (user) {
@@ -48,6 +53,14 @@ export async function ToolLayout({
     if (profile?.subscription_status === 'active') {
       isPro = true
     }
+    
+    // Fetch total vault count
+    const { count } = await supabase
+      .from('saved_calculators')
+      .select('*', { count: 'exact', head: true })
+      .eq('user_id', user.id)
+      
+    vaultCount = count || 0
   }
 
   const softwareSchema = {
@@ -88,8 +101,8 @@ export async function ToolLayout({
       <Script id="schema-article" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
 
       {/* Main Interactive Tool Area */}
-      <section className="container mx-auto px-4 md:px-8 pt-12 pb-8" aria-label={`${title} Tool`}>
-        <header className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center border-b border-border/40 pb-8 mb-8">
+      <section className="container mx-auto px-4 md:px-8 pt-12 pb-2 md:pb-8" aria-label={`${title} Tool`}>
+        <header className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start border-b border-border/40 pb-2 md:pb-8 mb-8">
           <div className="lg:col-span-7">
             <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-4 text-foreground">
               {title}
@@ -115,14 +128,16 @@ export async function ToolLayout({
             </div>
           </div>
           
-          {/* Top Ad Space */}
-          <div className="lg:col-span-5 flex w-full">
-            {!isPro && (
+          {/* Top Ad Space or Pro Widget */}
+          <div className="lg:col-span-5 flex w-full h-full items-center justify-end">
+            {!isPro ? (
               <aside className="w-full h-[90px] bg-muted/10 border border-dashed border-border/40 rounded-2xl flex flex-col items-center justify-center text-center relative overflow-hidden group">
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-muted/30 to-transparent -translate-x-[100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out"></div>
                 <span className="text-[9px] uppercase font-bold text-muted-foreground tracking-[0.2em] mb-1">Advertisement</span>
                 <span className="text-xs font-semibold text-foreground/40">Premium Ad Space</span>
               </aside>
+            ) : (
+              <ProDashboardWidget userName={user?.user_metadata?.full_name} vaultCount={vaultCount} />
             )}
           </div>
         </header>
@@ -131,7 +146,9 @@ export async function ToolLayout({
       </section>
 
       {/* SEO Content & Article */}
-      <article className="container mx-auto px-4 md:px-8 py-24 max-w-4xl" aria-label="Educational Content">
+      <div className="container mx-auto px-4 md:px-8 py-12 md:py-24">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          <article className="lg:col-span-8 w-full min-w-0" aria-label="Educational Content">
         {/* Pre-Article Ad Space */}
         {!isPro && (
           <aside className="mb-12 w-full h-[150px] md:h-[250px] bg-muted/10 border border-dashed border-border/40 rounded-3xl flex flex-col items-center justify-center text-center relative overflow-hidden group">
@@ -160,22 +177,22 @@ export async function ToolLayout({
             </section>
           )}
 
-          {/* EEAT Author Bio - Scandinavian Style */}
-          <section className="mt-20 bg-transparent border-t border-border/40 pt-12 flex flex-col md:flex-row gap-8 items-start">
-            <div className="relative w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden shrink-0 border border-border/50">
-              <Image src="/team/tahir-shehzad.jpg" alt="Tahir Shehzad - ACMA" fill sizes="(max-width: 768px) 80px, 96px" className="object-cover grayscale hover:grayscale-0 transition-all duration-500" />
+          {/* EEAT Author Bio - Elevated Card Style */}
+          <section className="mt-10 md:mt-16 bg-card border border-border/50 rounded-2xl p-5 md:p-8 flex flex-col sm:flex-row gap-5 md:gap-8 items-start shadow-sm">
+            <div className="relative w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden shrink-0 border border-border/50 shadow-sm">
+              <Image src="/team/tahir-shehzad.jpg" alt="Tahir Shehzad - ACMA" fill sizes="(max-width: 768px) 64px, 80px" className="object-cover" />
             </div>
             <div>
-              <div className="flex flex-wrap items-center gap-3 mb-2">
-                <h3 className="text-xl md:text-2xl font-bold m-0 text-foreground tracking-tight">Tahir Shehzad</h3>
+              <div className="flex flex-wrap items-center gap-2 md:gap-3 mb-1 md:mb-2">
+                <h3 className="text-lg md:text-2xl font-bold m-0 text-foreground tracking-tight">Tahir Shehzad</h3>
                 <a href="https://www.linkedin.com/in/tahir-shehzad-acma1993/" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-[#0a66c2] transition-colors" aria-label="Tahir Shehzad on LinkedIn">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 md:w-5 md:h-5">
                     <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z" />
                   </svg>
                 </a>
-                <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground border border-border/50 px-2 py-0.5 rounded-full ml-1">ACMA Qualified</span>
+                <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground border border-border/50 px-2 py-0.5 rounded-full md:ml-1">ACMA Qualified</span>
               </div>
-              <p className="text-xs font-bold uppercase tracking-wider text-foreground mb-4 mt-0">
+              <p className="text-[11px] md:text-xs font-bold uppercase tracking-wider text-primary mb-3 mt-0">
                 Assistant Manager, Accounts & Finance 
               </p>
               <p className="text-sm text-muted-foreground m-0 leading-relaxed max-w-2xl">
@@ -195,6 +212,22 @@ export async function ToolLayout({
 
         </div>
       </article>
+
+      {/* Sticky Sidebar (Right Column) */}
+      <aside className="hidden lg:flex lg:col-span-4 flex-col gap-8 sticky top-24">
+        <TahirLeadGenCTA />
+        <RelatedToolsWidget currentSlug={slug} />
+        {!isPro && <SidebarAdSpace />}
+      </aside>
+      
+      {/* Mobile Sidebar Content (Below article) */}
+      <aside className="lg:hidden flex flex-col gap-8 mt-8 pt-8 md:mt-16 md:pt-16 border-t border-border/40">
+        <RelatedToolsWidget currentSlug={slug} />
+        {!isPro && <SidebarAdSpace />}
+      </aside>
+
+    </div>
+  </div>
     </main>
   )
 }

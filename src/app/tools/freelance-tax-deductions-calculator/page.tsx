@@ -40,7 +40,7 @@ export default function FreelanceTaxDeductionsPage() {
       {(isPro) => (
         <>
           {/* 1. Direct Answer Block for AEO */}
-          <blockquote className="border-l-4 border-amber-500 bg-amber-50 p-4 mb-8 text-amber-900 italic rounded-r-lg">
+          <blockquote className="bg-primary/5 border border-primary/20 p-6 mb-8 text-foreground/80 rounded-xl leading-relaxed shadow-sm">
             <strong>Quick Answer:</strong> Freelance tax deductions save you money by lowering your taxable income by your marginal tax rate plus self-employment tax. If your effective tax bracket is 30% (Income + SE Tax), a $1,000 business expense saves you $300 in taxes. For the Home Office Deduction, renters in expensive cities usually save significantly more using the <em>Actual Expenses Method</em> (deducting a % of rent) rather than the $1,500 maximum <em>Simplified Method</em>.
           </blockquote>
 
