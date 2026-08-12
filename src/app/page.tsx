@@ -12,7 +12,8 @@ import {
   Zap,
   Search,
   Calculator,
-  ChevronRight
+  ChevronRight,
+  Crown
 } from 'lucide-react'
 import { navigationCategories, CalculatorItem } from '@/config/navigation'
 
@@ -81,20 +82,27 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════════
           SECTION 1 — HERO (Search Centric & Abstract)
       ═══════════════════════════════════════════════ */}
-      <section className="relative pt-16 pb-16 md:pt-32 md:pb-48 bg-white flex flex-col items-center justify-center min-h-[85vh] z-20">
+      <section className="relative pt-16 pb-16 md:pt-24 md:pb-48 bg-white flex flex-col items-center justify-center min-h-[75vh] z-20">
         
         {/* Abstract Generated Background Layer */}
-        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none bg-[#FAFAFA]">
-           <img src="/hero-bg.jpg" alt="Abstract Background" className="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-multiply" />
-           {/* Overlays for depth and text contrast (Top-down and Left-Right Vignette) */}
-           <div className="absolute inset-0 bg-gradient-to-b from-[#FAFAFA] via-[#FAFAFA]/60 to-transparent" />
-           <div className="absolute inset-0 bg-gradient-to-r from-[#FAFAFA]/80 via-transparent to-transparent" />
-        </div>
+<div className="absolute inset-0 z-0 overflow-hidden pointer-events-none bg-[#FAFAFA]">
+    <img 
+        src="/hero-bg.jpg" 
+        alt="Abstract Background" 
+        className="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-multiply :"  
+    />
+    
+    {/* Overlays for depth and text contrast (Top-down and Left-Right Vignette) */}
+    <div className="absolute inset-0 bg-gradient-to-b from-[#FAFAFA] via-[#FAFAFA]/60 to-transparent" />
+    <div className="absolute inset-0 bg-gradient-to-r from-[#FAFAFA]/60 via-transparent to-transparent" />
+    
+    {/* NEW: Bottom gradient to blend into the white section below */}
+</div>
 
         <div className="container mx-auto px-4 md:px-8 relative z-20 flex flex-col items-center text-center max-w-4xl">
           
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-transparent backdrop-blur-md border border-[#064E3B]/20 text-sm font-bold text-[#064E3B] mb-8 shadow-sm">
-            <Calculator className="w-4 h-4 text-[#064E3B]" />
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/5 text-primary text-sm font-semibold mb-8">
+            <Calculator className="w-4 h-4 text-primary" />
             <span>50+ Free Financial Calculators & Tools</span>
           </div>
 
@@ -180,7 +188,7 @@ export default function HomePage() {
       <section className="py-24 bg-white  relative z-10">
         <div className="container mx-auto px-4 md:px-8">
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-10">
             
             {/* Philosophy 1 */}
             <div className="flex flex-col items-start text-left">
@@ -215,6 +223,17 @@ export default function HomePage() {
               </p>
             </div>
 
+            {/* Philosophy 4 */}
+            <div className="flex flex-col items-start text-left">
+              <div className="w-12 h-12 rounded-xl bg-neutral-50 border border-neutral-100 flex items-center justify-center mb-6 text-[#1F2937]">
+                <Crown className="w-5 h-5" />
+              </div>
+              <h3 className="text-xl font-bold text-[#1F2937] mb-3 tracking-tight">Pro Features</h3>
+              <p className="text-neutral-500 leading-relaxed font-light">
+                Unlock the Scenario Vault and advanced modeling tools. Build complex projections and save your progress.
+              </p>
+            </div>
+
           </div>
         </div>
       </section>
@@ -224,10 +243,7 @@ export default function HomePage() {
       ═══════════════════════════════════════════════ */}
       <section className="relative py-24 md:py-32 bg-[#FAFAFA] overflow-hidden">
         
-        {/* Abstract Background Graphic for Explore Section */}
-        <div className="absolute inset-0 z-0 pointer-events-none opacity-20 ">
-           <img src="/explore-bg.jpg" alt="Explore Background" className="absolute inset-0 w-full h-full object-cover" />
-        </div>
+     
     
         <div className="container mx-auto px-4 md:px-8 relative z-10">
           
@@ -303,6 +319,7 @@ export default function HomePage() {
 
         </div>
       </section>
+    
 
     </div>
   )
