@@ -36,8 +36,10 @@ export function ShareCalculatorModal({ children, url, slug, isPro = false }: Sha
 
   return (
     <Dialog>
-      <DialogTrigger render={children as React.ReactElement} />
-      <DialogContent className="max-w-md sm:max-w-2xl p-6 animate-in fade-in zoom-in-95 duration-300 ease-out">
+      <DialogTrigger asChild>
+        {children}
+      </DialogTrigger>
+      <DialogContent className="max-w-md sm:max-w-2xl p-6 max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in-95 duration-300 ease-out">
         <DialogHeader className="mb-6">
           <div className="flex items-center gap-3 mb-2">
             <Logo className="h-8 w-8 text-accent" />

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
+import { usePathname } from 'next/navigation'
 import { X } from 'lucide-react'
 import { AccountingLeadModal } from './AccountingLeadModal'
 
@@ -9,6 +10,9 @@ export function FloatingConsultationBubble() {
   const [isVisible, setIsVisible] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isDismissed, setIsDismissed] = useState(false)
+
+  const pathname = usePathname()
+  const isToolPage = pathname?.startsWith('/tools') || pathname?.startsWith('/dashboard/tools')
 
   useEffect(() => {
     // Show after 5 seconds
@@ -22,7 +26,7 @@ export function FloatingConsultationBubble() {
 
   return (
     <>
-      <div className="lg:hidden fixed bottom-[100px] right-4 sm:bottom-6 sm:right-6 z-[999] animate-in slide-in-from-bottom-10 fade-in duration-500 ease-out">
+      <div className={`fixed bottom-6 right-4 sm:bottom-6 sm:right-6 z-[999] animate-in slide-in-from-bottom-10 fade-in duration-500 ease-out ${isModalOpen ? 'opacity-0 pointer-events-none' : ''} ${isToolPage ? 'lg:hidden' : 'flex'}`}>
         <div className="relative group">
           {/* Close button */}
           <button 

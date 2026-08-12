@@ -78,7 +78,7 @@ export function AccountingLeadModal({ isOpen, onClose }: { isOpen: boolean, onCl
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && handleReset()}>
-      <DialogContent className="sm:max-w-[500px] bg-background/95 backdrop-blur-xl border-border/50 shadow-2xl p-0 overflow-hidden">
+      <DialogContent className="sm:max-w-[500px] max-h-[90vh] overflow-y-auto bg-background/95 backdrop-blur-xl border-border/50 shadow-2xl p-0">
         
         {success ? (
           <div className="p-10 flex flex-col items-center justify-center text-center space-y-4">
