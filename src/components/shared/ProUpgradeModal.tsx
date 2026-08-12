@@ -14,7 +14,7 @@ interface ProUpgradeModalProps {
 export function ProUpgradeModal({ isOpen, onClose }: ProUpgradeModalProps) {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="min-w-2xl max-w-md p-8 sm:rounded-[1rem] border-border/40 shadow-2xl overflow-hidden gap-0">
+      <DialogContent className="w-[95vw] max-w-md sm:max-w-2xl p-6 sm:p-8 sm:rounded-[1rem] border-border/40 shadow-2xl overflow-hidden gap-0 max-h-[90vh] overflow-y-auto">
         
         {/* Hidden title/desc for accessibility */}
         <DialogHeader className="sr-only">
