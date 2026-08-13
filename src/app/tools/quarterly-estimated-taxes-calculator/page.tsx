@@ -1,12 +1,14 @@
+/* eslint-disable react/no-unescaped-entities */
 import { CalculatorClient } from "./CalculatorClient"
 import type { Metadata } from "next"
 import { ToolLayout, FAQ } from "@/components/layout/ToolLayout"
 import React from "react"
+import { CheckCircle2, AlertTriangle, Calculator, DollarSign, Clock, ShieldCheck, Scale, FileText } from "lucide-react"
 
 export const metadata: Metadata = {
   title: "1099 Quarterly Estimated Taxes Calculator (2026)",
   description: "Calculate your 1099 quarterly estimated taxes instantly. Supports 2026 IRS federal brackets, self-employment tax, QBI deduction, and state taxes.",
-  keywords: ["quarterly estimated taxes calculator", "1099 tax calculator", "self employment tax calculator", "how to calculate estimated taxes", "freelance tax calculator", "2026 tax brackets"],
+  keywords: ["quarterly estimated taxes calculator", "1099 tax calculator", "self employment tax calculator", "how to calculate estimated taxes", "freelance tax calculator", "2026 tax brackets", "safe harbor rule", "underpayment penalty"],
   alternates: {
     canonical: "https://dailyfinance.tools/tools/quarterly-estimated-taxes-calculator",
   },
@@ -59,132 +61,222 @@ export default function QuarterlyTaxesCalculatorPage() {
     >
       {(isPro) => (
         <>
-          <h2 id="how-to-calculate" className="text-3xl md:text-4xl font-extrabold tracking-tight mb-8 scroll-mt-24">
-            How do you calculate 1099 quarterly estimated taxes?
-          </h2>
-          
-          {/* AEO Direct Answer Block */}
-          <blockquote className="bg-primary/5 border border-primary/20 p-6 mb-8 text-foreground/80 rounded-xl leading-relaxed shadow-sm">
-            To calculate 1099 quarterly estimated taxes, multiply net freelance income by 92.35% to find self-employment taxable earnings (taxed at 15.3%). Subtract half of self-employment tax and standard deduction to determine federal taxable income. Apply progressive income tax brackets, add state tax, and divide the total by 4.
-          </blockquote>
-          
-          <p className="lead text-xl text-muted-foreground mb-12 leading-relaxed">
-            As a freelancer, 1099 contractor, or sole proprietor, you are responsible for paying both the employer and employee portions of Social Security and Medicare taxes. The <a href="https://www.irs.gov/businesses/small-businesses-self-employed/estimated-taxes" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">IRS requires you to pay estimated taxes</a> four times a year. Failing to accurately calculate and pay these taxes can result in severe underpayment penalties (Form 2210).
-          </p>
-
-          <section className="bg-card border shadow-sm rounded-2xl p-8 my-12 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-[40px] -translate-y-1/2 translate-x-1/2"></div>
-            <h3 id="understanding-qbi" className="text-xl font-bold mb-4 mt-0 text-foreground scroll-mt-24">The QBI Deduction (Qualified Business Income)</h3>
-            <p className="text-muted-foreground m-0 leading-relaxed">
-              Our calculator defaults to applying the <strong>Section 199A QBI Deduction</strong>, which allows eligible self-employed individuals to deduct up to 20% of their net business income before federal income tax is applied. This is one of the most powerful tax advantages available to freelancers.
+          {/* Answer Engine Optimization (AEO) Block */}
+          <section className="bg-white border border-neutral-200 shadow-sm rounded-2xl p-6 md:p-8 mb-12 relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-2 h-full bg-[#064E3B]"></div>
+            <h2 className="text-xl font-bold text-[#1F2937] mb-3 flex items-center gap-2">
+              <Calculator className="h-5 w-5 text-[#D97706]" />
+              Quick Answer: How to Calculate 1099 Quarterly Estimated Taxes
+            </h2>
+            <p className="text-neutral-600 leading-relaxed text-lg">
+              To calculate 1099 quarterly estimated taxes, first multiply your net freelance income by 92.35% to find your self-employment taxable base (taxed at 15.3%). Next, deduct half of that SE tax, your standard deduction, and the QBI deduction to find your adjusted federal taxable income. Apply the progressive income tax brackets, add your state income tax, and divide the total final sum by 4.
             </p>
           </section>
-          
-          <h3 id="step-by-step-formula" className="text-2xl font-bold mt-16 mb-6 scroll-mt-24">The 5-Step Tax Calculation Process</h3>
-          <p>
-            If you wish to calculate your quarterly estimated tax payments manually, you must follow this exact order of operations:
-          </p>
-          
-          <ol className="list-decimal pl-6 space-y-4 mb-8 text-foreground font-medium">
-            <li><strong>Calculate SE Taxable Base:</strong> Multiply your Net Freelance Income by 0.9235.</li>
-            <li><strong>Calculate Self-Employment Tax (15.3%):</strong> Apply 12.4% for Social Security (capped at $184,500 in 2026) and 2.9% for Medicare.</li>
-            <li><strong>Calculate Adjusted Gross Income (AGI):</strong> Deduct exactly 50% of your Self-Employment tax from your Net Income.</li>
-            <li><strong>Determine Federal Taxable Income:</strong> Subtract the Standard Deduction ($16,100 for Single Filers in 2026) and your 20% QBI deduction from your AGI.</li>
-            <li><strong>Apply Federal Brackets & Divide by 4:</strong> Push your taxable income through the progressive brackets below, add your State tax, and divide the final sum by four.</li>
-          </ol>
 
-          {/* Internal Linking for SEO context */}
-          <p className="text-muted-foreground my-8 italic">
-            <strong>Pro Tip:</strong> Before calculating taxes, ensure you are charging enough to cover them! Use our <a href="/tools/hourly-rate-reverse-engineer-calculator" className="text-primary hover:underline">Freelance Hourly Rate Calculator</a> to reverse-engineer a rate that guarantees profitability after these taxes are deducted.
+          <h2 id="the-danger" className="text-3xl md:text-4xl font-extrabold tracking-tight mb-8 text-[#1F2937] scroll-mt-24">
+            The Danger of Ignoring Estimated Taxes
+          </h2>
+          
+          <p className="text-lg text-neutral-600 mb-8 leading-relaxed font-light">
+            When you transition from being a W-2 employee to a 1099 independent contractor, freelancer, or sole proprietor, the burden of tax collection shifts entirely onto your shoulders. The IRS and state tax agencies no longer automatically withhold taxes from your paychecks. Instead, the United States operates on a "pay-as-you-go" tax system. This means you are legally required to pay income taxes to the government continuously as you earn your money throughout the year, not just on April 15th.
           </p>
+
+          <p className="text-lg text-neutral-600 mb-12 leading-relaxed font-light">
+            If you wait until the end of the year to pay your entire tax bill, you will be hit with an <strong>Underpayment of Estimated Tax by Individuals Penalty (Form 2210)</strong>. This penalty accrues interest daily based on the federal short-term rate plus 3%. To avoid devastating financial penalties and massive cash-flow crunches, you must accurately calculate and remit your taxes four times a year.
+          </p>
+
+          <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+            <div className="bg-[#FAFAFA] p-6 rounded-2xl border border-neutral-100 flex flex-col items-start">
+              <div className="w-10 h-10 bg-white rounded-lg shadow-sm border border-neutral-100 flex items-center justify-center mb-4">
+                <AlertTriangle className="h-5 w-5 text-[#D97706]" />
+              </div>
+              <h3 className="font-bold text-[#1F2937] mb-2 text-lg">Self-Employment (FICA) Tax</h3>
+              <p className="text-sm text-neutral-500 font-light">As a freelancer, you pay the full 15.3% tax (12.4% for Social Security and 2.9% for Medicare). W-2 employees only pay half of this.</p>
+            </div>
+            <div className="bg-[#FAFAFA] p-6 rounded-2xl border border-neutral-100 flex flex-col items-start">
+              <div className="w-10 h-10 bg-white rounded-lg shadow-sm border border-neutral-100 flex items-center justify-center mb-4">
+                <Scale className="h-5 w-5 text-[#D97706]" />
+              </div>
+              <h3 className="font-bold text-[#1F2937] mb-2 text-lg">Federal Income Tax</h3>
+              <p className="text-sm text-neutral-500 font-light">Calculated using a progressive bracket system (10% to 37%) based on your Adjusted Gross Income after deductions.</p>
+            </div>
+            <div className="bg-[#FAFAFA] p-6 rounded-2xl border border-neutral-100 flex flex-col items-start">
+              <div className="w-10 h-10 bg-white rounded-lg shadow-sm border border-neutral-100 flex items-center justify-center mb-4">
+                <FileText className="h-5 w-5 text-[#D97706]" />
+              </div>
+              <h3 className="font-bold text-[#1F2937] mb-2 text-lg">State Income Tax</h3>
+              <p className="text-sm text-neutral-500 font-light">Unless you live in a zero-income-tax state (like Texas, Florida, or Nevada), you must also remit estimated quarterly payments to your state agency.</p>
+            </div>
+          </section>
+
+          <h2 id="safe-harbor" className="text-3xl font-extrabold tracking-tight mb-8 text-[#1F2937] scroll-mt-24">
+            Understanding the Safe Harbor Rule
+          </h2>
+
+          <p className="text-lg text-neutral-600 mb-8 leading-relaxed font-light">
+            Freelance income is inherently volatile. You might make $5,000 in Q1 and $40,000 in Q4. Because it is nearly impossible to predict your exact annual income at the beginning of the year, the IRS provides a legal mechanism to protect you from underpayment penalties: <strong>The Safe Harbor Rule</strong>.
+          </p>
+
+          <p className="text-lg text-neutral-600 mb-8 leading-relaxed font-light">
+            The Safe Harbor rule guarantees that the IRS will not penalize you for underpaying your taxes throughout the year, provided your total quarterly estimated payments meet specific thresholds. You will still owe the remaining balance on tax day, but you will not face fines or compounding interest.
+          </p>
+
+          <div className="bg-white border border-neutral-200 rounded-2xl p-8 mb-12 shadow-sm">
+            <h3 className="text-xl font-bold text-[#1F2937] mb-6 flex items-center gap-2">
+              <ShieldCheck className="h-6 w-6 text-[#064E3B]" />
+              The Three Safe Harbor Thresholds
+            </h3>
+            <p className="text-neutral-600 font-light leading-relaxed mb-6">
+              You are completely shielded from IRS penalties if your total timely payments equal at least ONE of the following:
+            </p>
+            <ul className="space-y-4 font-light text-neutral-600 mb-4">
+              <li className="flex items-start gap-3">
+                <CheckCircle2 className="h-5 w-5 text-[#D97706] shrink-0 mt-1" />
+                <span><strong>90% of your current year's total tax liability.</strong> (Often difficult to calculate if your income is unpredictable).</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <CheckCircle2 className="h-5 w-5 text-[#D97706] shrink-0 mt-1" />
+                <span><strong>100% of your previous year's total tax liability.</strong> (The most common strategy. If you owed $20,000 in total taxes last year, paying exactly $5,000 each quarter this year shields you from penalties, even if you make triple the income this year).</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <CheckCircle2 className="h-5 w-5 text-[#D97706] shrink-0 mt-1" />
+                <span><strong>110% of your previous year's total tax liability.</strong> (Mandatory if your previous year's Adjusted Gross Income (AGI) exceeded $150,000, or $75,000 if married filing separately).</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* AdSense Placeholder - Sole Ad Unit */}
+          {!isPro && (
+            <aside className="my-16 w-full max-w-3xl mx-auto h-[250px] bg-neutral-50 border border-dashed border-neutral-200 rounded-2xl flex flex-col items-center justify-center text-center">
+              <span className="text-[10px] uppercase font-bold text-neutral-400 tracking-[0.2em] mb-2">Advertisement</span>
+              <span className="text-sm font-medium text-neutral-400">In-Article AdSense Banner</span>
+            </aside>
+          )}
+
+          <h2 id="calculation-steps" className="text-3xl font-extrabold tracking-tight mb-8 text-[#1F2937] scroll-mt-24">
+            The Step-by-Step Mathematical Calculation
+          </h2>
           
-          <hr className="my-16 border-border/60" />
-          
-          <h2 id="tax-brackets" className="text-3xl font-extrabold tracking-tight mb-8 scroll-mt-24">
+          <p className="text-lg text-neutral-600 mb-8 leading-relaxed font-light">
+            If you are opting not to use the 100% Safe Harbor method because your income dropped significantly this year, you must manually calculate your liability. Our calculator automates this entirely, but understanding the underlying mechanics of the American tax code is crucial for any business owner.
+          </p>
+
+          <div className="bg-[#064E3B] text-white p-8 md:p-12 rounded-3xl shadow-2xl mb-16 relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-96 h-96 bg-[#D97706]/20 blur-[100px] rounded-full -translate-x-1/2 -translate-y-1/2"></div>
+            
+            <h3 className="text-2xl font-bold mb-6 text-white/90 relative z-10">Step 1: Calculate the SE Taxable Base</h3>
+            <p className="text-lg text-white/80 font-light leading-relaxed mb-4 relative z-10">
+              You do not pay self-employment (SE) tax on 100% of your net business income. The IRS allows you to deduct half of your SE tax before applying the tax itself. The mathematical shortcut for this is multiplying your net profit by <code className="font-mono bg-black/30 px-2 py-1 rounded">92.35% (0.9235)</code>.
+            </p>
+
+            <h3 className="text-2xl font-bold mb-6 text-white/90 relative z-10 mt-10">Step 2: Apply the 15.3% Self-Employment Tax</h3>
+            <p className="text-lg text-white/80 font-light leading-relaxed mb-4 relative z-10">
+              Multiply your SE Taxable Base by 15.3%. Note that the Social Security portion (12.4%) caps out at $184,500 of wages in 2026. The Medicare portion (2.9%) has no cap.
+            </p>
+
+            <h3 className="text-2xl font-bold mb-6 text-white/90 relative z-10 mt-10">Step 3: Deduct the Standard Deduction</h3>
+            <p className="text-lg text-white/80 font-light leading-relaxed mb-4 relative z-10">
+              Subtract the standard deduction for your filing status (e.g., $16,100 for Single filers in 2026) from your remaining income. Also, subtract half of the self-employment tax calculated in Step 2.
+            </p>
+
+            <h3 className="text-2xl font-bold mb-6 text-white/90 relative z-10 mt-10">Step 4: Apply the QBI Deduction</h3>
+            <p className="text-lg text-white/80 font-light leading-relaxed mb-4 relative z-10">
+              If eligible, deduct up to 20% of your Qualified Business Income (QBI) via Section 199A. This dramatically lowers your federal taxable income.
+            </p>
+            
+            <h3 className="text-2xl font-bold mb-6 text-white/90 relative z-10 mt-10">Step 5: Apply Progressive Federal Brackets</h3>
+            <p className="text-lg text-white/80 font-light leading-relaxed mb-4 relative z-10">
+              Run your final taxable income through the progressive IRS brackets. Add your state income tax liability. Finally, divide the total annual tax owed by four. This is your target quarterly payment.
+            </p>
+          </div>
+
+          <h2 id="tax-brackets" className="text-3xl font-extrabold tracking-tight mb-8 text-[#1F2937] scroll-mt-24">
             2026 Federal Income Tax Brackets (Single Filer)
           </h2>
-          <p className="mb-10 text-muted-foreground">
-            The United States uses a progressive tax system. You do not pay your top bracket rate on all of your income; you only pay that rate on the portion of your income that falls within that specific bracket.
+          <p className="text-lg text-neutral-600 mb-10 leading-relaxed font-light">
+            The United States uses a progressive tax system. A common misconception is that if you get pushed into a higher tax bracket, all of your income is taxed at that higher rate. This is mathematically false. You only pay the top bracket rate on the specific portion of your income that falls within that bracket's boundaries.
           </p>
 
-          <div className="overflow-x-auto my-12 bg-card border rounded-2xl shadow-sm">
+          <div className="overflow-x-auto my-12 bg-white border border-neutral-200 rounded-2xl shadow-sm">
             <table className="w-full text-left border-collapse m-0">
               <thead>
-                <tr className="border-b border-border bg-muted/30">
-                  <th className="py-4 px-6 font-bold text-foreground text-sm uppercase tracking-wider">Tax Rate</th>
-                  <th className="py-4 px-6 font-bold text-foreground text-sm uppercase tracking-wider">2026 Taxable Income Bracket</th>
+                <tr className="border-b border-neutral-200 bg-[#FAFAFA]">
+                  <th className="py-4 px-6 font-bold text-[#1F2937] text-sm uppercase tracking-wider">Marginal Tax Rate</th>
+                  <th className="py-4 px-6 font-bold text-[#1F2937] text-sm uppercase tracking-wider">2026 Taxable Income Bracket (Single)</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-border/50">
-                <tr className="hover:bg-muted/10 transition-colors">
-                  <td className="py-4 px-6 font-medium">10%</td>
-                  <td className="py-4 px-6 text-muted-foreground">$0 – $12,400</td>
+              <tbody className="divide-y divide-neutral-100 font-mono text-sm">
+                <tr className="hover:bg-neutral-50 transition-colors">
+                  <td className="py-4 px-6 font-medium text-[#1F2937] font-sans">10%</td>
+                  <td className="py-4 px-6 text-neutral-500">$0 – $12,400</td>
                 </tr>
-                <tr className="hover:bg-muted/10 transition-colors bg-muted/5">
-                  <td className="py-4 px-6 font-medium">12%</td>
-                  <td className="py-4 px-6 text-muted-foreground">$12,401 – $50,400</td>
+                <tr className="hover:bg-neutral-50 transition-colors bg-[#FAFAFA]">
+                  <td className="py-4 px-6 font-medium text-[#1F2937] font-sans">12%</td>
+                  <td className="py-4 px-6 text-neutral-500">$12,401 – $50,400</td>
                 </tr>
-                <tr className="hover:bg-muted/10 transition-colors">
-                  <td className="py-4 px-6 font-medium">22%</td>
-                  <td className="py-4 px-6 text-muted-foreground">$50,401 – $105,700</td>
+                <tr className="hover:bg-neutral-50 transition-colors">
+                  <td className="py-4 px-6 font-medium text-[#1F2937] font-sans">22%</td>
+                  <td className="py-4 px-6 text-neutral-500">$50,401 – $105,700</td>
                 </tr>
-                <tr className="hover:bg-muted/10 transition-colors bg-muted/5">
-                  <td className="py-4 px-6 font-medium">24%</td>
-                  <td className="py-4 px-6 text-muted-foreground">$105,701 – $201,775</td>
+                <tr className="hover:bg-neutral-50 transition-colors bg-[#FAFAFA]">
+                  <td className="py-4 px-6 font-medium text-[#1F2937] font-sans">24%</td>
+                  <td className="py-4 px-6 text-neutral-500">$105,701 – $201,775</td>
                 </tr>
-                <tr className="hover:bg-muted/10 transition-colors">
-                  <td className="py-4 px-6 font-medium">32%</td>
-                  <td className="py-4 px-6 text-muted-foreground">$201,776 – $256,225</td>
+                <tr className="hover:bg-neutral-50 transition-colors">
+                  <td className="py-4 px-6 font-medium text-[#1F2937] font-sans">32%</td>
+                  <td className="py-4 px-6 text-neutral-500">$201,776 – $256,225</td>
                 </tr>
-                <tr className="hover:bg-muted/10 transition-colors bg-muted/5">
-                  <td className="py-4 px-6 font-medium">35%</td>
-                  <td className="py-4 px-6 text-muted-foreground">$256,226 – $640,600</td>
+                <tr className="hover:bg-neutral-50 transition-colors bg-[#FAFAFA]">
+                  <td className="py-4 px-6 font-medium text-[#1F2937] font-sans">35%</td>
+                  <td className="py-4 px-6 text-neutral-500">$256,226 – $640,600</td>
                 </tr>
-                <tr className="hover:bg-muted/10 transition-colors">
-                  <td className="py-4 px-6 font-medium">37%</td>
-                  <td className="py-4 px-6 text-muted-foreground">Over $640,600</td>
+                <tr className="hover:bg-neutral-50 transition-colors">
+                  <td className="py-4 px-6 font-medium text-[#1F2937] font-sans">37%</td>
+                  <td className="py-4 px-6 text-neutral-500">Over $640,600</td>
                 </tr>
               </tbody>
             </table>
           </div>
 
-          {/* In-Article Ad Space */}
-          {!isPro && (
-            <aside className="my-16 w-full max-w-3xl mx-auto h-[250px] bg-muted/10 border border-dashed border-border/40 rounded-3xl flex flex-col items-center justify-center text-center relative overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-muted/30 to-transparent -translate-x-[100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out"></div>
-              <span className="text-[9px] uppercase font-bold text-muted-foreground tracking-[0.2em] mb-2">Advertisement</span>
-              <span className="text-sm font-semibold text-foreground/40">In-Article AdSense Banner</span>
-            </aside>
-          )}
-
-          <hr className="my-16 border-border/60" />
-
-          <h2 id="due-dates" className="text-3xl font-extrabold tracking-tight mb-8 scroll-mt-24">
+          <h2 id="due-dates" className="text-3xl font-extrabold tracking-tight mb-8 text-[#1F2937] scroll-mt-24">
             IRS Quarterly Payment Due Dates
           </h2>
-          <p className="text-muted-foreground mb-8">
-            The IRS does not divide the year into four perfect three-month quarters for estimated taxes. You must adhere to the following specific payment schedule to maintain <strong>Safe Harbor</strong> status and avoid penalties:
+          <p className="text-lg text-neutral-600 mb-8 leading-relaxed font-light">
+            Crucially, the IRS does not divide the year into four perfect three-month quarters for estimated taxes. The payment schedule is irregular. You must adhere to the following specific deadlines to maintain your Safe Harbor status. If a due date falls on a weekend or federal holiday, the deadline is pushed to the next business day.
           </p>
 
-          <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 list-none p-0 mb-12">
-            <li className="bg-card border p-4 rounded-xl shadow-sm">
-              <span className="text-sm font-bold text-primary block mb-1">Q1 (Jan 1 – Mar 31)</span>
-              <span className="font-semibold text-foreground text-lg">Due April 15</span>
+          <ul className="grid grid-cols-1 md:grid-cols-2 gap-6 list-none p-0 mb-16">
+            <li className="bg-white border border-neutral-200 p-6 rounded-2xl shadow-sm flex flex-col justify-center items-center text-center">
+              <span className="text-sm font-bold text-[#D97706] uppercase tracking-widest block mb-2">Q1 Payment</span>
+              <span className="font-light text-neutral-500 mb-2">For income earned: Jan 1 – Mar 31</span>
+              <span className="font-extrabold text-[#1F2937] text-2xl">Due April 15</span>
             </li>
-            <li className="bg-card border p-4 rounded-xl shadow-sm">
-              <span className="text-sm font-bold text-primary block mb-1">Q2 (Apr 1 – May 31)</span>
-              <span className="font-semibold text-foreground text-lg">Due June 15</span>
+            <li className="bg-white border border-neutral-200 p-6 rounded-2xl shadow-sm flex flex-col justify-center items-center text-center">
+              <span className="text-sm font-bold text-[#D97706] uppercase tracking-widest block mb-2">Q2 Payment</span>
+              <span className="font-light text-neutral-500 mb-2">For income earned: Apr 1 – May 31</span>
+              <span className="font-extrabold text-[#1F2937] text-2xl">Due June 15</span>
             </li>
-            <li className="bg-card border p-4 rounded-xl shadow-sm">
-              <span className="text-sm font-bold text-primary block mb-1">Q3 (Jun 1 – Aug 31)</span>
-              <span className="font-semibold text-foreground text-lg">Due September 15</span>
+            <li className="bg-white border border-neutral-200 p-6 rounded-2xl shadow-sm flex flex-col justify-center items-center text-center">
+              <span className="text-sm font-bold text-[#D97706] uppercase tracking-widest block mb-2">Q3 Payment</span>
+              <span className="font-light text-neutral-500 mb-2">For income earned: Jun 1 – Aug 31</span>
+              <span className="font-extrabold text-[#1F2937] text-2xl">Due September 15</span>
             </li>
-            <li className="bg-card border p-4 rounded-xl shadow-sm">
-              <span className="text-sm font-bold text-primary block mb-1">Q4 (Sep 1 – Dec 31)</span>
-              <span className="font-semibold text-foreground text-lg">Due January 15</span>
+            <li className="bg-white border border-neutral-200 p-6 rounded-2xl shadow-sm flex flex-col justify-center items-center text-center">
+              <span className="text-sm font-bold text-[#D97706] uppercase tracking-widest block mb-2">Q4 Payment</span>
+              <span className="font-light text-neutral-500 mb-2">For income earned: Sep 1 – Dec 31</span>
+              <span className="font-extrabold text-[#1F2937] text-2xl">Due January 15</span>
             </li>
           </ul>
 
+          <h2 id="annualized-income" className="text-3xl font-extrabold tracking-tight mb-8 text-[#1F2937] scroll-mt-24">
+            Handling Highly Variable Income
+          </h2>
+          <p className="text-lg text-neutral-600 mb-8 leading-relaxed font-light">
+            If your freelance income is highly seasonal (e.g., you operate a landscaping business that makes $80,000 in Q2 and Q3, but only $5,000 in Q1 and Q4), paying exactly equal quarterly payments might place immense strain on your cash flow during the slow months. 
+          </p>
+          <p className="text-lg text-neutral-600 mb-12 leading-relaxed font-light">
+            In these cases, you can use the <strong>Annualized Income Installment Method</strong> on Schedule AI of Form 2210. This complex accounting method allows you to precisely match your tax payments to the quarters in which the income was actually earned. If you made no money in Q1, you pay no estimated taxes in Q1, and the IRS will waive the penalty as long as you properly complete and attach Form 2210 to your year-end tax return.
+          </p>
         </>
       )}
     </ToolLayout>

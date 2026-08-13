@@ -121,7 +121,9 @@ export function Footer() {
           <div className="flex items-center gap-2 text-xs text-muted-foreground">
             <span>&copy; {currentYear} DailyFinance.</span>
             <span className="hidden sm:inline">&bull;</span>
-            <span>Crafted with precision in Pakistan.</span>
+            <span>    <Link href="/privacy" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
+              Design & Developed by <span className="font-semibold text-foreground">wpkashif</span>
+            </Link></span>
           </div>
           
           <div className="flex items-center gap-6">

@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/set-state-in-effect */
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable react/no-unescaped-entities */
 'use client'
 
@@ -87,7 +89,7 @@ export default function HomePage() {
         {/* Abstract Generated Background Layer */}
 <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none bg-[#FAFAFA]">
     <img 
-        src="/hero-bg.jpg" 
+        src="https://static.vecteezy.com/system/resources/previews/066/736/374/non_2x/trendy-halftone-collage-conceptual-illustration-of-investment-and-idea-generation-the-concept-of-investment-new-ideas-with-increased-profits-the-concept-of-problem-solving-illustration-vector.jpg" 
         alt="Abstract Background" 
         className="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-multiply :"  
     />
@@ -102,13 +104,11 @@ export default function HomePage() {
         <div className="container mx-auto px-4 md:px-8 relative z-20 flex flex-col items-center text-center max-w-4xl">
           
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/5 text-primary text-sm font-semibold mb-8">
-            <Calculator className="w-4 h-4 text-primary" />
-            <span>50+ Free Financial Calculators & Tools</span>
+            <span>Welcome to DailyFinance.tools</span>
           </div>
 
           <h1 className="text-5xl md:text-7xl lg:text-[5rem] font-bold tracking-tighter text-[#1F2937] mb-8 leading-[1.05]">
-            Find the perfect <br />
-            financial tool. <span className="text-accent">Instantly.</span>
+            <span className="text-accent">50+ </span>Free Financial Calculators & <span className="text-accent">Tools</span>
           </h1>
           
           <p className="text-lg md:text-xl text-neutral-500 mb-12 leading-relaxed max-w-2xl mx-auto font-light">
@@ -291,7 +291,7 @@ export default function HomePage() {
                 <Link key={tool.slug} href={`/tools/${tool.slug}`} className="group h-full">
                   <div className="bg-white rounded-2xl border border-neutral-100 p-8 h-full transition-all duration-300 hover:border-[#064E3B]/40 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] flex flex-col hover:-translate-y-1 shadow-sm relative overflow-hidden">
                     
-                    <div className="w-12 h-12 rounded-xl bg-neutral-50 border border-neutral-100 flex items-center justify-center mb-6 text-neutral-400 group-hover:text-[#064E3B] group-hover:bg-[#064E3B]/5 group-hover:border-[#064E3B]/20 transition-colors relative z-10">
+                    <div className="w-12 h-12 rounded-xl bg-[#D97706]/10 border border-[#D97706]/20 flex items-center justify-center mb-6 text-[#D97706] group-hover:bg-[#D97706]/20 transition-colors relative z-10">
                       <Icon className="w-5 h-5" />
                     </div>
                     

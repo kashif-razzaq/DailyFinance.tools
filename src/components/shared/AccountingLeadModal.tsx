@@ -96,7 +96,7 @@ export function AccountingLeadModal({ isOpen, onClose }: { isOpen: boolean, onCl
         ) : (
           <>
             <DialogHeader className="px-6 pt-6 pb-4 border-b border-border/40 bg-muted/20">
-              <DialogTitle className="text-xl font-bold tracking-tight">Consult with Tahir Shehzad</DialogTitle>
+              <DialogTitle className="text-xl font-bold tracking-tight">Consult with DailyFinance Expert</DialogTitle>
               <DialogDescription className="text-sm">
                 Get expert accounting, taxation, and financial modeling advice for your freelance business or agency.
               </DialogDescription>

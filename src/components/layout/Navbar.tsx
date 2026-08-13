@@ -34,9 +34,7 @@ export async function Navbar() {
         <div className="flex items-center gap-4 md:gap-8">
           <MobileMenu user={user} />
           <Link href="/" className="flex items-center space-x-2 group">
-            <div className="bg-primary/10 p-1 rounded-lg group-hover:bg-primary/20 transition-colors">
               <Logo className="h-6 w-6 text-primary" />
-            </div>
             <span className="font-bold text-xl tracking-tight">
               DailyFinance
             </span>

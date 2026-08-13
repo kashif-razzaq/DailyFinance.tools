@@ -2,17 +2,18 @@ import { CalculatorClient } from "./CalculatorClient"
 import type { Metadata } from "next"
 import { ToolLayout, FAQ } from "@/components/layout/ToolLayout"
 import React from "react"
+import { CheckCircle2, AlertTriangle, Calculator, DollarSign, Clock, TrendingUp, Target, Briefcase, Zap } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "Freelance Hourly Rate Calculator: Calculate Your True Value",
-  description: "Reverse engineer your freelance hourly rate based on desired net income, taxes, business overhead, and billable utilization. Stop undercharging.",
-  keywords: ["freelance hourly rate calculator", "calculate freelance rate", "freelance day rate", "minimum acceptable rate MAR", "freelance pricing strategy", "how much should I charge freelance"],
+  title: "Freelance Hourly Rate Calculator: Find Your Minimum Acceptable Rate (MAR)",
+  description: "Calculate your true freelance hourly rate by factoring in business expenses, self-employment taxes, and unbillable time. A complete guide to setting profitable rates.",
+  keywords: ["freelance hourly rate calculator", "calculate freelance rate", "minimum acceptable rate", "freelance pricing strategy", "how much should I charge freelance", "billable hours vs non-billable", "freelance taxes"],
   alternates: {
     canonical: "https://dailyfinance.tools/tools/hourly-rate-reverse-engineer-calculator",
   },
   openGraph: {
-    title: "Freelance Hourly Rate Calculator | DailyFinance.tools",
-    description: "Reverse engineer your freelance hourly rate based on desired net income, taxes, business overhead, and billable utilization.",
+    title: "Freelance Hourly Rate Calculator | Calculate Your True Value",
+    description: "Reverse engineer your freelance hourly rate based on desired net income, taxes, business overhead, and billable utilization. Never undercharge again.",
     url: "https://dailyfinance.tools/tools/hourly-rate-reverse-engineer-calculator",
     siteName: "DailyFinance.tools",
     locale: "en_US",
@@ -28,23 +29,23 @@ export const metadata: Metadata = {
 const faqs: FAQ[] = [
   {
     question: "How do you calculate a freelance hourly rate?",
-    answer: "To calculate a freelance hourly rate, add your personal income target, business expenses, estimated taxes, and a profit buffer together to get your required gross revenue. Then, divide that total gross revenue by your estimated annual billable hours to find your exact minimum hourly rate."
+    answer: "To calculate your freelance hourly rate, use the Minimum Acceptable Rate (MAR) formula: add your target annual salary, annual business expenses, and estimated taxes together. Divide that total sum by your true annual billable hours (usually 1,000 to 1,200 hours, not 2,000). This yields the lowest hourly rate you can afford to charge."
   },
   {
-    question: "How many billable hours are in a standard freelance year?",
-    answer: "While a standard W-2 year has 2,080 hours, a healthy freelance year typically contains between 1,000 and 1,200 billable hours, assuming 4 to 6 weeks of PTO and a realistic 60% billable utilization rate."
+    question: "What is the standard formula to calculate freelance hourly rates?",
+    answer: "The standard calculation formula is: [(Annual Target Salary + Annual Business Expenses) / Annual Billable Hours] + Tax Buffer = Minimum Hourly Rate. Never simply divide your target salary by 40 hours a week, as this ignores overhead and unpaid admin time."
   },
   {
-    question: "What percentage of my freelance income should I save for taxes?",
-    answer: "As a general rule, freelancers in the US should reserve 25% to 30% of every client payment in a separate high-yield savings account to cover Self-Employment tax (15.3%) plus federal and state income taxes."
+    question: "What is the difference between billable and non-billable hours?",
+    answer: "Billable hours are the exact hours you spend actively executing client work that you can invoice for. Non-billable hours are spent on running your business—invoicing, client acquisition, marketing, accounting, and admin tasks. Most successful freelancers only bill 50-60% of their actual working hours."
   },
   {
-    question: "Should I display my hourly rate publicly on my website?",
-    answer: "Generally, no. Displaying a minimum project engagement fee (e.g., \"Projects start at $5,000\") is much more effective than displaying an hourly rate. Hourly rates invite clients to micromanage your time, whereas project minimums frame you as an expert delivering a valuable result."
+    question: "Why shouldn't I just charge what my competitors charge?",
+    answer: "Market research gives you a ceiling, but your Minimum Acceptable Rate (MAR) gives you your floor. Your peers have completely different cost structures, tax liabilities, and lifestyle requirements. Pricing strictly based on competitors often leads to unprofitable businesses and eventual burnout."
   },
   {
-    question: "What is a good billable utilization rate for independent consultants?",
-    answer: "A strong, sustainable billable utilization rate for an independent consultant is 60%. This leaves 40% of your working hours dedicated to unbilled overhead such as marketing, sales calls, administrative tasks, and invoicing."
+    question: "When should I transition from hourly rates to value-based pricing?",
+    answer: "You should transition to value-based pricing or flat project fees once you become highly efficient at your job. Hourly billing punishes efficiency (the faster you work, the less you earn). Flat fees detach your income from your time, allowing you to scale your revenue without working more hours."
   }
 ]
 
@@ -59,152 +60,237 @@ export default function HourlyRateCalculatorPage() {
     >
       {(isPro) => (
         <>
-          <h2 id="sustainable-formula" className="text-3xl md:text-4xl font-extrabold tracking-tight mb-8 scroll-mt-24">
-            How to Calculate Your Freelance Hourly Rate
-          </h2>
-          
-          <blockquote className="bg-primary/5 border border-primary/20 p-6 mb-8 text-foreground/80 rounded-xl leading-relaxed shadow-sm">
-            To calculate a sustainable freelance hourly rate, you must add your target net income, annual business overhead, estimated taxes, and profit buffer together, and divide that total by your true annual billable hours (not standard 40-hour work weeks).
-          </blockquote>
-          
-          <p className="lead text-xl text-muted-foreground mb-12 leading-relaxed">
-            Setting an arbitrary hourly rate based on what your peers charge is the fastest way to burn out as a freelancer. Top earners use a reverse-engineering approach to calculate their <strong>Minimum Acceptable Rate (MAR)</strong>. Here is the definitive {new Date().getFullYear()} guide to calculating a rate that guarantees profitability, covers your tax liabilities mandated by the <a href="https://www.irs.gov/businesses/small-businesses-self-employed/self-employed-individuals-tax-center" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">IRS</a>, and protects your peace of mind.
-          </p>
-
-          <section className="bg-card border shadow-sm rounded-2xl p-8 my-12 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-[40px] -translate-y-1/2 translate-x-1/2"></div>
-            <h3 id="understanding-mar" className="text-xl font-bold mb-4 mt-0 text-foreground scroll-mt-24">Understanding the Minimum Acceptable Rate (MAR)</h3>
-            <p className="text-muted-foreground m-0 leading-relaxed">
-              Your Minimum Acceptable Rate (MAR) is the absolute lowest hourly rate you can charge without sacrificing your lifestyle, failing to pay taxes, or neglecting business growth. It ensures that every single billable hour you work actively contributes to your target net income.
+          {/* Answer Engine Optimization (AEO) Block */}
+          <section className="bg-white border border-neutral-200 shadow-sm rounded-2xl p-6 md:p-8 mb-12 relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-2 h-full bg-[#064E3B]"></div>
+            <h2 className="text-xl font-bold text-[#1F2937] mb-3 flex items-center gap-2">
+              <Calculator className="h-5 w-5 text-[#D97706]" />
+              Quick Answer: How to Calculate Your Freelance Hourly Rate
+            </h2>
+            <p className="text-neutral-600 leading-relaxed text-lg">
+              To calculate your freelance hourly rate, you must determine your <strong>Minimum Acceptable Rate (MAR)</strong>. Add your target annual take-home pay, your yearly business expenses, and a 25-30% self-employment tax buffer. Divide this total by your estimated <em>billable</em> hours per year (typically 1,000–1,200). Never simply divide a target salary by 2,000 hours.
             </p>
           </section>
-          
-          <h3 id="step-by-step-formula" className="text-2xl font-bold mt-16 mb-6 scroll-mt-24">The 4-Step Formula to Calculate Freelance Rates</h3>
-          <p>
-            The mathematics powering our calculator use a fundamental financial equation. If you are calculating your rates manually, follow these four steps:
-          </p>
-          
-          <ol className="list-decimal pl-6 space-y-4 mb-8 text-foreground font-medium">
-            <li><strong>Determine Target Net Income:</strong> Calculate how much take-home pay you need to support your personal lifestyle.</li>
-            <li><strong>Add Operating Expenses (OpEx):</strong> Tally all business costs including software, legal fees, and marketing.</li>
-            <li><strong>Account for Estimated Taxes:</strong> Factor in a 25-30% premium to cover Self-Employment, Federal, and State taxes. (You can calculate this precisely using our <a href="/tools/quarterly-estimated-taxes-calculator" className="text-primary hover:underline">Quarterly Estimated Taxes Calculator</a>).</li>
-            <li><strong>Divide by Billable Hours:</strong> Divide the total required gross revenue by your actual billable hours (typically 1,000 - 1,200 hours per year).</li>
-          </ol>
-          
-          <hr className="my-16 border-border/60" />
-          
-          <h2 id="key-factors-forgotten" className="text-3xl font-extrabold tracking-tight mb-10 scroll-mt-24">
-            4 Key Factors Most Freelancers Forget When Setting Rates
+
+          <h2 id="sustainable-formula" className="text-3xl md:text-4xl font-extrabold tracking-tight mb-8 text-[#1F2937] scroll-mt-24">
+            The Danger of Guessing Your Freelance Hourly Rate
           </h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 my-12">
+          <p className="text-lg text-neutral-600 mb-8 leading-relaxed font-light">
+            Setting an arbitrary hourly rate based on a quick Google search or asking peers in a Facebook group is the fastest way to bankrupt a freelance business. When you transition from a W-2 employee to a 1099 independent contractor, you are no longer just an employee doing a job—you are a functioning business entity. You assume total financial responsibility for healthcare, software subscriptions, retirement matching, marketing, and self-employment taxes. 
+          </p>
+
+          <p className="text-lg text-neutral-600 mb-8 leading-relaxed font-light">
+            To build a sustainable freelance career, you must discard the employee mindset and adopt the business owner mindset. This means using a rigorous, math-driven approach to discover your baseline profitability floor before negotiating with any client. Charging $50/hour might sound lucrative when compared to a $25/hour day job, but once the hidden costs of self-employment are factored in, that $50/hour might actually place you below the poverty line.
+          </p>
+          
+          <p className="text-lg text-neutral-600 mb-12 leading-relaxed font-light">
+            This comprehensive, 1,500+ word guide will walk you through the exact mathematics required to calculate a profitable rate. We will cover the psychological pitfalls of undercharging, the vital distinction between billable and non-billable time, a deep dive into operating expenses, and eventually, how to escape the hourly rate trap altogether through value-based pricing.
+          </p>
+
+          <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+            <div className="bg-[#FAFAFA] p-6 rounded-2xl border border-neutral-100 flex flex-col items-start">
+              <div className="w-10 h-10 bg-white rounded-lg shadow-sm border border-neutral-100 flex items-center justify-center mb-4">
+                <DollarSign className="h-5 w-5 text-[#D97706]" />
+              </div>
+              <h3 className="font-bold text-[#1F2937] mb-2 text-lg">Hidden Expenses</h3>
+              <p className="text-sm text-neutral-500 font-light">From invoicing software to legal consultation, business expenses rapidly erode your take-home pay if not baked into your baseline rate.</p>
+            </div>
+            <div className="bg-[#FAFAFA] p-6 rounded-2xl border border-neutral-100 flex flex-col items-start">
+              <div className="w-10 h-10 bg-white rounded-lg shadow-sm border border-neutral-100 flex items-center justify-center mb-4">
+                <AlertTriangle className="h-5 w-5 text-[#D97706]" />
+              </div>
+              <h3 className="font-bold text-[#1F2937] mb-2 text-lg">Self-Employment Tax</h3>
+              <p className="text-sm text-neutral-500 font-light">Freelancers pay the full 15.3% FICA tax on top of standard state and federal brackets. Your clients must subsidize this hidden burden.</p>
+            </div>
+            <div className="bg-[#FAFAFA] p-6 rounded-2xl border border-neutral-100 flex flex-col items-start">
+              <div className="w-10 h-10 bg-white rounded-lg shadow-sm border border-neutral-100 flex items-center justify-center mb-4">
+                <Clock className="h-5 w-5 text-[#D97706]" />
+              </div>
+              <h3 className="font-bold text-[#1F2937] mb-2 text-lg">Unpaid Admin Time</h3>
+              <p className="text-sm text-neutral-500 font-light">Marketing, pitching, and accounting take time. You will likely only bill for roughly 60% of the actual hours you work every week.</p>
+            </div>
+          </section>
+
+          <h2 id="standard-calculation-formula" className="text-3xl font-extrabold tracking-tight mb-8 text-[#1F2937] scroll-mt-24">
+            The Standard Calculation Formula for Freelancers
+          </h2>
+          
+          <p className="text-lg text-neutral-600 mb-8 leading-relaxed font-light">
+            To find your true baseline, you need to use the <strong>Minimum Acceptable Rate (MAR) formula</strong>. This is the absolute lowest number you can charge a client without actively damaging your financial health. If a client attempts to negotiate below your MAR, you must walk away, as accepting the project means you are effectively paying to work for them.
+          </p>
+
+          <div className="bg-[#064E3B] text-white p-8 md:p-12 rounded-3xl shadow-2xl mb-16 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-96 h-96 bg-[#D97706]/20 blur-[100px] rounded-full translate-x-1/2 -translate-y-1/2"></div>
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/5 blur-[60px] rounded-full -translate-x-1/3 translate-y-1/3"></div>
             
-            <section className="bg-card border rounded-2xl p-8 hover:shadow-md transition-shadow">
-              <div className="h-12 w-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center mb-6 font-bold text-xl">1</div>
-              <h3 id="factor-billable-hours" className="text-lg font-bold mt-0 mb-3 scroll-mt-24">The Billable Hours Trap</h3>
-              <p className="text-sm text-muted-foreground m-0">
-                The most common mistake freelancers make is dividing their target income by 2,080 (40 hours x 52 weeks). This assumes a 100% billable utilization rate. In reality, independent consultants spend roughly 40% of their time on unbilled administrative tasks, marketing, and client acquisition. If you only bill 24 hours a week, your rate must compensate for the 16 hours of unpaid overhead.
-              </p>
-            </section>
-
-            <section className="bg-card border rounded-2xl p-8 hover:shadow-md transition-shadow">
-              <div className="h-12 w-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center mb-6 font-bold text-xl">2</div>
-              <h3 id="factor-self-employment-tax" className="text-lg font-bold mt-0 mb-3 scroll-mt-24">Self-Employment Taxes</h3>
-              <p className="text-sm text-muted-foreground m-0">
-                Unlike W-2 employees whose employers subsidize payroll taxes, freelancers pay the full 15.3% FICA tax (in the US), on top of standard state and federal income brackets. Additionally, without employer-sponsored healthcare, your baseline operational costs are significantly higher and must be baked into your rate.
-              </p>
-            </section>
-
-            <section className="bg-card border rounded-2xl p-8 hover:shadow-md transition-shadow">
-              <div className="h-12 w-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center mb-6 font-bold text-xl">3</div>
-              <h3 id="factor-operating-overhead" className="text-lg font-bold mt-0 mb-3 scroll-mt-24">Operating Overhead (OpEx)</h3>
-              <p className="text-sm text-muted-foreground m-0">
-                Your business costs money to run. Software subscriptions (Adobe CC, Figma, Webflow), CRM tools, domain renewals, advertising, and legal fees are not personal expenses. They are operating costs that must be paid for by your clients through your hourly baseline.
-              </p>
-            </section>
-
-            <section className="bg-card border rounded-2xl p-8 hover:shadow-md transition-shadow">
-              <div className="h-12 w-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center mb-6 font-bold text-xl">4</div>
-              <h3 id="factor-pto" className="text-lg font-bold mt-0 mb-3 scroll-mt-24">Paid Time Off (PTO) Reserve</h3>
-              <p className="text-sm text-muted-foreground m-0">
-                If you don't work, you don't get paid. A sustainable hourly rate accounts for at least 4 to 6 weeks of unpaid time off (vacation, federal holidays, and sick days) so you aren't financially penalized for taking a necessary break to prevent burnout.
-              </p>
-            </section>
-
+            <h3 className="text-2xl font-bold mb-8 text-white/90 relative z-10">The Minimum Acceptable Rate (MAR) Equation</h3>
+            <div className="font-mono text-lg md:text-2xl bg-black/40 p-6 rounded-2xl border border-white/10 break-words leading-loose relative z-10 shadow-inner">
+              MAR = [ ( Target Net Income + Business Expenses + Taxes ) / Annual Billable Hours ]
+            </div>
           </div>
 
-          {/* In-Article Ad Space */}
+          <h3 className="text-2xl font-bold mb-4 text-[#1F2937]">Step 1: Determine Your Target Net Income</h3>
+          <p className="text-lg text-neutral-600 mb-8 leading-relaxed font-light">
+            Start with the annual income you need to live comfortably. This is your personal take-home pay. It should cover your rent or mortgage, groceries, personal savings goals, healthcare premiums out of pocket, and personal debt. Do not include business expenses here. 
+          </p>
+          <p className="text-lg text-neutral-600 mb-12 leading-relaxed font-light">
+            For example, if you determine that you need <code className="font-mono bg-neutral-100 px-2 py-1 rounded text-sm text-[#064E3B]">$60,000</code> a year to thrive personally, that is your baseline target net income. This is the amount of money you want to transfer from your business checking account into your personal checking account by the end of the year.
+          </p>
+
+          <h3 className="text-2xl font-bold mb-4 text-[#1F2937]">Step 2: Add Annual Business Expenses (OpEx)</h3>
+          <p className="text-lg text-neutral-600 mb-8 leading-relaxed font-light">
+            Freelancing requires infrastructure. Unlike an employee whose laptop and software are provided by the company, you must purchase and maintain your own tools. These operating expenses (OpEx) must be paid for by your clients, not out of your personal pocket.
+          </p>
+          <p className="text-lg text-neutral-600 mb-8 leading-relaxed font-light">
+            Common freelance expenses include:
+          </p>
+          <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
+            <li className="flex items-start gap-3 bg-[#FAFAFA] p-4 rounded-xl border border-neutral-100">
+              <Target className="h-5 w-5 text-[#D97706] shrink-0 mt-0.5" />
+              <span className="text-neutral-600 font-light"><strong>Software Subscriptions</strong> (Adobe CC, Webflow, Figma, GitHub Copilot, Notion)</span>
+            </li>
+            <li className="flex items-start gap-3 bg-[#FAFAFA] p-4 rounded-xl border border-neutral-100">
+              <Briefcase className="h-5 w-5 text-[#D97706] shrink-0 mt-0.5" />
+              <span className="text-neutral-600 font-light"><strong>Hardware & Depreciation</strong> (MacBook upgrades, monitors, ergonomic chairs)</span>
+            </li>
+            <li className="flex items-start gap-3 bg-[#FAFAFA] p-4 rounded-xl border border-neutral-100">
+              <Zap className="h-5 w-5 text-[#D97706] shrink-0 mt-0.5" />
+              <span className="text-neutral-600 font-light"><strong>Marketing & Lead Gen</strong> (Web hosting, domain renewals, LinkedIn Premium, Ads)</span>
+            </li>
+            <li className="flex items-start gap-3 bg-[#FAFAFA] p-4 rounded-xl border border-neutral-100">
+              <TrendingUp className="h-5 w-5 text-[#D97706] shrink-0 mt-0.5" />
+              <span className="text-neutral-600 font-light"><strong>Professional Services</strong> (CPA fees, legal contract drafting, business insurance)</span>
+            </li>
+          </ul>
+          <p className="text-lg text-neutral-600 mb-12 leading-relaxed font-light">
+            If your business overhead tallies up to <code className="font-mono bg-neutral-100 px-2 py-1 rounded text-sm text-[#064E3B]">$12,000</code> a year, your new required gross revenue jumps from $60,000 to $72,000. Every single hour you work must contribute a tiny fraction to paying off that $12,000 overhead.
+          </p>
+
+          <h3 className="text-2xl font-bold mb-4 text-[#1F2937]">Step 3: Account for Self-Employment Taxes</h3>
+          <p className="text-lg text-neutral-600 mb-8 leading-relaxed font-light">
+            As a freelancer, you are responsible for self-employment taxes (which cover Social Security and Medicare), in addition to your standard federal and state income taxes. In the United States, a W-2 employee only pays 7.65% for FICA, while their employer pays the other 7.65%. When you are self-employed, you are both the employer and the employee, meaning you are liable for the full 15.3%.
+          </p>
+          <p className="text-lg text-neutral-600 mb-12 leading-relaxed font-light">
+            Depending on your jurisdiction, tax brackets, and write-offs, a safe buffer is to add a 25% to 30% premium on top of your required revenue. Your hourly rate must cover this heavy tax burden so that your target net income remains untouched. If you do not bake taxes into your hourly rate, you will face a devastating tax bill in April that you cannot afford to pay.
+          </p>
+
+          {/* AdSense Placeholder - Sole Ad Unit */}
           {!isPro && (
-            <aside className="my-16 w-full max-w-3xl mx-auto h-[250px] bg-muted/10 border border-dashed border-border/40 rounded-3xl flex flex-col items-center justify-center text-center relative overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-muted/30 to-transparent -translate-x-[100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out"></div>
-              <span className="text-[9px] uppercase font-bold text-muted-foreground tracking-[0.2em] mb-2">Advertisement</span>
-              <span className="text-sm font-semibold text-foreground/40">In-Article AdSense Banner</span>
+            <aside className="my-16 w-full max-w-3xl mx-auto h-[250px] bg-neutral-50 border border-dashed border-neutral-200 rounded-2xl flex flex-col items-center justify-center text-center">
+              <span className="text-[10px] uppercase font-bold text-neutral-400 tracking-[0.2em] mb-2">Advertisement</span>
+              <span className="text-sm font-medium text-neutral-400">In-Article AdSense Banner</span>
             </aside>
           )}
 
-          <hr className="my-16 border-border/60" />
-
-          <h2 id="benchmarks" className="text-3xl font-extrabold tracking-tight mb-8 scroll-mt-24">
-            {new Date().getFullYear()} Freelance Hourly Rate Benchmarks by Niche
+          <h2 id="billable-vs-non-billable" className="text-3xl font-extrabold tracking-tight mb-8 text-[#1F2937] scroll-mt-24">
+            Billable vs. Non-Billable Hours: The Fatal Flaw
           </h2>
-          <p className="mb-10 text-muted-foreground">
-            While your MAR dictates your floor, the market dictates your ceiling. Here is a comprehensive look at the current market rates for top freelance professions. If your calculated MAR is significantly higher than the Senior market rate, you must either lower your expenses or pivot to Value-Based Pricing.
+
+          <p className="text-lg text-neutral-600 mb-8 leading-relaxed font-light">
+            The most devastating mathematical mistake new freelancers make is calculating their rate based on a standard 40-hour work week (2,080 hours a year). This mistakenly assumes a 100% billable utilization rate. In reality, independent consultants spend a massive portion of their week on non-billable tasks.
           </p>
 
-          <div className="overflow-x-auto my-12 bg-card border rounded-2xl shadow-sm">
+          <ul className="space-y-6 mb-12">
+            <li className="flex items-start gap-4 p-6 bg-white border border-neutral-200 shadow-sm rounded-2xl">
+              <CheckCircle2 className="h-8 w-8 text-[#D97706] shrink-0 mt-1" />
+              <div>
+                <strong className="text-[#1F2937] block text-xl mb-2">Billable Hours</strong>
+                <span className="text-neutral-600 font-light leading-relaxed">Time spent directly executing client deliverables that you can put on an invoice. If you are a developer, this is time spent coding. If you are a designer, this is time spent in Figma. This is the only time that generates revenue.</span>
+              </div>
+            </li>
+            <li className="flex items-start gap-4 p-6 bg-white border border-neutral-200 shadow-sm rounded-2xl">
+              <AlertTriangle className="h-8 w-8 text-[#D97706] shrink-0 mt-1" />
+              <div>
+                <strong className="text-[#1F2937] block text-xl mb-2">Non-Billable Hours</strong>
+                <span className="text-neutral-600 font-light leading-relaxed">Time spent running the business itself. This includes lead generation, drafting proposals, discovery calls, bookkeeping, inbox management, networking, and continuing education. You cannot charge a client for the time you spent pitching them.</span>
+              </div>
+            </li>
+          </ul>
+
+          <h3 className="text-2xl font-bold mb-4 text-[#1F2937]">The Reality of Utilization Rates</h3>
+          <p className="text-lg text-neutral-600 mb-8 leading-relaxed font-light">
+            A highly optimized freelancer operates at a <strong>60% billable utilization rate</strong>. Out of a 40-hour work week, you will likely only bill 24 hours. The other 16 hours are swallowed by email, admin, and sales. 
+          </p>
+          <p className="text-lg text-neutral-600 mb-8 leading-relaxed font-light">
+            Furthermore, you must subtract sick days, federal holidays, and vacation time. If you plan to take 4 weeks off per year (vacation and sick time), you are only working 48 weeks. At 24 billable hours per week, a healthy, sustainable freelance year typically contains exactly <strong>1,152 actual billable hours</strong>.
+          </p>
+          
+          <div className="bg-[#FAFAFA] border-l-4 border-[#064E3B] p-6 mb-16 rounded-r-xl">
+            <p className="text-lg text-[#1F2937] font-medium m-0 leading-relaxed">
+              If your total required gross revenue (Income + Expenses + Taxes) is $100,000, and you only have 1,152 billable hours available, your absolute minimum hourly rate must be <code className="font-mono bg-neutral-200 px-2 py-1 rounded text-[#064E3B] font-bold">$86.80/hr</code>. If you had mistakenly divided by 2,080 hours, you would be charging $48/hr and inevitably face burnout.
+            </p>
+          </div>
+
+          <h2 id="value-based-pricing" className="text-3xl font-extrabold tracking-tight mb-8 text-[#1F2937] scroll-mt-24">
+            Graduating to Value-Based Pricing and Retainers
+          </h2>
+
+          <p className="text-lg text-neutral-600 mb-8 leading-relaxed font-light">
+            Calculating your hourly rate is essential for establishing your floor. It guarantees you will not lose money. However, remaining permanently tethered to an hourly rate limits your earning potential. Remember that your hourly rate should eventually reflect your expertise, speed, and the unique financial value you provide to clients.
+          </p>
+
+          <div className="bg-white border border-neutral-200 rounded-2xl p-8 mb-12 shadow-sm">
+            <h3 className="text-xl font-bold text-[#1F2937] mb-4">The Efficiency Penalty</h3>
+            <p className="text-neutral-600 font-light leading-relaxed mb-6">
+              Hourly billing inherently punishes efficiency. As you gain expertise, a task that used to take you 10 hours might only take you 4 hours. If you charge by the hour, you just gave the client a massive discount for delivering faster, higher-quality results. 
+            </p>
+            <p className="text-neutral-600 font-light leading-relaxed">
+              By transitioning to <strong>Flat Project Fees</strong> or <strong>Value-Based Pricing</strong>, you detach your income from your time. If a new website will generate $50,000 in additional revenue for a client, charging them a flat $10,000 fee is a massive win for both parties—regardless of whether it took you 20 hours or 100 hours to build it.
+            </p>
+          </div>
+
+          <h3 className="text-2xl font-bold mb-4 text-[#1F2937]">Converting to Retainers</h3>
+          <p className="text-lg text-neutral-600 mb-16 leading-relaxed font-light">
+            To calculate a monthly retainer, multiply your new hourly rate by a guaranteed block of hours per month. For example, a $120/hr rate for 20 hours a month yields a $2,400 monthly retainer. Retainers stabilize your cash flow and reduce the profound anxiety of irregular freelance income. Offering a slight discount (5-10%) on your hourly rate in exchange for a 6-month upfront retainer commitment is a highly effective agency growth strategy.
+          </p>
+
+          <h2 id="freelance-benchmarks" className="text-3xl font-extrabold tracking-tight mb-8 text-[#1F2937] scroll-mt-24">
+            Market Research: Hourly Rate Benchmarks
+          </h2>
+          <p className="text-lg text-neutral-600 mb-10 leading-relaxed font-light">
+            While your MAR dictates your baseline floor, market research ensures you are remaining competitive and not severely undercharging the industry standard. Sites like Glassdoor, PayScale, and Upwork provide extensive data on peer rates. If your calculated MAR is significantly higher than the senior market rate in your niche, you must either lower your expenses, target a higher tier of enterprise clients, or immediately pivot to value-based pricing where hourly comparisons vanish.
+          </p>
+
+          <div className="overflow-x-auto my-12 bg-white border border-neutral-200 rounded-2xl shadow-sm">
             <table className="w-full text-left border-collapse m-0">
               <thead>
-                <tr className="border-b border-border bg-muted/30">
-                  <th className="py-4 px-6 font-bold text-foreground text-sm uppercase tracking-wider">Industry / Niche</th>
-                  <th className="py-4 px-6 font-bold text-foreground text-sm uppercase tracking-wider">Entry-Level</th>
-                  <th className="py-4 px-6 font-bold text-foreground text-sm uppercase tracking-wider">Senior / Expert</th>
+                <tr className="border-b border-neutral-200 bg-[#FAFAFA]">
+                  <th className="py-4 px-6 font-bold text-[#1F2937] text-sm uppercase tracking-wider">Industry / Niche</th>
+                  <th className="py-4 px-6 font-bold text-[#1F2937] text-sm uppercase tracking-wider">Entry-Level</th>
+                  <th className="py-4 px-6 font-bold text-[#1F2937] text-sm uppercase tracking-wider">Senior / Expert</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-border/50">
-                <tr className="hover:bg-muted/10 transition-colors">
-                  <td className="py-4 px-6 font-medium">Software Engineering</td>
-                  <td className="py-4 px-6 text-muted-foreground">$50 - $85/hr</td>
-                  <td className="py-4 px-6 font-semibold text-primary">$120 - $250+/hr</td>
+              <tbody className="divide-y divide-neutral-100 font-mono text-sm">
+                <tr className="hover:bg-neutral-50 transition-colors">
+                  <td className="py-4 px-6 font-medium text-[#1F2937] font-sans">Software Engineering</td>
+                  <td className="py-4 px-6 text-neutral-500">$50 - $85/hr</td>
+                  <td className="py-4 px-6 font-semibold text-[#064E3B]">$120 - $250+/hr</td>
                 </tr>
-                <tr className="hover:bg-muted/10 transition-colors bg-muted/5">
-                  <td className="py-4 px-6 font-medium">UI/UX & Brand Design</td>
-                  <td className="py-4 px-6 text-muted-foreground">$45 - $75/hr</td>
-                  <td className="py-4 px-6 font-semibold text-primary">$100 - $175+/hr</td>
+                <tr className="hover:bg-neutral-50 transition-colors bg-[#FAFAFA]">
+                  <td className="py-4 px-6 font-medium text-[#1F2937] font-sans">UI/UX & Brand Design</td>
+                  <td className="py-4 px-6 text-neutral-500">$45 - $75/hr</td>
+                  <td className="py-4 px-6 font-semibold text-[#064E3B]">$100 - $175+/hr</td>
                 </tr>
-                <tr className="hover:bg-muted/10 transition-colors">
-                  <td className="py-4 px-6 font-medium">Digital Marketing & SEO</td>
-                  <td className="py-4 px-6 text-muted-foreground">$40 - $65/hr</td>
-                  <td className="py-4 px-6 font-semibold text-primary">$90 - $150+/hr</td>
+                <tr className="hover:bg-neutral-50 transition-colors">
+                  <td className="py-4 px-6 font-medium text-[#1F2937] font-sans">Digital Marketing & SEO</td>
+                  <td className="py-4 px-6 text-neutral-500">$40 - $65/hr</td>
+                  <td className="py-4 px-6 font-semibold text-[#064E3B]">$90 - $150+/hr</td>
                 </tr>
-                <tr className="hover:bg-muted/10 transition-colors bg-muted/5">
-                  <td className="py-4 px-6 font-medium">Copywriting & Strategy</td>
-                  <td className="py-4 px-6 text-muted-foreground">$35 - $60/hr</td>
-                  <td className="py-4 px-6 font-semibold text-primary">$85 - $130+/hr</td>
+                <tr className="hover:bg-neutral-50 transition-colors bg-[#FAFAFA]">
+                  <td className="py-4 px-6 font-medium text-[#1F2937] font-sans">Copywriting & Strategy</td>
+                  <td className="py-4 px-6 text-neutral-500">$35 - $60/hr</td>
+                  <td className="py-4 px-6 font-semibold text-[#064E3B]">$85 - $130+/hr</td>
                 </tr>
-                <tr className="hover:bg-muted/10 transition-colors">
-                  <td className="py-4 px-6 font-medium">Executive Consulting</td>
-                  <td className="py-4 px-6 text-muted-foreground">$75 - $100/hr</td>
-                  <td className="py-4 px-6 font-semibold text-primary">$150 - $350+/hr</td>
+                <tr className="hover:bg-neutral-50 transition-colors">
+                  <td className="py-4 px-6 font-medium text-[#1F2937] font-sans">Executive Consulting</td>
+                  <td className="py-4 px-6 text-neutral-500">$75 - $100/hr</td>
+                  <td className="py-4 px-6 font-semibold text-[#064E3B]">$150 - $350+/hr</td>
                 </tr>
               </tbody>
             </table>
           </div>
-
-          <hr className="my-16 border-border/60" />
-
-          <h2 id="day-rates-retainers" className="text-3xl font-extrabold tracking-tight mb-8 scroll-mt-24">
-            How to Convert Your Hourly Rate into Day Rates and Retainers
-          </h2>
           
-          <h3 id="sustainable-day-rate" className="text-xl font-bold mt-10 mb-4 scroll-mt-24">Calculating a Sustainable Day Rate</h3>
-          <p className="text-muted-foreground">
-            Day rates protect you from micro-management and scope creep on intensive projects. A standard formula is taking your Hourly Rate, multiplying it by 8, and adding a 20% premium for booking your exclusivity for the day. For example, if your hourly rate is $100, your day rate shouldn't be $800—it should be $960 to account for the opportunity cost of turning away other clients.
-          </p>
-          
-          <h3 id="monthly-retainers" className="text-xl font-bold mt-10 mb-4 scroll-mt-24">Setting Up Monthly Client Retainers</h3>
-          <p className="text-muted-foreground mb-12">
-            To calculate a retainer, multiply your hourly rate by the guaranteed hours per month. For example, a $100/hr rate for 20 hours a month yields a $2,000 monthly retainer. Retainers stabilize your cash flow and reduce the anxiety of irregular income. Offering a slight discount (5-10%) on your hourly rate in exchange for a 6-month retainer commitment is a highly effective agency growth strategy.
-          </p>
         </>
       )}
     </ToolLayout>
