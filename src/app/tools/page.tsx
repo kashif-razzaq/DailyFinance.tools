@@ -1,11 +1,11 @@
 import React from 'react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { navigationCategories } from '@/config/navigation'
+import { navigationCategories, getToolUrl } from '@/config/navigation'
 import { ArrowRight, Calculator, TrendingUp, PieChart } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'The 50+ Free Financial Calculators and Tools | DailyFinance',
+  title: 'The 57+ Free Financial Calculators and Tools | DailyFinance',
   description: 'Optimize your taxes, investments, and cash flow with our comprehensive suite of free, professional-grade financial calculators.',
   openGraph: {
     title: 'Professional Financial Calculators | DailyFinance',
@@ -35,7 +35,7 @@ export default function ToolsDirectoryPage() {
           "@type": "WebApplication",
           "name": calc.title,
           "description": calc.description,
-          "url": `https://dailyfinance.tools/tools/${calc.slug}`,
+          "url": `https://dailyfinance.tools${getToolUrl(calc.slug)}`,
           "applicationCategory": "BusinessApplication"
         }
       }))
@@ -155,7 +155,7 @@ export default function ToolsDirectoryPage() {
                     return (
                       <Link 
                         key={calc.slug}
-                        href={`/tools/${calc.slug}`}
+                        href={getToolUrl(calc.slug)}
                         className="group flex flex-col justify-between p-6 bg-card border border-border/60 rounded-3xl hover:border-primary/50 hover:shadow-lg transition-all duration-300"
                       >
                         <div>

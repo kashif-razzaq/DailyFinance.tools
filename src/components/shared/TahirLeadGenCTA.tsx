@@ -38,7 +38,7 @@ export function TahirLeadGenCTA() {
         </div>
 
         <p className="text-sm text-muted-foreground leading-relaxed mb-6 relative">
-          Need help setting up your freelance business structure, optimizing taxes, or handling complex IFRS reporting? Let's talk.
+          Need help setting up your freelance business structure, optimizing taxes, or handling complex IFRS reporting? Let&apos;s talk.
         </p>
 
         <ul className="w-full space-y-3 text-sm text-foreground/80 mb-8 text-left relative">

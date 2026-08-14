@@ -14,7 +14,7 @@ export interface SavedCalculator {
   calculator_slug: string;
   category: string;
   saved_name: string;
-  input_state: Record<string, any>;
+  input_state: Record<string, unknown>;
   core_metric?: number;
   is_public: boolean; // For embed/share logic
   created_at: string;

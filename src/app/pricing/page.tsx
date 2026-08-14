@@ -8,7 +8,7 @@ const tiers = [
     price: "$0",
     description: "Essential access to the core calculator engine.",
     features: [
-      "Access to all 50+ interactive calculators",
+      "Access to all 57+ interactive calculators",
       "Real-time visual charts & graphs",
       "Responsive mobile experience",
       "Basic URL sharing",

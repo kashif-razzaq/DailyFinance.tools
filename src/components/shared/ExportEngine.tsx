@@ -8,14 +8,14 @@ import { pdf } from '@react-pdf/renderer'
 import { GenericReportPDF } from './GenericReportPDF'
 
 interface ExportEngineProps {
-  data: Record<string, any>[]; // Array of objects for CSV/XLSX
+  data: Record<string, unknown>[]; // Array of objects for CSV/XLSX
   filename: string;
   pdfDocument?: React.ReactElement; // The JSX structure for @react-pdf/renderer
   isPro?: boolean;
   onRequirePro?: () => void;
   variant?: 'dropdown' | 'inline';
 }
-import { useGlobalSettingsStore } from '@/store/global-settings.store'
+
 
 export function ExportEngine({ data, filename, pdfDocument, isPro = true, onRequirePro, variant = 'dropdown' }: ExportEngineProps) {
   

@@ -31,7 +31,7 @@ export function ProUpgradeModal({ isOpen, onClose }: ProUpgradeModalProps) {
             Unlock Pro Features
           </h2>
           <p className="text-muted-foreground mb-8 leading-relaxed text-sm">
-            Join our Pro tier to instantly unlock saving, exporting, and powerful analytics across all 50+ calculators.
+            Join our Pro tier to instantly unlock saving, exporting, and powerful analytics across all 57+ calculators.
           </p>
           
           <div className="bg-muted/30 p-5 rounded-2xl mb-8 text-left space-y-3.5 border border-border/50 text-sm">

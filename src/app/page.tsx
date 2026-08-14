@@ -15,9 +15,10 @@ import {
   Search,
   Calculator,
   ChevronRight,
-  Crown
+  Crown,
+  TrendingUp
 } from 'lucide-react'
-import { navigationCategories, CalculatorItem } from '@/config/navigation'
+import { navigationCategories, CalculatorItem, getToolUrl } from '@/config/navigation'
 
 // Helper to shuffle an array
 function shuffleArray<T>(array: T[]): T[] {
@@ -31,6 +32,7 @@ function shuffleArray<T>(array: T[]): T[] {
 
 export default function HomePage() {
   const [randomTools, setRandomTools] = useState<CalculatorItem[]>([])
+  const [popularTools, setPopularTools] = useState<CalculatorItem[]>([])
   const [isMounted, setIsMounted] = useState(false)
   
   // Search State
@@ -41,9 +43,10 @@ export default function HomePage() {
   const allTools = useMemo(() => navigationCategories.flatMap((cat) => cat.calculators), [])
 
   useEffect(() => {
-    // 2. Shuffle and pick exactly 8
-    const shuffled = shuffleArray(allTools).slice(0, 8)
-    setRandomTools(shuffled)
+    // 2. Shuffle and pick exactly 8 for grid, 3 for popular pills
+    const shuffled = shuffleArray(allTools)
+    setRandomTools(shuffled.slice(0, 8))
+    setPopularTools(shuffled.slice(8, 11))
     setIsMounted(true)
   }, [allTools])
 
@@ -89,7 +92,7 @@ export default function HomePage() {
         {/* Abstract Generated Background Layer */}
 <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none bg-[#FAFAFA]">
     <img 
-        src="https://static.vecteezy.com/system/resources/previews/066/736/374/non_2x/trendy-halftone-collage-conceptual-illustration-of-investment-and-idea-generation-the-concept-of-investment-new-ideas-with-increased-profits-the-concept-of-problem-solving-illustration-vector.jpg" 
+        src="/bg-hero.jpeg" 
         alt="Abstract Background" 
         className="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-multiply :"  
     />
@@ -108,23 +111,23 @@ export default function HomePage() {
           </div>
 
           <h1 className="text-5xl md:text-7xl lg:text-[5rem] font-bold tracking-tighter text-[#1F2937] mb-8 leading-[1.05]">
-            <span className="text-accent">50+ </span>Free Financial Calculators & <span className="text-accent">Tools</span>
+            <span className="text-accent">57+ </span>Free Financial Calculators & <span className="text-accent">Tools</span>
           </h1>
           
           <p className="text-lg md:text-xl text-neutral-500 mb-12 leading-relaxed max-w-2xl mx-auto font-light">
-            Search our directory of 50+ professional-grade calculators engineered for global freelancers, creators, and founders.
+            Search our directory of 57+ professional-grade calculators engineered for global freelancers, creators, and founders.
           </p>
 
           {/* MASSIVE LIVE SEARCH BAR */}
           <div className="w-full max-w-2xl relative mx-auto z-50">
-            <div className={`relative flex items-center bg-white rounded-2xl border-2 transition-all duration-300 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.08)] ${isSearchFocused ? 'border-[#D97706] shadow-[0_10px_40px_-10px_rgba(217,119,6,0.2)]' : 'border-transparent'}`}>
-              <div className="pl-6 pr-4">
-                <Search className={`w-6 h-6 transition-colors duration-300 ${isSearchFocused ? 'text-[#D97706]' : 'text-neutral-400'}`} />
+            <div className={`relative flex items-center bg-white/90 backdrop-blur-xl rounded-2xl border-2 transition-all duration-300 shadow-sm group ${isSearchFocused ? 'border-accent shadow-[0_10px_40px_-10px_rgba(217,119,6,0.2)] bg-white' : 'border-neutral-200/60 hover:border-accent/40'}`}>
+              <div className="pl-6 pr-3 flex items-center justify-center">
+                <Search className={`w-6 h-6 transition-colors duration-300 ${isSearchFocused ? 'text-accent' : 'text-neutral-400 group-hover:text-accent/70'}`} />
               </div>
               <input 
                 type="text"
                 placeholder="Search 'taxes', 'S-Corp', 'ROI'..."
-                className="w-full py-5 pr-6 bg-transparent text-[#1F2937] text-lg outline-none placeholder:text-neutral-400 font-medium"
+                className="w-full py-5 pr-6 bg-transparent text-foreground text-lg outline-none placeholder:text-neutral-400 font-medium"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onFocus={() => setIsSearchFocused(true)}
@@ -133,6 +136,11 @@ export default function HomePage() {
                   setTimeout(() => setIsSearchFocused(false), 200)
                 }}
               />
+              <div className="hidden sm:flex pr-4 items-center">
+                <div className="px-2.5 py-1 rounded bg-neutral-100 text-neutral-400 text-xs font-semibold border border-neutral-200 shadow-sm flex items-center gap-1 opacity-70">
+                  <span className="text-[10px]">⌘</span> K
+                </div>
+              </div>
             </div>
 
             {/* Dropdown Results */}
@@ -145,7 +153,7 @@ export default function HomePage() {
                       return (
                         <Link 
                           key={tool.slug} 
-                          href={`/tools/${tool.slug}`}
+                          href={getToolUrl(tool.slug)}
                           className="flex items-center justify-between px-6 py-4 hover:bg-neutral-50 border-l-4 border-transparent hover:border-[#D97706] transition-all group"
                         >
                           <div className="flex items-center gap-4">
@@ -172,11 +180,30 @@ export default function HomePage() {
             )}
           </div>
 
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3 text-sm font-medium z-10 relative">
-             <span className="text-neutral-500 mr-2">Popular:</span>
-             <Link href="/tools/hourly-rate-reverse-engineer-calculator" className="px-4 py-2 bg-white/70 backdrop-blur-md border border-neutral-200/60 rounded-full text-[#1F2937] hover:bg-white hover:border-[#D97706]/50 hover:text-[#D97706] transition-all shadow-sm">Hourly Rate</Link>
-             <Link href="/tools/s-corp-salary-dividend-calculator" className="px-4 py-2 bg-white/70 backdrop-blur-md border border-neutral-200/60 rounded-full text-[#1F2937] hover:bg-white hover:border-[#D97706]/50 hover:text-[#D97706] transition-all shadow-sm">S-Corp Tax</Link>
-             <Link href="/tools/nomad-cost-of-living-calculator" className="px-4 py-2 bg-white/70 backdrop-blur-md border border-neutral-200/60 rounded-full text-[#1F2937] hover:bg-white hover:border-[#D97706]/50 hover:text-[#D97706] transition-all shadow-sm">Nomad Life</Link>
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-3 text-sm font-medium z-10 relative h-[42px]">
+            {isMounted ? (
+              <>
+                <span className="text-neutral-400 mr-2 flex items-center gap-1.5">
+                  <TrendingUp className="w-4 h-4" /> Trending:
+                </span>
+                {popularTools.map((tool) => {
+                  const Icon = tool.icon || Calculator
+                  return (
+                    <Link key={tool.slug} href={getToolUrl(tool.slug)} className="group flex items-center gap-2 px-4 py-2 bg-white/60 backdrop-blur-md border border-neutral-200/50 rounded-full text-foreground text-sm font-medium hover:bg-white hover:border-accent/50 hover:text-accent hover:shadow-sm transition-all">
+                      <Icon className="w-4 h-4 text-neutral-400 group-hover:text-accent transition-colors" />
+                      {tool.title}
+                    </Link>
+                  )
+                })}
+              </>
+            ) : (
+               <div className="animate-pulse flex items-center gap-3">
+                 <div className="w-20 h-5 bg-neutral-200/50 rounded"></div>
+                 <div className="w-32 h-10 bg-neutral-200/50 rounded-full"></div>
+                 <div className="w-32 h-10 bg-neutral-200/50 rounded-full"></div>
+                 <div className="w-32 h-10 bg-neutral-200/50 rounded-full"></div>
+               </div>
+            )}
           </div>
 
         </div>
@@ -257,7 +284,7 @@ export default function HomePage() {
                 Explore the tools
               </h2>
               <p className="text-neutral-500 text-lg font-light">
-                A selection of our 50+ instruments. Refresh the page to discover more.
+                A selection of our 57+ instruments. Refresh the page to discover more.
               </p>
             </div>
             <Link 
@@ -269,16 +296,16 @@ export default function HomePage() {
           </div>
 
           {/* Grid Layout for the 8 Randomized Tools */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6 relative">
             
             {/* Show skeleton loader until mounted to avoid hydration errors */}
             {!isMounted && (
               Array.from({ length: 8 }).map((_, i) => (
-                <div key={i} className="bg-white rounded-xl border border-neutral-100 p-8 h-[240px] animate-pulse flex flex-col shadow-sm">
-                  <div className="w-12 h-12 bg-neutral-100 rounded-lg mb-6" />
-                  <div className="h-6 bg-neutral-100 rounded w-3/4 mb-4" />
-                  <div className="h-4 bg-neutral-100 rounded w-full mb-2" />
-                  <div className="h-4 bg-neutral-100 rounded w-2/3" />
+                <div key={i} className="bg-white rounded-xl border border-neutral-100 p-4 md:p-8 h-[160px] md:h-[240px] animate-pulse flex flex-col shadow-sm">
+                  <div className="w-8 h-8 md:w-12 md:h-12 bg-neutral-100 rounded-lg mb-3 md:mb-6" />
+                  <div className="h-4 md:h-6 bg-neutral-100 rounded w-3/4 mb-2 md:mb-4" />
+                  <div className="h-3 md:h-4 bg-neutral-100 rounded w-full mb-1.5 md:mb-2" />
+                  <div className="h-3 md:h-4 bg-neutral-100 rounded w-2/3 hidden md:block" />
                 </div>
               ))
             )}
@@ -288,22 +315,22 @@ export default function HomePage() {
               const Icon = tool.icon || BarChart3 // Fallback just in case
               
               return (
-                <Link key={tool.slug} href={`/tools/${tool.slug}`} className="group h-full">
-                  <div className="bg-white rounded-2xl border border-neutral-100 p-8 h-full transition-all duration-300 hover:border-[#064E3B]/40 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] flex flex-col hover:-translate-y-1 shadow-sm relative overflow-hidden">
+                <Link key={tool.slug} href={getToolUrl(tool.slug)} className="group h-full">
+                  <div className="bg-white rounded-2xl border border-neutral-100 p-4 md:p-8 h-full transition-all duration-300 hover:border-[#064E3B]/40 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] flex flex-col hover:-translate-y-1 shadow-sm relative overflow-hidden">
                     
-                    <div className="w-12 h-12 rounded-xl bg-[#D97706]/10 border border-[#D97706]/20 flex items-center justify-center mb-6 text-[#D97706] group-hover:bg-[#D97706]/20 transition-colors relative z-10">
-                      <Icon className="w-5 h-5" />
+                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-[#D97706]/10 border border-[#D97706]/20 flex items-center justify-center mb-3 md:mb-6 text-[#D97706] group-hover:bg-[#D97706]/20 transition-colors relative z-10">
+                      <Icon className="w-4 h-4 md:w-5 md:h-5" />
                     </div>
                     
-                    <h3 className="text-lg font-bold text-[#1F2937] mb-3 tracking-tight group-hover:text-[#064E3B] transition-colors relative z-10">
+                    <h3 className="text-sm md:text-lg font-bold text-[#1F2937] mb-1 md:mb-3 tracking-tight group-hover:text-[#064E3B] transition-colors relative z-10 leading-tight md:leading-normal">
                       {tool.title}
                     </h3>
                     
-                    <p className="text-neutral-500 text-sm leading-relaxed mb-6 font-light flex-1 relative z-10">
+                    <p className="text-neutral-500 text-xs md:text-sm leading-relaxed mb-4 md:mb-6 font-light flex-1 relative z-10 line-clamp-2 md:line-clamp-none">
                       {tool.description}
                     </p>
                     
-                    <div className="mt-auto flex items-center font-bold text-sm text-[#1F2937] group-hover:text-[#064E3B] transition-colors relative z-10">
+                    <div className="mt-auto hidden md:flex items-center font-bold text-sm text-[#1F2937] group-hover:text-[#064E3B] transition-colors relative z-10">
                       Open Tool <ArrowRight className="w-4 h-4 ml-1.5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
                     </div>
 

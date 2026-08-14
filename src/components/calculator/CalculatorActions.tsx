@@ -12,7 +12,7 @@ export interface CalculatorActionsProps {
   onSave: () => void;
   isSaving: boolean;
   isPro: boolean;
-  exportData: Record<string, any>[];
+  exportData: Record<string, unknown>[];
   exportFilename: string;
   onRequirePro: () => void;
   pdfDocument?: React.ReactElement;

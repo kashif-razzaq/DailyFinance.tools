@@ -1,13 +1,14 @@
+import React from 'react'
 import { 
   Briefcase, Video, TrendingUp, Home, Wallet, Calculator, Percent, DollarSign, Building, Camera, Coffee, Globe, PieChart, Shield, Smartphone, PenTool, Receipt, FileText,
-  Clock, Map, BookOpen, Star, Rocket, Target, ShoppingCart, Activity, Anchor, Award, Banknote, Bookmark, Box, Zap
+  Clock, Map, BookOpen, Star, Target, ShoppingCart, Activity, Anchor, Award, Banknote, Bookmark, Box, Zap
 } from "lucide-react"
 
 export type CalculatorItem = {
   title: string
   slug: string
   description: string
-  icon: any
+  icon: React.ElementType
   isPremium?: boolean
 }
 
@@ -15,7 +16,7 @@ export type Category = {
   name: string
   slug: string
   seoSlug: string
-  icon: any
+  icon: React.ElementType
   description: string
   colorClass: string
   calculators: CalculatorItem[]
@@ -38,16 +39,18 @@ export const navigationCategories: Category[] = [
     description: "Optimize your rates, taxes, and cash flow.",
     colorClass: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
     calculators: [
-      { title: "Hourly Rate Reverse Engineer", slug: generateSlug("Hourly Rate Reverse Engineer", "calculator"), description: "Calculate exactly what to charge to hit your goals.", icon: DollarSign },
-      { title: "Quarterly Estimated Taxes", slug: generateSlug("Quarterly Estimated Taxes", "calculator"), description: "Never miss a 1099 tax payment.", icon: Percent },
-      { title: "Irregular Income Buffer", slug: generateSlug("Irregular Income Buffer", "calculator"), description: "Plan for the lean months.", icon: Wallet },
-      { title: "Cross-Border FX Impact", slug: generateSlug("Cross-Border FX Impact", "calculator"), description: "See what Stripe & Wise actually take.", icon: Globe },
-      { title: "Project Flat Fee Quoter", slug: generateSlug("Project Flat Fee Quoter", "quoter"), description: "Convert hourly rates to profitable flat fees.", icon: FileText },
-      { title: "Client LTV Calculator", slug: generateSlug("Client LTV Calculator", "calculator"), description: "Calculate the lifetime value of a retainer client.", icon: Target },
-      { title: "Freelance Tax Deductions", slug: generateSlug("Freelance Tax Deductions", "calculator"), description: "See how much your home office saves you.", icon: Receipt },
-      { title: "S-Corp Salary vs Dividend", slug: generateSlug("S-Corp Salary Dividend", "calculator"), description: "Optimize your W2 payroll ratio.", icon: Building },
-      { title: "Time Tracking ROI", slug: generateSlug("Time Tracking ROI", "calculator"), description: "Find out how much unbilled time costs you.", icon: Clock },
-      { title: "Nomad Cost of Living", slug: generateSlug("Nomad Cost of Living", "calculator"), description: "Geo-arbitrage your freelance income.", icon: Map },
+      { title: "Freelance Hourly Rate Calculator", slug: "hourly-rate-reverse-engineer-calculator", description: "Calculate exactly what to charge to hit your goals.", icon: DollarSign },
+      { title: "Quarterly Estimated Tax Calculator", slug: "quarterly-estimated-taxes-calculator", description: "Never miss a 1099 tax payment.", icon: Percent },
+      { title: "Freelance Budget & Income Buffer Calculator", slug: "irregular-income-buffer-calculator", description: "Plan for the lean months.", icon: Wallet },
+      { title: "Stripe & Wise FX Fee Calculator", slug: "cross-border-fx-impact-calculator", description: "See what Stripe & Wise actually take.", icon: Globe },
+      { title: "Freelance Project Pricing Calculator", slug: "project-flat-fee-quoter", description: "Convert hourly rates to profitable flat fees.", icon: FileText },
+      { title: "Client Lifetime Value (LTV) Calculator", slug: "client-ltv-calculator", description: "Calculate the lifetime value of a retainer client.", icon: Target },
+      { title: "1099 Tax Write-Off Calculator", slug: "freelance-tax-deductions-calculator", description: "See how much your home office saves you.", icon: Receipt },
+      { title: "S-Corp Tax Savings & Salary Calculator", slug: "s-corp-salary-dividend-calculator", description: "Optimize your W2 payroll ratio.", icon: Building },
+      { title: "Time Tracking ROI & Billable Hours Calculator", slug: "time-tracking-roi-calculator", description: "Find out how much unbilled time costs you.", icon: Clock },
+      { title: "W2 vs 1099 Paycheck Calculator", slug: "w2-vs-1099-paycheck-calculator", description: "Compare true take-home pay.", icon: Banknote },
+      { title: "Section 179 Auto Lease Tax Calculator", slug: "auto-lease-write-off-calculator", description: "Section 179 vehicle tax deductions.", icon: Calculator },
+      { title: "Digital Nomad Cost of Living Calculator", slug: "nomad-cost-of-living-calculator", description: "Geo-arbitrage your freelance income.", icon: Map },
     ]
   },
   {
@@ -88,6 +91,8 @@ export const navigationCategories: Category[] = [
       { title: "AOV Upsell Simulator", slug: generateSlug("AOV Upsell Simulator", "simulator"), description: "Impact of post-purchase bumps.", icon: Zap },
       { title: "Shipping Zone Optimizer", slug: generateSlug("Shipping Zone Optimizer", "optimizer"), description: "Flat rate vs calculated costs.", icon: Globe },
       { title: "LTV to CAC Ratio", slug: generateSlug("LTV to CAC Ratio", "calculator"), description: "The golden metric of e-com growth.", icon: PieChart },
+      { title: "Sales Tax & VAT", slug: generateSlug("Sales Tax VAT", "calculator"), description: "Inclusive vs exclusive pricing.", icon: Receipt },
+      { title: "Business Loan & Runway", slug: generateSlug("Business Loan Runway", "calculator"), description: "SBA loans and startup burn rate.", icon: Building },
     ]
   },
   {
@@ -128,6 +133,24 @@ export const navigationCategories: Category[] = [
       { title: "HSA Triple Tax Advantage", slug: generateSlug("HSA Triple Tax Advantage", "calculator"), description: "Investing your healthcare savings.", icon: Shield },
       { title: "Fat FIRE vs Lean FIRE", slug: generateSlug("Fat FIRE vs Lean FIRE", "calculator"), description: "Define your ideal retirement number.", icon: Target },
       { title: "Net Worth Tracker", slug: generateSlug("Net Worth Tracker", "tracker"), description: "Assets minus liabilities overview.", icon: PieChart },
+      { title: "Student Loan Payoff", slug: generateSlug("Student Loan Payoff", "calculator"), description: "Avalanche your student debt.", icon: BookOpen },
+      { title: "Credit Card Payoff", slug: generateSlug("Credit Card Payoff", "calculator"), description: "Crush high-interest credit card debt.", icon: Wallet },
+      { title: "High Yield Savings & CD", slug: generateSlug("High Yield Savings CD", "calculator"), description: "Park your tax savings efficiently.", icon: Banknote },
     ]
   }
 ]
+
+export function getCategoryForTool(toolSlug: string): Category | undefined {
+  return navigationCategories.find(cat => 
+    cat.calculators.some(calc => calc.slug === toolSlug)
+  )
+}
+
+export function getToolUrl(toolSlug: string): string {
+  const category = getCategoryForTool(toolSlug)
+  if (category) {
+    return `/${category.slug}/${toolSlug}`
+  }
+  // Fallback just in case
+  return `/tools/${toolSlug}`
+}

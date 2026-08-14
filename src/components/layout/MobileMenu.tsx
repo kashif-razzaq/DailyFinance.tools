@@ -3,30 +3,37 @@
 
 import React, { useState } from 'react'
 import Link from 'next/link'
-import { navigationCategories } from '@/config/navigation'
-import { Menu, X, ChevronRight, ArrowRight, User } from 'lucide-react'
+import { navigationCategories, getToolUrl } from '@/config/navigation'
+import { X, ChevronRight, ArrowRight, User } from 'lucide-react'
 import { Button, buttonVariants } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
-import { AuthModal } from '@/components/auth/AuthModal'
+
 import { createClient } from '@/utils/supabase/client'
 import { useRouter } from 'next/navigation'
 
 export function MobileMenu({ user }: { user?: any }) {
   const [isOpen, setIsOpen] = useState(false)
+  const [isRendered, setIsRendered] = useState(false)
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null)
   const [mounted, setMounted] = useState(false)
   const router = useRouter()
 
   React.useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true)
   }, [])
 
-  // Prevent scroll when open
+  // Handle entry/exit animations and scroll lock
   React.useEffect(() => {
     if (isOpen) {
+      setIsRendered(true)
       document.body.style.overflow = 'hidden'
     } else {
       document.body.style.overflow = 'unset'
+      const timer = setTimeout(() => {
+        setIsRendered(false)
+      }, 100)
+      return () => clearTimeout(timer)
     }
     return () => { document.body.style.overflow = 'unset' }
   }, [isOpen])
@@ -39,7 +46,12 @@ export function MobileMenu({ user }: { user?: any }) {
   }
 
   const menuContent = (
-    <div className="fixed inset-0 z-[100] flex flex-col bg-background animate-in slide-in-from-bottom-2 duration-300 ease-out">
+    <div className={cn(
+      "fixed inset-0 z-[100] flex flex-col bg-background duration-100",
+      isOpen 
+        ? "animate-in fade-in-0 zoom-in-95" 
+        : "animate-out fade-out-0 zoom-out-95 fill-mode-forwards"
+    )}>
       {/* Header */}
       <div className="flex items-center justify-between p-4 border-b">
         <span className="font-bold text-lg">Menu</span>
@@ -76,17 +88,24 @@ export function MobileMenu({ user }: { user?: any }) {
                   {/* Expanded state */}
                   {isExpanded && (
                     <div className="px-4 pb-4 pt-2 flex flex-col gap-3 animate-in slide-in-from-top-2 duration-200">
-                      {cat.calculators.map(calc => (
+                      {cat.calculators.map(calc => {
+                        const CalcIcon = calc.icon
+                        return (
                         <Link 
                           key={calc.slug} 
-                          href={`/tools/${calc.slug}`}
+                          href={getToolUrl(calc.slug)}
                           onClick={() => setIsOpen(false)}
-                          className="group block p-3 rounded-xl bg-background border hover:border-primary/50 transition-colors"
+                          className="group flex items-start gap-3 p-3 rounded-xl bg-background border hover:border-primary/50 transition-colors"
                         >
-                          <div className="font-medium text-sm group-hover:text-primary transition-colors">{calc.title}</div>
-                          <div className="text-xs text-muted-foreground mt-1">{calc.description}</div>
+                          <div className="mt-0.5 p-1.5 rounded-md bg-muted text-muted-foreground group-hover:text-primary transition-colors">
+                            <CalcIcon className="h-4 w-4" />
+                          </div>
+                          <div>
+                            <div className="font-medium text-sm group-hover:text-primary transition-colors">{calc.title}</div>
+                            <div className="text-xs text-muted-foreground mt-0.5 line-clamp-1">{calc.description}</div>
+                          </div>
                         </Link>
-                      ))}
+                      )})}
                     </div>
                   )}
                 </div>
@@ -154,7 +173,7 @@ export function MobileMenu({ user }: { user?: any }) {
       </button>
 
       {/* Render via Portal to escape Navbar's backdrop-filter stacking context */}
-      {isOpen && mounted && require('react-dom').createPortal(menuContent, document.body)}
+      {isRendered && mounted && require('react-dom').createPortal(menuContent, document.body)}
     </div>
   )
 }

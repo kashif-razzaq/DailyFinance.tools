@@ -18,13 +18,6 @@ export function AccountingLeadModal({ isOpen, onClose }: { isOpen: boolean, onCl
   const [captcha, setCaptcha] = useState<{ a: number, b: number, timestamp: number, signature: string } | null>(null)
   const [captchaAnswer, setCaptchaAnswer] = useState('')
 
-  // Fetch captcha on open
-  useEffect(() => {
-    if (isOpen && !success) {
-      loadCaptcha()
-    }
-  }, [isOpen, success])
-
   const loadCaptcha = async () => {
     try {
       const data = await generateCaptchaAction()
@@ -35,6 +28,14 @@ export function AccountingLeadModal({ isOpen, onClose }: { isOpen: boolean, onCl
       console.error("Failed to load captcha", e)
     }
   }
+
+  // Fetch captcha on open
+  useEffect(() => {
+    if (isOpen && !success) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      loadCaptcha()
+    }
+  }, [isOpen, success])
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()

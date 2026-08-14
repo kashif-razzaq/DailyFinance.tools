@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { Copy, CheckCircle2, Bookmark, Lightbulb, Keyboard, ArrowRight } from 'lucide-react'
+import { Copy, CheckCircle2, Bookmark, Lightbulb, ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 const PRO_TIPS = [
@@ -19,6 +19,7 @@ export function ProDashboardWidget({ userName, vaultCount = 0 }: { userName?: st
 
   // Hydrate random tip on mount to avoid server mismatch
   useEffect(() => {
+    // eslint-disable-next-line
     setTip(PRO_TIPS[Math.floor(Math.random() * PRO_TIPS.length)])
   }, [])
 
@@ -41,7 +42,7 @@ export function ProDashboardWidget({ userName, vaultCount = 0 }: { userName?: st
             </span>
           </div>
           <p className="text-xs text-muted-foreground leading-relaxed italic line-clamp-3">
-            "{tip}"
+            &quot;{tip}&quot;
           </p>
         </div>
         

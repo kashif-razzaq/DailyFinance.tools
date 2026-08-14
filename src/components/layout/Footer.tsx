@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { navigationCategories } from '@/config/navigation'
+import { navigationCategories, getToolUrl } from '@/config/navigation'
 import { Logo } from '@/components/layout/Logo'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
@@ -104,7 +104,7 @@ export function Footer() {
                 {category.calculators.map((calc) => (
                   <li key={calc.slug}>
                     <Link 
-                      href={`/tools/${calc.slug}`}
+                      href={getToolUrl(calc.slug)}
                       className="text-xs text-muted-foreground hover:text-foreground transition-colors leading-tight line-clamp-2"
                     >
                       {calc.title}

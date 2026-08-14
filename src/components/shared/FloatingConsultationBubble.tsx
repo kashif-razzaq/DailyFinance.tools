@@ -26,7 +26,7 @@ export function FloatingConsultationBubble() {
 
   return (
     <>
-      <div className={`fixed bottom-6 right-4 sm:bottom-6 sm:right-6 z-[999] animate-in slide-in-from-bottom-10 fade-in duration-500 ease-out ${isModalOpen ? 'opacity-0 pointer-events-none' : ''} ${isToolPage ? 'lg:hidden' : 'flex'}`}>
+      <div className={`fixed bottom-20 right-4 sm:bottom-6 sm:right-6 z-[999] animate-in slide-in-from-bottom-10 fade-in duration-500 ease-out ${isModalOpen ? 'opacity-0 pointer-events-none' : ''} ${isToolPage ? 'lg:hidden' : 'flex'}`}>
         <div className="relative group">
           {/* Close button */}
           <button 
@@ -50,6 +50,8 @@ export function FloatingConsultationBubble() {
                 src="/team/tahir-shehzad.jpg" 
                 alt="Tahir" 
                 fill 
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                priority
                 className="object-cover"
               />
             </div>

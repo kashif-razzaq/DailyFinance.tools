@@ -76,28 +76,42 @@ export function ShareCalculatorModal({ children, url, slug, isPro = false }: Sha
 
             {/* Premium Conversion Banner */}
             {!isPro && (
-              <div className="relative overflow-hidden rounded-xl border border-accent/20 bg-accent/5 p-5">
-                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                  <div className="space-y-1.5">
-                    <h4 className="flex items-center gap-2 text-sm font-bold text-foreground">
-                      <div className="flex items-center justify-center h-6 w-6 rounded-full bg-accent/10 text-accent">
-                        <Sparkles className="h-3.5 w-3.5" />
-                      </div>
-                      Unlock Live Calculator Sharing
-                    </h4>
-                    <p className="text-xs font-medium text-muted-foreground max-w-[280px] pl-8">
-                      Share interactive, pre-filled calculations with your clients directly. Stop sending static PDFs.
-                    </p>
+              <>
+                {/* Desktop Version */}
+                <div className="hidden sm:block relative overflow-hidden rounded-xl border border-accent/20 bg-accent/5 p-5">
+                  <div className="flex flex-row items-center justify-between gap-4">
+                    <div className="space-y-1.5">
+                      <h4 className="flex items-center gap-2 text-sm font-bold text-foreground">
+                        <div className="flex items-center justify-center h-6 w-6 rounded-full bg-accent/10 text-accent">
+                          <Sparkles className="h-3.5 w-3.5" />
+                        </div>
+                        Unlock Live Calculator Sharing
+                      </h4>
+                      <p className="text-xs font-medium text-muted-foreground max-w-[280px] pl-8">
+                        Share interactive, pre-filled calculations with your clients directly. Stop sending static PDFs.
+                      </p>
+                    </div>
+                    <a 
+                      href="/pricing"
+                      className="group inline-flex h-9 shrink-0 items-center justify-center rounded-lg bg-accent px-4 text-sm font-bold text-white shadow-sm transition-all hover:bg-accent/90"
+                    >
+                      Upgrade to Pro
+                      <ArrowRight className="ml-1.5 h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+                    </a>
                   </div>
-                  <a 
-                    href="/pricing"
-                    className="group inline-flex h-9 shrink-0 items-center justify-center rounded-lg bg-accent px-4 text-sm font-bold text-white shadow-sm transition-all hover:bg-accent/90"
-                  >
-                    Upgrade to Pro
-                    <ArrowRight className="ml-1.5 h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+                </div>
+
+                {/* Mobile Version (One line, light orange) */}
+                <div className="sm:hidden flex items-center justify-between rounded-lg bg-[#D97706]/10 px-3 py-2 border border-[#D97706]/20">
+                  <div className="flex items-center gap-2">
+                    <Sparkles className="h-4 w-4 text-[#D97706]" />
+                    <span className="text-xs font-semibold text-[#D97706]">Share live calculators with clients</span>
+                  </div>
+                  <a href="/pricing" className="text-xs font-bold text-[#D97706] hover:underline whitespace-nowrap ml-2">
+                    Upgrade <ArrowRight className="inline-block h-3 w-3 ml-0.5" />
                   </a>
                 </div>
-              </div>
+              </>
             )}
 
             {/* Embed Section */}

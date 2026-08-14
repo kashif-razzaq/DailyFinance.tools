@@ -12,11 +12,11 @@ const mono = JetBrains_Mono({ weight: ["400", "700"], subsets: ["latin"], variab
 export const metadata: Metadata = {
   metadataBase: new URL('https://dailyfinance.tools'),
   title: {
-    default: 'DailyFinance | 50+ Free & Pro Financial Calculators',
+    default: 'DailyFinance | 57+ Free & Pro Financial Calculators',
     template: '%s | DailyFinance',
   },
   description:
-    'Free 50+ professional financial calculators. Optimize taxes, investments, cash flow, and wealth building with precision-engineered tools. No signup required.',
+    'Free 57+ professional financial calculators. Optimize taxes, investments, cash flow, and wealth building with precision-engineered tools. No signup required.',
   keywords: [
     'financial calculators',
     'freelance tax calculator',
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'DailyFinance | Professional Financial Calculators',
     description:
-      'Free 50+ professional financial calculators. Optimize taxes, investments, cash flow, and wealth building with precision-engineered tools. No signup required.',
+      'Free 57+ professional financial calculators. Optimize taxes, investments, cash flow, and wealth building with precision-engineered tools. No signup required.',
     url: 'https://dailyfinance.tools',
     siteName: 'DailyFinance Tools',
     type: 'website',
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'DailyFinance | Professional Financial Calculators',
     description:
-      'Free 50+ professional financial calculators. Optimize taxes, investments, cash flow, and wealth building with precision-engineered tools. No signup required.',
+      'Free 57+ professional financial calculators. Optimize taxes, investments, cash flow, and wealth building with precision-engineered tools. No signup required.',
   },
 };
 

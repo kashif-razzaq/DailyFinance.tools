@@ -10,7 +10,7 @@ const pdfStyles = StyleSheet.create({
   value: { fontSize: 12, color: '#111827', fontWeight: 'bold', width: '40%', textAlign: 'right' },
 })
 
-export const GenericReportPDF = ({ title, data }: { title: string, data: Record<string, any>[] }) => {
+export const GenericReportPDF = ({ title, data }: { title: string, data: Record<string, unknown>[] }) => {
   // Take the first row of data (since most calculators return a single object array for exports)
   const reportData = data[0] || {}
 

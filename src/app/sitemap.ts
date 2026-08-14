@@ -1,5 +1,5 @@
 import type { MetadataRoute } from 'next';
-import { navigationCategories } from '@/config/navigation';
+import { navigationCategories, getToolUrl } from '@/config/navigation';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://dailyfinance.tools';
@@ -39,7 +39,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const calculatorPages: MetadataRoute.Sitemap = navigationCategories.flatMap((category) =>
     category.calculators.map((calc) => ({
-      url: `${baseUrl}/tools/${calc.slug}`,
+      url: `${baseUrl}${getToolUrl(calc.slug)}`,
       lastModified: new Date(),
       changeFrequency: 'weekly' as const,
       priority: 0.7,

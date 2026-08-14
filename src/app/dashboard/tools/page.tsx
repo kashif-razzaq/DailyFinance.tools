@@ -1,7 +1,8 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card"
+import { Card, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Calculator, ArrowRight, Star, Crown } from "lucide-react"
 import Link from "next/link"
+import { getToolUrl } from "@/config/navigation"
 
 // Temporary mock data until we build all 50 tools
 const upcomingTools = [
@@ -103,7 +104,7 @@ export default function ProToolsLibrary() {
             </CardHeader>
             <CardFooter className="pt-4 border-t mt-auto bg-muted/20">
               {tool.status === "ready" ? (
-                <Link href={`/tools/${tool.id}`} className="w-full">
+                <Link href={getToolUrl(tool.id)} className="w-full">
                   <Button variant="default" className="w-full justify-between shadow-sm">
                     Open Calculator
                     <ArrowRight className="h-4 w-4" />

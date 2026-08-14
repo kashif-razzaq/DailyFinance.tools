@@ -3,7 +3,7 @@
 import React, { useMemo } from 'react'
 import Link from 'next/link'
 import { ArrowRight, Calculator } from 'lucide-react'
-import { navigationCategories } from '@/config/navigation'
+import { navigationCategories, getToolUrl } from '@/config/navigation'
 
 // Master list of all tools flattened from navigation categories
 const ALL_TOOLS = navigationCategories.flatMap(category => category.calculators)
@@ -37,7 +37,7 @@ export function RelatedToolsWidget({ currentSlug }: { currentSlug: string }) {
           return (
             <Link 
               key={tool.slug} 
-              href={`/tools/${tool.slug}`}
+              href={getToolUrl(tool.slug)}
               className="group block p-4 rounded-2xl bg-muted/30 hover:bg-muted/80 border border-border/40 hover:border-border transition-all"
             >
               <h4 className="font-semibold text-foreground group-hover:text-accent transition-colors flex items-center justify-between text-sm">
