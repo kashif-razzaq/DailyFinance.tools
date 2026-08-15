@@ -3,7 +3,7 @@ import { ToolLayout } from "@/components/layout/ToolLayout"
 import React from "react"
 
 export const metadata: Metadata = {
-  title: "Compound Interest Scaler | DailyFinance",
+  title: "Compound Interest Scaler",
   description: "Calculate your compound interest scaler.",
 }
 

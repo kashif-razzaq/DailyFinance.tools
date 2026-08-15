@@ -3,7 +3,7 @@ import { ToolLayout } from "@/components/layout/ToolLayout"
 import React from "react"
 
 export const metadata: Metadata = {
-  title: "Subscription Churn Impact | DailyFinance",
+  title: "Subscription Churn Impact",
   description: "Calculate your subscription churn impact.",
 }
 

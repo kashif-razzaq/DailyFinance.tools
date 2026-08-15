@@ -3,7 +3,7 @@ import { ToolLayout } from "@/components/layout/ToolLayout"
 import React from "react"
 
 export const metadata: Metadata = {
-  title: "Patreon Tier Optimization | DailyFinance",
+  title: "Patreon Tier Optimization",
   description: "Calculate your patreon tier optimization.",
 }
 

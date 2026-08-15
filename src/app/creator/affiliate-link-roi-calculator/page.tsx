@@ -3,7 +3,7 @@ import { ToolLayout } from "@/components/layout/ToolLayout"
 import React from "react"
 
 export const metadata: Metadata = {
-  title: "Affiliate Link ROI | DailyFinance",
+  title: "Affiliate Link ROI",
   description: "Calculate your affiliate link roi.",
 }
 

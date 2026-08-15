@@ -4,12 +4,13 @@ import { generateCalculatorMetadata } from '@/config/metadata';
 import { ToolLayout, FAQ } from "@/components/layout/ToolLayout"
 import React from "react"
 import { Calculator, AlertTriangle, TrendingUp, ShieldCheck, Target, Clock, Zap, FileWarning, HelpCircle } from "lucide-react"
+import Script from "next/script"
 
 export const metadata: Metadata = generateCalculatorMetadata({
-  title: "Freelance Project Pricing Calculator: Hourly to Flat Fee Quoter",
+  title: "Freelance Project Pricing Calculator: Flat-Fee Quote Estimator",
   description: "Convert your hourly estimates into profitable flat-fee project proposals. Automatically account for scope creep, communication buffers, and risk premiums.",
   keywords: ["freelance flat fee calculator", "project quote calculator", "hourly to flat rate calculator", "value based pricing calculator", "scope creep buffer", "freelance risk premium", "how to quote a project"],
-  slug: "freelance/project-flat-fee-quoter",
+  slug: "freelance/freelance-project-pricing-calculator",
   category: "Freelance",
 });
 
@@ -37,16 +38,108 @@ const faqs: FAQ[] = [
 ]
 
 export default function ProjectFlatFeeQuoterPage() {
+  const softwareSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Freelance Project Pricing Calculator: Flat-Fee Quote Estimator",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  };
+
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Use the Freelance Project Pricing Calculator",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "name": "Enter Core Execution Hours",
+        "text": "Input the estimated number of hours required to complete the core work of your project."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Set Target Hourly Rate",
+        "text": "Provide your desired base hourly rate to establish the initial cost estimate."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Apply Communication Buffer",
+        "text": "Add a percentage markup to account for non-billable time like client meetings, emails, and admin tasks."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Include Risk Premium",
+        "text": "Select an appropriate risk premium percentage based on project complexity to protect against scope creep."
+      }
+    ]
+  };
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(faq => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer
+      }
+    }))
+  };
+
+  const webPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Freelance Project Pricing Calculator: Flat-Fee Quote Estimator",
+    "url": "https://dailyfinance.tools/freelance/freelance-project-pricing-calculator"
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://dailyfinance.tools/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Freelance",
+        "item": "https://dailyfinance.tools/freelance/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Freelance Project Pricing Calculator",
+        "item": "https://dailyfinance.tools/freelance/freelance-project-pricing-calculator/"
+      }
+    ]
+  };
+
   return (
     <ToolLayout
       title="Freelance Project Pricing Calculator"
       description="Stop getting punished for working quickly. Convert your hourly estimates into robust, highly profitable flat-fee quotes that protect you from scope creep and endless revisions."
-      slug="project-flat-fee-quoter"
+      slug="freelance-project-pricing-calculator"
       faqs={faqs}
       calculator={(isPro) => <CalculatorClient isPro={isPro} />}
     >
       {(isPro) => (
         <>
+          <Script id="schema-software" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }} />
+          <Script id="schema-howto" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
+          <Script id="schema-faq" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+          <Script id="schema-webpage" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }} />
+          <Script id="schema-breadcrumb" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+          
           {/* Answer Engine Optimization (AEO) Block */}
           <section className="bg-white border border-neutral-200 shadow-sm rounded-2xl p-6 md:p-8 mb-12 relative overflow-hidden">
             <div className="absolute top-0 left-0 w-2 h-full bg-[#064E3B]"></div>

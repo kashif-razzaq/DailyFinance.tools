@@ -3,7 +3,7 @@ import { ToolLayout } from "@/components/layout/ToolLayout"
 import React from "react"
 
 export const metadata: Metadata = {
-  title: "Agency vs Solo Margin | DailyFinance",
+  title: "Agency vs Solo Margin",
   description: "Calculate your agency vs solo margin.",
 }
 

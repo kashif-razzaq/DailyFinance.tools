@@ -12,7 +12,8 @@ export function FloatingConsultationBubble() {
   const [isDismissed, setIsDismissed] = useState(false)
 
   const pathname = usePathname()
-  const isToolPage = pathname?.startsWith('/tools') || pathname?.startsWith('/dashboard/tools')
+  const calculatorPrefixes = ['/freelance', '/creator', '/ecommerce', '/real-estate', '/personal-wealth', '/tools', '/dashboard/tools']
+  const isToolPage = pathname ? calculatorPrefixes.some(prefix => pathname.startsWith(prefix)) : false
 
   useEffect(() => {
     // Show after 5 seconds
@@ -47,12 +48,12 @@ export function FloatingConsultationBubble() {
           >
             <div className="relative h-10 w-10 rounded-full overflow-hidden border-2 border-primary shrink-0">
               <Image 
-                src="/team/tahir-shehzad.jpg" 
-                alt="Tahir" 
+                src="/icon.svg" 
+                alt="DailyFinance" 
                 fill 
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 priority
-                className="object-cover"
+                className="object-cover p-2"
               />
             </div>
             <div className="flex flex-col items-start">

@@ -5,10 +5,10 @@ import { navigationCategories, getToolUrl } from '@/config/navigation'
 import { ArrowRight, Calculator, TrendingUp, PieChart } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'The 57+ Free Financial Calculators and Tools | DailyFinance',
+  title: 'The 57+ Free Financial Calculators and Tools',
   description: 'Optimize your taxes, investments, and cash flow with our comprehensive suite of free, professional-grade financial calculators.',
   openGraph: {
-    title: 'Professional Financial Calculators | DailyFinance',
+    title: 'Professional Financial Calculators',
     description: 'A complete suite of advanced financial tools to optimize your business and personal finances.',
     url: 'https://dailyfinance.tools/tools',
     siteName: 'DailyFinance Tools',

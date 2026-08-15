@@ -4,15 +4,18 @@ import { generateCalculatorMetadata } from '@/config/metadata';
 import { ToolLayout, FAQ } from "@/components/layout/ToolLayout"
 import React from "react"
 import { Calculator, FileText, Home, Car, AlertTriangle, TrendingDown, ShieldCheck, DollarSign, Receipt } from "lucide-react"
+import Script from "next/script"
+
+const PAGE_TITLE = "Self-Employment Tax Calculator";
+const PAGE_DESCRIPTION = "Calculate your estimated 1099 freelance taxes with our self-employment tax calculator. Estimate Social Security, Medicare, and discover your tax deductions.";
 
 export const metadata: Metadata = generateCalculatorMetadata({
-  title: "1099 Tax Write-Off Calculator: Freelance & Home Office Deductions",
-  description: "Calculate exactly how much you save in taxes by writing off freelance expenses. Compare the IRS Home Office Simplified vs Actual Expenses methods.",
-  keywords: ["freelance tax deductions calculator", "home office deduction calculator", "1099 write offs calculator", "irs simplified vs actual home office", "schedule c deductions list", "freelance mileage deduction"],
-  slug: "freelance/freelance-tax-deductions-calculator",
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
+  keywords: ["self employment tax calculator", "freelance tax calculator", "1099 tax calculator", "freelance tax deductions calculator", "home office deduction calculator", "1099 write offs calculator", "irs simplified vs actual home office", "schedule c deductions list", "freelance mileage deduction"],
+  slug: "freelance/self-employment-tax-calculator",
   category: "Freelance",
 });
-
 const faqs: FAQ[] = [
   {
     question: "How do freelance tax deductions work?",
@@ -37,13 +40,109 @@ const faqs: FAQ[] = [
 ]
 
 export default function FreelanceTaxDeductionsPage() {
+  const schemaSoftware = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": PAGE_TITLE,
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  };
+
+  const schemaHowTo = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": `How to Use the Self-Employment Tax Calculator`,
+    "step": [
+      {
+        "@type": "HowToStep",
+        "name": "Enter Your Freelance Income",
+        "text": "Input your total gross freelance or 1099 income into the calculator to establish your base revenue."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Input Your Business Expenses",
+        "text": "Enter your known business deductions such as software subscriptions, marketing, or travel costs."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Calculate Your Home Office Deduction",
+        "text": "Compare the Simplified and Actual Expenses methods by entering your rent, utilities, and home office square footage."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Review Your Tax Estimate",
+        "text": "Check the final calculation to see your estimated self-employment tax liability and potential tax savings."
+      }
+    ]
+  };
+
+  const schemaFAQ = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(faq => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer
+      }
+    }))
+  };
+
+  const schemaWebPage = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": PAGE_TITLE,
+    "description": PAGE_DESCRIPTION,
+    "url": "https://dailyfinance.tools/freelance/self-employment-tax-calculator"
+  };
+
+  const schemaBreadcrumb = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://dailyfinance.tools"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Freelance",
+        "item": "https://dailyfinance.tools/freelance"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Self-Employment Tax Calculator",
+        "item": "https://dailyfinance.tools/freelance/self-employment-tax-calculator"
+      }
+    ]
+  };
+
   return (
     <ToolLayout
-      title="1099 Tax Write-Off Calculator"
-      description="Calculate exactly how much cash you keep in your pocket by writing off business expenses. Instantly compare the IRS Home Office Simplified Method vs. the Actual Expenses Method to maximize your return."
-      slug="freelance-tax-deductions-calculator"
+      title={PAGE_TITLE}
+      description={PAGE_DESCRIPTION}
+      slug="self-employment-tax-calculator"
       faqs={faqs}
-      calculator={(isPro) => <CalculatorClient isPro={isPro} />}
+      calculator={(isPro) => (
+        <>
+          <Script id="schema-software" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaSoftware) }} />
+          <Script id="schema-howto" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaHowTo) }} />
+          <Script id="schema-faq" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaFAQ) }} />
+          <Script id="schema-webpage" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaWebPage) }} />
+          <Script id="schema-breadcrumb" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
+          <CalculatorClient isPro={isPro} />
+        </>
+      )}
     >
       {(isPro) => (
         <>
@@ -231,3 +330,4 @@ export default function FreelanceTaxDeductionsPage() {
     </ToolLayout>
   )
 }
+

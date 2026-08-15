@@ -22,23 +22,23 @@ export function TahirLeadGenCTA() {
           </span>
         </div>
         
-        <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden mb-5 border-2 border-primary/20 shadow-sm bg-white mt-2">
+        <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden mb-5 border border-border/50 shadow-sm bg-white mt-2 flex items-center justify-center p-3">
           <Image 
-            src="/team/tahir-shehzad.jpg" 
-            alt="Tahir Shehzad" 
+            src="/icon.svg" 
+            alt="DailyFinance Solutions" 
             fill 
-            className="object-cover transition-all duration-700 group-hover:scale-105"
+            className="object-contain p-4 transition-all duration-700 group-hover:scale-105"
           />
         </div>
-        <h3 className="text-xl font-bold tracking-tight text-foreground mb-1 relative">Tahir Shehzad</h3>
+        <h3 className="text-xl font-bold tracking-tight text-foreground mb-1 relative">DailyFinance Expert Consultation</h3>
         <div className="flex items-center gap-2 mb-6 relative">
-          <span className="text-[10px] font-bold uppercase tracking-widest text-primary">Accounting Expert</span>
+          <span className="text-[10px] font-bold uppercase tracking-widest text-primary">Official Partner Network</span>
           <span className="w-1 h-1 rounded-full bg-border"></span>
-          <span className="text-[10px] font-bold uppercase tracking-widest text-primary">ACMA</span>
+          <span className="text-[10px] font-bold uppercase tracking-widest text-primary">Business Solutions</span>
         </div>
 
         <p className="text-sm text-muted-foreground leading-relaxed mb-6 relative">
-          Need help setting up your freelance business structure, optimizing taxes, or handling complex IFRS reporting? Let&apos;s talk.
+          Need help setting up your business structure, optimizing taxes, or handling complex financial reporting? Our team of certified professionals can help.
         </p>
 
         <ul className="w-full space-y-3 text-sm text-foreground/80 mb-8 text-left relative">

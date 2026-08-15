@@ -3,7 +3,7 @@ import { ToolLayout } from "@/components/layout/ToolLayout"
 import React from "react"
 
 export const metadata: Metadata = {
-  title: "Target ROAS Break-Even | DailyFinance",
+  title: "Target ROAS Break-Even",
   description: "Calculate your target roas break-even.",
 }
 

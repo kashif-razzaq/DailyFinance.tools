@@ -3,7 +3,7 @@ import { ToolLayout } from "@/components/layout/ToolLayout"
 import React from "react"
 
 export const metadata: Metadata = {
-  title: "Roth IRA Conversion | DailyFinance",
+  title: "Roth IRA Conversion",
   description: "Calculate your roth ira conversion.",
 }
 

@@ -3,22 +3,24 @@
 import React, { useMemo } from 'react'
 import Link from 'next/link'
 import { ArrowRight, Calculator } from 'lucide-react'
-import { navigationCategories, getToolUrl } from '@/config/navigation'
-
-// Master list of all tools flattened from navigation categories
-const ALL_TOOLS = navigationCategories.flatMap(category => category.calculators)
+import { navigationCategories, getToolUrl, getCategoryForTool } from '@/config/navigation'
 
 export function RelatedToolsWidget({ currentSlug }: { currentSlug: string }) {
-  // Deterministically select 3 related tools to prevent SSR hydration errors
+  // Deterministically select 3 related tools from the SAME CATEGORY
   const relatedTools = useMemo(() => {
-    const currentIndex = ALL_TOOLS.findIndex(t => t.slug === currentSlug)
+    const category = getCategoryForTool(currentSlug)
+    if (!category) return []
+
+    const categoryTools = category.calculators
+    const currentIndex = categoryTools.findIndex(t => t.slug === currentSlug)
     const startIndex = currentIndex !== -1 ? currentIndex : 0
     
     const available = []
-    // Pick the next 3 tools, wrapping around if necessary
+    // Pick the next 3 tools from this specific category, wrapping around if necessary
     for (let i = 1; i <= 3; i++) {
-      const nextIndex = (startIndex + i) % ALL_TOOLS.length
-      available.push(ALL_TOOLS[nextIndex])
+      if (categoryTools.length <= 1) break // Edge case: only 1 tool in category
+      const nextIndex = (startIndex + i) % categoryTools.length
+      available.push(categoryTools[nextIndex])
     }
     
     return available
@@ -28,7 +30,7 @@ export function RelatedToolsWidget({ currentSlug }: { currentSlug: string }) {
     <div className="bg-card border rounded-3xl p-6">
       <h3 className="font-bold text-lg mb-4 flex items-center gap-2 text-foreground">
         <Calculator className="h-5 w-5 text-accent" />
-        Explore More Tools
+        Related Tools
       </h3>
       
       <div className="space-y-4">

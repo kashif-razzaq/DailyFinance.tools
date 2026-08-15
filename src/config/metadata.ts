@@ -25,7 +25,7 @@ export function generateCalculatorMetadata({
   ogImageUrl.searchParams.set('category', category)
 
   return {
-    title: `${title} | DailyFinance.tools`,
+    title: title,
     description,
     keywords,
     alternates: {

@@ -3,7 +3,7 @@ import { ToolLayout } from "@/components/layout/ToolLayout"
 import React from "react"
 
 export const metadata: Metadata = {
-  title: "LTV to CAC Ratio | DailyFinance",
+  title: "LTV to CAC Ratio",
   description: "Calculate your ltv to cac ratio.",
 }
 

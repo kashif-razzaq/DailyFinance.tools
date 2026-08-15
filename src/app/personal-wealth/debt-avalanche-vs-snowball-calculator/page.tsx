@@ -3,7 +3,7 @@ import { ToolLayout } from "@/components/layout/ToolLayout"
 import React from "react"
 
 export const metadata: Metadata = {
-  title: "Debt Avalanche vs Snowball | DailyFinance",
+  title: "Debt Avalanche vs Snowball",
   description: "Calculate your debt avalanche vs snowball.",
 }
 

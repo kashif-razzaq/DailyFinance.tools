@@ -3,7 +3,7 @@ import { ToolLayout } from "@/components/layout/ToolLayout"
 import React from "react"
 
 export const metadata: Metadata = {
-  title: "Mortgage Amortization | DailyFinance",
+  title: "Mortgage Amortization",
   description: "Calculate your mortgage amortization.",
 }
 

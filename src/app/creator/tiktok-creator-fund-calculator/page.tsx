@@ -3,7 +3,7 @@ import { ToolLayout } from "@/components/layout/ToolLayout"
 import React from "react"
 
 export const metadata: Metadata = {
-  title: "TikTok Creator Fund | DailyFinance",
+  title: "TikTok Creator Fund",
   description: "Calculate your tiktok creator fund.",
 }
 

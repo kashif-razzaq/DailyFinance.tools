@@ -1,3 +1,4 @@
+import Script from "next/script"
 import { CalculatorClient } from "./CalculatorClient"
 import type { Metadata } from 'next';
 import { generateCalculatorMetadata } from '@/config/metadata';
@@ -6,10 +7,10 @@ import React from "react"
 import { CheckCircle2, AlertTriangle, Calculator, DollarSign, Clock, TrendingUp, Target, Briefcase, Zap } from "lucide-react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
-  title: "Freelance Hourly Rate Calculator: Find Your Minimum Acceptable Rate",
-  description: "Calculate your true freelance hourly rate by factoring in business expenses, self-employment taxes, and unbillable time. A complete guide to setting profitable rates.",
+  title: "Freelance Hourly Rate Calculator: Calculate Your Minimum Acceptable Rate",
+  description: "Calculate your true freelance hourly rate by factoring in business expenses, self-employment taxes, and unbillable time. Ensure your freelancing rates are profitable.",
   keywords: ["freelance hourly rate calculator", "calculate freelance rate", "minimum acceptable rate", "freelance pricing strategy", "how much should I charge freelance", "billable hours vs non-billable", "freelance taxes"],
-  slug: "freelance/hourly-rate-reverse-engineer-calculator",
+  slug: "freelance/freelance-hourly-rate-calculator",
   category: "Freelance",
 });
 
@@ -37,14 +38,126 @@ const faqs: FAQ[] = [
 ]
 
 export default function HourlyRateCalculatorPage() {
+  const softwareApplicationSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Freelance Hourly Rate Calculator",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  };
+
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Calculate Your Freelance Hourly Rate",
+    "description": "A step-by-step guide to calculating your Minimum Acceptable Rate (MAR) using our freelance hourly rate calculator.",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "name": "Enter Your Target Income",
+        "text": "Start by entering your desired annual take-home pay, which covers your personal expenses and savings."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Add Business Expenses",
+        "text": "Input all your yearly business overhead costs, such as software, hardware, and marketing expenses."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Factor in Taxes",
+        "text": "Account for self-employment and income taxes by entering your estimated tax rate to ensure your take-home pay remains untouched."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Define Billable Hours",
+        "text": "Estimate your actual billable hours per year (excluding admin time and time off) to reveal your true minimum hourly rate."
+      }
+    ]
+  };
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(faq => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer
+      }
+    }))
+  };
+
+  const webPageSchema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://dailyfinance.tools/freelance/freelance-hourly-rate-calculator",
+        "url": "https://dailyfinance.tools/freelance/freelance-hourly-rate-calculator",
+        "name": "Freelance Hourly Rate Calculator: Calculate Your Minimum Acceptable Rate",
+        "description": "Calculate your true freelance hourly rate by factoring in business expenses, self-employment taxes, and unbillable time. Ensure your freelancing rates are profitable."
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://dailyfinance.tools/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Freelance",
+            "item": "https://dailyfinance.tools/freelance"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Freelance Hourly Rate Calculator",
+            "item": "https://dailyfinance.tools/freelance/freelance-hourly-rate-calculator"
+          }
+        ]
+      }
+    ]
+  };
+
   return (
-    <ToolLayout
-      title="Freelance Hourly Rate Calculator"
-      description="Reverse engineer your exact Minimum Acceptable Rate (MAR) based on your target lifestyle, overhead, taxes, and true billable capacity."
-      slug="hourly-rate-reverse-engineer-calculator"
-      faqs={faqs}
-      calculator={(isPro) => <CalculatorClient isPro={isPro} />}
-    >
+    <>
+      <Script
+        id="schema-software-application"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareApplicationSchema) }}
+      />
+      <Script
+        id="schema-howto"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
+      <Script
+        id="schema-faq"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <Script
+        id="schema-webpage"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
+      />
+      <ToolLayout
+        title="Freelance Hourly Rate Calculator"
+        description="Calculate your true freelance hourly rate by factoring in business expenses, self-employment taxes, and unbillable time. Ensure your freelancing rates are profitable."
+        slug="freelance-hourly-rate-calculator"
+        faqs={faqs}
+        calculator={(isPro) => <CalculatorClient isPro={isPro} />}
+      >
       {(isPro) => (
         <>
           {/* Answer Engine Optimization (AEO) Block */}
@@ -280,6 +393,8 @@ export default function HourlyRateCalculatorPage() {
           
         </>
       )}
-    </ToolLayout>
+      </ToolLayout>
+    </>
   )
 }
+

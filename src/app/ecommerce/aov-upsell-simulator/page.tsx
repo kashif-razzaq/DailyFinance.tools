@@ -3,7 +3,7 @@ import { ToolLayout } from "@/components/layout/ToolLayout"
 import React from "react"
 
 export const metadata: Metadata = {
-  title: "AOV Upsell Simulator | DailyFinance",
+  title: "AOV Upsell Simulator",
   description: "Calculate your aov upsell simulator.",
 }
 

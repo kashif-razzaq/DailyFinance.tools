@@ -1,15 +1,16 @@
-import CalculatorClient from "./CalculatorClient"
+import { CalculatorClient } from "./CalculatorClient"
 import type { Metadata } from 'next';
 import { generateCalculatorMetadata } from '@/config/metadata';
 import { ToolLayout, FAQ } from "@/components/layout/ToolLayout"
 import React from "react"
 import { Calculator, Car, TrendingUp, AlertTriangle, FileText, CheckCircle2 } from "lucide-react"
+import Script from "next/script"
 
 export const metadata: Metadata = generateCalculatorMetadata({
-  title: "Section 179 Vehicle Deduction Calculator: Business Auto Lease Write-Off",
-  description: "Calculate your exact tax write-off for a leased business vehicle. Compare the Actual Expenses method vs Standard Mileage Rate to maximize your deduction.",
+  title: "Business Vehicle Tax Deduction Calculator: Standard Mileage vs Actual Expenses",
+  description: "Calculate your business vehicle tax deduction using the Standard Mileage Rate or Actual Expenses method. See how much you can write off for your leased or owned business car.",
   keywords: ["auto lease write off calculator", "car lease tax deduction calculator", "section 179 leased vehicle", "business mileage deduction calculator", "write off leased car 1099"],
-  slug: "freelance/auto-lease-write-off-calculator",
+  slug: "freelance/business-vehicle-tax-deduction-calculator",
   category: "Freelance",
 });
 
@@ -37,13 +38,118 @@ const faqs: FAQ[] = [
 ]
 
 export default function AutoLeaseCalculatorPage() {
+  const schemas = [
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Business Vehicle Tax Deduction Calculator",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "How to Calculate Your Business Vehicle Tax Deduction",
+      "description": "Step-by-step guide on how to calculate your vehicle tax deduction for a business lease using the standard mileage or actual expenses method.",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "name": "Enter Vehicle and Lease Details",
+          "text": "Input your monthly lease payment and the amount of your down payment to establish your baseline vehicle costs."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Input Annual Mileage",
+          "text": "Provide your total miles driven for the year and the portion of those miles used specifically for business purposes."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Add Actual Operating Expenses",
+          "text": "Enter your annual costs for gas, insurance, maintenance, and registration to allow the calculator to total your actual expenses."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Compare Deduction Methods",
+          "text": "Review the calculator's side-by-side comparison of the Standard Mileage Rate versus the Actual Expenses method to find your maximum tax deduction."
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqs.map(faq => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": faq.answer
+        }
+      }))
+    },
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://dailyfinance.tools/freelance/business-vehicle-tax-deduction-calculator/#webpage",
+          "url": "https://dailyfinance.tools/freelance/business-vehicle-tax-deduction-calculator",
+          "name": "Business Vehicle Tax Deduction Calculator: Standard Mileage vs Actual Expenses",
+          "description": "Calculate your business vehicle tax deduction using the Standard Mileage Rate or Actual Expenses method. See how much you can write off for your leased or owned business car.",
+          "isPartOf": {
+            "@id": "https://dailyfinance.tools/#website"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://dailyfinance.tools/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Freelance",
+              "item": "https://dailyfinance.tools/freelance"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Business Vehicle Tax Deduction Calculator",
+              "item": "https://dailyfinance.tools/freelance/business-vehicle-tax-deduction-calculator"
+            }
+          ]
+        }
+      ]
+    }
+  ];
+
   return (
     <ToolLayout
-      title="Section 179 Auto Lease Tax Calculator"
-      description="Compare the Actual Expenses Method vs the Standard Mileage Rate to find the most profitable tax deduction for your leased business vehicle."
-      slug="auto-lease-write-off-calculator"
+      title="Business Vehicle Tax Deduction Calculator"
+      description="Calculate your business vehicle tax deduction using the Standard Mileage Rate or Actual Expenses method. See how much you can write off for your leased or owned business car."
+      slug="business-vehicle-tax-deduction-calculator"
       faqs={faqs}
-      calculator={(isPro) => <CalculatorClient />}
+      calculator={(isPro) => (
+        <>
+          {schemas.map((schema, index) => (
+            <Script
+              key={index}
+              id={`schema-${index}`}
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+            />
+          ))}
+          <CalculatorClient />
+        </>
+      )}
     >
       {(isPro) => (
         <>
@@ -162,3 +268,5 @@ export default function AutoLeaseCalculatorPage() {
     </ToolLayout>
   )
 }
+
+

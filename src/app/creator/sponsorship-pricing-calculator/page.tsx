@@ -3,7 +3,7 @@ import { ToolLayout } from "@/components/layout/ToolLayout"
 import React from "react"
 
 export const metadata: Metadata = {
-  title: "Sponsorship Pricing Calculator | DailyFinance",
+  title: "Sponsorship Pricing Calculator",
   description: "Calculate your sponsorship pricing calculator.",
 }
 

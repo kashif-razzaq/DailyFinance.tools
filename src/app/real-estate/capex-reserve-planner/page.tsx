@@ -3,7 +3,7 @@ import { ToolLayout } from "@/components/layout/ToolLayout"
 import React from "react"
 
 export const metadata: Metadata = {
-  title: "CapEx Reserve Planner | DailyFinance",
+  title: "CapEx Reserve Planner",
   description: "Calculate your capex reserve planner.",
 }
 

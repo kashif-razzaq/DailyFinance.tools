@@ -3,7 +3,7 @@ import { ToolLayout } from "@/components/layout/ToolLayout"
 import React from "react"
 
 export const metadata: Metadata = {
-  title: "Shopify Margin Calculator | DailyFinance",
+  title: "Shopify Margin Calculator",
   description: "Calculate your shopify margin calculator.",
 }
 

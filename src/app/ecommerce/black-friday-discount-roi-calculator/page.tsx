@@ -3,7 +3,7 @@ import { ToolLayout } from "@/components/layout/ToolLayout"
 import React from "react"
 
 export const metadata: Metadata = {
-  title: "Black Friday Discount ROI | DailyFinance",
+  title: "Black Friday Discount ROI",
   description: "Calculate your black friday discount roi.",
 }
 

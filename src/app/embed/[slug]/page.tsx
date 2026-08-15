@@ -4,16 +4,18 @@ import React from 'react'
 import { getToolUrl } from '@/config/navigation'
 
 const calculators = {
-  'irregular-income-buffer-calculator': dynamic(() => import('@/app/freelance/irregular-income-buffer-calculator/CalculatorClient').then(m => m.CalculatorClient)),
-  'cross-border-fx-impact-calculator': dynamic(() => import('@/app/freelance/cross-border-fx-impact-calculator/CalculatorClient').then(m => m.CalculatorClient)),
-  'project-flat-fee-quoter': dynamic(() => import('@/app/freelance/project-flat-fee-quoter/CalculatorClient').then(m => m.CalculatorClient)),
-  'client-ltv-calculator': dynamic(() => import('@/app/freelance/client-ltv-calculator/CalculatorClient').then(m => m.CalculatorClient)),
-  'freelance-tax-deductions-calculator': dynamic(() => import('@/app/freelance/freelance-tax-deductions-calculator/CalculatorClient').then(m => m.CalculatorClient)),
-  's-corp-salary-dividend-calculator': dynamic(() => import('@/app/freelance/s-corp-salary-dividend-calculator/CalculatorClient').then(m => m.CalculatorClient)),
-  'time-tracking-roi-calculator': dynamic(() => import('@/app/freelance/time-tracking-roi-calculator/CalculatorClient').then(m => m.CalculatorClient)),
-  'nomad-cost-of-living-calculator': dynamic(() => import('@/app/freelance/nomad-cost-of-living-calculator/CalculatorClient').then(m => m.CalculatorClient)),
-  'hourly-rate-reverse-engineer-calculator': dynamic(() => import('@/app/freelance/hourly-rate-reverse-engineer-calculator/CalculatorClient').then(m => m.CalculatorClient)),
-  'quarterly-estimated-taxes-calculator': dynamic(() => import('@/app/freelance/quarterly-estimated-taxes-calculator/CalculatorClient').then(m => m.CalculatorClient)),
+  'freelance-emergency-fund-calculator': dynamic(() => import('@/app/freelance/freelance-emergency-fund-calculator/CalculatorClient').then(m => m.CalculatorClient)),
+  'stripe-paypal-fee-calculator': dynamic(() => import('@/app/freelance/stripe-paypal-fee-calculator/CalculatorClient').then(m => m.CalculatorClient)),
+  'freelance-project-pricing-calculator': dynamic(() => import('@/app/freelance/freelance-project-pricing-calculator/CalculatorClient').then(m => m.CalculatorClient)),
+  'client-lifetime-value-calculator': dynamic(() => import('@/app/freelance/client-lifetime-value-calculator/CalculatorClient').then(m => m.CalculatorClient)),
+  'self-employment-tax-calculator': dynamic(() => import('@/app/freelance/self-employment-tax-calculator/CalculatorClient').then(m => m.CalculatorClient)),
+  's-corp-tax-savings-calculator': dynamic(() => import('@/app/freelance/s-corp-tax-savings-calculator/CalculatorClient').then(m => m.CalculatorClient)),
+  'billable-hours-calculator': dynamic(() => import('@/app/freelance/billable-hours-calculator/CalculatorClient').then(m => m.CalculatorClient)),
+  'digital-nomad-cost-of-living-calculator': dynamic(() => import('@/app/freelance/digital-nomad-cost-of-living-calculator/CalculatorClient').then(m => m.CalculatorClient)),
+  'freelance-hourly-rate-calculator': dynamic(() => import('@/app/freelance/freelance-hourly-rate-calculator/CalculatorClient').then(m => m.CalculatorClient)),
+  'quarterly-estimated-tax-calculator': dynamic(() => import('@/app/freelance/quarterly-estimated-tax-calculator/CalculatorClient').then(m => m.CalculatorClient)),
+  'w2-vs-1099-calculator': dynamic(() => import('@/app/freelance/w2-vs-1099-calculator/CalculatorClient').then(m => m.CalculatorClient)),
+  'business-vehicle-tax-deduction-calculator': dynamic(() => import('@/app/freelance/business-vehicle-tax-deduction-calculator/CalculatorClient').then(m => m.CalculatorClient)),
 }
 
 export default async function EmbeddedCalculatorPage({ params }: { params: Promise<{ slug: string }> }) {

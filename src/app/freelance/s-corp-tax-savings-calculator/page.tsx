@@ -3,13 +3,14 @@ import type { Metadata } from 'next';
 import { generateCalculatorMetadata } from '@/config/metadata';
 import { ToolLayout, FAQ } from "@/components/layout/ToolLayout"
 import React from "react"
+import Script from "next/script"
 import { Calculator, ShieldAlert, PiggyBank, Briefcase, FileWarning, HelpCircle, CheckCircle, AlertTriangle, TrendingUp } from "lucide-react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
-  title: "S-Corp Tax Savings Calculator: Salary vs Dividend FICA Optimizer",
+  title: "S Corp Tax Savings Calculator: LLC vs S Corp",
   description: "Calculate exact tax savings by converting your freelance LLC to an S-Corp. Optimize your W-2 reasonable compensation and owner distributions to minimize FICA taxes.",
   keywords: ["s corp salary vs dividend calculator", "llc vs s corp tax calculator", "reasonable compensation calculator s corp", "freelance s corp tax savings", "s corp distribution rules", "self employment tax calculator"],
-  slug: "freelance/s-corp-salary-dividend-calculator",
+  slug: "freelance/s-corp-tax-savings-calculator",
   category: "Freelance",
 });
 
@@ -38,13 +39,124 @@ const faqs: FAQ[] = [
 
 export default function SCorpOptimizerPage() {
   return (
-    <ToolLayout
-      title="S-Corp Tax Savings & Salary Calculator"
-      description="Calculate exactly how much you'll save in FICA taxes by converting your freelance LLC to an S-Corp and splitting your income into W-2 Salary and Owner Distributions."
-      slug="s-corp-salary-dividend-calculator"
-      faqs={faqs}
-      calculator={(isPro) => <CalculatorClient isPro={isPro} />}
-    >
+    <>
+      <Script
+        id="software-application-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "S Corp Tax Savings Calculator",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Any",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            }
+          })
+        }}
+      />
+      <Script
+        id="howto-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "HowTo",
+            "name": "How to Use the S-Corp Tax Savings Calculator",
+            "description": "A step-by-step guide to calculating your potential tax savings by switching your LLC to an S-Corp.",
+            "step": [
+              {
+                "@type": "HowToStep",
+                "name": "Enter Expected Net Profit",
+                "text": "Input your expected total business revenue minus any deductible business expenses to determine your net profit."
+              },
+              {
+                "@type": "HowToStep",
+                "name": "Determine a Reasonable Salary",
+                "text": "Enter a reasonable W-2 salary that you would pay someone else to do your job. The calculator will use this to determine your FICA tax baseline."
+              },
+              {
+                "@type": "HowToStep",
+                "name": "Review S-Corp Administrative Costs",
+                "text": "Account for additional costs such as payroll processing and corporate tax return fees to get an accurate savings estimate."
+              },
+              {
+                "@type": "HowToStep",
+                "name": "Analyze Your Savings",
+                "text": "Compare your total tax burden as a sole proprietor versus an S-Corp to see your estimated net tax savings."
+              }
+            ]
+          })
+        }}
+      />
+      <Script
+        id="faq-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": faqs.map(faq => ({
+              "@type": "Question",
+              "name": faq.question,
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": faq.answer
+              }
+            }))
+          })
+        }}
+      />
+      <Script
+        id="webpage-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "WebPage",
+                "name": "S Corp Tax Savings Calculator: LLC vs S Corp",
+                "description": "Calculate exact tax savings by converting your freelance LLC to an S-Corp. Optimize your W-2 reasonable compensation and owner distributions to minimize FICA taxes.",
+                "url": "https://dailyfinance.tools/freelance/s-corp-tax-savings-calculator"
+              },
+              {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                  {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "Home",
+                    "item": "https://dailyfinance.tools/"
+                  },
+                  {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "name": "Freelance",
+                    "item": "https://dailyfinance.tools/freelance"
+                  },
+                  {
+                    "@type": "ListItem",
+                    "position": 3,
+                    "name": "S Corp Tax Savings Calculator",
+                    "item": "https://dailyfinance.tools/freelance/s-corp-tax-savings-calculator"
+                  }
+                ]
+              }
+            ]
+          })
+        }}
+      />
+      <ToolLayout
+        title="S Corp Tax Savings Calculator"
+        description="Calculate exactly how much you'll save in FICA taxes by converting your freelance LLC to an S-Corp and splitting your income into W-2 Salary and Owner Distributions."
+        slug="s-corp-tax-savings-calculator"
+        faqs={faqs}
+        calculator={(isPro) => <CalculatorClient isPro={isPro} />}
+      >
       {(isPro) => (
         <>
           {/* Answer Engine Optimization (AEO) Block */}
@@ -213,5 +325,6 @@ export default function SCorpOptimizerPage() {
         </>
       )}
     </ToolLayout>
+    </>
   )
 }

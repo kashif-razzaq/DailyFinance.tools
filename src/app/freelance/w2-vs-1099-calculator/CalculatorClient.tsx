@@ -8,7 +8,7 @@ import { CalculatorActions } from "@/components/calculator/CalculatorActions"
 import { saveCalculatorAction, getSharedCalculatorAction } from '@/actions/calculator.actions'
 import { ProUpgradeModal } from "@/components/shared/ProUpgradeModal"
 
-export default function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [w2Salary, setW2Salary] = useState(100000)
   const [w2Benefits, setW2Benefits] = useState(15000)
   const [contractorHourly, setContractorHourly] = useState(75)
@@ -386,3 +386,4 @@ export default function CalculatorClient({ isPro = false }: { isPro?: boolean })
     </div>
   )
 }
+

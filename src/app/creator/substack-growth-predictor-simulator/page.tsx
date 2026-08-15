@@ -3,7 +3,7 @@ import { ToolLayout } from "@/components/layout/ToolLayout"
 import React from "react"
 
 export const metadata: Metadata = {
-  title: "Substack Growth Predictor | DailyFinance",
+  title: "Substack Growth Predictor",
   description: "Calculate your substack growth predictor.",
 }
 

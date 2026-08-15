@@ -3,7 +3,7 @@ import { ToolLayout } from "@/components/layout/ToolLayout"
 import React from "react"
 
 export const metadata: Metadata = {
-  title: "Fat FIRE vs Lean FIRE | DailyFinance",
+  title: "Fat FIRE vs Lean FIRE",
   description: "Calculate your fat fire vs lean fire.",
 }
 

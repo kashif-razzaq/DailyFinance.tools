@@ -1,15 +1,16 @@
-import CalculatorClient from "./CalculatorClient"
+import { CalculatorClient } from "./CalculatorClient"
 import type { Metadata } from 'next';
 import { generateCalculatorMetadata } from '@/config/metadata';
 import { ToolLayout, FAQ } from "@/components/layout/ToolLayout"
 import React from "react"
+import Script from "next/script"
 import { CheckCircle2, AlertTriangle, Calculator, DollarSign, Clock, TrendingUp, Target, Briefcase, Zap, Shield, FileText } from "lucide-react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
-  title: "W2 vs 1099 Paycheck Calculator: True Take-Home Pay Comparison",
+  title: "1099 vs W2 Calculator: Compare Take-Home Pay & Taxes",
   description: "Compare your exact net take-home pay between a W-2 salary and a 1099 contractor rate. Factor in self-employment taxes, QBI deductions, and lost benefits.",
   keywords: ["w2 vs 1099 paycheck calculator", "1099 vs w2 calculator", "self employment tax calculator", "freelance vs employee calculator", "w2 to 1099 conversion", "contractor hourly rate calculator"],
-  slug: "freelance/w2-vs-1099-paycheck-calculator",
+  slug: "freelance/w2-vs-1099-calculator",
   category: "Freelance",
 });
 
@@ -39,11 +40,126 @@ const faqs: FAQ[] = [
 export default function W2vs1099CalculatorPage() {
   return (
     <ToolLayout
-      title="W2 vs 1099 Paycheck Calculator"
-      description="Enter your W-2 salary and 1099 hourly rate to calculate your exact net take-home pay, factoring in self-employment taxes, QBI deductions, and lost benefits."
-      slug="w2-vs-1099-paycheck-calculator"
+      title="1099 vs W2 Calculator"
+      description="Compare your exact net take-home pay between a W-2 salary and a 1099 contractor rate. Factor in self-employment taxes, QBI deductions, and lost benefits."
+      slug="w2-vs-1099-calculator"
       faqs={faqs}
-      calculator={(isPro) => <CalculatorClient />}
+      calculator={(isPro) => (
+        <>
+          <Script
+            id="schema-software-application"
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "SoftwareApplication",
+                "name": "1099 vs W2 Calculator",
+                "applicationCategory": "BusinessApplication",
+                "operatingSystem": "Any",
+                "offers": {
+                  "@type": "Offer",
+                  "price": "0",
+                  "priceCurrency": "USD"
+                }
+              })
+            }}
+          />
+          <Script
+            id="schema-how-to"
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "HowTo",
+                "name": "How to Use the W2 vs 1099 Calculator",
+                "description": "A step-by-step guide on how to compare your take-home pay and taxes between W-2 salary and 1099 contractor rate.",
+                "step": [
+                  {
+                    "@type": "HowToStep",
+                    "name": "Enter W-2 Details",
+                    "text": "Input your current or expected W-2 annual salary and any standard benefits like 401(k) match and health insurance subsidies."
+                  },
+                  {
+                    "@type": "HowToStep",
+                    "name": "Enter 1099 Details",
+                    "text": "Provide your expected 1099 hourly rate or gross annual contracting income, along with estimated weekly billable hours."
+                  },
+                  {
+                    "@type": "HowToStep",
+                    "name": "Input Deductions and Expenses",
+                    "text": "Add your expected annual business expenses to see how write-offs lower your taxable self-employment income."
+                  },
+                  {
+                    "@type": "HowToStep",
+                    "name": "Compare Take-Home Pay",
+                    "text": "Review the side-by-side net pay comparison to understand how self-employment taxes and lost benefits affect your true income."
+                  }
+                ]
+              })
+            }}
+          />
+          <Script
+            id="schema-faq"
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                "mainEntity": faqs.map(faq => ({
+                  "@type": "Question",
+                  "name": faq.question,
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": faq.answer
+                  }
+                }))
+              })
+            }}
+          />
+          <Script
+            id="schema-webpage"
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@graph": [
+                  {
+                    "@type": "WebPage",
+                    "@id": "https://dailyfinance.tools/freelance/w2-vs-1099-calculator",
+                    "url": "https://dailyfinance.tools/freelance/w2-vs-1099-calculator",
+                    "name": "1099 vs W2 Calculator: Compare Take-Home Pay & Taxes",
+                    "description": "Compare your exact net take-home pay between a W-2 salary and a 1099 contractor rate. Factor in self-employment taxes, QBI deductions, and lost benefits."
+                  },
+                  {
+                    "@type": "BreadcrumbList",
+                    "itemListElement": [
+                      {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "Home",
+                        "item": "https://dailyfinance.tools"
+                      },
+                      {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "name": "Freelance",
+                        "item": "https://dailyfinance.tools/freelance"
+                      },
+                      {
+                        "@type": "ListItem",
+                        "position": 3,
+                        "name": "W2 vs 1099 Calculator",
+                        "item": "https://dailyfinance.tools/freelance/w2-vs-1099-calculator"
+                      }
+                    ]
+                  }
+                ]
+              })
+            }}
+          />
+          <CalculatorClient />
+        </>
+      )}
     >
       {(isPro) => (
         <>
@@ -169,3 +285,5 @@ export default function W2vs1099CalculatorPage() {
     </ToolLayout>
   )
 }
+
+

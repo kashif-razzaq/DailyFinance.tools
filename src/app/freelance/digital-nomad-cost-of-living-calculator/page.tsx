@@ -3,13 +3,14 @@ import type { Metadata } from 'next';
 import { generateCalculatorMetadata } from '@/config/metadata';
 import { ToolLayout, FAQ } from "@/components/layout/ToolLayout"
 import React from "react"
+import Script from "next/script"
 import { Calculator, Globe, Plane, ShieldAlert, TrendingUp, DollarSign, MapPin, Briefcase, FileWarning } from "lucide-react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
-  title: "Digital Nomad Cost of Living Calculator: Freelance Geo-Arbitrage",
+  title: "Digital Nomad Cost of Living Calculator",
   description: "Calculate how much longer your freelance runway will last by relocating to a lower cost of living city. See your exact payback period and new monthly profit.",
   keywords: ["nomad cost of living calculator", "geo arbitrage calculator", "freelance runway calculator", "digital nomad savings calculator", "cost of living comparison for freelancers", "relocation payback period"],
-  slug: "freelance/nomad-cost-of-living-calculator",
+  slug: "freelance/digital-nomad-cost-of-living-calculator",
   category: "Freelance",
 });
 
@@ -36,12 +37,127 @@ const faqs: FAQ[] = [
   }
 ]
 
+const softwareSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Digital Nomad Cost of Living Calculator",
+  "description": "Calculate how much longer your freelance runway will last by relocating to a lower cost of living city. See your exact payback period and new monthly profit.",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Any",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+};
+
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How to Use the Digital Nomad Cost of Living Calculator",
+  "description": "A step-by-step guide to calculating your freelance runway and relocation payback period.",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "name": "Enter Current Expenses",
+      "text": "Input your current monthly expenses in your current city to establish a baseline for your freelance runway."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Estimate New Location Expenses",
+      "text": "Provide the estimated monthly living costs for the new city or country you plan to relocate to."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Input Relocation Costs",
+      "text": "Add the upfront costs of moving, including flights, visa fees, and security deposits."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Review Payback and Runway",
+      "text": "Check the calculated payback period and see how many months your financial runway has been extended through geo-arbitrage."
+    }
+  ]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+
+const webPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Digital Nomad Cost of Living Calculator",
+  "description": "Calculate how much longer your freelance runway will last by relocating to a lower cost of living city. See your exact payback period and new monthly profit.",
+  "url": "https://dailyfinance.tools/freelance/digital-nomad-cost-of-living-calculator"
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://dailyfinance.tools/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Freelance",
+      "item": "https://dailyfinance.tools/freelance"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Digital Nomad Cost of Living Calculator",
+      "item": "https://dailyfinance.tools/freelance/digital-nomad-cost-of-living-calculator"
+    }
+  ]
+};
+
 export default function NomadCOLPage() {
   return (
+    <>
+      <Script
+        id="schema-software"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }}
+      />
+      <Script
+        id="schema-howto"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
+      <Script
+        id="schema-faq"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <Script
+        id="schema-webpage"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
+      />
+      <Script
+        id="schema-breadcrumb"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
     <ToolLayout
       title="Digital Nomad Cost of Living Calculator"
-      description="Stop burning your savings in expensive cities. Calculate exactly how many months you can extend your runway (and how much profit you'll add) by leveraging global geo-arbitrage."
-      slug="nomad-cost-of-living-calculator"
+      description="Calculate how much longer your freelance runway will last by relocating to a lower cost of living city. See your exact payback period and new monthly profit."
+      slug="digital-nomad-cost-of-living-calculator"
       faqs={faqs}
       calculator={(isPro) => <CalculatorClient isPro={isPro} />}
     >
@@ -219,5 +335,6 @@ export default function NomadCOLPage() {
         </>
       )}
     </ToolLayout>
+    </>
   )
 }

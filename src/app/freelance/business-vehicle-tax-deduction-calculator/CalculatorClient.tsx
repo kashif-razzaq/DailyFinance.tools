@@ -8,7 +8,7 @@ import { CalculatorActions } from "@/components/calculator/CalculatorActions"
 import { saveCalculatorAction, getSharedCalculatorAction } from '@/actions/calculator.actions'
 import { ProUpgradeModal } from "@/components/shared/ProUpgradeModal"
 
-export default function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [monthlyLease, setMonthlyLease] = useState(600)
   const [downPayment, setDownPayment] = useState(3600)
   const [leaseTermMonths, setLeaseTermMonths] = useState(36)
@@ -415,3 +415,4 @@ export default function CalculatorClient({ isPro = false }: { isPro?: boolean })
     </div>
   )
 }
+

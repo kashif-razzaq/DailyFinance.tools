@@ -3,7 +3,7 @@ import { ToolLayout } from "@/components/layout/ToolLayout"
 import React from "react"
 
 export const metadata: Metadata = {
-  title: "Flipping Profit Margin | DailyFinance",
+  title: "Flipping Profit Margin",
   description: "Calculate your flipping profit margin.",
 }
 

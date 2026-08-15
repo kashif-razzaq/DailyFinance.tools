@@ -3,7 +3,7 @@ import { ToolLayout } from "@/components/layout/ToolLayout"
 import React from "react"
 
 export const metadata: Metadata = {
-  title: "Inventory Reorder Point | DailyFinance",
+  title: "Inventory Reorder Point",
   description: "Calculate your inventory reorder point.",
 }
 

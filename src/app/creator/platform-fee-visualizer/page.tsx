@@ -3,7 +3,7 @@ import { ToolLayout } from "@/components/layout/ToolLayout"
 import React from "react"
 
 export const metadata: Metadata = {
-  title: "Platform Fee Visualizer | DailyFinance",
+  title: "Platform Fee Visualizer",
   description: "Calculate your platform fee visualizer.",
 }
 

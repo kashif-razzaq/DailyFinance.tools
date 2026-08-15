@@ -3,7 +3,7 @@ import { ToolLayout } from "@/components/layout/ToolLayout"
 import React from "react"
 
 export const metadata: Metadata = {
-  title: "Amazon FBA Fee Calculator | DailyFinance",
+  title: "Amazon FBA Fee Calculator",
   description: "Calculate your amazon fba fee calculator.",
 }
 

@@ -3,7 +3,7 @@ import { ToolLayout } from "@/components/layout/ToolLayout"
 import React from "react"
 
 export const metadata: Metadata = {
-  title: "HELOC Drawdown | DailyFinance",
+  title: "HELOC Drawdown",
   description: "Calculate your heloc drawdown.",
 }
 

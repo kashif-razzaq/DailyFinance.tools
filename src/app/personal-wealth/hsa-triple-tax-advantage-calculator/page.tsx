@@ -3,7 +3,7 @@ import { ToolLayout } from "@/components/layout/ToolLayout"
 import React from "react"
 
 export const metadata: Metadata = {
-  title: "HSA Triple Tax Advantage | DailyFinance",
+  title: "HSA Triple Tax Advantage",
   description: "Calculate your hsa triple tax advantage.",
 }
 

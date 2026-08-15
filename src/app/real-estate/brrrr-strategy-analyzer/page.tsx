@@ -3,7 +3,7 @@ import { ToolLayout } from "@/components/layout/ToolLayout"
 import React from "react"
 
 export const metadata: Metadata = {
-  title: "BRRRR Strategy Analyzer | DailyFinance",
+  title: "BRRRR Strategy Analyzer",
   description: "Calculate your brrrr strategy analyzer.",
 }
 

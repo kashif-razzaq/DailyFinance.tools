@@ -3,13 +3,14 @@ import type { Metadata } from 'next';
 import { generateCalculatorMetadata } from '@/config/metadata';
 import { ToolLayout, FAQ } from "@/components/layout/ToolLayout"
 import React from "react"
+import Script from "next/script"
 import { CheckCircle2, AlertTriangle, Calculator, DollarSign, Globe, CreditCard, Landmark, Coins } from "lucide-react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
-  title: "Stripe & Wise FX Fee Calculator: Cross-Border Foreign Exchange Impact",
+  title: "Stripe vs PayPal Fee Calculator: Compare International FX Rates",
   description: "Calculate hidden cross-border FX (foreign exchange) conversion fees for freelancers. Compare Stripe, PayPal, and Wise international transfer costs.",
   keywords: ["freelance cross border fees calculator", "paypal vs stripe international fees", "fx spread calculator freelancer", "wise multi currency account fees", "mid market exchange rate", "foreign exchange markup"],
-  slug: "freelance/cross-border-fx-impact-calculator",
+  slug: "freelance/stripe-paypal-fee-calculator",
   category: "Freelance",
 });
 
@@ -37,14 +38,109 @@ const faqs: FAQ[] = [
 ]
 
 export default function CrossBorderFxImpactPage() {
+  const softwareSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Stripe vs PayPal Fee Calculator",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "description": "Calculate hidden cross-border FX (foreign exchange) conversion fees for freelancers. Compare Stripe, PayPal, and Wise international transfer costs."
+  };
+
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Calculate Cross-Border Payment Fees",
+    "description": "A step-by-step guide to comparing international payment fees using the Stripe vs PayPal Fee Calculator.",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "name": "Enter Invoice Amount",
+        "text": "Start by entering the total amount you plan to invoice your client in their local currency."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Select Currencies",
+        "text": "Choose your client's currency and your local bank currency to determine the necessary foreign exchange (FX) route."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Choose Payment Method",
+        "text": "Select the payment processors you want to compare, such as Stripe, PayPal, or Wise, to see their specific fee structures."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Review Fee Breakdown",
+        "text": "Analyze the results to see the exact breakdown of base fees, cross-border surcharges, and hidden FX spreads to find the most cost-effective option."
+      }
+    ]
+  };
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(faq => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer
+      }
+    }))
+  };
+
+  const breadcrumbWebPageSchema = [
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Stripe vs PayPal Fee Calculator: Compare International FX Rates",
+      "description": "Calculate hidden cross-border FX (foreign exchange) conversion fees for freelancers. Compare Stripe, PayPal, and Wise international transfer costs.",
+      "url": "https://dailyfinance.tools/freelance/stripe-paypal-fee-calculator"
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://dailyfinance.tools"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Freelance",
+          "item": "https://dailyfinance.tools/freelance"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Stripe vs PayPal Fee Calculator",
+          "item": "https://dailyfinance.tools/freelance/stripe-paypal-fee-calculator"
+        }
+      ]
+    }
+  ];
+
   return (
-    <ToolLayout
-      title="Stripe & Wise FX Fee Calculator"
-      description="Stop losing thousands of dollars to hidden foreign exchange spreads. Compare exactly how much Stripe, PayPal, and Wise are charging you to get paid internationally."
-      slug="cross-border-fx-impact-calculator"
-      faqs={faqs}
-      calculator={(isPro) => <CalculatorClient isPro={isPro} />}
-    >
+    <>
+      <Script id="schema-software" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }} />
+      <Script id="schema-howto" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
+      <Script id="schema-faq" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <Script id="schema-breadcrumb" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbWebPageSchema) }} />
+      <ToolLayout
+        title="Stripe vs PayPal Fee Calculator"
+        description="Stop losing thousands of dollars to hidden foreign exchange spreads. Compare exactly how much Stripe, PayPal, and Wise are charging you to get paid internationally."
+        slug="stripe-paypal-fee-calculator"
+        faqs={faqs}
+        calculator={(isPro) => <CalculatorClient isPro={isPro} />}
+      >
       {(isPro) => (
         <>
           {/* Answer Engine Optimization (AEO) Block */}
@@ -260,6 +356,7 @@ export default function CrossBorderFxImpactPage() {
           </p>
         </>
       )}
-    </ToolLayout>
+      </ToolLayout>
+    </>
   )
 }

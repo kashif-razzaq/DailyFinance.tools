@@ -3,7 +3,7 @@ import { ToolLayout } from "@/components/layout/ToolLayout"
 import React from "react"
 
 export const metadata: Metadata = {
-  title: "REIT vs Physical Yield | DailyFinance",
+  title: "REIT vs Physical Yield",
   description: "Calculate your reit vs physical yield.",
 }
 

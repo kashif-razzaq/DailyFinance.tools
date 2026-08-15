@@ -3,7 +3,7 @@ import { ToolLayout } from "@/components/layout/ToolLayout"
 import React from "react"
 
 export const metadata: Metadata = {
-  title: "401k vs Solo 401k | DailyFinance",
+  title: "401k vs Solo 401k",
   description: "Calculate your 401k vs solo 401k.",
 }
 

@@ -3,7 +3,7 @@ import { ToolLayout } from "@/components/layout/ToolLayout"
 import React from "react"
 
 export const metadata: Metadata = {
-  title: "Property Tax Assessor | DailyFinance",
+  title: "Property Tax Assessor",
   description: "Calculate your property tax assessor.",
 }
 

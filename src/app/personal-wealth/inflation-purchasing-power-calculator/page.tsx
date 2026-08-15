@@ -3,7 +3,7 @@ import { ToolLayout } from "@/components/layout/ToolLayout"
 import React from "react"
 
 export const metadata: Metadata = {
-  title: "Inflation Purchasing Power | DailyFinance",
+  title: "Inflation Purchasing Power",
   description: "Calculate your inflation purchasing power.",
 }
 

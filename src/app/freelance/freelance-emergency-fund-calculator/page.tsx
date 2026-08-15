@@ -1,15 +1,16 @@
 import { CalculatorClient } from "./CalculatorClient"
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import { generateCalculatorMetadata } from '@/config/metadata';
 import { ToolLayout, FAQ } from "@/components/layout/ToolLayout"
 import React from "react"
 import {  Calculator, ShieldCheck, TrendingDown, Target, Clock, Zap } from "lucide-react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
-  title: "Freelance Budget Calculator: Irregular Income Buffer & Runway",
-  description: "Calculate your custom, volatility-adjusted emergency fund and cash buffer for irregular freelance income. Plan for lean months, client loss risk, and payment lags.",
+  title: "Freelance Emergency Fund Calculator: Calculate Your Cash Runway",
+  description: "Calculate your ideal freelance emergency fund based on your irregular income volatility, client concentration risk, and essential business expenses.",
   keywords: ["irregular income emergency fund calculator", "freelance income buffer calculator", "cash buffer variable income", "how much emergency fund freelancer", "feast or famine freelancer", "days sales outstanding freelancer"],
-  slug: "freelance/irregular-income-buffer-calculator",
+  slug: "freelance/freelance-emergency-fund-calculator",
   category: "Freelance",
 });
 
@@ -39,14 +40,126 @@ const faqs: FAQ[] = [
 export default function IrregularIncomeBufferPage() {
   return (
     <ToolLayout
-      title="Freelance Budget & Income Buffer Calculator"
-      description="Protect your freelance business from feast-or-famine cycles by calculating the exact liquid cash reserve you need to survive lean months, client loss, and late invoices."
-      slug="irregular-income-buffer-calculator"
+      title="Freelance Emergency Fund Calculator"
+      description="Calculate your ideal freelance emergency fund based on your irregular income volatility, client concentration risk, and essential business expenses."
+      slug="freelance-emergency-fund-calculator"
       faqs={faqs}
       calculator={(isPro) => <CalculatorClient isPro={isPro} />}
     >
       {(isPro) => (
         <>
+          <Script
+            id="schema-software-application"
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "SoftwareApplication",
+                "name": "Freelance Emergency Fund Calculator",
+                "applicationCategory": "BusinessApplication",
+                "operatingSystem": "Any",
+                "offers": {
+                  "@type": "Offer",
+                  "price": "0",
+                  "priceCurrency": "USD"
+                },
+                "description": "Calculate your ideal freelance emergency fund based on your irregular income volatility, client concentration risk, and essential business expenses."
+              })
+            }}
+          />
+          <Script
+            id="schema-howto"
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "HowTo",
+                "name": "How to Use the Freelance Emergency Fund Calculator",
+                "description": "A step-by-step guide on how to calculate your freelance emergency fund based on your irregular income and expenses.",
+                "step": [
+                  {
+                    "@type": "HowToStep",
+                    "name": "Enter your essential monthly expenses",
+                    "text": "Input your minimum personal living expenses and your required business overhead costs to determine your absolute baseline survival number."
+                  },
+                  {
+                    "@type": "HowToStep",
+                    "name": "Input your income volatility",
+                    "text": "Assess and select how much your freelance income swings from month to month to help determine the number of months you need in your buffer."
+                  },
+                  {
+                    "@type": "HowToStep",
+                    "name": "Determine client concentration risk",
+                    "text": "Indicate if a single client makes up a large percentage of your revenue, which increases your risk and required emergency fund size."
+                  },
+                  {
+                    "@type": "HowToStep",
+                    "name": "Review your target cash reserve",
+                    "text": "The calculator will output your exact recommended emergency fund size split into a Tier 1 operational buffer and a Tier 2 fortress fund."
+                  }
+                ]
+              })
+            }}
+          />
+          <Script
+            id="schema-faq"
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                "mainEntity": faqs.map(faq => ({
+                  "@type": "Question",
+                  "name": faq.question,
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": faq.answer
+                  }
+                }))
+              })
+            }}
+          />
+          <Script
+            id="schema-webpage"
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@graph": [
+                  {
+                    "@type": "WebPage",
+                    "@id": "https://dailyfinance.tools/freelance/freelance-emergency-fund-calculator",
+                    "url": "https://dailyfinance.tools/freelance/freelance-emergency-fund-calculator",
+                    "name": "Freelance Emergency Fund Calculator: Calculate Your Cash Runway",
+                    "description": "Calculate your ideal freelance emergency fund based on your irregular income volatility, client concentration risk, and essential business expenses."
+                  },
+                  {
+                    "@type": "BreadcrumbList",
+                    "itemListElement": [
+                      {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "Home",
+                        "item": "https://dailyfinance.tools/"
+                      },
+                      {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "name": "Freelance",
+                        "item": "https://dailyfinance.tools/freelance"
+                      },
+                      {
+                        "@type": "ListItem",
+                        "position": 3,
+                        "name": "Freelance Emergency Fund Calculator",
+                        "item": "https://dailyfinance.tools/freelance/freelance-emergency-fund-calculator"
+                      }
+                    ]
+                  }
+                ]
+              })
+            }}
+          />
           {/* Answer Engine Optimization (AEO) Block */}
           <section className="bg-white border border-neutral-200 shadow-sm rounded-2xl p-6 md:p-8 mb-12 relative overflow-hidden">
             <div className="absolute top-0 left-0 w-2 h-full bg-[#064E3B]"></div>

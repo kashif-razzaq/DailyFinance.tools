@@ -3,7 +3,7 @@ import { ToolLayout } from "@/components/layout/ToolLayout"
 import React from "react"
 
 export const metadata: Metadata = {
-  title: "Coast FIRE Calculator | DailyFinance",
+  title: "Coast FIRE Calculator",
   description: "Calculate your coast fire calculator.",
 }
 

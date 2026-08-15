@@ -3,7 +3,7 @@ import { ToolLayout } from "@/components/layout/ToolLayout"
 import React from "react"
 
 export const metadata: Metadata = {
-  title: "Rental Cash Flow | DailyFinance",
+  title: "Rental Cash Flow",
   description: "Calculate your rental cash flow.",
 }
 

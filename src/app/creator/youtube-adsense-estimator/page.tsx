@@ -3,7 +3,7 @@ import { ToolLayout } from "@/components/layout/ToolLayout"
 import React from "react"
 
 export const metadata: Metadata = {
-  title: "YouTube AdSense Estimator | DailyFinance",
+  title: "YouTube AdSense Estimator",
   description: "Calculate your youtube adsense estimator.",
 }
 

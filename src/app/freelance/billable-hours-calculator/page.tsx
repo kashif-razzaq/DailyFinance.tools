@@ -4,13 +4,14 @@ import type { Metadata } from 'next';
 import { generateCalculatorMetadata } from '@/config/metadata';
 import { ToolLayout, FAQ } from "@/components/layout/ToolLayout"
 import React from "react"
+import Script from "next/script"
 import { Calculator, Clock, Target, TrendingDown, AlertCircle, FileWarning, HelpCircle, CheckCircle, TrendingUp, DollarSign } from "lucide-react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
-  title: "Time Tracking ROI Calculator: Cost of Unbilled Freelance Hours",
-  description: "Calculate how much revenue you lose annually to undocumented scope creep and administrative overhead, and see the true ROI of time tracking software.",
-  keywords: ["time tracking roi calculator", "freelance scope creep calculator", "cost of unbilled hours", "is time tracking software worth it", "effective hourly rate flat fee", "time tracking for freelancers"],
-  slug: "freelance/time-tracking-roi-calculator",
+  title: "Billable Hours Calculator: Track Freelance Revenue & ROI",
+  description: "Calculate how much revenue you lose annually to undocumented scope creep and administrative overhead, and see the true ROI of tracking billable hours.",
+  keywords: ["billable hours calculator", "time tracking roi calculator", "freelance scope creep calculator", "cost of unbilled hours", "is time tracking software worth it", "effective hourly rate flat fee", "time tracking for freelancers"],
+  slug: "freelance/billable-hours-calculator",
   category: "Freelance",
 });
 
@@ -38,14 +39,106 @@ const faqs: FAQ[] = [
 ]
 
 export default function TimeTrackingROIPage() {
+  const schemaSoftware = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Billable Hours Calculator",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  };
+
+  const schemaHowTo = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Use the Billable Hours Calculator",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "name": "Enter Target Rate",
+        "text": "Input your target hourly rate to establish a baseline for your time value."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Estimate Unbilled Hours",
+        "text": "Provide the average number of hours per week you spend on undocumented 'quick favors' or scope creep."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Include Administrative Time",
+        "text": "Enter the hours spent on manual invoicing and other non-billable administrative tasks."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Review ROI Breakdown",
+        "text": "View the calculated annual revenue loss and see how time tracking software can provide a positive return on investment."
+      }
+    ]
+  };
+
+  const schemaFAQ = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(faq => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer
+      }
+    }))
+  };
+
+  const schemaWebPage = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Billable Hours Calculator: Track Freelance Revenue & ROI",
+    "url": "https://dailyfinance.tools/freelance/billable-hours-calculator"
+  };
+
+  const schemaBreadcrumb = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://dailyfinance.tools"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Freelance",
+        "item": "https://dailyfinance.tools/freelance"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Billable Hours Calculator",
+        "item": "https://dailyfinance.tools/freelance/billable-hours-calculator"
+      }
+    ]
+  };
+
   return (
-    <ToolLayout
-      title="Time Tracking ROI & Billable Hours Calculator"
-      description="Stop working for free. See exactly how much undocumented scope creep and manual administrative work is costing your freelance business every year."
-      slug="time-tracking-roi-calculator"
-      faqs={faqs}
-      calculator={(isPro) => <CalculatorClient isPro={isPro} />}
-    >
+    <>
+      <Script id="schema-software" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaSoftware) }} />
+      <Script id="schema-howto" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaHowTo) }} />
+      <Script id="schema-faq" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaFAQ) }} />
+      <Script id="schema-webpage" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaWebPage) }} />
+      <Script id="schema-breadcrumb" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
+      <ToolLayout
+        title="Billable Hours Calculator"
+        description="Calculate how much revenue you lose annually to undocumented scope creep and administrative overhead, and see the true ROI of tracking billable hours."
+        slug="billable-hours-calculator"
+        faqs={faqs}
+        calculator={(isPro) => <CalculatorClient isPro={isPro} />}
+      >
       {(isPro) => (
         <>
           {/* Answer Engine Optimization (AEO) Block */}
@@ -196,6 +289,7 @@ export default function TimeTrackingROIPage() {
           </p>
         </>
       )}
-    </ToolLayout>
+      </ToolLayout>
+    </>
   )
 }

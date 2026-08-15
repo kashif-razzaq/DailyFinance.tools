@@ -3,7 +3,7 @@ import { ToolLayout } from "@/components/layout/ToolLayout"
 import React from "react"
 
 export const metadata: Metadata = {
-  title: "Shipping Zone Optimizer | DailyFinance",
+  title: "Shipping Zone Optimizer",
   description: "Calculate your shipping zone optimizer.",
 }
 

@@ -3,7 +3,7 @@ import { ToolLayout } from "@/components/layout/ToolLayout"
 import React from "react"
 
 export const metadata: Metadata = {
-  title: "Airbnb Arbitrage Margin | DailyFinance",
+  title: "Airbnb Arbitrage Margin",
   description: "Calculate your airbnb arbitrage margin.",
 }
 

@@ -8,6 +8,7 @@ import { TahirLeadGenCTA } from "@/components/shared/TahirLeadGenCTA"
 import { RelatedToolsWidget } from "@/components/shared/RelatedToolsWidget"
 import { SidebarAdSpace } from "@/components/shared/SidebarAdSpace"
 import { ProDashboardWidget } from "@/components/shared/ProDashboardWidget"
+import { getCategoryForTool } from "@/config/navigation"
 
 export interface FAQ {
   question: string;
@@ -44,6 +45,7 @@ export async function ToolLayout({
     }
   )
 
+  const category = getCategoryForTool(slug)
   let isPro = false
   let vaultCount = 0
   const { data: { user } } = await supabase.auth.getUser()
@@ -104,6 +106,17 @@ export async function ToolLayout({
       <section className="container mx-auto px-4 md:px-8 pt-12 pb-2 md:pb-8" aria-label={`${title} Tool`}>
         <header className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start border-b border-border/40 pb-2 md:pb-8 mb-8">
           <div className="lg:col-span-7">
+            {/* Dynamic Breadcrumbs */}
+            {category && (
+              <nav className="flex items-center gap-2 text-xs font-semibold text-muted-foreground mb-6 uppercase tracking-wider">
+                <a href="/" className="hover:text-foreground transition-colors">Home</a>
+                <span className="text-border">/</span>
+                <a href={`/${category.slug}`} className="hover:text-foreground transition-colors">{category.name}</a>
+                <span className="text-border">/</span>
+                <span className="text-foreground truncate max-w-[200px] md:max-w-none" title={title}>{title}</span>
+              </nav>
+            )}
+            
             <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-4 text-foreground">
               {title}
             </h1>
