@@ -27,9 +27,9 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       getSharedCalculatorAction(urlSavedId).then(data => {
         if (data && data.input_state) {
           const s = data.input_state
-          if (s.purchasePrice) store.setPurchasePrice(s.purchasePrice)
-          if (s.rehabCost) store.setRehabCost(s.rehabCost)
-          if (s.arv) store.setArv(s.arv)
+          if (s.purchasePrice) store.setPurchasePrice(s.purchasePrice as number)
+          if (s.rehabCost) store.setRehabCost(s.rehabCost as number)
+          if (s.arv) store.setArv(s.arv as number)
           setSavedScenarioId(urlSavedId)
         }
       }).catch(console.error)

@@ -27,7 +27,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     if (urlSavedId) {
       getSharedCalculatorAction(urlSavedId).then(data => {
         if (data && data.input_state) {
-          const state = data.input_state
+          const state = data.input_state as any
           if (state.purchasePrice !== undefined) store.setPurchasePrice(state.purchasePrice)
           if (state.downPaymentPercent !== undefined) store.setDownPaymentPercent(state.downPaymentPercent)
           if (state.monthlyRent !== undefined) store.setMonthlyRent(state.monthlyRent)

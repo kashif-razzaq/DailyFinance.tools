@@ -57,7 +57,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
               </div>
               <Slider
                 value={[store.occupancyRate]}
-                onValueChange={(val) => store.setOccupancyRate(val[0])}
+                onValueChange={(val) => store.setOccupancyRate((val as number[])[0])}
                 min={0}
                 max={100}
                 step={1}

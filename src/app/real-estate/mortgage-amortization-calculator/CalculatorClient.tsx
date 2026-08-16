@@ -57,7 +57,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
               </div>
               <Slider
                 value={[store.loanTerm]}
-                onValueChange={(val) => store.setLoanTerm(val[0])}
+                onValueChange={(val) => store.setLoanTerm((val as number[])[0])}
                 min={1}
                 max={40}
                 step={1}
@@ -70,7 +70,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
               </div>
               <Slider
                 value={[store.extraMonthlyPayment]}
-                onValueChange={(val) => store.setExtraMonthlyPayment(val[0])}
+                onValueChange={(val) => store.setExtraMonthlyPayment((val as number[])[0])}
                 min={0}
                 max={2000}
                 step={50}
