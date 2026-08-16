@@ -196,12 +196,12 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
 
         {/* YouTube Shorts Metrics */}
-        <div className="space-y-6">
+        <div className="space-y-6 pb-6">
           <h2 className="text-xl font-bold flex items-center gap-2 pb-2 border-b">
             <TrendingUp className="h-5 w-5 text-muted-foreground" />
             YouTube Shorts Metrics
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 gap-8">
             <div className="space-y-3">
               <label className="text-sm font-semibold text-foreground">Monthly Shorts Views</label>
               <div className="relative">

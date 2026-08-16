@@ -16,6 +16,16 @@ const calculators = {
   'quarterly-estimated-tax-calculator': dynamic(() => import('@/app/freelance/quarterly-estimated-tax-calculator/CalculatorClient').then(m => m.CalculatorClient)),
   'w2-vs-1099-calculator': dynamic(() => import('@/app/freelance/w2-vs-1099-calculator/CalculatorClient').then(m => m.CalculatorClient)),
   'business-vehicle-tax-deduction-calculator': dynamic(() => import('@/app/freelance/business-vehicle-tax-deduction-calculator/CalculatorClient').then(m => m.CalculatorClient)),
+  'youtube-adsense-estimator': dynamic(() => import('@/app/creator/youtube-adsense-estimator/CalculatorClient').then(m => m.CalculatorClient)),
+  'sponsorship-pricing-calculator': dynamic(() => import('@/app/creator/sponsorship-pricing-calculator/CalculatorClient').then(m => m.CalculatorClient)),
+  'tiktok-creator-fund-calculator': dynamic(() => import('@/app/creator/tiktok-creator-fund-calculator/CalculatorClient').then(m => m.CalculatorClient)),
+  'patreon-tier-optimization': dynamic(() => import('@/app/creator/patreon-tier-optimization/CalculatorClient').then(m => m.CalculatorClient)),
+  'platform-fee-visualizer': dynamic(() => import('@/app/creator/platform-fee-visualizer/CalculatorClient').then(m => m.CalculatorClient)),
+  'course-launch-revenue-calculator': dynamic(() => import('@/app/creator/course-launch-revenue-calculator/CalculatorClient').then(m => m.CalculatorClient)),
+  'substack-growth-predictor-simulator': dynamic(() => import('@/app/creator/substack-growth-predictor-simulator/CalculatorClient').then(m => m.CalculatorClient)),
+  'affiliate-link-roi-calculator': dynamic(() => import('@/app/creator/affiliate-link-roi-calculator/CalculatorClient').then(m => m.CalculatorClient)),
+  'merch-margin-calculator': dynamic(() => import('@/app/creator/merch-margin-calculator/CalculatorClient').then(m => m.CalculatorClient)),
+  'agency-vs-solo-margin-calculator': dynamic(() => import('@/app/creator/agency-vs-solo-margin-calculator/CalculatorClient').then(m => m.CalculatorClient)),
 }
 
 export default async function EmbeddedCalculatorPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -29,10 +39,8 @@ export default async function EmbeddedCalculatorPage({ params }: { params: Promi
 
   return (
     <div className="w-full min-h-screen flex flex-col items-center">
-      {/* Force the body background to be transparent so the iframe blends into the parent site */}
       <style>{`body { background-color: transparent !important; }`}</style>
       <div className="w-full max-w-5xl mx-auto mt-4 px-4 sm:px-0">
-        {/* We pass isPro=false so it defaults to the standard free embedded version */}
         <CalculatorClient isPro={false} />
       </div>
       <div className="mt-6 text-center pb-4">
