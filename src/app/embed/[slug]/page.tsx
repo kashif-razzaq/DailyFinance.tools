@@ -26,6 +26,18 @@ const calculators = {
   'affiliate-link-roi-calculator': dynamic(() => import('@/app/creator/affiliate-link-roi-calculator/CalculatorClient').then(m => m.CalculatorClient)),
   'merch-margin-calculator': dynamic(() => import('@/app/creator/merch-margin-calculator/CalculatorClient').then(m => m.CalculatorClient)),
   'agency-vs-solo-margin-calculator': dynamic(() => import('@/app/creator/agency-vs-solo-margin-calculator/CalculatorClient').then(m => m.CalculatorClient)),
+  'target-roas-break-even-calculator': dynamic(() => import('@/app/ecommerce/target-roas-break-even-calculator/CalculatorClient').then(m => m.CalculatorClient)),
+  'shopify-margin-calculator': dynamic(() => import('@/app/ecommerce/shopify-margin-calculator/CalculatorClient').then(m => m.CalculatorClient)),
+  'inventory-reorder-point-calculator': dynamic(() => import('@/app/ecommerce/inventory-reorder-point-calculator/CalculatorClient').then(m => m.CalculatorClient)),
+  'customer-acquisition-cost-calculator': dynamic(() => import('@/app/ecommerce/customer-acquisition-cost-calculator/CalculatorClient').then(m => m.CalculatorClient)),
+  'subscription-churn-impact-simulator': dynamic(() => import('@/app/ecommerce/subscription-churn-impact-simulator/CalculatorClient').then(m => m.CalculatorClient)),
+  'amazon-fba-fee-calculator': dynamic(() => import('@/app/ecommerce/amazon-fba-fee-calculator/CalculatorClient').then(m => m.CalculatorClient)),
+  'black-friday-discount-roi-calculator': dynamic(() => import('@/app/ecommerce/black-friday-discount-roi-calculator/CalculatorClient').then(m => m.CalculatorClient)),
+  'aov-upsell-simulator': dynamic(() => import('@/app/ecommerce/aov-upsell-simulator/CalculatorClient').then(m => m.CalculatorClient)),
+  'shipping-zone-optimizer': dynamic(() => import('@/app/ecommerce/shipping-zone-optimizer/CalculatorClient').then(m => m.CalculatorClient)),
+  'ltv-to-cac-ratio-calculator': dynamic(() => import('@/app/ecommerce/ltv-to-cac-ratio-calculator/CalculatorClient').then(m => m.CalculatorClient)),
+  'sales-tax-vat-calculator': dynamic(() => import('@/app/ecommerce/sales-tax-vat-calculator/CalculatorClient').then(m => m.CalculatorClient)),
+  'business-loan-runway-calculator': dynamic(() => import('@/app/ecommerce/business-loan-runway-calculator/CalculatorClient').then(m => m.CalculatorClient)),
 }
 
 export default async function EmbeddedCalculatorPage({ params }: { params: Promise<{ slug: string }> }) {

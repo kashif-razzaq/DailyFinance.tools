@@ -1,3 +1,4 @@
+cat << 'INNER_EOF' > src/app/creator/agency-vs-solo-margin-calculator/page.tsx
 import Script from "next/script"
 import { CalculatorClient } from "./CalculatorClient"
 import type { Metadata } from 'next';
@@ -231,3 +232,4 @@ export default function AgencyVsSoloPage() {
     </>
   )
 }
+INNER_EOF

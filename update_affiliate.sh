@@ -1,3 +1,4 @@
+cat << 'INNER_EOF' > src/app/creator/affiliate-link-roi-calculator/page.tsx
 import Script from "next/script"
 import { CalculatorClient } from "./CalculatorClient"
 import type { Metadata } from 'next';
@@ -234,3 +235,4 @@ export default function AffiliatePage() {
     </>
   )
 }
+INNER_EOF
