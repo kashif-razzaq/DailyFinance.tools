@@ -1,31 +1,86 @@
-import type { Metadata } from "next"
-import { ToolLayout } from "@/components/layout/ToolLayout"
-import React from "react"
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import type { Metadata } from 'next'
+import { ToolLayout } from '@/components/layout/ToolLayout'
+import { CalculatorClient } from './CalculatorClient'
+import { generateCalculatorMetadata } from '@/config/metadata'
+import React from 'react'
 
-export const metadata: Metadata = {
-  title: "CapEx Reserve Planner",
-  description: "Calculate your capex reserve planner.",
-}
+export const metadata: Metadata = generateCalculatorMetadata({
+  title: 'CapEx Reserve Planner',
+  description: 'Plan your capital expenditures and save for major repairs like roofs and HVACs.',
+  slug: 'capex-reserve-planner',
+  category: 'real-estate',
+})
 
 export default function Page() {
+
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the CapEx Reserve Planner?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Plan your capital expenditures and save for major repairs like roofs and HVACs."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I use this calculator?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Simply enter your parameters into the input fields on the left. The calculator will automatically update the results on the right side in real-time."
+        }
+      }
+    ]
+  }
+
+
   return (
-    <ToolLayout
-      title="CapEx Reserve Planner"
-      description="Use our free capex reserve planner to optimize your finances."
-      slug="capex-reserve-planner"
-      faqs={[]}
-      calculator={(isPro) => (
-        <div className="bg-white p-8 rounded-2xl border border-neutral-200 text-center text-neutral-500">
-          Calculator interface coming soon.
-        </div>
-      )}
-    >
-      {(isPro) => (
-        <div className="prose prose-neutral max-w-none">
-          <h2>About the CapEx Reserve Planner</h2>
-          <p>Detailed educational content will be added here soon.</p>
-        </div>
-      )}
-    </ToolLayout>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
+      <ToolLayout
+        title="CapEx Reserve Planner"
+        description="Plan your capital expenditures and save for major repairs like roofs and HVACs."
+        slug="capex-reserve-planner"
+        faqs={[]}
+        calculator={() => <CalculatorClient isPro={false} />}
+      >
+        {() => (
+          <div className="prose prose-neutral max-w-none">
+            <div dangerouslySetInnerHTML={{ __html: `
+          <h2>Mastering the CapEx Reserve Planner</h2>
+          <p>Plan your capital expenditures and save for major repairs like roofs and HVACs.</p>
+
+          <h3>Why CapEx Reserve Planner Matters</h3>
+          <p>Understanding these numbers is critical for making informed decisions. By accurately calculating your projections, you can avoid costly mistakes and set yourself up for long-term success.</p>
+
+          <h3>The Core Components</h3>
+          <p>Let's break down the individual elements that make up this calculation. You cannot accurately predict outcomes without grasping the underlying variables.</p>
+          <ul>
+            <li><strong>Accuracy of Inputs:</strong> Your output is only as good as your input. Ensure you are using realistic estimates.</li>
+            <li><strong>Market Conditions:</strong> Always adjust your baselines for the specific economic climate.</li>
+            <li><strong>Contingencies:</strong> A massive mistake is failing to build in a buffer for unexpected events. Always run a 'worst-case' scenario.</li>
+          </ul>
+
+          <h3>Step-by-Step Implementation</h3>
+          <p>Using our tool is straightforward. Begin by entering your baseline numbers. Once you have a result, start tweaking the variables one by one to see how different scenarios play out. This sensitivity analysis is what separates beginners from professionals.</p>
+
+          <br/>
+          <!-- TODO: Expand content to 1500+ unique words per SEO requirements -->
+
+          <h3>Conclusion</h3>
+          <p>We built this CapEx Reserve Planner tool to empower you with institutional-grade analytics. Save your scenarios, compare different options, and make data-driven decisions. Your future self will thank you.</p>
+    ` }} />
+          </div>
+        )}
+      </ToolLayout>
+    </>
   )
 }
