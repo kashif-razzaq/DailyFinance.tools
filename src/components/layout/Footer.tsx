@@ -116,6 +116,13 @@ export function Footer() {
           ))}
         </div>
 
+        {/* Financial Disclaimer */}
+        <div className="pt-8 pb-4 text-center">
+          <p className="text-xs text-muted-foreground/80 leading-relaxed max-w-5xl mx-auto">
+            <strong className="text-muted-foreground font-semibold">Disclaimer:</strong> The calculators, estimators, and tools provided by DailyFinance are designed for educational and informational purposes only. They do not constitute professional financial, tax, or legal advice. While we strive for absolute mathematical accuracy, your specific financial situation is unique. You should always consult with a qualified financial advisor, CPA, or certified professional before making any significant financial or business decisions.
+          </p>
+        </div>
+
         {/* Bottom Tier: Legal & GEO */}
         <div className="pt-8 border-t flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="flex items-center gap-2 text-xs text-muted-foreground">

@@ -4,7 +4,7 @@ import React from 'react'
 import { getToolUrl } from '@/config/navigation'
 
 const calculators = {
-  'freelance-emergency-fund-calculator': dynamic(() => import('@/app/freelance/freelance-emergency-fund-calculator/CalculatorClient').then(m => m.CalculatorClient)),
+  'emergency-fund-calculator': dynamic(() => import('@/app/personal-wealth/emergency-fund-calculator/CalculatorClient').then(m => m.CalculatorClient)),
   'stripe-paypal-fee-calculator': dynamic(() => import('@/app/freelance/stripe-paypal-fee-calculator/CalculatorClient').then(m => m.CalculatorClient)),
   'freelance-project-pricing-calculator': dynamic(() => import('@/app/freelance/freelance-project-pricing-calculator/CalculatorClient').then(m => m.CalculatorClient)),
   'client-lifetime-value-calculator': dynamic(() => import('@/app/freelance/client-lifetime-value-calculator/CalculatorClient').then(m => m.CalculatorClient)),

@@ -65,11 +65,14 @@ export async function ToolLayout({
     vaultCount = count || 0
   }
 
+  const ogImageUrl = `https://dailyfinance.tools/api/og?title=${encodeURIComponent(title)}&description=${encodeURIComponent(description)}&category=${encodeURIComponent(category?.name || 'Calculator')}`;
+
   const softwareSchema = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": title,
     "url": `https://dailyfinance.tools/tools/${slug}`,
+    "image": ogImageUrl,
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "All",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
@@ -90,8 +93,9 @@ export async function ToolLayout({
     "@context": "https://schema.org",
     "@type": "Article",
     "headline": title,
-    "author": { "@type": "Person", "name": "Tahir Shehzad" },
-    "publisher": { "@type": "Organization", "name": "DailyFinance.tools" }
+    "image": [ogImageUrl],
+    "author": { "@type": "Person", "name": "Tahir Shehzad", "url": "https://www.linkedin.com/in/tahir-shehzad-acma1993/" },
+    "publisher": { "@type": "Organization", "name": "DailyFinance.tools", "logo": { "@type": "ImageObject", "url": "https://dailyfinance.tools/icon.png" } }
   }
 
   return (
@@ -135,7 +139,7 @@ export async function ToolLayout({
                     <span className="text-sm font-bold text-foreground tracking-tight">Reviewed by Tahir Shehzad, ACMA</span>
                     <CheckCircle2 className="h-3.5 w-3.5 text-primary" />
                   </div>
-                  <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground mt-0.5">Updated for {new Date().getFullYear()}</span>
+                  <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground mt-0.5">Updated {new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
                 </div>
               </div>
             </div>
@@ -190,6 +194,7 @@ export async function ToolLayout({
             </section>
           )}
 
+    
           {/* EEAT Author Bio - Elevated Card Style */}
           <section className="mt-10 md:mt-16 bg-card border border-border/50 rounded-2xl p-5 md:p-8 flex flex-col sm:flex-row gap-5 md:gap-8 items-start shadow-sm">
             <div className="relative w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden shrink-0 border border-border/50 shadow-sm">

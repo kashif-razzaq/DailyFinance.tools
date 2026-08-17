@@ -41,7 +41,6 @@ export const navigationCategories: Category[] = [
     calculators: [
       { title: "Freelance Hourly Rate Calculator", slug: "freelance-hourly-rate-calculator", description: "Calculate exactly what to charge to hit your goals.", icon: DollarSign },
       { title: "Quarterly Estimated Tax Calculator", slug: "quarterly-estimated-tax-calculator", description: "Never miss a 1099 tax payment.", icon: Percent },
-      { title: "Freelance Emergency Fund Calculator", slug: "freelance-emergency-fund-calculator", description: "Plan for the lean months.", icon: Wallet },
       { title: "Stripe & PayPal Fee Calculator", slug: "stripe-paypal-fee-calculator", description: "See what Stripe & PayPal actually take.", icon: Globe },
       { title: "Freelance Project Pricing Calculator", slug: "freelance-project-pricing-calculator", description: "Convert hourly rates to profitable flat fees.", icon: FileText },
       { title: "Client Lifetime Value (LTV) Calculator", slug: "client-lifetime-value-calculator", description: "Calculate the lifetime value of a retainer client.", icon: Target },
@@ -127,7 +126,7 @@ export const navigationCategories: Category[] = [
       { title: "Debt Avalanche vs Snowball", slug: generateSlug("Debt Avalanche vs Snowball", "calculator"), description: "The mathematical fastest way out of debt.", icon: Smartphone },
       { title: "401k vs Solo 401k", slug: generateSlug("401k vs Solo 401k", "calculator"), description: "Contribution limits for self-employed.", icon: Briefcase },
       { title: "Roth IRA Conversion", slug: generateSlug("Roth IRA Conversion", "simulator"), description: "Tax implications of a backdoor Roth.", icon: Bookmark },
-      { title: "Emergency Fund Visualizer", slug: generateSlug("Emergency Fund Visualizer", "visualizer"), description: "Months of runway based on burn rate.", icon: Activity },
+      { title: "Emergency Fund Calculator", slug: "emergency-fund-calculator", description: "Calculate your ideal emergency fund based on your unique risk profile.", icon: Shield },
       { title: "Compound Interest Scaler", slug: generateSlug("Compound Interest Scaler", "calculator"), description: "The 8th wonder of the world.", icon: TrendingUp },
       { title: "Inflation Purchasing Power", slug: generateSlug("Inflation Purchasing Power", "calculator"), description: "What your money is worth in 10 years.", icon: Globe },
       { title: "HSA Triple Tax Advantage", slug: generateSlug("HSA Triple Tax Advantage", "calculator"), description: "Investing your healthcare savings.", icon: Shield },

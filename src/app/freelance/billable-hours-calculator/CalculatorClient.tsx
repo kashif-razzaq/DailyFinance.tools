@@ -45,7 +45,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     setIsSaving(true)
     try {
       const savedResult = await saveCalculatorAction({
-        calculator_slug: 'time-tracking-roi-calculator',
+        calculator_slug: 'freelance/time-tracking-roi-calculator',
         category: 'Freelance & Business',
         saved_name: `Time Tracking ROI: ${Math.round(metrics.roiMultiplier)}x`,
         input_state: {
