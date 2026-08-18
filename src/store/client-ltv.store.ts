@@ -1,79 +1,89 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
-interface ClientLTVState {
-  monthlyRetainer: number
-  monthlyChurnPct: number
+interface CLVState {
+  averagePurchaseValue: number
+  purchaseFrequency: number
+  customerLifespan: number
   grossMarginPct: number
-  expansionPct: number
-  targetLtvCacRatio: number
+  targetCacRatio: number
   
   // Setters
-  setMonthlyRetainer: (val: number) => void
-  setMonthlyChurnPct: (val: number) => void
+  setAveragePurchaseValue: (val: number) => void
+  setPurchaseFrequency: (val: number) => void
+  setCustomerLifespan: (val: number) => void
   setGrossMarginPct: (val: number) => void
-  setExpansionPct: (val: number) => void
-  setTargetLtvCacRatio: (val: number) => void
+  setTargetCacRatio: (val: number) => void
 
   // Derived metrics
   getDerivedMetrics: () => {
-    clientLifespanMonths: number
-    grossLTV: number
-    netLTV: number
-    targetMaxCAC: number
-    paybackPeriod: number
+    customerValue: number // APV * PF
+    basicCLV: number // APV * PF * Lifespan
+    profitAdjustedCLV: number // Basic CLV * Margin
+    maxCAC: number // Profit Adjusted CLV / Target CAC Ratio
     healthRating: 'Strong' | 'Fair' | 'At Risk' | 'Critical'
+    chartData: { year: number, cumulativeRevenue: number, cumulativeProfit: number }[]
   }
 }
 
-export const useClientLTVStore = create<ClientLTVState>()(
+export const useClientLTVStore = create<CLVState>()(
   persist(
     (set, get) => ({
-      monthlyRetainer: 2500,
-      monthlyChurnPct: 5.0,
-      grossMarginPct: 80,
-      expansionPct: 10,
-      targetLtvCacRatio: 4,
+      averagePurchaseValue: 150,
+      purchaseFrequency: 4,
+      customerLifespan: 5,
+      grossMarginPct: 60,
+      targetCacRatio: 3, // Target 3:1 CLV:CAC
 
-      setMonthlyRetainer: (val) => set({ monthlyRetainer: val }),
-      setMonthlyChurnPct: (val) => set({ monthlyChurnPct: val }),
+      setAveragePurchaseValue: (val) => set({ averagePurchaseValue: val }),
+      setPurchaseFrequency: (val) => set({ purchaseFrequency: val }),
+      setCustomerLifespan: (val) => set({ customerLifespan: val }),
       setGrossMarginPct: (val) => set({ grossMarginPct: val }),
-      setExpansionPct: (val) => set({ expansionPct: val }),
-      setTargetLtvCacRatio: (val) => set({ targetLtvCacRatio: val }),
+      setTargetCacRatio: (val) => set({ targetCacRatio: val }),
 
       getDerivedMetrics: () => {
         const s = get()
         
-        let clientLifespanMonths = 60 // Cap at 60 months if churn is 0
-        if (s.monthlyChurnPct > 0) {
-          clientLifespanMonths = Math.min(60, 1 / (s.monthlyChurnPct / 100))
-        }
-
-        const grossLTV = s.monthlyRetainer * clientLifespanMonths * (1 + (s.expansionPct / 100))
-        const netLTV = grossLTV * (s.grossMarginPct / 100)
+        const customerValue = s.averagePurchaseValue * s.purchaseFrequency
+        const basicCLV = customerValue * s.customerLifespan
+        const profitAdjustedCLV = basicCLV * (s.grossMarginPct / 100)
         
-        const targetMaxCAC = netLTV / s.targetLtvCacRatio
-
-        const monthlyGrossProfit = s.monthlyRetainer * (s.grossMarginPct / 100)
-        const paybackPeriod = monthlyGrossProfit > 0 ? targetMaxCAC / monthlyGrossProfit : 999
+        const maxCAC = s.targetCacRatio > 0 ? profitAdjustedCLV / s.targetCacRatio : 0
 
         let healthRating: 'Strong' | 'Fair' | 'At Risk' | 'Critical' = 'Strong'
-        if (s.monthlyChurnPct > 15) healthRating = 'Critical'
-        else if (paybackPeriod > 6) healthRating = 'At Risk'
-        else if (paybackPeriod > 3) healthRating = 'Fair'
+        if (s.customerLifespan < 1) healthRating = 'Critical'
+        else if (s.grossMarginPct < 20) healthRating = 'At Risk'
+        else if (s.targetCacRatio < 3) healthRating = 'Fair'
+
+        const chartData = []
+        let cumulativeRevenue = 0
+        let cumulativeProfit = 0
+        const yearsToProject = Math.ceil(s.customerLifespan)
+
+        for (let year = 1; year <= Math.max(5, yearsToProject + 1); year++) {
+          if (year <= yearsToProject) {
+            cumulativeRevenue += customerValue
+            cumulativeProfit += (customerValue * (s.grossMarginPct / 100))
+          }
+          chartData.push({
+            year,
+            cumulativeRevenue,
+            cumulativeProfit
+          })
+        }
 
         return {
-          clientLifespanMonths,
-          grossLTV,
-          netLTV,
-          targetMaxCAC,
-          paybackPeriod,
-          healthRating
+          customerValue,
+          basicCLV,
+          profitAdjustedCLV,
+          maxCAC,
+          healthRating,
+          chartData
         }
       }
     }),
     {
-      name: 'client-ltv-storage',
+      name: 'clv-calculator-storage',
       skipHydration: true,
     }
   )

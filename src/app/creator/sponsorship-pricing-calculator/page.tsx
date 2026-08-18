@@ -7,9 +7,9 @@ import React from "react"
 import { DollarSign, Percent, Shield, Zap, Target, BarChart, FileText, Briefcase } from "lucide-react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
-  title: "Sponsorship Rate Calculator | Creator Pricing Tool",
-  description: "Calculate how much to charge for brand deals and sponsorships based on audience size, engagement, and platform. The ultimate creator rate calculator.",
-  keywords: ["sponsorship rate calculator", "creator rate calculator", "how much to charge for brand deals", "influencer pricing calculator", "sponsored post calculator", "youtube sponsorship rates", "instagram sponsorship rates"],
+  title: "Sponsorship Value Calculator | Value & Price Estimator",
+  description: "Free sponsorship valuation calculator. Determine your exact sponsorship price for YouTube and Instagram brand deals based on your average views and CPM.",
+  keywords: ["youtube sponsorship calculator", "sponsorship valuation calculator", "sponsorship value calculator", "sponsorship price calculator", "instagram sponsorship calculator", "sponsorship rate calculator", "how much to charge for brand deals"],
   slug: "creator/sponsorship-pricing-calculator",
   category: "Creator Economy",
 });
@@ -152,8 +152,8 @@ export default function SponsorshipPricingPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
       />
       <ToolLayout
-        title="Sponsorship Rate Calculator"
-        description="Calculate exactly what to charge for brand deals and sponsorships. Our creator rate calculator factors in platform CPMs, engagement rates, usage rights, and exclusivity to generate data-driven pricing."
+        title="Sponsorship Value Calculator"
+        description="Calculate exactly what to charge for brand deals and sponsorships. Our sponsorship valuation calculator factors in platform CPMs, engagement rates, usage rights, and exclusivity to generate data-driven pricing for YouTube and Instagram."
         slug="sponsorship-pricing-calculator"
         faqs={faqs}
         calculator={(isPro) => <CalculatorClient isPro={isPro} />}
@@ -165,10 +165,10 @@ export default function SponsorshipPricingPage() {
             <div className="absolute top-0 left-0 w-2 h-full bg-primary"></div>
             <h2 className="text-xl font-bold text-[#1F2937] mb-3 flex items-center gap-2">
               <Zap className="h-5 w-5 text-primary" />
-              Quick Answer: How Much Should You Charge for a Sponsorship?
+              Quick Answer: How Do You Calculate Sponsorship Value?
             </h2>
             <p className="text-neutral-600 leading-relaxed text-lg">
-              To calculate your sponsorship rate, start with a <strong>baseline CPM of $15 to $25</strong> (Cost Per 1,000 Views). If you average 50,000 views, your base rate is $1,000. However, you must then add premiums: <strong>+20% for high engagement</strong>, <strong>+20% for exclusivity</strong>, and <strong>+30% if the brand wants usage rights</strong> to run the post as an ad. Never base your pricing solely on follower count; base it on average 30-day reach and conversion potential.
+              To use a <strong>sponsorship price calculator</strong> accurately, start with a <strong>baseline CPM of $15 to $25</strong> (Cost Per 1,000 Views). If you average 50,000 views on YouTube or Instagram, your base rate is $1,000. However, a true <strong>sponsorship valuation calculator</strong> must then add premiums: <strong>+20% for high engagement</strong>, <strong>+20% for exclusivity</strong>, and <strong>+30% if the brand wants usage rights</strong> to run the post as an ad. Never base your pricing solely on follower count.
             </p>
           </section>
 

@@ -238,7 +238,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         {showToast && (
           <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-primary/5 text-emerald-600 border border-primary/20 p-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 slide-in-from-bottom-8 fade-in duration-300 ease-out">
             <CheckCircle2 className="h-5 w-5" />
-            <span className="font-semibold text-sm">Successfully saved!</span>
+            <span className="font-semibold text-sm">Successfully saved to Scenario Vault!</span>
           </div>
         )}
 

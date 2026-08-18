@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 import { CalculatorClient } from "./CalculatorClient"
 import type { Metadata } from 'next';
 import { generateCalculatorMetadata } from '@/config/metadata';
@@ -8,41 +7,41 @@ import { Calculator, Target, TrendingUp, AlertTriangle, Users, DollarSign, Repea
 import Script from "next/script"
 
 export const metadata: Metadata = generateCalculatorMetadata({
-  title: "Free Client Lifetime Value (LTV) Calculator",
-  description: "Calculate your exact Client Lifetime Value (LTV) and Customer Acquisition Cost (CAC) limits to scale your freelance or agency business profitably.",
-  keywords: ["client ltv calculator", "freelance customer lifetime value", "agency ltv to cac ratio", "retainer ltv calculator", "freelance client retention", "customer acquisition cost freelancer", "gross margin agency"],
+  title: "Customer Lifetime Value (CLV) Calculator | Free Tool & Formula",
+  description: "Calculate Customer Lifetime Value (CLV), customer lifecycle value, and profitability using the standard CLV formula. Optimize your marketing ROI.",
+  keywords: ["customer lifetime value calculator", "clv calculator", "lifetime value of a customer", "customer lifecycle value", "ltv customer lifetime value", "customer lifetime value formula", "lifetime value formula", "clv formula", "how to calculate customer lifetime value"],
   slug: "freelance/client-lifetime-value-calculator",
-  category: "Freelance",
+  category: "Business",
 });
 
 const faqs: FAQ[] = [
   {
-    question: "What is Client LTV?",
-    answer: "Client Lifetime Value (LTV) is the total gross profit a client will generate for your freelance business over the entire duration of your relationship, factoring in churn rate and gross margin."
+    question: "What is the Customer Lifetime Value (CLV) formula?",
+    answer: "The standard customer lifetime value formula is: (Average Purchase Value × Purchase Frequency) × Customer Lifespan. For example, if a customer spends $100 per order, orders 4 times a year, and stays loyal for 5 years, their Basic CLV is $2,000. To find the Profit-Adjusted CLV, multiply that $2,000 by your gross profit margin."
   },
   {
-    question: "What is a good LTV to CAC ratio for freelancers?",
-    answer: "A healthy LTV:CAC ratio is generally 3:1 or higher. This means if a client brings in $3,000 in lifetime profit, you should spend no more than $1,000 in marketing, sales time, or platform fees to acquire them."
+    question: "What is the difference between LTV and CLV?",
+    answer: "LTV (Lifetime Value) and CLV (Customer Lifetime Value) are generally used interchangeably. Both refer to the total revenue or profit a business can expect from a single customer over the entire duration of their relationship. The phrase 'Customer Lifecycle Value' is also commonly used to describe the exact same metric."
   },
   {
-    question: "How do you calculate LTV for retainer clients?",
-    answer: "Divide your average monthly profit per client by your monthly churn rate. If you make $1,000/mo profit from a client, and 10% of your clients leave each month, your LTV is $1,000 / 0.10 = $10,000."
+    question: "Why should I calculate the Profit-Adjusted CLV?",
+    answer: "Calculating Basic CLV (which uses gross revenue) can be dangerous because it ignores the cost of goods sold (COGS). If a customer generates $5,000 in revenue but your gross margin is only 20%, their actual profit value to your business is only $1,000. You must use Profit-Adjusted CLV to determine how much you can safely spend to acquire them."
   },
   {
-    question: "What is Churn Rate?",
-    answer: "Churn rate is the percentage of clients who cancel their retainers or stop working with you over a given time period (usually measured monthly). A high churn rate destroys your LTV."
+    question: "What is Customer Acquisition Cost (CAC)?",
+    answer: "Customer Acquisition Cost (CAC) is the total amount of money spent on marketing and sales to acquire one new customer. By comparing your CLV to your CAC (the CLV:CAC ratio), you can determine if your business model is sustainable. A healthy ratio is typically 3:1."
   },
   {
-    question: "Why should I include Gross Margin in my LTV calculation?",
-    answer: "Revenue is vanity; profit is sanity. If a client pays you $5,000 but it costs you $4,000 in subcontractors and software to deliver the work, the client is only actually worth $1,000 to your business."
+    question: "How can I improve my Customer Lifecycle Value?",
+    answer: "To increase your CLV, you can focus on three levers: increase the Average Purchase Value (through upselling or raising prices), increase Purchase Frequency (through email marketing or loyalty programs), or extend the Customer Lifespan (through better customer service and retention strategies)."
   }
 ]
 
-export default function ClientLTVCalculatorPage() {
+export default function CustomerLTVCalculatorPage() {
   const schemaSoftware = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "Free Client Lifetime Value (LTV) Calculator",
+    "name": "Customer Lifetime Value (CLV) Calculator",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Any",
     "offers": {
@@ -50,34 +49,34 @@ export default function ClientLTVCalculatorPage() {
       "price": "0",
       "priceCurrency": "USD"
     },
-    "description": "Calculate the true Lifetime Value (LTV) of your freelance and agency clients to determine acceptable Customer Acquisition Cost (CAC)."
+    "description": "Calculate Customer Lifetime Value (CLV), Customer Lifecycle Value, and determine your optimal acquisition cost limits."
   };
 
   const schemaHowTo = {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    "name": "How to Calculate Client Lifetime Value (LTV)",
-    "description": "A step-by-step guide on using the Client LTV Calculator to determine client profitability and acquisition cost limits.",
+    "name": "How to Calculate Customer Lifetime Value (CLV)",
+    "description": "A step-by-step guide to calculating the lifetime value of a customer using the standard CLV formula.",
     "step": [
       {
         "@type": "HowToStep",
-        "name": "Enter Average Revenue",
-        "text": "Input the average monthly or yearly revenue generated per client, focusing on predictable recurring income."
+        "name": "Enter Average Purchase Value",
+        "text": "Calculate your total revenue divided by the total number of purchases over a specific period. Enter this as the APV."
       },
       {
         "@type": "HowToStep",
-        "name": "Input Gross Margin",
-        "text": "Specify your gross margin percentage by factoring out direct delivery costs like software and subcontractors."
+        "name": "Determine Purchase Frequency",
+        "text": "Divide the total number of purchases by the number of unique customers to find how often an average customer buys from you annually."
       },
       {
         "@type": "HowToStep",
-        "name": "Provide Churn Rate",
-        "text": "Enter the percentage of clients who cancel their retainers or stop working with you over a given time period."
+        "name": "Estimate Customer Lifespan",
+        "text": "Determine the average number of years a customer continues buying from your brand before churning."
       },
       {
         "@type": "HowToStep",
-        "name": "Review LTV and CAC Limits",
-        "text": "Analyze the calculated Lifetime Value (LTV) and view your maximum acceptable Customer Acquisition Cost (CAC) based on the target ratio."
+        "name": "Apply Gross Margin",
+        "text": "Enter your gross profit margin percentage to calculate the Profit-Adjusted CLV, which reveals the true value of the customer."
       }
     ]
   };
@@ -98,7 +97,7 @@ export default function ClientLTVCalculatorPage() {
   const schemaWebPage = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": "Free Client Lifetime Value (LTV) Calculator",
+    "name": "Customer Lifetime Value (CLV) Calculator",
     "url": "https://dailyfinance.tools/freelance/client-lifetime-value-calculator",
     "breadcrumb": {
       "@type": "BreadcrumbList",
@@ -112,13 +111,13 @@ export default function ClientLTVCalculatorPage() {
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "Freelance",
+          "name": "Freelance & Business",
           "item": "https://dailyfinance.tools/freelance"
         },
         {
           "@type": "ListItem",
           "position": 3,
-          "name": "Client Lifetime Value Calculator",
+          "name": "Customer Lifetime Value Calculator",
           "item": "https://dailyfinance.tools/freelance/client-lifetime-value-calculator"
         }
       ]
@@ -132,8 +131,8 @@ export default function ClientLTVCalculatorPage() {
       <Script id="schema-faq" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaFAQ) }} />
       <Script id="schema-webpage" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaWebPage) }} />
       <ToolLayout
-        title="Free Client Lifetime Value (LTV) Calculator"
-        description="Calculate your exact Client Lifetime Value (LTV) and Customer Acquisition Cost (CAC) limits to scale your freelance or agency business profitably."
+        title="Customer Lifetime Value (CLV) Calculator"
+        description="Calculate the true lifetime value of a customer (CLV). Optimize your marketing budgets, identify your most profitable segments, and ensure your acquisition costs are sustainable."
         slug="client-lifetime-value-calculator"
         faqs={faqs}
         calculator={(isPro) => <CalculatorClient isPro={isPro} />}
@@ -145,194 +144,137 @@ export default function ClientLTVCalculatorPage() {
               <div className="absolute top-0 left-0 w-2 h-full bg-[#064E3B]"></div>
               <h2 className="text-xl font-bold text-[#1F2937] mb-3 flex items-center gap-2">
                 <Calculator className="h-5 w-5 text-[#D97706]" />
-                Quick Answer: How to Calculate Client LTV & CAC
+                Quick Answer: The Customer Lifetime Value Formula
               </h2>
               <p className="text-neutral-600 leading-relaxed text-lg">
-                To accurately calculate Freelance Client LTV (Lifetime Value) for retainer businesses, multiply your Average Monthly Revenue per client by your Gross Margin, then divide by your Monthly Churn Rate. For example, a client paying $2,000/month at a 70% gross margin with a 5% monthly churn rate yields an LTV of $28,000. You should aim for a 3:1 LTV:CAC ratio, meaning your maximum Customer Acquisition Cost (marketing, sales calls, ads) for this specific client persona should be $9,333.
+                Customer Lifetime Value (CLV) is calculated by multiplying your <strong>Average Purchase Value</strong> by your <strong>Purchase Frequency</strong>, and then multiplying that total by your <strong>Customer Lifespan</strong>. This yields the Basic CLV. For a profit-adjusted view, you must multiply the Basic CLV by your <strong>Gross Margin Percentage</strong>. Knowing this number allows you to confidently set your maximum allowable Customer Acquisition Cost (CAC).
               </p>
             </section>
 
-            <h2 id="the-dead-end-of-one-off-thinking" className="text-3xl md:text-4xl font-extrabold tracking-tight mb-8 text-[#1F2937] scroll-mt-24">
-              The Dead-End of "One-Off" Thinking
+            <h2 id="the-core-metrics" className="text-3xl md:text-4xl font-extrabold tracking-tight mb-8 text-[#1F2937] scroll-mt-24">
+              Understanding the 4 Core CLV Metrics
             </h2>
             
             <p className="text-lg text-neutral-600 mb-8 leading-relaxed font-light">
-              Most freelancers and early-stage agency owners operate on a project-to-project basis. If they sell a custom website for $3,000, they view that client as being worth exactly $3,000. Once the website is launched, the freelancer scrambles to find the next $3,000 project to keep the lights on.
+              Many business owners track vanity metrics like top-line revenue or website traffic. However, the most successful brands ruthlessly optimize the lifetime value of a customer. To use our CLV calculator effectively, you must understand the four variables that control your customer lifecycle value.
             </p>
 
-            <p className="text-lg text-neutral-600 mb-8 leading-relaxed font-light">
-              This transactional mindset is the primary reason most freelancers never scale past the six-figure mark. It creates an exhausting treadmill of perpetual lead generation. The most successful freelance businesses operate on a fundamentally different paradigm: they focus on <strong>Lifetime Value (LTV)</strong>.
-            </p>
-            
-            <p className="text-lg text-neutral-600 mb-12 leading-relaxed font-light">
-              If you change your model so that the $3,000 website client also signs a $500/month SEO and maintenance retainer, and they stay with you for an average of 3 years, that client is no longer worth $3,000. They are worth $21,000. Understanding this single metric completely alters how much time, effort, and money you are willing to invest to acquire them.
-            </p>
-
-            <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+            <section className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
               <div className="bg-[#FAFAFA] p-6 rounded-2xl border border-neutral-100 flex flex-col items-start">
                 <div className="w-10 h-10 bg-white rounded-lg shadow-sm border border-neutral-100 flex items-center justify-center mb-4">
-                  <Target className="h-5 w-5 text-[#D97706]" />
+                  <DollarSign className="h-5 w-5 text-[#059669]" />
                 </div>
-                <h3 className="font-bold text-[#1F2937] mb-2 text-lg">Lifetime Value (LTV)</h3>
-                <p className="text-sm text-neutral-500 font-light">The total predictable gross profit a single client will generate over the entire lifespan of your business relationship.</p>
+                <h3 className="font-bold text-[#1F2937] mb-2 text-lg">Average Purchase Value (APV)</h3>
+                <p className="text-sm text-neutral-500 font-light">Calculated by dividing your total revenue in a given period by the total number of purchases. This tells you how much a customer spends on a single transaction.</p>
               </div>
               <div className="bg-[#FAFAFA] p-6 rounded-2xl border border-neutral-100 flex flex-col items-start">
                 <div className="w-10 h-10 bg-white rounded-lg shadow-sm border border-neutral-100 flex items-center justify-center mb-4">
-                  <DollarSign className="h-5 w-5 text-[#D97706]" />
+                  <Repeat className="h-5 w-5 text-[#059669]" />
                 </div>
-                <h3 className="font-bold text-[#1F2937] mb-2 text-lg">Acquisition Cost (CAC)</h3>
-                <p className="text-sm text-neutral-500 font-light">The total financial investment (ads, software, sales hours) required to convince a prospect to sign a contract.</p>
+                <h3 className="font-bold text-[#1F2937] mb-2 text-lg">Purchase Frequency (PF)</h3>
+                <p className="text-sm text-neutral-500 font-light">Calculated by dividing the total number of purchases by the number of unique customers. This reveals how many times an average customer buys from you annually.</p>
               </div>
               <div className="bg-[#FAFAFA] p-6 rounded-2xl border border-neutral-100 flex flex-col items-start">
                 <div className="w-10 h-10 bg-white rounded-lg shadow-sm border border-neutral-100 flex items-center justify-center mb-4">
-                  <Repeat className="h-5 w-5 text-[#D97706]" />
+                  <Target className="h-5 w-5 text-[#059669]" />
                 </div>
-                <h3 className="font-bold text-[#1F2937] mb-2 text-lg">Churn Rate</h3>
-                <p className="text-sm text-neutral-500 font-light">The percentage of retainer clients who cancel their contracts each month. High churn destroys your LTV instantly.</p>
+                <h3 className="font-bold text-[#1F2937] mb-2 text-lg">Customer Lifespan (LT)</h3>
+                <p className="text-sm text-neutral-500 font-light">The average number of years (or months) a customer continues buying from you before churning or abandoning your brand entirely.</p>
+              </div>
+              <div className="bg-[#FAFAFA] p-6 rounded-2xl border border-neutral-100 flex flex-col items-start">
+                <div className="w-10 h-10 bg-white rounded-lg shadow-sm border border-neutral-100 flex items-center justify-center mb-4">
+                  <TrendingUp className="h-5 w-5 text-[#059669]" />
+                </div>
+                <h3 className="font-bold text-[#1F2937] mb-2 text-lg">Gross Margin (GM)</h3>
+                <p className="text-sm text-neutral-500 font-light">The percentage of revenue left after subtracting the Cost of Goods Sold (COGS). This is the secret to uncovering true profitability.</p>
               </div>
             </section>
 
-            <h2 id="calculating-freelance-ltv" className="text-3xl font-extrabold tracking-tight mb-8 text-[#1F2937] scroll-mt-24">
-              How to Calculate Freelance Client LTV
+            <h2 id="calculating-clv" className="text-3xl font-extrabold tracking-tight mb-8 text-[#1F2937] scroll-mt-24">
+              The Two CLV Formulas You Need to Know
             </h2>
 
             <p className="text-lg text-neutral-600 mb-8 leading-relaxed font-light">
-              Unlike SaaS (Software as a Service) companies, freelancers cannot calculate LTV purely on top-line revenue. When a SaaS company signs a new user, delivering the software costs them almost nothing. When a freelancer signs a new client, delivering the work requires human labor, expensive software licenses, and potentially outsourced contractors.
+              There is a massive difference between top-line CLV and bottom-line CLV. A customer who spends $10,000 might actually be losing you money if your fulfillment costs are $11,000. This is why our tool runs two distinct calculations simultaneously.
             </p>
 
             <div className="bg-[#064E3B] text-white p-8 md:p-12 rounded-3xl shadow-2xl mb-16 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-96 h-96 bg-[#D97706]/20 blur-[100px] rounded-full translate-x-1/2 -translate-y-1/2"></div>
-              <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/5 blur-[60px] rounded-full -translate-x-1/3 translate-y-1/3"></div>
+              <div className="absolute top-0 right-0 w-96 h-96 bg-[#059669]/30 blur-[100px] rounded-full translate-x-1/2 -translate-y-1/2"></div>
               
-              <h3 className="text-2xl font-bold mb-8 text-white/90 relative z-10">The LTV Master Formula</h3>
-              <p className="text-lg text-white/80 font-light leading-relaxed mb-6 relative z-10">
-                To calculate the true value of a client to your business, you must incorporate your profit margins. 
-              </p>
-              <div className="bg-black/20 p-6 rounded-xl border border-white/10 relative z-10 mb-8 text-center">
-                <code className="text-xl md:text-2xl font-mono text-[#D97706]">(Average Monthly Revenue × Gross Margin) ÷ Monthly Churn Rate = LTV</code>
+              <h3 className="text-2xl font-bold mb-6 text-white/90 relative z-10">Formula 1: Basic CLV (Revenue)</h3>
+              <div className="bg-black/20 p-5 rounded-xl border border-white/10 relative z-10 mb-8">
+                <code className="text-lg font-mono text-emerald-300">Basic CLV = (APV × Purchase Frequency) × Customer Lifespan</code>
               </div>
-              
-              <ul className="space-y-6 relative z-10 text-white/90 font-light">
-                <li className="flex items-start gap-4">
-                  <span className="flex items-center justify-center w-8 h-8 rounded-full bg-[#D97706] text-white font-bold shrink-0">1</span>
-                  <div>
-                    <strong className="block text-xl mb-1">Average Revenue:</strong> The predictable, recurring cash flow. (e.g. $2,000/month).
-                  </div>
-                </li>
-                <li className="flex items-start gap-4">
-                  <span className="flex items-center justify-center w-8 h-8 rounded-full bg-[#D97706] text-white font-bold shrink-0">2</span>
-                  <div>
-                    <strong className="block text-xl mb-1">Gross Margin:</strong> Your profit after direct delivery costs. If you outsource $600 of that $2,000 to a junior dev, your margin is 70%.
-                  </div>
-                </li>
-                <li className="flex items-start gap-4">
-                  <span className="flex items-center justify-center w-8 h-8 rounded-full bg-[#D97706] text-white font-bold shrink-0">3</span>
-                  <div>
-                    <strong className="block text-xl mb-1">Churn Rate:</strong> The percentage of clients who leave. If you have 20 clients and 1 leaves every month, your churn is 5% (0.05).
-                  </div>
-                </li>
-              </ul>
+              <p className="text-white/80 font-light leading-relaxed mb-10 relative z-10">
+                If an eCommerce shopper spends $50 per order (APV), buys 3 times a year (Frequency), and stays a customer for 4 years (Lifespan), their Basic CLV is <strong>$600</strong>. This represents gross revenue.
+              </p>
+
+              <h3 className="text-2xl font-bold mb-6 text-white/90 relative z-10">Formula 2: Profit-Adjusted CLV</h3>
+              <div className="bg-black/20 p-5 rounded-xl border border-white/10 relative z-10 mb-6">
+                <code className="text-lg font-mono text-[#D97706]">Profit-Adjusted CLV = Basic CLV × Gross Margin %</code>
+              </div>
+              <p className="text-white/80 font-light leading-relaxed relative z-10">
+                If that same business has a 40% gross margin on their products, the Profit-Adjusted CLV drops from $600 down to <strong>$240</strong>. This $240 is the actual cash the business gets to keep to pay for overhead, marketing, and profit.
+              </p>
             </div>
 
             <h2 id="understanding-cac" className="text-3xl font-extrabold tracking-tight mb-8 text-[#1F2937] scroll-mt-24">
-              Understanding Customer Acquisition Cost (CAC)
+              Determining Your Acquisition Cost (CAC)
             </h2>
             <p className="text-lg text-neutral-600 mb-8 leading-relaxed font-light">
-              Once you know your LTV, you unlock the ultimate superpower of business: knowing exactly how much you can afford to "buy" a customer for. This is your <strong>Customer Acquisition Cost (CAC)</strong>.
+              Once you know your Profit-Adjusted CLV, you unlock the ultimate marketing superpower: knowing exactly how much you can afford to "buy" a customer for. This is your <strong>Customer Acquisition Cost (CAC)</strong> limit.
             </p>
             <p className="text-lg text-neutral-600 mb-12 leading-relaxed font-light">
-              If a freelancer does not know their CAC, they are flying blind. They might spend $500 on LinkedIn ads, fail to get a client immediately, panic, and shut the ads off. But if they knew their LTV was $28,000, they would realize that spending $3,000 on ads to acquire a single client is actually a wildly profitable investment.
+              If a business owner does not know their CLV, they are flying blind. They might spend $50 on Facebook ads to acquire a customer, fail to turn a profit on the first order, panic, and shut the ads off. But if they knew the lifetime value of a customer was $240 in pure profit, they would realize that spending $50 on ads is actually a wildly profitable long-term investment.
             </p>
 
-            <div className="bg-[#FAFAFA] border-l-4 border-[#D97706] p-6 mb-16 rounded-r-xl">
-              <h3 className="text-[#1F2937] font-bold text-xl mb-2">Calculating Freelance CAC</h3>
-              <p className="text-lg text-neutral-600 font-light m-0 leading-relaxed">
-                Do not just calculate hard dollar costs (like Facebook ads). As a freelancer, your primary acquisition cost is often <strong>your time</strong>. If you spend 10 hours a month sending cold emails or networking, and your target hourly rate is $100, your baseline monthly sales cost is $1,000. If that $1,000 of labor results in 1 new client, your CAC is $1,000.
-              </p>
-            </div>
-
-            {/* AdSense Placeholder - Sole Ad Unit */}
-            {!isPro && (
-              <aside className="my-16 w-full max-w-3xl mx-auto h-[250px] bg-neutral-50 border border-dashed border-neutral-200 rounded-2xl flex flex-col items-center justify-center text-center">
-                <span className="text-[10px] uppercase font-bold text-neutral-400 tracking-[0.2em] mb-2">Advertisement</span>
-                <span className="text-sm font-medium text-neutral-400">In-Article AdSense Banner</span>
-              </aside>
-            )}
-
             <h2 id="the-golden-metric" className="text-3xl font-extrabold tracking-tight mb-8 text-[#1F2937] scroll-mt-24">
-              The Golden Metric: The LTV to CAC Ratio
+              The LTV to CAC Ratio
             </h2>
             
             <p className="text-lg text-neutral-600 mb-8 leading-relaxed font-light">
-              The relationship between what a client makes you (LTV) and what they cost you (CAC) is expressed as a ratio. This ratio is the definitive health check for your freelance business or agency.
+              The relationship between what a customer makes you (CLV) and what they cost to acquire (CAC) is expressed as a ratio. This ratio is the definitive health check for your marketing engine. Our CLV calculator asks you to input a Target Ratio so it can instantly calculate your maximum allowable ad spend.
             </p>
 
-            <ul className="space-y-6 mb-12">
+            <ul className="space-y-6 mb-16">
               <li className="flex items-start gap-4 p-6 bg-white border border-neutral-200 shadow-sm rounded-2xl">
                 <ArrowDownRight className="h-8 w-8 text-red-500 shrink-0 mt-1" />
                 <div>
                   <strong className="text-[#1F2937] block text-xl mb-2">Under 1:1 (Losing Money)</strong>
-                  <span className="text-neutral-600 font-light leading-relaxed">If you spend $2,000 in time and ads to acquire a client whose lifetime profit is only $1,500, your business model is fundamentally broken. You are paying for the privilege of working. You must immediately raise your prices or lower your churn.</span>
+                  <span className="text-neutral-600 font-light leading-relaxed">If you spend $300 in ads to acquire a customer whose lifetime profit is only $200, your business model is broken. You are paying for the privilege of working.</span>
                 </div>
               </li>
               <li className="flex items-start gap-4 p-6 bg-white border border-neutral-200 shadow-sm rounded-2xl">
                 <AlertTriangle className="h-8 w-8 text-[#D97706] shrink-0 mt-1" />
                 <div>
                   <strong className="text-[#1F2937] block text-xl mb-2">1:1 to 2:1 (The Danger Zone)</strong>
-                  <span className="text-neutral-600 font-light leading-relaxed">You are breaking even or making a tiny profit, but you have no margin for error. If a client churns earlier than expected, or an ad campaign underperforms, you dip into the red. Growth here is painfully slow.</span>
+                  <span className="text-neutral-600 font-light leading-relaxed">You are breaking even or making a tiny profit, but you have no margin for error. If a competitor bids up ad costs, you will instantly dip into the red.</span>
                 </div>
               </li>
               <li className="flex items-start gap-4 p-6 bg-white border border-neutral-200 shadow-sm rounded-2xl">
-                <BarChart className="h-8 w-8 text-[#064E3B] shrink-0 mt-1" />
+                <BarChart className="h-8 w-8 text-[#059669] shrink-0 mt-1" />
                 <div>
                   <strong className="text-[#1F2937] block text-xl mb-2">3:1 (The Gold Standard)</strong>
-                  <span className="text-neutral-600 font-light leading-relaxed">This is the optimal balance. You are generating significant profit while still investing aggressively in growth. If your LTV is $9,000, you should comfortably be willing to spend up to $3,000 to acquire a new client.</span>
+                  <span className="text-neutral-600 font-light leading-relaxed">This is the optimal balance for healthy growth. If your Profit-Adjusted CLV is $300, you should comfortably be willing to spend up to $100 to acquire a new customer.</span>
                 </div>
               </li>
               <li className="flex items-start gap-4 p-6 bg-white border border-neutral-200 shadow-sm rounded-2xl">
                 <TrendingUp className="h-8 w-8 text-blue-500 shrink-0 mt-1" />
                 <div>
                   <strong className="text-[#1F2937] block text-xl mb-2">5:1 or Higher (Under-Investing)</strong>
-                  <span className="text-neutral-600 font-light leading-relaxed">Counter-intuitively, an incredibly high ratio (like 10:1) means you are growing too slowly. You are squeezing massive profit from clients but failing to reinvest it into marketing. You could be growing much faster by increasing your CAC budget.</span>
+                  <span className="text-neutral-600 font-light leading-relaxed">Counter-intuitively, an incredibly high ratio means you are growing too slowly. You are generating massive profit from customers but failing to aggressively reinvest it into marketing to capture market share.</span>
                 </div>
               </li>
             </ul>
 
-            <h2 id="gross-margin-vs-revenue" className="text-3xl font-extrabold tracking-tight mb-8 text-[#1F2937] scroll-mt-24">
-              Gross Margin vs. Gross Revenue: A Warning
-            </h2>
-            <p className="text-lg text-neutral-600 mb-10 leading-relaxed font-light">
-              The biggest mistake freelancers make when calculating LTV is confusing revenue with profit. 
-            </p>
-
-            <p className="text-lg text-neutral-600 mb-10 leading-relaxed font-light">
-              If you run a Google Ads management agency and charge a client $5,000 a month, your revenue is $5,000. But if you have to pay $3,000 a month to a white-label contractor to actually run the ads, and $500 for enterprise SEO tools, your direct costs are $3,500. 
-            </p>
-
-            <div className="overflow-x-auto my-12 bg-white border border-neutral-200 rounded-2xl shadow-sm p-8">
-              <h3 className="text-xl font-bold text-[#1F2937] mb-6">Why Margin Dictates Survival</h3>
-              <p className="text-neutral-600 font-light text-lg mb-6">
-                In the example above, your Gross Margin is only 30% ($1,500). If you calculate your LTV using the $5,000 revenue number, you will trick yourself into believing you have a massive LTV. You will then set a massive CAC budget (e.g., $4,000). 
-              </p>
-              <p className="text-neutral-600 font-light text-lg mb-6">
-                When you spend that $4,000 to acquire the client, but only retain $1,500 in actual profit per month, you will run into massive cash flow problems. Always, <em>always</em> calculate LTV based on the margin you actually get to keep.
-              </p>
-              <div className="bg-[#FAFAFA] p-6 rounded-xl border border-neutral-100 flex items-center gap-4">
-                <Users className="text-[#064E3B] w-8 h-8 shrink-0" />
-                <p className="text-[#1F2937] font-medium m-0">
-                  To improve your agency's Gross Margin, you must either raise your prices to the client, or optimize your service delivery by automating repetitive tasks and negotiating better rates with subcontractors.
-                </p>
-              </div>
-            </div>
-            
             <h2 id="final-thoughts" className="text-3xl font-extrabold tracking-tight mb-8 text-[#1F2937] scroll-mt-24">
-              Start Scaling with Confidence
+              Stop Guessing, Start Calculating
             </h2>
             <p className="text-lg text-neutral-600 mb-8 leading-relaxed font-light">
-              The difference between a struggling freelancer and a scaling agency owner is knowing these numbers. When you know your LTV is $15,000, a $500 marketing experiment on LinkedIn no longer feels risky; it feels like a mandatory tactical investment.
+              Use the customer lifetime value formula via the calculator above to model your current business economics. Play with the numbers. See what happens to your profitability if you manage to increase your purchase frequency from 2 to 3 times a year, or if you extend your customer lifespan by 6 months through a better loyalty program.
             </p>
             <p className="text-lg text-neutral-600 mb-8 leading-relaxed font-light">
-              Use the calculator above to model your current business. Play with the numbers. See what happens to your LTV if you manage to reduce your churn rate by just 2%, or if you increase your retainer price by $200. The math will show you exactly where to focus your energy to build a highly profitable, resilient business.
+              Small improvements in retention and average order value have exponential impacts on the overall lifetime value of a customer. Run the math, establish your baseline, and start scaling with confidence.
             </p>
           </>
         )}

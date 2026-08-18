@@ -137,11 +137,11 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <div className="space-y-6">
           <h2 className="text-xl font-bold flex items-center gap-2 pb-2 border-b">
             <Video className="h-5 w-5 text-muted-foreground" />
-            Long-Form Video Metrics
+            Views to Money Calculator (Long-Form)
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div className="space-y-3">
-              <label className="text-sm font-semibold text-foreground">Monthly Views (Long-Form)</label>
+              <label className="text-sm font-semibold text-foreground">Monthly Views</label>
               <div className="relative">
                 <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold"><Eye className="h-4 w-4" /></span>
                 <Input
