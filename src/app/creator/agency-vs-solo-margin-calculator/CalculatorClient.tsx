@@ -240,7 +240,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       <div className="lg:col-span-5 space-y-6 lg:sticky lg:top-8 relative z-20">
 
         {showToast && (
-          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-primary/5 text-emerald-600 border border-primary/20 p-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 slide-in-from-bottom-8 fade-in duration-300 ease-out">
+          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-primary/5 text-blue-600 border border-primary/20 p-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 slide-in-from-bottom-8 fade-in duration-300 ease-out">
             <CheckCircle2 className="h-5 w-5" />
             <span className="font-semibold text-sm">Successfully saved to Scenario Vault!</span>
           </div>
@@ -265,7 +265,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
             </div>
             <div>
               <p className="text-[10px] text-white/80 uppercase font-bold tracking-wider mb-1">Financial Arbitrage / Mo</p>
-              <p className={`text-2xl font-bold ${metrics.monthlyArbitrageProfit < 0 ? 'text-red-300' : 'text-emerald-300'}`}>
+              <p className={`text-2xl font-bold ${metrics.monthlyArbitrageProfit < 0 ? 'text-red-300' : 'text-blue-300'}`}>
                 {metrics.monthlyArbitrageProfit > 0 ? '+' : ''}{currencySymbol}{Math.round(metrics.monthlyArbitrageProfit).toLocaleString()}
               </p>
             </div>
@@ -294,7 +294,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
             )}
 
             {metrics.financialROI > 0 && (
-              <div className="bg-emerald-50 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400 p-3 rounded-lg mt-4 text-xs leading-relaxed flex items-start gap-2">
+              <div className="bg-blue-50 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400 p-3 rounded-lg mt-4 text-xs leading-relaxed flex items-start gap-2">
                 <CheckCircle2 className="h-4 w-4 shrink-0 mt-0.5" />
                 <p>Positive Arbitrage: By outsourcing, you are effectively "buying" your time back at a discount. Use those {metrics.monthlyTimeSaved} saved hours to generate more than {currencySymbol}{Math.round(metrics.monthlyArbitrageProfit)} elsewhere.</p>
               </div>

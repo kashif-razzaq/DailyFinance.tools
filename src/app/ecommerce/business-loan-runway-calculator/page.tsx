@@ -138,9 +138,9 @@ export default function LoanRunwayPage() {
       {(isPro) => (
         <>
           <section className="bg-white border border-neutral-200 shadow-sm rounded-2xl p-6 md:p-8 mb-12 relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-2 h-full bg-emerald-500"></div>
+            <div className="absolute top-0 left-0 w-2 h-full bg-blue-500"></div>
             <h2 className="text-xl font-bold text-[#1F2937] mb-3 flex items-center gap-2">
-              <Calendar className="h-5 w-5 text-emerald-500" />
+              <Calendar className="h-5 w-5 text-blue-500" />
               Quick Answer: How Does a Loan Affect Runway?
             </h2>
             <p className="text-neutral-600 leading-relaxed text-lg">
@@ -159,7 +159,7 @@ export default function LoanRunwayPage() {
           <section className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
             <div className="bg-[#FAFAFA] p-6 rounded-2xl border border-neutral-100 flex flex-col items-start">
               <div className="w-10 h-10 bg-white rounded-lg shadow-sm border border-neutral-100 flex items-center justify-center mb-4">
-                <Shield className="h-5 w-5 text-emerald-500" />
+                <Shield className="h-5 w-5 text-blue-500" />
               </div>
               <h3 className="font-bold text-[#1F2937] mb-2 text-lg">Good Debt (Growth Capital)</h3>
               <p className="text-sm text-neutral-500 font-light">Your business is profitable. You take a $100k loan at 8% interest to buy inventory in bulk, which lowers your COGS by 15%. The ROI of the cheaper inventory vastly outpaces the 8% interest. The debt pays for itself.</p>
@@ -181,7 +181,7 @@ export default function LoanRunwayPage() {
             When you sign a loan agreement, you are legally obligated to "service" that debt every month. Our calculator reveals the true cost of this servicing.
           </p>
 
-          <div className="bg-emerald-50 border-l-4 border-emerald-500 p-6 mb-12 shadow-sm rounded-r-xl">
+          <div className="bg-blue-50 border-l-4 border-blue-500 p-6 mb-12 shadow-sm rounded-r-xl">
             <h4 className="text-xl font-bold text-[#1F2937] mb-2">The Cash Flow Squeeze</h4>
             <p className="text-lg text-neutral-600 m-0 leading-relaxed font-light">
               Suppose you secure a 12-month loan from a merchant cash advance company (like Shopify Capital). Because the term is only 12 months, the monthly payments will be massive. If you borrow $120,000, you will owe roughly $10,000+ every month. If your business suffers a slow sales month in July, that $10,000 payment will instantly drain your operating cash reserves. Always optimize for longer loan terms to keep monthly servicing costs low and protect your cash flow.

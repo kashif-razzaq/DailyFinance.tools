@@ -232,7 +232,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       <div className="lg:col-span-5 space-y-6 lg:sticky lg:top-8 relative z-20">
 
         {showToast && (
-          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-primary/5 text-emerald-600 border border-primary/20 p-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 slide-in-from-bottom-8 fade-in duration-300 ease-out">
+          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-primary/5 text-blue-600 border border-primary/20 p-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 slide-in-from-bottom-8 fade-in duration-300 ease-out">
             <CheckCircle2 className="h-5 w-5" />
             <span className="font-semibold text-sm">Successfully saved to Scenario Vault!</span>
           </div>
@@ -267,7 +267,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <div className="space-y-4">
             <div className="w-full h-4 rounded-full flex overflow-hidden">
               <div style={{width: `${100 - metrics.organicRatio}%`}} className="bg-rose-500 transition-all duration-300" />
-              <div style={{width: `${metrics.organicRatio}%`}} className="bg-emerald-500 transition-all duration-300" />
+              <div style={{width: `${metrics.organicRatio}%`}} className="bg-blue-500 transition-all duration-300" />
             </div>
 
             <div className="grid grid-cols-1 gap-2 pt-2 text-sm">
@@ -280,15 +280,15 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
               </div>
               <div className="flex justify-between items-center py-2">
                 <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-emerald-500"></div>
-                  <span className="text-emerald-600 dark:text-emerald-400 font-bold">Organic Acquisition</span>
+                  <div className="w-3 h-3 rounded-full bg-blue-500"></div>
+                  <span className="text-blue-600 dark:text-blue-400 font-bold">Organic Acquisition</span>
                 </div>
-                <div className="font-bold text-emerald-600 dark:text-emerald-400">{metrics.organicRatio.toFixed(1)}%</div>
+                <div className="font-bold text-blue-600 dark:text-blue-400">{metrics.organicRatio.toFixed(1)}%</div>
               </div>
             </div>
 
             {metrics.organicRatio > 40 && (
-              <div className="bg-emerald-50 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400 p-3 rounded-lg mt-2 text-xs leading-relaxed">
+              <div className="bg-blue-50 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400 p-3 rounded-lg mt-2 text-xs leading-relaxed">
                 <CheckCircle2 className="inline h-3 w-3 mr-1 mb-0.5" />
                 Strong organic foundation. Your high organic ratio allows you to push Paid CAC higher and scale aggressively while remaining profitable.
               </div>

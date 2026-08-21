@@ -108,7 +108,7 @@ export default function CostOfLivingCalculatorPage() {
           <>
             {/* Answer Engine Optimization (AEO) Block */}
             <section className="bg-white border border-neutral-200 shadow-sm rounded-2xl p-6 md:p-8 mb-12 relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-2 h-full bg-[#064E3B]"></div>
+              <div className="absolute top-0 left-0 w-2 h-full bg-[#1E3A5F]"></div>
               <h2 className="text-xl font-bold text-[#1F2937] mb-3 flex items-center gap-2">
                 <Calculator className="h-5 w-5 text-[#D97706]" />
                 Quick Answer: How to Calculate Cost of Living Differences
@@ -140,7 +140,7 @@ export default function CostOfLivingCalculatorPage() {
               </div>
               <div className="bg-[#FAFAFA] p-6 rounded-2xl border border-neutral-100 flex flex-col items-start">
                 <div className="w-10 h-10 bg-white rounded-lg shadow-sm border border-neutral-100 flex items-center justify-center mb-4">
-                  <Home className="h-5 w-5 text-emerald-600" />
+                  <Home className="h-5 w-5 text-blue-600" />
                 </div>
                 <h3 className="font-bold text-[#1F2937] mb-2 text-lg">The Housing Anchor</h3>
                 <p className="text-sm text-neutral-500 font-light leading-relaxed">Housing is the largest variable in any cost of living comparison. Rent in Manhattan can be 300% higher than in the Midwest.</p>
@@ -151,7 +151,7 @@ export default function CostOfLivingCalculatorPage() {
               Understanding the Formulas
             </h2>
 
-            <div className="bg-[#064E3B] text-white p-8 md:p-12 rounded-3xl shadow-2xl mb-16 relative overflow-hidden">
+            <div className="bg-[#1E3A5F] text-white p-8 md:p-12 rounded-3xl shadow-2xl mb-16 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-96 h-96 bg-[#D97706]/20 blur-[100px] rounded-full translate-x-1/2 -translate-y-1/2"></div>
               
               <h3 className="text-2xl font-bold mb-8 text-white/90 relative z-10">The Core Cost of Living Equations</h3>
@@ -174,7 +174,7 @@ export default function CostOfLivingCalculatorPage() {
               </ul>
             </div>
 
-            <div className="bg-[#FAFAFA] border-l-4 border-[#064E3B] p-6 mb-16 rounded-r-xl">
+            <div className="bg-[#FAFAFA] border-l-4 border-[#1E3A5F] p-6 mb-16 rounded-r-xl">
               <h3 className="text-[#1F2937] font-bold text-xl mb-2">How Cost of Living Indices Work</h3>
               <p className="text-lg text-neutral-600 font-light m-0 leading-relaxed">
                 Economists use a "weighted aggregate index" to measure inflation and location costs. They fill a theoretical basket with goods (rent, gas, milk) and weight them based on average consumption (e.g., housing is weighted heavily, milk is weighted lightly). A baseline city is assigned an index of 100. If New York City has an index of 180, it is 80% more expensive than the baseline.
@@ -187,7 +187,7 @@ export default function CostOfLivingCalculatorPage() {
 
             <ul className="space-y-6 mb-12">
               <li className="flex items-start gap-4 p-6 bg-white border border-neutral-200 shadow-sm rounded-2xl">
-                <Target className="h-8 w-8 text-[#064E3B] shrink-0 mt-1" />
+                <Target className="h-8 w-8 text-[#1E3A5F] shrink-0 mt-1" />
                 <div>
                   <strong className="text-[#1F2937] block text-xl mb-2">Step 1: Set Your Baseline</strong>
                   <span className="text-neutral-600 font-light leading-relaxed">Enter your current annual salary and assume your current city's index is 100 (the baseline).</span>

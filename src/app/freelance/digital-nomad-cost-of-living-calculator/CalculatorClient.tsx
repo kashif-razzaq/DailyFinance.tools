@@ -55,7 +55,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       const savedResult = await saveCalculatorAction({
         id: savedScenarioId || undefined,
         calculator_slug: 'freelance/digital-nomad-cost-of-living-calculator',
-        category: 'Personal Finance',
+        category: 'Freelance & Business',
         saved_name: `COL Compare: Target ${currencySymbol}${Math.round(metrics.requiredSalary)}`,
         input_state: {
           currentSalary: store.currentSalary,
@@ -150,7 +150,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <div className="bg-card border shadow-sm rounded-2xl p-6 md:p-8">
           <div className="flex items-center justify-between pb-2 border-b mb-6">
             <h2 className="text-xl font-bold flex items-center gap-2">
-              <Calculator className="h-5 w-5 text-emerald-600" />
+              <Calculator className="h-5 w-5 text-blue-600" />
               Personal Expense Estimator
             </h2>
           </div>
@@ -200,7 +200,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       <div className="xl:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 flex flex-col h-full space-y-10">
         
         {showToast && (
-          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-emerald-50 text-emerald-600 border border-emerald-200 p-4 rounded-xl shadow-xl flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 fade-in duration-300">
+          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-blue-50 text-blue-600 border border-blue-200 p-4 rounded-xl shadow-xl flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 fade-in duration-300">
             <CheckCircle2 className="h-5 w-5" />
             <span className="font-semibold text-sm">Successfully saved to Scenario Vault!</span>
           </div>
@@ -224,7 +224,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
             </div>
 
             <div className="flex items-center gap-4 relative z-10">
-              <div className={`px-4 py-2 rounded-xl text-sm font-bold border flex items-center gap-2 ${metrics.salaryDiff >= 0 ? 'bg-red-500/10 text-red-400 border-red-500/20' : 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'}`}>
+              <div className={`px-4 py-2 rounded-xl text-sm font-bold border flex items-center gap-2 ${metrics.salaryDiff >= 0 ? 'bg-red-500/10 text-red-400 border-red-500/20' : 'bg-blue-500/10 text-blue-400 border-blue-500/20'}`}>
                 {metrics.salaryDiff >= 0 ? <TrendingUp className="w-4 h-4"/> : <TrendingDown className="w-4 h-4"/>}
                 {metrics.salaryDiff >= 0 ? '+' : ''}{formatCurrency(metrics.salaryDiff)} ({metrics.salaryDiffPct > 0 ? '+' : ''}{metrics.salaryDiffPct.toFixed(1)}%)
               </div>
@@ -235,7 +235,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <div className="pt-4">
             <h3 className="text-lg font-bold text-foreground flex items-center justify-between border-b pb-2 mb-6">
               <span className="flex items-center gap-2"><ArrowRightLeft className="w-5 h-5 text-muted-foreground"/> Personal Cost of Living Estimate</span>
-              <span className="text-xl font-black text-emerald-600">{formatCurrency(metrics.totalPersonalCost)}</span>
+              <span className="text-xl font-black text-blue-600">{formatCurrency(metrics.totalPersonalCost)}</span>
             </h3>
 
             {metrics.totalPersonalCost > 0 ? (

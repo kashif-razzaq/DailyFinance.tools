@@ -163,7 +163,7 @@ export default function HourlyRateCalculatorPage() {
         <>
           {/* Answer Engine Optimization (AEO) Block */}
           <section className="bg-white border border-neutral-200 shadow-sm rounded-2xl p-6 md:p-8 mb-12 relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-2 h-full bg-[#064E3B]"></div>
+            <div className="absolute top-0 left-0 w-2 h-full bg-[#1E3A5F]"></div>
             <h2 className="text-xl font-bold text-[#1F2937] mb-3 flex items-center gap-2">
               <Calculator className="h-5 w-5 text-[#D97706]" />
               Quick Answer: How to Calculate Your Freelance Hourly Rate
@@ -173,21 +173,7 @@ export default function HourlyRateCalculatorPage() {
             </p>
           </section>
 
-          {/* Related Tools Internal Linking */}
-          <section className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-16">
-             <Link href="/freelance/freelance-project-pricing-calculator" className="bg-primary/5 hover:bg-primary/10 transition-colors p-5 rounded-2xl border border-primary/20 flex flex-col group">
-               <h4 className="font-bold text-primary flex items-center justify-between mb-2">Project Pricing <ArrowRight className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity -translate-x-2 group-hover:translate-x-0" /></h4>
-               <p className="text-sm text-muted-foreground">Convert your new hourly rate into highly profitable flat fees for upcoming client projects.</p>
-             </Link>
-             <Link href="/freelance/billable-hours-calculator" className="bg-primary/5 hover:bg-primary/10 transition-colors p-5 rounded-2xl border border-primary/20 flex flex-col group">
-               <h4 className="font-bold text-primary flex items-center justify-between mb-2">Billable Hours <ArrowRight className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity -translate-x-2 group-hover:translate-x-0" /></h4>
-               <p className="text-sm text-muted-foreground">Dive much deeper into calculating your true utilization metrics and unbilled time.</p>
-             </Link>
-             <Link href="/freelance/self-employment-tax-calculator" className="bg-primary/5 hover:bg-primary/10 transition-colors p-5 rounded-2xl border border-primary/20 flex flex-col group">
-               <h4 className="font-bold text-primary flex items-center justify-between mb-2">Self-Employment Tax <ArrowRight className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity -translate-x-2 group-hover:translate-x-0" /></h4>
-               <p className="text-sm text-muted-foreground">Calculate exact FICA and income tax liabilities to refine your profit margins effectively.</p>
-             </Link>
-          </section>
+       
 
           <h2 id="how-to-set-profitable-rate" className="text-3xl font-extrabold tracking-tight mb-8 text-[#1F2937] scroll-mt-24">
             How to Set a Profitable Freelance Hourly Rate
@@ -295,12 +281,12 @@ export default function HourlyRateCalculatorPage() {
             </div>
           </div>
 
-          <div className="bg-[#064E3B] text-white p-8 md:p-14 rounded-3xl shadow-2xl mb-16 relative overflow-hidden text-center">
+          <div className="bg-[#1E3A5F] text-white p-8 md:p-14 rounded-3xl shadow-2xl mb-16 relative overflow-hidden text-center">
             <div className="absolute top-0 right-0 w-96 h-96 bg-[#D97706]/20 blur-[100px] rounded-full translate-x-1/2 -translate-y-1/2"></div>
             
             <h3 className="text-3xl font-extrabold mb-8 text-white/95 relative z-10 tracking-tight">The MAR Equation</h3>
             <div className="font-mono text-xl md:text-2xl bg-black/40 p-6 md:p-8 rounded-2xl border border-white/10 break-words leading-loose relative z-10 shadow-inner inline-block">
-              <span className="block text-emerald-400 mb-2">[ Target Net Income + Expenses + Taxes ]</span>
+              <span className="block text-blue-400 mb-2">[ Target Net Income + Expenses + Taxes ]</span>
               <span className="block text-white/50 text-base my-2">divided by</span>
               <span className="block text-amber-400">Annual Billable Hours</span>
             </div>
@@ -323,7 +309,7 @@ export default function HourlyRateCalculatorPage() {
             <h4 className="font-bold text-lg text-[#1F2937] mb-6">Average 40-Hour Freelance Week</h4>
             
             <div className="w-full h-8 flex rounded-xl overflow-hidden mb-4">
-              <div className="bg-[#064E3B] h-full w-[60%] flex items-center justify-center text-xs font-bold text-white tracking-widest">
+              <div className="bg-[#1E3A5F] h-full w-[60%] flex items-center justify-center text-xs font-bold text-white tracking-widest">
                 60% BILLABLE
               </div>
               <div className="bg-[#D97706] h-full w-[40%] flex items-center justify-center text-xs font-bold text-white tracking-widest">
@@ -334,7 +320,7 @@ export default function HourlyRateCalculatorPage() {
             <div className="flex flex-col sm:flex-row gap-6 mt-6 border-t border-neutral-100 pt-6">
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-2">
-                  <div className="w-3 h-3 rounded-full bg-[#064E3B]"></div>
+                  <div className="w-3 h-3 rounded-full bg-[#1E3A5F]"></div>
                   <strong className="text-sm">Billable Time (24 hrs)</strong>
                 </div>
                 <p className="text-sm text-neutral-500 font-light">Client execution, writing code, designing deliverables, active consulting, and paid meetings.</p>
@@ -360,7 +346,7 @@ export default function HourlyRateCalculatorPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
             <div className="border border-neutral-200 rounded-3xl p-6 lg:p-8 bg-white shadow-sm">
               <h3 className="font-bold text-xl mb-4 text-[#1F2937] border-b border-neutral-100 pb-4 flex items-center gap-3">
-                <MonitorSmartphone className="h-5 w-5 text-emerald-600" />
+                <MonitorSmartphone className="h-5 w-5 text-blue-600" />
                 Senior Web Developer
               </h3>
               <p className="text-neutral-500 text-sm mb-6 leading-relaxed">
@@ -372,9 +358,9 @@ export default function HourlyRateCalculatorPage() {
                 <li className="flex justify-between items-center bg-neutral-50 p-2.5 rounded-lg"><span>Est. Taxes (30%):</span> <strong className="text-base">$53,300</strong></li>
                 <li className="flex justify-between items-center bg-neutral-50 p-2.5 rounded-lg"><span>Billable Hours:</span> <strong className="text-base">1,056 hrs</strong></li>
               </ul>
-              <div className="bg-emerald-50/50 p-5 rounded-2xl border border-emerald-100 text-center">
-                <span className="block text-xs uppercase tracking-widest text-emerald-800 font-bold mb-1">Required Minimum Rate</span>
-                <span className="text-4xl font-black text-emerald-700">$168 / hr</span>
+              <div className="bg-blue-50/50 p-5 rounded-2xl border border-blue-100 text-center">
+                <span className="block text-xs uppercase tracking-widest text-blue-800 font-bold mb-1">Required Minimum Rate</span>
+                <span className="text-4xl font-black text-blue-700">$168 / hr</span>
               </div>
             </div>
             

@@ -101,7 +101,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           </div>
           <div className="grid grid-cols-2 gap-4 mt-6 pt-4 border-t border-white/20">
             <div><p className="text-[10px] text-white/70 uppercase font-bold mb-1">Initial Cash Invested</p><p className="text-xl font-bold">{currencySymbol}{Math.round(metrics.initialCashInvested).toLocaleString()}</p></div>
-            <div><p className="text-[10px] text-white/70 uppercase font-bold mb-1">Cash Pulled Out</p><p className="text-xl font-bold text-emerald-400">+{currencySymbol}{Math.round(metrics.cashPulledOut).toLocaleString()}</p></div>
+            <div><p className="text-[10px] text-white/70 uppercase font-bold mb-1">Cash Pulled Out</p><p className="text-xl font-bold text-blue-400">+{currencySymbol}{Math.round(metrics.cashPulledOut).toLocaleString()}</p></div>
           </div>
         </div>
         <CalculatorActions slug="brrrr-strategy-analyzer" onSave={handleSave} isSaving={isSaving} isPro={isPro} exportData={exportData} exportFilename="BRRRR_Analysis" onRequirePro={() => setShowProModal(true)} shareUrl={""} />

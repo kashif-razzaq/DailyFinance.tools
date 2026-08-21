@@ -152,7 +152,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
             </div>
             <div className="flex justify-between items-center pb-2 border-b">
               <span className="text-muted-foreground font-semibold">Monthly Profit</span>
-              <span className="font-bold text-xl text-emerald-600">{formatCurrency(result.monthlyProfit)}</span>
+              <span className="font-bold text-xl text-blue-600">{formatCurrency(result.monthlyProfit)}</span>
             </div>
             <div className="flex justify-between items-center pb-2 border-b">
               <span className="text-muted-foreground">Profit Margin</span>

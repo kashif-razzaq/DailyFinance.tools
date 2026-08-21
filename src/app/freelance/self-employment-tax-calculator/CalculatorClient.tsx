@@ -217,7 +217,7 @@ export function CalculatorClient({ isPro }: { isPro: boolean }) {
       <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 flex flex-col h-full space-y-10">
         
         {showToast && (
-          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-emerald-50 text-emerald-600 border border-emerald-200 p-4 rounded-xl shadow-xl flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 fade-in duration-300">
+          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-blue-50 text-blue-600 border border-blue-200 p-4 rounded-xl shadow-xl flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 fade-in duration-300">
             <CheckCircle2 className="h-5 w-5" />
             <span className="font-semibold text-sm">Successfully saved to Scenario Vault!</span>
           </div>
@@ -241,9 +241,9 @@ export function CalculatorClient({ isPro }: { isPro: boolean }) {
 
           <div className="grid grid-cols-2 gap-4 mb-8">
             <div className="p-4 rounded-2xl bg-background border border-border/60 relative overflow-hidden">
-              <div className="absolute top-0 right-0 p-3 opacity-10"><DollarSign className="w-12 h-12 text-emerald-500"/></div>
+              <div className="absolute top-0 right-0 p-3 opacity-10"><DollarSign className="w-12 h-12 text-blue-500"/></div>
               <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground mb-1 relative z-10">Take-Home Pay</p>
-              <p className="text-2xl font-bold text-emerald-600 relative z-10">{formatCurrency(metrics.takeHomePay)}</p>
+              <p className="text-2xl font-bold text-blue-600 relative z-10">{formatCurrency(metrics.takeHomePay)}</p>
             </div>
             <div className="p-4 rounded-2xl bg-primary border border-primary text-primary-foreground shadow-md relative overflow-hidden">
               <div className="absolute top-0 right-0 p-3 opacity-20"><CalendarClock className="w-12 h-12"/></div>

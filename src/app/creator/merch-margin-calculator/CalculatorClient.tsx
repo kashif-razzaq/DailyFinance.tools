@@ -22,7 +22,7 @@ const pdfStyles = StyleSheet.create({
   value: { fontSize: 12, fontWeight: 'bold', color: '#111827' },
   highlightRow: { flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 12, marginTop: 20, backgroundColor: '#f3f4f6', paddingHorizontal: 10, borderRadius: 4 },
   highlightLabel: { fontSize: 14, fontWeight: 'bold' },
-  highlightValue: { fontSize: 16, fontWeight: 'bold', color: '#10b981' },
+  highlightValue: { fontSize: 16, fontWeight: 'bold', color: '#3b82f6' },
   sectionTitle: { fontSize: 16, fontWeight: 'bold', marginTop: 20, marginBottom: 10 }
 });
 
@@ -258,7 +258,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       <div className="lg:col-span-5 space-y-6 lg:sticky lg:top-8 relative z-20">
 
         {showToast && (
-          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-primary/5 text-emerald-600 border border-primary/20 p-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 slide-in-from-bottom-8 fade-in duration-300 ease-out">
+          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-primary/5 text-blue-600 border border-primary/20 p-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 slide-in-from-bottom-8 fade-in duration-300 ease-out">
             <CheckCircle2 className="h-5 w-5" />
             <span className="font-semibold text-sm">Successfully saved to Scenario Vault!</span>
           </div>
@@ -279,7 +279,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <div className="grid grid-cols-2 gap-6 mt-8 pt-6 border-t border-white/10 relative z-10">
             <div>
               <p className="text-[10px] text-white/70 uppercase font-bold tracking-wider mb-1">Gross Margin</p>
-              <p className={`text-2xl font-bold ${metrics.grossMarginPercent < 30 ? 'text-red-400' : 'text-emerald-400'}`}>
+              <p className={`text-2xl font-bold ${metrics.grossMarginPercent < 30 ? 'text-red-400' : 'text-blue-400'}`}>
                 {metrics.grossMarginPercent.toFixed(1)}%
               </p>
             </div>
@@ -300,7 +300,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
             <div className="w-full h-4 rounded-full flex overflow-hidden">
               <div style={{width: `${(metrics.cogs / store.retailPrice) * 100}%`}} className="bg-slate-400 dark:bg-slate-600 transition-all duration-300" />
               <div style={{width: `${(metrics.platformFeeAmount / store.retailPrice) * 100}%`}} className="bg-rose-500 transition-all duration-300" />
-              <div style={{width: `${(metrics.profitPerItem / store.retailPrice) * 100}%`}} className="bg-emerald-500 transition-all duration-300" />
+              <div style={{width: `${(metrics.profitPerItem / store.retailPrice) * 100}%`}} className="bg-blue-500 transition-all duration-300" />
             </div>
 
             <div className="grid grid-cols-1 gap-2 pt-2 text-sm">
@@ -320,10 +320,10 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
               </div>
               <div className="flex justify-between items-center py-2">
                 <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-emerald-500"></div>
-                  <span className="text-emerald-600 dark:text-emerald-400 font-bold">Net Profit</span>
+                  <div className="w-3 h-3 rounded-full bg-blue-500"></div>
+                  <span className="text-blue-600 dark:text-blue-400 font-bold">Net Profit</span>
                 </div>
-                <div className="font-bold text-emerald-600 dark:text-emerald-400">{currencySymbol}{metrics.profitPerItem.toFixed(2)}</div>
+                <div className="font-bold text-blue-600 dark:text-blue-400">{currencySymbol}{metrics.profitPerItem.toFixed(2)}</div>
               </div>
             </div>
           </div>

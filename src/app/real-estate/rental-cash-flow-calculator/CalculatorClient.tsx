@@ -113,7 +113,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <div className="bg-[#1e293b] text-white rounded-2xl p-8 shadow-2xl relative overflow-hidden">
           <h3 className="text-xs font-bold text-white/70 uppercase tracking-widest mb-2">Monthly Cash Flow</h3>
           <div className="flex items-baseline gap-1">
-            <span className={`text-5xl font-black ${metrics.monthlyCashFlow < 0 ? 'text-red-400' : 'text-emerald-400'}`}>{metrics.monthlyCashFlow < 0 ? '-' : ''}{currencySymbol}{Math.abs(Math.round(metrics.monthlyCashFlow)).toLocaleString()}</span>
+            <span className={`text-5xl font-black ${metrics.monthlyCashFlow < 0 ? 'text-red-400' : 'text-blue-400'}`}>{metrics.monthlyCashFlow < 0 ? '-' : ''}{currencySymbol}{Math.abs(Math.round(metrics.monthlyCashFlow)).toLocaleString()}</span>
           </div>
           <div className="grid grid-cols-2 gap-4 mt-6 pt-4 border-t border-white/20">
             <div><p className="text-[10px] text-white/70 uppercase font-bold mb-1">Cash on Cash ROI</p><p className="text-xl font-bold">{metrics.cashOnCashReturn.toFixed(2)}%</p></div>

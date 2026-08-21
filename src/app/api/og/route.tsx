@@ -14,7 +14,7 @@ export async function GET(request: Request) {
 
     const categoryColors: Record<string, { bg: string, text: string, border: string }> = {
       'Freelance': { bg: 'rgba(217, 119, 6, 0.15)', text: '#B45309', border: 'rgba(217, 119, 6, 0.3)' }, // Amber
-      'Personal Wealth': { bg: 'rgba(6, 78, 59, 0.15)', text: '#064E3B', border: 'rgba(6, 78, 59, 0.3)' }, // Emerald
+      'Personal Wealth': { bg: 'rgba(6, 78, 59, 0.15)', text: '#1E3A5F', border: 'rgba(6, 78, 59, 0.3)' }, // Emerald
       'Real Estate': { bg: 'rgba(59, 130, 246, 0.15)', text: '#1D4ED8', border: 'rgba(59, 130, 246, 0.3)' }, // Blue
       'Business': { bg: 'rgba(139, 92, 246, 0.15)', text: '#6D28D9', border: 'rgba(139, 92, 246, 0.3)' }, // Purple
       'Creator': { bg: 'rgba(236, 72, 153, 0.15)', text: '#BE185D', border: 'rgba(236, 72, 153, 0.3)' }, // Pink
@@ -47,8 +47,8 @@ export async function GET(request: Request) {
             }}
           >
             <svg viewBox="0 0 100 100" fill="none" width="800" height="800" xmlns="http://www.w3.org/2000/svg">
-              <rect x="20" y="55" width="14" height="25" rx="4" fill="#064E3B" />
-              <rect x="43" y="35" width="14" height="45" rx="4" fill="#064E3B" />
+              <rect x="20" y="55" width="14" height="25" rx="4" fill="#1E3A5F" />
+              <rect x="43" y="35" width="14" height="45" rx="4" fill="#1E3A5F" />
               <rect x="66" y="15" width="14" height="65" rx="4" fill="#D97706" />
             </svg>
           </div>
@@ -62,7 +62,7 @@ export async function GET(request: Request) {
               height: '100%',
             }}
           >
-            <div style={{ flex: 2, background: '#064E3B' }} />
+            <div style={{ flex: 2, background: '#1E3A5F' }} />
             <div style={{ flex: 1, background: '#D97706' }} />
           </div>
 
@@ -157,8 +157,8 @@ export async function GET(request: Request) {
                 }}
               >
                 <svg viewBox="0 0 100 100" fill="none" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="20" y="55" width="14" height="25" rx="4" fill="#064E3B" />
-                  <rect x="43" y="35" width="14" height="45" rx="4" fill="#064E3B" />
+                  <rect x="20" y="55" width="14" height="25" rx="4" fill="#1E3A5F" />
+                  <rect x="43" y="35" width="14" height="45" rx="4" fill="#1E3A5F" />
                   <rect x="66" y="15" width="14" height="65" rx="4" fill="#D97706" />
                 </svg>
               </div>

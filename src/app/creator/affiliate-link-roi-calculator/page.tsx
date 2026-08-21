@@ -157,9 +157,9 @@ export default function AffiliatePage() {
         <>
           {/* Answer Engine Optimization (AEO) Block */}
           <section className="bg-white border border-neutral-200 shadow-sm rounded-2xl p-6 md:p-8 mb-12 relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-2 h-full bg-emerald-500"></div>
+            <div className="absolute top-0 left-0 w-2 h-full bg-blue-500"></div>
             <h2 className="text-xl font-bold text-[#1F2937] mb-3 flex items-center gap-2">
-              <Link2 className="h-5 w-5 text-emerald-500" />
+              <Link2 className="h-5 w-5 text-blue-500" />
               Quick Answer: What is a Good Affiliate Conversion Rate?
             </h2>
             <p className="text-neutral-600 leading-relaxed text-lg">
@@ -182,21 +182,21 @@ export default function AffiliatePage() {
           <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
             <div className="bg-[#FAFAFA] p-6 rounded-2xl border border-neutral-100 flex flex-col items-start">
               <div className="w-10 h-10 bg-white rounded-lg shadow-sm border border-neutral-100 flex items-center justify-center mb-4">
-                <MousePointerClick className="h-5 w-5 text-emerald-500" />
+                <MousePointerClick className="h-5 w-5 text-blue-500" />
               </div>
               <h3 className="font-bold text-[#1F2937] mb-2 text-lg">EPC (Earnings Per Click)</h3>
               <p className="text-sm text-neutral-500 font-light">The ultimate metric for comparing programs. If Program A pays 50% commission but converts terribly, its EPC might be $0.10. If Program B pays 10% but converts well, its EPC might be $1.50.</p>
             </div>
             <div className="bg-[#FAFAFA] p-6 rounded-2xl border border-neutral-100 flex flex-col items-start">
               <div className="w-10 h-10 bg-white rounded-lg shadow-sm border border-neutral-100 flex items-center justify-center mb-4">
-                <TrendingUp className="h-5 w-5 text-emerald-500" />
+                <TrendingUp className="h-5 w-5 text-blue-500" />
               </div>
               <h3 className="font-bold text-[#1F2937] mb-2 text-lg">Intent Dictates CTR</h3>
               <p className="text-sm text-neutral-500 font-light">Traffic volume doesn't matter without purchase intent. A specialized tutorial video with 5,000 views can generate more sales than a comedy sketch with 500,000 views.</p>
             </div>
             <div className="bg-[#FAFAFA] p-6 rounded-2xl border border-neutral-100 flex flex-col items-start">
               <div className="w-10 h-10 bg-white rounded-lg shadow-sm border border-neutral-100 flex items-center justify-center mb-4">
-                <Globe className="h-5 w-5 text-emerald-500" />
+                <Globe className="h-5 w-5 text-blue-500" />
               </div>
               <h3 className="font-bold text-[#1F2937] mb-2 text-lg">Cookie Duration</h3>
               <p className="text-sm text-neutral-500 font-light">A 30-day tracking cookie is infinitely more valuable than a 24-hour cookie (like Amazon). Always read the terms of the affiliate agreement before promoting.</p>
@@ -221,7 +221,7 @@ export default function AffiliatePage() {
             If you send 1,000 clicks to a sales page and get zero purchases, your audience intent is mismatched with the product, or the sales page is poorly optimized. <strong>The Fix:</strong> Swap the affiliate link to a competitor's product. If the new product converts at 3%, you immediately know the previous merchant had a terrible landing page.
           </p>
 
-          <div className="bg-emerald-50 border-l-4 border-emerald-500 p-6 mb-16 rounded-r-xl">
+          <div className="bg-blue-50 border-l-4 border-blue-500 p-6 mb-16 rounded-r-xl">
             <h4 className="text-xl font-bold text-[#1F2937] mb-2">Pro Tip: The Power of Recurring Commissions</h4>
             <p className="text-lg text-neutral-600 m-0 leading-relaxed font-light">
               The holy grail of affiliate marketing for creators is <strong>B2B SaaS (Software as a Service)</strong>. Tools like web hosting, email marketing software, and design platforms often pay <strong>30% recurring commissions for life</strong>. Instead of earning a one-time $10 fee for selling a physical item on Amazon, you earn $10 every single month for as long as that user remains a customer. This builds compounding, passive MRR (Monthly Recurring Revenue).

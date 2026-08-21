@@ -116,7 +116,7 @@ export default function W2vs1099CalculatorPage() {
           <>
             {/* Answer Engine Optimization (AEO) Block */}
             <section className="bg-white border border-neutral-200 shadow-sm rounded-2xl p-6 md:p-8 mb-12 relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-2 h-full bg-[#064E3B]"></div>
+              <div className="absolute top-0 left-0 w-2 h-full bg-[#1E3A5F]"></div>
               <h2 className="text-xl font-bold text-[#1F2937] mb-3 flex items-center gap-2">
                 <ArrowRightLeft className="h-5 w-5 text-[#D97706]" />
                 Quick Answer: Converting 1099 to W2 Rates
@@ -148,7 +148,7 @@ export default function W2vs1099CalculatorPage() {
               </div>
               <div className="bg-[#FAFAFA] p-6 rounded-2xl border border-neutral-100 flex flex-col items-start">
                 <div className="w-10 h-10 bg-white rounded-lg shadow-sm border border-neutral-100 flex items-center justify-center mb-4">
-                  <Briefcase className="h-5 w-5 text-emerald-600" />
+                  <Briefcase className="h-5 w-5 text-blue-600" />
                 </div>
                 <h3 className="font-bold text-[#1F2937] mb-2 text-lg">The 1099 Reality</h3>
                 <p className="text-sm text-neutral-500 font-light leading-relaxed">You are a one-person business. You pay the full 15.3% SE tax, buy insurance on the expensive open market, and if you take a week off for vacation, your income drops to zero.</p>
@@ -159,7 +159,7 @@ export default function W2vs1099CalculatorPage() {
               How the Math Actually Works
             </h2>
 
-            <div className="bg-[#064E3B] text-white p-8 md:p-12 rounded-3xl shadow-2xl mb-16 relative overflow-hidden">
+            <div className="bg-[#1E3A5F] text-white p-8 md:p-12 rounded-3xl shadow-2xl mb-16 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-96 h-96 bg-[#D97706]/20 blur-[100px] rounded-full translate-x-1/2 -translate-y-1/2"></div>
               
               <h3 className="text-2xl font-bold mb-8 text-white/90 relative z-10">Converting W2 Salary to 1099 Rate</h3>
@@ -189,7 +189,7 @@ export default function W2vs1099CalculatorPage() {
               </ul>
             </div>
 
-            <div className="bg-[#FAFAFA] border-l-4 border-[#064E3B] p-6 mb-16 rounded-r-xl">
+            <div className="bg-[#FAFAFA] border-l-4 border-[#1E3A5F] p-6 mb-16 rounded-r-xl">
               <h3 className="text-[#1F2937] font-bold text-xl mb-2">The 1099 Secret Weapon: Deductions</h3>
               <p className="text-lg text-neutral-600 font-light m-0 leading-relaxed">
                 If the math seems heavily skewed toward W-2s, remember that 1099 contractors can <strong>deduct business expenses before taxes are calculated</strong>. A W-2 employee making $100k pays taxes on $100k. A 1099 contractor making $100k with $15k in home office and equipment write-offs only pays taxes on $85k. This tax shielding is factored deeply into our converter tool.
@@ -205,7 +205,7 @@ export default function W2vs1099CalculatorPage() {
 
             <ul className="space-y-6 mb-12">
               <li className="flex items-start gap-4 p-6 bg-white border border-neutral-200 shadow-sm rounded-2xl">
-                <ArrowRightLeft className="h-8 w-8 text-[#064E3B] shrink-0 mt-1" />
+                <ArrowRightLeft className="h-8 w-8 text-[#1E3A5F] shrink-0 mt-1" />
                 <div>
                   <strong className="text-[#1F2937] block text-xl mb-2">Finding Your 1099 Equivalent Rate</strong>
                   <span className="text-neutral-600 font-light leading-relaxed">If you want to leave your W-2 job to go freelance, input your current salary. The "Conversion Equivalents" panel will instantly tell you exactly what hourly rate you must charge clients to safely quit your job without taking a lifestyle hit.</span>

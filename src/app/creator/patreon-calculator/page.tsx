@@ -7,17 +7,21 @@ import React from "react"
 import { Users, Filter, DollarSign, Activity, Settings, RefreshCw, BarChart, AlertTriangle } from "lucide-react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
-  title: "Patreon Earnings Calculator | Tier Optimization Tool",
-  description: "Calculate your Patreon income, model churn rates, and optimize your membership tiers with our free Patreon earnings calculator. Maximize your creator revenue.",
-  keywords: ["patreon earnings calculator", "patreon income calculator", "patreon fee calculator", "patreon tier optimization", "how much do patreon creators make", "patreon revenue estimator"],
-  slug: "creator/patreon-tier-optimization",
+  title: "Patreon Earnings Calculator | Patreon Fee Calculator",
+  description: "Free Patreon calculator to estimate your earnings, calculate Patreon fees, model subscriber churn, and optimize your membership tiers for maximum revenue.",
+  keywords: ["patreon calculator", "patreon fee calculator", "patreon earnings calculator", "patreon income calculator", "how much do patreon creators make", "patreon revenue estimator"],
+  slug: "creator/patreon-calculator",
   category: "Creator Economy",
 });
 
 const faqs: FAQ[] = [
   {
     question: "How do you calculate Patreon earnings?",
-    answer: "Patreon earnings are calculated by taking the sum of your active subscribers multiplied by their respective tier prices (Gross Revenue), and then subtracting the Patreon Platform Fee (5%, 8%, or 12%) and Payment Processing Fees (typically 3-5%)."
+    answer: "Using a Patreon earnings calculator, you multiply your active subscribers by their tier prices to get Gross Revenue. From that, you must subtract the Patreon platform fee (5%, 8%, or 12%) and payment processing fees (typically 3-5%) to find your actual net earnings."
+  },
+  {
+    question: "How does the Patreon fee calculator work?",
+    answer: "A proper Patreon fee calculator deducts two types of fees: the platform fee (which depends on your Lite, Pro, or Premium plan) and the payment processing fee, which varies based on currency and transaction size. Combined, creators usually lose 10-17% of their gross revenue to fees."
   },
   {
     question: "What is a good conversion rate for Patreon?",
@@ -28,16 +32,12 @@ const faqs: FAQ[] = [
     answer: "Churn is the percentage of patrons who cancel their subscription each month. A high churn rate (above 10%) usually indicates that the ongoing value of your membership tiers is not justifying the recurring monthly cost to the subscriber."
   },
   {
-    question: "How much does Patreon take from creators?",
-    answer: "Patreon takes a platform fee based on your plan: Lite (5%), Pro (8%), or Premium (12%). In addition to the platform fee, creators must also pay payment processing fees, which average around 5% of the transaction amount."
-  },
-  {
     question: "What is ARPU in memberships?",
-    answer: "ARPU stands for Average Revenue Per User. It is calculated by dividing your Gross Monthly Revenue by your total number of active subscribers. Optimizing your tiers to push users toward higher-priced options increases your ARPU without needing to acquire new fans."
+    answer: "ARPU stands for Average Revenue Per User. It is calculated by dividing your Gross Monthly Revenue by your total number of active subscribers. Optimizing your tiers increases your ARPU without needing to acquire new fans."
   }
 ]
 
-export default function PatreonTierOptimizationPage() {
+export default function PatreonCalculatorPage() {
   const softwareApplicationSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
@@ -54,8 +54,8 @@ export default function PatreonTierOptimizationPage() {
   const howToSchema = {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    "name": "How to Calculate and Optimize Your Patreon Income",
-    "description": "A step-by-step guide to modeling your Patreon revenue and reducing monthly churn.",
+    "name": "How to Calculate Your Patreon Earnings and Fees",
+    "description": "A step-by-step guide to modeling your Patreon revenue using our Patreon calculator.",
     "step": [
       {
         "@type": "HowToStep",
@@ -75,7 +75,7 @@ export default function PatreonTierOptimizationPage() {
       {
         "@type": "HowToStep",
         "name": "Deduct Platform Fees",
-        "text": "Select your Patreon plan (5%, 8%, or 12%) to accurately calculate your net take-home pay after processing fees."
+        "text": "Use the Patreon fee calculator settings to select your plan (5%, 8%, or 12%) and accurately calculate your net take-home pay."
       }
     ]
   };
@@ -98,10 +98,10 @@ export default function PatreonTierOptimizationPage() {
     "@graph": [
       {
         "@type": "WebPage",
-        "@id": "https://dailyfinance.tools/creator/patreon-tier-optimization",
-        "url": "https://dailyfinance.tools/creator/patreon-tier-optimization",
-        "name": "Patreon Earnings Calculator | Tier Optimization Tool",
-        "description": "Calculate your Patreon income, model churn rates, and optimize your membership tiers with our free Patreon earnings calculator."
+        "@id": "https://dailyfinance.tools/creator/patreon-calculator",
+        "url": "https://dailyfinance.tools/creator/patreon-calculator",
+        "name": "Patreon Earnings Calculator | Patreon Fee Calculator",
+        "description": "Free Patreon calculator to estimate your earnings, calculate Patreon fees, model subscriber churn, and optimize your membership tiers."
       },
       {
         "@type": "BreadcrumbList",
@@ -121,8 +121,8 @@ export default function PatreonTierOptimizationPage() {
           {
             "@type": "ListItem",
             "position": 3,
-            "name": "Patreon Tier Optimization",
-            "item": "https://dailyfinance.tools/creator/patreon-tier-optimization"
+            "name": "Patreon Earnings Calculator",
+            "item": "https://dailyfinance.tools/creator/patreon-calculator"
           }
         ]
       }
@@ -152,9 +152,9 @@ export default function PatreonTierOptimizationPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
       />
       <ToolLayout
-        title="Patreon Earnings Calculator"
-        description="Calculate your net Patreon income after fees, model subscriber churn, and optimize your membership tiers to maximize Average Revenue Per User (ARPU)."
-        slug="patreon-tier-optimization"
+        title="Patreon Earnings & Fee Calculator"
+        description="A powerful Patreon calculator designed to model your membership revenue. Instantly estimate net income, calculate Patreon fees, and model subscriber churn to maximize your ARPU."
+        slug="patreon-calculator"
         faqs={faqs}
         calculator={(isPro) => <CalculatorClient isPro={isPro} />}
       >
@@ -165,19 +165,19 @@ export default function PatreonTierOptimizationPage() {
             <div className="absolute top-0 left-0 w-2 h-full bg-rose-500"></div>
             <h2 className="text-xl font-bold text-[#1F2937] mb-3 flex items-center gap-2">
               <Users className="h-5 w-5 text-rose-500" />
-              Quick Answer: How Much Do Patreon Creators Make?
+              Quick Answer: How Much Do Patreon Creators Actually Make?
             </h2>
             <p className="text-neutral-600 leading-relaxed text-lg">
-              Patreon creators typically convert <strong>1% to 3% of their active free audience</strong> into paying subscribers. If a creator has 100,000 active fans and converts 2% at an average tier price (ARPU) of $7/month, they will generate $14,000 in gross monthly revenue. However, after deducting Patreon's platform fees (5-12%) and payment processing fees (~5%), their actual <strong>net take-home pay will be closer to $11,900/month</strong>.
+              Using a standard <strong>Patreon earnings calculator</strong>, creators typically convert <strong>1% to 3% of their active free audience</strong> into paying subscribers. If a creator converts 2% of a 100,000-person audience at an average tier price of $7/month, they generate $14,000 in gross revenue. However, after using a <strong>Patreon fee calculator</strong> to deduct platform fees (5-12%) and processing fees (~5%), their actual <strong>net take-home pay is approximately $11,900/month</strong>.
             </p>
           </section>
 
           <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-8 text-[#1F2937] scroll-mt-24">
-            The Math Behind a Successful Subscription Business
+            How to Use the Patreon Calculator
           </h2>
 
           <p className="text-lg text-neutral-600 mb-8 leading-relaxed font-light">
-            Launching a Patreon or any paid membership community is not just about making great content; it is about managing a recurring revenue SaaS (Software as a Service) business. The most successful creators on Patreon don't just guess their pricing—they rigorously model their funnels, track their ARPU (Average Revenue Per User), and aggressively fight churn.
+            Launching a Patreon or any paid membership community is not just about making great content; it is about managing a recurring revenue SaaS (Software as a Service) business. The most successful creators on Patreon don't just guess their pricing—they rigorously use a <strong>Patreon calculator</strong> to model their funnels, track their ARPU (Average Revenue Per User), and aggressively fight churn.
           </p>
 
           <p className="text-lg text-neutral-600 mb-8 leading-relaxed font-light">
@@ -203,17 +203,17 @@ export default function PatreonTierOptimizationPage() {
               <div className="w-10 h-10 bg-white rounded-lg shadow-sm border border-neutral-100 flex items-center justify-center mb-4">
                 <AlertTriangle className="h-5 w-5 text-rose-500" />
               </div>
-              <h3 className="font-bold text-[#1F2937] mb-2 text-lg">The Fee Drain</h3>
+              <h3 className="font-bold text-[#1F2937] mb-2 text-lg">Patreon Fee Calculator</h3>
               <p className="text-sm text-neutral-500 font-light">Between Patreon's cut and credit card processors, you will lose roughly 10-17% of your gross revenue before it ever hits your bank account.</p>
             </div>
           </section>
 
           <h2 className="text-3xl font-extrabold tracking-tight mb-8 text-[#1F2937] scroll-mt-24">
-            Optimizing Your Patreon Tiers
+            Optimizing Your Patreon Earnings
           </h2>
 
           <p className="text-lg text-neutral-600 mb-8 leading-relaxed font-light">
-            A common mistake is offering too many tiers. Having 7 different pricing options causes decision paralysis, resulting in users abandoning the checkout process. The industry standard is the <strong>Three-Tier Strategy</strong>:
+            A common mistake when setting up a Patreon is offering too many tiers. Having 7 different pricing options causes decision paralysis, resulting in users abandoning the checkout process. To maximize your <strong>Patreon earnings calculator</strong> projections, use the industry standard <strong>Three-Tier Strategy</strong>:
           </p>
 
           <h3 className="text-2xl font-bold mb-4 text-[#1F2937]">Tier 1: The Tip Jar ($3 - $5)</h3>
@@ -244,7 +244,7 @@ export default function PatreonTierOptimizationPage() {
           </h2>
 
           <p className="text-lg text-neutral-600 mb-8 leading-relaxed font-light">
-            Churn is the silent killer of membership businesses. If you use our Patreon income calculator, you will see exactly how much revenue bleeds out of your business every 30 days due to cancellations.
+            Churn is the silent killer of membership businesses. If you use our <strong>patreon calculator</strong>, you will see exactly how much revenue bleeds out of your business every 30 days due to cancellations.
           </p>
 
           <div className="bg-rose-50 border-l-4 border-rose-500 p-6 mb-8 rounded-r-xl">

@@ -162,7 +162,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <div className="bg-card border shadow-sm rounded-2xl p-6 md:p-8">
           <div className="flex items-center justify-between pb-2 border-b mb-6">
             <h2 className="text-xl font-bold flex items-center gap-2">
-              <Briefcase className="h-5 w-5 text-emerald-600" />
+              <Briefcase className="h-5 w-5 text-blue-600" />
               1099 Contractor Details
             </h2>
           </div>
@@ -173,8 +173,8 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
                 <span>Contractor Rate Type</span>
               </label>
               <div className="grid grid-cols-2 gap-2">
-                <Button variant={store.contractorInputType === 'Hourly' ? 'default' : 'outline'} className={store.contractorInputType === 'Hourly' ? 'bg-emerald-600 hover:bg-emerald-700 text-white' : ''} onClick={() => store.setContractorInputType('Hourly')}>Hourly Rate</Button>
-                <Button variant={store.contractorInputType === 'Annual' ? 'default' : 'outline'} className={store.contractorInputType === 'Annual' ? 'bg-emerald-600 hover:bg-emerald-700 text-white' : ''} onClick={() => store.setContractorInputType('Annual')}>Annual Gross</Button>
+                <Button variant={store.contractorInputType === 'Hourly' ? 'default' : 'outline'} className={store.contractorInputType === 'Hourly' ? 'bg-blue-600 hover:bg-blue-700 text-white' : ''} onClick={() => store.setContractorInputType('Hourly')}>Hourly Rate</Button>
+                <Button variant={store.contractorInputType === 'Annual' ? 'default' : 'outline'} className={store.contractorInputType === 'Annual' ? 'bg-blue-600 hover:bg-blue-700 text-white' : ''} onClick={() => store.setContractorInputType('Annual')}>Annual Gross</Button>
               </div>
             </div>
 
@@ -225,7 +225,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       <div className="xl:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 flex flex-col h-full space-y-10">
         
         {showToast && (
-          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-emerald-50 text-emerald-600 border border-emerald-200 p-4 rounded-xl shadow-xl flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 fade-in duration-300">
+          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-blue-50 text-blue-600 border border-blue-200 p-4 rounded-xl shadow-xl flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 fade-in duration-300">
             <CheckCircle2 className="h-5 w-5" />
             <span className="font-semibold text-sm">Successfully saved to Scenario Vault!</span>
           </div>
@@ -235,7 +235,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           
           {/* Conversion Focus UI */}
           <div className="bg-slate-900 rounded-3xl p-6 md:p-8 text-white relative overflow-hidden shadow-xl">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/20 blur-[80px] rounded-full translate-x-1/2 -translate-y-1/2"></div>
+            <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/20 blur-[80px] rounded-full translate-x-1/2 -translate-y-1/2"></div>
             
             <h3 className="text-sm font-bold uppercase tracking-widest text-slate-400 mb-6 flex items-center gap-2">
               <ArrowRightLeft className="w-4 h-4"/> Conversion Equivalents
@@ -245,8 +245,8 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
               {/* To Match W2 */}
               <div className="flex flex-col">
                 <p className="text-slate-400 text-sm mb-1">To match this W-2, your 1099 rate must be:</p>
-                <div className="text-4xl font-black text-emerald-400 tracking-tight mb-1">
-                  {formatCurrency(metrics.equivalent1099Hourly)}<span className="text-xl text-emerald-400/60 font-medium">/hr</span>
+                <div className="text-4xl font-black text-blue-400 tracking-tight mb-1">
+                  {formatCurrency(metrics.equivalent1099Hourly)}<span className="text-xl text-blue-400/60 font-medium">/hr</span>
                 </div>
                 <p className="text-sm text-slate-500 font-medium">Or {formatCurrency(metrics.equivalent1099Annual)}/year gross</p>
               </div>
@@ -302,8 +302,8 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
             </div>
 
             {/* 1099 Breakdown */}
-            <div className="bg-emerald-50/50 border border-emerald-100 rounded-2xl p-5 dark:bg-emerald-950/10 dark:border-emerald-900/30">
-              <div className="flex items-center gap-2 mb-4 text-emerald-800 dark:text-emerald-300">
+            <div className="bg-blue-50/50 border border-blue-100 rounded-2xl p-5 dark:bg-blue-950/10 dark:border-blue-900/30">
+              <div className="flex items-center gap-2 mb-4 text-blue-800 dark:text-blue-300">
                 <Briefcase className="w-5 h-5"/>
                 <h4 className="font-bold">1099 Breakdown</h4>
               </div>
@@ -316,9 +316,9 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
                   <span>Expenses</span>
                   <span>-{formatCurrency(store.businessExpenses)}</span>
                 </div>
-                <div className="flex justify-between text-sm pt-2 border-t border-emerald-200 dark:border-emerald-800">
-                  <span className="text-emerald-900 dark:text-emerald-100 font-medium">Net Profit</span>
-                  <span className="text-emerald-600 dark:text-emerald-400 font-medium">{formatCurrency(metrics.cNetBusiness)}</span>
+                <div className="flex justify-between text-sm pt-2 border-t border-blue-200 dark:border-blue-800">
+                  <span className="text-blue-900 dark:text-blue-100 font-medium">Net Profit</span>
+                  <span className="text-blue-600 dark:text-blue-400 font-medium">{formatCurrency(metrics.cNetBusiness)}</span>
                 </div>
                 <div className="flex justify-between text-sm text-red-500/80">
                   <span>SE Tax (15.3%)</span>
@@ -328,9 +328,9 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
                   <span>Income Tax (Est)</span>
                   <span>-{formatCurrency(metrics.cIncomeTax)}</span>
                 </div>
-                <div className="flex justify-between text-base font-black pt-2 border-t border-emerald-200 dark:border-emerald-800">
-                  <span className="text-emerald-900 dark:text-emerald-100">True Take-Home</span>
-                  <span className="text-emerald-600 dark:text-emerald-400">{formatCurrency(metrics.cNetTakeHome)}</span>
+                <div className="flex justify-between text-base font-black pt-2 border-t border-blue-200 dark:border-blue-800">
+                  <span className="text-blue-900 dark:text-blue-100">True Take-Home</span>
+                  <span className="text-blue-600 dark:text-blue-400">{formatCurrency(metrics.cNetTakeHome)}</span>
                 </div>
               </div>
             </div>

@@ -139,9 +139,9 @@ export default function ShopifyMarginPage() {
         <>
           {/* Answer Engine Optimization (AEO) Block */}
           <section className="bg-white border border-neutral-200 shadow-sm rounded-2xl p-6 md:p-8 mb-12 relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-2 h-full bg-emerald-500"></div>
+            <div className="absolute top-0 left-0 w-2 h-full bg-blue-500"></div>
             <h2 className="text-xl font-bold text-[#1F2937] mb-3 flex items-center gap-2">
-              <ShoppingBag className="h-5 w-5 text-emerald-500" />
+              <ShoppingBag className="h-5 w-5 text-blue-500" />
               Quick Answer: What is a Good Profit Margin on Shopify?
             </h2>
             <p className="text-neutral-600 leading-relaxed text-lg">
@@ -164,21 +164,21 @@ export default function ShopifyMarginPage() {
           <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
             <div className="bg-[#FAFAFA] p-6 rounded-2xl border border-neutral-100 flex flex-col items-start">
               <div className="w-10 h-10 bg-white rounded-lg shadow-sm border border-neutral-100 flex items-center justify-center mb-4">
-                <CreditCard className="h-5 w-5 text-emerald-500" />
+                <CreditCard className="h-5 w-5 text-blue-500" />
               </div>
               <h3 className="font-bold text-[#1F2937] mb-2 text-lg">Payment Processing</h3>
               <p className="text-sm text-neutral-500 font-light">Shopify takes 2.9% + 30 cents on the Basic plan. This fee is calculated on the total cart value, meaning you pay fees on the shipping cost and the sales tax you collect.</p>
             </div>
             <div className="bg-[#FAFAFA] p-6 rounded-2xl border border-neutral-100 flex flex-col items-start">
               <div className="w-10 h-10 bg-white rounded-lg shadow-sm border border-neutral-100 flex items-center justify-center mb-4">
-                <Settings className="h-5 w-5 text-emerald-500" />
+                <Settings className="h-5 w-5 text-blue-500" />
               </div>
               <h3 className="font-bold text-[#1F2937] mb-2 text-lg">The App Ecosystem</h3>
               <p className="text-sm text-neutral-500 font-light">Want product reviews? $15/mo. Want email marketing? $30/mo. Want upsell popups? $20/mo. Software bloat destroys break-even volume.</p>
             </div>
             <div className="bg-[#FAFAFA] p-6 rounded-2xl border border-neutral-100 flex flex-col items-start">
               <div className="w-10 h-10 bg-white rounded-lg shadow-sm border border-neutral-100 flex items-center justify-center mb-4">
-                <Truck className="h-5 w-5 text-emerald-500" />
+                <Truck className="h-5 w-5 text-blue-500" />
               </div>
               <h3 className="font-bold text-[#1F2937] mb-2 text-lg">Shipping Absorption</h3>
               <p className="text-sm text-neutral-500 font-light">Offering "Free Shipping" is a marketing tactic, not a reality. If you absorb a $7 shipping cost without raising the retail price, it comes directly out of your net profit.</p>
@@ -193,7 +193,7 @@ export default function ShopifyMarginPage() {
             Our Shopify profit margin calculator includes a metric called "Break-Even Monthly Orders." This is the exact number of units you must sell every 30 days just to cover your fixed software costs.
           </p>
 
-          <div className="bg-emerald-50 border-l-4 border-emerald-500 p-6 mb-12 rounded-r-xl">
+          <div className="bg-blue-50 border-l-4 border-blue-500 p-6 mb-12 rounded-r-xl">
             <h4 className="text-xl font-bold text-[#1F2937] mb-2">The Break-Even Scenario</h4>
             <p className="text-lg text-neutral-600 m-0 leading-relaxed font-light">
               Suppose you are on the Basic Shopify plan ($39/mo) and pay $40/mo for various apps. Your total fixed cost is $79/mo. If your net profit per order is only $3.00, <strong>you must pack and ship 27 orders every single month before you put a single dollar of profit in your pocket.</strong>

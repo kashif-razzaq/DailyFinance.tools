@@ -92,7 +92,7 @@ export default function PricingPage() {
               <ul role="list" className="mt-8 space-y-3 text-sm leading-6 text-muted-foreground xl:mt-10">
                 {tier.features.map((feature) => (
                   <li key={feature} className="flex gap-x-3">
-                    <Check className={`h-6 w-5 flex-none ${tier.mostPopular ? 'text-primary' : 'text-emerald-500'}`} aria-hidden="true" />
+                    <Check className={`h-6 w-5 flex-none ${tier.mostPopular ? 'text-primary' : 'text-blue-500'}`} aria-hidden="true" />
                     {feature}
                   </li>
                 ))}

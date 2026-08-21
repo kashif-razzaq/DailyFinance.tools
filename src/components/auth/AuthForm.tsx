@@ -89,7 +89,7 @@ export function AuthForm({
   if (status === 'success') {
     return (
       <div className="py-12 flex flex-col items-center justify-center space-y-4 animate-in fade-in zoom-in-95 duration-300">
-        <CheckCircle2 className="h-16 w-16 text-emerald-500" />
+        <CheckCircle2 className="h-16 w-16 text-blue-500" />
         <h3 className="text-2xl font-bold tracking-tight text-foreground mt-4">Check your email!</h3>
         <p className="text-base text-muted-foreground text-center max-w-[250px]">
           We sent a secure link to <strong>{email}</strong> to verify your account.

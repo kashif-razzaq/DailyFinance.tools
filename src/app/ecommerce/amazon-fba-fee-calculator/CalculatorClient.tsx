@@ -272,7 +272,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       <div className="lg:col-span-5 space-y-6 lg:sticky lg:top-8 relative z-20">
 
         {showToast && (
-          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-primary/5 text-emerald-600 border border-primary/20 p-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 slide-in-from-bottom-8 fade-in duration-300 ease-out">
+          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-primary/5 text-blue-600 border border-primary/20 p-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 slide-in-from-bottom-8 fade-in duration-300 ease-out">
             <CheckCircle2 className="h-5 w-5" />
             <span className="font-semibold text-sm">Successfully saved to Scenario Vault!</span>
           </div>
@@ -292,7 +292,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <div className="grid grid-cols-2 gap-6 mt-8 pt-6 border-t border-white/20 relative z-10">
             <div>
               <p className="text-[10px] text-white/80 uppercase font-bold tracking-wider mb-1">Gross Margin</p>
-              <p className={`text-2xl font-bold ${metrics.marginPercent < 25 ? 'text-red-300' : 'text-emerald-300'}`}>
+              <p className={`text-2xl font-bold ${metrics.marginPercent < 25 ? 'text-red-300' : 'text-blue-300'}`}>
                 {metrics.marginPercent.toFixed(1)}%
               </p>
             </div>
@@ -314,7 +314,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
               <div style={{width: `${(metrics.fulfillmentFee / store.retailPrice) * 100}%`}} className="bg-amber-500 transition-all duration-300" />
               <div style={{width: `${(metrics.storageFee / store.retailPrice) * 100}%`}} className="bg-yellow-400 transition-all duration-300" />
               <div style={{width: `${((store.manufacturingCost + store.inboundShippingCost) / store.retailPrice) * 100}%`}} className="bg-slate-400 dark:bg-slate-600 transition-all duration-300" />
-              <div style={{width: `${(metrics.netProfit / store.retailPrice) * 100}%`}} className="bg-emerald-500 transition-all duration-300" />
+              <div style={{width: `${(metrics.netProfit / store.retailPrice) * 100}%`}} className="bg-blue-500 transition-all duration-300" />
             </div>
 
             <div className="grid grid-cols-1 gap-2 pt-2 text-sm">

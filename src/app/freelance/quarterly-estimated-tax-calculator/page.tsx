@@ -103,7 +103,7 @@ export default function QuarterlyTaxesCalculatorPage() {
           <>
             {/* Answer Engine Optimization (AEO) Block */}
             <section className="bg-white border border-neutral-200 shadow-sm rounded-2xl p-6 md:p-8 mb-12 relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-2 h-full bg-[#064E3B]"></div>
+              <div className="absolute top-0 left-0 w-2 h-full bg-[#1E3A5F]"></div>
               <h2 className="text-xl font-bold text-[#1F2937] mb-3 flex items-center gap-2">
                 <Calculator className="h-5 w-5 text-[#D97706]" />
                 Quick Answer: How to calculate quarterly taxes for an independent contractor?
@@ -163,7 +163,7 @@ export default function QuarterlyTaxesCalculatorPage() {
   
             <div className="bg-white border border-neutral-200 rounded-2xl p-8 mb-12 shadow-sm">
               <h3 className="text-xl font-bold text-[#1F2937] mb-6 flex items-center gap-2">
-                <ShieldCheck className="h-6 w-6 text-[#064E3B]" />
+                <ShieldCheck className="h-6 w-6 text-[#1E3A5F]" />
                 The Safe Harbor Thresholds for Independent Contractors
               </h3>
               <p className="text-neutral-600 font-light leading-relaxed mb-6">
@@ -201,7 +201,7 @@ export default function QuarterlyTaxesCalculatorPage() {
               If you are opting not to use the 100% Safe Harbor method because your independent contractor income dropped significantly this year, you must manually estimate your liability. Our <strong>1099 quarterly tax calculator</strong> automates this complex algebra, but understanding the underlying mechanics of the American tax code is crucial for any business owner.
             </p>
   
-            <div className="bg-[#064E3B] text-white p-8 md:p-12 rounded-3xl shadow-2xl mb-16 relative overflow-hidden">
+            <div className="bg-[#1E3A5F] text-white p-8 md:p-12 rounded-3xl shadow-2xl mb-16 relative overflow-hidden">
               <div className="absolute top-0 left-0 w-96 h-96 bg-[#D97706]/20 blur-[100px] rounded-full -translate-x-1/2 -translate-y-1/2"></div>
               
               <h3 className="text-2xl font-bold mb-6 text-white/90 relative z-10">Step 1: Calculate the SE Taxable Base</h3>

@@ -90,7 +90,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     setIsSaving(true)
     try {
       const savedResult = await saveCalculatorAction({
-        calculator_slug: 'patreon-tier-optimization',
+        calculator_slug: 'creator/patreon-calculator',
         category: 'Creator Economy',
         saved_name: `Patreon Net: ${currencySymbol}${Math.round(metrics.netMonthlyRevenue)}/mo`,
         input_state: {
@@ -124,8 +124,8 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
 
   const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://dailyfinance.tools'
   const shareUrl = savedScenarioId
-    ? `${baseUrl}/creator/patreon-tier-optimization?savedId=${savedScenarioId}`
-    : `${baseUrl}/creator/patreon-tier-optimization`
+    ? `${baseUrl}/creator/patreon-calculator?savedId=${savedScenarioId}`
+    : `${baseUrl}/creator/patreon-calculator`
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch relative">
@@ -256,7 +256,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
 
         {/* Success Toast */}
         {showToast && (
-          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-primary/5 text-emerald-600 border border-primary/20 p-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 slide-in-from-bottom-8 fade-in duration-300 ease-out">
+          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-primary/5 text-blue-600 border border-primary/20 p-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 slide-in-from-bottom-8 fade-in duration-300 ease-out">
             <CheckCircle2 className="h-5 w-5" />
             <span className="font-semibold text-sm">Successfully saved to Scenario Vault!</span>
           </div>
@@ -297,7 +297,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
             <div className="flex justify-between items-center py-2 border-b border-border/50">
               <span className="text-muted-foreground text-sm">Blended Churn Rate</span>
               <div className="flex items-center gap-2">
-                <span className={`font-bold text-sm ${metrics.blendedChurnRate > 10 ? 'text-red-500' : 'text-emerald-500'}`}>
+                <span className={`font-bold text-sm ${metrics.blendedChurnRate > 10 ? 'text-red-500' : 'text-blue-500'}`}>
                   {metrics.blendedChurnRate.toFixed(1)}%
                 </span>
                 {metrics.blendedChurnRate > 10 && <AlertCircle className="h-4 w-4 text-red-500" />}

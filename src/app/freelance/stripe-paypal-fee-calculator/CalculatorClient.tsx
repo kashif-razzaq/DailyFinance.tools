@@ -168,7 +168,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       <div className="lg:col-span-12 xl:col-span-8 flex flex-col gap-6">
         
         {showToast && (
-          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-primary/5 text-emerald-600 border border-primary/20 p-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 fade-in duration-300">
+          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-primary/5 text-blue-600 border border-primary/20 p-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 fade-in duration-300">
             <span className="font-semibold text-sm">Saved to Scenario Vault!</span>
           </div>
         )}
@@ -188,21 +188,21 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           {/* Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {/* Wise */}
-            <div className="border-2 border-emerald-500 bg-emerald-50/30 rounded-xl p-5 relative overflow-hidden">
-              <div className="absolute top-0 right-0 bg-emerald-500 text-white text-[10px] font-bold px-2 py-1 rounded-bl-lg uppercase">Winner</div>
+            <div className="border-2 border-blue-500 bg-blue-50/30 rounded-xl p-5 relative overflow-hidden">
+              <div className="absolute top-0 right-0 bg-blue-500 text-white text-[10px] font-bold px-2 py-1 rounded-bl-lg uppercase">Winner</div>
               <h4 className="font-bold text-foreground mb-4 flex items-center gap-2">Wise</h4>
               <div className="mb-4">
                 <p className="text-xs text-muted-foreground mb-1">You Receive</p>
-                <p className="text-2xl font-bold text-emerald-700">{Math.round(metrics.wiseNetPayout).toLocaleString()} <span className="text-xs">{store.targetCurrency}</span></p>
+                <p className="text-2xl font-bold text-blue-700">{Math.round(metrics.wiseNetPayout).toLocaleString()} <span className="text-xs">{store.targetCurrency}</span></p>
               </div>
               <div className="space-y-2 text-xs border-t pt-3">
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Fee Drag</span>
-                  <span className="font-semibold text-emerald-700">{metrics.wiseDragPct.toFixed(2)}%</span>
+                  <span className="font-semibold text-blue-700">{metrics.wiseDragPct.toFixed(2)}%</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">FX Markup</span>
-                  <span className="font-semibold text-emerald-700">0.00%</span>
+                  <span className="font-semibold text-blue-700">0.00%</span>
                 </div>
               </div>
             </div>
@@ -246,14 +246,14 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
             </div>
           </div>
 
-          <div className="mt-8 bg-emerald-600 text-white rounded-xl p-6 flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="mt-8 bg-blue-600 text-white rounded-xl p-6 flex flex-col md:flex-row items-center justify-between gap-4">
             <div>
               <h4 className="font-bold text-lg">Annual Savings with Wise</h4>
-              <p className="text-emerald-100 text-sm">Compared to using PayPal for {store.annualInvoices} invoices a year.</p>
+              <p className="text-blue-100 text-sm">Compared to using PayPal for {store.annualInvoices} invoices a year.</p>
             </div>
             <div className="text-right">
               <span className="text-4xl font-black">+{Math.round(metrics.annualSavingsWiseVsPaypal).toLocaleString()}</span>
-              <span className="text-sm ml-1 text-emerald-100">{store.targetCurrency} / yr</span>
+              <span className="text-sm ml-1 text-blue-100">{store.targetCurrency} / yr</span>
             </div>
           </div>
         </div>

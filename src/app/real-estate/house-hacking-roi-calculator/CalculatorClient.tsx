@@ -96,8 +96,8 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <div className="space-y-4">
           <h2 className="text-xl font-bold flex items-center gap-2 pb-2 border-b"><DollarSign className="h-5 w-5 text-muted-foreground" /> Income & Comparison</h2>
           <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-2"><label className="text-sm font-semibold text-emerald-600">Tenant Rent Income</label>
-              <Input type="number" value={store.rentalIncomeMonthly || ''} onChange={(e) => store.setRentalIncomeMonthly(Number(e.target.value))} className="font-medium bg-emerald-50 dark:bg-emerald-900/20"/>
+            <div className="space-y-2"><label className="text-sm font-semibold text-blue-600">Tenant Rent Income</label>
+              <Input type="number" value={store.rentalIncomeMonthly || ''} onChange={(e) => store.setRentalIncomeMonthly(Number(e.target.value))} className="font-medium bg-blue-50 dark:bg-blue-900/20"/>
             </div>
             <div className="space-y-2"><label className="text-sm font-semibold text-rose-600">Your Current Rent</label>
               <Input type="number" value={store.currentRent || ''} onChange={(e) => store.setCurrentRent(Number(e.target.value))} className="font-medium bg-rose-50 dark:bg-rose-900/20"/>
@@ -114,7 +114,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           </div>
           <div className="grid grid-cols-2 gap-4 mt-6 pt-4 border-t border-white/20">
             <div><p className="text-[10px] text-white/70 uppercase font-bold mb-1">Total PITI</p><p className="text-xl font-bold text-rose-400">{currencySymbol}{Math.round(metrics.totalMonthlyPITI).toLocaleString()}</p></div>
-            <div><p className="text-[10px] text-white/70 uppercase font-bold mb-1">Rent Offset</p><p className="text-xl font-bold text-emerald-400">-{currencySymbol}{Math.round(store.rentalIncomeMonthly).toLocaleString()}</p></div>
+            <div><p className="text-[10px] text-white/70 uppercase font-bold mb-1">Rent Offset</p><p className="text-xl font-bold text-blue-400">-{currencySymbol}{Math.round(store.rentalIncomeMonthly).toLocaleString()}</p></div>
           </div>
         </div>
 
@@ -122,8 +122,8 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <h4 className="font-semibold text-sm uppercase text-muted-foreground mb-4">Financial Arbitrage</h4>
           <div className="space-y-2 text-sm">
             <div className="flex justify-between py-2 border-b border-border/50"><span className="text-muted-foreground">Current Rent</span><span className="font-medium text-rose-500">{currencySymbol}{store.currentRent}</span></div>
-            <div className="flex justify-between py-2 border-b border-border/50"><span className="text-muted-foreground">New Housing Cost</span><span className="font-medium text-emerald-500">{currencySymbol}{Math.round(metrics.effectiveMonthlyCost)}</span></div>
-            <div className="flex justify-between py-2 font-bold text-emerald-600 dark:text-emerald-400"><span>Monthly Savings</span><span>{metrics.monthlySavingsVsRenting > 0 ? '+' : ''}{currencySymbol}{Math.round(metrics.monthlySavingsVsRenting)}</span></div>
+            <div className="flex justify-between py-2 border-b border-border/50"><span className="text-muted-foreground">New Housing Cost</span><span className="font-medium text-blue-500">{currencySymbol}{Math.round(metrics.effectiveMonthlyCost)}</span></div>
+            <div className="flex justify-between py-2 font-bold text-blue-600 dark:text-blue-400"><span>Monthly Savings</span><span>{metrics.monthlySavingsVsRenting > 0 ? '+' : ''}{currencySymbol}{Math.round(metrics.monthlySavingsVsRenting)}</span></div>
           </div>
         </div>
 

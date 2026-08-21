@@ -37,8 +37,8 @@ export default async function AnalyticsPage() {
               <p className="text-4xl font-bold font-mono">{savedCalculators.length}</p>
             </div>
             
-            <div className="bg-card border rounded-2xl p-6 shadow-sm md:col-span-2 bg-gradient-to-br from-primary to-emerald-800 text-primary-foreground border-none">
-              <div className="flex items-center gap-3 text-emerald-100 mb-4">
+            <div className="bg-card border rounded-2xl p-6 shadow-sm md:col-span-2 bg-gradient-to-br from-primary to-blue-800 text-primary-foreground border-none">
+              <div className="flex items-center gap-3 text-blue-100 mb-4">
                 <TrendingUp className="w-5 h-5" />
                 <h3 className="font-semibold text-sm uppercase tracking-wider">Net Worth Velocity Status</h3>
               </div>

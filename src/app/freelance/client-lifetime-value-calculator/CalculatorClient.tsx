@@ -223,7 +223,7 @@ export function CalculatorClient({ isPro }: { isPro: boolean }) {
       <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 flex flex-col h-full space-y-10">
         
         {showToast && (
-          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-emerald-50 text-emerald-600 border border-emerald-200 p-4 rounded-xl shadow-xl flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 fade-in duration-300">
+          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-blue-50 text-blue-600 border border-blue-200 p-4 rounded-xl shadow-xl flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 fade-in duration-300">
             <CheckCircle2 className="h-5 w-5" />
             <span className="font-semibold text-sm">Successfully saved to Scenario Vault!</span>
           </div>
@@ -240,7 +240,7 @@ export function CalculatorClient({ isPro }: { isPro: boolean }) {
                 Total <strong>profit</strong> expected per customer over {store.customerLifespan} years.
               </p>
             </div>
-            <div className={`px-3 py-1 rounded-full text-xs font-bold border ${metrics.healthRating === 'Critical' ? 'bg-red-500/10 text-red-600 border-red-500/20' : metrics.healthRating === 'At Risk' ? 'bg-amber-500/10 text-amber-600 border-amber-500/20' : 'bg-emerald-500/10 text-emerald-600 border-emerald-500/20'}`}>
+            <div className={`px-3 py-1 rounded-full text-xs font-bold border ${metrics.healthRating === 'Critical' ? 'bg-red-500/10 text-red-600 border-red-500/20' : metrics.healthRating === 'At Risk' ? 'bg-amber-500/10 text-amber-600 border-amber-500/20' : 'bg-blue-500/10 text-blue-600 border-blue-500/20'}`}>
               Health: {metrics.healthRating}
             </div>
           </div>

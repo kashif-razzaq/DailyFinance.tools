@@ -22,7 +22,7 @@ const pdfStyles = StyleSheet.create({
   value: { fontSize: 12, fontWeight: 'bold', color: '#111827' },
   highlightRow: { flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 12, marginTop: 20, backgroundColor: '#f3f4f6', paddingHorizontal: 10, borderRadius: 4 },
   highlightLabel: { fontSize: 14, fontWeight: 'bold' },
-  highlightValue: { fontSize: 16, fontWeight: 'bold', color: '#10b981' },
+  highlightValue: { fontSize: 16, fontWeight: 'bold', color: '#3b82f6' },
   sectionTitle: { fontSize: 16, fontWeight: 'bold', marginTop: 20, marginBottom: 10 }
 });
 
@@ -236,13 +236,13 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       <div className="lg:col-span-5 space-y-6 lg:sticky lg:top-8 relative z-20">
 
         {showToast && (
-          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-primary/5 text-emerald-600 border border-primary/20 p-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 slide-in-from-bottom-8 fade-in duration-300 ease-out">
+          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-primary/5 text-blue-600 border border-primary/20 p-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 slide-in-from-bottom-8 fade-in duration-300 ease-out">
             <CheckCircle2 className="h-5 w-5" />
             <span className="font-semibold text-sm">Successfully saved to Scenario Vault!</span>
           </div>
         )}
 
-        <div className="bg-emerald-600 dark:bg-emerald-700 text-white rounded-2xl p-8 shadow-2xl relative overflow-hidden">
+        <div className="bg-blue-600 dark:bg-blue-700 text-white rounded-2xl p-8 shadow-2xl relative overflow-hidden">
           <div className="absolute right-0 top-0 w-64 h-64 bg-white/10 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
 
           <h3 className="text-xs font-bold text-white/80 uppercase tracking-widest mb-2 relative z-10">
@@ -277,7 +277,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
               <span className="text-muted-foreground">Sales Generated</span>
               <span className="font-medium">{Math.round(metrics.monthlyConversions).toLocaleString()}</span>
             </div>
-            <div className="flex justify-between items-center py-2 border-b border-border/50 text-emerald-600 dark:text-emerald-400">
+            <div className="flex justify-between items-center py-2 border-b border-border/50 text-blue-600 dark:text-blue-400">
               <span>Gross Sales Volume</span>
               <span className="font-bold">{currencySymbol}{Math.round(metrics.grossSalesGenerated).toLocaleString()}</span>
             </div>

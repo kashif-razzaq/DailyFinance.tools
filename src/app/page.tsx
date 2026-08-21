@@ -277,7 +277,7 @@ export default function HomePage() {
           <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-16 gap-6">
             <div className="max-w-2xl relative">
               {/* Small accent pill */}
-              <div className="inline-block px-3 py-1 mb-4 rounded-full bg-[#064E3B]/10 border border-[#064E3B]/20 text-[#064E3B] text-xs font-bold uppercase tracking-wider">
+              <div className="inline-block px-3 py-1 mb-4 rounded-full bg-[#1E3A5F]/10 border border-[#1E3A5F]/20 text-[#1E3A5F] text-xs font-bold uppercase tracking-wider">
                 Our Collection
               </div>
               <h2 className="text-4xl md:text-5xl font-bold tracking-tighter text-[#1F2937] mb-4">
@@ -289,7 +289,7 @@ export default function HomePage() {
             </div>
             <Link 
               href="/tools"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-[#064E3B] text-white hover:bg-[#043327] font-bold rounded-xl transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 whitespace-nowrap"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-[#1E3A5F] text-white hover:bg-[#043327] font-bold rounded-xl transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 whitespace-nowrap"
             >
               View full directory <ArrowUpRight className="w-4 h-4" />
             </Link>
@@ -316,13 +316,13 @@ export default function HomePage() {
               
               return (
                 <Link key={tool.slug} href={getToolUrl(tool.slug)} className="group h-full">
-                  <div className="bg-white rounded-2xl border border-neutral-100 p-4 md:p-8 h-full transition-all duration-300 hover:border-[#064E3B]/40 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] flex flex-col hover:-translate-y-1 shadow-sm relative overflow-hidden">
+                  <div className="bg-white rounded-2xl border border-neutral-100 p-4 md:p-8 h-full transition-all duration-300 hover:border-[#1E3A5F]/40 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] flex flex-col hover:-translate-y-1 shadow-sm relative overflow-hidden">
                     
                     <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-[#D97706]/10 border border-[#D97706]/20 flex items-center justify-center mb-3 md:mb-6 text-[#D97706] group-hover:bg-[#D97706]/20 transition-colors relative z-10">
                       <Icon className="w-4 h-4 md:w-5 md:h-5" />
                     </div>
                     
-                    <h3 className="text-sm md:text-lg font-bold text-[#1F2937] mb-1 md:mb-3 tracking-tight group-hover:text-[#064E3B] transition-colors relative z-10 leading-tight md:leading-normal">
+                    <h3 className="text-sm md:text-lg font-bold text-[#1F2937] mb-1 md:mb-3 tracking-tight group-hover:text-[#1E3A5F] transition-colors relative z-10 leading-tight md:leading-normal">
                       {tool.title}
                     </h3>
                     
@@ -330,12 +330,12 @@ export default function HomePage() {
                       {tool.description}
                     </p>
                     
-                    <div className="mt-auto hidden md:flex items-center font-bold text-sm text-[#1F2937] group-hover:text-[#064E3B] transition-colors relative z-10">
+                    <div className="mt-auto hidden md:flex items-center font-bold text-sm text-[#1F2937] group-hover:text-[#1E3A5F] transition-colors relative z-10">
                       Open Tool <ArrowRight className="w-4 h-4 ml-1.5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
                     </div>
 
                     {/* Subtle hover gradient bottom */}
-                    <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-[#064E3B]/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity z-0 pointer-events-none" />
+                    <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-[#1E3A5F]/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity z-0 pointer-events-none" />
 
                   </div>
                 </Link>

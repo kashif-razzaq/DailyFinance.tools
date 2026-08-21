@@ -242,7 +242,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       <div className="lg:col-span-5 space-y-6 lg:sticky lg:top-8">
         
         {showToast && (
-          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-emerald-50 text-emerald-600 border border-emerald-200 p-4 rounded-xl shadow-xl flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 fade-in duration-300">
+          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-blue-50 text-blue-600 border border-blue-200 p-4 rounded-xl shadow-xl flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 fade-in duration-300">
             <CheckCircle2 className="h-5 w-5" />
             <span className="font-semibold text-sm">Successfully saved to Scenario Vault!</span>
           </div>
@@ -254,7 +254,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
             <div>
               <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1">Do you need to pay quarterly taxes?</h3>
               {metrics.quarterlyFederalPayment + metrics.quarterlyStatePayment > 0 ? (
-                <span className="text-2xl font-black text-emerald-600 tracking-tight">Yes</span>
+                <span className="text-2xl font-black text-blue-600 tracking-tight">Yes</span>
               ) : (
                 <span className="text-2xl font-black text-muted-foreground tracking-tight">No</span>
               )}
@@ -276,7 +276,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         {/* Tax Breakdown Receipt */}
         <div className="bg-card border border-border shadow-sm rounded-2xl p-6">
           <h3 className="font-bold text-base text-foreground mb-4 flex items-center gap-2">
-            <DollarSign className="h-4 w-4 text-emerald-600" />
+            <DollarSign className="h-4 w-4 text-blue-600" />
             Full Tax Breakdown
           </h3>
 
@@ -303,12 +303,12 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
 
             <div className="flex justify-between items-center py-1 text-muted-foreground">
               <span>Standard deduction</span>
-              <span className="text-emerald-500/90 font-medium">-${Math.round(metrics.standardDeduction).toLocaleString()}</span>
+              <span className="text-blue-500/90 font-medium">-${Math.round(metrics.standardDeduction).toLocaleString()}</span>
             </div>
             
             <div className="flex justify-between items-center py-1 text-muted-foreground">
               <span>QBI deduction</span>
-              <span className="text-emerald-500/90 font-medium">-${Math.round(metrics.qbiDeduction).toLocaleString()}</span>
+              <span className="text-blue-500/90 font-medium">-${Math.round(metrics.qbiDeduction).toLocaleString()}</span>
             </div>
 
             <div className="flex justify-between items-center py-2 border-t border-border/60 my-1">
@@ -334,7 +334,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
             {store.federalWithheld > 0 && (
               <div className="flex justify-between items-center py-2 text-muted-foreground border-b border-dashed border-border/60 pb-3 mb-3 mt-1">
                 <span>Federal taxes withheld</span>
-                <span className="text-emerald-500 font-medium">-${store.federalWithheld.toLocaleString()}</span>
+                <span className="text-blue-500 font-medium">-${store.federalWithheld.toLocaleString()}</span>
               </div>
             )}
             

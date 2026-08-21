@@ -22,7 +22,7 @@ const pdfStyles = StyleSheet.create({
   value: { fontSize: 12, fontWeight: 'bold', color: '#111827' },
   highlightRow: { flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 12, marginTop: 20, backgroundColor: '#f3f4f6', paddingHorizontal: 10, borderRadius: 4 },
   highlightLabel: { fontSize: 14, fontWeight: 'bold' },
-  highlightValue: { fontSize: 16, fontWeight: 'bold', color: '#10b981' },
+  highlightValue: { fontSize: 16, fontWeight: 'bold', color: '#3b82f6' },
   sectionTitle: { fontSize: 16, fontWeight: 'bold', marginTop: 20, marginBottom: 10 }
 });
 
@@ -199,7 +199,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
             </div>
           </div>
 
-          <div className={`p-4 rounded-xl flex items-center justify-between ${metrics.monthlyBurnRate > 0 ? 'bg-red-50 text-red-700 dark:bg-red-900/20 dark:text-red-400' : 'bg-emerald-50 text-emerald-700 dark:bg-emerald-900/20 dark:text-emerald-400'}`}>
+          <div className={`p-4 rounded-xl flex items-center justify-between ${metrics.monthlyBurnRate > 0 ? 'bg-red-50 text-red-700 dark:bg-red-900/20 dark:text-red-400' : 'bg-blue-50 text-blue-700 dark:bg-blue-900/20 dark:text-blue-400'}`}>
             <span className="text-sm font-medium">Current Monthly {metrics.monthlyBurnRate > 0 ? 'Burn Rate' : 'Profit'}:</span>
             <span className="font-bold text-lg">
               {metrics.monthlyBurnRate > 0 ? `-${currencySymbol}` : `+${currencySymbol}`}{Math.abs(metrics.monthlyBurnRate).toLocaleString()}
@@ -264,13 +264,13 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       <div className="lg:col-span-5 space-y-6 lg:sticky lg:top-8 relative z-20">
 
         {showToast && (
-          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-primary/5 text-emerald-600 border border-primary/20 p-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 slide-in-from-bottom-8 fade-in duration-300 ease-out">
+          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-primary/5 text-blue-600 border border-primary/20 p-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 slide-in-from-bottom-8 fade-in duration-300 ease-out">
             <CheckCircle2 className="h-5 w-5" />
             <span className="font-semibold text-sm">Successfully saved to Scenario Vault!</span>
           </div>
         )}
 
-        <div className={`${metrics.runwayMonthsBeforeLoan !== 999 ? 'bg-emerald-600 dark:bg-emerald-700' : 'bg-slate-800'} text-white rounded-2xl p-8 shadow-2xl relative overflow-hidden transition-colors duration-500`}>
+        <div className={`${metrics.runwayMonthsBeforeLoan !== 999 ? 'bg-blue-600 dark:bg-blue-700' : 'bg-slate-800'} text-white rounded-2xl p-8 shadow-2xl relative overflow-hidden transition-colors duration-500`}>
           <div className="absolute right-0 top-0 w-64 h-64 bg-white/10 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
 
           <h3 className="text-xs font-bold text-white/80 uppercase tracking-widest mb-2 relative z-10 flex items-center gap-2">
@@ -315,7 +315,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
             </div>
             <div className="flex justify-between items-center py-2">
               <span className="text-muted-foreground">New Monthly Burn Rate</span>
-              <span className={`font-bold ${metrics.newMonthlyBurnRate > 0 ? 'text-red-500' : 'text-emerald-500'}`}>
+              <span className={`font-bold ${metrics.newMonthlyBurnRate > 0 ? 'text-red-500' : 'text-blue-500'}`}>
                 {metrics.newMonthlyBurnRate > 0 ? `-${currencySymbol}` : `+${currencySymbol}`}{Math.abs(metrics.newMonthlyBurnRate).toLocaleString()}
               </span>
             </div>
@@ -328,8 +328,8 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
                 <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                   <defs>
                     <linearGradient id="colorWithLoan" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#10b981" stopOpacity={0.3}/>
-                      <stop offset="95%" stopColor="#10b981" stopOpacity={0}/>
+                      <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3}/>
+                      <stop offset="95%" stopColor="#3b82f6" stopOpacity={0}/>
                     </linearGradient>
                     <linearGradient id="colorNoLoan" x1="0" y1="0" x2="0" y2="1">
                       <stop offset="5%" stopColor="#ef4444" stopOpacity={0.3}/>
@@ -344,7 +344,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
                     contentStyle={{ borderRadius: '8px', border: '1px solid #e5e7eb', fontSize: '12px' }}
                   />
                   <Area type="monotone" dataKey="No Loan" stroke="#ef4444" strokeWidth={2} fillOpacity={1} fill="url(#colorNoLoan)" />
-                  <Area type="monotone" dataKey="With Loan" stroke="#10b981" strokeWidth={3} fillOpacity={1} fill="url(#colorWithLoan)" />
+                  <Area type="monotone" dataKey="With Loan" stroke="#3b82f6" strokeWidth={3} fillOpacity={1} fill="url(#colorWithLoan)" />
                 </AreaChart>
               </ResponsiveContainer>
             </div>

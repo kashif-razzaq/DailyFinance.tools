@@ -149,7 +149,7 @@ export default function FreelanceTaxDeductionsPage() {
         <>
           {/* Answer Engine Optimization (AEO) Block */}
           <section className="bg-white border border-neutral-200 shadow-sm rounded-2xl p-6 md:p-8 mb-12 relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-2 h-full bg-[#064E3B]"></div>
+            <div className="absolute top-0 left-0 w-2 h-full bg-[#1E3A5F]"></div>
             <h2 className="text-xl font-bold text-[#1F2937] mb-3 flex items-center gap-2">
               <Calculator className="h-5 w-5 text-[#D97706]" />
               Quick Answer: Figuring Self Employment Tax
@@ -203,7 +203,7 @@ export default function FreelanceTaxDeductionsPage() {
             If you want to manually compute your self-employment tax, the IRS uses a specific formula. It is not as simple as taking 15.3% of your gross revenue.
           </p>
 
-          <div className="bg-[#064E3B] text-white p-8 md:p-12 rounded-3xl shadow-2xl mb-16 relative overflow-hidden">
+          <div className="bg-[#1E3A5F] text-white p-8 md:p-12 rounded-3xl shadow-2xl mb-16 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-96 h-96 bg-[#D97706]/20 blur-[100px] rounded-full translate-x-1/2 -translate-y-1/2"></div>
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/5 blur-[60px] rounded-full -translate-x-1/3 translate-y-1/3"></div>
             
@@ -269,19 +269,19 @@ export default function FreelanceTaxDeductionsPage() {
           <div className="overflow-x-auto my-12 bg-white border border-neutral-200 rounded-2xl shadow-sm p-8">
             <ul className="space-y-4 text-neutral-600 font-light text-lg">
               <li className="flex items-center gap-3 border-b border-neutral-100 pb-4">
-                <ShieldCheck className="text-[#064E3B] w-5 h-5 shrink-0" />
+                <ShieldCheck className="text-[#1E3A5F] w-5 h-5 shrink-0" />
                 <span><strong>The Home Office Deduction:</strong> Use our calculator to compare the Simplified ($5/sq ft) vs Actual Expenses method to maximize this massive write-off.</span>
               </li>
               <li className="flex items-center gap-3 border-b border-neutral-100 pb-4">
-                <ShieldCheck className="text-[#064E3B] w-5 h-5 shrink-0" />
+                <ShieldCheck className="text-[#1E3A5F] w-5 h-5 shrink-0" />
                 <span><strong>Software & Equipment:</strong> Deduct laptops, phones, web hosting, and software subscriptions used for your 1099 work.</span>
               </li>
               <li className="flex items-center gap-3 border-b border-neutral-100 pb-4">
-                <ShieldCheck className="text-[#064E3B] w-5 h-5 shrink-0" />
+                <ShieldCheck className="text-[#1E3A5F] w-5 h-5 shrink-0" />
                 <span><strong>Business Mileage:</strong> If you drive for gigs (Uber, DoorDash) or client meetings, track your miles to deduct 72.5 cents per mile (2026 rate).</span>
               </li>
               <li className="flex items-center gap-3 pb-2">
-                <ShieldCheck className="text-[#064E3B] w-5 h-5 shrink-0" />
+                <ShieldCheck className="text-[#1E3A5F] w-5 h-5 shrink-0" />
                 <span><strong>Health Insurance Premiums:</strong> Self-employed individuals can often deduct 100% of their medical, dental, and qualifying long-term care insurance premiums.</span>
               </li>
             </ul>

@@ -66,7 +66,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
 
             <div className="space-y-4">
               <div className="flex justify-between">
-                <Label className="text-emerald-600 font-medium">Extra Monthly Payment: {formatCurrency(store.extraMonthlyPayment)}</Label>
+                <Label className="text-blue-600 font-medium">Extra Monthly Payment: {formatCurrency(store.extraMonthlyPayment)}</Label>
               </div>
               <Slider
                 value={[store.extraMonthlyPayment]}
@@ -96,11 +96,11 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
             </div>
             <div className="flex justify-between items-center pb-2 border-b">
               <span className="text-muted-foreground font-semibold">Interest Saved</span>
-              <span className="font-bold text-xl text-emerald-600">{formatCurrency(result.interestSaved)}</span>
+              <span className="font-bold text-xl text-blue-600">{formatCurrency(result.interestSaved)}</span>
             </div>
             <div className="flex justify-between items-center">
               <span className="text-muted-foreground">Time Saved</span>
-              <span className="font-medium text-lg text-emerald-600">
+              <span className="font-medium text-lg text-blue-600">
                 {Math.floor(result.monthsSaved / 12)} yrs {result.monthsSaved % 12} mos
               </span>
             </div>

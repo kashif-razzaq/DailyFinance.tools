@@ -170,7 +170,7 @@ export default function LTVCACPage() {
             </div>
             <div className="bg-[#FAFAFA] p-6 rounded-2xl border border-neutral-100 flex flex-col items-start">
               <div className="w-10 h-10 bg-white rounded-lg shadow-sm border border-neutral-100 flex items-center justify-center mb-4">
-                <TrendingUp className="h-5 w-5 text-emerald-500" />
+                <TrendingUp className="h-5 w-5 text-blue-500" />
               </div>
               <h3 className="font-bold text-[#1F2937] mb-2 text-lg">The 5:1 Growth Trap</h3>
               <p className="text-sm text-neutral-500 font-light">A 5:1 ratio means you have incredible margins, but it usually indicates you are playing it too safe. You should increase your ad spend to aggressively acquire market share.</p>

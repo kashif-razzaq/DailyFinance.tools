@@ -238,33 +238,33 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
 
         {/* Success Toast */}
         {showToast && (
-          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-primary/5 text-emerald-600 border border-primary/20 p-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 slide-in-from-bottom-8 fade-in duration-300 ease-out">
+          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-primary/5 text-blue-600 border border-primary/20 p-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 slide-in-from-bottom-8 fade-in duration-300 ease-out">
             <CheckCircle2 className="h-5 w-5" />
             <span className="font-semibold text-sm">Successfully saved to Scenario Vault!</span>
           </div>
         )}
 
         {/* The Result Card */}
-        <div className="bg-primary text-primary-foreground rounded-2xl p-8 shadow-2xl relative overflow-hidden">
-          <div className="absolute right-0 top-0 w-64 h-64 bg-white/10 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
+        <div className="bg-[#FF0000] text-white rounded-3xl p-8 shadow-[0_10px_40px_-10px_rgba(255,0,0,0.5)] relative overflow-hidden">
+          <div className="absolute right-0 top-0 w-64 h-64 bg-white/20 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
 
-          <h3 className="text-xs font-bold text-primary-foreground/70 uppercase tracking-widest mb-2 relative z-10">
-            Estimated Monthly Revenue
+          <h3 className="text-xs font-bold text-white/80 uppercase tracking-widest mb-2 relative z-10 flex items-center gap-2">
+            <Video className="w-4 h-4" /> Estimated Monthly Revenue
           </h3>
 
           <div className="flex items-baseline gap-1 relative z-10">
-            <span className="text-6xl font-black tracking-tighter">{currencySymbol}{Math.round(metrics.totalMonthlyRevenue).toLocaleString()}</span>
-            <span className="text-xl font-medium text-primary-foreground/80">/ mo</span>
+            <span className="text-6xl font-black tracking-tighter drop-shadow-sm">{currencySymbol}{Math.round(metrics.totalMonthlyRevenue).toLocaleString()}</span>
+            <span className="text-xl font-medium text-white/90">/ mo</span>
           </div>
 
-          <div className="grid grid-cols-2 gap-6 mt-8 pt-6 border-t border-primary-foreground/20 relative z-10">
+          <div className="grid grid-cols-2 gap-6 mt-8 pt-6 border-t border-white/20 relative z-10">
             <div>
-              <p className="text-[10px] text-primary-foreground/70 uppercase font-bold tracking-wider mb-1">Annual Projection</p>
-              <p className="text-2xl font-bold">{currencySymbol}{Math.round(metrics.totalAnnualRevenue).toLocaleString()}</p>
+              <p className="text-[10px] text-white/70 uppercase font-bold tracking-wider mb-1">Annual Projection</p>
+              <p className="text-2xl font-bold drop-shadow-sm">{currencySymbol}{Math.round(metrics.totalAnnualRevenue).toLocaleString()}</p>
             </div>
             <div>
-              <p className="text-[10px] text-primary-foreground/70 uppercase font-bold tracking-wider mb-1">Daily Average</p>
-              <p className="text-2xl font-bold">{currencySymbol}{Math.round(metrics.dailyAverage).toLocaleString()}</p>
+              <p className="text-[10px] text-white/70 uppercase font-bold tracking-wider mb-1">Daily Average</p>
+              <p className="text-2xl font-bold drop-shadow-sm">{currencySymbol}{Math.round(metrics.dailyAverage).toLocaleString()}</p>
             </div>
           </div>
         </div>
@@ -274,25 +274,25 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Revenue Breakdown</h4>
 
           <div className="space-y-4">
-            <div className="w-full h-4 rounded-full flex overflow-hidden">
-              <div style={{width: `${(metrics.longFormRevenue / (metrics.totalMonthlyRevenue || 1)) * 100}%`}} className="bg-primary transition-all duration-300" />
-              <div style={{width: `${(metrics.shortsRevenue / (metrics.totalMonthlyRevenue || 1)) * 100}%`}} className="bg-emerald-500 transition-all duration-300" />
+            <div className="w-full h-4 rounded-full flex overflow-hidden bg-muted">
+              <div style={{width: `${(metrics.longFormRevenue / (metrics.totalMonthlyRevenue || 1)) * 100}%`}} className="bg-[#FF0000] transition-all duration-500 ease-out" />
+              <div style={{width: `${(metrics.shortsRevenue / (metrics.totalMonthlyRevenue || 1)) * 100}%`}} className="bg-[#282828] transition-all duration-500 ease-out" />
             </div>
-
-            <div className="grid grid-cols-2 gap-4 pt-2 text-sm">
-              <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <div className="w-3 h-3 rounded-full bg-primary"></div>
-                  <span className="text-muted-foreground font-medium text-xs">Long-Form</span>
+            
+            <div className="flex justify-between text-sm">
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded-full bg-[#FF0000]"></div>
+                <div className="flex flex-col">
+                  <span className="text-muted-foreground text-xs font-medium">Long-Form</span>
+                  <span className="font-bold text-foreground">{currencySymbol}{Math.round(metrics.longFormRevenue).toLocaleString()}</span>
                 </div>
-                <div className="font-bold">{currencySymbol}{Math.round(metrics.longFormRevenue).toLocaleString()}</div>
               </div>
-              <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <div className="w-3 h-3 rounded-full bg-emerald-500"></div>
-                  <span className="text-muted-foreground font-medium text-xs">Shorts</span>
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded-full bg-[#282828]"></div>
+                <div className="flex flex-col text-right">
+                  <span className="text-muted-foreground text-xs font-medium">Shorts</span>
+                  <span className="font-bold text-foreground">{currencySymbol}{Math.round(metrics.shortsRevenue).toLocaleString()}</span>
                 </div>
-                <div className="font-bold">{currencySymbol}{Math.round(metrics.shortsRevenue).toLocaleString()}</div>
               </div>
             </div>
           </div>

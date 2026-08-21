@@ -217,7 +217,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <div className="space-y-4 pt-4">
             <div className="flex justify-between items-end">
               <div>
-                <label className="text-sm font-semibold flex items-center gap-2"><ShoppingCart className="h-4 w-4 text-emerald-500" /> Sales Conversion Rate (%)</label>
+                <label className="text-sm font-semibold flex items-center gap-2"><ShoppingCart className="h-4 w-4 text-blue-500" /> Sales Conversion Rate (%)</label>
                 <p className="text-xs text-muted-foreground mt-1">% of people who land on the sales page and buy.</p>
               </div>
               <span className="text-lg font-bold text-foreground">{store.salesConversionRate}%</span>
@@ -253,7 +253,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       <div className="lg:col-span-5 space-y-6 lg:sticky lg:top-8 relative z-20">
 
         {showToast && (
-          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-primary/5 text-emerald-600 border border-primary/20 p-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 slide-in-from-bottom-8 fade-in duration-300 ease-out">
+          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-primary/5 text-blue-600 border border-primary/20 p-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 slide-in-from-bottom-8 fade-in duration-300 ease-out">
             <CheckCircle2 className="h-5 w-5" />
             <span className="font-semibold text-sm">Successfully saved to Scenario Vault!</span>
           </div>
@@ -322,11 +322,11 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
 
             <div className="relative pt-2">
               <div className="flex justify-between items-center text-sm mb-1">
-                <span className="font-medium text-emerald-600 dark:text-emerald-400">Total Sales</span>
-                <span className="font-bold text-emerald-600 dark:text-emerald-400">{metrics.grossSales.toLocaleString()}</span>
+                <span className="font-medium text-blue-600 dark:text-blue-400">Total Sales</span>
+                <span className="font-bold text-blue-600 dark:text-blue-400">{metrics.grossSales.toLocaleString()}</span>
               </div>
               <div className="w-full h-2 bg-muted rounded-full overflow-hidden">
-                <div className="h-full bg-emerald-500" style={{width: `${(store.openRate / 100) * (store.clickThroughRate / 100) * store.salesConversionRate}%`}} />
+                <div className="h-full bg-blue-500" style={{width: `${(store.openRate / 100) * (store.clickThroughRate / 100) * store.salesConversionRate}%`}} />
               </div>
             </div>
           </div>

@@ -149,7 +149,7 @@ export default function YouTubeAdSensePage() {
             </div>
             <div className="bg-[#FAFAFA] p-6 rounded-2xl border border-neutral-100 flex flex-col items-start">
               <div className="w-10 h-10 bg-white rounded-lg shadow-sm border border-neutral-100 flex items-center justify-center mb-4">
-                <DollarSign className="h-5 w-5 text-emerald-600" />
+                <DollarSign className="h-5 w-5 text-blue-600" />
               </div>
               <h3 className="font-bold text-[#1F2937] mb-2 text-lg">RPM (Creator Income)</h3>
               <p className="text-sm text-neutral-500 font-light leading-relaxed">RPM (Revenue Per Mille) is your actual take-home pay per 1,000 views after YouTube takes its 45% cut. Our YouTube money calculator uses RPM to ensure 100% accuracy.</p>

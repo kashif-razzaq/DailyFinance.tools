@@ -39,13 +39,13 @@ export function HelpfulWidget({ slug, variant = 'default' }: { slug: string, var
           Was this tool helpful?
         </span>
         {helpfulCount > 0 && (
-          <span className={`items-center text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-primary/5 text-emerald-600 border border-primary/20/50 dark:bg-emerald-500/10 dark:text-emerald-400 dark:border-emerald-500/20 w-fit ${variant === 'inline' ? 'inline-flex' : 'hidden sm:inline-flex'}`}>
+          <span className={`items-center text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-primary/5 text-blue-600 border border-primary/20/50 dark:bg-blue-500/10 dark:text-blue-400 dark:border-blue-500/20 w-fit ${variant === 'inline' ? 'inline-flex' : 'hidden sm:inline-flex'}`}>
             {helpfulCount} {helpfulCount === 1 ? 'Person' : 'People'} found this helpful
           </span>
         )}
       </div>
       <div className="flex items-center gap-1 shrink-0">
-        <Button variant="ghost" size="icon" onClick={() => handleVote('up')} className={`h-8 w-8 rounded-full transition-colors cursor-pointer ${userVote === 'up' ? 'text-emerald-600 bg-primary/5' : 'text-muted-foreground hover:text-emerald-600 hover:bg-primary/5'}`}>
+        <Button variant="ghost" size="icon" onClick={() => handleVote('up')} className={`h-8 w-8 rounded-full transition-colors cursor-pointer ${userVote === 'up' ? 'text-blue-600 bg-primary/5' : 'text-muted-foreground hover:text-blue-600 hover:bg-primary/5'}`}>
           <ThumbsUp className="h-4 w-4" />
         </Button>
         <Button variant="ghost" size="icon" onClick={() => handleVote('down')} className={`h-8 w-8 rounded-full transition-colors cursor-pointer ${userVote === 'down' ? 'text-red-600 bg-red-50' : 'text-muted-foreground hover:text-red-600 hover:bg-red-50'}`}>

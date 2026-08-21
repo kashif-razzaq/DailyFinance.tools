@@ -91,7 +91,7 @@ export function Footer() {
         </div>
 
         {/* Middle Tier: The SEO Mega Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 mb-16">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-x-6 gap-y-12 mb-16">
           {navigationCategories.map((category) => (
             <div key={category.slug} className="flex flex-col gap-4">
               <Link 
@@ -128,7 +128,7 @@ export function Footer() {
           <div className="flex items-center gap-2 text-xs text-muted-foreground">
             <span>&copy; {currentYear} DailyFinance.</span>
             <span className="hidden sm:inline">&bull;</span>
-            <span>    <Link href="/privacy" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
+            <span>    <Link href="https://facebook.com/invisibl3jin"  className="text-xs text-muted-foreground hover:text-foreground transition-colors" target="_blank">
               Design & Developed by <span className="font-semibold text-foreground">wpkashif</span>
             </Link></span>
           </div>

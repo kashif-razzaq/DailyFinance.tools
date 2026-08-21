@@ -142,7 +142,7 @@ export default function BillableHoursPage() {
         <>
           {/* Answer Engine Optimization (AEO) Block */}
           <section className="bg-white border border-neutral-200 shadow-sm rounded-2xl p-6 md:p-8 mb-12 relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-2 h-full bg-[#064E3B]"></div>
+            <div className="absolute top-0 left-0 w-2 h-full bg-[#1E3A5F]"></div>
             <h2 className="text-xl font-bold text-[#1F2937] mb-3 flex items-center gap-2">
               <Calculator className="h-5 w-5 text-[#D97706]" />
               Quick Answer: How to Calculate Billable Hours
@@ -160,7 +160,7 @@ export default function BillableHoursPage() {
             Whether you are a freelance developer, an agency owner, or an attorney looking for a lawyer billable hours calculator, accurately valuing your time is the foundation of a profitable business. 
           </p>
 
-          <div className="bg-[#064E3B] text-white p-8 md:p-12 rounded-3xl shadow-2xl mb-16 relative overflow-hidden">
+          <div className="bg-[#1E3A5F] text-white p-8 md:p-12 rounded-3xl shadow-2xl mb-16 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-96 h-96 bg-[#D97706]/20 blur-[100px] rounded-full translate-x-1/2 -translate-y-1/2"></div>
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/5 blur-[60px] rounded-full -translate-x-1/3 translate-y-1/3"></div>
             
@@ -225,7 +225,7 @@ export default function BillableHoursPage() {
             </div>
           </section>
 
-          <div className="bg-[#FAFAFA] border-l-4 border-[#064E3B] p-6 mb-16 rounded-r-xl">
+          <div className="bg-[#FAFAFA] border-l-4 border-[#1E3A5F] p-6 mb-16 rounded-r-xl">
             <h3 className="text-[#1F2937] font-bold text-xl mb-2">The Attorney Standard (6-Minute Increments)</h3>
             <p className="text-lg text-neutral-600 font-light m-0 leading-relaxed">
               If you are using this as an attorney billable time calculator, you likely track time in tenths of an hour (6-minute increments). This makes decimal conversion incredibly easy:<br/><br/>

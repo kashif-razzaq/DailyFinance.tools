@@ -159,7 +159,7 @@ export default function EmergencyFundCalculatorPage() {
         <>
           {/* Answer Engine Optimization (AEO) Block */}
           <section className="bg-white border border-neutral-200 shadow-sm rounded-2xl p-6 md:p-8 mb-12 relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-2 h-full bg-[#064E3B]"></div>
+            <div className="absolute top-0 left-0 w-2 h-full bg-[#1E3A5F]"></div>
             <h2 className="text-xl font-bold text-[#1F2937] mb-3 flex items-center gap-2">
               <ShieldAlert className="h-5 w-5 text-[#D97706]" />
               Quick Answer: How Big Should Your Emergency Fund Be?
@@ -224,7 +224,7 @@ export default function EmergencyFundCalculatorPage() {
             <ul className="space-y-3 mb-0">
               {['You have a highly secure, full-time W-2 job (e.g., tenured teacher, government employee).', 'You are single with no dependents.', 'You have comprehensive health, disability, and income protection insurance.', 'You rent your home (no sudden roof replacement or HVAC failure costs).'].map((item, i) => (
                 <li key={i} className="flex items-start gap-3">
-                  <CheckCircle2 className="h-5 w-5 text-emerald-500 shrink-0 mt-0.5" />
+                  <CheckCircle2 className="h-5 w-5 text-blue-500 shrink-0 mt-0.5" />
                   <span className="text-neutral-700 font-light">{item}</span>
                 </li>
               ))}

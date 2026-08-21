@@ -161,7 +161,7 @@ export default function SCorpOptimizerPage() {
         <>
           {/* Answer Engine Optimization (AEO) Block */}
           <section className="bg-white border border-neutral-200 shadow-sm rounded-2xl p-6 md:p-8 mb-12 relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-2 h-full bg-[#064E3B]"></div>
+            <div className="absolute top-0 left-0 w-2 h-full bg-[#1E3A5F]"></div>
             <h2 className="text-xl font-bold text-[#1F2937] mb-3 flex items-center gap-2">
               <Calculator className="h-5 w-5 text-[#D97706]" />
               Quick Answer: S-Corp Tax Savings Explained
@@ -223,7 +223,7 @@ export default function SCorpOptimizerPage() {
             Under an S-Corp, you are no longer just an owner; you are legally considered an <em>employee</em> of your own corporation. This allows you to split your income into two distinct buckets:
           </p>
 
-          <div className="bg-[#064E3B] text-white p-8 md:p-12 rounded-3xl shadow-2xl mb-16 relative overflow-hidden">
+          <div className="bg-[#1E3A5F] text-white p-8 md:p-12 rounded-3xl shadow-2xl mb-16 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-96 h-96 bg-[#D97706]/20 blur-[100px] rounded-full translate-x-1/2 -translate-y-1/2"></div>
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/5 blur-[60px] rounded-full -translate-x-1/3 translate-y-1/3"></div>
             
@@ -261,7 +261,7 @@ export default function SCorpOptimizerPage() {
 
           <ul className="space-y-6 mb-12">
             <li className="flex items-start gap-4 p-6 bg-white border border-neutral-200 shadow-sm rounded-2xl">
-              <CheckCircle className="h-8 w-8 text-[#064E3B] shrink-0 mt-1" />
+              <CheckCircle className="h-8 w-8 text-[#1E3A5F] shrink-0 mt-1" />
               <div>
                 <strong className="text-[#1F2937] block text-xl mb-2">How to Determine a Reasonable Salary</strong>
                 <span className="text-neutral-600 font-light leading-relaxed">Your salary must reflect what it would cost to hire a non-owner employee to perform your exact duties. You must look at your location, industry, experience level, and the amount of time you spend working. Use objective data (like Glassdoor or Bureau of Labor Statistics) and document your reasoning.</span>
@@ -295,15 +295,15 @@ export default function SCorpOptimizerPage() {
             <h3 className="text-xl font-bold text-[#1F2937] mb-6">Annual S-Corp Expenses</h3>
             <ul className="space-y-4 text-neutral-600 font-light text-lg">
               <li className="flex items-center justify-between border-b border-neutral-100 pb-4">
-                <span className="flex items-center gap-3"><FileWarning className="text-[#064E3B] w-5 h-5" /> <strong>Payroll Service (e.g., Gusto):</strong></span>
+                <span className="flex items-center gap-3"><FileWarning className="text-[#1E3A5F] w-5 h-5" /> <strong>Payroll Service (e.g., Gusto):</strong></span>
                 <span>~$500 - $800/yr</span>
               </li>
               <li className="flex items-center justify-between border-b border-neutral-100 pb-4">
-                <span className="flex items-center gap-3"><FileWarning className="text-[#064E3B] w-5 h-5" /> <strong>Corporate Tax Return (Form 1120-S):</strong></span>
+                <span className="flex items-center gap-3"><FileWarning className="text-[#1E3A5F] w-5 h-5" /> <strong>Corporate Tax Return (Form 1120-S):</strong></span>
                 <span>~$800 - $1,500/yr</span>
               </li>
               <li className="flex items-center justify-between border-b border-neutral-100 pb-4">
-                <span className="flex items-center gap-3"><FileWarning className="text-[#064E3B] w-5 h-5" /> <strong>Unemployment Taxes (FUTA/SUTA):</strong></span>
+                <span className="flex items-center gap-3"><FileWarning className="text-[#1E3A5F] w-5 h-5" /> <strong>Unemployment Taxes (FUTA/SUTA):</strong></span>
                 <span>~$100 - $400/yr</span>
               </li>
               <li className="flex items-center justify-between font-bold text-[#1F2937] pt-2">

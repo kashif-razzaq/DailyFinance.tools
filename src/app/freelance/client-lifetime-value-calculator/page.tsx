@@ -141,7 +141,7 @@ export default function CustomerLTVCalculatorPage() {
           <>
             {/* Answer Engine Optimization (AEO) Block */}
             <section className="bg-white border border-neutral-200 shadow-sm rounded-2xl p-6 md:p-8 mb-12 relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-2 h-full bg-[#064E3B]"></div>
+              <div className="absolute top-0 left-0 w-2 h-full bg-[#1E3A5F]"></div>
               <h2 className="text-xl font-bold text-[#1F2937] mb-3 flex items-center gap-2">
                 <Calculator className="h-5 w-5 text-[#D97706]" />
                 Quick Answer: The Customer Lifetime Value Formula
@@ -198,12 +198,12 @@ export default function CustomerLTVCalculatorPage() {
               There is a massive difference between top-line CLV and bottom-line CLV. A customer who spends $10,000 might actually be losing you money if your fulfillment costs are $11,000. This is why our tool runs two distinct calculations simultaneously.
             </p>
 
-            <div className="bg-[#064E3B] text-white p-8 md:p-12 rounded-3xl shadow-2xl mb-16 relative overflow-hidden">
+            <div className="bg-[#1E3A5F] text-white p-8 md:p-12 rounded-3xl shadow-2xl mb-16 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-96 h-96 bg-[#059669]/30 blur-[100px] rounded-full translate-x-1/2 -translate-y-1/2"></div>
               
               <h3 className="text-2xl font-bold mb-6 text-white/90 relative z-10">Formula 1: Basic CLV (Revenue)</h3>
               <div className="bg-black/20 p-5 rounded-xl border border-white/10 relative z-10 mb-8">
-                <code className="text-lg font-mono text-emerald-300">Basic CLV = (APV × Purchase Frequency) × Customer Lifespan</code>
+                <code className="text-lg font-mono text-blue-300">Basic CLV = (APV × Purchase Frequency) × Customer Lifespan</code>
               </div>
               <p className="text-white/80 font-light leading-relaxed mb-10 relative z-10">
                 If an eCommerce shopper spends $50 per order (APV), buys 3 times a year (Frequency), and stays a customer for 4 years (Lifespan), their Basic CLV is <strong>$600</strong>. This represents gross revenue.

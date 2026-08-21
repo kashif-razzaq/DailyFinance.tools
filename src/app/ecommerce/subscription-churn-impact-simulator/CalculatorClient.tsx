@@ -216,7 +216,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
                 <label className="text-sm font-semibold text-foreground">Target Monthly Churn Rate (%)</label>
                 <p className="text-[10px] text-muted-foreground mt-1">Simulate reducing churn via annual plans or better retention.</p>
               </div>
-              <span className="text-lg font-bold text-emerald-500">{store.targetChurnRate}%</span>
+              <span className="text-lg font-bold text-blue-500">{store.targetChurnRate}%</span>
             </div>
             <Slider
               value={[store.targetChurnRate]}
@@ -233,7 +233,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       <div className="lg:col-span-5 space-y-6 lg:sticky lg:top-8 relative z-20">
 
         {showToast && (
-          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-primary/5 text-emerald-600 border border-primary/20 p-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 slide-in-from-bottom-8 fade-in duration-300 ease-out">
+          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-primary/5 text-blue-600 border border-primary/20 p-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 slide-in-from-bottom-8 fade-in duration-300 ease-out">
             <CheckCircle2 className="h-5 w-5" />
             <span className="font-semibold text-sm">Successfully saved to Scenario Vault!</span>
           </div>

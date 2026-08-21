@@ -151,7 +151,7 @@ export function CalculatorClient({ isPro }: { isPro: boolean }) {
 
             <div className="space-y-2">
               <label className="text-sm font-semibold text-foreground flex items-center gap-2">
-                <FileText className="w-4 h-4 text-emerald-600" />
+                <FileText className="w-4 h-4 text-blue-600" />
                 Total Billable Hours
               </label>
               <div className="relative">
@@ -215,7 +215,7 @@ export function CalculatorClient({ isPro }: { isPro: boolean }) {
                   type="number" 
                   value={store.expenses === 0 ? '' : store.expenses}
                   onChange={(e) => store.setExpenses(Number(e.target.value))}
-                  className="pl-7 h-11 text-base font-medium bg-muted/50 focus:bg-background transition-colors border-border/60 text-emerald-600"
+                  className="pl-7 h-11 text-base font-medium bg-muted/50 focus:bg-background transition-colors border-border/60 text-blue-600"
                 />
               </div>
             </div>
@@ -228,7 +228,7 @@ export function CalculatorClient({ isPro }: { isPro: boolean }) {
       <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 flex flex-col h-full space-y-10">
         
         {showToast && (
-          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-emerald-50 text-emerald-600 border border-emerald-200 p-4 rounded-xl shadow-xl flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 fade-in duration-300">
+          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-blue-50 text-blue-600 border border-blue-200 p-4 rounded-xl shadow-xl flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 fade-in duration-300">
             <CheckCircle2 className="h-5 w-5" />
             <span className="font-semibold text-sm">Successfully saved to Scenario Vault!</span>
           </div>
@@ -245,7 +245,7 @@ export function CalculatorClient({ isPro }: { isPro: boolean }) {
                 Base ({formatCurrency(store.billableHours * store.hourlyRate)}) - Discounts ({formatCurrency(store.discount)}) + Expenses ({formatCurrency(store.expenses)})
               </p>
             </div>
-            <div className={`px-3 py-1 rounded-full text-xs font-bold border ${metrics.utilizationRate >= 70 ? 'bg-emerald-500/10 text-emerald-600 border-emerald-500/20' : 'bg-amber-500/10 text-amber-600 border-amber-500/20'}`}>
+            <div className={`px-3 py-1 rounded-full text-xs font-bold border ${metrics.utilizationRate >= 70 ? 'bg-blue-500/10 text-blue-600 border-blue-500/20' : 'bg-amber-500/10 text-amber-600 border-amber-500/20'}`}>
               Utilization: {metrics.utilizationRate.toFixed(1)}%
             </div>
           </div>

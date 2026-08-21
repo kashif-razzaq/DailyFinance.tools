@@ -142,7 +142,7 @@ export default function ProjectFlatFeeQuoterPage() {
           
           {/* Answer Engine Optimization (AEO) Block */}
           <section className="bg-white border border-neutral-200 shadow-sm rounded-2xl p-6 md:p-8 mb-12 relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-2 h-full bg-[#064E3B]"></div>
+            <div className="absolute top-0 left-0 w-2 h-full bg-[#1E3A5F]"></div>
             <h2 className="text-xl font-bold text-[#1F2937] mb-3 flex items-center gap-2">
               <Calculator className="h-5 w-5 text-[#D97706]" />
               Quick Answer: How to Price a Flat-Fee Project
@@ -204,7 +204,7 @@ export default function ProjectFlatFeeQuoterPage() {
             This is a catastrophic error. That 20-hour estimate only accounts for the <strong>Core Execution Phase</strong> (writing the code, designing the logo, writing the copy). It completely ignores the invisible time sinks that swallow modern freelance projects. To build a highly profitable quote, you must construct it using three distinct pillars.
           </p>
 
-          <div className="bg-[#064E3B] text-white p-8 md:p-12 rounded-3xl shadow-2xl mb-16 relative overflow-hidden">
+          <div className="bg-[#1E3A5F] text-white p-8 md:p-12 rounded-3xl shadow-2xl mb-16 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-96 h-96 bg-[#D97706]/20 blur-[100px] rounded-full translate-x-1/2 -translate-y-1/2"></div>
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/5 blur-[60px] rounded-full -translate-x-1/3 translate-y-1/3"></div>
             

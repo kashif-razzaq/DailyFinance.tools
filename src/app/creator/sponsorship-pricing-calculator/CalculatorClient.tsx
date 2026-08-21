@@ -309,27 +309,27 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
 
         {/* Success Toast */}
         {showToast && (
-          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-primary/5 text-emerald-600 border border-primary/20 p-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 slide-in-from-bottom-8 fade-in duration-300 ease-out">
+          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-primary/5 text-blue-600 border border-primary/20 p-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 slide-in-from-bottom-8 fade-in duration-300 ease-out">
             <CheckCircle2 className="h-5 w-5" />
             <span className="font-semibold text-sm">Successfully saved to Scenario Vault!</span>
           </div>
         )}
 
         {/* The Result Card */}
-        <div className="bg-primary text-primary-foreground rounded-2xl p-8 shadow-2xl relative overflow-hidden">
-          <div className="absolute right-0 top-0 w-64 h-64 bg-white/10 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
+        <div className="bg-gradient-to-br from-indigo-600 to-purple-700 text-white rounded-3xl p-8 shadow-[0_10px_40px_-10px_rgba(79,70,229,0.5)] relative overflow-hidden">
+          <div className="absolute right-0 top-0 w-64 h-64 bg-white/20 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
 
-          <h3 className="text-xs font-bold text-primary-foreground/70 uppercase tracking-widest mb-2 relative z-10 flex items-center gap-2">
+          <h3 className="text-xs font-bold text-white/80 uppercase tracking-widest mb-2 relative z-10 flex items-center gap-2">
             <Award className="h-4 w-4" /> Recommended Rate
           </h3>
 
           <div className="flex items-baseline gap-1 relative z-10">
-            <span className="text-5xl font-black tracking-tighter">{currencySymbol}{Math.round(metrics.recommendedRate).toLocaleString()}</span>
+            <span className="text-5xl md:text-6xl font-black tracking-tighter drop-shadow-sm">{currencySymbol}{Math.round(metrics.recommendedRate).toLocaleString()}</span>
           </div>
 
-          <div className="mt-6 pt-6 border-t border-primary-foreground/20 relative z-10">
-            <p className="text-[10px] text-primary-foreground/70 uppercase font-bold tracking-wider mb-1">Negotiation Range (Floor to Premium)</p>
-            <p className="text-xl font-medium">
+          <div className="mt-8 pt-6 border-t border-white/20 relative z-10">
+            <p className="text-[10px] text-white/70 uppercase font-bold tracking-wider mb-1">Negotiation Range (Floor to Premium)</p>
+            <p className="text-xl md:text-2xl font-medium drop-shadow-sm">
               {currencySymbol}{Math.round(metrics.negotiationRange[0]).toLocaleString()} - {currencySymbol}{Math.round(metrics.negotiationRange[1]).toLocaleString()}
             </p>
           </div>
@@ -348,7 +348,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
             </div>
 
             {(metrics.nicheMultiplier !== 1 || metrics.deliverableMultiplier !== 1) && (
-              <div className="flex justify-between items-center py-2 border-b border-border/50 text-emerald-600 dark:text-emerald-400">
+              <div className="flex justify-between items-center py-2 border-b border-border/50 text-blue-600 dark:text-blue-400">
                 <span>Content/Niche Multiplier</span>
                 <span>x {(metrics.nicheMultiplier * metrics.deliverableMultiplier).toFixed(2)}</span>
               </div>
