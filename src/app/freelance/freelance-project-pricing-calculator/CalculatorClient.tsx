@@ -156,7 +156,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
             <div className="grid grid-cols-3 gap-2">
               <Button 
                 variant={store.riskLevel === 'Low' ? 'default' : 'outline'} 
-                className={store.riskLevel === 'Low' ? 'bg-emerald-600 hover:bg-emerald-700' : ''}
+                className={store.riskLevel === 'Low' ? 'bg-blue-600 hover:bg-blue-700' : ''}
                 onClick={() => store.setRiskLevel('Low')}
               >
                 Low
@@ -223,7 +223,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       <div className="lg:col-span-6 xl:col-span-7 flex flex-col gap-6">
         
         {showToast && (
-          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-primary/5 text-emerald-600 border border-primary/20 p-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 fade-in duration-300">
+          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-primary/5 text-blue-600 border border-primary/20 p-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 fade-in duration-300">
             <CheckCircle2 className="h-5 w-5" />
             <span className="font-semibold text-sm">Saved to Scenario Vault!</span>
           </div>
@@ -289,7 +289,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
                     size="sm" 
                     className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity bg-white"
                   >
-                    {showCopyToast ? <CheckCircle2 className="h-4 w-4 text-emerald-600" /> : <Copy className="h-4 w-4" />}
+                    {showCopyToast ? <CheckCircle2 className="h-4 w-4 text-blue-600" /> : <Copy className="h-4 w-4" />}
                   </Button>
                 </div>
               </div>

@@ -19,8 +19,8 @@ export default function Icon() {
         }}
       >
         <div style={{ display: 'flex', alignItems: 'flex-end', gap: '12px' }}>
-          <div style={{ width: '22px', height: '45px', background: '#064E3B', borderRadius: '5px' }} />
-          <div style={{ width: '22px', height: '81px', background: '#064E3B', borderRadius: '5px' }} />
+          <div style={{ width: '22px', height: '45px', background: '#1E3A5F', borderRadius: '5px' }} />
+          <div style={{ width: '22px', height: '81px', background: '#1E3A5F', borderRadius: '5px' }} />
           <div style={{ width: '22px', height: '117px', background: '#D97706', borderRadius: '5px' }} />
         </div>
       </div>

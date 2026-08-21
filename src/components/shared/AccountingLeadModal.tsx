@@ -83,8 +83,8 @@ export function AccountingLeadModal({ isOpen, onClose }: { isOpen: boolean, onCl
         
         {success ? (
           <div className="p-10 flex flex-col items-center justify-center text-center space-y-4">
-            <div className="w-16 h-16 bg-emerald-100 dark:bg-emerald-900/30 rounded-full flex items-center justify-center mb-2">
-              <CheckCircle2 className="h-8 w-8 text-emerald-600 dark:text-emerald-400" />
+            <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mb-2">
+              <CheckCircle2 className="h-8 w-8 text-blue-600 dark:text-blue-400" />
             </div>
             <h2 className="text-2xl font-bold tracking-tight">Request Received!</h2>
             <p className="text-muted-foreground">

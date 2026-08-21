@@ -145,7 +145,7 @@ export default function CrossBorderFxImpactPage() {
         <>
           {/* Answer Engine Optimization (AEO) Block */}
           <section className="bg-white border border-neutral-200 shadow-sm rounded-2xl p-6 md:p-8 mb-12 relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-2 h-full bg-[#064E3B]"></div>
+            <div className="absolute top-0 left-0 w-2 h-full bg-[#1E3A5F]"></div>
             <h2 className="text-xl font-bold text-[#1F2937] mb-3 flex items-center gap-2">
               <Globe className="h-5 w-5 text-[#D97706]" />
               Quick Answer: How to Avoid Cross-Border Freelance Fees
@@ -207,7 +207,7 @@ export default function CrossBorderFxImpactPage() {
             Traditional banks, PayPal, and legacy processors do not offer this rate to consumers. Instead, they buy currency at the mid-market rate, and sell it to you at a "Retail Rate." 
           </p>
 
-          <div className="bg-[#064E3B] text-white p-8 md:p-12 rounded-3xl shadow-2xl mb-16 relative overflow-hidden">
+          <div className="bg-[#1E3A5F] text-white p-8 md:p-12 rounded-3xl shadow-2xl mb-16 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-96 h-96 bg-[#D97706]/20 blur-[100px] rounded-full translate-x-1/2 -translate-y-1/2"></div>
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/5 blur-[60px] rounded-full -translate-x-1/3 translate-y-1/3"></div>
             
@@ -339,10 +339,10 @@ export default function CrossBorderFxImpactPage() {
                   <td className="py-4 px-6 text-[#1F2937] font-bold">~9.0%</td>
                 </tr>
                 <tr className="hover:bg-neutral-50 transition-colors">
-                  <td className="py-4 px-6 font-medium text-[#064E3B] font-bold font-sans">Wise (ACH / Local)</td>
+                  <td className="py-4 px-6 font-medium text-[#1E3A5F] font-bold font-sans">Wise (ACH / Local)</td>
                   <td className="py-4 px-6 text-neutral-500">0.0%</td>
                   <td className="py-4 px-6 text-neutral-500">~0.5% Transparent Fee</td>
-                  <td className="py-4 px-6 text-[#064E3B] font-bold">~0.5%</td>
+                  <td className="py-4 px-6 text-[#1E3A5F] font-bold">~0.5%</td>
                 </tr>
               </tbody>
             </table>

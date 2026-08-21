@@ -155,7 +155,7 @@ export default function AutoLeaseCalculatorPage() {
         <>
           {/* Answer Engine Optimization (AEO) Block */}
           <section className="bg-white border border-neutral-200 shadow-sm rounded-2xl p-6 md:p-8 mb-12 relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-2 h-full bg-[#064E3B]"></div>
+            <div className="absolute top-0 left-0 w-2 h-full bg-[#1E3A5F]"></div>
             <h2 className="text-xl font-bold text-[#1F2937] mb-3 flex items-center gap-2">
               <Calculator className="h-5 w-5 text-[#D97706]" />
               Quick Answer: How to Calculate an Auto Lease Write-Off
@@ -183,8 +183,8 @@ export default function AutoLeaseCalculatorPage() {
             </p>
             
             <div className="space-y-6 my-8">
-              <div className="bg-white border-l-4 border-[#064E3B] p-6 rounded-r-xl shadow-sm">
-                <h4 className="font-bold text-[#064E3B] text-xl mb-2 flex items-center">
+              <div className="bg-white border-l-4 border-[#1E3A5F] p-6 rounded-r-xl shadow-sm">
+                <h4 className="font-bold text-[#1E3A5F] text-xl mb-2 flex items-center">
                   <FileText className="w-6 h-6 mr-2" />
                   1. The Actual Expenses Method
                 </h4>
@@ -233,14 +233,14 @@ export default function AutoLeaseCalculatorPage() {
               <div className="bg-white border border-slate-200 p-6 rounded-xl">
                 <h4 className="font-bold text-slate-900 mb-2">Scenario A: The High-Mileage Realtor</h4>
                 <p className="text-sm text-slate-600 mb-4">A real estate agent leases a mid-range Honda Accord ($400/mo) but drives 25,000 business miles a year showing houses.</p>
-                <p className="text-sm text-[#064E3B] font-bold">Winner: Standard Mileage Rate.</p>
+                <p className="text-sm text-[#1E3A5F] font-bold">Winner: Standard Mileage Rate.</p>
                 <p className="text-xs text-slate-500 mt-1">Because the lease payment is low and the mileage is incredibly high, the $0.67/mile rate yields a $16,750 deduction, far exceeding their actual expenses.</p>
               </div>
 
               <div className="bg-white border border-slate-200 p-6 rounded-xl">
                 <h4 className="font-bold text-slate-900 mb-2">Scenario B: The Low-Mileage Consultant</h4>
                 <p className="text-sm text-slate-600 mb-4">A consultant leases a premium BMW ($900/mo) but only drives 5,000 business miles a year to client meetings (80% business use).</p>
-                <p className="text-sm text-[#064E3B] font-bold">Winner: Actual Expenses.</p>
+                <p className="text-sm text-[#1E3A5F] font-bold">Winner: Actual Expenses.</p>
                 <p className="text-xs text-slate-500 mt-1">The mileage rate would only yield a $3,350 deduction. But taking 80% of the $10,800 annual lease payments yields an $8,640 deduction.</p>
               </div>
 

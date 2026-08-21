@@ -6,12 +6,18 @@
     // Prevent double injection
     if (script.getAttribute('data-injected') === 'true') return;
     
-    const slug = script.getAttribute('data-calculator');
+    let slug = script.getAttribute('data-calculator');
     const theme = script.getAttribute('data-theme') || 'light';
     const width = script.getAttribute('data-width') || '100%';
     const height = script.getAttribute('data-height') || '600px';
     
     if (!slug) return;
+
+    // Strip category prefix if present (e.g., "employment/bonus-tax-calculator" → "bonus-tax-calculator")
+    // The embed route only accepts a single slug segment: /embed/[slug]
+    if (slug.includes('/')) {
+      slug = slug.split('/').pop();
+    }
     
     const iframe = document.createElement('iframe');
     

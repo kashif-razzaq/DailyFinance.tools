@@ -34,6 +34,12 @@ export function ScenarioCard({ calc }: { calc: SavedCalculator }) {
     }
   }
 
+  // Extract just the calculator name without the folder path (e.g., "emergency-fund-calculator")
+  const displaySlug = calc.calculator_slug.split('/').pop()?.replace(/-/g, ' ') || ''
+
+  // Format the correct route link directly from the root
+  const scenarioUrl = `/${calc.calculator_slug}?savedId=${calc.id}`
+
   return (
     <Card className="relative overflow-hidden group flex flex-col border-border/50 hover:border-border transition-colors bg-card shadow-sm">
       <CardHeader className="pb-4 flex-1">
@@ -74,7 +80,7 @@ export function ScenarioCard({ calc }: { calc: SavedCalculator }) {
         
         <CardTitle className="text-xl line-clamp-1">{calc.saved_name}</CardTitle>
         <CardDescription className="capitalize">
-          {calc.calculator_slug.replace(/-/g, ' ')}
+          {displaySlug}
         </CardDescription>
       </CardHeader>
       
@@ -93,7 +99,7 @@ export function ScenarioCard({ calc }: { calc: SavedCalculator }) {
       </CardContent>
       
       <CardFooter className="pt-4 border-t mt-auto bg-muted/20">
-        <Link href={`/tools/${calc.calculator_slug}?savedId=${calc.id}`} className="w-full">
+        <Link href={scenarioUrl} className="w-full">
           <Button variant="outline" className="w-full justify-between hover:bg-background">
             Open Scenario
             <ArrowRight className="h-4 w-4" />

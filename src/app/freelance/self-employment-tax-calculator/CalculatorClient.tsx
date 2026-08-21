@@ -1,374 +1,342 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
-import { CalculatorActions } from "@/components/calculator/CalculatorActions"
 
 import React, { useState, useEffect } from 'react'
+import { Calculator, DollarSign, PieChart, Briefcase, Receipt, CalendarClock, Target, Percent, HelpCircle, AlertTriangle, CheckCircle2 } from 'lucide-react'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
+import { useFreelanceTaxStore } from '@/store/se-tax.store'
+import { PieChart as RechartsPieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from 'recharts'
 import { useGlobalSettingsStore } from '@/store/global-settings.store'
-import { useFreelanceTaxDeductionsStore } from '@/store/freelance-tax-deductions.store'
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import {  Home, Receipt, Calculator, CheckCircle2, AlertTriangle } from "lucide-react"
 import { saveCalculatorAction, getSharedCalculatorAction } from '@/actions/calculator.actions'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { CalculatorActions } from "@/components/calculator/CalculatorActions"
 import { ProUpgradeModal } from "@/components/shared/ProUpgradeModal"
 
-export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
-  const store = useFreelanceTaxDeductionsStore()
-  const metrics = store.getDerivedMetrics()
+export function CalculatorClient({ isPro }: { isPro: boolean }) {
+  const store = useFreelanceTaxStore()
   const { currency } = useGlobalSettingsStore()
   const currencySymbol = { USD: '$', EUR: '€', GBP: '£', CAD: 'C$', AUD: 'A$', INR: '₹' }[currency as string] || '$'
-  
-    const [showProModal, setShowProModal] = useState(false)
-  const [isSaving, setIsSaving] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const [showToast, setShowToast] = useState(false)
+  const [isSaving, setIsSaving] = useState(false)
+  const [showProModal, setShowProModal] = useState(false)
+  const [shareUrl, setShareUrl] = useState("")
   const [savedScenarioId, setSavedScenarioId] = useState<string | null>(null)
+  
+  const searchParams = useSearchParams()
+  const router = useRouter()
 
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search)
-    const urlSavedId = urlParams.get('savedId')
-    if (urlSavedId) {
+    setMounted(true)
+    const urlSavedId = searchParams.get('saved_id')
+    if (urlSavedId && !savedScenarioId) {
       getSharedCalculatorAction(urlSavedId).then(data => {
         if (data && data.input_state) {
           const state = data.input_state
-          if (state.homeStatus !== undefined) store.setHomeStatus(state.homeStatus as any)
-          if (state.officeSpace !== undefined) store.setOfficeSpace(state.officeSpace as any)
-          if (state.totalHomeSpace !== undefined) store.setTotalHomeSpace(state.totalHomeSpace as any)
-          if (state.monthlyRentMortgage !== undefined) store.setMonthlyRentMortgage(state.monthlyRentMortgage as any)
-          if (state.annualUtilitiesInsurance !== undefined) store.setAnnualUtilitiesInsurance(state.annualUtilitiesInsurance as any)
-          if (state.directRepairs !== undefined) store.setDirectRepairs(state.directRepairs as any)
-          if (state.netBusinessIncome !== undefined) store.setNetBusinessIncome(state.netBusinessIncome as any)
-          if (state.combinedTaxBracket !== undefined) store.setCombinedTaxBracket(state.combinedTaxBracket as any)
-          if (state.homeValue !== undefined) store.setHomeValue(state.homeValue as any)
+          if (state.grossIncome !== undefined) store.setGrossIncome(state.grossIncome as number)
+          if (state.businessExpenses !== undefined) store.setBusinessExpenses(state.businessExpenses as number)
+          if (state.taxYear !== undefined) store.setTaxYear(state.taxYear as number)
+          if (state.filingStatus !== undefined) store.setFilingStatus(state.filingStatus as any)
+          if (state.stateTaxRate !== undefined) store.setStateTaxRate(state.stateTaxRate as number)
           setSavedScenarioId(urlSavedId)
         }
       }).catch(console.error)
     }
-  }, [])
+  }, [searchParams])
+
+  const metrics = store.getDerivedMetrics()
 
   const handleSave = async () => {
-    if (!isPro) return setShowProModal(true)
+    if (!isPro) {
+      setShowProModal(true)
+      return
+    }
     
     setIsSaving(true)
     try {
-      const optimalSavings = metrics.optimalMethod === 'Simplified' ? metrics.simplifiedTaxSavings : metrics.actualTaxSavings
-      const optimalDeduction = metrics.optimalMethod === 'Simplified' ? metrics.simplifiedDeduction : metrics.actualDeduction
-
       const savedResult = await saveCalculatorAction({
-        calculator_slug: 'freelance-tax-deductions-calculator',
-        category: 'Freelance & Business',
-        saved_name: `Est Savings: ${currencySymbol}${Math.round(optimalSavings)}`,
+        id: savedScenarioId || undefined,
+        calculator_slug: 'freelance/self-employment-tax-calculator',
+        category: 'Taxes & Accounting',
+        saved_name: `1099 Taxes: ${currencySymbol}${Math.round(metrics.totalEstimatedTax)} Owed`,
         input_state: {
-          homeStatus: store.homeStatus,
-          officeSpace: store.officeSpace,
-          totalHomeSpace: store.totalHomeSpace,
-          monthlyRentMortgage: store.monthlyRentMortgage,
-          annualUtilitiesInsurance: store.annualUtilitiesInsurance,
-          directRepairs: store.directRepairs,
-          netBusinessIncome: store.netBusinessIncome,
-          combinedTaxBracket: store.combinedTaxBracket,
-          homeValue: store.homeValue
+          grossIncome: store.grossIncome,
+          businessExpenses: store.businessExpenses,
+          taxYear: store.taxYear,
+          filingStatus: store.filingStatus,
+          stateTaxRate: store.stateTaxRate
         },
-        core_metric: Math.round(optimalDeduction)
+        core_metric: metrics.totalEstimatedTax,
+        is_public: false
       })
-      if (savedResult?.id) {
+
+      if (!savedScenarioId && savedResult && savedResult.id) {
         setSavedScenarioId(savedResult.id)
+        router.replace(`?saved_id=${savedResult.id}`, { scroll: false })
       }
+      
       setShowToast(true)
       setTimeout(() => setShowToast(false), 3000)
-    } catch (error) {
-      console.error(error)
-      alert("Failed to save.")
+    } catch (error: any) {
+      if (error.message === 'Unauthorized') {
+        window.location.href = '/login?redirect=/freelance/self-employment-tax-calculator'
+      } else {
+        console.error('Error saving:', error)
+      }
     } finally {
       setIsSaving(false)
     }
   }
 
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams()
+      params.set('income', store.grossIncome.toString())
+      params.set('expenses', store.businessExpenses.toString())
+      params.set('state', store.stateTaxRate.toString())
+      setShareUrl(`${window.location.origin}${window.location.pathname}?${params.toString()}`)
+    }
+  }, [store])
+
   const exportData = [{
-    "Home Status": store.homeStatus,
-    "Office Space SqFt": store.officeSpace,
-    "Business Use %": metrics.businessUsePct.toFixed(1) + '%',
-    "Simplified Deduction Limit": store.officeSpace > 300 ? "Capped at 300 sqft" : "No Cap",
-    "Simplified Deduction Total": Math.round(metrics.simplifiedDeduction),
-    "Actual Expense Deduction Total": `${currency} ${Math.round(metrics.actualDeduction)}`,
-    "Optimal Method Recommended": metrics.optimalMethod
+    'Gross 1099 Income': store.grossIncome,
+    'Business Expenses': store.businessExpenses,
+    'Net Business Profit': metrics.netProfit,
+    'SE Tax Total': metrics.seTax,
+    'Income Tax Estimate': metrics.estimatedFederalIncomeTax + metrics.estimatedStateIncomeTax,
+    'Total Estimated Tax Liability': metrics.totalEstimatedTax,
+    'Net Spendable Income': metrics.takeHomePay
   }]
 
-  const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://dailyfinance.tools'
-  const shareUrl = savedScenarioId 
-    ? `${baseUrl}/freelance/freelance-tax-deductions-calculator?savedId=${savedScenarioId}`
-    : `${baseUrl}/freelance/freelance-tax-deductions-calculator`
+  const formatCurrency = (val: number) => `${currencySymbol}${val.toLocaleString(undefined, { maximumFractionDigits: 0 })}`
+
+  if (!mounted) return null
+
+  const pieData = [
+    { name: 'Take-Home Pay', value: metrics.takeHomePay, color: '#059669' },
+    { name: 'SE Tax', value: metrics.seTax, color: '#D97706' },
+    { name: 'Fed Tax', value: metrics.estimatedFederalIncomeTax, color: '#2563EB' },
+    { name: 'State Tax', value: metrics.estimatedStateIncomeTax, color: '#9333EA' },
+  ].filter(d => d.value > 0)
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch relative">
-      
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8 items-start relative">
       {/* LEFT COLUMN: Inputs */}
-      <div className="lg:col-span-6 xl:col-span-5 bg-card border shadow-sm rounded-2xl p-6 md:p-8 flex flex-col space-y-10">
+      <div className="lg:col-span-5 flex flex-col space-y-8 bg-card border shadow-sm rounded-2xl p-6 md:p-8">
         
-        <div className="space-y-6">
-          <h2 className="text-xl font-bold flex items-center gap-2 pb-2 border-b">
-            <Home className="h-5 w-5 text-muted-foreground" />
-            Home Office Details
-          </h2>
+        <div className="relative">
+          <div className="flex items-center justify-between pb-2 border-b mb-6">
+            <h2 className="text-xl font-bold flex items-center gap-2">
+              <Briefcase className="h-5 w-5 text-primary" />
+              1099 Income & Expenses
+            </h2>
+          </div>
           
-          <div className="space-y-3">
-            <label className="text-sm font-semibold text-foreground block">Living Status</label>
-            <div className="grid grid-cols-2 gap-2">
-              <Button 
-                variant={store.homeStatus === 'Renter' ? 'default' : 'outline'} 
-                className={store.homeStatus === 'Renter' ? 'bg-primary hover:bg-primary/90' : ''}
-                onClick={() => store.setHomeStatus('Renter')}
-              >
-                Renter
-              </Button>
-              <Button 
-                variant={store.homeStatus === 'Homeowner' ? 'default' : 'outline'} 
-                className={store.homeStatus === 'Homeowner' ? 'bg-primary hover:bg-primary/90' : ''}
-                onClick={() => store.setHomeStatus('Homeowner')}
-              >
-                Homeowner
-              </Button>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-3">
-              <label className="text-sm font-semibold text-foreground">Office Size</label>
-              <div className="relative">
-                <Input 
-                  type="number" 
-                  value={store.officeSpace || ''}
-                  onChange={(e) => store.setOfficeSpace(Number(e.target.value))}
-                  className="bg-muted/50 text-right pr-12"
-                />
-                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm font-medium">sq ft</span>
-              </div>
-            </div>
-            <div className="space-y-3">
-              <label className="text-sm font-semibold text-foreground">Total Home Size</label>
-              <div className="relative">
-                <Input 
-                  type="number" 
-                  value={store.totalHomeSpace || ''}
-                  onChange={(e) => store.setTotalHomeSpace(Number(e.target.value))}
-                  className="bg-muted/50 text-right pr-12"
-                />
-                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm font-medium">sq ft</span>
-              </div>
-            </div>
-          </div>
-          <div className="flex justify-between text-xs text-muted-foreground font-semibold px-2">
-            <span>Business Use %:</span>
-            <span className="text-primary">{metrics.businessUsePct.toFixed(1)}%</span>
-          </div>
-        </div>
-
-        <div className="space-y-6">
-          <h2 className="text-xl font-bold flex items-center gap-2 pb-2 border-b">
-            <Receipt className="h-5 w-5 text-muted-foreground" />
-            Home Expenses
-          </h2>
-          
-          <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-3">
-              <label className="text-sm font-semibold text-foreground">Monthly {store.homeStatus === 'Renter' ? 'Rent' : 'Mortgage'}</label>
+          <div className="space-y-6">
+            <div className="space-y-2">
+              <label className="text-sm font-semibold text-foreground">Total 1099 Gross Income</label>
               <div className="relative">
                 <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">{currencySymbol}</span>
                 <Input 
                   type="number" 
-                  value={store.monthlyRentMortgage || ''}
-                  onChange={(e) => store.setMonthlyRentMortgage(Number(e.target.value))}
-                  className="pl-7 bg-muted/50"
+                  value={store.grossIncome === 0 ? '' : store.grossIncome}
+                  onChange={(e) => store.setGrossIncome(Number(e.target.value))}
+                  className="pl-7 h-11 text-base font-medium bg-muted/50 focus:bg-background transition-colors border-border/60"
                 />
               </div>
+              <p className="text-xs text-muted-foreground">Total revenue before any expenses or taxes.</p>
             </div>
-            <div className="space-y-3">
-              <label className="text-sm font-semibold text-foreground">Annual Utilities</label>
-              <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">{currencySymbol}</span>
-                <Input 
-                  type="number" 
-                  value={store.annualUtilitiesInsurance || ''}
-                  onChange={(e) => store.setAnnualUtilitiesInsurance(Number(e.target.value))}
-                  className="pl-7 bg-muted/50"
-                />
-              </div>
-            </div>
-          </div>
 
-          <div className="space-y-3">
-            <label className="text-sm font-semibold text-foreground">Direct Office Repairs (Annual)</label>
-            <p className="text-xs text-muted-foreground">Repairs made entirely within the home office itself (e.g. painting the office).</p>
-            <div className="relative">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">{currencySymbol}</span>
-              <Input 
-                type="number" 
-                value={store.directRepairs || ''}
-                onChange={(e) => store.setDirectRepairs(Number(e.target.value))}
-                className="pl-7 bg-muted/50"
-              />
-            </div>
-          </div>
-
-          {store.homeStatus === 'Homeowner' && (
-            <div className="space-y-3 pt-4 border-t border-border/50">
+            <div className="space-y-2">
               <label className="text-sm font-semibold text-foreground flex justify-between">
-                <span>Total Home Value</span>
-                <span className="text-primary text-xs font-normal">For Depreciation calc</span>
+                <span>Business Deductions</span>
+                <span className="text-primary text-xs font-normal cursor-help" title="Schedule C Write-offs">What's this?</span>
               </label>
               <div className="relative">
                 <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">{currencySymbol}</span>
                 <Input 
                   type="number" 
-                  value={store.homeValue || ''}
-                  onChange={(e) => store.setHomeValue(Number(e.target.value))}
-                  className="pl-7 bg-muted/50"
+                  value={store.businessExpenses === 0 ? '' : store.businessExpenses}
+                  onChange={(e) => store.setBusinessExpenses(Number(e.target.value))}
+                  className="pl-7 h-11 text-base font-medium bg-muted/50 focus:bg-background transition-colors border-border/60 text-red-600 dark:text-red-400"
                 />
               </div>
+              <p className="text-xs text-muted-foreground">Software, home office, mileage, supplies, etc.</p>
             </div>
-          )}
+          </div>
         </div>
-        
-        <div className="space-y-6">
-          <h2 className="text-xl font-bold flex items-center gap-2 pb-2 border-b">
-            <Calculator className="h-5 w-5 text-muted-foreground" />
-            Tax Bracket Check
-          </h2>
+
+        <div className="relative pt-2">
+          <div className="flex items-center justify-between pb-2 border-b mb-6">
+            <h2 className="text-xl font-bold flex items-center gap-2">
+              <Receipt className="h-5 w-5 text-primary" />
+              Tax Profile
+            </h2>
+          </div>
           
-          <div className="grid grid-cols-2 gap-4">
+          <div className="space-y-6">
             <div className="space-y-3">
-              <label className="text-sm font-semibold text-foreground">Net Biz Income</label>
-              <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">{currencySymbol}</span>
-                <Input 
-                  type="number" 
-                  value={store.netBusinessIncome || ''}
-                  onChange={(e) => store.setNetBusinessIncome(Number(e.target.value))}
-                  className="pl-7 bg-muted/50"
-                />
+              <label className="text-sm font-semibold text-foreground block">Filing Status</label>
+              <div className="grid grid-cols-2 gap-2">
+                <Button 
+                  variant={store.filingStatus === 'Single' ? 'default' : 'outline'} 
+                  className={store.filingStatus === 'Single' ? 'bg-primary hover:bg-primary/90' : ''}
+                  onClick={() => store.setFilingStatus('Single')}
+                >
+                  Single
+                </Button>
+                <Button 
+                  variant={store.filingStatus === 'Married Filing Jointly' ? 'default' : 'outline'} 
+                  className={store.filingStatus === 'Married Filing Jointly' ? 'bg-primary hover:bg-primary/90' : ''}
+                  onClick={() => store.setFilingStatus('Married Filing Jointly')}
+                >
+                  Married Jointly
+                </Button>
               </div>
             </div>
-            <div className="space-y-3">
-              <label className="text-sm font-semibold text-foreground">Tax Bracket</label>
+
+            <div className="space-y-2">
+              <label className="text-sm font-semibold text-foreground">Estimated State Tax Rate</label>
               <div className="relative">
                 <Input 
                   type="number" 
-                  value={store.combinedTaxBracket || ''}
-                  onChange={(e) => store.setCombinedTaxBracket(Number(e.target.value))}
-                  className="bg-muted/50 pr-8 text-right"
+                  value={store.stateTaxRate === 0 ? '' : store.stateTaxRate}
+                  onChange={(e) => store.setStateTaxRate(Number(e.target.value))}
+                  className="pr-10 h-11 text-base font-medium bg-muted/50 focus:bg-background transition-colors border-border/60"
+                  step="0.1"
                 />
                 <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">%</span>
               </div>
+              <p className="text-xs text-muted-foreground">Enter 0 if you live in a tax-free state (e.g. TX, FL, NV).</p>
             </div>
           </div>
         </div>
-
       </div>
 
-      {/* RIGHT COLUMN: Comparative Results */}
-      <div className="lg:col-span-6 xl:col-span-7 flex flex-col gap-6">
+      {/* RIGHT COLUMN: Results */}
+      <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 flex flex-col h-full space-y-10">
         
         {showToast && (
-          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-primary/5 text-emerald-600 border border-primary/20 p-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 fade-in duration-300">
+          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-blue-50 text-blue-600 border border-blue-200 p-4 rounded-xl shadow-xl flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 fade-in duration-300">
             <CheckCircle2 className="h-5 w-5" />
-            <span className="font-semibold text-sm">Saved to Scenario Vault!</span>
+            <span className="font-semibold text-sm">Successfully saved to Scenario Vault!</span>
           </div>
         )}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          
-          {/* Simplified Method */}
-          <div className={`rounded-xl p-6 border-2 transition-all duration-300 relative ${metrics.optimalMethod === 'Simplified' ? 'border-emerald-500 bg-emerald-50/50 shadow-md scale-100' : 'border-border bg-card scale-95 opacity-80'}`}>
-            {metrics.optimalMethod === 'Simplified' && (
-              <div className="absolute top-0 right-0 bg-emerald-500 text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg uppercase shadow-sm tracking-wider">
-                Recommended
+        <div className="flex-1">
+          <div className="flex justify-between items-start mb-6">
+            <div>
+              <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1">Total Estimated Taxes</h3>
+              <div className="text-4xl md:text-5xl font-black text-red-500 tracking-tight mb-3">
+                {formatCurrency(metrics.totalEstimatedTax)}
               </div>
-            )}
-            
-            <h3 className="font-bold text-lg mb-1 flex items-center gap-2">Simplified Method</h3>
-            <p className="text-xs text-muted-foreground mb-6">IRS capped at $5/sq ft max 300 sq ft.</p>
-            
-            <div className="space-y-2 mb-6">
-              <div className="flex justify-between items-end">
-                <span className="text-sm font-medium text-muted-foreground">Total Write-Off</span>
-                <span className="text-2xl font-black">{currencySymbol}{Math.round(metrics.simplifiedDeduction).toLocaleString()}</span>
-              </div>
-              <div className="flex justify-between items-end">
-                <span className="text-sm font-medium text-emerald-700/80">Est. Tax Savings</span>
-                <span className="text-lg font-bold text-emerald-700">{currencySymbol}{Math.round(metrics.simplifiedTaxSavings).toLocaleString()}</span>
-              </div>
+              <p className="text-sm text-muted-foreground">
+                Your effective tax rate is <strong>{metrics.effectiveTaxRate.toFixed(1)}%</strong> of your net profit.
+              </p>
             </div>
-
-            <ul className="text-xs space-y-2 text-muted-foreground">
-              <li className="flex gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0"/> No complicated Form 8829 needed</li>
-              <li className="flex gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0"/> No depreciation recapture on home sale</li>
-              {store.officeSpace > 300 && (
-                <li className="flex gap-2"><AlertTriangle className="w-4 h-4 text-primary shrink-0"/> Limited: Cap reached at 300 sq ft.</li>
-              )}
-            </ul>
+            <div className="px-3 py-1 rounded-full text-xs font-bold border bg-blue-500/10 text-blue-600 border-blue-500/20">
+              {store.taxYear} Tax Year
+            </div>
           </div>
 
-          {/* Actual Expenses Method */}
-          <div className={`rounded-xl p-6 border-2 transition-all duration-300 relative ${metrics.optimalMethod === 'Actual Expenses' ? 'border-emerald-500 bg-emerald-50/50 shadow-md scale-100' : 'border-border bg-card scale-95 opacity-80'}`}>
-             {metrics.optimalMethod === 'Actual Expenses' && (
-              <div className="absolute top-0 right-0 bg-emerald-500 text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg uppercase shadow-sm tracking-wider">
-                Recommended
-              </div>
-            )}
-            <h3 className="font-bold text-lg mb-1">Actual Expenses</h3>
-            <p className="text-xs text-muted-foreground mb-6">Form 8829 Based on {metrics.businessUsePct.toFixed(1)}% usage.</p>
-            
-            <div className="space-y-2 mb-6">
-              <div className="flex justify-between items-end">
-                <span className="text-sm font-medium text-muted-foreground">Total Write-Off</span>
-                <span className="text-2xl font-black">{currencySymbol}{Math.round(metrics.actualDeduction).toLocaleString()}</span>
-              </div>
-              <div className="flex justify-between items-end">
-                <span className="text-sm font-medium text-emerald-700/80">Est. Tax Savings</span>
-                <span className="text-lg font-bold text-emerald-700">{currencySymbol}{Math.round(metrics.actualTaxSavings).toLocaleString()}</span>
-              </div>
+          <div className="grid grid-cols-2 gap-4 mb-8">
+            <div className="p-4 rounded-2xl bg-background border border-border/60 relative overflow-hidden">
+              <div className="absolute top-0 right-0 p-3 opacity-10"><DollarSign className="w-12 h-12 text-blue-500"/></div>
+              <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground mb-1 relative z-10">Take-Home Pay</p>
+              <p className="text-2xl font-bold text-blue-600 relative z-10">{formatCurrency(metrics.takeHomePay)}</p>
             </div>
-
-            <ul className="text-xs space-y-2 text-muted-foreground">
-              <li className="flex gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0"/> Higher deduction ceiling</li>
-              {store.homeStatus === 'Homeowner' ? (
-                <li className="flex gap-2"><AlertTriangle className="w-4 h-4 text-primary shrink-0"/> Triggers deprecation recapture on sale</li>
-              ) : (
-                <li className="flex gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0"/> Includes rent payments</li>
-              )}
-              <li className="flex gap-2"><AlertTriangle className="w-4 h-4 text-primary shrink-0"/> Requires keeping all expense receipts</li>
-            </ul>
+            <div className="p-4 rounded-2xl bg-primary border border-primary text-primary-foreground shadow-md relative overflow-hidden">
+              <div className="absolute top-0 right-0 p-3 opacity-20"><CalendarClock className="w-12 h-12"/></div>
+              <p className="text-[10px] font-bold uppercase tracking-wider text-primary-foreground/80 mb-1 relative z-10">Quarterly Payment</p>
+              <p className="text-2xl font-bold relative z-10">{formatCurrency(metrics.quarterlyPayment)}</p>
+            </div>
           </div>
 
+          <div className="bg-muted/20 border border-border/60 rounded-2xl p-6 mb-8">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-4">Tax Breakdown</h4>
+            
+            <div className="space-y-4">
+              <div className="flex justify-between items-center pb-3 border-b border-border/50">
+                <span className="text-sm font-medium text-foreground flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-[#D97706]"></div>
+                  Self-Employment Tax (15.3%)
+                </span>
+                <span className="font-semibold text-foreground">{formatCurrency(metrics.seTax)}</span>
+              </div>
+              <div className="flex justify-between items-center pb-3 border-b border-border/50">
+                <span className="text-sm font-medium text-foreground flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-[#2563EB]"></div>
+                  Est. Federal Income Tax
+                </span>
+                <span className="font-semibold text-foreground">{formatCurrency(metrics.estimatedFederalIncomeTax)}</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-sm font-medium text-foreground flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-[#9333EA]"></div>
+                  Est. State Income Tax
+                </span>
+                <span className="font-semibold text-foreground">{formatCurrency(metrics.estimatedStateIncomeTax)}</span>
+              </div>
+            </div>
+          </div>
+
+          {metrics.netProfit > 0 && (
+            <div className="mb-8 pt-4">
+              <div className="flex justify-between items-center mb-6">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Income Distribution</h4>
+              </div>
+              <div className="h-64 w-full flex items-center justify-center">
+                <ResponsiveContainer width="100%" height="100%">
+                  <RechartsPieChart margin={{ top: 0, right: 0, bottom: 20, left: 0 }}>
+                    <Pie
+                      data={pieData}
+                      cx="50%"
+                      cy="45%"
+                      innerRadius={70}
+                      outerRadius={90}
+                      paddingAngle={2}
+                      dataKey="value"
+                      stroke="none"
+                    >
+                      {pieData.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={entry.color} />
+                      ))}
+                    </Pie>
+                    <Tooltip 
+                      formatter={(value: any) => formatCurrency(value)}
+                      contentStyle={{ borderRadius: '12px', border: '1px solid #E2E8F0', backgroundColor: '#FFFFFF', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                    />
+                    <Legend 
+                      verticalAlign="bottom" 
+                      height={20} 
+                      iconType="circle" 
+                      formatter={(value) => <span className="text-neutral-600 font-medium ml-1">{value}</span>}
+                      wrapperStyle={{ paddingTop: '20px' }}
+                    />
+                  </RechartsPieChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+          )}
+
+          <div className="bg-amber-500/10 border border-amber-500/20 rounded-xl p-4 flex gap-3 text-sm text-amber-700 dark:text-amber-400">
+            <AlertTriangle className="w-5 h-5 shrink-0" />
+            <p>
+              This is an <strong>estimate</strong> designed for 1099 independent contractors and sole proprietors. It uses the 2024 standard deduction and simplified progressive brackets. Always consult a certified CPA before filing your official IRS tax returns or making actual quarterly estimated payments.
+            </p>
+          </div>
         </div>
-
-        {store.homeStatus === 'Homeowner' && metrics.optimalMethod === 'Actual Expenses' && (
-          <div className="bg-primary/5 text-foreground/80 border border-primary/20 rounded-2xl p-6 shadow-sm">
-            <h4 className="font-bold mb-2 flex items-center gap-2"><AlertTriangle className="w-5 h-5"/> Depreciation Warning</h4>
-            <p className="text-sm leading-relaxed">
-              While the Actual Expenses method yields a higher deduction today, it includes <strong>{currencySymbol}{Math.round(metrics.depreciationAmount).toLocaleString()}</strong> in mandatory depreciation. When you eventually sell this home, the IRS will tax this accumulated depreciation as "recapture" at up to 25%. Ensure the current tax savings justify the future tax liability.
-            </p>
-          </div>
-        )}
         
-        {store.homeStatus === 'Homeowner' && metrics.optimalMethod === 'Simplified' && (
-          <div className="bg-primary/5 text-foreground/80 border rounded-xl p-5">
-            <h4 className="font-bold mb-2 flex items-center gap-2 text-foreground/80">Why we recommend Simplified</h4>
-            <p className="text-sm leading-relaxed">
-              Even though Actual Expenses might show a slightly higher write-off, the Simplified method avoids the headache of <strong>depreciation recapture</strong> when you sell your home. For small differences in deductions, the Simplified method is universally safer for homeowners.
-            </p>
-          </div>
-        )}
-
-        {/* Action Buttons */}
-                <CalculatorActions
-              slug="freelance-tax-deductions-calculator"
-              onSave={handleSave}
-              isSaving={isSaving}
-              isPro={isPro}
-              exportData={exportData}
-              exportFilename="TaxDeduction"
-              onRequirePro={() => setShowProModal(true)}
-              shareUrl={shareUrl}
-            />
+        <CalculatorActions
+          slug="self-employment-tax-calculator"
+          onSave={handleSave}
+          isSaving={isSaving}
+          isPro={isPro}
+          exportData={exportData}
+          exportFilename="1099_Tax_Estimate"
+          onRequirePro={() => setShowProModal(true)}
+          shareUrl={shareUrl}
+        />
       </div>
 
       <ProUpgradeModal isOpen={showProModal} onClose={() => setShowProModal(false)} />

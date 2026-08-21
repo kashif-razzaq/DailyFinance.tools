@@ -52,9 +52,7 @@ export async function saveCalculatorAction({
 }) {
   const supabase = await getSupabase()
   
-  // Fast local session decoding (RLS securely enforces validity at the DB level)
-  const { data: { session }, error: authError } = await supabase.auth.getSession()
-  const user = session?.user
+  const { data: { user }, error: authError } = await supabase.auth.getUser()
   if (authError || !user) {
     throw new Error('Unauthorized')
   }
@@ -100,8 +98,7 @@ export async function saveCalculatorAction({
 export async function cloneCalculatorAction(id: string) {
   const supabase = await getSupabase()
   
-  const { data: { session }, error: authError } = await supabase.auth.getSession()
-  const user = session?.user
+  const { data: { user }, error: authError } = await supabase.auth.getUser()
   if (authError || !user) throw new Error('Unauthorized')
 
   // Fetch the original
@@ -141,8 +138,7 @@ export async function cloneCalculatorAction(id: string) {
 export async function getSavedCalculatorsAction() {
   const supabase = await getSupabase()
   
-  const { data: { session }, error: authError } = await supabase.auth.getSession()
-  const user = session?.user
+  const { data: { user }, error: authError } = await supabase.auth.getUser()
   if (authError || !user) {
     throw new Error('Unauthorized')
   }
@@ -163,8 +159,7 @@ export async function getSavedCalculatorsAction() {
 export async function deleteCalculatorAction(id: string) {
   const supabase = await getSupabase()
   
-  const { data: { session } } = await supabase.auth.getSession()
-  const user = session?.user
+  const { data: { user } } = await supabase.auth.getUser()
   if (!user) throw new Error('Unauthorized')
 
   const { error } = await supabase
@@ -198,8 +193,7 @@ export async function getSharedCalculatorAction(id: string) {
   if (error) throw new Error(error.message)
   
   // Ensure we don't accidentally leak private calculators if RLS was misconfigured
-  const { data: { session } } = await supabase.auth.getSession()
-  const user = session?.user
+  const { data: { user } } = await supabase.auth.getUser()
   const isOwner = user?.id === data.user_id
   
   if (!data.is_public && !isOwner) {

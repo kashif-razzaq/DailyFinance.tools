@@ -173,15 +173,15 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="p-6 rounded-xl bg-emerald-50/50 border border-emerald-100 dark:bg-emerald-950/20 dark:border-emerald-900/50">
-            <div className="text-sm font-medium text-emerald-700 dark:text-emerald-400 mb-1 flex items-center">
+          <div className="p-6 rounded-xl bg-blue-50/50 border border-blue-100 dark:bg-blue-950/20 dark:border-blue-900/50">
+            <div className="text-sm font-medium text-blue-700 dark:text-blue-400 mb-1 flex items-center">
               <Banknote className="w-4 h-4 mr-2" />
               Estimated Annual Tax Savings
             </div>
-            <div className="text-4xl font-black text-emerald-900 dark:text-emerald-300 tracking-tight">
+            <div className="text-4xl font-black text-blue-900 dark:text-blue-300 tracking-tight">
               {formatCurrency(results.estimatedTaxSavings)}
             </div>
-            <div className="text-sm text-emerald-700/80 dark:text-emerald-400/80 mt-2">
+            <div className="text-sm text-blue-700/80 dark:text-blue-400/80 mt-2">
               Based on your {taxBracket || 0}% tax bracket
             </div>
           </div>

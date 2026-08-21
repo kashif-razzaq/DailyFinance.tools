@@ -50,7 +50,7 @@ export function AnalyticsCharts({ calculators }: { calculators: SavedCalculator[
                   {/* Sovereign Gold */}
                   <Bar dataKey="total" name="Current Debt" fill="#d97706" radius={[4, 4, 0, 0]} barSize={40} />
                   {/* Mint Green */}
-                  <Bar dataKey="year2" name="Projected (Year 2)" fill="#10b981" radius={[4, 4, 0, 0]} barSize={40} />
+                  <Bar dataKey="year2" name="Projected (Year 2)" fill="#3b82f6" radius={[4, 4, 0, 0]} barSize={40} />
                 </BarChart>
               </ResponsiveContainer>
             ) : (
@@ -74,8 +74,8 @@ export function AnalyticsCharts({ calculators }: { calculators: SavedCalculator[
               <AreaChart data={mockNetWorth} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
                 <defs>
                   <linearGradient id="colorAssets" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#10b981" stopOpacity={0.3}/>
-                    <stop offset="95%" stopColor="#10b981" stopOpacity={0}/>
+                    <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3}/>
+                    <stop offset="95%" stopColor="#3b82f6" stopOpacity={0}/>
                   </linearGradient>
                   <linearGradient id="colorLiabs" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="5%" stopColor="#ef4444" stopOpacity={0.1}/>
@@ -88,7 +88,7 @@ export function AnalyticsCharts({ calculators }: { calculators: SavedCalculator[
                 <Tooltip 
                   contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
                 />
-                <Area type="monotone" dataKey="assets" stroke="#10b981" strokeWidth={3} fillOpacity={1} fill="url(#colorAssets)" />
+                <Area type="monotone" dataKey="assets" stroke="#3b82f6" strokeWidth={3} fillOpacity={1} fill="url(#colorAssets)" />
                 <Area type="monotone" dataKey="liabilities" stroke="#ef4444" strokeWidth={2} strokeDasharray="5 5" fillOpacity={1} fill="url(#colorLiabs)" />
               </AreaChart>
             </ResponsiveContainer>

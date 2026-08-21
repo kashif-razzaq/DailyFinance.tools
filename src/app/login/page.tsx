@@ -27,7 +27,7 @@ export default function LoginPage() {
         {/* Deep Green Base with Sovereign Gold Glows */}
         <div className="absolute inset-0">
           <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-b from-[#d97706]/30 to-transparent rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3"></div>
-          <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gradient-to-t from-emerald-400/10 to-transparent rounded-full blur-[100px] translate-y-1/3 -translate-x-1/4"></div>
+          <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gradient-to-t from-blue-400/10 to-transparent rounded-full blur-[100px] translate-y-1/3 -translate-x-1/4"></div>
         </div>
 
         {/* Abstract Financial Pattern (Grid, Candlesticks & Trendline) */}
@@ -35,7 +35,7 @@ export default function LoginPage() {
           <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="0.5" className="text-emerald-100" />
+                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="0.5" className="text-blue-100" />
               </pattern>
             </defs>
             <rect width="100%" height="100%" fill="url(#grid)" />
@@ -46,20 +46,20 @@ export default function LoginPage() {
             {/* Abstract Candlesticks */}
             <g opacity="0.6">
               {/* Bullish */}
-              <rect x="200" y="680" width="12" height="60" rx="4" fill="#10b981" />
-              <line x1="206" y1="650" x2="206" y2="770" stroke="#10b981" strokeWidth="2" />
+              <rect x="200" y="680" width="12" height="60" rx="4" fill="#3b82f6" />
+              <line x1="206" y1="650" x2="206" y2="770" stroke="#3b82f6" strokeWidth="2" />
 
               {/* Bullish */}
-              <rect x="450" y="580" width="12" height="80" rx="4" fill="#10b981" />
-              <line x1="456" y1="530" x2="456" y2="690" stroke="#10b981" strokeWidth="2" />
+              <rect x="450" y="580" width="12" height="80" rx="4" fill="#3b82f6" />
+              <line x1="456" y1="530" x2="456" y2="690" stroke="#3b82f6" strokeWidth="2" />
 
               {/* Bearish (Orange Accent) */}
               <rect x="750" y="450" width="12" height="50" rx="4" fill="#d97706" />
               <line x1="756" y1="420" x2="756" y2="530" stroke="#d97706" strokeWidth="2" />
 
               {/* Bullish */}
-              <rect x="1100" y="320" width="12" height="90" rx="4" fill="#10b981" />
-              <line x1="1106" y1="280" x2="1106" y2="450" stroke="#10b981" strokeWidth="2" />
+              <rect x="1100" y="320" width="12" height="90" rx="4" fill="#3b82f6" />
+              <line x1="1106" y1="280" x2="1106" y2="450" stroke="#3b82f6" strokeWidth="2" />
             </g>
           </svg>
         </div>

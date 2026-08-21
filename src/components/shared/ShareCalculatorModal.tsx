@@ -20,7 +20,9 @@ export function ShareCalculatorModal({ children, url, slug, isPro = false }: Sha
   const [copiedLink, setCopiedLink] = useState(false)
   const [copiedEmbed, setCopiedEmbed] = useState(false)
 
-  const embedCode = `<script src="https://dailyfinance.tools/embed.js" data-calculator="${slug}" data-theme="light"></script>`
+  // The embed route is /embed/[slug] (single segment) so strip any category prefix
+  const embedSlug = slug.includes('/') ? slug.split('/').pop()! : slug
+  const embedCode = `<script src="https://dailyfinance.tools/embed.js" data-calculator="${embedSlug}" data-theme="light"></script>`
 
   const handleCopyLink = () => {
     navigator.clipboard.writeText(url)
@@ -65,11 +67,11 @@ export function ShareCalculatorModal({ children, url, slug, isPro = false }: Sha
                   <Input 
                     readOnly 
                     value={url} 
-                    className="bg-muted/50 border-emerald-400 focus-visible:ring-emerald-400 pr-10 truncate font-mono text-xs" 
+                    className="bg-muted/50 border-blue-400 focus-visible:ring-blue-400 pr-10 truncate font-mono text-xs" 
                   />
                 </div>
                 <Button onClick={handleCopyLink} variant="secondary" className="px-6 font-semibold bg-muted hover:bg-muted/80">
-                  {copiedLink ? <Check className="h-4 w-4 text-emerald-600" /> : "Copy"}
+                  {copiedLink ? <Check className="h-4 w-4 text-blue-600" /> : "Copy"}
                 </Button>
               </div>
             </div>
@@ -128,7 +130,7 @@ export function ShareCalculatorModal({ children, url, slug, isPro = false }: Sha
               </div>
               <Button onClick={handleCopyEmbed} variant="secondary" className="w-full font-semibold bg-muted hover:bg-muted/80">
                 {copiedEmbed ? (
-                  <span className="flex items-center gap-2 text-emerald-600"><Check className="h-4 w-4" /> Copied!</span>
+                  <span className="flex items-center gap-2 text-blue-600"><Check className="h-4 w-4" /> Copied!</span>
                 ) : "Copy Embed Script"}
               </Button>
               <p className="text-xs text-muted-foreground text-center">

@@ -94,36 +94,60 @@ export function MegaMenu() {
           </div>
 
           {/* Right Content: Spacious Grid */}
-          <div className="flex-1 p-10 bg-background">
-            <div className="mb-8">
-              <h2 className="text-3xl font-semibold tracking-tight text-foreground">{activeCategory.name}</h2>
-              <p className="text-base text-muted-foreground mt-2 max-w-xl leading-relaxed">{activeCategory.description}</p>
+          <div className="flex-1 p-8 md:p-10 bg-background relative overflow-hidden flex flex-col">
+            
+            {/* Ambient Background Gradient based on category color */}
+            <div className={cn("absolute -top-40 -right-40 w-96 h-96 blur-[100px] rounded-full opacity-20 pointer-events-none transition-colors duration-500", activeCategory.colorClass.split(' ')[0])} />
+
+            <div className="mb-8 relative z-10 flex justify-between items-end">
+              <div>
+                <h2 className="text-3xl font-bold tracking-tight text-foreground">{activeCategory.name}</h2>
+                <p className="text-base text-muted-foreground mt-2 max-w-xl leading-relaxed">{activeCategory.description}</p>
+              </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-6">
-              {activeCategory.calculators.map((calc) => {
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-4 relative z-10 flex-1 content-start">
+              {activeCategory.calculators.slice(0, 6).map((calc) => {
                 const CalcIcon = calc.icon
                 return (
                   <Link 
                     key={calc.slug} 
                     href={getToolUrl(calc.slug)}
                     onClick={() => setIsOpen(false)}
-                    className="group flex flex-col gap-2 p-4 rounded-xl hover:bg-muted/30 transition-colors duration-200"
+                    className="group flex flex-col gap-1.5 p-4 rounded-xl border border-transparent hover:border-border/50 hover:bg-muted/20 hover:shadow-sm transition-all duration-200"
                   >
-                    <div className="flex items-center gap-2.5">
-                      <div className="p-1.5 rounded-md bg-muted/50 text-muted-foreground group-hover:text-primary group-hover:bg-primary/5 transition-colors">
+                    <div className="flex items-center gap-3">
+                      <div className={cn(
+                        "p-2 rounded-lg bg-muted/50 text-muted-foreground group-hover:bg-background group-hover:shadow-sm transition-all",
+                        "group-hover:text-primary"
+                      )}>
                         <CalcIcon className="h-4 w-4" />
                       </div>
-                      <h4 className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors leading-tight">
+                      <h4 className="text-sm font-bold text-foreground group-hover:text-primary transition-colors leading-tight">
                         {calc.title}
                       </h4>
                     </div>
-                    <p className="text-sm text-muted-foreground leading-relaxed pl-9 line-clamp-2">
+                    <p className="text-xs text-muted-foreground leading-relaxed pl-11 line-clamp-2">
                       {calc.description}
                     </p>
                   </Link>
                 )
               })}
+            </div>
+
+            {/* View All CTA */}
+            <div className="mt-8 pt-6 border-t border-border/50 flex items-center justify-between relative z-10">
+              <p className="text-sm text-muted-foreground">
+                Showing top 6 of {activeCategory.calculators.length} {activeCategory.name} tools.
+              </p>
+              <Link 
+                href={`/tools#${activeCategory.slug}`}
+                onClick={() => setIsOpen(false)}
+                className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-primary/10 text-primary text-sm font-semibold hover:bg-primary hover:text-primary-foreground transition-all duration-300 group"
+              >
+                Explore All {activeCategory.name} Tools
+                <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
             </div>
           </div>
         </div>
@@ -131,3 +155,4 @@ export function MegaMenu() {
     </div>
   )
 }
+

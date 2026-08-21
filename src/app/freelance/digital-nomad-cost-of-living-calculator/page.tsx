@@ -4,337 +4,228 @@ import { generateCalculatorMetadata } from '@/config/metadata';
 import { ToolLayout, FAQ } from "@/components/layout/ToolLayout"
 import React from "react"
 import Script from "next/script"
-import { Calculator, Globe, Plane, ShieldAlert, TrendingUp, DollarSign, MapPin, Briefcase, FileWarning } from "lucide-react"
+import { Calculator, Map, Building, Home, Target, TrendingUp, CheckCircle, ArrowRightLeft } from "lucide-react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
-  title: "Digital Nomad Cost of Living Calculator",
-  description: "Calculate how much longer your freelance runway will last by relocating to a lower cost of living city. See your exact payback period and new monthly profit.",
-  keywords: ["nomad cost of living calculator", "geo arbitrage calculator", "freelance runway calculator", "digital nomad savings calculator", "cost of living comparison for freelancers", "relocation payback period"],
+  title: "Cost of Living Calculator | Compare Cities & Estimate Expenses",
+  description: "Free cost of living calculator to compare salaries between cities. Estimate your personal living expenses for housing, food, and transportation.",
+  keywords: ["cost of living calculator", "cost of living comparison by city", "living expenses calculator", "cost of living comparisons", "compare city to city cost of living", "salary comparison city to city", "relocation calculator", "compare living cost by city"],
   slug: "freelance/digital-nomad-cost-of-living-calculator",
-  category: "Freelance",
+  category: "Personal Finance",
 });
 
 const faqs: FAQ[] = [
   {
-    question: "What is Geo-Arbitrage?",
-    answer: "Geo-arbitrage is the financial strategy of earning money in a strong, high-value currency (like USD, GBP, or EUR) while living in a location with a significantly lower cost of living (like Southeast Asia or Latin America). It allows freelancers to drastically increase their profit margins without working more hours or raising their rates."
+    question: "How do you calculate cost of living comparison?",
+    answer: "To calculate the salary needed in a new city, multiply your current salary by the ratio of the new location's index to your current location's index. The formula is: Required Salary = Current Salary × (New City Index ÷ Current City Index)."
   },
   {
-    question: "What is a relocation payback period?",
-    answer: "Moving across the world costs money (flights, visas, temporary Airbnbs). The payback period is a financial metric showing exactly how many months it takes for your new, lower living expenses to completely offset the upfront cost of the move."
+    question: "What is a cost of living index?",
+    answer: "A cost of living index is a theoretical price index that measures relative cost of living over time or regions. It is an index that measures differences in the price of goods and services. A baseline city is usually assigned an index of 100. A city with an index of 120 is 20% more expensive than the baseline."
   },
   {
-    question: "How does cost of living affect my freelance runway?",
-    answer: "Your 'runway' is how many months you can survive on your current savings if your income unexpectedly drops to zero. If you move somewhere that is 50% cheaper, you mathematically double your runway, significantly reducing the daily anxiety of freelancing."
+    question: "How do I calculate my personal cost of living?",
+    answer: "To calculate your total personal cost of living, add up your average annual or monthly expenses across core categories: Housing (rent/mortgage), Food, Transportation, Healthcare, Taxes, and Miscellaneous expenses."
   },
   {
-    question: "Do I still have to pay taxes as a digital nomad?",
-    answer: "Yes. Leaving your home country does not automatically sever your tax residency. US citizens, for example, must file US taxes regardless of where they live (though they may qualify for the Foreign Earned Income Exclusion). Always consult an expat tax professional."
+    question: "How much of my income should go to housing?",
+    answer: "Most financial experts recommend the 30% rule: you should spend no more than 30% of your gross monthly income on housing expenses (rent or mortgage, property taxes, and utilities)."
   },
   {
-    question: "What are hidden digital nomad costs?",
-    answer: "Beyond rent and food, nomads must budget for global health insurance, visa run flights, coworking space memberships, foreign transaction fees, and the cost of breaking a lease in their home country."
+    question: "How does relocating affect my salary?",
+    answer: "If you relocate to a city with a higher cost of living index without a proportional salary increase, your standard of living will decrease because your purchasing power is reduced. This is why using a cost of living comparison tool is vital before accepting a job offer in a new city."
   }
 ]
 
-const softwareSchema = {
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "Digital Nomad Cost of Living Calculator",
-  "description": "Calculate how much longer your freelance runway will last by relocating to a lower cost of living city. See your exact payback period and new monthly profit.",
-  "applicationCategory": "BusinessApplication",
-  "operatingSystem": "Any",
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "USD"
-  }
-};
-
-const howToSchema = {
-  "@context": "https://schema.org",
-  "@type": "HowTo",
-  "name": "How to Use the Digital Nomad Cost of Living Calculator",
-  "description": "A step-by-step guide to calculating your freelance runway and relocation payback period.",
-  "step": [
-    {
-      "@type": "HowToStep",
-      "name": "Enter Current Expenses",
-      "text": "Input your current monthly expenses in your current city to establish a baseline for your freelance runway."
-    },
-    {
-      "@type": "HowToStep",
-      "name": "Estimate New Location Expenses",
-      "text": "Provide the estimated monthly living costs for the new city or country you plan to relocate to."
-    },
-    {
-      "@type": "HowToStep",
-      "name": "Input Relocation Costs",
-      "text": "Add the upfront costs of moving, including flights, visa fees, and security deposits."
-    },
-    {
-      "@type": "HowToStep",
-      "name": "Review Payback and Runway",
-      "text": "Check the calculated payback period and see how many months your financial runway has been extended through geo-arbitrage."
+export default function CostOfLivingCalculatorPage() {
+  const schemaSoftware = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Cost of Living Comparison Calculator",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
     }
-  ]
-};
+  };
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": faqs.map(faq => ({
-    "@type": "Question",
-    "name": faq.question,
-    "acceptedAnswer": {
-      "@type": "Answer",
-      "text": faq.answer
-    }
-  }))
-};
+  const schemaHowTo = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Compare Cost of Living Between Cities",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "name": "Enter Current Salary",
+        "text": "Input your current annual salary or income to establish your baseline purchasing power."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Input Cost of Living Indices",
+        "text": "Enter the index of your current city (usually 100) and the index of your destination city."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Calculate Required Salary",
+        "text": "The calculator will instantly output the exact salary you need to maintain your current standard of living."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Estimate Personal Expenses",
+        "text": "Use the personal expense breakdown to map out expected costs for housing, food, and healthcare."
+      }
+    ]
+  };
 
-const webPageSchema = {
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  "name": "Digital Nomad Cost of Living Calculator",
-  "description": "Calculate how much longer your freelance runway will last by relocating to a lower cost of living city. See your exact payback period and new monthly profit.",
-  "url": "https://dailyfinance.tools/freelance/digital-nomad-cost-of-living-calculator"
-};
+  const schemaFAQ = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(faq => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer
+      }
+    }))
+  };
 
-const breadcrumbSchema = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "https://dailyfinance.tools/"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Freelance",
-      "item": "https://dailyfinance.tools/freelance"
-    },
-    {
-      "@type": "ListItem",
-      "position": 3,
-      "name": "Digital Nomad Cost of Living Calculator",
-      "item": "https://dailyfinance.tools/freelance/digital-nomad-cost-of-living-calculator"
-    }
-  ]
-};
-
-export default function NomadCOLPage() {
   return (
     <>
-      <Script
-        id="schema-software"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }}
-      />
-      <Script
-        id="schema-howto"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
-      />
-      <Script
-        id="schema-faq"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
-      <Script
-        id="schema-webpage"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
-      />
-      <Script
-        id="schema-breadcrumb"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
-    <ToolLayout
-      title="Digital Nomad Cost of Living Calculator"
-      description="Calculate how much longer your freelance runway will last by relocating to a lower cost of living city. See your exact payback period and new monthly profit."
-      slug="digital-nomad-cost-of-living-calculator"
-      faqs={faqs}
-      calculator={(isPro) => <CalculatorClient isPro={isPro} />}
-    >
-      {(isPro) => (
-        <>
-          {/* Answer Engine Optimization (AEO) Block */}
-          <section className="bg-white border border-neutral-200 shadow-sm rounded-2xl p-6 md:p-8 mb-12 relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-2 h-full bg-[#064E3B]"></div>
-            <h2 className="text-xl font-bold text-[#1F2937] mb-3 flex items-center gap-2">
-              <Calculator className="h-5 w-5 text-[#D97706]" />
-              Quick Answer: How Geo-Arbitrage Works
+      <Script id="schema-software" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaSoftware) }} />
+      <Script id="schema-howto" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaHowTo) }} />
+      <Script id="schema-faq" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaFAQ) }} />
+      <ToolLayout
+        title="Cost of Living Calculator"
+        description="Compare the cost of living between two cities to calculate the salary you need to maintain your standard of living, and estimate personal living expenses."
+        slug="cost-of-living-calculator"
+        faqs={faqs}
+        calculator={(isPro) => <CalculatorClient isPro={isPro} />}
+      >
+        {(isPro) => (
+          <>
+            {/* Answer Engine Optimization (AEO) Block */}
+            <section className="bg-white border border-neutral-200 shadow-sm rounded-2xl p-6 md:p-8 mb-12 relative overflow-hidden">
+              <div className="absolute top-0 left-0 w-2 h-full bg-[#1E3A5F]"></div>
+              <h2 className="text-xl font-bold text-[#1F2937] mb-3 flex items-center gap-2">
+                <Calculator className="h-5 w-5 text-[#D97706]" />
+                Quick Answer: How to Calculate Cost of Living Differences
+              </h2>
+              <p className="text-neutral-600 leading-relaxed text-lg">
+                To accurately compare the cost of living between two cities, you use a ratio of their Cost of Living Indices. The core location comparison formula is: <strong>Required Salary = Current Salary × (New City Index ÷ Current City Index)</strong>. For example, if you make $85,000 in a city with an index of 100, and you move to a city with an index of 145, you multiply $85,000 by 1.45. You would need a new salary of $123,250 to maintain the exact same standard of living.
+              </p>
+            </section>
+
+            <h2 id="the-relocation-trap" className="text-3xl md:text-4xl font-extrabold tracking-tight mb-8 text-[#1F2937] scroll-mt-24">
+              The Relocation Salary Trap
             </h2>
-            <p className="text-neutral-600 leading-relaxed text-lg">
-              Geo-arbitrage allows remote freelancers to instantly increase their profit margins by keeping their income the same while slashing their expenses. To calculate your savings, subtract your new target monthly expenses from your current monthly expenses. For example, moving from a city that costs $5,000/month to one that costs $2,000/month saves you $3,000 every month ($36,000 a year). If your upfront relocation costs (flights, visa, deposit) are $3,000, your <strong>Payback Period</strong> is exactly 1 month. After that first month, the move becomes entirely pure profit.
+            
+            <p className="text-lg text-neutral-600 mb-8 leading-relaxed font-light">
+              Accepting a job offer in a new city without performing a rigorous cost of living comparison is one of the most common financial mistakes professionals make. 
             </p>
-          </section>
 
-          <h2 id="why-freelancers-use-geo-arbitrage" className="text-3xl md:text-4xl font-extrabold tracking-tight mb-8 text-[#1F2937] scroll-mt-24">
-            The Economics of Geo-Arbitrage
-          </h2>
-          
-          <p className="text-lg text-neutral-600 mb-8 leading-relaxed font-light">
-            Unlike traditional W-2 employees, freelancers are completely decoupled from geography. You do not need to commute to an office, yet millions of freelancers continue to live in high cost-of-living (HCOL) cities like New York, London, Toronto, or San Francisco.
-          </p>
+            <p className="text-lg text-neutral-600 mb-12 leading-relaxed font-light">
+              A company might offer you a $20,000 raise to relocate from Austin, Texas, to San Francisco, California. On paper, it looks like a massive promotion. However, because housing, taxes, and groceries are vastly more expensive in San Francisco, that $20,000 raise actually results in a drastic reduction in your overall purchasing power. You are effectively taking a pay cut to do a harder job.
+            </p>
 
-          <p className="text-lg text-neutral-600 mb-8 leading-relaxed font-light">
-            In these cities, freelancers are forced onto a treadmill. They must charge astronomical rates, work grueling hours, and take on stressful clients <em>just to break even</em> on $4,000/month rent. The financial pressure is immense, and the profit margins are razor-thin.
-          </p>
-          
-          <p className="text-lg text-neutral-600 mb-12 leading-relaxed font-light">
-            <strong>Geo-arbitrage</strong> flips this script entirely. By relocating to a cheaper city (or an entirely different country), you leverage the purchasing power of a strong currency (like the US Dollar) in an economy where the local currency is weaker. You can achieve financial independence years faster, work fewer hours, and experience a dramatically higher quality of life.
-          </p>
-
-          <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-            <div className="bg-[#FAFAFA] p-6 rounded-2xl border border-neutral-100 flex flex-col items-start">
-              <div className="w-10 h-10 bg-white rounded-lg shadow-sm border border-neutral-100 flex items-center justify-center mb-4">
-                <Globe className="h-5 w-5 text-[#D97706]" />
+            <section className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+              <div className="bg-[#FAFAFA] p-6 rounded-2xl border border-neutral-100 flex flex-col items-start">
+                <div className="w-10 h-10 bg-white rounded-lg shadow-sm border border-neutral-100 flex items-center justify-center mb-4">
+                  <ArrowRightLeft className="h-5 w-5 text-blue-600" />
+                </div>
+                <h3 className="font-bold text-[#1F2937] mb-2 text-lg">Purchasing Power</h3>
+                <p className="text-sm text-neutral-500 font-light leading-relaxed">The true measure of wealth is not your gross salary, but what that salary can buy in your specific geographic location.</p>
               </div>
-              <h3 className="font-bold text-[#1F2937] mb-2 text-lg">Geo-Arbitrage</h3>
-              <p className="text-sm text-neutral-500 font-light">Earning a strong currency while spending a weaker currency to maximize savings.</p>
-            </div>
-            <div className="bg-[#FAFAFA] p-6 rounded-2xl border border-neutral-100 flex flex-col items-start">
-              <div className="w-10 h-10 bg-white rounded-lg shadow-sm border border-neutral-100 flex items-center justify-center mb-4">
-                <ShieldAlert className="h-5 w-5 text-[#D97706]" />
+              <div className="bg-[#FAFAFA] p-6 rounded-2xl border border-neutral-100 flex flex-col items-start">
+                <div className="w-10 h-10 bg-white rounded-lg shadow-sm border border-neutral-100 flex items-center justify-center mb-4">
+                  <Home className="h-5 w-5 text-blue-600" />
+                </div>
+                <h3 className="font-bold text-[#1F2937] mb-2 text-lg">The Housing Anchor</h3>
+                <p className="text-sm text-neutral-500 font-light leading-relaxed">Housing is the largest variable in any cost of living comparison. Rent in Manhattan can be 300% higher than in the Midwest.</p>
               </div>
-              <h3 className="font-bold text-[#1F2937] mb-2 text-lg">Financial Runway</h3>
-              <p className="text-sm text-neutral-500 font-light">The number of months you can survive on savings if your income drops to zero.</p>
+            </section>
+
+            <h2 id="calculating-the-difference" className="text-3xl font-extrabold tracking-tight mb-8 text-[#1F2937] scroll-mt-24">
+              Understanding the Formulas
+            </h2>
+
+            <div className="bg-[#1E3A5F] text-white p-8 md:p-12 rounded-3xl shadow-2xl mb-16 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-96 h-96 bg-[#D97706]/20 blur-[100px] rounded-full translate-x-1/2 -translate-y-1/2"></div>
+              
+              <h3 className="text-2xl font-bold mb-8 text-white/90 relative z-10">The Core Cost of Living Equations</h3>
+              
+              <ul className="space-y-8 relative z-10 text-white/90 font-light">
+                <li className="flex items-start gap-4">
+                  <div className="bg-black/20 p-6 rounded-xl border border-white/10 w-full">
+                    <strong className="block text-xl mb-2 text-[#D97706]">1. The City-to-City Comparison</strong>
+                    <p className="mb-2">To find the exact salary required to maintain your lifestyle when relocating.</p>
+                    <code className="bg-black/30 px-3 py-1 rounded text-sm block">Required Salary = Current Salary × (New City Index ÷ Current City Index)</code>
+                  </div>
+                </li>
+                <li className="flex items-start gap-4">
+                  <div className="bg-black/20 p-6 rounded-xl border border-white/10 w-full">
+                    <strong className="block text-xl mb-2 text-[#D97706]">2. The Personal Expense Budget</strong>
+                    <p className="mb-2">To estimate your baseline survival number (your minimum living expenses).</p>
+                    <code className="bg-black/30 px-3 py-1 rounded text-sm block">Total Cost = Housing + Food + Transportation + Healthcare + Taxes + Misc</code>
+                  </div>
+                </li>
+              </ul>
             </div>
-            <div className="bg-[#FAFAFA] p-6 rounded-2xl border border-neutral-100 flex flex-col items-start">
-              <div className="w-10 h-10 bg-white rounded-lg shadow-sm border border-neutral-100 flex items-center justify-center mb-4">
-                <Plane className="h-5 w-5 text-[#D97706]" />
-              </div>
-              <h3 className="font-bold text-[#1F2937] mb-2 text-lg">Payback Period</h3>
-              <p className="text-sm text-neutral-500 font-light">How long it takes for your new, lower expenses to "pay off" the cost of moving.</p>
+
+            <div className="bg-[#FAFAFA] border-l-4 border-[#1E3A5F] p-6 mb-16 rounded-r-xl">
+              <h3 className="text-[#1F2937] font-bold text-xl mb-2">How Cost of Living Indices Work</h3>
+              <p className="text-lg text-neutral-600 font-light m-0 leading-relaxed">
+                Economists use a "weighted aggregate index" to measure inflation and location costs. They fill a theoretical basket with goods (rent, gas, milk) and weight them based on average consumption (e.g., housing is weighted heavily, milk is weighted lightly). A baseline city is assigned an index of 100. If New York City has an index of 180, it is 80% more expensive than the baseline.
+              </p>
             </div>
-          </section>
 
-          <h2 id="the-runway-extension" className="text-3xl font-extrabold tracking-tight mb-8 text-[#1F2937] scroll-mt-24">
-            The Magic of "Runway Extension"
-          </h2>
+            <h2 id="using-the-calculator" className="text-3xl font-extrabold tracking-tight mb-8 text-[#1F2937] scroll-mt-24">
+              How to Use Our Comparison Tool
+            </h2>
 
-          <p className="text-lg text-neutral-600 mb-8 leading-relaxed font-light">
-            Freelancing is inherently volatile. Clients fire you, projects get delayed, and invoices go unpaid. The metric that dictates your stress levels is your <strong>Financial Runway</strong>.
-          </p>
-
-          <p className="text-lg text-neutral-600 mb-8 leading-relaxed font-light">
-            If you have $20,000 in your bank account, how long will that money last? That depends entirely on where you choose to sleep at night.
-          </p>
-
-          <div className="bg-[#064E3B] text-white p-8 md:p-12 rounded-3xl shadow-2xl mb-16 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-96 h-96 bg-[#D97706]/20 blur-[100px] rounded-full translate-x-1/2 -translate-y-1/2"></div>
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/5 blur-[60px] rounded-full -translate-x-1/3 translate-y-1/3"></div>
-            
-            <h3 className="text-2xl font-bold mb-8 text-white/90 relative z-10 flex items-center gap-3">
-              <TrendingUp className="h-8 w-8 text-[#D97706]" />
-              Runway Mathematics
-            </h3>
-            
-            <ul className="space-y-8 relative z-10 text-white/90 font-light">
-              <li className="flex items-start gap-4">
-                <div className="bg-black/20 p-6 rounded-xl border border-white/10 w-full">
-                  <strong className="block text-xl mb-2 text-[#D97706]">Scenario A: Remaining in a HCOL City</strong>
-                  <p className="mb-4">You live in San Francisco. Your rent, health insurance, and food cost $5,000/month. You have $20,000 in savings.</p>
-                  <code className="bg-black/30 px-3 py-1 rounded text-sm block mb-2">$20,000 ÷ $5,000/mo = 4-Month Runway</code>
-                  <p className="text-sm text-white/60">Result: Extreme stress. If you lose a major client, you are immediately at risk of eviction.</p>
+            <ul className="space-y-6 mb-12">
+              <li className="flex items-start gap-4 p-6 bg-white border border-neutral-200 shadow-sm rounded-2xl">
+                <Target className="h-8 w-8 text-[#1E3A5F] shrink-0 mt-1" />
+                <div>
+                  <strong className="text-[#1F2937] block text-xl mb-2">Step 1: Set Your Baseline</strong>
+                  <span className="text-neutral-600 font-light leading-relaxed">Enter your current annual salary and assume your current city's index is 100 (the baseline).</span>
                 </div>
               </li>
-              <li className="flex items-start gap-4">
-                <div className="bg-black/20 p-6 rounded-xl border border-white/10 w-full">
-                  <strong className="block text-xl mb-2 text-[#D97706]">Scenario B: Relocating to a LCOL Hub</strong>
-                  <p className="mb-4">You move to Chiang Mai, Thailand, or Medellin, Colombia. Your total expenses drop to $2,000/month. (Assuming a $2,000 upfront moving cost).</p>
-                  <code className="bg-black/30 px-3 py-1 rounded text-sm block mb-2">$18,000 ÷ $2,000/mo = 9-Month Runway</code>
-                  <p className="text-sm text-white/60">Result: Complete peace of mind. You instantly bought yourself 5 extra months of survival without working a single extra hour.</p>
+              <li className="flex items-start gap-4 p-6 bg-white border border-neutral-200 shadow-sm rounded-2xl">
+                <Map className="h-8 w-8 text-blue-600 shrink-0 mt-1" />
+                <div>
+                  <strong className="text-[#1F2937] block text-xl mb-2">Step 2: Enter the Target Index</strong>
+                  <span className="text-neutral-600 font-light leading-relaxed">Look up the cost of living index for your destination city (sites like Numbeo or NerdWallet provide these). Enter it into the New City Index field. The tool will instantly calculate the precise salary you need to negotiate for.</span>
+                </div>
+              </li>
+              <li className="flex items-start gap-4 p-6 bg-white border border-neutral-200 shadow-sm rounded-2xl">
+                <Calculator className="h-8 w-8 text-[#D97706] shrink-0 mt-1" />
+                <div>
+                  <strong className="text-[#1F2937] block text-xl mb-2">Step 3: Estimate Personal Expenses</strong>
+                  <span className="text-neutral-600 font-light leading-relaxed">Use the secondary panel to manually input estimates for your rent, groceries, and transit in the new city. The interactive chart will help you visualize where your money will go.</span>
                 </div>
               </li>
             </ul>
-          </div>
 
-          <div className="bg-[#FAFAFA] border-l-4 border-[#D97706] p-6 mb-16 rounded-r-xl">
-            <h3 className="text-[#1F2937] font-bold text-xl mb-2">The Power to Say "No"</h3>
-            <p className="text-lg text-neutral-600 font-light m-0 leading-relaxed">
-              When your runway is short, you are forced to take on abusive clients and low-paying projects just to survive. When your runway is 9 to 12 months long, you gain the ultimate freelance superpower: the ability to say "No." Geo-arbitrage allows you to build that runway in a fraction of the time.
+            {/* AdSense Placeholder - Sole Ad Unit */}
+            {!isPro && (
+              <aside className="my-16 w-full max-w-3xl mx-auto h-[250px] bg-neutral-50 border border-dashed border-neutral-200 rounded-2xl flex flex-col items-center justify-center text-center">
+                <span className="text-[10px] uppercase font-bold text-neutral-400 tracking-[0.2em] mb-2">Advertisement</span>
+                <span className="text-sm font-medium text-neutral-400">In-Article AdSense Banner</span>
+              </aside>
+            )}
+            
+            <h2 id="final-thoughts" className="text-3xl font-extrabold tracking-tight mb-8 text-[#1F2937] scroll-mt-24">
+              Negotiate With Data
+            </h2>
+            <p className="text-lg text-neutral-600 mb-8 leading-relaxed font-light">
+              Never accept a relocation offer or a remote job pay-cut without backing up your counter-offer with data. Use the living expenses calculator above to prove exactly why you require a specific salary to maintain your lifestyle in a higher-tier city.
             </p>
-          </div>
-
-          <h2 id="relocation-costs" className="text-3xl font-extrabold tracking-tight mb-8 text-[#1F2937] scroll-mt-24">
-            The True Cost of Relocation (The Payback Period)
-          </h2>
-          <p className="text-lg text-neutral-600 mb-8 leading-relaxed font-light">
-            Moving to a new country is not free. You cannot simply look at the $500/month rent in Vietnam and assume you are saving money on day one. You must calculate the upfront capitalization required to execute the move, and then determine your <strong>Payback Period</strong>.
-          </p>
-
-          <ul className="space-y-6 mb-12">
-            <li className="flex items-start gap-4 p-6 bg-white border border-neutral-200 shadow-sm rounded-2xl">
-              <MapPin className="h-8 w-8 text-[#D97706] shrink-0 mt-1" />
-              <div>
-                <strong className="text-[#1F2937] block text-xl mb-2">Hidden Upfront Costs</strong>
-                <span className="text-neutral-600 font-light leading-relaxed">Moving requires flights ($500-$1,500), visa application fees, breaking your current lease, and putting down 1-3 months of rent as a security deposit in your new location. You might easily need $3,000 to $5,000 in cash just to execute the move.</span>
-              </div>
-            </li>
-            <li className="flex items-start gap-4 p-6 bg-white border border-neutral-200 shadow-sm rounded-2xl">
-              <DollarSign className="h-8 w-8 text-[#064E3B] shrink-0 mt-1" />
-              <div>
-                <strong className="text-[#1F2937] block text-xl mb-2">Calculating the Payback Period</strong>
-                <span className="text-neutral-600 font-light leading-relaxed">If it costs you $4,000 to move, but your new monthly expenses are $2,000 cheaper than your old city, your payback period is exactly 2 months ($4,000 ÷ $2,000). For the first two months, you are merely breaking even on the move. By month 3, you are generating pure, accelerated profit.</span>
-              </div>
-            </li>
-          </ul>
-
-          {/* AdSense Placeholder - Sole Ad Unit */}
-          {!isPro && (
-            <aside className="my-16 w-full max-w-3xl mx-auto h-[250px] bg-neutral-50 border border-dashed border-neutral-200 rounded-2xl flex flex-col items-center justify-center text-center">
-              <span className="text-[10px] uppercase font-bold text-neutral-400 tracking-[0.2em] mb-2">Advertisement</span>
-              <span className="text-sm font-medium text-neutral-400">In-Article AdSense Banner</span>
-            </aside>
-          )}
-
-          <h2 id="the-tax-trap" className="text-3xl font-extrabold tracking-tight mb-8 text-[#1F2937] scroll-mt-24">
-            The Digital Nomad Tax Trap
-          </h2>
-          <p className="text-lg text-neutral-600 mb-10 leading-relaxed font-light">
-            The biggest mistake new digital nomads make is assuming that leaving their home country means they no longer have to pay taxes. This is incredibly dangerous and can result in devastating IRS penalties.
-          </p>
-
-          <div className="overflow-x-auto my-12 bg-white border border-neutral-200 rounded-2xl shadow-sm p-8">
-            <ul className="space-y-4 text-neutral-600 font-light text-lg">
-              <li className="flex items-center gap-3 border-b border-neutral-100 pb-4">
-                <FileWarning className="text-[#064E3B] w-5 h-5 shrink-0" />
-                <span><strong>Tax Residency:</strong> Most countries consider you a tax resident if you stay longer than 183 days. You could accidentally owe taxes to your host country.</span>
-              </li>
-              <li className="flex items-center gap-3 border-b border-neutral-100 pb-4">
-                <FileWarning className="text-[#064E3B] w-5 h-5 shrink-0" />
-                <span><strong>US Citizens:</strong> The US taxes based on citizenship, not geography. You must file a US tax return every year, no matter where you live on Earth.</span>
-              </li>
-              <li className="flex items-center gap-3 border-b border-neutral-100 pb-4">
-                <FileWarning className="text-[#064E3B] w-5 h-5 shrink-0" />
-                <span><strong>FEIE (Foreign Earned Income Exclusion):</strong> US citizens can exclude over $120k of income from federal taxes if they meet the strict Physical Presence Test (outside the US for 330 days).</span>
-              </li>
-              <li className="flex items-center gap-3 pb-2">
-                <FileWarning className="text-[#064E3B] w-5 h-5 shrink-0" />
-                <span><strong>Double Taxation:</strong> Without proper planning, you could owe taxes to both your home country AND your host country. Always consult an expat CPA.</span>
-              </li>
-            </ul>
-          </div>
-          
-          <h2 id="final-thoughts" className="text-3xl font-extrabold tracking-tight mb-8 text-[#1F2937] scroll-mt-24">
-            Is the Move Worth It?
-          </h2>
-          <p className="text-lg text-neutral-600 mb-8 leading-relaxed font-light">
-            Geo-arbitrage is a powerful financial lever, but it is not a vacation. You are building a business, just in a different timezone. 
-          </p>
-          <p className="text-lg text-neutral-600 mb-8 leading-relaxed font-light">
-            Use the calculator above to run the math on your specific scenario. Enter your current expenses, estimate your new expenses using data from sites like NomadList or Numbeo, and include a realistic relocation budget. If the payback period is less than 6 months, and the move doubles your runway, geo-arbitrage might be the smartest business decision you ever make.
-          </p>
-        </>
-      )}
-    </ToolLayout>
+          </>
+        )}
+      </ToolLayout>
     </>
   )
 }
