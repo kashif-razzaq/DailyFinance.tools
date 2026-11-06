@@ -2,6 +2,8 @@ import type { MetadataRoute } from 'next';
 import { navigationCategories, getToolUrl } from '@/config/navigation'
 import { US_STATES } from '@/data/locations/us-states'
 import { US_CITIES } from '@/data/locations/us-cities';
+import { GUIDES } from '@/data/guides';
+import { HUBS } from '@/data/hubs';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://dailyfinance.tools';
@@ -89,5 +91,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }))
   );
 
-  return [...staticPages, ...hubPages, ...calculatorPages];
+  const planHubPages: MetadataRoute.Sitemap = HUBS.map((h) => ({
+    url: `${baseUrl}/hubs/${h.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly' as const,
+    priority: 0.85,
+  }));
+
+  const guidePages: MetadataRoute.Sitemap = [
+    { url: `${baseUrl}/guides`, lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 0.85 },
+    { url: `${baseUrl}/guides/states`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.8 },
+    ...GUIDES.map((g) => ({ url: `${baseUrl}/guides/${g.slug}`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.75 })),
+    ...US_STATES.map((s) => ({ url: `${baseUrl}/guides/states/${s.slug}`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.7 })),
+    ...US_CITIES.map((c) => ({ url: `${baseUrl}/guides/states/${c.stateSlug}/${c.slug}`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.65 })),
+  ];
+
+  return [...staticPages, ...hubPages, ...calculatorPages, ...locationPages, ...planHubPages, ...guidePages];
 }
