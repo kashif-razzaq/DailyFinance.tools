@@ -19,6 +19,8 @@ import {
   TrendingUp
 } from 'lucide-react'
 import { navigationCategories, CalculatorItem, getToolUrl } from '@/config/navigation'
+import { HUBS } from '@/data/hubs'
+import { GUIDES } from '@/data/guides'
 
 // Helper to shuffle an array
 function shuffleArray<T>(array: T[]): T[] {
@@ -353,6 +355,54 @@ export default function HomePage() {
         </div>
       </section>
     
+
+      {/* ═══════════════════════════════════════════════
+          SECTION 4 — THE SIX HUBS (Top 100 structure)
+      ═══════════════════════════════════════════════ */}
+      <section className="py-24 bg-white relative z-10">
+        <div className="container mx-auto px-4 md:px-8">
+          <div className="max-w-2xl mb-12">
+            <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-[#1F2937] mb-4">Six hubs, every money decision</h2>
+            <p className="text-neutral-500 leading-relaxed font-light">The full Top 100, organised by the decision you are making — with guidance on which calculator answers which question, and the mistakes that distort the answer.</p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {HUBS.map((h) => (
+              <Link key={h.slug} href={`/hubs/${h.slug}`} className="group border border-neutral-100 rounded-2xl p-6 md:p-7 bg-white hover:border-[#064E3B]/40 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.06)] transition-all">
+                <h3 className="text-lg font-bold text-[#1F2937] group-hover:text-[#064E3B] transition-colors mb-2">{h.title}</h3>
+                <p className="text-sm text-neutral-500 leading-relaxed font-light mb-4">{h.description}</p>
+                <span className="inline-flex items-center font-bold text-sm text-[#1F2937] group-hover:text-[#064E3B] transition-colors">Explore the hub <ArrowRight className="w-4 h-4 ml-1.5" /></span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════
+          SECTION 5 — GUIDES
+      ═══════════════════════════════════════════════ */}
+      <section className="py-24 bg-[#FAFAFA] relative z-10">
+        <div className="container mx-auto px-4 md:px-8">
+          <div className="flex flex-wrap items-end justify-between gap-6 mb-12">
+            <div className="max-w-2xl">
+              <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-[#1F2937] mb-4">Guides with the numbers left in</h2>
+              <p className="text-neutral-500 leading-relaxed font-light">Plain-language explanations of how the money maths works — plus a tax guide for every state and the 30 largest cities.</p>
+            </div>
+            <div className="flex gap-3">
+              <Link href="/guides" className="inline-flex items-center gap-2 bg-[#064E3B] text-white text-sm font-semibold px-5 py-3 rounded-full hover:bg-[#053f30] transition-colors">All guides <ArrowRight className="w-4 h-4" /></Link>
+              <Link href="/guides/states" className="inline-flex items-center gap-2 border border-neutral-200 bg-white text-sm font-semibold px-5 py-3 rounded-full hover:border-[#064E3B] hover:text-[#064E3B] transition-colors">State guides</Link>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {GUIDES.slice(0, 8).map((g) => (
+              <Link key={g.slug} href={`/guides/${g.slug}`} className="group border border-neutral-100 rounded-2xl p-6 bg-white hover:border-[#064E3B]/40 hover:shadow-md transition-all">
+                <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-[#064E3B] mb-2">{g.hub}</p>
+                <h3 className="font-bold text-[#1F2937] group-hover:text-[#064E3B] transition-colors leading-snug mb-2">{g.title}</h3>
+                <p className="text-sm text-neutral-500 leading-relaxed font-light line-clamp-3">{g.description}</p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
 
     </div>
   )
