@@ -43,12 +43,18 @@ export default function HomePage() {
   const allTools = useMemo(() => navigationCategories.flatMap((cat) => cat.calculators), [])
 
   useEffect(() => {
-    // 2. Shuffle and pick exactly 8 for grid, 3 for popular pills
-    const shuffled = shuffleArray(allTools)
-    setRandomTools(shuffled.slice(0, 8))
-    setPopularTools(shuffled.slice(8, 11))
+    // Deterministic selection (SEO: the homepage must render the same internal
+    // links on every load — random shuffling dilutes link equity and confuses crawlers).
+    // Popular = curated high-demand tools; grid = first tool from rotating categories.
+    const popularSlugs = ["freelance-hourly-rate-calculator", "mortgage-amortization-calculator", "compound-interest-scaler-calculator"]
+    const popular = popularSlugs
+      .map((s) => allTools.find((t) => t.slug === s))
+      .filter(Boolean) as CalculatorItem[]
+    setPopularTools(popular)
+    setRandomTools(allTools.slice(0, 8))
     setIsMounted(true)
-  }, [allTools])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   // 3. Derived search results (max 5)
   const searchResults = useMemo(() => {

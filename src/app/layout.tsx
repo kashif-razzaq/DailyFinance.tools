@@ -5,6 +5,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ConditionalLayout } from "@/components/layout/ConditionalLayout";
 import { FloatingConsultationBubble } from "@/components/shared/FloatingConsultationBubble";
+import { AdSenseScript } from "@/components/shared/AdSenseScript";
 import "./globals.css";
 
 const sans = Figtree({ subsets: ["latin"], variable: "--font-sans" });
@@ -105,6 +106,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${sans.variable} ${mono.variable} font-sans antialiased bg-background text-foreground min-h-screen flex flex-col`}>
+        <AdSenseScript />
         <Script
           id="schema-organization"
           type="application/ld+json"
