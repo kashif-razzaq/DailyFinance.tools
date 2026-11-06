@@ -95,7 +95,7 @@ export function Footer() {
           {navigationCategories.map((category) => (
             <div key={category.slug} className="flex flex-col gap-4">
               <Link 
-                href={`/tools/${category.seoSlug}`}
+                href={`/${category.slug}`}
                 className="font-semibold text-sm text-foreground hover:text-primary transition-colors flex items-center gap-2"
               >
                 {category.name} Tools
@@ -121,12 +121,24 @@ export function Footer() {
           <div className="flex items-center gap-2 text-xs text-muted-foreground">
             <span>&copy; {currentYear} DailyFinance.</span>
             <span className="hidden sm:inline">&bull;</span>
-            <span>    <Link href="/privacy" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
+            <span>    <Link href="/about" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
               Design & Developed by <span className="font-semibold text-foreground">wpkashif</span>
             </Link></span>
           </div>
-          
-          <div className="flex items-center gap-6">
+
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+            <Link href="/about" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
+              About
+            </Link>
+            <Link href="/contact" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
+              Contact
+            </Link>
+            <Link href="/methodology" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
+              Methodology
+            </Link>
+            <Link href="/locations" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
+              Calculators by State
+            </Link>
             <Link href="/privacy" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
               Privacy Policy
             </Link>
@@ -135,6 +147,9 @@ export function Footer() {
             </Link>
             <Link href="/cookies" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
               Cookie Policy
+            </Link>
+            <Link href="/disclaimer" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
+              Disclaimer
             </Link>
           </div>
         </div>

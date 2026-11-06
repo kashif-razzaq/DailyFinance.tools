@@ -1,188 +1,97 @@
-import React from 'react'
-import type { Metadata } from 'next'
-import Link from 'next/link'
-import { navigationCategories, getToolUrl } from '@/config/navigation'
-import { ArrowRight, Calculator, TrendingUp, PieChart } from 'lucide-react'
+import type { Metadata } from "next"
+import Link from "next/link"
+import Script from "next/script"
+import { TOOL_REGISTRY, EXTRA_LIVE_TOOLS, REGISTRY_HUBS, LIVE_TOOLS, PLANNED_TOOLS } from "@/config/tool-registry"
+import { ArrowRight, CheckCircle2, Hammer } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: 'The 57+ Free Financial Calculators and Tools',
-  description: 'Optimize your taxes, investments, and cash flow with our comprehensive suite of free, professional-grade financial calculators.',
-  openGraph: {
-    title: 'Professional Financial Calculators',
-    description: 'A complete suite of advanced financial tools to optimize your business and personal finances.',
-    url: 'https://dailyfinance.tools/tools',
-    siteName: 'DailyFinance Tools',
-    type: 'website',
-  }
+  title: "All 100 Free Financial Calculators — The Complete Directory | DailyFinance",
+  description: "The complete DailyFinance directory: the researched Top 100 financial calculators across personal finance, mortgages, loans, tax, retirement, freelance, creator and e-commerce — see what's live and what's in production.",
+  alternates: { canonical: "https://dailyfinance.tools/tools" },
+  keywords: ["financial calculators", "all calculators", "free finance tools", "calculator directory"],
 }
 
 export default function ToolsDirectoryPage() {
-  // Generate ItemList JSON-LD Schema
-  const allCalculators = navigationCategories.flatMap(c => c.calculators)
-  
-  const jsonLd = {
+  const itemList = {
     "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    "name": "Professional Financial Calculators Hub",
-    "description": "Optimize your taxes, investments, and cash flow with our comprehensive suite of free financial calculators.",
-    "url": "https://dailyfinance.tools/tools",
-    "mainEntity": {
-      "@type": "ItemList",
-      "itemListElement": allCalculators.map((calc, index) => ({
-        "@type": "ListItem",
-        "position": index + 1,
-        "item": {
-          "@type": "WebApplication",
-          "name": calc.title,
-          "description": calc.description,
-          "url": `https://dailyfinance.tools${getToolUrl(calc.slug)}`,
-          "applicationCategory": "BusinessApplication"
-        }
-      }))
-    }
+    "@type": "ItemList",
+    name: "DailyFinance Top 100 Financial Calculators",
+    numberOfItems: LIVE_TOOLS.length + EXTRA_LIVE_TOOLS.length,
+    itemListElement: [...LIVE_TOOLS, ...EXTRA_LIVE_TOOLS].map((t, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: t.name,
+      url: `https://dailyfinance.tools${t.url}`,
+    })),
   }
 
   return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      
-      <div className="min-h-screen bg-background pb-20">
-        {/* Hero Section */}
-        <section className="relative pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden border-b border-border/40">
-          <div className="container mx-auto px-4 md:px-8 relative z-10">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              
-              {/* Left Column: Text */}
-              <div className="text-left">
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-foreground mb-6 max-w-2xl leading-tight">
-                  Professional financial tools for <span className="text-primary font-bold">everyone.</span>
-                </h1>
-                <p className="text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed">
-                  Stop guessing your taxes, margins, and financial runway. Use our free suite of advanced calculators to make data-driven decisions for your future.
-                </p>
+    <main className="w-full bg-background min-h-screen">
+      <Script id="schema-tools-directory" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemList) }} />
+      <div className="container mx-auto px-4 md:px-8 py-14">
+        <nav className="flex items-center gap-2 text-xs font-semibold text-muted-foreground mb-6 uppercase tracking-wider">
+          <Link href="/" className="hover:text-foreground">Home</Link><span className="text-border">/</span><span className="text-foreground">All Tools</span>
+        </nav>
+        <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4">The Top 100 Financial Calculators</h1>
+        <p className="text-lg text-muted-foreground max-w-3xl leading-relaxed mb-6">
+          This is the complete, researched DailyFinance roadmap — the 100 highest-value financial calculators, selected from keyword demand data and organised into six hubs. Every tool is free. Tools marked <strong className="text-foreground">Live</strong> are ready to use; tools marked <strong className="text-foreground">In Production</strong> are researched, keyword-mapped and being built to the same standard — listed for transparency, and never linked until the real page exists.
+        </p>
+        <div className="flex flex-wrap gap-3 mb-14">
+          <span className="inline-flex items-center gap-2 bg-primary/5 border border-primary/20 rounded-full px-4 py-2 text-sm font-semibold"><CheckCircle2 className="h-4 w-4 text-primary" /> {LIVE_TOOLS.length} of the Top 100 live</span>
+          <span className="inline-flex items-center gap-2 bg-card border rounded-full px-4 py-2 text-sm font-semibold"><Hammer className="h-4 w-4 text-primary" /> {PLANNED_TOOLS.length} in production</span>
+          <span className="inline-flex items-center gap-2 bg-card border rounded-full px-4 py-2 text-sm font-semibold">+ {EXTRA_LIVE_TOOLS.length} extra live tools</span>
+          <Link href="/locations" className="inline-flex items-center gap-2 bg-card border rounded-full px-4 py-2 text-sm font-semibold hover:border-primary/40 transition-colors">State &amp; city tax guides <ArrowRight className="h-4 w-4 text-primary" /></Link>
+        </div>
+
+        {REGISTRY_HUBS.map((hub) => {
+          const tools = TOOL_REGISTRY.filter((t) => t.hub === hub)
+          const extras = EXTRA_LIVE_TOOLS.filter((t) => t.hub === hub)
+          if (tools.length === 0 && extras.length === 0) return null
+          return (
+            <section key={hub} className="mb-14">
+              <h2 className="text-2xl font-bold tracking-tight mb-1.5">{hub}</h2>
+              <p className="text-sm text-muted-foreground mb-5">{tools.filter((t) => t.status === "live").length + extras.length} live · {tools.filter((t) => t.status === "planned").length} in production</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                {tools.map((t) =>
+                  t.status === "live" ? (
+                    <Link key={t.rank} href={t.url} className="group bg-card border rounded-2xl p-5 hover:border-primary/40 transition-colors">
+                      <span className="flex items-center justify-between gap-2">
+                        <span className="font-bold group-hover:text-primary transition-colors leading-snug">{t.name}</span>
+                        <span className="shrink-0 text-[10px] font-bold uppercase tracking-wider text-primary bg-primary/10 rounded-full px-2 py-0.5">Live</span>
+                      </span>
+                      <span className="block text-xs text-muted-foreground mt-2">Targets “{t.keyword}” · {t.tier}</span>
+                    </Link>
+                  ) : (
+                    <div key={t.rank} className="bg-muted/20 border border-dashed rounded-2xl p-5" aria-label={`${t.name} — in production`}>
+                      <span className="flex items-center justify-between gap-2">
+                        <span className="font-semibold text-muted-foreground leading-snug">{t.name}</span>
+                        <span className="shrink-0 text-[10px] font-bold uppercase tracking-wider text-muted-foreground bg-muted rounded-full px-2 py-0.5">In Production</span>
+                      </span>
+                      <span className="block text-xs text-muted-foreground mt-2">Targets “{t.keyword}” · est. {t.volume}/mo · {t.tier}</span>
+                    </div>
+                  )
+                )}
+                {extras.map((t) => (
+                  <Link key={t.url} href={t.url} className="group bg-card border rounded-2xl p-5 hover:border-primary/40 transition-colors">
+                    <span className="flex items-center justify-between gap-2">
+                      <span className="font-bold group-hover:text-primary transition-colors leading-snug">{t.name}</span>
+                      <span className="shrink-0 text-[10px] font-bold uppercase tracking-wider text-primary bg-primary/10 rounded-full px-2 py-0.5">Live</span>
+                    </span>
+                    <span className="block text-xs text-muted-foreground mt-2">Bonus tool — live now</span>
+                  </Link>
+                ))}
               </div>
+            </section>
+          )
+        })}
 
-              {/* Right Column: Abstract Floating UI Illustration */}
-              <div className="hidden lg:block relative w-full h-[350px] z-0 perspective-1000">
-                {/* Background Grid Accent */}
-                <svg className="absolute -right-10 -top-10 w-[120%] h-[120%] opacity-[0.03] dark:opacity-[0.05] -z-10" xmlns="http://www.w3.org/2000/svg">
-                  <defs>
-                    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
-                      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="currentColor" strokeWidth="1"/>
-                    </pattern>
-                  </defs>
-                  <rect width="100%" height="100%" fill="url(#grid)" />
-                </svg>
-
-                {/* Main Dashboard Card */}
-                <div className="absolute right-4 top-4 w-[380px] shadow-2xl rounded-2xl bg-card border border-border/60 p-6 transform rotate-2 hover:rotate-0 transition-transform duration-700">
-                  <div className="flex items-center justify-between mb-6 pb-4 border-b border-border/40">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                        <TrendingUp className="w-5 h-5 text-primary" />
-                      </div>
-                      <div>
-                        <div className="h-3 w-24 bg-foreground/80 rounded-full mb-2"></div>
-                        <div className="h-2 w-16 bg-muted-foreground/50 rounded-full"></div>
-                      </div>
-                    </div>
-                    <div className="h-6 w-16 bg-accent/10 text-accent text-[9px] font-bold flex items-center justify-center rounded-full">+24.5%</div>
-                  </div>
-                  
-                  <div className="space-y-4">
-                    <div className="flex justify-between items-end gap-2 pt-2 h-24">
-                      {[40, 70, 45, 90, 65, 80, 55].map((h, i) => (
-                        <div key={i} className="w-full bg-primary/10 rounded-t-sm relative group">
-                          <div className="absolute bottom-0 w-full bg-primary rounded-t-sm transition-all duration-1000" style={{ height: `${h}%` }}></div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Secondary Floating Element (Overlapping) */}
-                <div className="absolute -bottom-4 -left-4 w-56 shadow-xl rounded-xl bg-card border border-border/60 p-5 transform -rotate-3 hover:-rotate-1 transition-transform duration-700 z-10">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center">
-                      <PieChart className="w-4 h-4 text-accent" />
-                    </div>
-                    <div className="h-2.5 w-20 bg-foreground/70 rounded-full"></div>
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-full border-4 border-accent/20 border-t-accent border-r-accent"></div>
-                    <div className="space-y-2 flex-1">
-                      <div className="h-2 w-full bg-muted rounded-full"></div>
-                      <div className="h-2 w-2/3 bg-muted rounded-full"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Directory Sections */}
-        <section className="container mx-auto px-4 md:px-8 py-16 space-y-24">
-          {navigationCategories.map((category) => {
-            const CategoryIcon = category.icon
-            
-            return (
-              <div key={category.slug} className="scroll-mt-24" id={category.slug}>
-                {/* Category Header */}
-                <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 pb-4 border-b border-border/60">
-                  <div>
-                    <div className="flex items-center gap-3 mb-2">
-                      <div className={`p-2 rounded-xl ${category.colorClass}`}>
-                        <CategoryIcon className="w-5 h-5" />
-                      </div>
-                      <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">
-                        {category.name}
-                      </h2>
-                    </div>
-                    <p className="text-muted-foreground text-sm md:text-base">
-                      {category.description}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Grid of Tools */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {category.calculators.map((calc) => {
-                    const CalcIcon = calc.icon || Calculator
-                    return (
-                      <Link 
-                        key={calc.slug}
-                        href={getToolUrl(calc.slug)}
-                        className="group flex flex-col justify-between p-6 bg-card border border-border/60 rounded-3xl hover:border-primary/50 hover:shadow-lg transition-all duration-300"
-                      >
-                        <div>
-                          <div className="flex items-start justify-between mb-4">
-                            <div className="p-3 bg-muted/50 rounded-2xl group-hover:bg-primary/10 transition-colors">
-                              <CalcIcon className="w-6 h-6 text-foreground/60 group-hover:text-primary transition-colors" />
-                            </div>
-                            <ArrowRight className="w-5 h-5 text-muted-foreground/30 group-hover:text-accent group-hover:translate-x-1 transition-all" />
-                          </div>
-                          
-                          <h3 className="text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
-                            {calc.title}
-                          </h3>
-                          
-                          <p className="text-sm text-muted-foreground leading-relaxed">
-                            {calc.description}
-                          </p>
-                        </div>
-                      </Link>
-                    )
-                  })}
-                </div>
-              </div>
-            )
-          })}
-        </section>
+        <div className="bg-primary/5 border border-primary/20 rounded-3xl p-8 max-w-4xl">
+          <h2 className="font-bold text-xl mb-2">How this list was built</h2>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            Each entry earned its place from keyword research: search demand, ranking difficulty, and whether a calculator (not an article) is what the searcher actually wants. Tools are then built to one standard — a working calculator above the fold, the formula in plain text, verified worked examples, and answers written so people and AI search engines can cite them. Browse by category from the hubs: <Link href="/freelance" className="text-primary font-semibold">Freelance</Link>, <Link href="/creator" className="text-primary font-semibold">Creator</Link>, <Link href="/ecommerce" className="text-primary font-semibold">E-Commerce</Link>, <Link href="/real-estate" className="text-primary font-semibold">Real Estate</Link>, <Link href="/personal-wealth" className="text-primary font-semibold">Personal Wealth</Link>.
+          </p>
+        </div>
       </div>
-    </>
+    </main>
   )
 }

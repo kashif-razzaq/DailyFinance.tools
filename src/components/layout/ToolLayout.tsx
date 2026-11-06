@@ -8,6 +8,7 @@ import { TahirLeadGenCTA } from "@/components/shared/TahirLeadGenCTA"
 import { RelatedToolsWidget } from "@/components/shared/RelatedToolsWidget"
 import { SidebarAdSpace } from "@/components/shared/SidebarAdSpace"
 import { ProDashboardWidget } from "@/components/shared/ProDashboardWidget"
+import { AdSlot } from "@/components/shared/AdSlot"
 import { getCategoryForTool } from "@/config/navigation"
 
 export interface FAQ {
@@ -33,24 +34,25 @@ export async function ToolLayout({
   children
 }: ToolLayoutProps) {
   const cookieStore = await cookies()
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
-    {
-      cookies: {
-        getAll() {
-          return cookieStore.getAll()
-        },
-      },
-    }
-  )
-
   const category = getCategoryForTool(slug)
   let isPro = false
   let vaultCount = 0
-  const { data: { user } } = await supabase.auth.getUser()
+  // Resilience: tool pages must render (free layout) even if Supabase env is
+  // missing in a given environment — auth is an enhancement, not a dependency.
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
+  const supabase = supabaseUrl && supabaseKey
+    ? createServerClient(supabaseUrl, supabaseKey, {
+        cookies: {
+          getAll() {
+            return cookieStore.getAll()
+          },
+        },
+      })
+    : null
+  const { data: { user } } = supabase ? await supabase.auth.getUser() : { data: { user: null } }
   
-  if (user) {
+  if (user && supabase) {
     const { data: profile } = await supabase.from('users').select('subscription_status').eq('id', user.id).single()
     if (profile?.subscription_status === 'active') {
       isPro = true
@@ -69,7 +71,7 @@ export async function ToolLayout({
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": title,
-    "url": `https://dailyfinance.tools/tools/${slug}`,
+    "url": `https://dailyfinance.tools/${category ? category.slug + "/" : ""}${slug}`,
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "All",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
@@ -144,11 +146,7 @@ export async function ToolLayout({
           {/* Top Ad Space or Pro Widget */}
           <div className="lg:col-span-5 flex w-full h-full items-center justify-end">
             {!isPro ? (
-              <aside className="w-full h-[90px] bg-muted/10 border border-dashed border-border/40 rounded-2xl flex flex-col items-center justify-center text-center relative overflow-hidden group">
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-muted/30 to-transparent -translate-x-[100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out"></div>
-                <span className="text-[9px] uppercase font-bold text-muted-foreground tracking-[0.2em] mb-1">Advertisement</span>
-                <span className="text-xs font-semibold text-foreground/40">Premium Ad Space</span>
-              </aside>
+              <AdSlot slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_HEADER} label="Premium Ad Space" className="w-full min-h-[90px]" />
             ) : (
               <ProDashboardWidget userName={user?.user_metadata?.full_name} vaultCount={vaultCount} />
             )}
@@ -164,11 +162,7 @@ export async function ToolLayout({
           <article className="lg:col-span-8 w-full min-w-0" aria-label="Educational Content">
         {/* Pre-Article Ad Space */}
         {!isPro && (
-          <aside className="mb-12 w-full h-[150px] md:h-[250px] bg-muted/10 border border-dashed border-border/40 rounded-3xl flex flex-col items-center justify-center text-center relative overflow-hidden group">
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-muted/30 to-transparent -translate-x-[100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out"></div>
-            <span className="text-[9px] uppercase font-bold text-muted-foreground tracking-[0.2em] mb-2">Advertisement</span>
-            <span className="text-sm font-semibold text-foreground/40">Editorial Sponsor Placement</span>
-          </aside>
+          <AdSlot slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_INARTICLE} label="Editorial Sponsor Placement" className="mb-12 w-full min-h-[120px]" />
         )}
 
         <div className="prose prose-slate dark:prose-invert lg:prose-lg max-w-none">
@@ -216,12 +210,8 @@ export async function ToolLayout({
 
           {/* Bottom Article Ad Space */}
           {!isPro && (
-            <aside className="mt-16 w-full h-[150px] bg-muted/10 border border-dashed border-border/40 rounded-3xl flex flex-col items-center justify-center text-center relative overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-muted/30 to-transparent -translate-x-[100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out"></div>
-              <span className="text-[9px] uppercase font-bold text-muted-foreground tracking-[0.2em] mb-2">Advertisement</span>
-              <span className="text-sm font-semibold text-foreground/40">Footer AdSense Space</span>
-            </aside>
-          )}
+          <AdSlot slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_BOTTOM} label="Footer AdSense Space" className="mb-12 w-full min-h-[120px]" />
+        )}
 
         </div>
       </article>

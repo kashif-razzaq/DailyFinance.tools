@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import { navigationCategories, Category, getToolUrl } from '@/config/navigation'
+import { plannedForCategory } from '@/config/tool-registry'
 import { ChevronDown, ArrowRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -96,8 +97,13 @@ export function MegaMenu() {
           {/* Right Content: Spacious Grid */}
           <div className="flex-1 p-10 bg-background">
             <div className="mb-8">
-              <h2 className="text-3xl font-semibold tracking-tight text-foreground">{activeCategory.name}</h2>
+              <Link href={`/${activeCategory.slug}`} onClick={() => setIsOpen(false)} className="group/hub inline-block">
+                <h2 className="text-3xl font-semibold tracking-tight text-foreground group-hover/hub:text-primary transition-colors">{activeCategory.name} Calculators</h2>
+              </Link>
               <p className="text-base text-muted-foreground mt-2 max-w-xl leading-relaxed">{activeCategory.description}</p>
+              <Link href={`/${activeCategory.slug}`} onClick={() => setIsOpen(false)} className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary mt-3">
+                View the {activeCategory.name} hub <ArrowRight className="h-4 w-4" />
+              </Link>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-6">
@@ -125,6 +131,23 @@ export function MegaMenu() {
                 )
               })}
             </div>
+
+            {/* Top 100 roadmap: planned tools for this category (shown, never linked until live) */}
+            {plannedForCategory(activeCategory.slug).length > 0 && (
+              <div className="mt-10 pt-6 border-t border-border/40">
+                <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-3">In production — from the Top 100 roadmap</p>
+                <div className="flex flex-wrap gap-2">
+                  {plannedForCategory(activeCategory.slug).slice(0, 12).map((t) => (
+                    <span key={t.rank} className="text-xs bg-muted/30 border border-dashed rounded-full px-3 py-1.5 text-muted-foreground" title={`Targets "${t.keyword}" · ${t.tier}`}>
+                      {t.name} <span className="text-[10px] font-bold uppercase tracking-wide">Soon</span>
+                    </span>
+                  ))}
+                  <Link href="/tools" onClick={() => setIsOpen(false)} className="text-xs font-semibold text-primary bg-primary/5 border border-primary/20 rounded-full px-3 py-1.5">
+                    See all 100 tools →
+                  </Link>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}
