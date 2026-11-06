@@ -9,6 +9,11 @@ export default async function DashboardLayout({
 }: {
   children: React.ReactNode
 }) {
+  // If Supabase env is missing in this environment, the dashboard cannot
+  // authenticate anyone — send visitors to login instead of erroring.
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY) {
+    redirect("/login")
+  }
   const cookieStore = await cookies()
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,

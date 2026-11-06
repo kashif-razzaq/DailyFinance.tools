@@ -1,8 +1,39 @@
 import { getSavedCalculatorsAction } from "@/actions/calculator.actions"
 import { AnalyticsCharts } from "@/components/dashboard/AnalyticsCharts"
-import { BarChart3, TrendingUp, Target } from "lucide-react"
+import { BarChart3, TrendingUp, Target, Lock } from "lucide-react"
+import { createServerClient } from "@supabase/ssr"
+import { cookies } from "next/headers"
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
 
 export default async function AnalyticsPage() {
+  // Cross-Data Analytics is a Pro feature (see /pricing) — enforce server-side.
+  const cookieStore = await cookies()
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
+    { cookies: { getAll() { return cookieStore.getAll() } } }
+  )
+  const { data: { user } } = await supabase.auth.getUser()
+  let isPro = false
+  if (user) {
+    const { data: profile } = await supabase.from("users").select("subscription_status").eq("id", user.id).single()
+    isPro = profile?.subscription_status === "active"
+  }
+  if (!isPro) {
+    return (
+      <div className="flex flex-col items-center justify-center py-24 text-center space-y-6">
+        <div className="w-32 h-32 rounded-3xl bg-muted border flex items-center justify-center shadow-sm">
+          <Lock className="w-12 h-12 text-muted-foreground opacity-60" />
+        </div>
+        <h1 className="text-3xl font-bold tracking-tight">Cross-Data Analytics is a Pro feature</h1>
+        <p className="text-muted-foreground max-w-md mx-auto">
+          Pro turns your saved scenarios into unified net-worth, debt and cash-flow analytics. Your Vault data is safe — it unlocks the moment you upgrade.
+        </p>
+        <Link href="/pricing"><Button size="lg" className="rounded-full px-8">Upgrade to Pro</Button></Link>
+      </div>
+    )
+  }
   const savedCalculators = await getSavedCalculatorsAction()
 
   return (
