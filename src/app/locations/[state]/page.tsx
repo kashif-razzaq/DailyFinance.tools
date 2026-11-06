@@ -77,6 +77,7 @@ export default async function StateHubPage({ params }: { params: Promise<{ state
             <p className="text-3xl font-extrabold font-mono">{s.salesTaxBase === 0 ? "None" : `${s.salesTaxBase}%`}</p>
             <p className="text-sm text-muted-foreground mt-2">State base rate · average combined ≈ {s.salesTaxAvgCombined}%. Tax on $100: ${taxOn(100, s.salesTaxAvgCombined).toFixed(2)} at the average combined rate.</p>
             <Link href={`/sales-tax/${s.slug}`} className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary mt-4">{s.name} sales tax guide <ArrowRight className="h-4 w-4" /></Link>
+            <Link href={`/guides/states/${s.slug}`} className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary mt-4 ml-5">{s.name} tax guide — income &amp; property <ArrowRight className="h-4 w-4" /></Link>
           </div>
           <div className="bg-card border rounded-3xl p-6">
             <h2 className="text-sm font-bold uppercase tracking-wider text-muted-foreground mb-2">Property Tax</h2>
