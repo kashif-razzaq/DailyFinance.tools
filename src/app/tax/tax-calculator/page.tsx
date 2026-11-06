@@ -1,0 +1,16 @@
+import { CalculatorClient } from "./CalculatorClient"
+import type { Metadata } from 'next';
+import { generateCalculatorMetadata } from '@/config/metadata';
+import { ToolLayout } from "@/components/layout/ToolLayout"
+import { ContentPlaceholder } from "@/components/shared/ContentPlaceholder"
+import React from "react"
+
+export const metadata: Metadata = generateCalculatorMetadata({ title: 'Tax Calculator – Free, Instant Results (2026)', description: 'Use our free Tax Calculator to estimate your federal tax, refund or amount owed. Instant results with formula, worked examples and FAQs. No signup required.', keywords: ['tax calculator', 'federal tax calculator', 'income tax estimator', 'tax refund calculator'], slug: "tax/tax-calculator", category: "Tax" });
+
+export default function Page() {
+  return (
+    <ToolLayout title="Tax Calculator" description="Use our free Tax Calculator to estimate your federal tax, refund or amount owed. Instant results with formula, worked examples and FAQs. No signup required." slug="tax-calculator" faqs={[]} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
+      {() => <ContentPlaceholder toolName="Tax Calculator" hubHref="/tools" hubName="Tax" />}
+    </ToolLayout>
+  )
+}

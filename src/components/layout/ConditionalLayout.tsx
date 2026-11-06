@@ -1,6 +1,7 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
+import { MobileBottomNav } from './MobileBottomNav'
 
 export function ConditionalLayout({
   header,
@@ -22,8 +23,9 @@ export function ConditionalLayout({
   return (
     <>
       {!shouldHide && header}
-      <main className="flex-1 flex flex-col">{children}</main>
+      <main className={`flex-1 flex flex-col ${!shouldHide ? 'pb-[68px] md:pb-0' : ''}`}>{children}</main>
       {!shouldHide && footer}
+      {!shouldHide && <MobileBottomNav />}
     </>
   )
 }

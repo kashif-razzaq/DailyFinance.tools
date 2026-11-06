@@ -51,6 +51,8 @@ export const navigationCategories: Category[] = [
       { title: "W2 vs 1099 Paycheck Calculator", slug: "w2-vs-1099-calculator", description: "Compare true take-home pay.", icon: Banknote },
       { title: "Business Vehicle Tax Deduction Calculator", slug: "business-vehicle-tax-deduction-calculator", description: "Section 179 vehicle tax deductions.", icon: Calculator },
       { title: "Digital Nomad Cost of Living Calculator", slug: "digital-nomad-cost-of-living-calculator", description: "Geo-arbitrage your freelance income.", icon: Map },
+      { title: "Salary to Hourly Calculator", slug: "salary-to-hourly-calculator", description: "Convert salary to an hourly rate, both ways.", icon: Clock },
+      { title: "1099 Tax Calculator", slug: "1099-tax-calculator", description: "SE tax, federal estimate and quarterly amounts.", icon: Receipt },
     ]
   },
   {
@@ -71,6 +73,10 @@ export const navigationCategories: Category[] = [
       { title: "Affiliate Link ROI", slug: "affiliate-link-roi-calculator", description: "Track earnings per click (EPC).", icon: Anchor },
       { title: "Merch Margin Calculator", slug: "merch-margin-calculator", description: "Print-on-demand profit projections.", icon: Box },
       { title: "Agency vs Solo Margin", slug: "agency-vs-solo-margin-calculator", description: "When to hire an editor vs do it yourself.", icon: Star },
+      { title: "Instagram Money Calculator", slug: "instagram-money-calculator", description: "Per-post and monthly earnings estimates.", icon: Camera },
+      { title: "Instagram Engagement Rate Calculator", slug: "instagram-engagement-rate-calculator", description: "Your rate graded against tier benchmarks.", icon: Activity },
+      { title: "YouTube CPM / RPM Calculator", slug: "youtube-cpm-calculator", description: "CPM to RPM to real earnings per view.", icon: Video },
+      { title: "Twitch Earnings Calculator", slug: "twitch-earnings-calculator", description: "Subs, bits and ads after the split.", icon: Smartphone },
     ]
   },
   {
@@ -93,6 +99,11 @@ export const navigationCategories: Category[] = [
       { title: "LTV to CAC Ratio", slug: "ltv-to-cac-ratio-calculator", description: "The golden metric of e-com growth.", icon: PieChart },
       { title: "Sales Tax & VAT", slug: "sales-tax-vat-calculator", description: "Inclusive vs exclusive pricing.", icon: Receipt },
       { title: "Business Loan & Runway", slug: "business-loan-runway-calculator", description: "SBA loans and startup burn rate.", icon: Building },
+      { title: "Profit Margin Calculator", slug: "profit-margin-calculator", description: "Margin and markup, plus reverse pricing.", icon: Percent },
+      { title: "ROI Calculator", slug: "roi-calculator", description: "Return on investment, annualised.", icon: TrendingUp },
+      { title: "Markup Calculator", slug: "markup-calculator", description: "Cost plus markup to price and margin.", icon: DollarSign },
+      { title: "Etsy Fee Calculator", slug: "etsy-fee-calculator", description: "Every Etsy fee on a sale, line by line.", icon: ShoppingCart },
+      { title: "eBay Fee Calculator", slug: "ebay-fee-calculator", description: "Final value and promoted listing fees.", icon: ShoppingCart },
     ]
   },
   {
@@ -113,6 +124,15 @@ export const navigationCategories: Category[] = [
       { title: "Property Tax Assessor", slug: "property-tax-assessor-calculator", description: "Estimate millage rate impacts.", icon: Receipt },
       { title: "CapEx Reserve Planner", slug: "capex-reserve-planner", description: "Save for roofs and HVACs.", icon: Shield },
       { title: "REIT vs Physical Yield", slug: "reit-vs-physical-yield-calculator", description: "Compare passive vs active returns.", icon: TrendingUp },
+      { title: "Mortgage Payment Calculator", slug: "mortgage-payment-calculator", description: "Full PITI payment with a cost breakdown.", icon: Home },
+      { title: "Mortgage Payoff Calculator", slug: "mortgage-payoff-calculator", description: "Extra payments: payoff date and interest saved.", icon: Zap },
+      { title: "Home Affordability Calculator", slug: "home-affordability-calculator", description: "Max home price under the 28/36 rule.", icon: Building },
+      { title: "Refinance Calculator", slug: "refinance-calculator", description: "Break-even month and lifetime savings.", icon: Percent },
+      { title: "Rent vs Buy Calculator", slug: "rent-vs-buy-calculator", description: "Net cost of renting vs buying over time.", icon: Home },
+      { title: "Down Payment Calculator", slug: "down-payment-calculator", description: "When your down payment goal is reached.", icon: DollarSign },
+      { title: "Closing Cost Calculator", slug: "closing-cost-calculator", description: "Itemised closing costs and cash to close.", icon: Receipt },
+      { title: "Home Equity Calculator", slug: "home-equity-calculator", description: "Equity, LTV and HELOC room.", icon: PieChart },
+      { title: "Cap Rate Calculator", slug: "cap-rate-calculator", description: "Cap rate, cash-on-cash and GRM for rentals.", icon: Target },
     ]
   },
   {
@@ -136,6 +156,58 @@ export const navigationCategories: Category[] = [
       { title: "Student Loan Payoff", slug: "student-loan-payoff-calculator", description: "Avalanche your student debt.", icon: BookOpen },
       { title: "Credit Card Payoff", slug: "credit-card-payoff-calculator", description: "Crush high-interest credit card debt.", icon: Wallet },
       { title: "High Yield Savings & CD", slug: "high-yield-savings-cd-calculator", description: "Park your tax savings efficiently.", icon: Banknote },
+      { title: "Savings Calculator", slug: "savings-calculator", description: "Project your balance with monthly contributions and APY.", icon: Wallet },
+      { title: "Interest Calculator", slug: "interest-calculator", description: "Compound growth with a real (after-inflation) view.", icon: Percent },
+      { title: "Simple Interest Calculator", slug: "simple-interest-calculator", description: "I = P × R × T, with a compound comparison.", icon: Calculator },
+      { title: "APY Calculator", slug: "apy-calculator", description: "Convert any rate and compounding frequency to APY.", icon: Percent },
+      { title: "High-Yield Savings Calculator", slug: "high-yield-savings-calculator", description: "HYSA vs regular bank: the interest difference.", icon: Banknote },
+      { title: "Savings Goal Calculator", slug: "savings-goal-calculator", description: "The monthly saving a goal and deadline require.", icon: Target },
+      { title: "Future Value Calculator", slug: "future-value-calculator", description: "Future value of deposits plus a payment series.", icon: TrendingUp },
+      { title: "Budget Calculator", slug: "budget-calculator", description: "Income vs spending categories and savings rate.", icon: PieChart },
+      { title: "50/30/20 Budget Calculator", slug: "50-30-20-budget-calculator", description: "Needs, wants and savings against the rule.", icon: PieChart },
+      { title: "Rule of 72 Calculator", slug: "rule-of-72-calculator", description: "How fast money doubles — rule vs exact maths.", icon: Zap },
+      { title: "Retirement Calculator", slug: "retirement-calculator", description: "Project your nest egg to retirement age.", icon: Shield },
+      { title: "Roth IRA Calculator", slug: "roth-ira-calculator", description: "Tax-free growth vs a taxable account.", icon: Star },
+      { title: "IRA Calculator", slug: "ira-calculator", description: "Traditional vs Roth, side by side.", icon: Bookmark },
+      { title: "Social Security Calculator", slug: "social-security-calculator", description: "Estimated benefit at 62, 67 and 70.", icon: Award },
+      { title: "RMD Calculator", slug: "rmd-calculator", description: "Required minimum distributions, IRS table.", icon: FileText },
+      { title: "Investment Calculator", slug: "investment-calculator", description: "Growth scenarios with fee drag included.", icon: Activity },
+    ]
+  },
+  {
+    name: "Loans & Debt",
+    slug: "loans",
+    seoSlug: "loan-debt-calculators",
+    icon: Banknote,
+    description: "Payments, payoff plans and true borrowing costs.",
+    colorClass: "bg-rose-500/10 text-rose-600 dark:text-rose-400",
+    calculators: [
+      { title: "Loan Calculator", slug: "loan-calculator", description: "Payment, total interest and amortization schedule.", icon: Calculator },
+      { title: "Auto Loan Calculator", slug: "auto-loan-calculator", description: "Trade-in, tax and term presets included.", icon: DollarSign },
+      { title: "Personal Loan Calculator", slug: "personal-loan-calculator", description: "Payments including the origination fee.", icon: Wallet },
+      { title: "Student Loan Calculator", slug: "student-loan-calculator", description: "Term or payment mode, with plan comparison.", icon: BookOpen },
+      { title: "Credit Card Calculator", slug: "credit-card-calculator", description: "Payoff time for fixed or minimum payments.", icon: Percent },
+      { title: "Debt Payoff Calculator", slug: "debt-payoff-calculator", description: "Avalanche vs snowball across all your debts.", icon: Target },
+      { title: "Debt Consolidation Calculator", slug: "debt-consolidation-calculator", description: "Does combining debts actually save money?", icon: Box },
+      { title: "Debt-to-Income Ratio Calculator", slug: "debt-to-income-ratio-calculator", description: "Your DTI against lender thresholds.", icon: PieChart },
+      { title: "APR Calculator", slug: "apr-calculator", description: "The true APR once fees are counted.", icon: Percent },
+    ]
+  },
+  {
+    name: "Tax & Salary",
+    slug: "tax",
+    seoSlug: "tax-salary-calculators",
+    icon: Receipt,
+    description: "Paychecks, brackets and what you actually keep.",
+    colorClass: "bg-sky-500/10 text-sky-600 dark:text-sky-400",
+    calculators: [
+      { title: "Tax Calculator", slug: "tax-calculator", description: "Federal tax with a bracket-by-bracket breakdown.", icon: Calculator },
+      { title: "Income Tax Calculator", slug: "income-tax-calculator", description: "Federal, state and FICA in one burden view.", icon: Receipt },
+      { title: "Paycheck Calculator", slug: "paycheck-calculator", description: "Take-home for every pay frequency.", icon: Banknote },
+      { title: "Salary Calculator", slug: "salary-calculator", description: "Annual, monthly, weekly and after-tax pay.", icon: DollarSign },
+      { title: "Take-Home Pay Calculator", slug: "take-home-pay-calculator", description: "Net pay after 401(k), HSA and premiums.", icon: Wallet },
+      { title: "Overtime Calculator", slug: "overtime-calculator", description: "Gross pay with 1.5x and 2x hours priced in.", icon: Clock },
+      { title: "Capital Gains Tax Calculator", slug: "capital-gains-tax-calculator", description: "Short vs long-term gains, NIIT included.", icon: TrendingUp },
     ]
   }
 ]

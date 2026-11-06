@@ -136,6 +136,15 @@ export function Footer() {
             <Link href="/methodology" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
               Methodology
             </Link>
+            <Link href="/guides" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
+              Guides
+            </Link>
+            <Link href="/guides/states" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
+              State Tax Guides
+            </Link>
+            <Link href="/tools" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
+              All 100 Tools
+            </Link>
             <Link href="/locations" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
               Calculators by State
             </Link>

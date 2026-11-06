@@ -45,6 +45,9 @@ export async function Navbar() {
               Home
             </Link>
             <MegaMenu />
+            <Link href="/guides" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+              Guides
+            </Link>
             <Link href="/pricing" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
               Pricing
             </Link>
