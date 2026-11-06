@@ -130,3 +130,20 @@
     @apply font-sans;
   }
 }
+/* Editorial content typography for hub pages, guides and location pages.
+   Used via className="content-prose" — keeps long-form content readable and
+   consistently formatted without a typography plugin dependency. */
+.content-prose { @apply text-neutral-700 dark:text-neutral-300 leading-relaxed; }
+.content-prose h2 { @apply text-2xl md:text-3xl font-extrabold tracking-tight text-neutral-900 dark:text-white mt-12 mb-4; }
+.content-prose h3 { @apply text-xl font-bold tracking-tight text-neutral-900 dark:text-white mt-8 mb-3; }
+.content-prose p { @apply mb-5 text-base md:text-lg; }
+.content-prose ul { @apply mb-5 pl-6 list-disc space-y-2; }
+.content-prose ol { @apply mb-5 pl-6 list-decimal space-y-2; }
+.content-prose li { @apply text-base md:text-lg; }
+.content-prose strong { @apply font-semibold text-neutral-900 dark:text-white; }
+.content-prose a { @apply text-[#064E3B] dark:text-emerald-400 font-medium underline decoration-emerald-600/30 underline-offset-2 hover:decoration-emerald-600; }
+.content-prose table { @apply w-full text-sm md:text-base border border-neutral-200 dark:border-neutral-800 rounded-xl overflow-hidden mb-6; }
+.content-prose thead { @apply bg-neutral-100 dark:bg-neutral-900; }
+.content-prose th { @apply text-left font-bold px-4 py-3 text-neutral-900 dark:text-white; }
+.content-prose td { @apply px-4 py-3 border-t border-neutral-200 dark:border-neutral-800; }
+.content-prose blockquote { @apply border-l-4 border-[#064E3B] pl-4 italic my-6; }
