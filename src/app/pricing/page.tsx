@@ -1,5 +1,15 @@
+import type { Metadata } from "next"
+import Link from "next/link"
+import Script from "next/script"
 import { Button } from "@/components/ui/button"
 import { Check, X } from "lucide-react"
+
+export const metadata: Metadata = {
+  title: "Pricing — Free Calculators Forever, Pro for $2.99/mo | DailyFinance",
+  description: "DailyFinance is free: all calculators, charts and up to 3 saved scenarios. Go Pro for $2.99/mo — unlimited Scenario Vault, CSV/Excel exports, premium PDF reports, cross-data analytics and zero ads.",
+  alternates: { canonical: "https://dailyfinance.tools/pricing" },
+  keywords: ["dailyfinance pro", "financial calculator subscription", "scenario vault pricing"],
+}
 
 const tiers = [
   {
@@ -12,10 +22,10 @@ const tiers = [
       "Real-time visual charts & graphs",
       "Responsive mobile experience",
       "Basic URL sharing",
+      "Scenario Vault — save up to 3 scenarios",
       "Community support",
     ],
     notIncluded: [
-      "No Scenario Vault storage",
       "No CSV/Excel data exports",
       "No Premium PDF generation",
       "No Cross-Data Analytics",
@@ -83,12 +93,15 @@ export default function PricingPage() {
                 <span className="text-4xl font-bold tracking-tight text-foreground">{tier.price}</span>
                 {tier.billingCycle && <span className="text-sm font-semibold leading-6 text-muted-foreground">{tier.billingCycle}</span>}
               </p>
-              <Button 
-                variant={tier.mostPopular ? "default" : "outline"}
-                className={`mt-6 w-full rounded-xl ${tier.mostPopular ? "shadow-sm shadow-primary/20" : ""}`}
+              <Link
+                href="/login"
+                className={`mt-6 flex w-full items-center justify-center rounded-xl px-4 py-2.5 text-sm font-semibold transition-colors ${tier.mostPopular ? "bg-primary text-primary-foreground shadow-sm shadow-primary/20 hover:bg-primary/90" : "border border-input bg-background hover:bg-accent hover:text-accent-foreground"}`}
               >
                 {tier.cta}
-              </Button>
+              </Link>
+              {tier.mostPopular && (
+                <p className="mt-3 text-center text-xs text-muted-foreground">Start with a free account — upgrade from your dashboard in one click.</p>
+              )}
               <ul role="list" className="mt-8 space-y-3 text-sm leading-6 text-muted-foreground xl:mt-10">
                 {tier.features.map((feature) => (
                   <li key={feature} className="flex gap-x-3">
@@ -106,6 +119,36 @@ export default function PricingPage() {
             </div>
           ))}
         </div>
+        {/* Pricing FAQ — also emitted as FAQPage schema */}
+        <div className="mx-auto mt-24 max-w-3xl">
+          <h2 className="text-2xl font-bold tracking-tight mb-8 text-center">Pricing questions</h2>
+          <div className="space-y-6 text-left">
+            <div className="border-b border-border/50 pb-6">
+              <h3 className="font-semibold mb-1.5">Are the calculators really free?</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">Yes. Every calculator on DailyFinance is free to use with no sign-up, including real-time charts. A free account adds basic URL sharing and a Scenario Vault with up to 3 saved scenarios.</p>
+            </div>
+            <div className="border-b border-border/50 pb-6">
+              <h3 className="font-semibold mb-1.5">What does Pro add?</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">Pro removes all advertising and unlocks the power features: unlimited Scenario Vault storage with version history and cloning, instant CSV and Excel exports, premium PDF report generation, and Cross-Data Analytics that combine your saved scenarios into net-worth and debt views.</p>
+            </div>
+            <div className="border-b border-border/50 pb-6">
+              <h3 className="font-semibold mb-1.5">How do I upgrade?</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">Create a free account first, then choose Upgrade from your dashboard or this page. Your saved scenarios and data carry over — nothing is lost when you upgrade or if you later return to Free.</p>
+            </div>
+            <div>
+              <h3 className="font-semibold mb-1.5">Can I cancel anytime?</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">Yes. Pro is a simple monthly subscription with no lock-in. Cancelling returns your account to Free at the end of the billing period; your saved data stays in your account.</p>
+            </div>
+          </div>
+        </div>
+        <Script id="schema-pricing-faq" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org", "@type": "FAQPage", mainEntity: [
+            { "@type": "Question", name: "Are the calculators really free?", acceptedAnswer: { "@type": "Answer", text: "Yes. Every calculator is free with no sign-up. A free account adds URL sharing and a Scenario Vault with up to 3 saved scenarios." } },
+            { "@type": "Question", name: "What does Pro add?", acceptedAnswer: { "@type": "Answer", text: "Pro ($2.99/mo) removes ads and unlocks unlimited Vault storage with version history and cloning, CSV/Excel exports, premium PDF reports and Cross-Data Analytics." } },
+            { "@type": "Question", name: "Can I cancel anytime?", acceptedAnswer: { "@type": "Answer", text: "Yes — no lock-in. Cancelling returns the account to Free at the end of the billing period and saved data is kept." } },
+          ],
+        }) }} />
+
       </div>
     </div>
   )
