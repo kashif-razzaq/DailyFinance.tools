@@ -30,6 +30,26 @@ async function getSupabase() {
   )
 }
 
+/** Freemium rule (matches /pricing): free accounts may keep up to FREE_VAULT_LIMIT
+ *  saved scenarios; Pro (subscription_status = 'active') is unlimited. */
+const FREE_VAULT_LIMIT = 3
+
+async function assertVaultCapacity(supabase: Awaited<ReturnType<typeof getSupabase>>, userId: string) {
+  const { data: profile } = await supabase
+    .from('users')
+    .select('subscription_status')
+    .eq('id', userId)
+    .single()
+  if (profile?.subscription_status === 'active') return
+  const { count } = await supabase
+    .from('saved_calculators')
+    .select('*', { count: 'exact', head: true })
+    .eq('user_id', userId)
+  if ((count ?? 0) >= FREE_VAULT_LIMIT) {
+    throw new Error(`Free accounts can save up to ${FREE_VAULT_LIMIT} scenarios. Upgrade to Pro for unlimited Vault storage.`)
+  }
+}
+
 /**
  * Saves or updates a calculator scenario state for the logged-in user.
  */
@@ -80,7 +100,8 @@ export async function saveCalculatorAction({
       .select()
       .single()
   } else {
-    // Insert new
+    // Insert new — enforce the free-tier Vault limit (Pro is unlimited)
+    await assertVaultCapacity(supabase, user.id)
     result = await supabase
       .from('saved_calculators')
       .insert([payload])
@@ -114,7 +135,8 @@ export async function cloneCalculatorAction(id: string) {
 
   if (fetchError || !original) throw new Error('Original scenario not found')
 
-  // Insert clone
+  // Insert clone — same Vault capacity rule as a fresh save
+  await assertVaultCapacity(supabase, user.id)
   const { data: clone, error: insertError } = await supabase
     .from('saved_calculators')
     .insert([{
