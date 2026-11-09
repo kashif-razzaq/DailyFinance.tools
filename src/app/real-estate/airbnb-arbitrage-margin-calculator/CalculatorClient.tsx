@@ -2,12 +2,14 @@
 import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 
-export const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US')
-export const fmt2 = (n: number) => '$' + n.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})
+export const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
+export const fmt2 = (n: number) => curSym() + n.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})
 export const pct = (n: number) => (isFinite(n) ? n.toFixed(2) : '0.00') + '%'
 
-export function Num({ label, value, set, min=0, step=1, prefix='$' }: { label: string; value: number; set: (n:number)=>void; min?: number; step?: number; prefix?: string }) {
+export function Num({ label, value, set, min=0, step=1, prefix=curSym() }: { label: string; value: number; set: (n:number)=>void; min?: number; step?: number; prefix?: string }) {
   return (<div className="space-y-2"><label className="text-sm font-semibold">{label}</label><div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">{prefix}</span><Input type="number" min={min} step={step} value={value===0?'':value} onChange={e=>set(e.target.value===''?0:Number(e.target.value))} className="pl-7 font-mono" /></div></div>)
 }
 export function Slide({ label, value, set, min, max, step=0.1, suffix='%' }: { label: string; value: number; set:(n:number)=>void; min:number; max:number; step?:number; suffix?:string }) {
@@ -28,9 +30,10 @@ export function Breakdown({ title, children }: { title: string; children: React.
 
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   const [mode, setMode] = useState<'arbitrage'|'owned'>('arbitrage'); const [adr, setAdr] = useState(150); const [occ, setOcc] = useState(70); const [housing, setHousing] = useState(1800); const [utilities, setUtilities] = useState(250); const [supplies, setSupplies] = useState(120); const [cleanFee, setCleanFee] = useState(75); const [stay, setStay] = useState(3); const [platform, setPlatform] = useState(3)
   const m = useMemo(() => { const nights = 30 * occ/100; const gross = adr * nights; const turnovers = stay > 0 ? nights / stay : 0; const cleaning = turnovers * cleanFee; const plat = gross * platform/100; const profit = gross - plat - cleaning - housing - utilities - supplies; return { nights, gross, turnovers, cleaning, plat, profit, margin: gross > 0 ? profit / gross * 100 : 0, revpar: adr * occ/100 } }, [adr, occ, housing, utilities, supplies, cleanFee, stay, platform])
-  return (<Shell inputs={<>
+  return (<><Shell inputs={<>
     <div className="flex gap-2">{(['arbitrage','owned'] as const).map(x => (<button key={x} onClick={() => setMode(x)} className={`px-4 py-2 rounded-full text-sm font-semibold border ${mode===x?'bg-[#064E3B] text-white':'bg-white'}`}>{x === 'arbitrage' ? 'Arbitrage (I rent the unit)' : 'Owned (I own the unit)'}</button>))}</div>
     <p className="text-sm text-muted-foreground">{mode === 'arbitrage' ? 'Housing cost below = your monthly lease rent to the landlord. Written landlord consent is essential — see mistakes section.' : 'Housing cost below = your monthly PITI + HOA on the owned property.'}</p>
     <div className="grid grid-cols-2 gap-4"><Num label="Average Daily Rate (ADR)" value={adr} set={setAdr} /><Num label={mode==='arbitrage' ? 'Monthly Rent to Landlord' : 'Monthly PITI + HOA'} value={housing} set={setHousing} /></div>
@@ -41,5 +44,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     <Result label="Monthly Profit" value={fmt(m.profit)} sub={`Net margin ${pct(m.margin)} on ${fmt(m.gross)} gross. RevPAR is ${fmt2(m.revpar)}.`} />
     <Breakdown title="Monthly P&L"><Row label="Booked nights" value={m.nights.toFixed(1)} /><Row label="Gross revenue" value={fmt(m.gross)} /><Row label="Platform fees" value={'−' + fmt(m.plat)} /><Row label={`Cleaning (${m.turnovers.toFixed(1)} turnovers)`} value={'−' + fmt(m.cleaning)} /><Row label="Housing cost" value={'−' + fmt(housing)} /><Row label="Net margin" value={pct(m.margin)} bold /></Breakdown>
     <p className="text-xs text-muted-foreground">Cleaning fees charged to guests can offset cleaning cost — this model conservatively treats cleaning as a pure cost. Add your actual cleaning-fee income to profit if you charge one.</p>
-  </Shell>)
+  </Shell><ToolActionsBar slug="airbnb-arbitrage-margin-calculator" isPro={isPro} inputs={{ mode, adr, occ, housing, utilities, supplies, cleanFee, stay, platform }} /></>)
 }

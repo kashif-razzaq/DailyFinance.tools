@@ -4,11 +4,11 @@ import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 
-const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US')
+const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
 function MoneyInput({ label, value, onChange, hint }: { label: string; value: number; onChange: (n: number) => void; hint?: string }) {
   return (<div className="space-y-2"><label className="text-sm font-semibold">{label}</label>
-    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">$</span>
+    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">{curSym()}</span>
     <Input type="number" value={value === 0 ? '' : value} onChange={(e) => onChange(num(e.target.value))} className="pl-7 font-mono" /></div>
     {hint && <p className="text-xs text-muted-foreground">{hint}</p>}</div>)
 }
@@ -21,6 +21,8 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
 }
 
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip, Legend } from 'recharts'
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 function piPayment(principal: number, ratePct: number, years: number) {
   const r = ratePct / 100 / 12, n = years * 12
   if (principal <= 0) return 0
@@ -32,6 +34,7 @@ const COLORS = ['#064E3B', '#D97706', '#2563EB', '#7C3AED', '#DC2626', '#0891B2'
 // NOI = effective gross income − operating expenses (never includes debt service).
 // Cap rate = NOI / value · GRM = value / gross scheduled rent · Cash-on-cash = (NOI − debt service) / cash invested.
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   const [value, setValue] = useState(350000); const [rent, setRent] = useState(2200); const [other, setOther] = useState(0)
   const [vacancy, setVacancy] = useState(5); const [taxYear, setTaxYear] = useState(4200); const [insYear, setInsYear] = useState(1500)
   const [maintPct, setMaintPct] = useState(5); const [mgmtPct, setMgmtPct] = useState(8); const [hoaMo, setHoaMo] = useState(0); const [otherExp, setOtherExp] = useState(0)
@@ -59,7 +62,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     const coc = cashIn > 0 ? cashFlow / cashIn * 100 : 0
     return { grossScheduled, vacancyLoss, egi, expenses, totalExp, noi, capRate, grm, debtService, cashFlow, cashIn, coc }
   }, [value, rent, other, vacancy, taxYear, insYear, maintPct, mgmtPct, hoaMo, otherExp, downPct, finRate, finTerm, closing])
-  return (<div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+  return (<><div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
     <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-6">
       <div className="grid grid-cols-2 gap-6"><MoneyInput label="Property Value / Price" value={value} onChange={setValue} /><MoneyInput label="Monthly Rent" value={rent} onChange={setRent} /></div>
       <div className="grid grid-cols-2 gap-6"><MoneyInput label="Other Income (per month)" value={other} onChange={setOther} hint="Parking, laundry, storage." /><MoneyInput label="Property Tax (per year)" value={taxYear} onChange={setTaxYear} /></div>
@@ -90,5 +93,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
         {c.expenses.length > 0 && <ResponsiveContainer width="100%" height={200}><PieChart><Pie data={c.expenses} dataKey="value" nameKey="name" innerRadius={45} outerRadius={70} paddingAngle={2}>{c.expenses.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}</Pie><Tooltip formatter={(v: any) => fmt(Number(v)) + '/yr'} /><Legend /></PieChart></ResponsiveContainer>}
       </div>
-    </div></div>)
+    </div></div><ToolActionsBar slug="cap-rate-calculator" isPro={isPro} inputs={{ value, rent, other, vacancy, taxYear, insYear, maintPct, mgmtPct, hoaMo, otherExp, downPct, finRate, finTerm, closing }} /></>)
 }

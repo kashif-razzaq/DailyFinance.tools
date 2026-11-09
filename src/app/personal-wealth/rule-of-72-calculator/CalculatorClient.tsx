@@ -3,13 +3,15 @@
 import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 
-const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US')
-const fmt2 = (n: number) => '$' + n.toLocaleString('en-US', { maximumFractionDigits: 0 })
+const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
+const fmt2 = (n: number) => curSym() + n.toLocaleString('en-US', { maximumFractionDigits: 0 })
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
 function MoneyInput({ label, value, onChange, hint }: { label: string; value: number; onChange: (n: number) => void; hint?: string }) {
   return (<div className="space-y-2"><label className="text-sm font-semibold">{label}</label>
-    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">$</span>
+    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">{curSym()}</span>
     <Input type="number" value={value === 0 ? '' : value} onChange={(e) => onChange(num(e.target.value))} className="pl-7 font-mono" /></div>
     {hint && <p className="text-xs text-muted-foreground">{hint}</p>}</div>)
 }
@@ -22,6 +24,7 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
 }
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   const [mode, setMode] = useState<'rate' | 'years'>('rate')
   const [rate, setRate] = useState(8)
   const [amount, setAmount] = useState(10000)
@@ -42,7 +45,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
 
   const yrs = (n: number) => isFinite(n) ? n.toFixed(2) + ' yrs' : '—'
 
-  return (<div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+  return (<><div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
     <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-6">
       <div className="flex gap-2">
         <button type="button" onClick={() => setMode('rate')} className={`px-4 py-2 rounded-full text-sm font-bold ${mode === 'rate' ? 'bg-[#064E3B] text-white' : 'bg-neutral-100'}`}>I know the return</button>
@@ -94,5 +97,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </ResultCard>
       )}
       <div className="bg-card border rounded-2xl p-6 text-sm text-muted-foreground leading-relaxed"><strong className="text-foreground">Why two answers?</strong> The Rule of 72 is a mental shortcut — very accurate near 8%, slightly optimistic at low rates and slightly pessimistic at high ones. The exact figure uses ln(2) / ln(1 + r), so you can see the shortcut&apos;s error for yourself.</div>
-    </div></div>)
+    </div></div><ToolActionsBar slug="rule-of-72-calculator" isPro={isPro} inputs={{ mode, rate, amount, targetYears }} /></>)
 }

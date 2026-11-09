@@ -4,12 +4,12 @@ import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 
-const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US')
-const fmt2 = (n: number) => '$' + n.toLocaleString('en-US', { maximumFractionDigits: 0 })
+const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
+const fmt2 = (n: number) => curSym() + n.toLocaleString('en-US', { maximumFractionDigits: 0 })
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
 function MoneyInput({ label, value, onChange, hint }: { label: string; value: number; onChange: (n: number) => void; hint?: string }) {
   return (<div className="space-y-2"><label className="text-sm font-semibold">{label}</label>
-    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">$</span>
+    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">{curSym()}</span>
     <Input type="number" value={value === 0 ? '' : value} onChange={(e) => onChange(num(e.target.value))} className="pl-7 font-mono" /></div>
     {hint && <p className="text-xs text-muted-foreground">{hint}</p>}</div>)
 }
@@ -27,6 +27,8 @@ function NumInput({ label, value, onChange, hint, min, max }: { label: string; v
 }
 
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Cell } from 'recharts'
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 
 // Formula (simplified PIA estimate, 2024 bend points):
 //  Effective average earnings adjust for short careers: if yearsWorked < 35, the missing years count as $0,
@@ -49,6 +51,7 @@ function breakEven(fE: number, aE: number, fL: number, aL: number) {
 }
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   void isPro
   const [earnings, setEarnings] = useState(70000)
   const [yearsWorked, setYearsWorked] = useState(35)
@@ -77,7 +80,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
 
   const chartData = calc.rows.map((r) => ({ name: 'Age ' + r.age, monthly: Math.round(r.monthly) }))
 
-  return (<div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+  return (<><div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
     <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-6">
       <MoneyInput label="Average Annual Earnings" value={earnings} onChange={setEarnings} hint="Your average indexed earnings across your best 35 years of work, before tax." />
       <NumInput label="Years Worked" value={yearsWorked} onChange={(v) => setYearsWorked(Math.min(50, Math.max(0, v)))} min={0} max={50} hint="Capped at 35 for the averaging calculation: Social Security averages your best 35 years, and years below 35 count as $0 — which lowers the estimate below." />
@@ -126,6 +129,6 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       </div>
 
       <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Monthly Benefit by Claiming Age</h4>
-        <ResponsiveContainer width="100%" height={200}><BarChart data={chartData}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="name" /><YAxis tickFormatter={(v: number) => '$' + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Bar dataKey="monthly" name="Monthly benefit" radius={[6, 6, 0, 0]}>{chartData.map((_, i) => (<Cell key={i} fill={i === 1 ? '#064E3B' : i === 2 ? '#059669' : '#D97706'} />))}</Bar></BarChart></ResponsiveContainer></div>
-    </div></div>)
+        <ResponsiveContainer width="100%" height={200}><BarChart data={chartData}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="name" /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Bar dataKey="monthly" name="Monthly benefit" radius={[6, 6, 0, 0]}>{chartData.map((_, i) => (<Cell key={i} fill={i === 1 ? '#064E3B' : i === 2 ? '#059669' : '#D97706'} />))}</Bar></BarChart></ResponsiveContainer></div>
+    </div></div><ToolActionsBar slug="social-security-calculator" isPro={isPro} inputs={{ earnings, yearsWorked }} /></>)
 }

@@ -4,12 +4,12 @@ import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 
-const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US')
-const fmt2 = (n: number) => '$' + n.toLocaleString('en-US', { maximumFractionDigits: 0 })
+const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
+const fmt2 = (n: number) => curSym() + n.toLocaleString('en-US', { maximumFractionDigits: 0 })
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
 function MoneyInput({ label, value, onChange, hint }: { label: string; value: number; onChange: (n: number) => void; hint?: string }) {
   return (<div className="space-y-2"><label className="text-sm font-semibold">{label}</label>
-    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">$</span>
+    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">{curSym()}</span>
     <Input type="number" value={value === 0 ? '' : value} onChange={(e) => onChange(num(e.target.value))} className="pl-7 font-mono" /></div>
     {hint && <p className="text-xs text-muted-foreground">{hint}</p>}</div>)
 }
@@ -22,6 +22,8 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
 }
 
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, Legend } from 'recharts'
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 
 const PRESETS = [
   { label: 'House deposit $50k', amount: 50000 },
@@ -33,6 +35,7 @@ const PRESETS = [
 
 // Formula Mode A: PMT = (FV − PV(1+i)^n) × i / ((1+i)^n − 1), i = APY/12, n = years×12; if i=0, PMT = (FV−PV)/n
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   const [mode, setMode] = useState<'monthly' | 'time'>('monthly')
   const [goal, setGoal] = useState(50000)
   const [current, setCurrent] = useState(5000)
@@ -93,7 +96,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
 
   const yearsMonthsLabel = calc.monthsToGoal >= 0 ? `${Math.floor(calc.monthsToGoal / 12)}y ${calc.monthsToGoal % 12}m (${calc.monthsToGoal} months)` : 'Not within 50 years'
 
-  return (<div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+  return (<><div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
     <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-6">
       <div>
         <label className="text-sm font-semibold block mb-2">What do you want to calculate?</label>
@@ -159,7 +162,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <LineChart data={calc.series}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="month" label={{ value: 'Month', position: 'insideBottom', offset: -2 }} />
-            <YAxis tickFormatter={(v: number) => '$' + Math.round(v / 1000) + 'k'} width={55} />
+            <YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} width={55} />
             <Tooltip formatter={(v: any) => fmt(Number(v))} />
             <Legend />
             <Line type="monotone" dataKey="balance" stroke="#064E3B" strokeWidth={2.5} dot={false} name="Balance" />
@@ -169,5 +172,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <p className="text-xs text-muted-foreground mt-2">{isPro ? 'Pro view: ' : ''}Chart simulates monthly growth at {apy}% APY with {fmt(calc.effectiveMonthly)}/month contributions.</p>
       </div>
     </div>
-  </div>)
+  </div><ToolActionsBar slug="savings-goal-calculator" isPro={isPro} inputs={{ mode, goal, current, apy, targetYears, monthlyAmount }} /></>)
 }

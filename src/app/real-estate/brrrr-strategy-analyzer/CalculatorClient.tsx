@@ -2,12 +2,14 @@
 import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 
-export const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US')
-export const fmt2 = (n: number) => '$' + n.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})
+export const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
+export const fmt2 = (n: number) => curSym() + n.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})
 export const pct = (n: number) => (isFinite(n) ? n.toFixed(2) : '0.00') + '%'
 
-export function Num({ label, value, set, min=0, step=1, prefix='$' }: { label: string; value: number; set: (n:number)=>void; min?: number; step?: number; prefix?: string }) {
+export function Num({ label, value, set, min=0, step=1, prefix=curSym() }: { label: string; value: number; set: (n:number)=>void; min?: number; step?: number; prefix?: string }) {
   return (<div className="space-y-2"><label className="text-sm font-semibold">{label}</label><div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">{prefix}</span><Input type="number" min={min} step={step} value={value===0?'':value} onChange={e=>set(e.target.value===''?0:Number(e.target.value))} className="pl-7 font-mono" /></div></div>)
 }
 export function Slide({ label, value, set, min, max, step=0.1, suffix='%' }: { label: string; value: number; set:(n:number)=>void; min:number; max:number; step?:number; suffix?:string }) {
@@ -28,9 +30,10 @@ export function Breakdown({ title, children }: { title: string; children: React.
 
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   const [buy, setBuy] = useState(180000); const [rehab, setRehab] = useState(60000); const [holding, setHolding] = useState(8000); const [arv, setArv] = useState(320000); const [ltv, setLtv] = useState(75); const [rate, setRate] = useState(7); const [refiCosts, setRefiCosts] = useState(5000); const [rent, setRent] = useState(2250); const [expenses, setExpenses] = useState(600)
   const m = useMemo(() => { const total = buy + rehab + holding; const loan = arv * ltv/100; const left = total + refiCosts - loan; const r = rate/100/12; const n = 360; const pi = loan > 0 && r > 0 ? loan * r * Math.pow(1+r, n) / (Math.pow(1+r, n) - 1) : 0; const cf = rent - pi - expenses; const coc = left > 0 ? cf * 12 / left * 100 : Infinity; return { total, loan, left, pi, cf, coc, equity: arv - loan } }, [buy, rehab, holding, arv, ltv, rate, refiCosts, rent, expenses])
-  return (<Shell inputs={<>
+  return (<><Shell inputs={<>
     <div className="grid grid-cols-2 gap-4"><Num label="Purchase Price" value={buy} set={setBuy} /><Num label="Rehab Budget" value={rehab} set={setRehab} /></div>
     <div className="grid grid-cols-2 gap-4"><Num label="Holding + Buying Costs" value={holding} set={setHolding} /><Num label="After Repair Value (ARV)" value={arv} set={setArv} /></div>
     <Slide label="Refinance LTV" value={ltv} set={setLtv} min={50} max={85} step={1} /><Slide label="Refinance Rate" value={rate} set={setRate} min={0} max={15} step={0.05} />
@@ -39,5 +42,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   </>}>
     <Result label="Cash Left in the Deal" value={fmt(m.left)} sub={m.left <= 0 ? 'Perfect BRRRR: the refinance returns all your cash (or more) — your return is effectively infinite.' : 'Cash still trapped in the deal after refinancing. A higher ARV or lower rehab is the lever.'} />
     <Breakdown title="BRRRR Breakdown"><Row label="Total project cost" value={fmt(m.total)} /><Row label="Refinance loan (LTV × ARV)" value={fmt(m.loan)} /><Row label="Equity after refinance" value={fmt(m.equity)} /><Row label="New mortgage payment (P&I)" value={fmt(m.pi)} /><Row label="Monthly cash flow after refi" value={fmt(m.cf)} /><Row label="Cash-on-cash return" value={isFinite(m.coc) ? pct(m.coc) : 'Infinite — $0 left in deal'} bold /></Breakdown>
-  </Shell>)
+  </Shell><ToolActionsBar slug="brrrr-strategy-analyzer" isPro={isPro} inputs={{ buy, rehab, holding, arv, ltv, rate, refiCosts, rent, expenses }} /></>)
 }
