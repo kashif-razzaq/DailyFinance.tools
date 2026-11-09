@@ -4,12 +4,12 @@ import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 
-const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US')
-const fmt2 = (n: number) => '$' + n.toLocaleString('en-US', { maximumFractionDigits: 0 })
+const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
+const fmt2 = (n: number) => curSym() + n.toLocaleString('en-US', { maximumFractionDigits: 0 })
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
 function MoneyInput({ label, value, onChange, hint }: { label: string; value: number; onChange: (n: number) => void; hint?: string }) {
   return (<div className="space-y-2"><label className="text-sm font-semibold">{label}</label>
-    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">$</span>
+    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">{curSym()}</span>
     <Input type="number" value={value === 0 ? '' : value} onChange={(e) => onChange(num(e.target.value))} className="pl-7 font-mono" /></div>
     {hint && <p className="text-xs text-muted-foreground">{hint}</p>}</div>)
 }
@@ -22,8 +22,11 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
 }
 
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts'
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 const FREQ: Record<string, number> = { annually: 1, quarterly: 4, monthly: 12, daily: 365 }
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   const [principal, setPrincipal] = useState(10000); const [monthly, setMonthly] = useState(200)
   const [rate, setRate] = useState(7); const [years, setYears] = useState(15)
   const [freqKey, setFreqKey] = useState('monthly')
@@ -50,7 +53,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     const simpleTotal = simplePrincipal + simpleInterest
     return { compoundTotal, simpleTotal, contributed, compoundInterest: compoundTotal - contributed, simpleInterestTotal: simpleTotal - contributed, diff: compoundTotal - simpleTotal, chart }
   }, [principal, monthly, rate, years, freqKey])
-  return (<div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+  return (<><div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
     <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-6">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6"><MoneyInput label="Principal (Starting Amount)" value={principal} onChange={setPrincipal} /><MoneyInput label="Monthly Contribution" value={monthly} onChange={setMonthly} /></div>
       <PctSlider label="Annual Interest Rate" value={rate} onChange={setRate} min={0} max={20} step={0.1} />
@@ -74,8 +77,8 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <div className="mt-6 bg-white/15 border border-white/25 rounded-xl px-4 py-3"><p className="text-sm font-semibold">Compounding advantage: <span className="font-mono font-black">{fmt(r.diff)}</span> extra — interest earning interest is the whole difference.</p></div>
       </ResultCard>
       <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Growth by Year — Compound vs Simple</h4>
-        <ResponsiveContainer width="100%" height={210}><AreaChart data={r.chart}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="year" /><YAxis tickFormatter={(v: number) => '$' + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Area type="monotone" dataKey="compound" stroke="#064E3B" fill="#064E3B" fillOpacity={0.18} name="Compound" /><Area type="monotone" dataKey="simple" stroke="#D97706" fill="#D97706" fillOpacity={0.12} name="Simple" /></AreaChart></ResponsiveContainer>
+        <ResponsiveContainer width="100%" height={210}><AreaChart data={r.chart}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="year" /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Area type="monotone" dataKey="compound" stroke="#064E3B" fill="#064E3B" fillOpacity={0.18} name="Compound" /><Area type="monotone" dataKey="simple" stroke="#D97706" fill="#D97706" fillOpacity={0.12} name="Simple" /></AreaChart></ResponsiveContainer>
         <p className="text-xs text-muted-foreground mt-3">The lines start together and diverge — slowly at first, then dramatically. Time is what makes compounding win.</p>
       </div>
-    </div></div>)
+    </div></div><ToolActionsBar slug="interest-calculator" isPro={isPro} inputs={{ principal, monthly, rate, years, freqKey }} /></>)
 }

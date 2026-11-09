@@ -4,12 +4,12 @@ import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 
-const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US')
-const fmt2 = (n: number) => '$' + n.toLocaleString('en-US', { maximumFractionDigits: 0 })
+const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
+const fmt2 = (n: number) => curSym() + n.toLocaleString('en-US', { maximumFractionDigits: 0 })
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
 function MoneyInput({ label, value, onChange, hint }: { label: string; value: number; onChange: (n: number) => void; hint?: string }) {
   return (<div className="space-y-2"><label className="text-sm font-semibold">{label}</label>
-    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">$</span>
+    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">{curSym()}</span>
     <Input type="number" value={value === 0 ? '' : value} onChange={(e) => onChange(num(e.target.value))} className="pl-7 font-mono" /></div>
     {hint && <p className="text-xs text-muted-foreground">{hint}</p>}</div>)
 }
@@ -22,7 +22,10 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
 }
 
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts'
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   const [balance, setBalance] = useState(200000); const [convert, setConvert] = useState(50000)
   const [nowRate, setNowRate] = useState(22); const [futureRate, setFutureRate] = useState(24)
   const [years, setYears] = useState(20); const [ret, setRet] = useState(7)
@@ -36,7 +39,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     return { taxNow, rothFuture, tradFutureAfterTax, netBenefitOnConverted: rothFuture - taxNow * g - tradFutureAfterTax, keepTradTotal, convertTotal }
   }, [balance, convert, nowRate, futureRate, years, ret])
   const chart = [{ name: 'Converted $ grows to', Roth: Math.round(r.rothFuture), Traditional: Math.round(r.tradFutureAfterTax) }]
-  return (<div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+  return (<><div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
     <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-6">
       <div className="grid grid-cols-2 gap-6"><MoneyInput label="Traditional IRA / 401(k) Balance" value={balance} onChange={setBalance} /><MoneyInput label="Amount to Convert to Roth" value={convert} onChange={setConvert} /></div>
       <PctSlider label="Your Tax Rate Today" value={nowRate} onChange={setNowRate} min={0} max={40} step={1} />
@@ -56,6 +59,6 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <div><p className="text-white/60 text-xs uppercase font-bold">Break-Even Logic</p><p className="font-bold">{futureRate > nowRate ? 'Future rate is higher — conversion favoured' : futureRate < nowRate ? 'Future rate is lower — conversion is an uphill bet' : 'Rates are equal — benefit comes only from paying tax with outside money'}</p></div>
         </div></ResultCard>
       <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Converted Amount: Roth vs Traditional</h4>
-        <ResponsiveContainer width="100%" height={200}><BarChart data={chart}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="name" /><YAxis tickFormatter={(v: number) => '$' + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Bar dataKey="Roth" fill="#064E3B" /><Bar dataKey="Traditional" fill="#94a3b8" /></BarChart></ResponsiveContainer></div>
-    </div></div>)
+        <ResponsiveContainer width="100%" height={200}><BarChart data={chart}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="name" /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Bar dataKey="Roth" fill="#064E3B" /><Bar dataKey="Traditional" fill="#94a3b8" /></BarChart></ResponsiveContainer></div>
+    </div></div><ToolActionsBar slug="roth-ira-conversion-simulator" isPro={isPro} inputs={{ balance, convert, nowRate, futureRate, years, ret }} /></>)
 }

@@ -4,12 +4,12 @@ import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 
-const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US')
-const fmt2 = (n: number) => '$' + n.toLocaleString('en-US', { maximumFractionDigits: 0 })
+const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
+const fmt2 = (n: number) => curSym() + n.toLocaleString('en-US', { maximumFractionDigits: 0 })
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
 function MoneyInput({ label, value, onChange, hint }: { label: string; value: number; onChange: (n: number) => void; hint?: string }) {
   return (<div className="space-y-2"><label className="text-sm font-semibold">{label}</label>
-    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">$</span>
+    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">{curSym()}</span>
     <Input type="number" value={value === 0 ? '' : value} onChange={(e) => onChange(num(e.target.value))} className="pl-7 font-mono" /></div>
     {hint && <p className="text-xs text-muted-foreground">{hint}</p>}</div>)
 }
@@ -27,6 +27,8 @@ function NumInput({ label, value, onChange, hint, min, max }: { label: string; v
 }
 
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts'
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 
 // IRS Uniform Lifetime Table (2022+, Treas. Reg. §1.401(a)(9)-9) — distribution period by age.
 // Ages below 72 are not in the table; age 120+ uses 2.0.
@@ -48,6 +50,7 @@ function divisorForAge(age: number): number {
 //  Ages before 73 have no RMD under SECURE 2.0, so their RMD is $0 and the balance simply grows.
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   void isPro
   const [age, setAge] = useState(73)
   const [balance, setBalance] = useState(500000)
@@ -78,7 +81,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
 
   const chartData = calc.rows.map((r) => ({ name: String(r.age), rmd: Math.round(r.rmd), balance: Math.round(r.endBalance) }))
 
-  return (<div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+  return (<><div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
     <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-6">
       <NumInput label="Your Age This Year" value={age} onChange={(v) => setAge(Math.min(100, Math.max(60, v)))} min={60} max={100} hint="RMDs currently begin at age 73. You can model ages 60–100; the full IRS table in the code runs to 120+." />
       <MoneyInput label="Account Balance (Prior December 31)" value={balance} onChange={setBalance} hint="The IRS uses your balance on December 31 of the previous year — not today's balance." />
@@ -116,6 +119,6 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       </div>
 
       <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Annual RMD by Age</h4>
-        <ResponsiveContainer width="100%" height={200}><BarChart data={chartData}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="name" label={{ value: 'Age', position: 'insideBottom', offset: -2 }} /><YAxis tickFormatter={(v: number) => '$' + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Bar dataKey="rmd" fill="#064E3B" name="RMD" radius={[4, 4, 0, 0]} /></BarChart></ResponsiveContainer></div>
-    </div></div>)
+        <ResponsiveContainer width="100%" height={200}><BarChart data={chartData}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="name" label={{ value: 'Age', position: 'insideBottom', offset: -2 }} /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Bar dataKey="rmd" fill="#064E3B" name="RMD" radius={[4, 4, 0, 0]} /></BarChart></ResponsiveContainer></div>
+    </div></div><ToolActionsBar slug="rmd-calculator" isPro={isPro} inputs={{ age, balance, ret }} /></>)
 }

@@ -4,12 +4,12 @@ import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 
-const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US')
-const fmt2 = (n: number) => '$' + n.toLocaleString('en-US', { maximumFractionDigits: 0 })
+const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
+const fmt2 = (n: number) => curSym() + n.toLocaleString('en-US', { maximumFractionDigits: 0 })
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
 function MoneyInput({ label, value, onChange, hint }: { label: string; value: number; onChange: (n: number) => void; hint?: string }) {
   return (<div className="space-y-2"><label className="text-sm font-semibold">{label}</label>
-    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">$</span>
+    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">{curSym()}</span>
     <Input type="number" value={value === 0 ? '' : value} onChange={(e) => onChange(num(e.target.value))} className="pl-7 font-mono" /></div>
     {hint && <p className="text-xs text-muted-foreground">{hint}</p>}</div>)
 }
@@ -27,6 +27,8 @@ function NumInput({ label, value, onChange, hint, min, max }: { label: string; v
 }
 
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, Legend } from 'recharts'
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 
 // Formula (monthly compounding, net of fees):
 //  Monthly rate m = (annualReturn% - fees%) / 100 / 12. Months N = years x 12.
@@ -53,6 +55,7 @@ const SCENARIOS = [
 ] as const
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   void isPro
   const [initial, setInitial] = useState(10000)
   const [monthly, setMonthly] = useState(500)
@@ -109,7 +112,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       <PctSlider label="Expected Annual Return" value={ret} onChange={(v) => { setRet(v) }} min={0} max={15} step={0.25} />
       <PctSlider label="Annual Fees (Expense Ratio)" value={fees} onChange={setFees} min={0} max={3} step={0.05} />
       <PctSlider label="Inflation (for real, inflation-adjusted result)" value={inflation} onChange={setInflation} min={0} max={8} step={0.1} />
-      {ret - fees < 0 && <p className="text-sm text-red-600 font-semibold">Warning: fees ({fees}%) exceed the expected return ({ret}%), so the portfolio shrinks in nominal terms before contributions.</p>}
+      {ret - fees < 0 && <p className="text-sm text-red-600 font-semibold">Warning: fees ({fees}%) exceed the expected return (<>{ret}%<ToolActionsBar slug="investment-calculator" isPro={isPro} inputs={{ initial, monthly, years, ret, fees, inflation, scenario }} /></>), so the portfolio shrinks in nominal terms before contributions.</p>}
       {years === 0 && <p className="text-sm text-amber-700 font-semibold">Set at least 1 year to see growth, fee drag and the year-by-year table.</p>}
     </div>
     <div className="lg:col-span-5 space-y-6">
@@ -142,7 +145,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       </div>
 
       <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Growth: Net of Fees vs No Fees</h4>
-        <ResponsiveContainer width="100%" height={220}><LineChart data={calc.series}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="year" /><YAxis tickFormatter={(v: number) => '$' + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt2(Number(v))} /><Legend /><Line type="monotone" dataKey="net" stroke="#064E3B" strokeWidth={2} dot={false} name="Net of fees" /><Line type="monotone" dataKey="noFees" stroke="#D97706" strokeWidth={2} dot={false} name="0% fees" /></LineChart></ResponsiveContainer></div>
+        <ResponsiveContainer width="100%" height={220}><LineChart data={calc.series}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="year" /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt2(Number(v))} /><Legend /><Line type="monotone" dataKey="net" stroke="#064E3B" strokeWidth={2} dot={false} name="Net of fees" /><Line type="monotone" dataKey="noFees" stroke="#D97706" strokeWidth={2} dot={false} name="0% fees" /></LineChart></ResponsiveContainer></div>
 
       <div className="bg-card border rounded-2xl p-6">
         <h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Year-by-Year Breakdown</h4>
