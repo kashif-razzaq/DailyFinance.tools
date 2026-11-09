@@ -4,6 +4,7 @@ import Script from "next/script"
 import { notFound } from "next/navigation"
 import { US_STATES, getStateBySlug, taxOn } from "@/data/locations/us-states"
 import { getCitiesByState } from "@/data/locations/us-cities"
+import { AVG_COMBINED, combinedRank, closestByCombined, highestCombined, lowestCombined, pointsDiff, salesTaxMeaning } from "@/data/locations/stats"
 import { ArrowRight } from "lucide-react"
 
 export function generateStaticParams() {
@@ -27,12 +28,17 @@ export default async function StateSalesTaxPage({ params }: { params: Promise<{ 
   const s = getStateBySlug(state)
   if (!s) notFound()
 
-  const baskets = [50, 100, 500, 1000]
+  const baskets = [25, 100, 500, 1000, 10000]
+  const rank = combinedRank(s)
+  const vsAvg = pointsDiff(s.salesTaxAvgCombined, AVG_COMBINED)
+  const peers = closestByCombined(s)
   const faqs = [
     { question: `How do I calculate sales tax in ${s.name}?`, answer: `Multiply the price by the combined rate where you buy. At ${s.name}'s average combined rate of ${s.salesTaxAvgCombined}%, tax = price × ${(s.salesTaxAvgCombined / 100).toFixed(4)} — so a $100 purchase carries about $${taxOn(100, s.salesTaxAvgCombined).toFixed(2)} tax, $${(100 + taxOn(100, s.salesTaxAvgCombined)).toFixed(2)} total. Use the calculator for your exact city/county rate.` },
     { question: `What is the combined sales tax rate in ${s.name}?`, answer: `The state rate is ${s.salesTaxBase}%, and with county, city and district taxes the average combined rate is about ${s.salesTaxAvgCombined}%. Rates vary inside ${s.name} — ${s.majorCities.slice(0, 3).join(", ")} can each differ — so confirm your local rate before pricing a large purchase.` },
     { question: `Are groceries taxed in ${s.name}?`, answer: s.groceriesNote },
     { question: `Do online purchases get taxed in ${s.name}?`, answer: s.salesTaxBase === 0 ? `${s.name} has no statewide sales tax to collect on online orders shipped there, though sellers follow the rules of the delivery state.` : `Yes — since the Wayfair decision, remote sellers with economic nexus in ${s.name} (commonly $100,000+ of sales) must collect ${s.name} sales tax at the rate for the delivery address.` },
+    { question: `How does ${s.name}'s sales tax compare with other states?`, answer: `${s.name}'s average combined rate of ${s.salesTaxAvgCombined}% ranks ${rank} of 51 states and DC (1 = highest), ${vsAvg > 0 ? `${vsAvg} points above` : vsAvg < 0 ? `${Math.abs(vsAvg)} points below` : "equal to"} the all-state average of ${AVG_COMBINED}%. The highest average combined rate in the dataset is ${highestCombined(1)[0].name} at ${highestCombined(1)[0].salesTaxAvgCombined}%; the lowest is ${lowestCombined(1)[0].name} at ${lowestCombined(1)[0].salesTaxAvgCombined}%.` },
+    { question: `Where can I verify the exact sales tax rate for a ${s.name} address?`, answer: `Rates on this page are reviewed averages; the combined rate at a specific address can differ because of county, city and district layers. Confirm the exact rate with the ${s.name} Department of Revenue's rate lookup before a major purchase or a filing. This page's worked examples use the ${s.salesTaxAvgCombined}% average combined rate.` },
   ]
   const faqSchema = { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.question, acceptedAnswer: { "@type": "Answer", text: f.answer } })) }
   const howToSchema = { "@context": "https://schema.org", "@type": "HowTo", name: `How to Calculate Sales Tax in ${s.name}`, step: [
@@ -61,16 +67,17 @@ export default async function StateSalesTaxPage({ params }: { params: Promise<{ 
         <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4">{s.name} Sales Tax: Rates, Examples &amp; Calculator</h1>
         <div className="bg-primary/5 border border-primary/20 rounded-3xl p-6 max-w-4xl mb-10">
           <h2 className="text-sm font-bold uppercase tracking-wider text-primary mb-2">Quick Answer</h2>
-          <p className="leading-relaxed">{s.salesTaxBase === 0 ? <>{s.name} has <strong>no statewide sales tax</strong>{s.salesTaxAvgCombined > 0 ? <> — but local jurisdictions add their own, averaging about <strong>{s.salesTaxAvgCombined}% combined</strong></> : ""}. On a $100 purchase you would typically pay <strong>${taxOn(100, s.salesTaxAvgCombined).toFixed(2)}</strong> in tax.</> : <>The {s.name} state sales tax rate is <strong>{s.salesTaxBase}%</strong>. Adding county, city and district taxes, the average combined rate is about <strong>{s.salesTaxAvgCombined}%</strong> — so a $100 purchase carries roughly <strong>${taxOn(100, s.salesTaxAvgCombined).toFixed(2)}</strong> in tax, <strong>${(100 + taxOn(100, s.salesTaxAvgCombined)).toFixed(2)}</strong> in total.</>}</p>
+          <p className="leading-relaxed">{s.salesTaxBase === 0 ? <>{s.name} has <strong>no statewide sales tax</strong>{s.salesTaxAvgCombined > 0 ? <> — but local jurisdictions add their own, averaging about <strong>{s.salesTaxAvgCombined}% combined</strong></> : ""}. On a $100 purchase you would typically pay <strong>${taxOn(100, s.salesTaxAvgCombined).toFixed(2)}</strong> in tax.</> : <>The {s.name} state sales tax rate is <strong>{s.salesTaxBase}%</strong>. Adding county, city and district taxes, the average combined rate is about <strong>{s.salesTaxAvgCombined}%</strong> — so a $100 purchase carries roughly <strong>${taxOn(100, s.salesTaxAvgCombined).toFixed(2)}</strong> in tax, <strong>${(100 + taxOn(100, s.salesTaxAvgCombined)).toFixed(2)}</strong> in total.</>} That combined rate ranks <strong>{rank} of 51</strong> states and DC — {vsAvg > 0 ? <><strong>{vsAvg} points above</strong> the all-state average of {AVG_COMBINED}%</> : vsAvg < 0 ? <><strong>{Math.abs(vsAvg)} points below</strong> the all-state average of {AVG_COMBINED}%</> : <>equal to the all-state average of {AVG_COMBINED}%</>}.</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-          <article className="lg:col-span-8 prose prose-slate dark:prose-invert max-w-none">
+          <article className="lg:col-span-8 content-prose max-w-none">
             <h2>{s.name} sales tax at a glance</h2>
             <table>
               <tbody>
                 <tr><td><strong>State base rate</strong></td><td>{s.salesTaxBase}%</td></tr>
                 <tr><td><strong>Average combined rate</strong></td><td>~{s.salesTaxAvgCombined}% (state + county + city + districts)</td></tr>
+                <tr><td><strong>National rank</strong></td><td>{rank} of 51 by average combined rate (all-state average {AVG_COMBINED}%)</td></tr>
                 <tr><td><strong>Groceries</strong></td><td>{s.groceries === "exempt" ? "Generally exempt" : s.groceries === "reduced" ? "Reduced rate" : "Taxed at full rate"}</td></tr>
                 <tr><td><strong>Major cities</strong></td><td>{s.majorCities.join(", ")}</td></tr>
               </tbody>
@@ -85,6 +92,27 @@ export default async function StateSalesTaxPage({ params }: { params: Promise<{ 
                 ))}
               </tbody>
             </table>
+            <h2>How {s.name} compares with other states</h2>
+            <p>The states closest to {s.name} on average combined rate, plus the national extremes — all rates are average combined (state + local):</p>
+            <table>
+              <thead><tr><th>State</th><th>Average combined rate</th><th>Tax on $1,000</th></tr></thead>
+              <tbody>
+                <tr><td><strong>{s.name} (this page)</strong></td><td><strong>{s.salesTaxAvgCombined}%</strong></td><td><strong>${taxOn(1000, s.salesTaxAvgCombined).toFixed(2)}</strong></td></tr>
+                {peers.map((o) => (
+                  <tr key={o.slug}><td><Link href={`/sales-tax/${o.slug}`}>{o.name}</Link></td><td>{o.salesTaxAvgCombined}%</td><td>${taxOn(1000, o.salesTaxAvgCombined).toFixed(2)}</td></tr>
+                ))}
+                {highestCombined(1).map((o) => o.slug !== s.slug && (
+                  <tr key={o.slug}><td><Link href={`/sales-tax/${o.slug}`}>{o.name}</Link> — highest in the US</td><td>{o.salesTaxAvgCombined}%</td><td>${taxOn(1000, o.salesTaxAvgCombined).toFixed(2)}</td></tr>
+                ))}
+                {lowestCombined(1).map((o) => o.slug !== s.slug && (
+                  <tr key={o.slug}><td><Link href={`/sales-tax/${o.slug}`}>{o.name}</Link> — lowest in the US</td><td>{o.salesTaxAvgCombined}%</td><td>${taxOn(1000, o.salesTaxAvgCombined).toFixed(2)}</td></tr>
+                ))}
+              </tbody>
+            </table>
+            <h2>What this means in {s.name}</h2>
+            {salesTaxMeaning(s).map((p, i) => (
+              <p key={i}>{p}</p>
+            ))}
             <h2>How to calculate {s.name} sales tax (3 steps)</h2>
             <ol>
               <li><strong>Find your combined rate.</strong> Start with the {s.salesTaxBase}% state rate, then add your county, city and any special-district rates for the exact purchase location.</li>
@@ -123,7 +151,9 @@ export default async function StateSalesTaxPage({ params }: { params: Promise<{ 
             </div>
             <div className="mt-6 pt-5 border-t border-border/40">
               <h4 className="font-semibold text-sm mb-2">More for {s.name}</h4>
-              <Link href={`/locations/${s.slug}`} className="text-sm text-primary font-semibold">Full {s.name} tax &amp; finance guide →</Link>
+              <Link href={`/locations/${s.slug}`} className="block text-sm text-primary font-semibold">Full {s.name} tax &amp; finance guide →</Link>
+              <Link href={`/guides/states/${s.slug}`} className="block text-sm text-primary font-semibold mt-2">{s.name} tax guide — sales, income &amp; property →</Link>
+              <Link href="/tax/paycheck-calculator" className="block text-sm text-primary font-semibold mt-2">Paycheck calculator →</Link>
             </div>
           </aside>
         </div>

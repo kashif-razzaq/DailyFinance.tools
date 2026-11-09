@@ -2,7 +2,8 @@ import { CalculatorClient } from "./CalculatorClient"
 import type { Metadata } from 'next';
 import { generateCalculatorMetadata } from '@/config/metadata';
 import { ToolLayout } from "@/components/layout/ToolLayout"
-import { ContentPlaceholder } from "@/components/shared/ContentPlaceholder"
+import { ToolContent } from "@/components/shared/ToolContent"
+import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
@@ -15,8 +16,8 @@ export const metadata: Metadata = generateCalculatorMetadata({
 
 export default function Page() {
   return (
-    <ToolLayout title="BRRRR Calculator & Strategy Analyzer" description="Model a BRRRR deal end to end: purchase + rehab, ARV, refinance at 75% LTV, cash left in the deal and cash-on-cash return after refinancing." slug="brrrr-strategy-analyzer" faqs={[]} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
-      {() => <ContentPlaceholder toolName="BRRRR Calculator & Strategy Analyzer" hubHref="/real-estate" hubName="Real Estate" />}
+    <ToolLayout title="BRRRR Calculator & Strategy Analyzer" description="Model a BRRRR deal end to end: purchase + rehab, ARV, refinance at 75% LTV, cash left in the deal and cash-on-cash return after refinancing." slug="brrrr-strategy-analyzer" faqs={TOOL_CONTENT["real-estate/brrrr-strategy-analyzer"]?.faqs ?? []} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
+      {() => <ToolContent contentKey="real-estate/brrrr-strategy-analyzer" />}
     </ToolLayout>
   )
 }

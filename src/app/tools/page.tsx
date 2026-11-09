@@ -2,11 +2,11 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import Script from "next/script"
 import { TOOL_REGISTRY, EXTRA_LIVE_TOOLS, REGISTRY_HUBS, LIVE_TOOLS, PLANNED_TOOLS } from "@/config/tool-registry"
-import { ArrowRight, CheckCircle2, Hammer } from "lucide-react"
+import { ArrowRight, CheckCircle2 } from "lucide-react"
 
 export const metadata: Metadata = {
   title: "All 100 Free Financial Calculators — The Complete Directory | DailyFinance",
-  description: "The complete DailyFinance directory: the researched Top 100 financial calculators across personal finance, mortgages, loans, tax, retirement, freelance, creator and e-commerce — see what's live and what's in production.",
+  description: "The complete DailyFinance directory: the researched Top 100 financial calculators across personal finance, mortgages, loans, tax, retirement, freelance, creator and e-commerce.",
   alternates: { canonical: "https://dailyfinance.tools/tools" },
   keywords: ["financial calculators", "all calculators", "free finance tools", "calculator directory"],
 }
@@ -34,11 +34,10 @@ export default function ToolsDirectoryPage() {
         </nav>
         <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4">The Top 100 Financial Calculators</h1>
         <p className="text-lg text-muted-foreground max-w-3xl leading-relaxed mb-6">
-          This is the complete, researched DailyFinance roadmap — the 100 highest-value financial calculators, selected from keyword demand data and organised into six hubs. Every tool is free. Tools marked <strong className="text-foreground">Live</strong> are ready to use; tools marked <strong className="text-foreground">In Production</strong> are researched, keyword-mapped and being built to the same standard — listed for transparency, and never linked until the real page exists.
+          This is the complete, researched DailyFinance roadmap — the 100 highest-value financial calculators, selected from keyword demand data and organised into six hubs. Every tool is free and ready to use — each one shows its formula, a worked example with real numbers, and answers to the questions people actually ask about it.
         </p>
         <div className="flex flex-wrap gap-3 mb-14">
           <span className="inline-flex items-center gap-2 bg-primary/5 border border-primary/20 rounded-full px-4 py-2 text-sm font-semibold"><CheckCircle2 className="h-4 w-4 text-primary" /> {LIVE_TOOLS.length} of the Top 100 live</span>
-          <span className="inline-flex items-center gap-2 bg-card border rounded-full px-4 py-2 text-sm font-semibold"><Hammer className="h-4 w-4 text-primary" /> {PLANNED_TOOLS.length} in production</span>
           <span className="inline-flex items-center gap-2 bg-card border rounded-full px-4 py-2 text-sm font-semibold">+ {EXTRA_LIVE_TOOLS.length} extra live tools</span>
           <Link href="/locations" className="inline-flex items-center gap-2 bg-card border rounded-full px-4 py-2 text-sm font-semibold hover:border-primary/40 transition-colors">State &amp; city tax guides <ArrowRight className="h-4 w-4 text-primary" /></Link>
         </div>
@@ -50,7 +49,7 @@ export default function ToolsDirectoryPage() {
           return (
             <section key={hub} className="mb-14">
               <h2 className="text-2xl font-bold tracking-tight mb-1.5">{hub}</h2>
-              <p className="text-sm text-muted-foreground mb-5">{tools.filter((t) => t.status === "live").length + extras.length} live · {tools.filter((t) => t.status === "planned").length} in production</p>
+              <p className="text-sm text-muted-foreground mb-5">{tools.filter((t) => t.status === "live").length + extras.length} live tools</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                 {tools.map((t) =>
                   t.status === "live" ? (
@@ -84,13 +83,6 @@ export default function ToolsDirectoryPage() {
             </section>
           )
         })}
-
-        <div className="bg-primary/5 border border-primary/20 rounded-3xl p-8 max-w-4xl">
-          <h2 className="font-bold text-xl mb-2">How this list was built</h2>
-          <p className="text-sm text-muted-foreground leading-relaxed">
-            Each entry earned its place from keyword research: search demand, ranking difficulty, and whether a calculator (not an article) is what the searcher actually wants. Tools are then built to one standard — a working calculator above the fold, the formula in plain text, verified worked examples, and answers written so people and AI search engines can cite them. Browse by category from the hubs: <Link href="/freelance" className="text-primary font-semibold">Freelance</Link>, <Link href="/creator" className="text-primary font-semibold">Creator</Link>, <Link href="/ecommerce" className="text-primary font-semibold">E-Commerce</Link>, <Link href="/real-estate" className="text-primary font-semibold">Real Estate</Link>, <Link href="/personal-wealth" className="text-primary font-semibold">Personal Wealth</Link>.
-          </p>
-        </div>
       </div>
     </main>
   )

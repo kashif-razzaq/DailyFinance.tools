@@ -2,7 +2,8 @@ import { CalculatorClient } from "./CalculatorClient"
 import type { Metadata } from 'next';
 import { generateCalculatorMetadata } from '@/config/metadata';
 import { ToolLayout } from "@/components/layout/ToolLayout"
-import { ContentPlaceholder } from "@/components/shared/ContentPlaceholder"
+import { ToolContent } from "@/components/shared/ToolContent"
+import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
@@ -15,8 +16,8 @@ export const metadata: Metadata = generateCalculatorMetadata({
 
 export default function Page() {
   return (
-    <ToolLayout title="HELOC Calculator & Drawdown Simulator" description="Calculate your available HELOC credit, interest-only draw-period payment and the amortized repayment-phase payment. See the payment jump before it happens." slug="heloc-drawdown-simulator" faqs={[]} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
-      {() => <ContentPlaceholder toolName="HELOC Calculator & Drawdown Simulator" hubHref="/real-estate" hubName="Real Estate" />}
+    <ToolLayout title="HELOC Calculator & Drawdown Simulator" description="Calculate your available HELOC credit, interest-only draw-period payment and the amortized repayment-phase payment. See the payment jump before it happens." slug="heloc-drawdown-simulator" faqs={TOOL_CONTENT["real-estate/heloc-drawdown-simulator"]?.faqs ?? []} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
+      {() => <ToolContent contentKey="real-estate/heloc-drawdown-simulator" />}
     </ToolLayout>
   )
 }

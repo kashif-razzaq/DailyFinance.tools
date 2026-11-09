@@ -2,7 +2,8 @@ import { CalculatorClient } from "./CalculatorClient"
 import type { Metadata } from 'next';
 import { generateCalculatorMetadata } from '@/config/metadata';
 import { ToolLayout } from "@/components/layout/ToolLayout"
-import { ContentPlaceholder } from "@/components/shared/ContentPlaceholder"
+import { ToolContent } from "@/components/shared/ToolContent"
+import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
@@ -15,8 +16,8 @@ export const metadata: Metadata = generateCalculatorMetadata({
 
 export default function Page() {
   return (
-    <ToolLayout title="Rental Property & Cash Flow Calculator" description="Calculate rental property cash flow, cap rate and cash-on-cash return. Full PITI, vacancy, maintenance and management reserves included — no flattering omissions." slug="rental-cash-flow-calculator" faqs={[]} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
-      {() => <ContentPlaceholder toolName="Rental Property & Cash Flow Calculator" hubHref="/real-estate" hubName="Real Estate" />}
+    <ToolLayout title="Rental Property & Cash Flow Calculator" description="Calculate rental property cash flow, cap rate and cash-on-cash return. Full PITI, vacancy, maintenance and management reserves included — no flattering omissions." slug="rental-cash-flow-calculator" faqs={TOOL_CONTENT["real-estate/rental-cash-flow-calculator"]?.faqs ?? []} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
+      {() => <ToolContent contentKey="real-estate/rental-cash-flow-calculator" />}
     </ToolLayout>
   )
 }

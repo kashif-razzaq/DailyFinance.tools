@@ -2,7 +2,8 @@ import { CalculatorClient } from "./CalculatorClient"
 import type { Metadata } from 'next';
 import { generateCalculatorMetadata } from '@/config/metadata';
 import { ToolLayout } from "@/components/layout/ToolLayout"
-import { ContentPlaceholder } from "@/components/shared/ContentPlaceholder"
+import { ToolContent } from "@/components/shared/ToolContent"
+import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
@@ -15,8 +16,8 @@ export const metadata: Metadata = generateCalculatorMetadata({
 
 export default function Page() {
   return (
-    <ToolLayout title="Property Tax Calculator" description="Estimate annual property tax from market value, assessment ratio, exemptions and tax or mill rate. See your monthly escrow and effective rate." slug="property-tax-assessor-calculator" faqs={[]} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
-      {() => <ContentPlaceholder toolName="Property Tax Calculator" hubHref="/real-estate" hubName="Real Estate" />}
+    <ToolLayout title="Property Tax Calculator" description="Estimate annual property tax from market value, assessment ratio, exemptions and tax or mill rate. See your monthly escrow and effective rate." slug="property-tax-assessor-calculator" faqs={TOOL_CONTENT["real-estate/property-tax-assessor-calculator"]?.faqs ?? []} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
+      {() => <ToolContent contentKey="real-estate/property-tax-assessor-calculator" />}
     </ToolLayout>
   )
 }

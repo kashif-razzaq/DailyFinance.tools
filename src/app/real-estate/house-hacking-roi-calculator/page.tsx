@@ -2,7 +2,8 @@ import { CalculatorClient } from "./CalculatorClient"
 import type { Metadata } from 'next';
 import { generateCalculatorMetadata } from '@/config/metadata';
 import { ToolLayout } from "@/components/layout/ToolLayout"
-import { ContentPlaceholder } from "@/components/shared/ContentPlaceholder"
+import { ToolContent } from "@/components/shared/ToolContent"
+import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
@@ -15,8 +16,8 @@ export const metadata: Metadata = generateCalculatorMetadata({
 
 export default function Page() {
   return (
-    <ToolLayout title="House Hacking ROI Calculator" description="Calculate your effective housing cost and ROI house hacking a duplex or multi-family home. See how rent from other units offsets your mortgage (PITI) and what you save versus renting." slug="house-hacking-roi-calculator" faqs={[]} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
-      {() => <ContentPlaceholder toolName="House Hacking ROI Calculator" hubHref="/real-estate" hubName="Real Estate" />}
+    <ToolLayout title="House Hacking ROI Calculator" description="Calculate your effective housing cost and ROI house hacking a duplex or multi-family home. See how rent from other units offsets your mortgage (PITI) and what you save versus renting." slug="house-hacking-roi-calculator" faqs={TOOL_CONTENT["real-estate/house-hacking-roi-calculator"]?.faqs ?? []} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
+      {() => <ToolContent contentKey="real-estate/house-hacking-roi-calculator" />}
     </ToolLayout>
   )
 }

@@ -2,7 +2,8 @@ import { CalculatorClient } from "./CalculatorClient"
 import type { Metadata } from 'next';
 import { generateCalculatorMetadata } from '@/config/metadata';
 import { ToolLayout } from "@/components/layout/ToolLayout"
-import { ContentPlaceholder } from "@/components/shared/ContentPlaceholder"
+import { ToolContent } from "@/components/shared/ToolContent"
+import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
@@ -15,8 +16,8 @@ export const metadata: Metadata = generateCalculatorMetadata({
 
 export default function Page() {
   return (
-    <ToolLayout title="Mortgage Calculator & Amortization Schedule" description="Free mortgage calculator with amortization schedule: monthly payment (PITI), total interest, PMI and the effect of extra payments. The complete mortgage payment calculator." slug="mortgage-amortization-calculator" faqs={[]} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
-      {() => <ContentPlaceholder toolName="Mortgage Calculator & Amortization Schedule" hubHref="/real-estate" hubName="Real Estate" />}
+    <ToolLayout title="Mortgage Calculator & Amortization Schedule" description="Free mortgage calculator with amortization schedule: monthly payment (PITI), total interest, PMI and the effect of extra payments. The complete mortgage payment calculator." slug="mortgage-amortization-calculator" faqs={TOOL_CONTENT["real-estate/mortgage-amortization-calculator"]?.faqs ?? []} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
+      {() => <ToolContent contentKey="real-estate/mortgage-amortization-calculator" />}
     </ToolLayout>
   )
 }

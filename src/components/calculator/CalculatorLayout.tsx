@@ -149,7 +149,7 @@ export function CalculatorLayout({ title, description, inputs, results, seoConte
       </div>
 
       {/* SEO Content Section (1500+ words) */}
-      <div className="max-w-4xl mx-auto prose prose-gray dark:prose-invert lg:prose-lg">
+      <div className="max-w-4xl mx-auto content-prose">
         {seoContent}
       </div>
     </div>
