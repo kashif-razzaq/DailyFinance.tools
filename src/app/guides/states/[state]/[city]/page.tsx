@@ -77,11 +77,11 @@ export default async function CityGuidePage({ params }: { params: Promise<{ stat
     <main className="w-full bg-background min-h-screen">
       <Script id={`schema-faq-city-${c.slug}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <article className="container mx-auto px-4 md:px-8 py-12 max-w-3xl">
-        <nav className="flex items-center gap-2 text-xs font-semibold text-muted-foreground mb-6 uppercase tracking-wider">
-          <Link href="/" className="hover:text-foreground">Home</Link><span>/</span>
-          <Link href="/guides/states" className="hover:text-foreground">States</Link><span>/</span>
-          <Link href={`/guides/states/${s.slug}`} className="hover:text-foreground">{s.name}</Link><span>/</span>
-          <span className="text-foreground">{c.name}</span>
+        <nav className="flex items-center gap-1.5 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider flex-nowrap overflow-x-auto whitespace-nowrap [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden mb-6">
+          <Link href="/" className="shrink-0 hover:text-foreground">Home</Link><span aria-hidden="true" className="text-border shrink-0 select-none">›</span>
+          <Link href="/guides/states" className="shrink-0 hover:text-foreground">States</Link><span aria-hidden="true" className="text-border shrink-0 select-none">›</span>
+          <Link href={`/guides/states/${s.slug}`} className="shrink-0 hover:text-foreground">{s.name}</Link><span aria-hidden="true" className="text-border shrink-0 select-none">›</span>
+          <span className="truncate max-w-[150px] sm:max-w-[220px] md:max-w-none text-foreground">{c.name}</span>
         </nav>
         <h1 className="text-3xl md:text-[2.6rem] font-extrabold tracking-tight leading-tight mb-5">
           {c.name} sales tax guide

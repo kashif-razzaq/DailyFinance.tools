@@ -57,11 +57,11 @@ export default async function CitySalesTaxPage({ params }: { params: Promise<{ s
       <Script id={`schema-city-faq-${c.slug}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <Script id={`schema-city-crumb-${c.slug}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <div className="container mx-auto px-4 md:px-8 py-14">
-        <nav className="flex items-center gap-2 text-xs font-semibold text-muted-foreground mb-6 uppercase tracking-wider">
-          <Link href="/" className="hover:text-foreground">Home</Link><span className="text-border">/</span>
-          <Link href="/locations" className="hover:text-foreground">Locations</Link><span className="text-border">/</span>
-          <Link href={`/sales-tax/${s.slug}`} className="hover:text-foreground">{s.name} Sales Tax</Link><span className="text-border">/</span>
-          <span className="text-foreground">{c.name}</span>
+        <nav className="flex items-center gap-1.5 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider flex-nowrap overflow-x-auto whitespace-nowrap [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden mb-6">
+          <Link href="/" className="shrink-0 hover:text-foreground">Home</Link><span aria-hidden="true" className="text-border shrink-0 select-none">›</span>
+          <Link href="/locations" className="shrink-0 hover:text-foreground">Locations</Link><span aria-hidden="true" className="text-border shrink-0 select-none">›</span>
+          <Link href={`/sales-tax/${s.slug}`} className="shrink-0 hover:text-foreground">{s.name} Sales Tax</Link><span aria-hidden="true" className="text-border shrink-0 select-none">›</span>
+          <span className="truncate max-w-[150px] sm:max-w-[220px] md:max-w-none text-foreground">{c.name}</span>
         </nav>
         <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4">Sales Tax in {c.name}, {s.abbr}: {c.combinedRate}% Combined Rate</h1>
         <div className="bg-primary/5 border border-primary/20 rounded-3xl p-6 max-w-4xl mb-10">

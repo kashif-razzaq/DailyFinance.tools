@@ -73,10 +73,10 @@ export default async function StateHubPage({ params }: { params: Promise<{ state
       <Script id={`schema-state-faq-${s.slug}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <Script id={`schema-state-crumb-${s.slug}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <div className="container mx-auto px-4 md:px-8 py-14">
-        <nav className="flex items-center gap-2 text-xs font-semibold text-muted-foreground mb-6 uppercase tracking-wider">
-          <Link href="/" className="hover:text-foreground">Home</Link><span className="text-border">/</span>
-          <Link href="/locations" className="hover:text-foreground">Locations</Link><span className="text-border">/</span>
-          <span className="text-foreground">{s.name}</span>
+        <nav className="flex items-center gap-1.5 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider flex-nowrap overflow-x-auto whitespace-nowrap [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden mb-6">
+          <Link href="/" className="shrink-0 hover:text-foreground">Home</Link><span aria-hidden="true" className="text-border shrink-0 select-none">›</span>
+          <Link href="/locations" className="shrink-0 hover:text-foreground">Locations</Link><span aria-hidden="true" className="text-border shrink-0 select-none">›</span>
+          <span className="truncate max-w-[150px] sm:max-w-[220px] md:max-w-none text-foreground">{s.name}</span>
         </nav>
         <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4 flex items-start gap-3"><MapPin className="h-9 w-9 text-primary shrink-0 mt-1" /> {s.name} Taxes &amp; Finance Guide</h1>
         <p className="text-lg text-muted-foreground max-w-3xl leading-relaxed mb-10">
