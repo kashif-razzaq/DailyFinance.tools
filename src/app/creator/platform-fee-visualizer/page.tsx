@@ -2,7 +2,8 @@ import { CalculatorClient } from "./CalculatorClient"
 import type { Metadata } from 'next';
 import { generateCalculatorMetadata } from '@/config/metadata';
 import { ToolLayout } from "@/components/layout/ToolLayout"
-import { ContentPlaceholder } from "@/components/shared/ContentPlaceholder"
+import { ToolContent } from "@/components/shared/ToolContent"
+import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
@@ -15,8 +16,8 @@ export const metadata: Metadata = generateCalculatorMetadata({
 
 export default function Page() {
   return (
-    <ToolLayout title="Platform Fee Calculator" description="Compare creator platform fees side by side. Enter gross revenue and see what you actually keep on YouTube, Patreon, Substack, Twitch, Gumroad, Etsy and your own Stripe checkout." slug="platform-fee-visualizer" faqs={[]} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
-      {() => <ContentPlaceholder toolName="Platform Fee Calculator" hubHref="/creator" hubName="Creator Economy" />}
+    <ToolLayout title="Platform Fee Calculator" description="Compare creator platform fees side by side. Enter gross revenue and see what you actually keep on YouTube, Patreon, Substack, Twitch, Gumroad, Etsy and your own Stripe checkout." slug="platform-fee-visualizer" faqs={TOOL_CONTENT["creator/platform-fee-visualizer"]?.faqs ?? []} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
+      {() => <ToolContent contentKey="creator/platform-fee-visualizer" />}
     </ToolLayout>
   )
 }

@@ -2,7 +2,8 @@ import { CalculatorClient } from "./CalculatorClient"
 import type { Metadata } from 'next';
 import { generateCalculatorMetadata } from '@/config/metadata';
 import { ToolLayout } from "@/components/layout/ToolLayout"
-import { ContentPlaceholder } from "@/components/shared/ContentPlaceholder"
+import { ToolContent } from "@/components/shared/ToolContent"
+import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
@@ -15,8 +16,8 @@ export const metadata: Metadata = generateCalculatorMetadata({
 
 export default function Page() {
   return (
-    <ToolLayout title="Business Loan & Runway Calculator" description="Calculate a business loan's monthly payment and total interest, and see the truth about runway: how many months the loan really adds after its own payment joins your burn." slug="business-loan-runway-calculator" faqs={[]} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
-      {() => <ContentPlaceholder toolName="Business Loan & Runway Calculator" hubHref="/ecommerce" hubName="E-Commerce" />}
+    <ToolLayout title="Business Loan & Runway Calculator" description="Calculate a business loan's monthly payment and total interest, and see the truth about runway: how many months the loan really adds after its own payment joins your burn." slug="business-loan-runway-calculator" faqs={TOOL_CONTENT["ecommerce/business-loan-runway-calculator"]?.faqs ?? []} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
+      {() => <ToolContent contentKey="ecommerce/business-loan-runway-calculator" />}
     </ToolLayout>
   )
 }

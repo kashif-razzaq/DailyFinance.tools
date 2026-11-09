@@ -2,7 +2,8 @@ import { CalculatorClient } from "./CalculatorClient"
 import type { Metadata } from 'next';
 import { generateCalculatorMetadata } from '@/config/metadata';
 import { ToolLayout } from "@/components/layout/ToolLayout"
-import { ContentPlaceholder } from "@/components/shared/ContentPlaceholder"
+import { ToolContent } from "@/components/shared/ToolContent"
+import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
@@ -15,8 +16,8 @@ export const metadata: Metadata = generateCalculatorMetadata({
 
 export default function Page() {
   return (
-    <ToolLayout title="Patreon Earnings Calculator" description="Calculate your real Patreon take-home pay after the 5, 8 or 12 percent platform fee, payment processing and payout fees. See net per patron and why small tiers lose the most to fixed fees." slug="patreon-tier-optimization" faqs={[]} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
-      {() => <ContentPlaceholder toolName="Patreon Earnings Calculator" hubHref="/creator" hubName="Creator Economy" />}
+    <ToolLayout title="Patreon Earnings Calculator" description="Calculate your real Patreon take-home pay after the 5, 8 or 12 percent platform fee, payment processing and payout fees. See net per patron and why small tiers lose the most to fixed fees." slug="patreon-tier-optimization" faqs={TOOL_CONTENT["creator/patreon-tier-optimization"]?.faqs ?? []} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
+      {() => <ToolContent contentKey="creator/patreon-tier-optimization" />}
     </ToolLayout>
   )
 }

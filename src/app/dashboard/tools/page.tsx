@@ -1,76 +1,36 @@
 import { Card, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Calculator, ArrowRight, Star, Crown } from "lucide-react"
+import { Calculator, ArrowRight, Crown } from "lucide-react"
 import Link from "next/link"
 import { getToolUrl } from "@/config/navigation"
 
-// Temporary mock data until we build all 50 tools
-const upcomingTools = [
-  {
-    id: "saas-burn-rate-runway",
-    title: "SaaS Burn Rate & Runway Forecaster",
-    description: "Model startup survival timelines based on ARR growth, headcount scaling, and fixed costs.",
-    category: "Business",
-    isPro: true,
-    status: "upcoming"
-  },
-  {
-    id: "monte-carlo-fire",
-    title: "Monte Carlo FIRE Simulator",
-    description: "Run 10,000 market simulations to determine the absolute success rate of your early retirement.",
-    category: "Investing",
-    isPro: true,
-    status: "upcoming"
-  },
-  {
-    id: "rsu-tax-planner",
-    title: "RSU & Stock Options Tax Planner",
-    description: "Optimize the sale of Restricted Stock Units to minimize short-term capital gains hits.",
-    category: "Investing",
-    isPro: true,
-    status: "upcoming"
-  },
-  {
-    id: "private-equity-waterfall",
-    title: "Private Equity Waterfall Modeler",
-    description: "Calculate LP vs GP return distributions across multiple IRR hurdles.",
-    category: "Investing",
-    isPro: true,
-    status: "upcoming"
-  },
-  {
-    id: "real-estate-syndication",
-    title: "Real Estate Syndication Analyzer",
-    description: "Deep dive into multi-family syndication cash-on-cash returns and equity multipliers.",
-    category: "Real Estate",
-    isPro: true,
-    status: "upcoming"
-  },
-  {
-    id: "creator-ma-valuation",
-    title: "Creator M&A Valuation Engine",
-    description: "Value a media brand or YouTube channel for acquisition based on trailing 12-month EBITDA.",
-    category: "Creator Economy",
-    isPro: true,
-    status: "upcoming"
-  },
-  {
-    id: "freelance-ltv-churn",
-    title: "Freelance Client LTV Forecaster",
-    description: "Model the exact revenue impact of losing a retainer client vs acquiring a new one.",
-    category: "Business",
-    isPro: true,
-    status: "upcoming"
-  },
-  {
-    id: "lease-vs-buy-advanced",
-    title: "Advanced Auto Lease vs Buy",
-    description: "Factor in precise depreciation curves, opportunity cost of capital, and hidden dealership fees.",
-    category: "Personal Finance",
-    isPro: true,
-    status: "upcoming"
-  }
+import { navigationCategories } from "@/config/navigation"
+
+// The advanced end of the live suite, pulled from the real navigation data
+// so this library can never drift from what is actually published.
+const ADVANCED_SLUGS = [
+  "coast-fire",
+  "fat-fire",
+  "brrrr",
+  "roth-ira-conversion",
+  "debt-avalanche",
+  "capital-gains",
+  "s-corp",
+  "house-hacking",
 ]
+
+const upcomingTools = navigationCategories.flatMap((cat) =>
+  cat.calculators
+    .filter((calc) => ADVANCED_SLUGS.some((s) => calc.slug.includes(s)))
+    .map((calc) => ({
+      id: calc.slug,
+      title: calc.title,
+      description: calc.description,
+      category: cat.name,
+      isPro: false,
+      status: "ready",
+    })),
+)
 
 export default function ProToolsLibrary() {
   return (
@@ -78,7 +38,7 @@ export default function ProToolsLibrary() {
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Pro Tools Library</h1>
-          <p className="text-muted-foreground mt-1">Access the complete suite of financial modeling calculators.</p>
+          <p className="text-muted-foreground mt-1">Advanced calculators from the full DailyFinance suite — every one live and ready to open.</p>
         </div>
       </div>
 
@@ -103,19 +63,12 @@ export default function ProToolsLibrary() {
               </CardDescription>
             </CardHeader>
             <CardFooter className="pt-4 border-t mt-auto bg-muted/20">
-              {tool.status === "ready" ? (
-                <Link href={getToolUrl(tool.id)} className="w-full">
-                  <Button variant="default" className="w-full justify-between shadow-sm">
-                    Open Calculator
-                    <ArrowRight className="h-4 w-4" />
-                  </Button>
-                </Link>
-              ) : (
-                <Button variant="outline" disabled className="w-full justify-between">
-                  Coming Soon
-                  <Star className="h-4 w-4 text-muted-foreground" />
+              <Link href={getToolUrl(tool.id)} className="w-full">
+                <Button variant="default" className="w-full justify-between shadow-sm">
+                  Open Calculator
+                  <ArrowRight className="h-4 w-4" />
                 </Button>
-              )}
+              </Link>
             </CardFooter>
           </Card>
         ))}

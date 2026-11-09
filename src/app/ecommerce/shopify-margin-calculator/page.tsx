@@ -2,7 +2,8 @@ import { CalculatorClient } from "./CalculatorClient"
 import type { Metadata } from 'next';
 import { generateCalculatorMetadata } from '@/config/metadata';
 import { ToolLayout } from "@/components/layout/ToolLayout"
-import { ContentPlaceholder } from "@/components/shared/ContentPlaceholder"
+import { ToolContent } from "@/components/shared/ToolContent"
+import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
@@ -15,8 +16,8 @@ export const metadata: Metadata = generateCalculatorMetadata({
 
 export default function Page() {
   return (
-    <ToolLayout title="Shopify Margin Calculator" description="Calculate your true Shopify profit per order after COGS, Shopify Payments fees (2.9% + $0.30), shipping and apps. See real margin and monthly profit, not gross margin." slug="shopify-margin-calculator" faqs={[]} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
-      {() => <ContentPlaceholder toolName="Shopify Margin Calculator" hubHref="/ecommerce" hubName="E-Commerce" />}
+    <ToolLayout title="Shopify Margin Calculator" description="Calculate your true Shopify profit per order after COGS, Shopify Payments fees (2.9% + $0.30), shipping and apps. See real margin and monthly profit, not gross margin." slug="shopify-margin-calculator" faqs={TOOL_CONTENT["ecommerce/shopify-margin-calculator"]?.faqs ?? []} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
+      {() => <ToolContent contentKey="ecommerce/shopify-margin-calculator" />}
     </ToolLayout>
   )
 }

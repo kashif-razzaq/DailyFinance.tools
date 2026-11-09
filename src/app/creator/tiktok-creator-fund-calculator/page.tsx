@@ -2,7 +2,8 @@ import { CalculatorClient } from "./CalculatorClient"
 import type { Metadata } from 'next';
 import { generateCalculatorMetadata } from '@/config/metadata';
 import { ToolLayout } from "@/components/layout/ToolLayout"
-import { ContentPlaceholder } from "@/components/shared/ContentPlaceholder"
+import { ToolContent } from "@/components/shared/ToolContent"
+import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
@@ -15,8 +16,8 @@ export const metadata: Metadata = generateCalculatorMetadata({
 
 export default function Page() {
   return (
-    <ToolLayout title="TikTok Money Calculator" description="Estimate TikTok Creator Rewards earnings the current way: qualified views on original videos over 1 minute at roughly $0.40 to $1.00 per 1,000. The old Creator Fund ended in December 2023; this calculator shows both." slug="tiktok-creator-fund-calculator" faqs={[]} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
-      {() => <ContentPlaceholder toolName="TikTok Money Calculator" hubHref="/creator" hubName="Creator Economy" />}
+    <ToolLayout title="TikTok Money Calculator" description="Estimate TikTok Creator Rewards earnings the current way: qualified views on original videos over 1 minute at roughly $0.40 to $1.00 per 1,000. The old Creator Fund ended in December 2023; this calculator shows both." slug="tiktok-creator-fund-calculator" faqs={TOOL_CONTENT["creator/tiktok-creator-fund-calculator"]?.faqs ?? []} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
+      {() => <ToolContent contentKey="creator/tiktok-creator-fund-calculator" />}
     </ToolLayout>
   )
 }

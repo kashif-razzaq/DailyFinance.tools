@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "new-tool": "node scripts/new-tool.mjs"
+    "new-tool": "node scripts/new-tool.mjs",
+    "check-site": "node scripts/check-site.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",

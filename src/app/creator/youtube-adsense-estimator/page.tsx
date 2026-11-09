@@ -2,7 +2,8 @@ import { CalculatorClient } from "./CalculatorClient"
 import type { Metadata } from 'next';
 import { generateCalculatorMetadata } from '@/config/metadata';
 import { ToolLayout } from "@/components/layout/ToolLayout"
-import { ContentPlaceholder } from "@/components/shared/ContentPlaceholder"
+import { ToolContent } from "@/components/shared/ToolContent"
+import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
@@ -15,8 +16,8 @@ export const metadata: Metadata = generateCalculatorMetadata({
 
 export default function Page() {
   return (
-    <ToolLayout title="YouTube Money Calculator" description="Estimate your YouTube AdSense earnings from views and RPM by niche. Compare long-form and Shorts income, see per-video, daily and yearly revenue, and learn the formula top creators use." slug="youtube-adsense-estimator" faqs={[]} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
-      {() => <ContentPlaceholder toolName="YouTube Money Calculator" hubHref="/creator" hubName="Creator Economy" />}
+    <ToolLayout title="YouTube Money Calculator" description="Estimate your YouTube AdSense earnings from views and RPM by niche. Compare long-form and Shorts income, see per-video, daily and yearly revenue, and learn the formula top creators use." slug="youtube-adsense-estimator" faqs={TOOL_CONTENT["creator/youtube-adsense-estimator"]?.faqs ?? []} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
+      {() => <ToolContent contentKey="creator/youtube-adsense-estimator" />}
     </ToolLayout>
   )
 }

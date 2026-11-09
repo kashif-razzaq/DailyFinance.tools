@@ -2,7 +2,8 @@ import { CalculatorClient } from "./CalculatorClient"
 import type { Metadata } from 'next';
 import { generateCalculatorMetadata } from '@/config/metadata';
 import { ToolLayout } from "@/components/layout/ToolLayout"
-import { ContentPlaceholder } from "@/components/shared/ContentPlaceholder"
+import { ToolContent } from "@/components/shared/ToolContent"
+import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
@@ -15,8 +16,8 @@ export const metadata: Metadata = generateCalculatorMetadata({
 
 export default function Page() {
   return (
-    <ToolLayout title="Affiliate Earnings Calculator" description="Calculate affiliate earnings properly: clicks times conversion times commission gives revenue and EPC. Add your traffic costs to see true profit and ROI, and compare programs on the only metric that matters." slug="affiliate-link-roi-calculator" faqs={[]} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
-      {() => <ContentPlaceholder toolName="Affiliate Earnings Calculator" hubHref="/creator" hubName="Creator Economy" />}
+    <ToolLayout title="Affiliate Earnings Calculator" description="Calculate affiliate earnings properly: clicks times conversion times commission gives revenue and EPC. Add your traffic costs to see true profit and ROI, and compare programs on the only metric that matters." slug="affiliate-link-roi-calculator" faqs={TOOL_CONTENT["creator/affiliate-link-roi-calculator"]?.faqs ?? []} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
+      {() => <ToolContent contentKey="creator/affiliate-link-roi-calculator" />}
     </ToolLayout>
   )
 }

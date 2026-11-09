@@ -2,7 +2,8 @@ import { CalculatorClient } from "./CalculatorClient"
 import type { Metadata } from 'next';
 import { generateCalculatorMetadata } from '@/config/metadata';
 import { ToolLayout } from "@/components/layout/ToolLayout"
-import { ContentPlaceholder } from "@/components/shared/ContentPlaceholder"
+import { ToolContent } from "@/components/shared/ToolContent"
+import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
@@ -15,8 +16,8 @@ export const metadata: Metadata = generateCalculatorMetadata({
 
 export default function Page() {
   return (
-    <ToolLayout title="Sponsorship Pricing Calculator" description="Calculate what to charge for sponsored videos, posts and brand deals from your average views, niche CPM and engagement rate. Includes usage rights and exclusivity uplifts and a negotiation range." slug="sponsorship-pricing-calculator" faqs={[]} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
-      {() => <ContentPlaceholder toolName="Sponsorship Pricing Calculator" hubHref="/creator" hubName="Creator Economy" />}
+    <ToolLayout title="Sponsorship Pricing Calculator" description="Calculate what to charge for sponsored videos, posts and brand deals from your average views, niche CPM and engagement rate. Includes usage rights and exclusivity uplifts and a negotiation range." slug="sponsorship-pricing-calculator" faqs={TOOL_CONTENT["creator/sponsorship-pricing-calculator"]?.faqs ?? []} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
+      {() => <ToolContent contentKey="creator/sponsorship-pricing-calculator" />}
     </ToolLayout>
   )
 }

@@ -2,7 +2,8 @@ import { CalculatorClient } from "./CalculatorClient"
 import type { Metadata } from 'next';
 import { generateCalculatorMetadata } from '@/config/metadata';
 import { ToolLayout } from "@/components/layout/ToolLayout"
-import { ContentPlaceholder } from "@/components/shared/ContentPlaceholder"
+import { ToolContent } from "@/components/shared/ToolContent"
+import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
@@ -15,8 +16,8 @@ export const metadata: Metadata = generateCalculatorMetadata({
 
 export default function Page() {
   return (
-    <ToolLayout title="Shipping Zone Optimizer" description="Compare flat-rate vs calculated shipping using your real zone mix and carrier costs. See weighted average shipping cost, profit or loss per order, and far-zone losses." slug="shipping-zone-optimizer" faqs={[]} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
-      {() => <ContentPlaceholder toolName="Shipping Zone Optimizer" hubHref="/ecommerce" hubName="E-Commerce" />}
+    <ToolLayout title="Shipping Zone Optimizer" description="Compare flat-rate vs calculated shipping using your real zone mix and carrier costs. See weighted average shipping cost, profit or loss per order, and far-zone losses." slug="shipping-zone-optimizer" faqs={TOOL_CONTENT["ecommerce/shipping-zone-optimizer"]?.faqs ?? []} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
+      {() => <ToolContent contentKey="ecommerce/shipping-zone-optimizer" />}
     </ToolLayout>
   )
 }

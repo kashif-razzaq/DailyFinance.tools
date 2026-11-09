@@ -2,7 +2,8 @@ import { CalculatorClient } from "./CalculatorClient"
 import type { Metadata } from 'next';
 import { generateCalculatorMetadata } from '@/config/metadata';
 import { ToolLayout } from "@/components/layout/ToolLayout"
-import { ContentPlaceholder } from "@/components/shared/ContentPlaceholder"
+import { ToolContent } from "@/components/shared/ToolContent"
+import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
@@ -15,8 +16,8 @@ export const metadata: Metadata = generateCalculatorMetadata({
 
 export default function Page() {
   return (
-    <ToolLayout title="Sales Tax & VAT Calculator" description="Calculate US sales tax by state (base rate plus local add-on) or VAT for UK, EU and global rates. Add tax to a net price or extract tax from a gross price." slug="sales-tax-vat-calculator" faqs={[]} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
-      {() => <ContentPlaceholder toolName="Sales Tax & VAT Calculator" hubHref="/ecommerce" hubName="E-Commerce" />}
+    <ToolLayout title="Sales Tax & VAT Calculator" description="Calculate US sales tax by state (base rate plus local add-on) or VAT for UK, EU and global rates. Add tax to a net price or extract tax from a gross price." slug="sales-tax-vat-calculator" faqs={TOOL_CONTENT["ecommerce/sales-tax-vat-calculator"]?.faqs ?? []} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
+      {() => <ToolContent contentKey="ecommerce/sales-tax-vat-calculator" />}
     </ToolLayout>
   )
 }

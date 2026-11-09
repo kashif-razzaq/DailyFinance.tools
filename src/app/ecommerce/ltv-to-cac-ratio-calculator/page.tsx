@@ -2,7 +2,8 @@ import { CalculatorClient } from "./CalculatorClient"
 import type { Metadata } from 'next';
 import { generateCalculatorMetadata } from '@/config/metadata';
 import { ToolLayout } from "@/components/layout/ToolLayout"
-import { ContentPlaceholder } from "@/components/shared/ContentPlaceholder"
+import { ToolContent } from "@/components/shared/ToolContent"
+import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
@@ -15,8 +16,8 @@ export const metadata: Metadata = generateCalculatorMetadata({
 
 export default function Page() {
   return (
-    <ToolLayout title="LTV to CAC Ratio Calculator" description="Calculate customer lifetime value from AOV, purchase frequency, lifespan and gross margin, then get your LTV:CAC ratio, verdict band and CAC payback period." slug="ltv-to-cac-ratio-calculator" faqs={[]} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
-      {() => <ContentPlaceholder toolName="LTV to CAC Ratio Calculator" hubHref="/ecommerce" hubName="E-Commerce" />}
+    <ToolLayout title="LTV to CAC Ratio Calculator" description="Calculate customer lifetime value from AOV, purchase frequency, lifespan and gross margin, then get your LTV:CAC ratio, verdict band and CAC payback period." slug="ltv-to-cac-ratio-calculator" faqs={TOOL_CONTENT["ecommerce/ltv-to-cac-ratio-calculator"]?.faqs ?? []} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
+      {() => <ToolContent contentKey="ecommerce/ltv-to-cac-ratio-calculator" />}
     </ToolLayout>
   )
 }
