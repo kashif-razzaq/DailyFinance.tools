@@ -10,6 +10,7 @@ import { RelatedToolsWidget } from "@/components/shared/RelatedToolsWidget"
 import { SidebarAdSpace } from "@/components/shared/SidebarAdSpace"
 import { ProDashboardWidget } from "@/components/shared/ProDashboardWidget"
 import { AdSlot } from "@/components/shared/AdSlot"
+import { PreferredSourceButton } from "@/components/shared/PreferredSourceButton"
 import { getCategoryForTool } from "@/config/navigation"
 
 export interface FAQ {
@@ -156,6 +157,8 @@ export async function ToolLayout({
                 </div>
               </div>
             </div>
+            {/* Google Preferred Sources ask — under title, description and the Reviewed-by badge */}
+            <PreferredSourceButton />
           </div>
           
           {/* Top Ad Space or Pro Widget */}

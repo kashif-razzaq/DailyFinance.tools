@@ -135,6 +135,25 @@ for (const t of liveTools) {
   if (!sitemapToolUrls.has(t.url)) fail("sitemap", `Live tool "${t.name}" (${t.url}) is not in navigation, so sitemap.ts never emits it`)
 }
 
+// ---------- check 7: production wiring on every calculator client ----------
+// Every non-freelance CalculatorClient must (a) render the standard actions
+// bar (Save/Export/Share with the Free/Pro gates + hidden ad slot) and
+// (b) take its money symbol from the shared currency helpers so the header
+// currency changer works on the page (no hard-coded '$' literals left).
+let clientsChecked = 0
+for (const file of walk(join(ROOT, "src")).filter((f) => f.endsWith("CalculatorClient.tsx"))) {
+  if (file.includes("/freelance/")) continue
+  clientsChecked++
+  const src = readFileSync(file, "utf8")
+  const rel = file.replace(ROOT + "/", "")
+  if (!src.includes("ToolActionsBar") && !src.includes("CalculatorActions")) {
+    fail("wiring", `${rel} renders no actions bar (ToolActionsBar missing)`)
+  }
+  if (/'\$'/.test(src)) {
+    fail("wiring", `${rel} still has a hard-coded '$' literal — use curSym()/useCurrencySymbol() from @/lib/currency`)
+  }
+}
+
 // ---------- report ----------
 const bySection = {}
 for (const f of failures) {
@@ -147,6 +166,7 @@ console.log(`Tool pages walked           : ${pageFiles.length} (${inlineContentP
 console.log(`TOOL_CONTENT entries found  : ${contentKeys.size}`)
 console.log(`Navigation items checked    : ${navItems.length}`)
 console.log(`Guide relatedTools checked  : ${guideLinks.length}`)
+console.log(`Calculator clients wired    : ${clientsChecked} (actions bar + currency helpers)`)
 for (const n of notes) console.log(`NOTE: ${n}`)
 if (failures.length === 0) {
   console.log("\nRESULT: PASS — all checks green.")
