@@ -4,9 +4,11 @@ import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Cell } from 'recharts'
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 
-const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US')
-const fmtC = (n: number) => '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
+const fmtC = (n: number) => curSym() + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
 function NumInput({ label, value, onChange, hint }: { label: string; value: number; onChange: (n: number) => void; hint?: string }) {
   return (<div className="space-y-2"><label className="text-sm font-semibold">{label}</label>
@@ -26,6 +28,7 @@ const NICHES: { name: string; cpm: number }[] = [
 ]
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   const [mode, setMode] = useState<'cpm' | 'rpm'>('cpm')
   const [rate, setRate] = useState(25)
   const [viewsPerDay, setViewsPerDay] = useState(8500)
@@ -42,7 +45,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
 
   const nicheChart = NICHES.map((n) => ({ name: n.name, cpm: n.cpm, active: NICHES[nicheIdx].name === n.name }))
 
-  return (<div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+  return (<><div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
     <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-6">
       <div className="space-y-2"><label className="text-sm font-semibold">I Know My</label>
         <div className="grid grid-cols-2 gap-2">
@@ -70,10 +73,10 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
       </ResultCard>
       <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">CPM by Niche (Advertiser Rate)</h4>
-        <ResponsiveContainer width="100%" height={230}><BarChart data={nicheChart} layout="vertical"><CartesianGrid strokeDasharray="3 3" /><XAxis type="number" tickFormatter={(v: number) => '$' + v} /><YAxis type="category" dataKey="name" width={110} tick={{ fontSize: 11 }} /><Tooltip formatter={(v: any) => '$' + Number(v) + ' CPM'} />
+        <ResponsiveContainer width="100%" height={230}><BarChart data={nicheChart} layout="vertical"><CartesianGrid strokeDasharray="3 3" /><XAxis type="number" tickFormatter={(v: number) => sym + v} /><YAxis type="category" dataKey="name" width={110} tick={{ fontSize: 11 }} /><Tooltip formatter={(v: any) => sym + Number(v) + ' CPM'} />
           <Bar dataKey="cpm" name="CPM">{nicheChart.map((n) => <Cell key={n.name} fill={n.active ? '#064E3B' : '#9CA3AF'} />)}</Bar></BarChart></ResponsiveContainer>
         <p className="text-xs text-muted-foreground mt-2">Differentiator: converts CPM ↔ RPM properly through the 55% revenue share instead of treating them as the same number — the mistake most CPM calculators make.</p>
       </div>
     </div>
-  </div>)
+  </div><ToolActionsBar slug="youtube-cpm-calculator" isPro={isPro} inputs={{ mode, rate, viewsPerDay, nicheIdx }} /></>)
 }

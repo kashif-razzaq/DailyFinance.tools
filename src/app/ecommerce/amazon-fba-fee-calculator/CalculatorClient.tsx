@@ -3,6 +3,8 @@ import React, { useState } from 'react'
 import { useGlobalSettingsStore } from '@/store/global-settings.store'
 import { Input } from "@/components/ui/input"
 import { CheckCircle2, AlertTriangle } from "lucide-react"
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useCurrencySymbol } from '@/lib/currency'
 
 const fmt = (n: number, sym: string) => sym + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
 const fmt0 = (n: number, sym: string) => sym + Math.round(n).toLocaleString('en-US')
@@ -11,8 +13,7 @@ const REFERRAL: Record<string, number> = { 'Home & Kitchen (15%)': 15, 'Health &
 const FBA_FEE: Record<string, number> = { 'Small standard (≤4 oz) — $3.22': 3.22, 'Small standard (12–16 oz) — $4.10': 4.10, 'Large standard (≤1 lb) — $5.10': 5.10, 'Large standard (2 lb) — $6.20': 6.20, 'Large standard (3 lb) — $7.10': 7.10, 'Large bulky (5 lb) — $9.50': 9.50, 'Large bulky (10 lb) — $13.50': 13.50 }
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
-  const { currency } = useGlobalSettingsStore()
-  const sym = { USD: '$', EUR: '€', GBP: '£', CAD: 'C$', AUD: 'A$', INR: '₹' }[currency as string] || '$'
+  const sym = useCurrencySymbol()
   const [price, setPrice] = useState(39.99)
   const [cogs, setCogs] = useState(11)
   const [category, setCategory] = useState('Home & Kitchen (15%)')
@@ -28,7 +29,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const margin = price > 0 ? profit / price : 0
   const monthly = profit * units
 
-  return (
+  return (<>
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start relative">
       <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-8">
         <h2 className="text-xl font-bold pb-2 border-b">Product & Fees</h2>
@@ -68,5 +69,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
       </div>
     </div>
-  )
+  <ToolActionsBar slug="amazon-fba-fee-calculator" isPro={isPro} inputs={{ price, cogs, category, tier, storage, inbound, units }} /></>)
 }

@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { CheckCircle2, AlertTriangle } from "lucide-react"
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [dailySales, setDailySales] = useState(20)
@@ -19,7 +20,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const suggestedOrder = Math.max(0, Math.ceil(dailySales * coverDays + rop - currentStock))
   const urgent = currentStock <= rop
 
-  return (
+  return (<>
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start relative">
       <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-8">
         <h2 className="text-xl font-bold pb-2 border-b">Demand & Lead Time</h2>
@@ -59,5 +60,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
       </div>
     </div>
-  )
+  <ToolActionsBar slug="inventory-reorder-point-calculator" isPro={isPro} inputs={{ dailySales, leadTime, safetyDays, currentStock, coverDays }} /></>)
 }

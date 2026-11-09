@@ -3,12 +3,14 @@
 import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 
-const fmt = (n: number) => '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+const fmt = (n: number) => curSym() + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
 function MoneyInput({ label, value, onChange, hint }: { label: string; value: number; onChange: (n: number) => void; hint?: string }) {
   return (<div className="space-y-2"><label className="text-sm font-semibold">{label}</label>
-    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">$</span>
+    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">{curSym()}</span>
     <Input type="number" step="0.01" value={value === 0 ? '' : value} onChange={(e) => onChange(num(e.target.value))} className="pl-7 font-mono" /></div>
     {hint && <p className="text-xs text-muted-foreground">{hint}</p>}</div>)
 }
@@ -23,6 +25,7 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
 // eBay final value fee: most categories 13.25% of the total amount of the sale (price + shipping + tax basis)
 // plus a per-order fee ($0.30 on orders up to $10, $0.40 above). Some categories differ — the % is editable.
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   const [price, setPrice] = useState(120)
   const [shippingCharged, setShippingCharged] = useState(0)
   const [itemCost, setItemCost] = useState(55)
@@ -47,7 +50,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     return { total, fvf, promoted, fees, payout, profit, margin, breakeven, feeSharePct: total > 0 ? (fees / total) * 100 : 0 }
   }, [price, shippingCharged, itemCost, shippingCost, fvfPct, perOrder, promotedPct])
 
-  return (<div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+  return (<><div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
     <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-6">
       <div className="grid grid-cols-2 gap-6">
         <MoneyInput label="Sale Price" value={price} onChange={setPrice} />
@@ -80,5 +83,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <p className="text-xs text-muted-foreground mt-2">Differentiator: a live break-even solver that includes the promoted-listings rate, so you can see the exact ad rate at which a listing stops being worth promoting.</p>
       </div>
     </div>
-  </div>)
+  </div><ToolActionsBar slug="ebay-fee-calculator" isPro={isPro} inputs={{ price, shippingCharged, itemCost, shippingCost, fvfPct, perOrder, promotedPct }} /></>)
 }

@@ -3,13 +3,14 @@ import React, { useState } from 'react'
 import { useGlobalSettingsStore } from '@/store/global-settings.store'
 import { Input } from "@/components/ui/input"
 import { CheckCircle2, AlertTriangle } from "lucide-react"
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useCurrencySymbol } from '@/lib/currency'
 
 const fmt = (n: number, sym: string) => sym + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
 const fmt0 = (n: number, sym: string) => sym + Math.round(n).toLocaleString('en-US')
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
-  const { currency } = useGlobalSettingsStore()
-  const sym = { USD: '$', EUR: '€', GBP: '£', CAD: 'C$', AUD: 'A$', INR: '₹' }[currency as string] || '$'
+  const sym = useCurrencySymbol()
   const [adSpend, setAdSpend] = useState(5000)
   const [otherSpend, setOtherSpend] = useState(1500)
   const [newCustomers, setNewCustomers] = useState(400)
@@ -22,7 +23,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const organicCustomers = Math.max(0, newCustomers - paidCustomers)
   const cacToAov = aov > 0 ? blendedCac / aov : 0
 
-  return (
+  return (<>
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start relative">
       <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-8">
         <h2 className="text-xl font-bold pb-2 border-b">Spend & New Customers (one period)</h2>
@@ -53,5 +54,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
       </div>
     </div>
-  )
+  <ToolActionsBar slug="customer-acquisition-cost-calculator" isPro={isPro} inputs={{ adSpend, otherSpend, newCustomers, paidCustomers, aov }} /></>)
 }

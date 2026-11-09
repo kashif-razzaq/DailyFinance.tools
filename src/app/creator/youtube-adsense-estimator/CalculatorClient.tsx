@@ -3,8 +3,10 @@ import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { Calculator, TrendingUp } from "lucide-react"
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 
-const fmt = (n: number) => '$' + Math.round(n).toLocaleString()
+const fmt = (n: number) => curSym() + Math.round(n).toLocaleString()
 const NICHE_RPM: Record<string, number> = {
   'Finance & Investing': 15, 'Business & Marketing': 12, 'Technology & Software': 8,
   'Education & How-To': 7, 'Health & Fitness': 6, 'Travel': 5, 'Gaming': 3,
@@ -12,6 +14,7 @@ const NICHE_RPM: Record<string, number> = {
 }
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   void isPro
   const [views, setViews] = useState(250000)
   const [niche, setNiche] = useState('Finance & Investing')
@@ -27,7 +30,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
 
   const pickNiche = (n: string) => { setNiche(n); if (format === 'long') setRpm(NICHE_RPM[n]) }
 
-  return (
+  return (<>
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
       <div className="lg:col-span-7 bg-white border border-neutral-200 shadow-sm rounded-2xl p-6 md:p-8 space-y-8">
         <h2 className="text-xl font-bold flex items-center gap-2 pb-2 border-b text-[#1F2937]"><Calculator className="h-5 w-5 text-[#064E3B]" /> Channel Inputs</h2>
@@ -78,5 +81,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
       </div>
     </div>
-  )
+  <ToolActionsBar slug="youtube-adsense-estimator" isPro={isPro} inputs={{ views, niche, rpm, format, videosPerMonth }} /></>)
 }
