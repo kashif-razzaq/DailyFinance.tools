@@ -2,7 +2,8 @@ import { CalculatorClient } from "./CalculatorClient"
 import type { Metadata } from 'next';
 import { generateCalculatorMetadata } from '@/config/metadata';
 import { ToolLayout } from "@/components/layout/ToolLayout"
-import { ContentPlaceholder } from "@/components/shared/ContentPlaceholder"
+import { ToolContent } from "@/components/shared/ToolContent"
+import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
@@ -15,8 +16,8 @@ export const metadata: Metadata = generateCalculatorMetadata({
 
 export default function Page() {
   return (
-    <ToolLayout title="Fat FIRE vs Lean FIRE Calculator" description="Compare Lean FIRE and Fat FIRE side by side: the FIRE number for each lifestyle (twenty-five times spending) and how long saving takes to reach each one. Free tool." slug="fat-fire-vs-lean-fire-calculator" faqs={[]} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
-      {() => <ContentPlaceholder toolName="Fat FIRE vs Lean FIRE Calculator" hubHref="/personal-wealth" hubName="Personal Wealth" />}
+    <ToolLayout title="Fat FIRE vs Lean FIRE Calculator" description="Compare Lean FIRE and Fat FIRE side by side: the FIRE number for each lifestyle (twenty-five times spending) and how long saving takes to reach each one. Free tool." slug="fat-fire-vs-lean-fire-calculator" faqs={TOOL_CONTENT["personal-wealth/fat-fire-vs-lean-fire-calculator"]?.faqs ?? []} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
+      {() => <ToolContent contentKey="personal-wealth/fat-fire-vs-lean-fire-calculator" />}
     </ToolLayout>
   )
 }

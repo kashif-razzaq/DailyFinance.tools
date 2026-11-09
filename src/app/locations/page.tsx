@@ -40,7 +40,7 @@ export default function LocationsIndexPage() {
           ))}
         </div>
 
-        <div className="prose prose-slate dark:prose-invert max-w-none">
+        <div className="content-prose max-w-none">
           <h2>How these state pages work</h2>
           <p>Each state page is generated from a single reviewed dataset (see our <Link href="/methodology">Methodology</Link>). State base rates are statutory; combined rates are averages — your exact rate depends on your county, city and any special districts, which is why every page links to the full calculator where you can enter your exact local rate. Pages exist for the calculations where location genuinely changes the answer: <Link href="/sales-tax/alabama">sales tax by state</Link> first, with property-tax and paycheck variants built on the same system as those tools roll out.</p>
           <h2>Which state taxes should you check?</h2>

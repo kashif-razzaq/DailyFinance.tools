@@ -2,7 +2,8 @@ import { CalculatorClient } from "./CalculatorClient"
 import type { Metadata } from 'next';
 import { generateCalculatorMetadata } from '@/config/metadata';
 import { ToolLayout } from "@/components/layout/ToolLayout"
-import { ContentPlaceholder } from "@/components/shared/ContentPlaceholder"
+import { ToolContent } from "@/components/shared/ToolContent"
+import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
@@ -15,8 +16,8 @@ export const metadata: Metadata = generateCalculatorMetadata({
 
 export default function Page() {
   return (
-    <ToolLayout title="Airbnb Arbitrage & STR Margin Calculator" description="Calculate Airbnb and short-term rental profit: ADR × occupancy minus rent or mortgage, platform fees, cleaning and running costs. Arbitrage and owned modes included." slug="airbnb-arbitrage-margin-calculator" faqs={[]} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
-      {() => <ContentPlaceholder toolName="Airbnb Arbitrage & STR Margin Calculator" hubHref="/real-estate" hubName="Real Estate" />}
+    <ToolLayout title="Airbnb Arbitrage & STR Margin Calculator" description="Calculate Airbnb and short-term rental profit: ADR × occupancy minus rent or mortgage, platform fees, cleaning and running costs. Arbitrage and owned modes included." slug="airbnb-arbitrage-margin-calculator" faqs={TOOL_CONTENT["real-estate/airbnb-arbitrage-margin-calculator"]?.faqs ?? []} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
+      {() => <ToolContent contentKey="real-estate/airbnb-arbitrage-margin-calculator" />}
     </ToolLayout>
   )
 }

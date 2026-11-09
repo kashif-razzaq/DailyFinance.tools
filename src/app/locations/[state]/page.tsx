@@ -3,6 +3,7 @@ import Link from "next/link"
 import Script from "next/script"
 import { notFound } from "next/navigation"
 import { US_STATES, getStateBySlug, taxOn } from "@/data/locations/us-states"
+import { AVG_COMBINED, AVG_PROPERTY, combinedRank, closestByCombined, overallMeaning, pointsDiff, propertyRank } from "@/data/locations/stats"
 import { ArrowRight, MapPin } from "lucide-react"
 
 export function generateStaticParams() {
@@ -28,6 +29,9 @@ export default async function StateHubPage({ params }: { params: Promise<{ state
 
   const homePrice = 350000
   const annualPropertyTax = Math.round(homePrice * (s.propertyTaxAvg / 100))
+  const sRank = combinedRank(s)
+  const pRank = propertyRank(s)
+  const peers = closestByCombined(s)
   const faqs = [
     {
       question: `What is the sales tax rate in ${s.name}?`,
@@ -46,6 +50,14 @@ export default async function StateHubPage({ params }: { params: Promise<{ state
     {
       question: `Does ${s.name} have a state income tax?`,
       answer: s.incomeTax === "none" ? `${s.name} does not tax wage income at the state level.` : s.incomeTaxNote,
+    },
+    {
+      question: `How do ${s.name}'s taxes compare with the rest of the US?`,
+      answer: `${s.name}'s average combined sales tax of ${s.salesTaxAvgCombined}% ranks ${sRank} of 51 (all-state average ${AVG_COMBINED}%), and its average effective property tax of ${s.propertyTaxAvg}% ranks ${pRank} of 51 (all-state average ${AVG_PROPERTY}%). Its income tax is ${s.incomeTax === "none" ? "none at state level" : s.incomeTax === "flat" ? "a single flat rate" : "progressive, in brackets"}. No state is cheapest on all three — the comparison that matters depends on whether you earn, spend or own property there.`,
+    },
+    {
+      question: `Where can I verify ${s.name} tax rates before filing or buying?`,
+      answer: `The figures here are reviewed averages for planning. Combined sales tax varies by exact address, and property tax bills are set by the county. Verify a specific rate or bill with the ${s.name} Department of Revenue or the county assessor before filing, pricing or a major purchase.`,
     },
   ]
   const faqSchema = { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.question, acceptedAnswer: { "@type": "Answer", text: f.answer } })) }
@@ -71,6 +83,13 @@ export default async function StateHubPage({ params }: { params: Promise<{ state
           The money facts for {s.name} ({s.abbr}) — capital {s.capital}, largest city {s.largestCity}. Sales tax, property tax and income tax explained with real numbers, plus the DailyFinance calculators that use {s.name} rates.
         </p>
 
+        <div className="bg-primary/5 border border-primary/20 rounded-3xl p-6 max-w-4xl mb-10">
+          <h2 className="text-sm font-bold uppercase tracking-wider text-primary mb-2">Quick Answer</h2>
+          <p className="leading-relaxed">
+            In {s.name} you pay <strong>{s.salesTaxBase === 0 ? "no state sales tax" : `${s.salesTaxBase}% state sales tax`}</strong> (about <strong>{s.salesTaxAvgCombined}% combined</strong> with local taxes — rank <strong>{sRank} of 51</strong>, {pointsDiff(s.salesTaxAvgCombined, AVG_COMBINED) > 0 ? `${pointsDiff(s.salesTaxAvgCombined, AVG_COMBINED)} points above` : pointsDiff(s.salesTaxAvgCombined, AVG_COMBINED) < 0 ? `${Math.abs(pointsDiff(s.salesTaxAvgCombined, AVG_COMBINED))} points below` : "equal to"} the {AVG_COMBINED}% all-state average), an average effective property tax of <strong>{s.propertyTaxAvg}%</strong> (rank {pRank} of 51), and {s.incomeTax === "none" ? <strong>no state income tax on wages</strong> : <>a <strong>{s.incomeTax}</strong> state income tax</>}. The takeaway: {s.incomeTax === "none" ? `${s.name} takes nothing from the paycheck at state level — judge it on what you spend and what you own.` : s.propertyTaxAvg >= 1.5 ? `owning property is the expensive part in ${s.name} — price the tax bill into any home purchase.` : s.salesTaxAvgCombined >= AVG_COMBINED + 1 ? `the register is where ${s.name} costs more — its combined sales tax is near the top nationally.` : `${s.name} sits near the middle on all three taxes — no single levy dominates the cost of living here.`}
+          </p>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-12">
           <div className="bg-card border rounded-3xl p-6">
             <h2 className="text-sm font-bold uppercase tracking-wider text-muted-foreground mb-2">Sales Tax</h2>
@@ -94,11 +113,27 @@ export default async function StateHubPage({ params }: { params: Promise<{ state
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-          <article className="lg:col-span-8 prose prose-slate dark:prose-invert max-w-none">
+          <article className="lg:col-span-8 content-prose max-w-none">
             <h2>How taxes work in {s.name}</h2>
             <p><strong>Sales tax.</strong> {s.salesTaxBase === 0 ? `${s.name} levies no statewide sales tax${s.salesTaxAvgCombined > 0 ? ", although some local jurisdictions add their own, which is why the average combined figure is not zero" : ""}.` : `${s.name} charges a ${s.salesTaxBase}% statewide sales tax, and counties, cities and special districts add their own on top — which is why the average combined rate of about ${s.salesTaxAvgCombined}% is the number that matters at the till.`} {s.groceriesNote}</p>
             <p><strong>Property tax.</strong> At an average effective rate of about {s.propertyTaxAvg}%, a ${homePrice.toLocaleString()} home in {s.name} carries roughly ${annualPropertyTax.toLocaleString()} a year in property tax before exemptions. {s.propertyTaxAvg >= 1.5 ? `${s.name} is a high-property-tax state — factor the tax bill into affordability, not just the mortgage payment.` : s.propertyTaxAvg <= 0.6 ? `${s.name} is a low-property-tax state, which quietly lowers the true cost of owning there.` : "That is near the middle of US states."} Local assessors set actual bills, so verify with the county for any specific property.</p>
             <p><strong>Income tax.</strong> {s.incomeTaxNote} {s.incomeTax === "none" ? "Remember that 'no income tax' states fund services through other taxes — compare the full picture (sales, property) before assuming a move saves money." : "If you are self-employed in " + s.name + ", you still owe federal self-employment tax plus quarterly state estimates where applicable."}</p>
+            <h2>How {s.name} compares with similar states</h2>
+            <p>The states closest to {s.name} on average combined sales tax. Property tax is the average effective rate; income tax shows the structure, not a single rate.</p>
+            <table>
+              <thead><tr><th>State</th><th>Combined sales tax</th><th>Property tax</th><th>Income tax</th></tr></thead>
+              <tbody>
+                <tr><td><strong>{s.name} (this page)</strong></td><td><strong>{s.salesTaxAvgCombined}%</strong></td><td><strong>{s.propertyTaxAvg}%</strong></td><td><strong>{s.incomeTax === "none" ? "None" : s.incomeTax === "flat" ? "Flat" : "Progressive"}</strong></td></tr>
+                {peers.map((o) => (
+                  <tr key={o.slug}><td><Link href={`/locations/${o.slug}`}>{o.name}</Link></td><td>{o.salesTaxAvgCombined}%</td><td>{o.propertyTaxAvg}%</td><td>{o.incomeTax === "none" ? "None" : o.incomeTax === "flat" ? "Flat" : "Progressive"}</td></tr>
+                ))}
+                <tr><td>All-state average (51 entries)</td><td>{AVG_COMBINED}%</td><td>{AVG_PROPERTY}%</td><td>—</td></tr>
+              </tbody>
+            </table>
+            <h2>What this means for your money in {s.name}</h2>
+            {overallMeaning(s).map((p, i) => (
+              <p key={i}>{p}</p>
+            ))}
             <h2>Major cities in {s.name}</h2>
             <p>{s.majorCities.join(", ")}. Combined sales-tax rates differ between these cities — sometimes by more than a full percentage point inside the same state — because county and city layers stack on the state base. The {s.name} sales tax guide breaks down the calculation and links the calculator where you can enter your exact local rate.</p>
             <h2>Calculators for {s.name} residents</h2>

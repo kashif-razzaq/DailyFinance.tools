@@ -21,6 +21,7 @@ import {
 import { navigationCategories, CalculatorItem, getToolUrl } from '@/config/navigation'
 import { HUBS } from '@/data/hubs'
 import { GUIDES } from '@/data/guides'
+import { MobileHome } from '@/components/home/MobileHome'
 
 // Helper to shuffle an array
 function shuffleArray<T>(array: T[]): T[] {
@@ -71,6 +72,14 @@ export default function HomePage() {
   }, [searchQuery, allTools])
 
   return (
+    <>
+      {/* Mobile (<md): app-style homepage — see components/home/MobileHome.tsx */}
+      <div className="md:hidden">
+        <MobileHome />
+      </div>
+
+      {/* Desktop (md+): the original homepage, unchanged */}
+      <div className="hidden md:block">
     <div className="flex flex-col min-h-screen bg-[#FAFAFA]">
       
       {/* 
@@ -405,5 +414,7 @@ export default function HomePage() {
       </section>
 
     </div>
+      </div>
+    </>
   )
 }
