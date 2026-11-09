@@ -3,8 +3,10 @@ import React, { useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { Receipt } from "lucide-react"
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 
-const fmt = (n: number) => '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+const fmt = (n: number) => curSym() + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
 
 // Approximate 2026 statewide base sales tax rates (%). Local (county/city) taxes add on top in most states.
 const STATE_RATES: Record<string, number> = {
@@ -13,6 +15,7 @@ const STATE_RATES: Record<string, number> = {
 const VAT_RATES: Record<string, number> = { 'UK — 20% standard': 20, 'UK — 5% reduced': 5, 'Germany — 19%': 19, 'France — 20%': 20, 'Ireland — 23%': 23, 'Netherlands — 21%': 21, 'Spain — 21%': 21, 'Italy — 22%': 22, 'Canada GST — 5%': 5, 'Australia GST — 10%': 10, 'UAE VAT — 5%': 5 }
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   const [system, setSystem] = useState<'us' | 'vat'>('us')
   const [mode, setMode] = useState<'add' | 'extract'>('add')
   const [amount, setAmount] = useState(100)
@@ -27,7 +30,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const net = mode === 'add' ? amount : amount - tax
   const gross = mode === 'add' ? amount + tax : amount
 
-  return (
+  return (<>
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start relative">
       <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-8">
         <h2 className="text-xl font-bold pb-2 border-b">Tax Setup</h2>
@@ -78,5 +81,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
       </div>
     </div>
-  )
+  <ToolActionsBar slug="sales-tax-vat-calculator" isPro={isPro} inputs={{ system, mode, amount, state, vatPreset, localAdd, customVat, useCustomVat }} /></>)
 }

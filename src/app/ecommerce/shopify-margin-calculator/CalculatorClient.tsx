@@ -4,13 +4,14 @@ import { useGlobalSettingsStore } from '@/store/global-settings.store'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { CheckCircle2, AlertTriangle } from "lucide-react"
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useCurrencySymbol } from '@/lib/currency'
 
 const fmt = (n: number, sym: string) => sym + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
 const fmt0 = (n: number, sym: string) => sym + Math.round(n).toLocaleString('en-US')
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
-  const { currency } = useGlobalSettingsStore()
-  const sym = { USD: '$', EUR: '€', GBP: '£', CAD: 'C$', AUD: 'A$', INR: '₹' }[currency as string] || '$'
+  const sym = useCurrencySymbol()
   const [price, setPrice] = useState(60)
   const [cogs, setCogs] = useState(22)
   const [shipCharged, setShipCharged] = useState(0)
@@ -24,7 +25,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const margin = charged > 0 ? profit / charged : 0
   const monthly = profit * orders
 
-  return (
+  return (<>
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start relative">
       <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-8">
         <h2 className="text-xl font-bold pb-2 border-b">Order Economics</h2>
@@ -56,5 +57,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
       </div>
     </div>
-  )
+  <ToolActionsBar slug="shopify-margin-calculator" isPro={isPro} inputs={{ price, cogs, shipCharged, shipCost, other, orders }} /></>)
 }

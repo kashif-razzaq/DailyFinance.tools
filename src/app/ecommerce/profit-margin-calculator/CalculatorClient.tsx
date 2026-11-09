@@ -3,12 +3,14 @@
 import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 
-const fmt = (n: number) => '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+const fmt = (n: number) => curSym() + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
 function MoneyInput({ label, value, onChange, hint }: { label: string; value: number; onChange: (n: number) => void; hint?: string }) {
   return (<div className="space-y-2"><label className="text-sm font-semibold">{label}</label>
-    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">$</span>
+    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">{curSym()}</span>
     <Input type="number" step="0.01" value={value === 0 ? '' : value} onChange={(e) => onChange(num(e.target.value))} className="pl-7 font-mono" /></div>
     {hint && <p className="text-xs text-muted-foreground">{hint}</p>}</div>)
 }
@@ -25,6 +27,7 @@ function marginVerdict(margin: number) {
 }
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   const [mode, setMode] = useState<'margin' | 'price'>('margin')
   const [cost, setCost] = useState(24)
   const [price, setPrice] = useState(49.99)
@@ -43,7 +46,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
 
   const v = marginVerdict(r.margin)
 
-  return (<div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+  return (<><div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
     <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-6">
       <div className="space-y-2"><label className="text-sm font-semibold">Mode</label>
         <div className="grid grid-cols-2 gap-2">
@@ -81,5 +84,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <p className="text-xs text-muted-foreground mt-3">Differentiator: reverse pricing mode plus a health verdict — most margin calculators never tell you whether the number is actually good enough to survive fees and ads.</p>
       </div>
     </div>
-  </div>)
+  </div><ToolActionsBar slug="profit-margin-calculator" isPro={isPro} inputs={{ mode, cost, price, targetMargin, units }} /></>)
 }

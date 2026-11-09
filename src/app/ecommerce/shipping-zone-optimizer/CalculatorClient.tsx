@@ -4,13 +4,14 @@ import { useGlobalSettingsStore } from '@/store/global-settings.store'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { CheckCircle2, AlertTriangle } from "lucide-react"
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useCurrencySymbol } from '@/lib/currency'
 
 const fmt = (n: number, sym: string) => sym + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
 const fmt0 = (n: number, sym: string) => sym + Math.round(n).toLocaleString('en-US')
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
-  const { currency } = useGlobalSettingsStore()
-  const sym = { USD: '$', EUR: '€', GBP: '£', CAD: 'C$', AUD: 'A$', INR: '₹' }[currency as string] || '$'
+  const sym = useCurrencySymbol()
   const [orders, setOrders] = useState(800)
   const [flatCharge, setFlatCharge] = useState(5.99)
   const [freeThreshold, setFreeThreshold] = useState(0)
@@ -27,7 +28,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const monthlyFlat = flatNet * orders
   const highestZoneLoss = flatCharge - nationalCost
 
-  return (
+  return (<>
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start relative">
       <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-8">
         <h2 className="text-xl font-bold pb-2 border-b">Zone Costs & Order Mix</h2>
@@ -67,5 +68,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
       </div>
     </div>
-  )
+  <ToolActionsBar slug="shipping-zone-optimizer" isPro={isPro} inputs={{ orders, flatCharge, freeThreshold, localCost, regionalCost, nationalCost, localPct, regionalPct }} /></>)
 }
