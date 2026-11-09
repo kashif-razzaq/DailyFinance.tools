@@ -23,7 +23,6 @@ import {
   type Category,
 } from '@/config/navigation'
 import { GUIDES } from '@/data/guides'
-import { Logo } from '@/components/layout/Logo'
 
 /**
  * Mobile-only homepage (rendered below the md breakpoint by src/app/page.tsx).
@@ -231,23 +230,6 @@ export function MobileHome() {
     <div className="flex min-h-screen flex-col bg-[#FAFAFA] pb-8">
       {/* ── 1 · Hero ─────────────────────────────────────────── */}
       <header className="bg-white px-5 pb-6 pt-5">
-        <div className="mb-7 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#064E3B]/5">
-              <Logo className="h-6 w-6" />
-            </span>
-            <span className="text-lg font-extrabold tracking-tight text-[#1F2937]">
-              Daily<span className="text-[#064E3B]">Finance</span>
-            </span>
-          </div>
-          <Link
-            href="/pricing"
-            className="inline-flex items-center gap-1.5 rounded-full bg-[#064E3B] px-3.5 py-2 text-[13px] font-bold text-white shadow-sm transition-transform active:scale-95"
-          >
-            <Crown className="h-4 w-4" /> Go Pro
-          </Link>
-        </div>
-
         <h1 className="text-[28px] font-extrabold leading-[1.15] tracking-tight text-[#1F2937]">
           100+ free <span className="text-[#064E3B]">financial calculators</span>
         </h1>

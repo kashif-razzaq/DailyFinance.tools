@@ -1,7 +1,9 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
+import { navigationCategories } from '@/config/navigation'
 import { MobileBottomNav } from './MobileBottomNav'
+import { NavigationLoader } from './NavigationLoader'
 import { AppSplash } from './AppSplash'
 import { CookieConsent } from '@/components/shared/CookieConsent'
 
@@ -22,12 +24,23 @@ export function ConditionalLayout({
   const isEmbed = pathname?.startsWith('/embed')
   const shouldHide = isAuthPage || isDashboard || isEmbed
 
+  // Tool pages have their own dedicated mobile action bar (CalculatorActions,
+  // fixed bottom, 68px) — the global bottom nav must not cover it there.
+  const segments = pathname?.split('/').filter(Boolean) ?? []
+  const isToolPage =
+    segments.length === 2 &&
+    navigationCategories.some(
+      (c) => c.slug === segments[0] && c.calculators.some((t) => t.slug === segments[1])
+    )
+  const showBottomNav = !shouldHide && !isToolPage
+
   return (
     <>
       {!shouldHide && header}
       <main className={`flex-1 flex flex-col ${!shouldHide ? 'pb-[68px] md:pb-0' : ''}`}>{children}</main>
       {!shouldHide && footer}
-      {!shouldHide && <MobileBottomNav />}
+      {showBottomNav && <MobileBottomNav />}
+      {!shouldHide && <NavigationLoader />}
       {!shouldHide && <AppSplash />}
       {!shouldHide && <CookieConsent />}
     </>

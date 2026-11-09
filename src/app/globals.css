@@ -141,7 +141,7 @@
 .content-prose ol { @apply mb-5 pl-6 list-decimal space-y-2; }
 .content-prose li { @apply text-base md:text-lg; }
 .content-prose strong { @apply font-semibold text-neutral-900 dark:text-white; }
-.content-prose a { @apply text-[#064E3B] dark:text-emerald-400 font-medium underline decoration-emerald-600/30 underline-offset-2 hover:decoration-emerald-600; }
+.content-prose a:not([class*="bg-"]) { @apply text-[#064E3B] dark:text-emerald-400 font-medium underline decoration-emerald-600/30 underline-offset-2 hover:decoration-emerald-600; }
 .content-prose table { @apply w-full text-sm md:text-base border border-neutral-200 dark:border-neutral-800 rounded-xl overflow-hidden mb-6; }
 .content-prose thead { @apply bg-neutral-100 dark:bg-neutral-900; }
 .content-prose th { @apply text-left font-bold px-4 py-3 text-neutral-900 dark:text-white; }
@@ -157,4 +157,14 @@
 @keyframes df-progress {
   0% { transform: translateX(-110%); }
   60%, 100% { transform: translateX(330%); }
+}
+
+/* Navigation loader: logo bars equalizer */
+@keyframes df-eq {
+  0%, 100% { transform: scaleY(0.3); }
+  50% { transform: scaleY(1); }
+}
+.df-eq-bar {
+  transform-origin: bottom;
+  animation: df-eq 0.85s ease-in-out infinite;
 }

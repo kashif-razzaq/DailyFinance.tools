@@ -9,7 +9,7 @@ import { AdSenseScript } from "@/components/shared/AdSenseScript";
 import "./globals.css";
 
 const sans = Figtree({ subsets: ["latin"], variable: "--font-sans" });
-const mono = JetBrains_Mono({ weight: ["400", "700"], subsets: ["latin"], variable: "--font-mono" });
+const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono" });
 
 const SITE_DESCRIPTION =
   '100+ free financial calculators for personal finance, mortgages, loans, taxes, retirement, freelance rates, creator earnings and e-commerce margins. No signup required.';

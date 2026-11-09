@@ -14,7 +14,7 @@ import { navigationCategories, getToolUrl } from '@/config/navigation'
  * grid in Footer.tsx instead (this component is md:hidden).
  */
 export function FooterAccordion() {
-  const [openSlug, setOpenSlug] = useState<string | null>(navigationCategories[0]?.slug ?? null)
+  const [openSlug, setOpenSlug] = useState<string | null>(null)
 
   return (
     <nav aria-label="Calculator categories" className="md:hidden mb-16 border-t border-b divide-y divide-border">

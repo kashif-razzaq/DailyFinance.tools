@@ -30,7 +30,7 @@ export function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="border-t bg-background pt-16 pb-8 relative overflow-hidden">
+    <footer className="border-t bg-background pt-16 pb-28 md:pb-8 relative overflow-hidden">
       
       {/* Giant Background Watermark */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none select-none flex items-center justify-center opacity-[0.02] dark:opacity-[0.03]">

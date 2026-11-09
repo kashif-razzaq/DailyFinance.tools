@@ -125,11 +125,11 @@ export async function ToolLayout({
           <div className="lg:col-span-7">
             {/* Dynamic Breadcrumbs */}
             {category && (
-              <nav className="flex items-center gap-2 text-xs font-semibold text-muted-foreground mb-6 uppercase tracking-wider">
-                <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
-                <span className="text-border">/</span>
-                <Link href={`/${category.slug}`} className="hover:text-foreground transition-colors">{category.name}</Link>
-                <span className="text-border">/</span>
+              <nav className="flex items-center gap-1.5 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider flex-nowrap overflow-x-auto whitespace-nowrap [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden mb-6">
+                <Link href="/" className="shrink-0 hover:text-foreground transition-colors">Home</Link>
+                <span aria-hidden="true" className="text-border shrink-0 select-none">›</span>
+                <Link href={`/${category.slug}`} className="shrink-0 hover:text-foreground transition-colors">{category.name}</Link>
+                <span aria-hidden="true" className="text-border shrink-0 select-none">›</span>
                 <span className="text-foreground truncate max-w-[200px] md:max-w-none" title={title}>{title}</span>
               </nav>
             )}

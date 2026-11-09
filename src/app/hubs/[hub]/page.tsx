@@ -74,10 +74,10 @@ export default async function HubPage({ params }: { params: Promise<{ hub: strin
       <Script id={`schema-faq-hub-${h.slug}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <Script id={`schema-breadcrumb-hub-${h.slug}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <section className="container mx-auto px-4 md:px-8 py-14 max-w-6xl">
-        <nav className="flex items-center gap-2 text-xs font-semibold text-muted-foreground mb-6 uppercase tracking-wider">
-          <Link href="/" className="hover:text-foreground">Home</Link><span>/</span>
-          <Link href="/tools" className="hover:text-foreground">Tools</Link><span>/</span>
-          <span className="text-foreground">{h.title}</span>
+        <nav className="flex items-center gap-1.5 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider flex-nowrap overflow-x-auto whitespace-nowrap [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden mb-6">
+          <Link href="/" className="shrink-0 hover:text-foreground">Home</Link><span aria-hidden="true" className="text-border shrink-0 select-none">›</span>
+          <Link href="/tools" className="shrink-0 hover:text-foreground">Tools</Link><span aria-hidden="true" className="text-border shrink-0 select-none">›</span>
+          <span className="truncate max-w-[150px] sm:max-w-[220px] md:max-w-none text-foreground">{h.title}</span>
         </nav>
         <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-5 max-w-3xl">{h.title}</h1>
         <div className="bg-primary/5 border border-primary/20 border-l-4 border-l-primary rounded-3xl p-6 md:p-8 max-w-3xl mb-12">
