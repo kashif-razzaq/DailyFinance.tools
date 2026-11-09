@@ -2,12 +2,14 @@
 'use client'
 import React, { useState } from 'react'
 import { Input } from "@/components/ui/input"
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 
-const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US')
+const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
 function MoneyInput({ label, value, onChange, hint }: { label: string; value: number; onChange: (n: number) => void; hint?: string }) {
   return (<div className="space-y-2"><label className="text-sm font-semibold">{label}</label>
-    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">$</span>
+    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">{curSym()}</span>
     <Input type="number" value={value === 0 ? '' : value} onChange={(e) => onChange(num(e.target.value))} className="pl-7 font-mono" /></div>
     {hint && <p className="text-xs text-muted-foreground">{hint}</p>}</div>)
 }
@@ -35,6 +37,7 @@ function BandBar({ label, pct }: { label: string; pct: number }) {
 }
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   void isPro
   const [income, setIncome] = useState(7200)
   const [housing, setHousing] = useState(1850)
@@ -53,7 +56,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const room36 = Math.max(0, income * 0.36 - totalDebts)
   const cutTo43 = Math.max(0, totalDebts - income * 0.43)
 
-  return (<div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+  return (<><div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
     <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-6">
       <MoneyInput label="Gross Monthly Income" value={income} onChange={setIncome} hint="Before taxes — salary plus any regular income, divided by 12 if you know the annual figure." />
       <div className="border-t pt-6 space-y-6">
@@ -92,5 +95,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
             ? <>You could take on about <strong className="text-[#1F2937]">{fmt(room43)}/mo</strong> more in debt payments before crossing 43%{room36 > 0 && <>, or {fmt(room36)}/mo to stay inside the comfortable 36% zone</>}.</>
             : <>To reach the 43% line, cut monthly debt payments by <strong className="text-[#1F2937]">{fmt(cutTo43)}</strong> — or add about <strong className="text-[#1F2937]">{fmt(totalDebts / 0.43 - income)}/mo</strong> in gross income.</>}</div>
         </div></div>
-    </div></div>)
+    </div></div><ToolActionsBar slug="debt-to-income-ratio-calculator" isPro={isPro} inputs={{ income, housing, auto, student, cards, other }} /></>)
 }

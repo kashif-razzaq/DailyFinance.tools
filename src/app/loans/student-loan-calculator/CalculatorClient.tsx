@@ -4,12 +4,14 @@ import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, Legend } from 'recharts'
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 
-const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US')
+const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
 function MoneyInput({ label, value, onChange, hint }: { label: string; value: number; onChange: (n: number) => void; hint?: string }) {
   return (<div className="space-y-2"><label className="text-sm font-semibold">{label}</label>
-    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">$</span>
+    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">{curSym()}</span>
     <Input type="number" value={value === 0 ? '' : value} onChange={(e) => onChange(num(e.target.value))} className="pl-7 font-mono" /></div>
     {hint && <p className="text-xs text-muted-foreground">{hint}</p>}</div>)
 }
@@ -41,6 +43,7 @@ function simulate(balance: number, ratePct: number, payment: number) {
 }
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   void isPro
   const [balance, setBalance] = useState(37000)
   const [rate, setRate] = useState(5.5)
@@ -64,7 +67,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const tooLow = payment <= firstInterest && balance > 0
   const dateStr = (m: number) => { const d = new Date(); d.setMonth(d.getMonth() + m); return d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' }) }
 
-  return (<div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+  return (<><div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
     <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-6">
       <MoneyInput label="Student Loan Balance" value={balance} onChange={setBalance} hint="Total across all loans, or enter them one at a time with the same rate." />
       <PctSlider label="Interest Rate (APR)" value={rate} onChange={setRate} min={0} max={15} step={0.1} />
@@ -78,7 +81,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         : <MoneyInput label="Monthly Payment" value={paymentInput} onChange={setPaymentInput} hint="We calculate how long payoff takes at this payment." />}
       {tooLow && <p className="text-sm text-red-600 font-semibold">Warning: this payment does not cover monthly interest ({fmt(firstInterest)}/mo), so the balance grows instead of shrinking.</p>}
       <div className="bg-card border rounded-2xl p-5"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Standard (10 yr) vs Extended (20 yr) Balance</h4>
-        <ResponsiveContainer width="100%" height={200}><LineChart data={merged}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="month" /><YAxis tickFormatter={(v: number) => '$' + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Legend /><Line type="monotone" dataKey="Standard" stroke="#064E3B" strokeWidth={2} dot={false} /><Line type="monotone" dataKey="Extended" stroke="#D97706" strokeWidth={2} dot={false} /></LineChart></ResponsiveContainer></div>
+        <ResponsiveContainer width="100%" height={200}><LineChart data={merged}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="month" /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Legend /><Line type="monotone" dataKey="Standard" stroke="#064E3B" strokeWidth={2} dot={false} /><Line type="monotone" dataKey="Extended" stroke="#D97706" strokeWidth={2} dot={false} /></LineChart></ResponsiveContainer></div>
     </div>
     <div className="lg:col-span-5 space-y-6">
       <ResultCard title="Your Student Loan Plan">
@@ -98,5 +101,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
             <tr><td className="py-2 pr-3">Extended — 20 years</td><td className="py-2 pr-3 font-mono text-right">{fmt(extended.payment)}</td><td className="py-2 font-mono text-right">{fmt(extended.interest)}</td></tr>
           </tbody></table>
         <p className="text-xs text-muted-foreground mt-3">Stretching from 10 to 20 years cuts the payment by {fmt(standard.payment - extended.payment)}/mo but adds {fmt(extended.interest - standard.interest)} in interest. For a payoff-focused plan with extra payments, see the Student Loan Payoff Calculator in Personal Wealth.</p></div>
-    </div></div>)
+    </div></div><ToolActionsBar slug="student-loan-calculator" isPro={isPro} inputs={{ balance, rate, mode, termYears, paymentInput }} /></>)
 }

@@ -4,12 +4,14 @@ import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts'
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 
-const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US')
+const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
 function MoneyInput({ label, value, onChange, hint }: { label: string; value: number; onChange: (n: number) => void; hint?: string }) {
   return (<div className="space-y-2"><label className="text-sm font-semibold">{label}</label>
-    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">$</span>
+    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">{curSym()}</span>
     <Input type="number" value={value === 0 ? '' : value} onChange={(e) => onChange(num(e.target.value))} className="pl-7 font-mono" /></div>
     {hint && <p className="text-xs text-muted-foreground">{hint}</p>}</div>)
 }
@@ -46,6 +48,7 @@ function effectiveApr(payment: number, months: number, netProceeds: number) {
 }
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   void isPro
   const [amount, setAmount] = useState(15000)
   const [rate, setRate] = useState(11.5)
@@ -69,7 +72,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     return pts
   }, [amount, rate, months, payment])
 
-  return (<div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+  return (<><div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
     <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-6">
       <MoneyInput label="Loan Amount" value={amount} onChange={setAmount} hint="The headline amount — interest is charged on all of it, even the fee portion." />
       <PctSlider label="Interest Rate (APR before fees)" value={rate} onChange={setRate} min={0} max={36} step={0.1} />
@@ -79,7 +82,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <strong>Fee impact:</strong> the lender keeps {fmt(fee)} up front, so you receive <strong>{fmt(netProceeds)}</strong> but repay interest on the full {fmt(amount)}. That lifts your true APR from {rate.toFixed(1)}% to about <strong>{apr.toFixed(2)}%</strong>.
       </div>
       <div className="bg-card border rounded-2xl p-5"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Balance Over Time</h4>
-        <ResponsiveContainer width="100%" height={180}><LineChart data={series}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="month" /><YAxis tickFormatter={(v: number) => '$' + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Line type="monotone" dataKey="balance" stroke="#064E3B" strokeWidth={2} dot={false} name="Balance" /></LineChart></ResponsiveContainer></div>
+        <ResponsiveContainer width="100%" height={180}><LineChart data={series}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="month" /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Line type="monotone" dataKey="balance" stroke="#064E3B" strokeWidth={2} dot={false} name="Balance" /></LineChart></ResponsiveContainer></div>
     </div>
     <div className="lg:col-span-5 space-y-6">
       <ResultCard title="True Monthly Payment">
@@ -101,5 +104,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <div className="flex justify-between border-t pt-3"><span className="font-semibold">Extra cost of the fee</span><span className="font-mono font-bold text-[#B45309]">{fmt(fee)}</span></div>
           <p className="text-xs text-muted-foreground">Tip: a lender quoting a low rate with a high origination fee can cost more than a slightly higher rate with no fee. Compare effective APRs, not headline rates.</p>
         </div></div>
-    </div></div>)
+    </div></div><ToolActionsBar slug="personal-loan-calculator" isPro={isPro} inputs={{ amount, rate, months, feePct }} /></>)
 }

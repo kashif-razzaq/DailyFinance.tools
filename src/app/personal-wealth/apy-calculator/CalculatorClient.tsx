@@ -3,13 +3,15 @@
 import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 
-const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US')
-const fmt2 = (n: number) => '$' + n.toLocaleString('en-US', { maximumFractionDigits: 0 })
+const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
+const fmt2 = (n: number) => curSym() + n.toLocaleString('en-US', { maximumFractionDigits: 0 })
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
 function MoneyInput({ label, value, onChange, hint }: { label: string; value: number; onChange: (n: number) => void; hint?: string }) {
   return (<div className="space-y-2"><label className="text-sm font-semibold">{label}</label>
-    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">$</span>
+    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">{curSym()}</span>
     <Input type="number" value={value === 0 ? '' : value} onChange={(e) => onChange(num(e.target.value))} className="pl-7 font-mono" /></div>
     {hint && <p className="text-xs text-muted-foreground">{hint}</p>}</div>)
 }
@@ -29,6 +31,7 @@ const FREQS = [
   { key: 'daily', label: 'Daily', n: 365 },
 ] as const
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   const [mode, setMode] = useState<'forward' | 'reverse'>('forward')
   const [rateInput, setRateInput] = useState(5)
   const [freqKey, setFreqKey] = useState<string>('daily')
@@ -53,7 +56,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   }, [mode, rateInput, freqKey, deposit, years])
   const pct = (v: number) => (v * 100).toFixed(3).replace(/0+$/, '').replace(/\.$/, '.00') + '%'
   const pct4 = (v: number) => (v * 100).toFixed(4) + '%'
-  return (<div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+  return (<><div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
     <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-6">
       <div className="space-y-2"><label className="text-sm font-semibold">Conversion Mode</label>
         <div className="flex gap-2">
@@ -88,5 +91,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <tbody className="font-mono">{r.table.map(row => (<tr key={row.key} className={`border-b last:border-0 ${row.isCurrent ? 'bg-emerald-50 dark:bg-emerald-950/30 font-bold' : ''}`}><td className="py-2 pr-2">{row.label} <span className="text-muted-foreground">×{row.n}</span></td><td className="py-2 pr-2 text-right">{pct(row.apy)}</td><td className="py-2 text-right">{fmt(row.value)}</td></tr>))}</tbody></table></div>
         <p className="text-xs text-muted-foreground mt-3">More frequent compounding always wins, but the gap shrinks fast — daily vs monthly is pennies on most deposits. Compare APYs, not APRs, when shopping accounts.</p>
       </div>
-    </div></div>)
+    </div></div><ToolActionsBar slug="apy-calculator" isPro={isPro} inputs={{ mode, rateInput, freqKey, deposit, years }} /></>)
 }

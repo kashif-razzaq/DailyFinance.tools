@@ -120,7 +120,7 @@ export default async function StateHubPage({ params }: { params: Promise<{ state
             <p><strong>Income tax.</strong> {s.incomeTaxNote} {s.incomeTax === "none" ? "Remember that 'no income tax' states fund services through other taxes — compare the full picture (sales, property) before assuming a move saves money." : "If you are self-employed in " + s.name + ", you still owe federal self-employment tax plus quarterly state estimates where applicable."}</p>
             <h2>How {s.name} compares with similar states</h2>
             <p>The states closest to {s.name} on average combined sales tax. Property tax is the average effective rate; income tax shows the structure, not a single rate.</p>
-            <table>
+            <div className="overflow-x-auto -mx-1 px-1"><table>
               <thead><tr><th>State</th><th>Combined sales tax</th><th>Property tax</th><th>Income tax</th></tr></thead>
               <tbody>
                 <tr><td><strong>{s.name} (this page)</strong></td><td><strong>{s.salesTaxAvgCombined}%</strong></td><td><strong>{s.propertyTaxAvg}%</strong></td><td><strong>{s.incomeTax === "none" ? "None" : s.incomeTax === "flat" ? "Flat" : "Progressive"}</strong></td></tr>
@@ -129,7 +129,7 @@ export default async function StateHubPage({ params }: { params: Promise<{ state
                 ))}
                 <tr><td>All-state average (51 entries)</td><td>{AVG_COMBINED}%</td><td>{AVG_PROPERTY}%</td><td>—</td></tr>
               </tbody>
-            </table>
+            </table></div>
             <h2>What this means for your money in {s.name}</h2>
             {overallMeaning(s).map((p, i) => (
               <p key={i}>{p}</p>

@@ -4,12 +4,12 @@ import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 
-const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US')
-const fmt2 = (n: number) => '$' + n.toLocaleString('en-US', { maximumFractionDigits: 0 })
+const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
+const fmt2 = (n: number) => curSym() + n.toLocaleString('en-US', { maximumFractionDigits: 0 })
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
 function MoneyInput({ label, value, onChange, hint }: { label: string; value: number; onChange: (n: number) => void; hint?: string }) {
   return (<div className="space-y-2"><label className="text-sm font-semibold">{label}</label>
-    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">$</span>
+    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">{curSym()}</span>
     <Input type="number" value={value === 0 ? '' : value} onChange={(e) => onChange(num(e.target.value))} className="pl-7 font-mono" /></div>
     {hint && <p className="text-xs text-muted-foreground">{hint}</p>}</div>)
 }
@@ -22,7 +22,10 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
 }
 
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts'
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   const [age, setAge] = useState(35); const [retireAge, setRetireAge] = useState(65)
   const [balance, setBalance] = useState(40000); const [comp, setComp] = useState(120000)
   const [employee, setEmployee] = useState(15000); const [matchPct, setMatchPct] = useState(4)
@@ -38,7 +41,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     const chart = Array.from({ length: years + 1 }, (_, y) => ({ age: age + y, w2: Math.round(balance * Math.pow(1 + rate, y) + (rate > 0 ? w2Annual * ((Math.pow(1 + rate, y) - 1) / rate) : 0)), solo: Math.round(balance * Math.pow(1 + rate, y) + (rate > 0 ? soloAnnual * ((Math.pow(1 + rate, y) - 1) / rate) : 0)) }))
     return { years, w2Annual, soloAnnual, w2: proj(w2Annual), solo: proj(soloAnnual), chart, soloEmployer }
   }, [age, retireAge, balance, comp, empCapped, matchPct, profitShare, ret])
-  return (<div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+  return (<><div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
     <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-6">
       <div className="grid grid-cols-2 gap-6"><MoneyInput label="Current 401(k) Balance" value={balance} onChange={setBalance} /><MoneyInput label="Annual Salary / Self-Employment Compensation" value={comp} onChange={setComp} /></div>
       <MoneyInput label="Your Annual Employee Contribution" value={employee} onChange={setEmployee} hint={`2026 employee limit: $24,500${age >= 50 ? ' + $7,500 catch-up (age 50+) = $32,000' : ''}. Combined employee + employer limit: $72,000 (2026 figures — check IRS.gov for current limits).`} />
@@ -57,6 +60,6 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <p className="text-white/80 text-sm">Solo advantage in this scenario: <span className="font-mono font-bold">{fmt(r.solo - r.w2)}</span>. The Solo employer contribution applied is {fmt(r.soloEmployer)} after the combined-limit cap.</p>
         </div></ResultCard>
       <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Growth Comparison</h4>
-        <ResponsiveContainer width="100%" height={220}><AreaChart data={r.chart}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="age" /><YAxis tickFormatter={(v: number) => '$' + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Area type="monotone" dataKey="w2" stroke="#94a3b8" fill="#94a3b8" fillOpacity={0.15} name="W-2 401(k)" /><Area type="monotone" dataKey="solo" stroke="#064E3B" fill="#064E3B" fillOpacity={0.2} name="Solo 401(k)" /></AreaChart></ResponsiveContainer></div>
-    </div></div>)
+        <ResponsiveContainer width="100%" height={220}><AreaChart data={r.chart}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="age" /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Area type="monotone" dataKey="w2" stroke="#94a3b8" fill="#94a3b8" fillOpacity={0.15} name="W-2 401(k)" /><Area type="monotone" dataKey="solo" stroke="#064E3B" fill="#064E3B" fillOpacity={0.2} name="Solo 401(k)" /></AreaChart></ResponsiveContainer></div>
+    </div></div><ToolActionsBar slug="401k-vs-solo-401k-calculator" isPro={isPro} inputs={{ age, retireAge, balance, comp, employee, matchPct, profitShare, ret }} /></>)
 }
