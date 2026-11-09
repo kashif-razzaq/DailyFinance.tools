@@ -4,12 +4,12 @@ import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 
-const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US')
-const fmt2 = (n: number) => '$' + n.toLocaleString('en-US', { maximumFractionDigits: 0 })
+const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
+const fmt2 = (n: number) => curSym() + n.toLocaleString('en-US', { maximumFractionDigits: 0 })
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
 function MoneyInput({ label, value, onChange, hint }: { label: string; value: number; onChange: (n: number) => void; hint?: string }) {
   return (<div className="space-y-2"><label className="text-sm font-semibold">{label}</label>
-    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">$</span>
+    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">{curSym()}</span>
     <Input type="number" value={value === 0 ? '' : value} onChange={(e) => onChange(num(e.target.value))} className="pl-7 font-mono" /></div>
     {hint && <p className="text-xs text-muted-foreground">{hint}</p>}</div>)
 }
@@ -22,7 +22,10 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
 }
 
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts'
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   const [age, setAge] = useState(30); const [retireAge, setRetireAge] = useState(65)
   const [invested, setInvested] = useState(50000); const [spending, setSpending] = useState(50000)
   const [ret, setRet] = useState(7); const [monthly, setMonthly] = useState(500)
@@ -37,7 +40,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     const chart = Array.from({ length: years + 1 }, (_, y) => ({ year: age + y, value: Math.round(invested * Math.pow(1 + ret / 100, y)) }))
     return { years, fire, coast, projectedNoContrib, months, chart, reached: invested >= coast }
   }, [age, retireAge, invested, spending, ret, monthly])
-  return (<div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+  return (<><div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
     <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-6">
       <div className="grid grid-cols-2 gap-6"><MoneyInput label="Already Invested" value={invested} onChange={setInvested} hint="Across 401(k), IRA and brokerage accounts." />
       <MoneyInput label="Annual Spending in Retirement" value={spending} onChange={setSpending} hint="Your FIRE number is 25 times this amount." /></div>
@@ -58,6 +61,6 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
       </ResultCard>
       <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Growth With No Further Contributions</h4>
-        <ResponsiveContainer width="100%" height={220}><AreaChart data={r.chart}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="year" /><YAxis tickFormatter={(v: number) => '$' + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Area type="monotone" dataKey="value" stroke="#064E3B" fill="#064E3B" fillOpacity={0.15} name="Portfolio" /></AreaChart></ResponsiveContainer></div>
-    </div></div>)
+        <ResponsiveContainer width="100%" height={220}><AreaChart data={r.chart}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="year" /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Area type="monotone" dataKey="value" stroke="#064E3B" fill="#064E3B" fillOpacity={0.15} name="Portfolio" /></AreaChart></ResponsiveContainer></div>
+    </div></div><ToolActionsBar slug="coast-fire-calculator" isPro={isPro} inputs={{ age, retireAge, invested, spending, ret, monthly }} /></>)
 }

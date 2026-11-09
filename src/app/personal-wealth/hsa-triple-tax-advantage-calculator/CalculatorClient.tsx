@@ -4,12 +4,12 @@ import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 
-const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US')
-const fmt2 = (n: number) => '$' + n.toLocaleString('en-US', { maximumFractionDigits: 0 })
+const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
+const fmt2 = (n: number) => curSym() + n.toLocaleString('en-US', { maximumFractionDigits: 0 })
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
 function MoneyInput({ label, value, onChange, hint }: { label: string; value: number; onChange: (n: number) => void; hint?: string }) {
   return (<div className="space-y-2"><label className="text-sm font-semibold">{label}</label>
-    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">$</span>
+    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">{curSym()}</span>
     <Input type="number" value={value === 0 ? '' : value} onChange={(e) => onChange(num(e.target.value))} className="pl-7 font-mono" /></div>
     {hint && <p className="text-xs text-muted-foreground">{hint}</p>}</div>)
 }
@@ -22,7 +22,10 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
 }
 
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts'
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   const [contrib, setContrib] = useState(4400); const [balance, setBalance] = useState(5000)
   const [years, setYears] = useState(20); const [ret, setRet] = useState(7); const [bracket, setBracket] = useState(22)
   const LIMIT_NOTE = '2026 IRS limits used here: $4,400 self-only / $8,750 family, plus $1,000 catch-up at 55+. Limits change — check IRS.gov for the current year.'
@@ -37,7 +40,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     const chart = Array.from({ length: years + 1 }, (_, y) => ({ year: y, value: Math.round(balance * Math.pow(1 + rate, y) + (rate > 0 ? contrib * ((Math.pow(1 + rate, y) - 1) / rate) : 0)) }))
     return { fv, paidIn, growth, totalSaved: contribTaxSaved + growthTaxSaved + ficaSaved, contribTaxSaved, growthTaxSaved, ficaSaved, chart }
   }, [contrib, balance, years, ret, bracket])
-  return (<div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+  return (<><div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
     <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-6">
       <div className="grid grid-cols-2 gap-6"><MoneyInput label="Current HSA Balance" value={balance} onChange={setBalance} /><MoneyInput label="Annual Contribution" value={contrib} onChange={setContrib} hint={LIMIT_NOTE} /></div>
       <PctSlider label="Marginal Tax Bracket" value={bracket} onChange={setBracket} min={0} max={37} step={1} />
@@ -55,6 +58,6 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <div><p className="text-white/60 text-xs uppercase font-bold">FICA Saved (Payroll) + Growth Tax</p><p className="font-mono text-sm font-bold">{fmt(r.ficaSaved + r.growthTaxSaved)}</p></div>
         </div></ResultCard>
       <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">HSA Growth</h4>
-        <ResponsiveContainer width="100%" height={200}><AreaChart data={r.chart}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="year" /><YAxis tickFormatter={(v: number) => '$' + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Area type="monotone" dataKey="value" stroke="#064E3B" fill="#064E3B" fillOpacity={0.15} name="HSA balance" /></AreaChart></ResponsiveContainer></div>
-    </div></div>)
+        <ResponsiveContainer width="100%" height={200}><AreaChart data={r.chart}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="year" /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Area type="monotone" dataKey="value" stroke="#064E3B" fill="#064E3B" fillOpacity={0.15} name="HSA balance" /></AreaChart></ResponsiveContainer></div>
+    </div></div><ToolActionsBar slug="hsa-triple-tax-advantage-calculator" isPro={isPro} inputs={{ contrib, balance, years, ret, bracket }} /></>)
 }

@@ -3,13 +3,15 @@
 import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 
-const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US')
-const fmt2 = (n: number) => '$' + n.toLocaleString('en-US', { maximumFractionDigits: 0 })
+const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
+const fmt2 = (n: number) => curSym() + n.toLocaleString('en-US', { maximumFractionDigits: 0 })
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
 function MoneyInput({ label, value, onChange, hint }: { label: string; value: number; onChange: (n: number) => void; hint?: string }) {
   return (<div className="space-y-2"><label className="text-sm font-semibold">{label}</label>
-    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">$</span>
+    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">{curSym()}</span>
     <Input type="number" value={value === 0 ? '' : value} onChange={(e) => onChange(num(e.target.value))} className="pl-7 font-mono" /></div>
     {hint && <p className="text-xs text-muted-foreground">{hint}</p>}</div>)
 }
@@ -39,6 +41,7 @@ function simulate(debts: Debt[], extra: number, order: 'avalanche' | 'snowball')
   return { months, totalInterest, orderOf, cleared: !ds.some(d => d.balance > 0.01) }
 }
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   const [debts, setDebts] = useState<Debt[]>([
     { name: 'Credit Card', balance: 6500, apr: 24.99, min: 150 },
     { name: 'Store Card', balance: 2200, apr: 29.99, min: 65 },
@@ -49,7 +52,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const sn = useMemo(() => simulate(debts, extra, 'snowball'), [debts, extra])
   const totalMin = debts.reduce((s, d) => s + d.min, 0)
   const dateStr = (m: number) => { const d = new Date(); d.setMonth(d.getMonth() + m); return d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' }) }
-  return (<div className="space-y-8">
+  return (<><div className="space-y-8">
     <div className="bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-8">
       {debts.map((d, i) => (<div key={i} className="grid grid-cols-2 md:grid-cols-4 gap-4 pb-6 border-b last:border-0 last:pb-0">
         <div className="space-y-2"><label className="text-sm font-semibold">Debt {i + 1} Name</label><Input value={d.name} onChange={(e) => upd(i, 'name', e.target.value)} /></div>
@@ -69,5 +72,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           </div></div>))}
     </div>
     <div className="bg-amber-50 border border-amber-200 rounded-2xl p-6 text-amber-900"><strong>The verdict:</strong> Avalanche saves you <span className="font-mono font-bold">{fmt(Math.max(0, sn.totalInterest - av.totalInterest))}</span> in interest versus Snowball with these debts{av.months !== sn.months ? ` and clears the debt ${Math.abs(av.months - sn.months)} month(s) ${av.months < sn.months ? 'sooner' : 'later'}` : ''}. Snowball still wins for many people because the early small wins keep them going — the best method is the one you will actually finish.</div>
-  </div>)
+  </div><ToolActionsBar slug="debt-avalanche-vs-snowball-calculator" isPro={isPro} inputs={{ debts, extra }} /></>)
 }

@@ -4,12 +4,12 @@ import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 
-const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US')
-const fmt2 = (n: number) => '$' + n.toLocaleString('en-US', { maximumFractionDigits: 0 })
+const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
+const fmt2 = (n: number) => curSym() + n.toLocaleString('en-US', { maximumFractionDigits: 0 })
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
 function MoneyInput({ label, value, onChange, hint }: { label: string; value: number; onChange: (n: number) => void; hint?: string }) {
   return (<div className="space-y-2"><label className="text-sm font-semibold">{label}</label>
-    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">$</span>
+    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">{curSym()}</span>
     <Input type="number" value={value === 0 ? '' : value} onChange={(e) => onChange(num(e.target.value))} className="pl-7 font-mono" /></div>
     {hint && <p className="text-xs text-muted-foreground">{hint}</p>}</div>)
 }
@@ -22,11 +22,14 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
 }
 
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip, Legend } from 'recharts'
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 
 const COLORS = ['#064E3B', '#0E7C61', '#D97706', '#2563EB', '#7C3AED', '#DB2777', '#0891B2', '#65A30D', '#EA580C', '#475569', '#059669']
 
 // Formula: Total Expenses = sum(categories); Leftover = Income − Total Expenses − Savings; Savings Rate = Savings / Income × 100
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   const [income, setIncome] = useState(5500)
   const [housing, setHousing] = useState(1600)
   const [transport, setTransport] = useState(450)
@@ -65,7 +68,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
 
   const isDeficit = calc.leftover < 0
 
-  return (<div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+  return (<><div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
     <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-6">
       <MoneyInput label="Monthly Take-Home Income" value={income} onChange={setIncome} hint="After-tax pay that actually lands in your account." />
       <div className="border-t pt-6">
@@ -127,5 +130,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <p className="text-xs text-muted-foreground mt-4">Common guide: housing ≤30%, savings ≥20% (50/30/20 rule). Compare your bars against those benchmarks.</p>
       </div>
     </div>
-  </div>)
+  </div><ToolActionsBar slug="budget-calculator" isPro={isPro} inputs={{ income, housing, transport, food, utilities, insurance, entertainment, dining, subscriptions, other, savings }} /></>)
 }

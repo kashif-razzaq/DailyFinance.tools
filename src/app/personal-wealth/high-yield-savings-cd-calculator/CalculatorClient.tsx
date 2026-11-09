@@ -4,12 +4,12 @@ import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 
-const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US')
-const fmt2 = (n: number) => '$' + n.toLocaleString('en-US', { maximumFractionDigits: 0 })
+const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
+const fmt2 = (n: number) => curSym() + n.toLocaleString('en-US', { maximumFractionDigits: 0 })
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
 function MoneyInput({ label, value, onChange, hint }: { label: string; value: number; onChange: (n: number) => void; hint?: string }) {
   return (<div className="space-y-2"><label className="text-sm font-semibold">{label}</label>
-    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">$</span>
+    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">{curSym()}</span>
     <Input type="number" value={value === 0 ? '' : value} onChange={(e) => onChange(num(e.target.value))} className="pl-7 font-mono" /></div>
     {hint && <p className="text-xs text-muted-foreground">{hint}</p>}</div>)
 }
@@ -22,13 +22,16 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
 }
 
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts'
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   const [deposit, setDeposit] = useState(20000); const [hysaApy, setHysaApy] = useState(4.2); const [cdApy, setCdApy] = useState(4.75)
   const [term, setTerm] = useState(3); const [freq, setFreq] = useState(12); const [taxRate, setTaxRate] = useState(22)
   const fv = (apy: number) => deposit * Math.pow(1 + apy / 100 / freq, freq * term)
   const h = fv(hysaApy), c = fv(cdApy)
   const chart = [{ name: 'HYSA', earnings: Math.round(h - deposit) }, { name: 'CD', earnings: Math.round(c - deposit) }, { name: 'Regular savings (0.5%)', earnings: Math.round(fv(0.5) - deposit) }]
-  return (<div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+  return (<><div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
     <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-6">
       <MoneyInput label="Deposit Amount" value={deposit} onChange={setDeposit} />
       <PctSlider label="High-Yield Savings APY" value={hysaApy} onChange={setHysaApy} min={0} max={8} step={0.05} />
@@ -46,6 +49,6 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <p className="text-white/80 text-sm">{c >= h ? 'The CD wins on these rates — if you are sure you will not need the money early.' : 'The HYSA wins on these rates and keeps your money fully accessible.'} Versus a regular 0.5% savings account ({fmt(fv(0.5))}), the better option earns you an extra <span className="font-mono font-bold">{fmt(Math.max(h, c) - fv(0.5))}</span>.</p>
         </div></ResultCard>
       <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Interest Earned Compared</h4>
-        <ResponsiveContainer width="100%" height={200}><BarChart data={chart}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="name" tick={{ fontSize: 11 }} /><YAxis tickFormatter={(v: number) => '$' + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Bar dataKey="earnings" fill="#064E3B" name="Interest earned" /></BarChart></ResponsiveContainer></div>
-    </div></div>)
+        <ResponsiveContainer width="100%" height={200}><BarChart data={chart}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="name" tick={{ fontSize: 11 }} /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Bar dataKey="earnings" fill="#064E3B" name="Interest earned" /></BarChart></ResponsiveContainer></div>
+    </div></div><ToolActionsBar slug="high-yield-savings-cd-calculator" isPro={isPro} inputs={{ deposit, hysaApy, cdApy, term, freq, taxRate }} /></>)
 }

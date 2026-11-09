@@ -4,12 +4,12 @@ import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 
-const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US')
-const fmt2 = (n: number) => '$' + n.toLocaleString('en-US', { maximumFractionDigits: 0 })
+const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
+const fmt2 = (n: number) => curSym() + n.toLocaleString('en-US', { maximumFractionDigits: 0 })
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
 function MoneyInput({ label, value, onChange, hint }: { label: string; value: number; onChange: (n: number) => void; hint?: string }) {
   return (<div className="space-y-2"><label className="text-sm font-semibold">{label}</label>
-    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">$</span>
+    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">{curSym()}</span>
     <Input type="number" value={value === 0 ? '' : value} onChange={(e) => onChange(num(e.target.value))} className="pl-7 font-mono" /></div>
     {hint && <p className="text-xs text-muted-foreground">{hint}</p>}</div>)
 }
@@ -22,7 +22,10 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
 }
 
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts'
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   const [principal, setPrincipal] = useState(10000); const [monthly, setMonthly] = useState(300)
   const [rate, setRate] = useState(8); const [years, setYears] = useState(25); const [freq, setFreq] = useState(12)
   const r = useMemo(() => {
@@ -35,7 +38,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     const table = chart.filter((_, i) => i % 5 === 0 || i === years)
     return { fv, contributed, interest: fv - contributed, chart, table }
   }, [principal, monthly, rate, years, freq])
-  return (<div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+  return (<><div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
     <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-6">
       <div className="grid grid-cols-2 gap-6"><MoneyInput label="Starting Amount" value={principal} onChange={setPrincipal} /><MoneyInput label="Monthly Contribution" value={monthly} onChange={setMonthly} /></div>
       <PctSlider label="Annual Interest / Return Rate" value={rate} onChange={setRate} min={0} max={15} step={0.25} />
@@ -54,7 +57,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <p className="text-white/80 mt-4 text-sm">Interest is {r.contributed > 0 ? Math.round(r.interest / r.fv * 100) : 0}% of the final value — that share is compounding doing the heavy lifting.</p>
       </ResultCard>
       <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Balance vs Money Paid In</h4>
-        <ResponsiveContainer width="100%" height={210}><AreaChart data={r.chart}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="year" /><YAxis tickFormatter={(v: number) => '$' + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Area type="monotone" dataKey="balance" stroke="#064E3B" fill="#064E3B" fillOpacity={0.18} name="Balance" /><Area type="monotone" dataKey="paidIn" stroke="#D97706" fill="#D97706" fillOpacity={0.1} name="Paid in" /></AreaChart></ResponsiveContainer>
+        <ResponsiveContainer width="100%" height={210}><AreaChart data={r.chart}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="year" /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Area type="monotone" dataKey="balance" stroke="#064E3B" fill="#064E3B" fillOpacity={0.18} name="Balance" /><Area type="monotone" dataKey="paidIn" stroke="#D97706" fill="#D97706" fillOpacity={0.1} name="Paid in" /></AreaChart></ResponsiveContainer>
         <div className="mt-4 space-y-1 font-mono text-sm">{r.table.map(t => (<div key={t.year} className="flex justify-between border-b last:border-0 py-1"><span>Year {t.year}</span><span>{fmt(t.balance)}</span></div>))}</div></div>
-    </div></div>)
+    </div></div><ToolActionsBar slug="compound-interest-scaler-calculator" isPro={isPro} inputs={{ principal, monthly, rate, years, freq }} /></>)
 }
