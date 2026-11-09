@@ -3,12 +3,14 @@
 import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 
-const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US')
+const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
 function MoneyInput({ label, value, onChange, hint }: { label: string; value: number; onChange: (n: number) => void; hint?: string }) {
   return (<div className="space-y-2"><label className="text-sm font-semibold">{label}</label>
-    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">$</span>
+    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">{curSym()}</span>
     <Input type="number" value={value === 0 ? '' : value} onChange={(e) => onChange(num(e.target.value))} className="pl-7 font-mono" /></div>
     {hint && <p className="text-xs text-muted-foreground">{hint}</p>}</div>)
 }
@@ -39,6 +41,7 @@ function estimates(price: number, loan: number, taxPct: number, insYear: number,
   ]
 }
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   const [price, setPrice] = useState(425000); const [downPct, setDownPct] = useState(20)
   const [taxPct, setTaxPct] = useState(1.1); const [insYear, setInsYear] = useState(1800); const [rate, setRate] = useState(6.75)
   const loan = Math.max(0, price - price * downPct / 100)
@@ -50,7 +53,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const cashToClose = down + total
   const pctOfPrice = price > 0 ? total / price * 100 : 0
   const rangePos = Math.min(100, Math.max(0, (pctOfPrice - 1) / (6 - 1) * 100)) // typical buyer range is roughly 2–5% of price
-  return (<div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+  return (<><div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
     <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-6">
       <div className="grid grid-cols-2 gap-6"><MoneyInput label="Home Price" value={price} onChange={setPrice} /><MoneyInput label="Home Insurance (per year)" value={insYear} onChange={setInsYear} /></div>
       <PctSlider label="Down Payment" value={downPct} onChange={setDownPct} min={0} max={50} step={1} />
@@ -60,7 +63,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <div className="divide-y divide-neutral-100 border rounded-xl overflow-hidden">{items.map((it, i) => (
           <div key={it.label} className="flex items-center justify-between gap-3 px-4 py-2.5">
             <div><div className="text-sm font-medium">{it.label}</div><div className="text-xs text-muted-foreground">{it.basis}</div></div>
-            <div className="relative w-32 shrink-0"><span className="absolute left-2.5 top-1/2 -translate-y-1/2 text-muted-foreground text-sm font-semibold">$</span>
+            <div className="relative w-32 shrink-0"><span className="absolute left-2.5 top-1/2 -translate-y-1/2 text-muted-foreground text-sm font-semibold">{sym}</span>
               <Input type="number" value={it.amount === 0 ? '' : it.amount} onChange={(e) => setOverrides(o => ({ ...o, [i]: num(e.target.value) }))} className="pl-6 font-mono h-9 text-right" /></div>
           </div>))}</div>
         <p className="text-xs text-muted-foreground mt-3">Estimates are typical US buyer figures; your lender&apos;s Loan Estimate is the binding document. Seller costs (agent commission etc.) are usually paid from sale proceeds.</p></div>
@@ -79,5 +82,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <div className="relative h-4 rounded-full bg-gradient-to-r from-emerald-200 via-amber-200 to-red-200"><div className="absolute -top-1 w-6 h-6 rounded-full bg-[#064E3B] border-4 border-white shadow" style={{ left: `calc(${rangePos}% - 12px)` }} /></div>
         <div className="flex justify-between text-xs text-muted-foreground mt-2"><span>1%</span><span>Your estimate: {pctOfPrice.toFixed(1)}%</span><span>6%+</span></div>
         <p className="text-sm text-muted-foreground mt-4">{pctOfPrice < 2 ? 'Below the typical range — double-check nothing is missing, especially prepaid taxes and insurance.' : pctOfPrice <= 5 ? 'Inside the typical 2–5% band for US buyers.' : 'Above the typical band — the biggest levers are origination and title insurance; both are negotiable or shoppable in many states.'}</p></div>
-    </div></div>)
+    </div></div><ToolActionsBar slug="closing-cost-calculator" isPro={isPro} inputs={{ price, downPct, taxPct, insYear, rate, overrides }} /></>)
 }

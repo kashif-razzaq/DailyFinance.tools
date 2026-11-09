@@ -2,12 +2,14 @@
 import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 
-export const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US')
-export const fmt2 = (n: number) => '$' + n.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})
+export const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
+export const fmt2 = (n: number) => curSym() + n.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})
 export const pct = (n: number) => (isFinite(n) ? n.toFixed(2) : '0.00') + '%'
 
-export function Num({ label, value, set, min=0, step=1, prefix='$' }: { label: string; value: number; set: (n:number)=>void; min?: number; step?: number; prefix?: string }) {
+export function Num({ label, value, set, min=0, step=1, prefix=curSym() }: { label: string; value: number; set: (n:number)=>void; min?: number; step?: number; prefix?: string }) {
   return (<div className="space-y-2"><label className="text-sm font-semibold">{label}</label><div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">{prefix}</span><Input type="number" min={min} step={step} value={value===0?'':value} onChange={e=>set(e.target.value===''?0:Number(e.target.value))} className="pl-7 font-mono" /></div></div>)
 }
 export function Slide({ label, value, set, min, max, step=0.1, suffix='%' }: { label: string; value: number; set:(n:number)=>void; min:number; max:number; step?:number; suffix?:string }) {
@@ -28,9 +30,10 @@ export function Breakdown({ title, children }: { title: string; children: React.
 
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   const [price, setPrice] = useState(450000); const [downPct, setDownPct] = useState(5); const [rate, setRate] = useState(6.5); const [tax, setTax] = useState(5400); const [ins, setIns] = useState(1800); const [rentOther, setRentOther] = useState(1800); const [ownRent, setOwnRent] = useState(1600); const [marketRent, setMarketRent] = useState(2100); const [utilities, setUtilities] = useState(150)
   const m = useMemo(() => { const loan = price * (1 - downPct/100); const r = rate/100/12; const n = 360; const pi = r > 0 ? loan * r * Math.pow(1+r, n) / (Math.pow(1+r, n) - 1) : loan/n; const piti = pi + tax/12 + ins/12; const eff = piti + utilities - rentOther; const cash = price * downPct/100 + price * 0.02; const grossIfMoved = rentOther + ownRent; const cfMoved = grossIfMoved - piti - utilities; const roi = cash > 0 ? (cfMoved * 12) / cash * 100 : 0; return { loan, pi, piti, eff, cash, cfMoved, roi, saving: marketRent - eff } }, [price, downPct, rate, tax, ins, rentOther, ownRent, marketRent, utilities])
-  return (<Shell inputs={<>
+  return (<><Shell inputs={<>
     <Num label="Purchase Price" value={price} set={setPrice} /><Slide label="Down Payment" value={downPct} set={setDownPct} min={0} max={40} step={0.5} />
     <Slide label="Mortgage Rate" value={rate} set={setRate} min={0} max={15} step={0.05} /><div className="grid grid-cols-2 gap-4"><Num label="Property Tax / year" value={tax} set={setTax} /><Num label="Insurance / year" value={ins} set={setIns} /></div>
     <div className="grid grid-cols-2 gap-4"><Num label="Rent from Other Units / mo" value={rentOther} set={setRentOther} /><Num label="Market Rent for Your Unit" value={ownRent} set={setOwnRent} /></div>
@@ -39,5 +42,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     <Result label="Your Effective Housing Cost / Month" value={fmt(m.eff)} sub={m.eff <= 0 ? 'Your tenants cover your entire housing cost — you live for free or better.' : `Versus ${fmt(marketRent)} renting elsewhere, you save ${fmt(m.saving)} every month.`} />
     <Breakdown title="House Hack Breakdown"><Row label="Loan amount" value={fmt(m.loan)} /><Row label="Principal & interest" value={fmt(m.pi)} /><Row label="Full PITI payment" value={fmt(m.piti)} /><Row label="Minus rent from other units" value={'−' + fmt(rentOther)} /><Row label="Cash invested (down + 2% closing)" value={fmt(m.cash)} /><Row label="Cash flow if you move out later" value={fmt(m.cfMoved) + ' / mo'} /><Row label="Cash-on-cash ROI after move-out" value={pct(m.roi)} bold /></Breakdown>
     <p className="text-xs text-muted-foreground">Assumes a 30-year fixed mortgage. Add vacancy and maintenance reserves for a conservative view — see the guide below.</p>
-  </Shell>)
+  </Shell><ToolActionsBar slug="house-hacking-roi-calculator" isPro={isPro} inputs={{ price, downPct, rate, tax, ins, rentOther, ownRent, marketRent, utilities }} /></>)
 }

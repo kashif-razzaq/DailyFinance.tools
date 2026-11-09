@@ -2,12 +2,14 @@
 import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 
-export const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US')
-export const fmt2 = (n: number) => '$' + n.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})
+export const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
+export const fmt2 = (n: number) => curSym() + n.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})
 export const pct = (n: number) => (isFinite(n) ? n.toFixed(2) : '0.00') + '%'
 
-export function Num({ label, value, set, min=0, step=1, prefix='$' }: { label: string; value: number; set: (n:number)=>void; min?: number; step?: number; prefix?: string }) {
+export function Num({ label, value, set, min=0, step=1, prefix=curSym() }: { label: string; value: number; set: (n:number)=>void; min?: number; step?: number; prefix?: string }) {
   return (<div className="space-y-2"><label className="text-sm font-semibold">{label}</label><div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">{prefix}</span><Input type="number" min={min} step={step} value={value===0?'':value} onChange={e=>set(e.target.value===''?0:Number(e.target.value))} className="pl-7 font-mono" /></div></div>)
 }
 export function Slide({ label, value, set, min, max, step=0.1, suffix='%' }: { label: string; value: number; set:(n:number)=>void; min:number; max:number; step?:number; suffix?:string }) {
@@ -28,9 +30,10 @@ export function Breakdown({ title, children }: { title: string; children: React.
 
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   const [value, setValue] = useState(600000); const [balance, setBalance] = useState(300000); const [maxLtv, setMaxLtv] = useState(85); const [draw, setDraw] = useState(100000); const [rate, setRate] = useState(8.5); const [repayYears, setRepayYears] = useState(20)
   const m = useMemo(() => { const available = Math.max(value * maxLtv/100 - balance, 0); const d = Math.min(draw, available || draw); const io = d * rate/100 / 12; const r = rate/100/12; const n = repayYears * 12; const amort = r > 0 ? d * r * Math.pow(1+r, n) / (Math.pow(1+r, n) - 1) : d/n; const totalInterestRepay = amort * n - d; return { available, d, io, amort, totalInterestRepay, ltvAfter: value > 0 ? (balance + d)/value*100 : 0 } }, [value, balance, maxLtv, draw, rate, repayYears])
-  return (<Shell inputs={<>
+  return (<><Shell inputs={<>
     <div className="grid grid-cols-2 gap-4"><Num label="Home Value" value={value} set={setValue} /><Num label="Current Mortgage Balance" value={balance} set={setBalance} /></div>
     <Slide label="Max Combined LTV Allowed" value={maxLtv} set={setMaxLtv} min={60} max={90} step={1} /><Num label="Amount You Plan to Draw" value={draw} set={setDraw} />
     <Slide label="HELOC Rate (variable)" value={rate} set={setRate} min={0} max={18} step={0.05} /><Slide label="Repayment Term After Draw Period" value={repayYears} set={setRepayYears} min={5} max={30} step={1} suffix=" yrs" />
@@ -39,5 +42,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     <Result label="Interest-Only Payment (Draw Period)" value={fmt(m.io)} sub={`On a ${fmt(m.d)} draw at ${rate}%. This payment covers interest only — the balance does not fall.`} />
     <Breakdown title="HELOC Breakdown"><Row label="Available credit" value={fmt(m.available)} bold /><Row label="Combined LTV after draw" value={pct(m.ltvAfter)} /><Row label="Interest-only payment / mo" value={fmt(m.io)} /><Row label="Repayment-phase payment / mo" value={fmt(m.amort)} bold /><Row label="Total interest in repayment phase" value={fmt(m.totalInterestRepay)} /></Breakdown>
     <p className="text-xs text-muted-foreground">HELOC rates are variable and tied to the prime rate. Model +2% before drawing — the repayment-phase jump is where borrowers get caught.</p>
-  </Shell>)
+  </Shell><ToolActionsBar slug="heloc-drawdown-simulator" isPro={isPro} inputs={{ value, balance, maxLtv, draw, rate, repayYears }} /></>)
 }

@@ -2,12 +2,14 @@
 import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 
-export const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US')
-export const fmt2 = (n: number) => '$' + n.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})
+export const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
+export const fmt2 = (n: number) => curSym() + n.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})
 export const pct = (n: number) => (isFinite(n) ? n.toFixed(2) : '0.00') + '%'
 
-export function Num({ label, value, set, min=0, step=1, prefix='$' }: { label: string; value: number; set: (n:number)=>void; min?: number; step?: number; prefix?: string }) {
+export function Num({ label, value, set, min=0, step=1, prefix=curSym() }: { label: string; value: number; set: (n:number)=>void; min?: number; step?: number; prefix?: string }) {
   return (<div className="space-y-2"><label className="text-sm font-semibold">{label}</label><div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">{prefix}</span><Input type="number" min={min} step={step} value={value===0?'':value} onChange={e=>set(e.target.value===''?0:Number(e.target.value))} className="pl-7 font-mono" /></div></div>)
 }
 export function Slide({ label, value, set, min, max, step=0.1, suffix='%' }: { label: string; value: number; set:(n:number)=>void; min:number; max:number; step?:number; suffix?:string }) {
@@ -28,9 +30,10 @@ export function Breakdown({ title, children }: { title: string; children: React.
 
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   const [arv, setArv] = useState(400000); const [purchase, setPurchase] = useState(230000); const [rehab, setRehab] = useState(50000); const [months, setMonths] = useState(6); const [holdingMo, setHoldingMo] = useState(1200); const [sellPct, setSellPct] = useState(8)
   const m = useMemo(() => { const maxOffer = arv * 0.70 - rehab; const holding = months * holdingMo; const selling = arv * sellPct/100; const buying = purchase * 0.02; const totalIn = purchase + rehab + holding + buying; const profit = arv - totalIn - selling; return { maxOffer, holding, selling, buying, totalIn, profit, roi: totalIn > 0 ? profit/totalIn*100 : 0, margin: arv > 0 ? profit/arv*100 : 0 } }, [arv, purchase, rehab, months, holdingMo, sellPct])
-  return (<Shell inputs={<>
+  return (<><Shell inputs={<>
     <div className="grid grid-cols-2 gap-4"><Num label="After Repair Value (ARV)" value={arv} set={setArv} /><Num label="Your Purchase Price" value={purchase} set={setPurchase} /></div>
     <div className="grid grid-cols-2 gap-4"><Num label="Rehab Budget" value={rehab} set={setRehab} /><Num label="Selling Costs (% of ARV)" value={sellPct} set={setSellPct} prefix="" step={0.5} /></div>
     <Slide label="Hold Period (months)" value={months} set={setMonths} min={1} max={24} step={1} suffix=" mos" /><Num label="Holding Costs / mo (loan, tax, insurance, utilities)" value={holdingMo} set={setHoldingMo} />
@@ -38,5 +41,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   </>}>
     <Result label="Projected Flip Profit" value={fmt(m.profit)} sub={`ROI ${pct(m.roi)} on ${fmt(m.totalIn)} total invested. Profit margin ${pct(m.margin)} of ARV.`} />
     <Breakdown title="Flip Breakdown"><Row label="70% rule max offer (ARV×70% − rehab)" value={fmt(m.maxOffer)} bold /><Row label="Buying closing costs (2%)" value={fmt(m.buying)} /><Row label="Holding costs" value={fmt(m.holding)} /><Row label="Selling costs" value={fmt(m.selling)} /><Row label="Total cash in" value={fmt(m.totalIn)} /><Row label="ROI" value={pct(m.roi)} bold /></Breakdown>
-  </Shell>)
+  </Shell><ToolActionsBar slug="flipping-profit-margin-calculator" isPro={isPro} inputs={{ arv, purchase, rehab, months, holdingMo, sellPct }} /></>)
 }

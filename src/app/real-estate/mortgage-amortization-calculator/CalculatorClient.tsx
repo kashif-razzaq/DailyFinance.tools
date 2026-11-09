@@ -2,12 +2,14 @@
 import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 
-export const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US')
-export const fmt2 = (n: number) => '$' + n.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})
+export const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
+export const fmt2 = (n: number) => curSym() + n.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})
 export const pct = (n: number) => (isFinite(n) ? n.toFixed(2) : '0.00') + '%'
 
-export function Num({ label, value, set, min=0, step=1, prefix='$' }: { label: string; value: number; set: (n:number)=>void; min?: number; step?: number; prefix?: string }) {
+export function Num({ label, value, set, min=0, step=1, prefix=curSym() }: { label: string; value: number; set: (n:number)=>void; min?: number; step?: number; prefix?: string }) {
   return (<div className="space-y-2"><label className="text-sm font-semibold">{label}</label><div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">{prefix}</span><Input type="number" min={min} step={step} value={value===0?'':value} onChange={e=>set(e.target.value===''?0:Number(e.target.value))} className="pl-7 font-mono" /></div></div>)
 }
 export function Slide({ label, value, set, min, max, step=0.1, suffix='%' }: { label: string; value: number; set:(n:number)=>void; min:number; max:number; step?:number; suffix?:string }) {
@@ -28,11 +30,12 @@ export function Breakdown({ title, children }: { title: string; children: React.
 
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   const [price, setPrice] = useState(450000); const [down, setDown] = useState(90000); const [rate, setRate] = useState(6.85); const [term, setTerm] = useState(30); const [taxRate, setTaxRate] = useState(1.1); const [ins, setIns] = useState(1800); const [hoa, setHoa] = useState(0); const [extra, setExtra] = useState(200)
   const m = useMemo(() => { const loan = Math.max(price - down, 0); const r = rate/100/12; const n = term * 12; const pi = loan > 0 ? (r > 0 ? loan * r * Math.pow(1+r, n) / (Math.pow(1+r, n) - 1) : loan/n) : 0; const taxM = price * taxRate/100 / 12; const insM = ins/12; const downPctVal = price > 0 ? down/price*100 : 0; const pmi = downPctVal < 20 ? loan * 0.005 / 12 : 0; const total = pi + taxM + insM + pmi + hoa
     const sim = (extraPay: number) => { let bal = loan; let interest = 0; let months = 0; const yearly: {year:number; principal:number; interest:number; balance:number}[] = []; let yp = 0; let yi = 0; while (bal > 0.01 && months < 600) { const i = bal * r; const p = Math.min(pi + extraPay - i, bal); bal -= p; interest += i; yp += p; yi += i; months++; if (months % 12 === 0 || bal <= 0.01) { yearly.push({ year: Math.ceil(months/12), principal: yp, interest: yi, balance: Math.max(bal, 0) }); yp = 0; yi = 0 } } return { interest, months, yearly } }
     const base = sim(0); const withExtra = sim(extra); return { loan, pi, taxM, insM, pmi, total, base, withExtra, saved: base.interest - withExtra.interest, monthsSaved: base.months - withExtra.months, downPctVal } }, [price, down, rate, term, taxRate, ins, hoa, extra])
-  return (<Shell inputs={<>
+  return (<><Shell inputs={<>
     <div className="grid grid-cols-2 gap-4"><Num label="Home Price" value={price} set={setPrice} /><Num label="Down Payment" value={down} set={setDown} /></div>
     <Slide label="Interest Rate" value={rate} set={setRate} min={0} max={15} step={0.05} /><Slide label="Loan Term (years)" value={term} set={setTerm} min={5} max={30} step={1} suffix=" yrs" />
     <div className="grid grid-cols-2 gap-4"><Num label="Property Tax Rate (% of price / yr)" value={taxRate} set={setTaxRate} prefix="" step={0.05} /><Num label="Home Insurance / year" value={ins} set={setIns} /></div>
@@ -42,5 +45,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   </>}>
     <Result label="Total Monthly Payment (PITI)" value={fmt(m.total)} sub={`Loan ${fmt(m.loan)} at ${rate}% for ${term} years. Principal & interest alone: ${fmt(m.pi)}.`} />
     <Breakdown title="Payment Breakdown (Monthly)"><Row label="Principal & interest" value={fmt(m.pi)} /><Row label="Property tax" value={fmt(m.taxM)} /><Row label="Home insurance" value={fmt(m.insM)} /><Row label="PMI (down < 20%)" value={fmt(m.pmi)} /><Row label="HOA" value={fmt(hoa)} /><Row label="Total interest over loan" value={fmt(m.base.interest)} bold /><Row label={`Interest with +${fmt(extra)}/mo extra`} value={fmt(m.withExtra.interest)} /><Row label="Interest saved by extra payments" value={fmt(m.saved)} bold /><Row label="Time saved" value={`${Math.floor(m.monthsSaved/12)} yrs ${m.monthsSaved%12} mos`} /></Breakdown>
-  </Shell>)
+  </Shell><ToolActionsBar slug="mortgage-amortization-calculator" isPro={isPro} inputs={{ price, down, rate, term, taxRate, ins, hoa, extra }} /></>)
 }

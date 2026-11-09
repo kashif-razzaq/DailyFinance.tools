@@ -4,11 +4,11 @@ import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 
-const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US')
+const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
 function MoneyInput({ label, value, onChange, hint }: { label: string; value: number; onChange: (n: number) => void; hint?: string }) {
   return (<div className="space-y-2"><label className="text-sm font-semibold">{label}</label>
-    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">$</span>
+    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">{curSym()}</span>
     <Input type="number" value={value === 0 ? '' : value} onChange={(e) => onChange(num(e.target.value))} className="pl-7 font-mono" /></div>
     {hint && <p className="text-xs text-muted-foreground">{hint}</p>}</div>)
 }
@@ -21,6 +21,8 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
 }
 
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, ReferenceLine } from 'recharts'
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 // Standard amortising payment: M = P * r(1+r)^n / ((1+r)^n - 1)
 function piPayment(principal: number, ratePct: number, years: number) {
   const r = ratePct / 100 / 12, n = years * 12
@@ -36,6 +38,7 @@ function remainingInterest(balance: number, ratePct: number, payment: number) {
   return { interest, months }
 }
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   const [balance, setBalance] = useState(320000); const [curRate, setCurRate] = useState(7.5); const [yearsLeft, setYearsLeft] = useState(27)
   const [newRate, setNewRate] = useState(6.0); const [newTerm, setNewTerm] = useState(30); const [costs, setCosts] = useState(6000)
   const c = useMemo(() => {
@@ -53,7 +56,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     return { curPay, newPay, saving, breakEven, curInterest: cur.interest, newInterest: nw.interest, lifetimeSaving, series }
   }, [balance, curRate, yearsLeft, newRate, newTerm, costs])
   const verdict = c.saving <= 0 ? 'The new loan has a higher monthly payment — refinancing only makes sense to shorten the term or drop PMI.' : c.lifetimeSaving > 0 ? `Refinancing pays off: you break even in month ${c.breakEven} and save over the life of the loan.` : 'The monthly saving is real, but the restarted term costs more interest overall than it saves — check a shorter new term.'
-  return (<div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+  return (<><div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
     <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-6">
       <h3 className="font-bold text-lg">Your current loan</h3>
       <div className="grid grid-cols-2 gap-6"><MoneyInput label="Remaining Balance" value={balance} onChange={setBalance} /><MoneyInput label="Years Remaining" value={yearsLeft} onChange={(n) => setYearsLeft(Math.min(40, Math.max(1, n)))} /></div>
@@ -75,7 +78,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <div><p className="text-white/60 text-xs uppercase font-bold">Interest (new + costs)</p><p className="font-mono text-xl font-bold">{fmt(c.newInterest + costs)}</p></div>
         </div></ResultCard>
       <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Cumulative Net Saving — Where It Crosses Zero Is Break-Even</h4>
-        <ResponsiveContainer width="100%" height={200}><LineChart data={c.series}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="month" /><YAxis tickFormatter={(v: number) => '$' + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><ReferenceLine y={0} stroke="#9CA3AF" /><Line type="monotone" dataKey="net" stroke="#064E3B" strokeWidth={2} dot={false} name="Net saving" /></LineChart></ResponsiveContainer>
+        <ResponsiveContainer width="100%" height={200}><LineChart data={c.series}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="month" /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><ReferenceLine y={0} stroke="#9CA3AF" /><Line type="monotone" dataKey="net" stroke="#064E3B" strokeWidth={2} dot={false} name="Net saving" /></LineChart></ResponsiveContainer>
         <p className="text-sm text-muted-foreground mt-3">{verdict}</p></div>
-    </div></div>)
+    </div></div><ToolActionsBar slug="refinance-calculator" isPro={isPro} inputs={{ balance, curRate, yearsLeft, newRate, newTerm, costs }} /></>)
 }
