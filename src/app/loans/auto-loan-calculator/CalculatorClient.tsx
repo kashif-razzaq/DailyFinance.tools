@@ -4,12 +4,14 @@ import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Cell } from 'recharts'
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 
-const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US')
+const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
 function MoneyInput({ label, value, onChange, hint }: { label: string; value: number; onChange: (n: number) => void; hint?: string }) {
   return (<div className="space-y-2"><label className="text-sm font-semibold">{label}</label>
-    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">$</span>
+    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">{curSym()}</span>
     <Input type="number" value={value === 0 ? '' : value} onChange={(e) => onChange(num(e.target.value))} className="pl-7 font-mono" /></div>
     {hint && <p className="text-xs text-muted-foreground">{hint}</p>}</div>)
 }
@@ -31,6 +33,7 @@ function monthlyPayment(principal: number, ratePct: number, months: number) {
 const TERMS = [36, 48, 60, 72]
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   void isPro
   const [price, setPrice] = useState(35000)
   const [tradeIn, setTradeIn] = useState(6000)
@@ -50,7 +53,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const termCompare = useMemo(() => TERMS.map((t) => { const p = monthlyPayment(financed, rate, t); return { term: t, payment: p, interest: p * t - financed } }), [financed, rate])
   const chartData = termCompare.map((t) => ({ name: t.term + ' mo', Interest: Math.round(t.interest), Principal: Math.round(financed) }))
 
-  return (<div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+  return (<><div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
     <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-6">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <MoneyInput label="Vehicle Price" value={price} onChange={setPrice} />
@@ -65,7 +68,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <button onClick={() => setTerm(84)} className={`px-4 py-2 rounded-full text-sm font-semibold border transition-colors ${term === 84 ? 'bg-[#064E3B] text-white border-[#064E3B]' : 'border-neutral-300 hover:border-[#064E3B]'}`}>84 months</button></div>
         <p className="text-xs text-muted-foreground">Longer terms cut the payment but add thousands in interest — compare below.</p></div>
       <div className="bg-card border rounded-2xl p-5"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Principal vs Interest by Term</h4>
-        <ResponsiveContainer width="100%" height={190}><BarChart data={chartData}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="name" /><YAxis tickFormatter={(v: number) => '$' + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Bar dataKey="Principal" stackId="a" fill="#064E3B" /><Bar dataKey="Interest" stackId="a" fill="#D97706">{chartData.map((_, i) => (<Cell key={i} fill={termCompare[i].term === term ? '#B45309' : '#D97706'} />))}</Bar></BarChart></ResponsiveContainer></div>
+        <ResponsiveContainer width="100%" height={190}><BarChart data={chartData}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="name" /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Bar dataKey="Principal" stackId="a" fill="#064E3B" /><Bar dataKey="Interest" stackId="a" fill="#D97706">{chartData.map((_, i) => (<Cell key={i} fill={termCompare[i].term === term ? '#B45309' : '#D97706'} />))}</Bar></BarChart></ResponsiveContainer></div>
     </div>
     <div className="lg:col-span-5 space-y-6">
       <ResultCard title={`Car Payment — ${term} Months`}>
@@ -82,5 +85,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       <div className="bg-card border rounded-2xl p-6 overflow-x-auto"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Term Comparison</h4>
         <table className="w-full text-sm"><thead><tr className="text-left text-muted-foreground border-b"><th className="py-2 pr-3 font-semibold">Term</th><th className="py-2 pr-3 font-semibold text-right">Payment</th><th className="py-2 font-semibold text-right">Interest</th></tr></thead>
           <tbody>{termCompare.map((t) => (<tr key={t.term} className={`border-b last:border-0 ${t.term === term ? 'font-bold text-[#064E3B]' : ''}`}><td className="py-2 pr-3 font-mono">{t.term} mo</td><td className="py-2 pr-3 font-mono text-right">{fmt(t.payment)}</td><td className="py-2 font-mono text-right">{fmt(t.interest)}</td></tr>))}</tbody></table></div>
-    </div></div>)
+    </div></div><ToolActionsBar slug="auto-loan-calculator" isPro={isPro} inputs={{ price, tradeIn, taxPct, down, rate, term }} /></>)
 }

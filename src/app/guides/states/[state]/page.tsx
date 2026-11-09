@@ -128,7 +128,7 @@ export default async function StateGuidePage({ params }: { params: Promise<{ sta
           <p>{s.groceriesNote}</p>
           <h3>Worked examples at the average combined rate</h3>
           <p>What the {s.salesTaxAvgCombined}% average combined rate adds to purchases of different sizes:</p>
-          <table>
+          <div className="overflow-x-auto -mx-1 px-1"><table>
             <thead>
               <tr><th>Purchase</th><th>Tax</th><th>Total</th></tr>
             </thead>
@@ -137,7 +137,7 @@ export default async function StateGuidePage({ params }: { params: Promise<{ sta
                 <tr key={amt}><td>{money(amt)}</td><td>{money(taxOn(amt, s.salesTaxAvgCombined))}</td><td>{money(amt + taxOn(amt, s.salesTaxAvgCombined))}</td></tr>
               ))}
             </tbody>
-          </table>
+          </table></div>
           <p>
             If you sell into {s.name} from another state, economic nexus rules can oblige you to collect its tax once
             your sales pass the state&apos;s threshold — the exact threshold and what counts toward it are in the{" "}
@@ -170,7 +170,7 @@ export default async function StateGuidePage({ params }: { params: Promise<{ sta
             all-state averages across the 51 entries are {AVG_COMBINED}% for combined sales tax and {AVG_PROPERTY}%
             for property tax.
           </p>
-          <table>
+          <div className="overflow-x-auto -mx-1 px-1"><table>
             <thead>
               <tr><th>State</th><th>Combined sales tax</th><th>Property tax</th></tr>
             </thead>
@@ -186,7 +186,7 @@ export default async function StateGuidePage({ params }: { params: Promise<{ sta
                 <tr key={o.slug}><td><Link href={`/guides/states/${o.slug}`}>{o.name}</Link> — lowest combined</td><td>{o.salesTaxAvgCombined}%</td><td>{o.propertyTaxAvg}%</td></tr>
               ))}
             </tbody>
-          </table>
+          </table></div>
 
           <h2>What this means for your money</h2>
           {overallMeaning(s).map((p, i) => (
@@ -194,7 +194,7 @@ export default async function StateGuidePage({ params }: { params: Promise<{ sta
           ))}
 
           <h2>Key figures</h2>
-          <table>
+          <div className="overflow-x-auto -mx-1 px-1"><table>
             <thead>
               <tr><th>Figure</th><th>{s.name}</th></tr>
             </thead>
@@ -207,7 +207,7 @@ export default async function StateGuidePage({ params }: { params: Promise<{ sta
               <tr><td>Capital</td><td>{s.capital}</td></tr>
               <tr><td>Largest city</td><td>{s.largestCity}</td></tr>
             </tbody>
-          </table>
+          </table></div>
 
           {cities.length > 0 && (
             <>

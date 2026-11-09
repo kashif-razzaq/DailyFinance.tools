@@ -4,12 +4,14 @@ import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Cell } from 'recharts'
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 
-const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US')
+const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
 function MoneyInput({ label, value, onChange, hint }: { label: string; value: number; onChange: (n: number) => void; hint?: string }) {
   return (<div className="space-y-2"><label className="text-sm font-semibold">{label}</label>
-    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">$</span>
+    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">{curSym()}</span>
     <Input type="number" value={value === 0 ? '' : value} onChange={(e) => onChange(num(e.target.value))} className="pl-7 font-mono" /></div>
     {hint && <p className="text-xs text-muted-foreground">{hint}</p>}</div>)
 }
@@ -47,6 +49,7 @@ function trueApr(payment: number, months: number, netReceived: number) {
 }
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   void isPro
   const [amount, setAmount] = useState(20000)
   const [rate, setRate] = useState(9)
@@ -65,7 +68,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     { name: 'True APR', value: Number(apr.toFixed(2)) },
   ]
 
-  return (<div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+  return (<><div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
     <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-6">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <MoneyInput label="Loan Amount" value={amount} onChange={setAmount} />
@@ -96,5 +99,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <li>Fees hurt most on short terms: the same {fmt(fees)} fee spread over {months} months adds {gap.toFixed(2)} points here; on a 12-month loan it would add several times more.</li>
           <li>For mortgages, APR also folds in points and many closing costs; for credit cards, APR usually excludes fees — read what is included.</li>
         </ul></div>
-    </div></div>)
+    </div></div><ToolActionsBar slug="apr-calculator" isPro={isPro} inputs={{ amount, rate, fees, months }} /></>)
 }

@@ -4,8 +4,10 @@ import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, Legend } from 'recharts'
 import { Plus, Trash2 } from 'lucide-react'
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 
-const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US')
+const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
 function ResultCard({ title, children }: { title: string; children: React.ReactNode }) {
   return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
@@ -41,6 +43,7 @@ function simulate(debts: Debt[], budget: number, strategy: 'avalanche' | 'snowba
 }
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   void isPro
   const [debts, setDebts] = useState<Debt[]>([
     { name: 'Credit Card', balance: 5800, apr: 24.99, min: 145 },
@@ -66,7 +69,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const update = (i: number, patch: Partial<Debt>) => setDebts((ds) => ds.map((d, j) => j === i ? { ...d, ...patch } : d))
   const stuck = debts.some((d) => d.balance > 0 && d.min <= d.balance * d.apr / 100 / 12)
 
-  return (<div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+  return (<><div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
     <div className="lg:col-span-7 space-y-6">
       <div className="bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-4">
         <div className="flex items-center justify-between"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground">Your Debts</h4>
@@ -80,13 +83,13 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
             <div className="col-span-3 sm:col-span-1 flex justify-end"><button onClick={() => setDebts((ds) => ds.filter((_, j) => j !== i))} disabled={debts.length <= 1} className="p-2 text-neutral-400 hover:text-red-600 disabled:opacity-30" aria-label="Remove debt"><Trash2 className="h-4 w-4" /></button></div>
           </div>))}
         <div className="space-y-2 pt-2"><label className="text-sm font-semibold">Total Monthly Debt Budget</label>
-          <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">$</span>
+          <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">{sym}</span>
           <Input type="number" value={budget === 0 ? '' : budget} onChange={(e) => setBudget(num(e.target.value))} className="pl-7 font-mono" /></div>
           <p className="text-xs text-muted-foreground">Your minimums total {fmt(totalMin)}/mo. Any budget above that becomes extra payments aimed at one debt at a time.{budget < totalMin && <span className="text-red-600 font-semibold"> Budget is below your minimums — the plan uses minimums only.</span>}</p></div>
         {stuck && <p className="text-sm text-red-600 font-semibold">Warning: at least one debt's minimum does not cover its monthly interest, so it never clears on minimums alone — raise the budget so extra payments reach it.</p>}
       </div>
       <div className="bg-card border shadow-sm rounded-2xl p-6 md:p-8"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Total Balance: Avalanche vs Snowball</h4>
-        <ResponsiveContainer width="100%" height={210}><LineChart data={merged}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="month" /><YAxis tickFormatter={(v: number) => '$' + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Legend /><Line type="monotone" dataKey="Avalanche" stroke="#064E3B" strokeWidth={2} dot={false} /><Line type="monotone" dataKey="Snowball" stroke="#D97706" strokeWidth={2} dot={false} /></LineChart></ResponsiveContainer></div>
+        <ResponsiveContainer width="100%" height={210}><LineChart data={merged}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="month" /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Legend /><Line type="monotone" dataKey="Avalanche" stroke="#064E3B" strokeWidth={2} dot={false} /><Line type="monotone" dataKey="Snowball" stroke="#D97706" strokeWidth={2} dot={false} /></LineChart></ResponsiveContainer></div>
     </div>
     <div className="lg:col-span-5 space-y-6">
       <ResultCard title="Avalanche vs Snowball">
@@ -105,5 +108,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <ol className="space-y-3">{shown.order.map((o, i) => (<li key={i} className="flex items-center justify-between text-sm"><span className="flex items-center gap-3"><span className="w-6 h-6 rounded-full bg-[#064E3B]/10 text-[#064E3B] font-bold text-xs flex items-center justify-center">{i + 1}</span>{o.name}</span><span className="font-mono font-semibold">{dateStr(o.month)} <span className="text-muted-foreground font-normal">(mo {o.month})</span></span></li>))}
           {shown.order.length === 0 && <li className="text-sm text-muted-foreground">Nothing clears within 50 years at this budget.</li>}</ol>
       </div>
-    </div></div>)
+    </div></div><ToolActionsBar slug="debt-payoff-calculator" isPro={isPro} inputs={{ debts, budget, view }} /></>)
 }

@@ -4,12 +4,14 @@ import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, Legend } from 'recharts'
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 
-const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US')
+const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
 function MoneyInput({ label, value, onChange, hint }: { label: string; value: number; onChange: (n: number) => void; hint?: string }) {
   return (<div className="space-y-2"><label className="text-sm font-semibold">{label}</label>
-    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">$</span>
+    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">{curSym()}</span>
     <Input type="number" value={value === 0 ? '' : value} onChange={(e) => onChange(num(e.target.value))} className="pl-7 font-mono" /></div>
     {hint && <p className="text-xs text-muted-foreground">{hint}</p>}</div>)
 }
@@ -41,6 +43,7 @@ function simulateFixed(balance: number, ratePct: number, payment: number) {
 }
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   void isPro
   const [balance, setBalance] = useState(16400)
   const [currentApr, setCurrentApr] = useState(23.5)
@@ -72,7 +75,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const dateStr = (m: number) => { const d = new Date(); d.setMonth(d.getMonth() + m); return d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' }) }
   const tooLow = currentPayment <= balance * currentApr / 100 / 12 && balance > 0
 
-  return (<div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+  return (<><div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
     <div className="lg:col-span-7 space-y-6">
       <div className="bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-6">
         <h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground">Your Current Debts (Combined)</h4>
@@ -92,7 +95,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         {termStretch && interestSaved >= 0 && <p className="text-sm text-amber-600 font-semibold">Note: the new term is longer than your current payoff timeline — consolidating still saves interest here, but paying the new loan at your old payment would save far more.</p>}
       </div>
       <div className="bg-card border shadow-sm rounded-2xl p-6 md:p-8"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Balance: Current Path vs Consolidated</h4>
-        <ResponsiveContainer width="100%" height={210}><LineChart data={merged}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="month" /><YAxis tickFormatter={(v: number) => '$' + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Legend /><Line type="monotone" dataKey="Current" stroke="#D97706" strokeWidth={2} dot={false} /><Line type="monotone" dataKey="Consolidated" stroke="#064E3B" strokeWidth={2} dot={false} /></LineChart></ResponsiveContainer></div>
+        <ResponsiveContainer width="100%" height={210}><LineChart data={merged}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="month" /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Legend /><Line type="monotone" dataKey="Current" stroke="#D97706" strokeWidth={2} dot={false} /><Line type="monotone" dataKey="Consolidated" stroke="#064E3B" strokeWidth={2} dot={false} /></LineChart></ResponsiveContainer></div>
     </div>
     <div className="lg:col-span-5 space-y-6">
       <ResultCard title="Consolidation Verdict">
@@ -114,5 +117,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <li>The {fmt(fee)} fee is rolled into the new loan, so you pay interest on the fee itself.</li>
           <li>If your current path clears sooner, paying the consolidation loan on the shorter schedule usually beats both options.</li>
         </ul></div>
-    </div></div>)
+    </div></div><ToolActionsBar slug="debt-consolidation-calculator" isPro={isPro} inputs={{ balance, currentApr, currentPayment, newRate, newTerm, feePct }} /></>)
 }

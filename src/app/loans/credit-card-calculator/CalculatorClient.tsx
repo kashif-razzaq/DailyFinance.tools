@@ -4,12 +4,14 @@ import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts'
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 
-const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US')
+const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
 function MoneyInput({ label, value, onChange, hint }: { label: string; value: number; onChange: (n: number) => void; hint?: string }) {
   return (<div className="space-y-2"><label className="text-sm font-semibold">{label}</label>
-    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">$</span>
+    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">{curSym()}</span>
     <Input type="number" value={value === 0 ? '' : value} onChange={(e) => onChange(num(e.target.value))} className="pl-7 font-mono" /></div>
     {hint && <p className="text-xs text-muted-foreground">{hint}</p>}</div>)
 }
@@ -42,6 +44,7 @@ function simulate(balance: number, aprPct: number, mode: Mode, fixedPayment: num
 }
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   void isPro
   const [balance, setBalance] = useState(5800)
   const [apr, setApr] = useState(24.99)
@@ -62,7 +65,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     { key: 'fixed' as Mode, label: `Fixed ${fmt(fixedPayment)}/month`, r: cmpFixed },
   ]
 
-  return (<div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+  return (<><div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
     <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-6">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <MoneyInput label="Card Balance" value={balance} onChange={setBalance} />
@@ -81,7 +84,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       {mode === 'minimum' && <p className="text-sm text-muted-foreground">Issuer minimums are typically interest + 1% of the balance (with a $25 floor). Because the payment shrinks with the balance, minimum-only payoff takes the longest and costs the most — see the comparison.</p>}
       {tooLow && <p className="text-sm text-red-600 font-semibold">Warning: {fmt(fixedPayment)} does not cover the first month's interest ({fmt(firstInterest)}), so the balance grows instead of shrinking.</p>}
       <div className="bg-card border rounded-2xl p-5"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Balance Over Time — Selected Mode</h4>
-        <ResponsiveContainer width="100%" height={200}><LineChart data={current.series}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="month" /><YAxis tickFormatter={(v: number) => '$' + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Line type="monotone" dataKey="balance" stroke="#064E3B" strokeWidth={2} dot={false} name="Balance" /></LineChart></ResponsiveContainer></div>
+        <ResponsiveContainer width="100%" height={200}><LineChart data={current.series}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="month" /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Line type="monotone" dataKey="balance" stroke="#064E3B" strokeWidth={2} dot={false} name="Balance" /></LineChart></ResponsiveContainer></div>
     </div>
     <div className="lg:col-span-5 space-y-6">
       <ResultCard title="Your Payoff — Selected Mode">
@@ -98,5 +101,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <table className="w-full text-sm"><thead><tr className="text-left text-muted-foreground border-b"><th className="py-2 pr-3 font-semibold">Mode</th><th className="py-2 pr-3 font-semibold text-right">Time</th><th className="py-2 font-semibold text-right">Interest</th></tr></thead>
           <tbody>{rows.map((row) => (<tr key={row.key} className={`border-b last:border-0 ${mode === row.key ? 'font-bold text-[#064E3B]' : ''}`}><td className="py-2 pr-3">{row.label}</td><td className="py-2 pr-3 font-mono text-right">{row.r.cleared ? row.r.months + ' mo' : 'Never'}</td><td className="py-2 font-mono text-right">{fmt(row.r.interest)}</td></tr>))}</tbody></table>
         <p className="text-xs text-muted-foreground mt-3">For a full multi-card payoff plan with extra payments, use the Credit Card Payoff Calculator in Personal Wealth or the Debt Payoff Calculator.</p></div>
-    </div></div>)
+    </div></div><ToolActionsBar slug="credit-card-calculator" isPro={isPro} inputs={{ balance, apr, mode, fixedPayment, pct }} /></>)
 }

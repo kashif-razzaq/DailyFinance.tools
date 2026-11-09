@@ -105,7 +105,7 @@ export default async function CityGuidePage({ params }: { params: Promise<{ stat
           </p>
 
           <h2>What the rate does to real purchases</h2>
-          <table>
+          <div className="overflow-x-auto -mx-1 px-1"><table>
             <thead>
               <tr><th>Purchase</th><th>Tax at {c.combinedRate}%</th><th>Total</th></tr>
             </thead>
@@ -115,7 +115,7 @@ export default async function CityGuidePage({ params }: { params: Promise<{ stat
               ))}
               <tr><td>$35,000 car (where vehicles are taxed at sale)</td><td>{money(taxOn(35000))}</td><td>{money(35000 + taxOn(35000))}</td></tr>
             </tbody>
-          </table>
+          </table></div>
           <p>
             Groceries: {s.groceriesNote} Prepared food and restaurant meals are taxed at the full rate in most
             jurisdictions, even where groceries for home consumption are exempt or reduced.
@@ -129,7 +129,7 @@ export default async function CityGuidePage({ params }: { params: Promise<{ stat
                 layers. {c.name} sits {diff > 0 ? `${diff} points above` : diff < 0 ? `${Math.abs(diff)} points below` : "exactly at"} the
                 statewide average combined rate of {s.salesTaxAvgCombined}%.
               </p>
-              <table>
+              <div className="overflow-x-auto -mx-1 px-1"><table>
                 <thead>
                   <tr><th>City</th><th>Combined rate</th><th>Tax on $1,000</th></tr>
                 </thead>
@@ -142,7 +142,7 @@ export default async function CityGuidePage({ params }: { params: Promise<{ stat
                     </tr>
                   ))}
                 </tbody>
-              </table>
+              </table></div>
             </>
           ) : (
             <>
@@ -151,7 +151,7 @@ export default async function CityGuidePage({ params }: { params: Promise<{ stat
                 {c.name} is the {s.name} city we track in detail. Set against the extremes of the 30-city dataset
                 (average {AVG_CITY_COMBINED}%), its position is clear:
               </p>
-              <table>
+              <div className="overflow-x-auto -mx-1 px-1"><table>
                 <thead>
                   <tr><th>City</th><th>Combined rate</th><th>Tax on $1,000</th></tr>
                 </thead>
@@ -164,7 +164,7 @@ export default async function CityGuidePage({ params }: { params: Promise<{ stat
                     <tr key={x.slug}><td><Link href={`/guides/states/${x.stateSlug}/${x.slug}`}>{x.name}</Link> — among the lowest</td><td>{x.combinedRate}%</td><td>{money((1000 * x.combinedRate) / 100)}</td></tr>
                   ))}
                 </tbody>
-              </table>
+              </table></div>
             </>
           )}
 
