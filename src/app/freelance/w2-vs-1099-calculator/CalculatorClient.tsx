@@ -115,7 +115,6 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   }
 
   const handleSave = async () => {
-    if (!isPro) return setShowProModal(true)
     
     setIsSaving(true)
     try {
@@ -139,6 +138,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       }
     } catch (error) {
       console.error(error)
+      if (error instanceof Error && error.message.includes('Free accounts can save')) { setShowProModal(true); return }
       alert("Failed to save. Ensure you are logged in properly.")
     } finally {
       setIsSaving(false)
