@@ -2,6 +2,8 @@
 
 import { usePathname } from 'next/navigation'
 import { MobileBottomNav } from './MobileBottomNav'
+import { AppSplash } from './AppSplash'
+import { CookieConsent } from '@/components/shared/CookieConsent'
 
 export function ConditionalLayout({
   header,
@@ -26,6 +28,8 @@ export function ConditionalLayout({
       <main className={`flex-1 flex flex-col ${!shouldHide ? 'pb-[68px] md:pb-0' : ''}`}>{children}</main>
       {!shouldHide && footer}
       {!shouldHide && <MobileBottomNav />}
+      {!shouldHide && <AppSplash />}
+      {!shouldHide && <CookieConsent />}
     </>
   )
 }

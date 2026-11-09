@@ -37,7 +37,7 @@ export function AdSlot({ slot, className = "", label }: AdSlotProps) {
     if (process.env.NODE_ENV !== "development") return null
     return (
       <aside className={`bg-muted/10 border border-dashed border-border/40 rounded-2xl flex flex-col items-center justify-center text-center ${className}`} aria-hidden="true">
-        <span className="text-[9px] uppercase font-bold text-muted-foreground tracking-[0.2em] mb-1">Advertisement (dev placeholder)</span>
+        <span className="text-[9px] uppercase font-bold text-muted-foreground tracking-[0.2em] mb-1">Advertisement</span>
         <span className="text-xs font-semibold text-foreground/40">{label}</span>
       </aside>
     )

@@ -1,6 +1,7 @@
 import { createServerClient } from "@supabase/ssr"
 import { cookies } from "next/headers"
 import Script from "next/script"
+import Link from "next/link"
 import { CheckCircle2 } from "lucide-react"
 import Image from "next/image"
 import React from "react"
@@ -96,6 +97,19 @@ export async function ToolLayout({
     "publisher": { "@type": "Organization", "name": "DailyFinance.tools" }
   }
 
+  const toolUrl = `https://dailyfinance.tools/${category ? category.slug + "/" : ""}${slug}`
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://dailyfinance.tools/" },
+      ...(category
+        ? [{ "@type": "ListItem", "position": 2, "name": category.name, "item": `https://dailyfinance.tools/${category.slug}` }]
+        : []),
+      { "@type": "ListItem", "position": category ? 3 : 2, "name": title, "item": toolUrl },
+    ],
+  }
+
   return (
     <main className="w-full bg-background min-h-screen">
       <Script id="schema-software" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }} />
@@ -103,6 +117,7 @@ export async function ToolLayout({
         <Script id="schema-faq" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       )}
       <Script id="schema-article" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+      <Script id="schema-breadcrumb" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
       {/* Main Interactive Tool Area */}
       <section className="container mx-auto px-4 md:px-8 pt-12 pb-2 md:pb-8" aria-label={`${title} Tool`}>
@@ -111,9 +126,9 @@ export async function ToolLayout({
             {/* Dynamic Breadcrumbs */}
             {category && (
               <nav className="flex items-center gap-2 text-xs font-semibold text-muted-foreground mb-6 uppercase tracking-wider">
-                <a href="/" className="hover:text-foreground transition-colors">Home</a>
+                <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
                 <span className="text-border">/</span>
-                <a href={`/${category.slug}`} className="hover:text-foreground transition-colors">{category.name}</a>
+                <Link href={`/${category.slug}`} className="hover:text-foreground transition-colors">{category.name}</Link>
                 <span className="text-border">/</span>
                 <span className="text-foreground truncate max-w-[200px] md:max-w-none" title={title}>{title}</span>
               </nav>
@@ -165,8 +180,7 @@ export async function ToolLayout({
           <AdSlot slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_INARTICLE} label="Editorial Sponsor Placement" className="mb-12 w-full min-h-[120px]" />
         )}
 
-        <div className="prose prose-slate dark:prose-invert lg:prose-lg max-w-none">
-          
+        <div>
           {children(isPro)}
 
           {/* Dynamic FAQ Section */}

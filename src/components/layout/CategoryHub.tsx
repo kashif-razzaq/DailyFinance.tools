@@ -2,7 +2,7 @@ import React from "react"
 import Link from "next/link"
 import Script from "next/script"
 import { navigationCategories, getToolUrl } from "@/config/navigation"
-import { ArrowRight, CheckCircle2 } from "lucide-react"
+import { ArrowRight, CheckCircle2, ChevronDown, Zap } from "lucide-react"
 
 export interface HubFAQ { question: string; answer: string }
 
@@ -69,8 +69,10 @@ export function CategoryHub({ categorySlug, quickAnswer, intro, decisions, faqs 
             <p className="text-lg text-muted-foreground mt-3 max-w-3xl">{category.description}</p>
           </div>
         </div>
-        <div className="bg-primary/5 border border-primary/20 rounded-3xl p-6 md:p-8 max-w-4xl">
-          <h2 className="text-sm font-bold uppercase tracking-wider text-primary mb-2">Quick Answer</h2>
+        <div className="bg-primary/5 border border-primary/20 border-l-4 border-l-primary rounded-3xl p-6 md:p-8 max-w-4xl">
+          <h2 className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-primary mb-2">
+            <Zap className="h-4 w-4" /> Quick Answer
+          </h2>
           <p className="text-base md:text-lg leading-relaxed text-foreground">{quickAnswer}</p>
         </div>
       </section>
@@ -96,32 +98,57 @@ export function CategoryHub({ categorySlug, quickAnswer, intro, decisions, faqs 
 
       <section className="container mx-auto px-4 md:px-8 py-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-          <article className="lg:col-span-8 prose prose-slate dark:prose-invert max-w-none">
-            {intro.map((para, i) => (<p key={i}>{para}</p>))}
-            <h2>Which {category.name} calculator should you use?</h2>
-            <ul>
-              {decisions.map((d) => {
-                const tool = category.calculators.find((c) => c.slug === d.toolSlug)
-                return (
-                  <li key={d.toolSlug}>
-                    <strong>{d.need}:</strong>{" "}
-                    {tool ? <Link href={getToolUrl(d.toolSlug)}>{tool.title}</Link> : d.toolSlug} — {d.why}
+          <article className="lg:col-span-8 min-w-0 space-y-14">
+            <div className="content-prose">
+              {intro.map((para, i) => (<p key={i}>{para}</p>))}
+            </div>
+
+            <section>
+              <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-foreground mb-6">Which {category.name} calculator should you use?</h2>
+              <ol className="space-y-4">
+                {decisions.map((d, i) => {
+                  const tool = category.calculators.find((c) => c.slug === d.toolSlug)
+                  return (
+                    <li key={d.toolSlug} className="flex gap-4 bg-card border border-border/60 rounded-3xl p-5 md:p-6 hover:border-primary/40 transition-colors">
+                      <span aria-hidden="true" className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary text-sm font-extrabold">{i + 1}</span>
+                      <div className="min-w-0">
+                        <h3 className="font-bold text-foreground leading-snug">{d.need}</h3>
+                        <p className="text-muted-foreground leading-relaxed mt-1.5">
+                          {tool ? <Link href={getToolUrl(d.toolSlug)} className="font-semibold text-[#064E3B] dark:text-emerald-400 underline decoration-emerald-600/30 underline-offset-2 hover:decoration-emerald-600">{tool.title}</Link> : d.toolSlug} — {d.why}
+                        </p>
+                      </div>
+                    </li>
+                  )
+                })}
+              </ol>
+            </section>
+
+            <section>
+              <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-foreground mb-4">Why use DailyFinance for {category.name.toLowerCase()} calculations?</h2>
+              <div className="content-prose">
+                <p>Every calculator on this page shows its formula, works through real-number examples, and explains what your result actually means — including the mistakes that make most online estimates wrong. Your inputs are calculated in your browser; if you create a free account you can save scenarios and come back to them, but no tool on this site requires sign-up. All tools are reviewed by Tahir Shehzad, ACMA, and updated for the current tax year and current platform fees where those apply.</p>
+              </div>
+              <ul className="flex flex-wrap gap-2.5 mt-6">
+                {["Free, no sign-up required", "Formula shown for every result", "Reviewed by a qualified finance professional"].map((label) => (
+                  <li key={label} className="inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/5 px-4 py-2 text-sm font-semibold text-foreground">
+                    <CheckCircle2 className="h-4 w-4 shrink-0 text-primary" /> {label}
                   </li>
-                )
-              })}
-            </ul>
-            <h2>Why use DailyFinance for {category.name.toLowerCase()} calculations?</h2>
-            <p>Every calculator on this page shows its formula, works through real-number examples, and explains what your result actually means — including the mistakes that make most online estimates wrong. Your inputs are calculated in your browser; if you create a free account you can save scenarios and come back to them, but no tool on this site requires sign-up. All tools are reviewed by Tahir Shehzad, ACMA, and updated for the current tax year and current platform fees where those apply.</p>
-            <p><CheckCircle2 className="inline h-4 w-4 text-primary" /> Free, no sign-up required &nbsp; <CheckCircle2 className="inline h-4 w-4 text-primary" /> Formula shown for every result &nbsp; <CheckCircle2 className="inline h-4 w-4 text-primary" /> Reviewed by a qualified finance professional</p>
+                ))}
+              </ul>
+            </section>
           </article>
-          <aside className="lg:col-span-4 bg-card border rounded-3xl p-6">
-            <h3 className="font-bold text-lg mb-4">Frequently Asked Questions</h3>
-            <div className="space-y-5">
+
+          <aside className="lg:col-span-4 bg-card border border-border/60 rounded-3xl p-6 lg:sticky lg:top-24">
+            <h3 className="font-bold text-lg mb-2">Frequently Asked Questions</h3>
+            <div className="divide-y divide-border/60">
               {faqs.map((f) => (
-                <div key={f.question}>
-                  <h4 className="font-semibold text-sm text-foreground mb-1">{f.question}</h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{f.answer}</p>
-                </div>
+                <details key={f.question} className="group py-4 first:pt-2 last:pb-0">
+                  <summary className="flex cursor-pointer list-none items-start justify-between gap-3 font-semibold text-sm text-foreground [&::-webkit-details-marker]:hidden">
+                    {f.question}
+                    <ChevronDown className="h-4 w-4 shrink-0 mt-0.5 text-muted-foreground transition-transform duration-200 group-open:rotate-180" />
+                  </summary>
+                  <p className="text-sm text-muted-foreground leading-relaxed mt-2.5">{f.answer}</p>
+                </details>
               ))}
             </div>
           </aside>

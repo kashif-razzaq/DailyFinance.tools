@@ -1,5 +1,7 @@
 import Link from 'next/link'
 import { navigationCategories, getToolUrl } from '@/config/navigation'
+import { GUIDES } from '@/data/guides'
+import { FooterAccordion } from '@/components/layout/FooterAccordion'
 import { Logo } from '@/components/layout/Logo'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
@@ -90,20 +92,25 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Middle Tier: The SEO Mega Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 mb-16">
+        {/* Middle Tier (mobile): Categories as a stacked accordion.
+            All tool links stay in the DOM for SEO; see FooterAccordion. */}
+        <FooterAccordion />
+
+        {/* Middle Tier (desktop): The SEO Mega Grid — all 7 categories with
+            their top tools + hub link, plus the latest guides column. */}
+        <div className="hidden md:grid md:grid-cols-3 lg:grid-cols-4 gap-8 mb-16">
           {navigationCategories.map((category) => (
             <div key={category.slug} className="flex flex-col gap-4">
-              <Link 
+              <Link
                 href={`/${category.slug}`}
                 className="font-semibold text-sm text-foreground hover:text-primary transition-colors flex items-center gap-2"
               >
                 {category.name} Tools
               </Link>
               <ul className="flex flex-col gap-2.5">
-                {category.calculators.map((calc) => (
+                {category.calculators.slice(0, 8).map((calc) => (
                   <li key={calc.slug}>
-                    <Link 
+                    <Link
                       href={getToolUrl(calc.slug)}
                       className="text-xs text-muted-foreground hover:text-foreground transition-colors leading-tight line-clamp-2"
                     >
@@ -112,8 +119,50 @@ export function Footer() {
                   </li>
                 ))}
               </ul>
+              <Link
+                href={`/${category.slug}`}
+                className="text-xs font-semibold text-primary hover:underline underline-offset-2"
+              >
+                All {category.name} tools &rarr;
+              </Link>
             </div>
           ))}
+
+          {/* Latest guides + explore */}
+          <div className="flex flex-col gap-4">
+            <Link
+              href="/guides"
+              className="font-semibold text-sm text-foreground hover:text-primary transition-colors flex items-center gap-2"
+            >
+              Latest Guides
+            </Link>
+            <ul className="flex flex-col gap-2.5">
+              {GUIDES.slice(0, 6).map((guide) => (
+                <li key={guide.slug}>
+                  <Link
+                    href={`/guides/${guide.slug}`}
+                    className="text-xs text-muted-foreground hover:text-foreground transition-colors leading-tight line-clamp-2"
+                  >
+                    {guide.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <div className="flex flex-col gap-2">
+              <Link href="/guides" className="text-xs font-semibold text-primary hover:underline underline-offset-2">
+                All guides &rarr;
+              </Link>
+              <Link href="/guides/states" className="text-xs font-semibold text-primary hover:underline underline-offset-2">
+                State tax guides &rarr;
+              </Link>
+              <Link href="/tools" className="text-xs font-semibold text-primary hover:underline underline-offset-2">
+                All 100 tools &rarr;
+              </Link>
+              <Link href="/locations" className="text-xs font-semibold text-primary hover:underline underline-offset-2">
+                Calculators by state &rarr;
+              </Link>
+            </div>
+          </div>
         </div>
 
         {/* Bottom Tier: Legal & GEO */}

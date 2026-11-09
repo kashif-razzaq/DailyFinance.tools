@@ -14,7 +14,7 @@ export function LegalPage({ title, updated, intro, sections }: LegalPageProps) {
         <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-3">{title}</h1>
         <p className="text-sm text-muted-foreground mb-6">Last updated: {updated}</p>
         <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-10">{intro}</p>
-        <div className="prose prose-slate dark:prose-invert max-w-none">
+        <div className="content-prose max-w-none">
           {sections.map((s) => (
             <section key={s.heading}>
               <h2>{s.heading}</h2>
