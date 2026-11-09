@@ -14,9 +14,10 @@ import { usePathname } from 'next/navigation'
  * mailto/tel and modifier-clicks are ignored, and a 5s safety timer
  * guarantees it can never get stuck on screen.
  *
- * The mark is the DailyFinance bar-chart logo brought to life: four bars
- * pulsing like a market equalizer inside a glass tile, over a deep emerald
- * backdrop with a soft gold glow.
+ * Design: the classic DailyFinance light loader — warm off-white backdrop
+ * with a soft emerald glow, the bar-chart logo brought to life as an
+ * equalizer inside a white glass tile, the wordmark, and a slim emerald
+ * progress shimmer.
  */
 export function NavigationLoader() {
   const [visible, setVisible] = useState(false)
@@ -79,32 +80,34 @@ export function NavigationLoader() {
       role="status"
       aria-label="Loading"
       aria-hidden={!visible}
-      className={`fixed inset-0 z-[200] flex flex-col items-center justify-center overflow-hidden bg-[#04382A] transition-opacity duration-300 ${
+      className={`fixed inset-0 z-[200] flex flex-col items-center justify-center overflow-hidden bg-[#FAFAF8] transition-opacity duration-300 ${
         visible ? 'opacity-100' : 'pointer-events-none opacity-0'
       }`}
     >
       {/* Soft ambient glows */}
-      <div aria-hidden="true" className="absolute -top-32 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-emerald-400/15 blur-3xl" />
-      <div aria-hidden="true" className="absolute -bottom-40 -right-20 h-96 w-96 rounded-full bg-amber-500/10 blur-3xl" />
+      <div aria-hidden="true" className="absolute -top-40 left-1/2 h-96 w-[36rem] -translate-x-1/2 rounded-full bg-emerald-500/10 blur-3xl" />
+      <div aria-hidden="true" className="absolute -bottom-48 -right-24 h-96 w-96 rounded-full bg-amber-500/10 blur-3xl" />
 
-      {/* Glass tile with the animated bar-chart mark */}
-      <div className="relative flex h-24 w-24 items-end justify-center gap-[6px] rounded-[1.75rem] border border-white/10 bg-white/5 pb-6 shadow-[0_20px_60px_rgba(0,0,0,0.35)] backdrop-blur">
-        <span className="df-eq-bar h-4 w-[7px] rounded-full bg-emerald-300" />
-        <span className="df-eq-bar h-7 w-[7px] rounded-full bg-white" style={{ animationDelay: '0.12s' }} />
-        <span className="df-eq-bar h-10 w-[7px] rounded-full bg-amber-400" style={{ animationDelay: '0.24s' }} />
-        <span className="df-eq-bar h-6 w-[7px] rounded-full bg-white" style={{ animationDelay: '0.36s' }} />
+      {/* White tile with the animated bar-chart mark */}
+      <div
+        className={`relative flex h-24 w-24 items-end justify-center gap-[6px] rounded-[1.75rem] border border-neutral-200/70 bg-white pb-6 shadow-[0_24px_50px_-16px_rgba(6,78,59,0.25)] transition-all duration-300 ${
+          visible ? 'scale-100 opacity-100' : 'scale-95 opacity-0'
+        }`}
+      >
+        <span className="df-eq-bar h-4 w-[7px] rounded-full bg-[#064E3B]" />
+        <span className="df-eq-bar h-7 w-[7px] rounded-full bg-emerald-500" style={{ animationDelay: '0.12s' }} />
+        <span className="df-eq-bar h-10 w-[7px] rounded-full bg-amber-500" style={{ animationDelay: '0.24s' }} />
+        <span className="df-eq-bar h-6 w-[7px] rounded-full bg-[#064E3B]" style={{ animationDelay: '0.36s' }} />
       </div>
 
-      <p className="relative mt-6 text-[1.7rem] font-bold leading-none tracking-tight text-white">
-        Daily<span className="text-amber-400">Finance</span>
+      <p className="relative mt-6 text-[1.7rem] font-bold leading-none tracking-tight text-[#1F2937]">
+        Daily<span className="text-[#064E3B]">Finance</span>
       </p>
-      <p className="relative mt-2 text-[11px] font-semibold uppercase tracking-[0.25em] text-emerald-100/60">
-        Crunching the numbers
-      </p>
+      <p className="relative mt-2.5 text-sm text-neutral-500">Loading your calculators&hellip;</p>
 
-      {/* Gold progress shimmer */}
-      <div className="relative mt-8 h-[3px] w-44 overflow-hidden rounded-full bg-white/15" aria-hidden="true">
-        <div className="animate-df-progress h-full w-16 rounded-full bg-amber-400" />
+      {/* Emerald progress shimmer */}
+      <div className="relative mt-7 h-1 w-48 overflow-hidden rounded-full bg-[#064E3B]/10" aria-hidden="true">
+        <div className="animate-df-progress h-full w-16 rounded-full bg-[#064E3B]" />
       </div>
     </div>
   )

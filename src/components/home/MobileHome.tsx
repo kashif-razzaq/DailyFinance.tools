@@ -1,7 +1,8 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 'use client'
 
-import React, { useEffect, useMemo, useState } from 'react'
+import { CalcWord } from '@/components/home/CalcWord'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import {
   Calculator,
@@ -16,12 +17,8 @@ import {
   X,
   Zap,
 } from 'lucide-react'
-import {
-  navigationCategories,
-  getToolUrl,
-  type CalculatorItem,
-  type Category,
-} from '@/config/navigation'
+import { navigationCategories, getToolUrl } from '@/config/navigation'
+import { useMyTools, type ToolWithCategory } from '@/components/home/useMyTools'
 import { GUIDES } from '@/data/guides'
 
 /**
@@ -32,118 +29,28 @@ import { GUIDES } from '@/data/guides'
  * separate tree and is untouched by this component.
  */
 
-type ToolWithCategory = { tool: CalculatorItem; category: Category }
-
-const MY_TOOLS_KEY = 'df-my-tools'
 const A2HS_KEY = 'df-a2hs-dismissed'
-const MAX_RECENTS = 6
-
-type MyTools = { favourites: string[]; recents: string[] }
-
-function loadMyTools(): MyTools {
-  try {
-    const raw = window.localStorage.getItem(MY_TOOLS_KEY)
-    if (!raw) return { favourites: [], recents: [] }
-    const parsed = JSON.parse(raw) as Partial<MyTools>
-    return {
-      favourites: Array.isArray(parsed.favourites) ? parsed.favourites.filter((s) => typeof s === 'string') : [],
-      recents: Array.isArray(parsed.recents) ? parsed.recents.filter((s) => typeof s === 'string') : [],
-    }
-  } catch {
-    return { favourites: [], recents: [] }
-  }
-}
-
-function saveMyTools(tools: MyTools) {
-  try {
-    window.localStorage.setItem(MY_TOOLS_KEY, JSON.stringify(tools))
-  } catch {
-    // Private mode / storage full: retention features degrade silently.
-  }
-}
-
-// Popular picks: slug candidates in priority order, resolved against the real
-// navigation data so a renamed tool never produces a dead link.
-const POPULAR_PICKS: string[][] = [
-  ['mortgage-calculator', 'mortgage-payment-calculator', 'mortgage-amortization-calculator'],
-  ['compound-interest-calculator', 'compound-interest-scaler-calculator'],
-  ['loan-calculator'],
-  ['paycheck-calculator'],
-  ['salary-calculator'],
-  ['savings-calculator'],
-  ['roi-calculator'],
-  ['credit-card-payoff-calculator', 'credit-card-calculator'],
-]
-
-const QUICK_CHIPS: { label: string; candidates: string[] }[] = [
-  { label: 'Mortgage', candidates: POPULAR_PICKS[0] },
-  { label: 'Paycheck', candidates: ['paycheck-calculator'] },
-  { label: 'Loan payoff', candidates: ['debt-payoff-calculator', 'loan-calculator'] },
-  { label: 'Tax', candidates: ['tax-calculator', 'income-tax-calculator'] },
-  { label: 'ROI', candidates: ['roi-calculator'] },
-  { label: 'Savings', candidates: ['savings-calculator'] },
-]
 
 export function MobileHome() {
-  const [mounted, setMounted] = useState(false)
   const [query, setQuery] = useState('')
   const [searchFocused, setSearchFocused] = useState(false)
-  const [favourites, setFavourites] = useState<string[]>([])
-  const [recents, setRecents] = useState<string[]>([])
   const [showA2hs, setShowA2hs] = useState(false)
+  const {
+    mounted,
+    favourites,
+    toggleFavourite,
+    recordRecent,
+    popularTools,
+    quickChips,
+    favouriteTools,
+    recentTools,
+    hasYourTools,
+    searchTools,
+  } = useMyTools()
 
-  // Flatten every tool once, keeping its category for labels and icon colours.
-  const allTools = useMemo<ToolWithCategory[]>(
-    () => navigationCategories.flatMap((category) => category.calculators.map((tool) => ({ tool, category }))),
-    []
-  )
-  const toolBySlug = useMemo(() => {
-    const map = new Map<string, ToolWithCategory>()
-    for (const entry of allTools) map.set(entry.tool.slug, entry)
-    return map
-  }, [allTools])
-
-  const resolve = (candidates: string[]): ToolWithCategory | undefined => {
-    for (const slug of candidates) {
-      const hit = toolBySlug.get(slug)
-      if (hit) return hit
-    }
-    return undefined
-  }
-
-  const popularTools = useMemo(
-    () => POPULAR_PICKS.map((candidates) => resolve(candidates)).filter(Boolean) as ToolWithCategory[],
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [toolBySlug]
-  )
-
-  const quickChips = useMemo(
-    () =>
-      QUICK_CHIPS.map((chip) => {
-        const hit = resolve(chip.candidates)
-        return hit ? { label: chip.label, href: getToolUrl(hit.tool.slug), slug: hit.tool.slug } : null
-      }).filter(Boolean) as { label: string; href: string; slug: string }[],
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [toolBySlug]
-  )
-
-  const searchResults = useMemo(() => {
-    const q = query.trim().toLowerCase()
-    if (!q) return []
-    return allTools
-      .filter(
-        ({ tool, category }) =>
-          tool.title.toLowerCase().includes(q) ||
-          tool.description.toLowerCase().includes(q) ||
-          category.name.toLowerCase().includes(q)
-      )
-      .slice(0, 8)
-  }, [query, allTools])
+  const searchResults = searchTools(query)
 
   useEffect(() => {
-    const stored = loadMyTools()
-    setFavourites(stored.favourites)
-    setRecents(stored.recents)
     const standalone =
       window.matchMedia('(display-mode: standalone)').matches ||
       (window.navigator as Navigator & { standalone?: boolean }).standalone === true
@@ -154,24 +61,7 @@ export function MobileHome() {
       dismissed = false
     }
     setShowA2hs(!standalone && !dismissed)
-    setMounted(true)
   }, [])
-
-  const recordRecent = (slug: string) => {
-    setRecents((prev) => {
-      const next = [slug, ...prev.filter((s) => s !== slug)].slice(0, MAX_RECENTS)
-      saveMyTools({ favourites, recents: next })
-      return next
-    })
-  }
-
-  const toggleFavourite = (slug: string) => {
-    setFavourites((prev) => {
-      const next = prev.includes(slug) ? prev.filter((s) => s !== slug) : [slug, ...prev]
-      saveMyTools({ favourites: next, recents })
-      return next
-    })
-  }
 
   const dismissA2hs = () => {
     setShowA2hs(false)
@@ -181,10 +71,6 @@ export function MobileHome() {
       // Ignore: the card simply returns next visit.
     }
   }
-
-  const favouriteTools = favourites.map((slug) => toolBySlug.get(slug)).filter(Boolean) as ToolWithCategory[]
-  const recentTools = recents.map((slug) => toolBySlug.get(slug)).filter(Boolean) as ToolWithCategory[]
-  const hasYourTools = favouriteTools.length > 0 || recentTools.length > 0
 
   const renderToolRow = (entry: ToolWithCategory, opts?: { showStar?: boolean }) => {
     const { tool, category } = entry
@@ -231,7 +117,7 @@ export function MobileHome() {
       {/* ── 1 · Hero ─────────────────────────────────────────── */}
       <header className="bg-white px-5 pb-6 pt-5">
         <h1 className="text-[28px] font-extrabold leading-[1.15] tracking-tight text-[#1F2937]">
-          100+ free <span className="text-[#064E3B]">financial calculators</span>
+          100+ free <span className="text-[#064E3B]">financial</span> <CalcWord />
         </h1>
         <p className="mt-2.5 text-[15px] font-light leading-relaxed text-neutral-500">
           Mortgages, paychecks, taxes, loans and savings — worked out in seconds. No sign-up to calculate.

@@ -1,0 +1,117 @@
+'use client'
+
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { CalculatorActions } from './CalculatorActions'
+import { ProUpgradeModal } from '@/components/shared/ProUpgradeModal'
+import { AdSlot } from '@/components/shared/AdSlot'
+import { saveCalculatorAction } from '@/actions/calculator.actions'
+import { navigationCategories, getToolUrl } from '@/config/navigation'
+import { CheckCircle2 } from 'lucide-react'
+
+/**
+ * ToolActionsBar — the standard actions block for every calculator:
+ * Save to Vault, Export (CSV/Excel) and Share, wired exactly like the
+ * original freelance tools, with the freemium gates from /pricing:
+ *
+ * - Free accounts can save up to 3 scenarios (enforced server-side by
+ *   saveCalculatorAction); hitting the limit opens the Pro modal.
+ * - Exports are Pro-only (ExportEngine gates them via onRequirePro).
+ * - Logged-out saves route to /login and back.
+ *
+ * Below the actions sits an AdSlot placeholder: it renders nothing in
+ * production until an AdSense publisher ID is configured, then lights up
+ * with no further code changes.
+ */
+export function ToolActionsBar({
+  slug,
+  isPro,
+  inputs,
+}: {
+  slug: string
+  isPro: boolean
+  inputs: Record<string, unknown>
+}) {
+  const router = useRouter()
+  const [isSaving, setIsSaving] = useState(false)
+  const [showProModal, setShowProModal] = useState(false)
+  const [toast, setToast] = useState<string | null>(null)
+
+  const tool = (() => {
+    for (const category of navigationCategories) {
+      const hit = category.calculators.find((c) => c.slug === slug)
+      if (hit) return { title: hit.title, categoryName: category.name, url: getToolUrl(slug) }
+    }
+    return { title: slug.replace(/-/g, ' '), categoryName: 'Tools', url: `/${slug}` }
+  })()
+
+  useEffect(() => {
+    if (!toast) return
+    const t = setTimeout(() => setToast(null), 3200)
+    return () => clearTimeout(t)
+  }, [toast])
+
+  // One export row: the scenario's inputs with human-readable labels.
+  const exportData = [
+    Object.fromEntries(
+      Object.entries(inputs).map(([key, value]) => [
+        key
+          .replace(/([a-z0-9])([A-Z])/g, '$1 $2')
+          .replace(/^./, (c) => c.toUpperCase()),
+        value !== null && typeof value === 'object' ? JSON.stringify(value) : value,
+      ]),
+    ),
+  ]
+
+  const handleSave = async () => {
+    setIsSaving(true)
+    try {
+      await saveCalculatorAction({
+        calculator_slug: slug,
+        category: tool.categoryName,
+        saved_name: `${tool.title} scenario`,
+        input_state: inputs,
+      })
+      setToast('Saved to your Vault')
+    } catch (error) {
+      const message = error instanceof Error ? error.message : ''
+      if (message.includes('Free accounts can save')) {
+        setShowProModal(true)
+      } else if (message.includes('Unauthorized')) {
+        router.push('/login')
+        return
+      } else {
+        setToast('Could not save — please try again')
+      }
+    } finally {
+      setIsSaving(false)
+    }
+  }
+
+  return (
+    <div className="mt-10">
+      <CalculatorActions
+        slug={slug}
+        onSave={handleSave}
+        isSaving={isSaving}
+        isPro={isPro}
+        exportData={exportData}
+        exportFilename={slug}
+        onRequirePro={() => setShowProModal(true)}
+        shareUrl={`https://dailyfinance.tools${tool.url}`}
+      />
+
+      {/* Ad placeholder — invisible in production until AdSense is configured. */}
+      <AdSlot label="Tool page — below actions" className="mt-6 min-h-[90px] w-full" />
+
+      <ProUpgradeModal isOpen={showProModal} onClose={() => setShowProModal(false)} />
+
+      {toast && (
+        <div className="fixed bottom-24 right-4 z-[90] flex items-center gap-2 rounded-full bg-[#064E3B] py-2.5 pl-3 pr-4 text-sm font-semibold text-white shadow-xl sm:bottom-6">
+          <CheckCircle2 className="h-4 w-4 shrink-0" />
+          {toast}
+        </div>
+      )}
+    </div>
+  )
+}
