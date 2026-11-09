@@ -2,12 +2,14 @@
 import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 
-export const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US')
-export const fmt2 = (n: number) => '$' + n.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})
+export const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
+export const fmt2 = (n: number) => curSym() + n.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})
 export const pct = (n: number) => (isFinite(n) ? n.toFixed(2) : '0.00') + '%'
 
-export function Num({ label, value, set, min=0, step=1, prefix='$' }: { label: string; value: number; set: (n:number)=>void; min?: number; step?: number; prefix?: string }) {
+export function Num({ label, value, set, min=0, step=1, prefix=curSym() }: { label: string; value: number; set: (n:number)=>void; min?: number; step?: number; prefix?: string }) {
   return (<div className="space-y-2"><label className="text-sm font-semibold">{label}</label><div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">{prefix}</span><Input type="number" min={min} step={step} value={value===0?'':value} onChange={e=>set(e.target.value===''?0:Number(e.target.value))} className="pl-7 font-mono" /></div></div>)
 }
 export function Slide({ label, value, set, min, max, step=0.1, suffix='%' }: { label: string; value: number; set:(n:number)=>void; min:number; max:number; step?:number; suffix?:string }) {
@@ -28,9 +30,10 @@ export function Breakdown({ title, children }: { title: string; children: React.
 
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   const [price, setPrice] = useState(325000); const [downPct, setDownPct] = useState(25); const [rate, setRate] = useState(7); const [rent, setRent] = useState(2950); const [tax, setTax] = useState(3900); const [ins, setIns] = useState(1500); const [vac, setVac] = useState(5); const [maint, setMaint] = useState(5); const [mgmt, setMgmt] = useState(8); const [hoa, setHoa] = useState(0); const [other, setOther] = useState(100)
   const m = useMemo(() => { const loan = price * (1 - downPct/100); const r = rate/100/12; const n = 360; const pi = r > 0 ? loan * r * Math.pow(1+r, n) / (Math.pow(1+r, n) - 1) : loan/n; const vacC = rent * vac/100; const maintC = rent * maint/100; const mgmtC = rent * mgmt/100; const cf = rent - pi - tax/12 - ins/12 - vacC - maintC - mgmtC - hoa - other; const noi = (rent - vacC - maintC - mgmtC - hoa - other) * 12 - tax - ins; const cap = price > 0 ? noi / price * 100 : 0; const cash = price * downPct/100 + price * 0.02; const coc = cash > 0 ? cf * 12 / cash * 100 : 0; return { loan, pi, cf, noi, cap, cash, coc, vacC, maintC, mgmtC } }, [price, downPct, rate, rent, tax, ins, vac, maint, mgmt, hoa, other])
-  return (<Shell inputs={<>
+  return (<><Shell inputs={<>
     <div className="grid grid-cols-2 gap-4"><Num label="Purchase Price" value={price} set={setPrice} /><Num label="Monthly Rent" value={rent} set={setRent} /></div>
     <Slide label="Down Payment" value={downPct} set={setDownPct} min={0} max={60} step={1} /><Slide label="Mortgage Rate" value={rate} set={setRate} min={0} max={15} step={0.05} />
     <div className="grid grid-cols-2 gap-4"><Num label="Property Tax / year" value={tax} set={setTax} /><Num label="Insurance / year" value={ins} set={setIns} /></div>
@@ -39,5 +42,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   </>}>
     <Result label="Monthly Cash Flow" value={fmt(m.cf)} sub={m.cf >= 200 ? 'Healthy by the $200-per-door benchmark many investors target.' : m.cf >= 0 ? 'Positive, but thin — stress-test rent and rate before you buy.' : 'Negative cash flow: this deal needs a lower price, higher rent, or more down.'} />
     <Breakdown title="Rental Breakdown (Monthly)"><Row label="Principal & interest" value={fmt(m.pi)} /><Row label="Vacancy reserve" value={fmt(m.vacC)} /><Row label="Maintenance reserve" value={fmt(m.maintC)} /><Row label="Management" value={fmt(m.mgmtC)} /><Row label="Annual NOI" value={fmt(m.noi)} /><Row label="Cap rate" value={pct(m.cap)} bold /><Row label="Cash invested" value={fmt(m.cash)} /><Row label="Cash-on-cash return" value={pct(m.coc)} bold /></Breakdown>
-  </Shell>)
+  </Shell><ToolActionsBar slug="rental-cash-flow-calculator" isPro={isPro} inputs={{ price, downPct, rate, rent, tax, ins, vac, maint, mgmt, hoa, other }} /></>)
 }

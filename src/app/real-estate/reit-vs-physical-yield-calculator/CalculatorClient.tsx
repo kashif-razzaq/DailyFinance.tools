@@ -2,12 +2,14 @@
 import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 
-export const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US')
-export const fmt2 = (n: number) => '$' + n.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})
+export const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
+export const fmt2 = (n: number) => curSym() + n.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})
 export const pct = (n: number) => (isFinite(n) ? n.toFixed(2) : '0.00') + '%'
 
-export function Num({ label, value, set, min=0, step=1, prefix='$' }: { label: string; value: number; set: (n:number)=>void; min?: number; step?: number; prefix?: string }) {
+export function Num({ label, value, set, min=0, step=1, prefix=curSym() }: { label: string; value: number; set: (n:number)=>void; min?: number; step?: number; prefix?: string }) {
   return (<div className="space-y-2"><label className="text-sm font-semibold">{label}</label><div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">{prefix}</span><Input type="number" min={min} step={step} value={value===0?'':value} onChange={e=>set(e.target.value===''?0:Number(e.target.value))} className="pl-7 font-mono" /></div></div>)
 }
 export function Slide({ label, value, set, min, max, step=0.1, suffix='%' }: { label: string; value: number; set:(n:number)=>void; min:number; max:number; step?:number; suffix?:string }) {
@@ -28,12 +30,13 @@ export function Breakdown({ title, children }: { title: string; children: React.
 
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   const [capital, setCapital] = useState(100000); const [years, setYears] = useState(20); const [divYield, setDivYield] = useState(4); const [reitAppr, setReitAppr] = useState(5); const [downPct, setDownPct] = useState(25); const [rentMo, setRentMo] = useState(3400); const [propAppr, setPropAppr] = useState(4); const [mortRate, setMortRate] = useState(6); const [expPct, setExpPct] = useState(35)
   const m = useMemo(() => { const reitFinal = capital * Math.pow(1 + (divYield + reitAppr)/100, years)
     const price = downPct > 0 ? capital / (downPct/100) : 0; const loan = price - capital; const r = mortRate/100/12; const n = 360; const pi = loan > 0 && r > 0 ? loan * r * Math.pow(1+r, n) / (Math.pow(1+r, n) - 1) : 0
     let bal = loan; let cumCF = 0; for (let mo = 0; mo < years * 12 && bal > 0; mo++) { const i = bal * r; bal -= Math.min(pi - i, bal); const rentY = rentMo * Math.pow(1.02, Math.floor(mo/12)); const exp = rentY * expPct/100; const taxIns = price * 0.015 / 12; cumCF += rentY - exp - taxIns - pi }
     const valueEnd = price * Math.pow(1 + propAppr/100, years); const equity = valueEnd - Math.max(bal, 0); const physFinal = equity + cumCF; return { reitFinal, price, loan, pi, equity, cumCF, physFinal, bal } }, [capital, years, divYield, reitAppr, downPct, rentMo, propAppr, mortRate, expPct])
-  return (<Shell inputs={<>
+  return (<><Shell inputs={<>
     <div className="grid grid-cols-2 gap-4"><Num label="Capital to Invest" value={capital} set={setCapital} /><Num label="Time Horizon (years)" value={years} set={setYears} prefix="" /></div>
     <h3 className="font-bold">REIT Assumptions</h3><Slide label="Dividend Yield (reinvested)" value={divYield} set={setDivYield} min={0} max={10} step={0.1} /><Slide label="REIT Appreciation / yr" value={reitAppr} set={setReitAppr} min={0} max={12} step={0.1} />
     <h3 className="font-bold">Physical Rental Assumptions</h3><Slide label="Down Payment (your capital = this % of price)" value={downPct} set={setDownPct} min={10} max={100} step={1} /><div className="grid grid-cols-2 gap-4"><Num label="Monthly Rent" value={rentMo} set={setRentMo} /><Num label="Mortgage Rate %" value={mortRate} set={setMortRate} prefix="" step={0.05} /></div>
@@ -43,5 +46,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     <Result label={m.physFinal >= m.reitFinal ? 'Winner on These Assumptions: Physical Rental' : 'Winner on These Assumptions: REIT'} value={fmt(Math.max(m.physFinal, m.reitFinal))} sub={`REIT ends at ${fmt(m.reitFinal)} vs physical at ${fmt(m.physFinal)} (equity ${fmt(m.equity)} + cumulative cash flow ${fmt(m.cumCF)}) over ${years} years.`} />
     <Breakdown title="Comparison Breakdown"><Row label="REIT final value" value={fmt(m.reitFinal)} bold /><Row label="Property price bought with your down payment" value={fmt(m.price)} /><Row label="Mortgage payment (P&I)" value={fmt(m.pi)} /><Row label="End equity (value − loan balance)" value={fmt(m.equity)} /><Row label="Cumulative cash flow collected" value={fmt(m.cumCF)} /><Row label="Physical final position" value={fmt(m.physFinal)} bold /></Breakdown>
     <p className="text-xs text-muted-foreground">Leverage is why physical can win: you control a {fmt(m.price)} asset with {fmt(capital)}. It is also why it can lose — vacancy, repairs and your time are real costs no REIT charges you.</p>
-  </Shell>)
+  </Shell><ToolActionsBar slug="reit-vs-physical-yield-calculator" isPro={isPro} inputs={{ capital, years, divYield, reitAppr, downPct, rentMo, propAppr, mortRate, expPct }} /></>)
 }

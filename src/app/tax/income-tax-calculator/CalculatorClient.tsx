@@ -3,12 +3,14 @@
 import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Legend } from 'recharts'
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 
-const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US')
+const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
 function MoneyInput({ label, value, onChange, hint }: { label: string; value: number; onChange: (n: number) => void; hint?: string }) {
   return (<div className="space-y-2"><label className="text-sm font-semibold">{label}</label>
-    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">$</span>
+    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">{curSym()}</span>
     <Input type="number" value={value === 0 ? '' : value} onChange={(e) => onChange(num(e.target.value))} className="pl-7 font-mono" /></div>
     {hint && <p className="text-xs text-muted-foreground">{hint}</p>}</div>)
 }
@@ -34,6 +36,7 @@ const STATES: { name: string; rate: number }[] = [
 ]
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   const [income, setIncome] = useState(95000)
   const [status, setStatus] = useState<'single' | 'mfj'>('single')
   const [stateIdx, setStateIdx] = useState(11) // California default shows the full picture
@@ -53,7 +56,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
 
   const chart = [{ name: 'Your income', 'Take-home': Math.round(r.net), 'Federal': Math.round(r.federal), 'State': Math.round(r.state), 'FICA': Math.round(r.ss + r.medicare) }]
 
-  return (<div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+  return (<><div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
     <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-6">
       <MoneyInput label="Gross Annual Income" value={income} onChange={setIncome} />
       <div className="grid grid-cols-2 gap-6">
@@ -84,10 +87,10 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <p className="text-white/70 text-xs mt-5">Your federal marginal bracket is {r.marginal.toFixed(0)}% — that rate applies only to the top slice of your income, not to all of it.</p>
       </ResultCard>
       <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Income Split: Tax vs Take-Home</h4>
-        <ResponsiveContainer width="100%" height={130}><BarChart data={chart} layout="vertical"><CartesianGrid strokeDasharray="3 3" /><XAxis type="number" tickFormatter={(v: number) => '$' + Math.round(v / 1000) + 'k'} /><YAxis type="category" dataKey="name" width={80} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Legend />
+        <ResponsiveContainer width="100%" height={130}><BarChart data={chart} layout="vertical"><CartesianGrid strokeDasharray="3 3" /><XAxis type="number" tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><YAxis type="category" dataKey="name" width={80} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Legend />
           <Bar dataKey="Take-home" stackId="a" fill="#064E3B" /><Bar dataKey="Federal" stackId="a" fill="#D97706" /><Bar dataKey="State" stackId="a" fill="#9333EA" /><Bar dataKey="FICA" stackId="a" fill="#2563EB" /></BarChart></ResponsiveContainer>
         <p className="text-xs text-muted-foreground mt-3">Differentiator: most calculators show federal tax only — this one stacks federal + state + FICA so you see the true all-in burden.</p>
       </div>
     </div>
-  </div>)
+  </div><ToolActionsBar slug="income-tax-calculator" isPro={isPro} inputs={{ income, status, stateIdx, customState, customPct }} /></>)
 }

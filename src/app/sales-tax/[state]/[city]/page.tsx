@@ -74,21 +74,21 @@ export default async function CitySalesTaxPage({ params }: { params: Promise<{ s
             <h2>How {c.name}&apos;s {c.combinedRate}% rate is built</h2>
             <p>{c.fact}</p>
             <h2>What you pay in {c.name} — worked examples</h2>
-            <table>
+            <div className="overflow-x-auto -mx-1 px-1"><table>
               <thead><tr><th>Purchase</th><th>Tax at {c.combinedRate}%</th><th>Total</th></tr></thead>
               <tbody>
                 {baskets.map((amt) => (
                   <tr key={amt}><td>${amt.toLocaleString()}</td><td>${taxOn(amt, c.combinedRate).toFixed(2)}</td><td>${(amt + taxOn(amt, c.combinedRate)).toFixed(2)}</td></tr>
                 ))}
               </tbody>
-            </table>
+            </table></div>
             <h2>{c.name} vs the {s.name} average</h2>
             <p>The average combined rate across {s.name} is about {s.salesTaxAvgCombined}%, so {c.name} at {c.combinedRate}% is {diff > 0 ? "above" : diff < 0 ? "below" : "at"} the state norm{diff !== 0 ? ` by roughly ${Math.abs(diff)} percentage points` : ""}. On a $30,000 car (where vehicle tax rules allow the general rate), that gap alone is about ${Math.abs(Math.round(30000 * (diff / 100))).toLocaleString()} — one reason big purchases are planned around exact addresses, not state averages.</p>
             {stateCities.length > 1 ? (
               <>
                 <h2>{c.name} vs other {s.name} cities</h2>
                 <p>Combined rates for the {s.name} cities we track, highest first. The spread inside one state is set entirely by local layers — the state base rate of {s.salesTaxBase}% is the same in every row.</p>
-                <table>
+                <div className="overflow-x-auto -mx-1 px-1"><table>
                   <thead><tr><th>City</th><th>Combined rate</th><th>Tax on $1,000</th></tr></thead>
                   <tbody>
                     {stateCities.map((x) => (
@@ -100,13 +100,13 @@ export default async function CitySalesTaxPage({ params }: { params: Promise<{ s
                     ))}
                     <tr><td>{s.name} statewide average</td><td>{s.salesTaxAvgCombined}%</td><td>${taxOn(1000, s.salesTaxAvgCombined).toFixed(2)}</td></tr>
                   </tbody>
-                </table>
+                </table></div>
               </>
             ) : (
               <>
                 <h2>{c.name} vs other major US cities</h2>
                 <p>{c.name} is the {s.name} city we track in detail. Against the extremes of the 30-city dataset:</p>
-                <table>
+                <div className="overflow-x-auto -mx-1 px-1"><table>
                   <thead><tr><th>City</th><th>Combined rate</th><th>Tax on $1,000</th></tr></thead>
                   <tbody>
                     <tr><td><strong>{c.name} (this page)</strong></td><td><strong>{c.combinedRate}%</strong></td><td><strong>${taxOn(1000, c.combinedRate).toFixed(2)}</strong></td></tr>
@@ -118,7 +118,7 @@ export default async function CitySalesTaxPage({ params }: { params: Promise<{ s
                     ))}
                     <tr><td>Average of the 30 tracked cities</td><td>{AVG_CITY_COMBINED}%</td><td>${taxOn(1000, AVG_CITY_COMBINED).toFixed(2)}</td></tr>
                   </tbody>
-                </table>
+                </table></div>
               </>
             )}
             <h2>What this means in {c.name}</h2>

@@ -3,12 +3,14 @@
 import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 
-const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US')
+const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
 function MoneyInput({ label, value, onChange, hint }: { label: string; value: number; onChange: (n: number) => void; hint?: string }) {
   return (<div className="space-y-2"><label className="text-sm font-semibold">{label}</label>
-    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">$</span>
+    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">{curSym()}</span>
     <Input type="number" value={value === 0 ? '' : value} onChange={(e) => onChange(num(e.target.value))} className="pl-7 font-mono" /></div>
     {hint && <p className="text-xs text-muted-foreground">{hint}</p>}</div>)
 }
@@ -43,6 +45,7 @@ function longTermTax(taxableOther: number, gain: number, status: 'single' | 'mfj
 }
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   const [cost, setCost] = useState(40000)
   const [sale, setSale] = useState(75000)
   const [months, setMonths] = useState(18)
@@ -61,7 +64,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     return { gain, loss: false, lt, stTax, chosen, isLong, effRate: gain > 0 ? (chosen / gain) * 100 : 0 }
   }, [cost, sale, months, otherIncome, status])
 
-  return (<div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+  return (<><div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
     <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-6">
       <div className="grid grid-cols-2 gap-6">
         <MoneyInput label="Purchase Price (Cost Basis)" value={cost} onChange={setCost} />
@@ -100,5 +103,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
       )}
     </div>
-  </div>)
+  </div><ToolActionsBar slug="capital-gains-tax-calculator" isPro={isPro} inputs={{ cost, sale, months, otherIncome, status }} /></>)
 }

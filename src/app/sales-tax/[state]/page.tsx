@@ -73,7 +73,7 @@ export default async function StateSalesTaxPage({ params }: { params: Promise<{ 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           <article className="lg:col-span-8 content-prose max-w-none">
             <h2>{s.name} sales tax at a glance</h2>
-            <table>
+            <div className="overflow-x-auto -mx-1 px-1"><table>
               <tbody>
                 <tr><td><strong>State base rate</strong></td><td>{s.salesTaxBase}%</td></tr>
                 <tr><td><strong>Average combined rate</strong></td><td>~{s.salesTaxAvgCombined}% (state + county + city + districts)</td></tr>
@@ -81,20 +81,20 @@ export default async function StateSalesTaxPage({ params }: { params: Promise<{ 
                 <tr><td><strong>Groceries</strong></td><td>{s.groceries === "exempt" ? "Generally exempt" : s.groceries === "reduced" ? "Reduced rate" : "Taxed at full rate"}</td></tr>
                 <tr><td><strong>Major cities</strong></td><td>{s.majorCities.join(", ")}</td></tr>
               </tbody>
-            </table>
+            </table></div>
             <h2>Worked examples — what you actually pay in {s.name}</h2>
             <p>Using the average combined rate of {s.salesTaxAvgCombined}% (your exact city rate may be higher or lower):</p>
-            <table>
+            <div className="overflow-x-auto -mx-1 px-1"><table>
               <thead><tr><th>Purchase</th><th>Tax</th><th>Total</th></tr></thead>
               <tbody>
                 {baskets.map((amt) => (
                   <tr key={amt}><td>${amt.toLocaleString()}</td><td>${taxOn(amt, s.salesTaxAvgCombined).toFixed(2)}</td><td>${(amt + taxOn(amt, s.salesTaxAvgCombined)).toFixed(2)}</td></tr>
                 ))}
               </tbody>
-            </table>
+            </table></div>
             <h2>How {s.name} compares with other states</h2>
             <p>The states closest to {s.name} on average combined rate, plus the national extremes — all rates are average combined (state + local):</p>
-            <table>
+            <div className="overflow-x-auto -mx-1 px-1"><table>
               <thead><tr><th>State</th><th>Average combined rate</th><th>Tax on $1,000</th></tr></thead>
               <tbody>
                 <tr><td><strong>{s.name} (this page)</strong></td><td><strong>{s.salesTaxAvgCombined}%</strong></td><td><strong>${taxOn(1000, s.salesTaxAvgCombined).toFixed(2)}</strong></td></tr>
@@ -108,7 +108,7 @@ export default async function StateSalesTaxPage({ params }: { params: Promise<{ 
                   <tr key={o.slug}><td><Link href={`/sales-tax/${o.slug}`}>{o.name}</Link> — lowest in the US</td><td>{o.salesTaxAvgCombined}%</td><td>${taxOn(1000, o.salesTaxAvgCombined).toFixed(2)}</td></tr>
                 ))}
               </tbody>
-            </table>
+            </table></div>
             <h2>What this means in {s.name}</h2>
             {salesTaxMeaning(s).map((p, i) => (
               <p key={i}>{p}</p>
