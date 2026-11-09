@@ -3,11 +3,14 @@ import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { Calculator, TrendingUp } from "lucide-react"
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 
-const fmt = (n: number) => '$' + n.toLocaleString(undefined, { maximumFractionDigits: 0 })
-const fmt2 = (n: number) => '$' + n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+const fmt = (n: number) => curSym() + n.toLocaleString(undefined, { maximumFractionDigits: 0 })
+const fmt2 = (n: number) => curSym() + n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   void isPro
   const [price, setPrice] = useState(35)
   const [baseCost, setBaseCost] = useState(13)
@@ -30,7 +33,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     return { platform, txn, shipNet, profitPerUnit, adjustedProfit, margin, monthly: adjustedProfit * units, markup: (baseCost + printCost) > 0 ? ((price - baseCost - printCost) / (baseCost + printCost)) * 100 : 0 }
   }, [price, baseCost, printCost, platformPct, txnPct, txnFixed, shipCharged, shipCost, units, returnPct])
 
-  return (
+  return (<>
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
       <div className="lg:col-span-7 bg-white border border-neutral-200 shadow-sm rounded-2xl p-6 md:p-8 space-y-8">
         <h2 className="text-xl font-bold flex items-center gap-2 pb-2 border-b text-[#1F2937]"><Calculator className="h-5 w-5 text-[#064E3B]" /> Product Inputs</h2>
@@ -83,5 +86,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
       </div>
     </div>
-  )
+  <ToolActionsBar slug="merch-margin-calculator" isPro={isPro} inputs={{ price, baseCost, printCost, platformPct, txnPct, txnFixed, shipCharged, shipCost, units, returnPct }} /></>)
 }

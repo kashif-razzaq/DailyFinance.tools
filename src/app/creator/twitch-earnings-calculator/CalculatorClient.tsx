@@ -3,9 +3,11 @@
 import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 
-const fmt = (n: number) => '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-const fmtR = (n: number) => '$' + Math.round(n).toLocaleString('en-US')
+const fmt = (n: number) => curSym() + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+const fmtR = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
 function NumInput({ label, value, onChange, hint }: { label: string; value: number; onChange: (n: number) => void; hint?: string }) {
   return (<div className="space-y-2"><label className="text-sm font-semibold">{label}</label>
@@ -22,6 +24,7 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
 const TIER_PRICE = { t1: 4.99, t2: 9.99, t3: 24.99 }
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   const [t1, setT1] = useState(320)
   const [t2, setT2] = useState(45)
   const [t3, setT3] = useState(12)
@@ -43,7 +46,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     <div className="flex justify-between text-sm py-1.5 border-b border-dashed last:border-0"><span className="text-muted-foreground">{label} <span className="text-xs">({detail})</span></span><span className="font-mono font-semibold">{fmt(amount)}</span></div>
   )
 
-  return (<div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+  return (<><div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
     <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-6">
       <div className="grid grid-cols-3 gap-4">
         <NumInput label="Tier 1 Subs ($4.99)" value={t1} onChange={setT1} />
@@ -80,5 +83,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <p className="text-xs text-muted-foreground mt-3">Differentiator: models the real tier mix and your actual revenue share — one Tier 3 sub is worth five Tier 1s gross, and the 50% vs 70% split is the single biggest lever on this page.</p>
       </div>
     </div>
-  </div>)
+  </div><ToolActionsBar slug="twitch-earnings-calculator" isPro={isPro} inputs={{ t1, t2, t3, sharePct, bits, ads, donations }} /></>)
 }

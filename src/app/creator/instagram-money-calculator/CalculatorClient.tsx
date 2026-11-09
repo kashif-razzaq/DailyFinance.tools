@@ -3,8 +3,10 @@
 import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 
-const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US')
+const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
 function NumInput({ label, value, onChange, hint }: { label: string; value: number; onChange: (n: number) => void; hint?: string }) {
   return (<div className="space-y-2"><label className="text-sm font-semibold">{label}</label>
@@ -27,6 +29,7 @@ const NICHES: { name: string; per1k: number }[] = [
 const FORMAT = { post: 1, reel: 1.15, story: 0.35 }
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   const [followers, setFollowers] = useState(85000)
   const [engagement, setEngagement] = useState(3.2)
   const [nicheIdx, setNicheIdx] = useState(2)
@@ -50,7 +53,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     <div className="flex justify-between text-sm py-1.5 border-b border-dashed last:border-0"><span className="text-muted-foreground">{label} × {count}/mo</span><span className="font-mono font-semibold">{fmt(rate)} each · {fmt(rate * count)}</span></div>
   )
 
-  return (<div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+  return (<><div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
     <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-6">
       <div className="grid grid-cols-2 gap-6">
         <NumInput label="Followers" value={followers} onChange={setFollowers} />
@@ -88,5 +91,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <p className="text-xs text-muted-foreground mt-3">Differentiator: earnings are priced per format and per niche — a finance account at 85k followers can out-earn an entertainment account three times its size, because brands pay for purchasing power, not headcount.</p>
       </div>
     </div>
-  </div>)
+  </div><ToolActionsBar slug="instagram-money-calculator" isPro={isPro} inputs={{ followers, engagement, nicheIdx, posts, reels, stories }} /></>)
 }

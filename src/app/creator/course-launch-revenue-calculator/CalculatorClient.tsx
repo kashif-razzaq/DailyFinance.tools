@@ -3,10 +3,13 @@ import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { Calculator, TrendingUp } from "lucide-react"
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 
-const fmt = (n: number) => '$' + Math.round(n).toLocaleString()
+const fmt = (n: number) => curSym() + Math.round(n).toLocaleString()
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   void isPro
   const [listSize, setListSize] = useState(8000)
   const [conversion, setConversion] = useState(2.5)
@@ -27,7 +30,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     return { buyers, gross, refunds, platform, processing, affiliate, net, perSubscriber: listSize > 0 ? net / listSize : 0, perBuyer: buyers > 0 ? net / buyers : 0 }
   }, [listSize, conversion, price, refundPct, platformPct, affiliatePct])
 
-  return (
+  return (<>
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
       <div className="lg:col-span-7 bg-white border border-neutral-200 shadow-sm rounded-2xl p-6 md:p-8 space-y-8">
         <h2 className="text-xl font-bold flex items-center gap-2 pb-2 border-b text-[#1F2937]"><Calculator className="h-5 w-5 text-[#064E3B]" /> Launch Inputs</h2>
@@ -72,5 +75,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
       </div>
     </div>
-  )
+  <ToolActionsBar slug="course-launch-revenue-calculator" isPro={isPro} inputs={{ listSize, conversion, price, refundPct, platformPct, affiliatePct }} /></>)
 }

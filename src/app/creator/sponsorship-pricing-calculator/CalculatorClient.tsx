@@ -3,14 +3,17 @@ import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { Calculator, TrendingUp } from "lucide-react"
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 
-const fmt = (n: number) => '$' + Math.round(n).toLocaleString()
+const fmt = (n: number) => curSym() + Math.round(n).toLocaleString()
 const NICHE_CPM: Record<string, number> = {
   'Finance & B2B': 50, 'Business & Marketing': 40, 'Technology': 35, 'Education': 30,
   'Health & Fitness': 28, 'Beauty & Fashion': 25, 'Gaming': 20, 'Lifestyle & Vlog': 22, 'Entertainment': 18,
 }
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   void isPro
   const [avgViews, setAvgViews] = useState(80000)
   const [engagement, setEngagement] = useState(4.5)
@@ -29,7 +32,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     return { base, adjusted, perDeliverable: withRights, total, low: total * 0.8, high: total * 1.3, cpm }
   }, [avgViews, engagement, niche, deliverables, usagePct, exclusivityPct])
 
-  return (
+  return (<>
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
       <div className="lg:col-span-7 bg-white border border-neutral-200 shadow-sm rounded-2xl p-6 md:p-8 space-y-8">
         <h2 className="text-xl font-bold flex items-center gap-2 pb-2 border-b text-[#1F2937]"><Calculator className="h-5 w-5 text-[#064E3B]" /> Audience & Deal Inputs</h2>
@@ -78,5 +81,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
       </div>
     </div>
-  )
+  <ToolActionsBar slug="sponsorship-pricing-calculator" isPro={isPro} inputs={{ avgViews, engagement, niche, deliverables, usagePct, exclusivityPct }} /></>)
 }

@@ -3,10 +3,13 @@ import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { Calculator, TrendingUp, AlertTriangle } from "lucide-react"
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 
-const fmt = (n: number) => '$' + n.toLocaleString(undefined, { maximumFractionDigits: 0 })
+const fmt = (n: number) => curSym() + n.toLocaleString(undefined, { maximumFractionDigits: 0 })
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   void isPro
   const [views, setViews] = useState(1000000)
   const [qualifiedPct, setQualifiedPct] = useState(70)
@@ -20,7 +23,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     return { qualified, rewards, oldFund, multiple: oldFund > 0 ? rewards / oldFund : 0, perVideo: videos > 0 ? rewards / videos : 0, monthlyIfSustained: rewards }
   }, [views, qualifiedPct, rpm, videos])
 
-  return (
+  return (<>
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
       <div className="lg:col-span-7 bg-white border border-neutral-200 shadow-sm rounded-2xl p-6 md:p-8 space-y-8">
         <div className="flex gap-3 bg-amber-50 border border-amber-200 rounded-xl p-4 text-sm text-amber-900">
@@ -62,5 +65,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
       </div>
     </div>
-  )
+  <ToolActionsBar slug="tiktok-creator-fund-calculator" isPro={isPro} inputs={{ views, qualifiedPct, rpm, videos }} /></>)
 }

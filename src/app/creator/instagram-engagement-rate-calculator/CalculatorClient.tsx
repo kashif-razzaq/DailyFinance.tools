@@ -3,6 +3,7 @@
 import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Cell } from 'recharts'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
 function NumInput({ label, value, onChange, hint }: { label: string; value: number; onChange: (n: number) => void; hint?: string }) {
@@ -57,7 +58,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     { name: 'Your likes+comments ER', value: Number(r.erCore.toFixed(2)), color: '#D97706' },
   ]
 
-  return (<div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+  return (<><div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
     <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-6">
       <NumInput label="Followers" value={followers} onChange={setFollowers} />
       <div className="grid grid-cols-2 gap-6">
@@ -86,5 +87,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <p className="text-xs text-muted-foreground mt-2">Differentiator: you are graded against your own follower tier — a 2% ER is weak for a nano account but strong for a mega account, and honest tools should say so.</p>
       </div>
     </div>
-  </div>)
+  </div><ToolActionsBar slug="instagram-engagement-rate-calculator" isPro={isPro} inputs={{ followers, likes, comments, shares, saves, reach }} /></>)
 }

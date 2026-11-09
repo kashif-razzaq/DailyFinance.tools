@@ -3,8 +3,10 @@ import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { Calculator, TrendingUp } from "lucide-react"
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 
-const fmt = (n: number) => '$' + n.toLocaleString(undefined, { maximumFractionDigits: 0 })
+const fmt = (n: number) => curSym() + n.toLocaleString(undefined, { maximumFractionDigits: 0 })
 
 type Platform = { name: string; note: string; fee: (gross: number, txns: number) => number }
 const PLATFORMS: Platform[] = [
@@ -19,6 +21,7 @@ const PLATFORMS: Platform[] = [
 ]
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   void isPro
   const [gross, setGross] = useState(5000)
   const [txns, setTxns] = useState(250)
@@ -29,7 +32,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   }).sort((a, b) => b.net - a.net), [gross, txns])
   const best = rows[0]
 
-  return (
+  return (<>
     <div className="space-y-8">
       <div className="bg-white border border-neutral-200 shadow-sm rounded-2xl p-6 md:p-8">
         <h2 className="text-xl font-bold flex items-center gap-2 pb-2 border-b text-[#1F2937] mb-6"><Calculator className="h-5 w-5 text-[#064E3B]" /> Your Gross Revenue</h2>
@@ -59,5 +62,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <p className="text-xs text-neutral-500 mt-6">Models are simplified headline-fee comparisons for planning. Marketplaces bundle discovery, hosting and trust into their cut; your own site keeps the most but you pay for traffic, support and chargebacks yourself. Always confirm current fee schedules before a platform decision.</p>
       </div>
     </div>
-  )
+  <ToolActionsBar slug="platform-fee-visualizer" isPro={isPro} inputs={{ gross, txns }} /></>)
 }
