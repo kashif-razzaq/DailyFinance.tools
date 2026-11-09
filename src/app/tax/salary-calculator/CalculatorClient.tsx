@@ -3,13 +3,15 @@
 import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 
-const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US')
-const fmtC = (n: number) => '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
+const fmtC = (n: number) => curSym() + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
 function AmountInput({ label, value, onChange }: { label: string; value: number; onChange: (n: number) => void }) {
   return (<div className="space-y-2"><label className="text-sm font-semibold">{label}</label>
-    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">$</span>
+    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">{curSym()}</span>
     <Input type="number" value={value === 0 ? '' : value} onChange={(e) => onChange(num(e.target.value))} className="pl-7 font-mono" /></div></div>)
 }
 function NumSlider({ label, value, onChange, min, max, step = 1, suffix = '' }: { label: string; value: number; onChange: (n: number) => void; min: number; max: number; step?: number; suffix?: string }) {
@@ -26,6 +28,7 @@ function bracketTax(taxable: number) { let tax = 0, prev = 0; for (const b of BR
 
 type Period = 'hourly' | 'weekly' | 'monthly' | 'annual'
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   const [amount, setAmount] = useState(75000)
   const [period, setPeriod] = useState<Period>('annual')
   const [hoursPerWeek, setHoursPerWeek] = useState(40)
@@ -54,7 +57,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     { label: 'Annual', gross: fmt(r.annual), net: fmt(r.net) },
   ]
 
-  return (<div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+  return (<><div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
     <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-6">
       <div className="grid grid-cols-2 gap-6">
         <AmountInput label="Pay Amount" value={amount} onChange={setAmount} />
@@ -84,5 +87,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </table>
       </div>
     </div>
-  </div>)
+  </div><ToolActionsBar slug="salary-calculator" isPro={isPro} inputs={{ amount, period, hoursPerWeek, weeksPerYear }} /></>)
 }

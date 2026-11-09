@@ -4,13 +4,15 @@ import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip } from 'recharts'
+import { curSym, useCurrencySymbol } from '@/lib/currency'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 
-const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US')
-const fmtC = (n: number) => '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
+const fmtC = (n: number) => curSym() + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
 function MoneyInput({ label, value, onChange, hint }: { label: string; value: number; onChange: (n: number) => void; hint?: string }) {
   return (<div className="space-y-2"><label className="text-sm font-semibold">{label}</label>
-    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">$</span>
+    <div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">{curSym()}</span>
     <Input type="number" value={value === 0 ? '' : value} onChange={(e) => onChange(num(e.target.value))} className="pl-7 font-mono" /></div>
     {hint && <p className="text-xs text-muted-foreground">{hint}</p>}</div>)
 }
@@ -40,6 +42,7 @@ const FREQ: Record<string, { label: string; periods: number }> = {
 }
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+  const sym = useCurrencySymbol()
   const [salary, setSalary] = useState(78000)
   const [freq, setFreq] = useState<keyof typeof FREQ>('biweekly')
   const [status, setStatus] = useState<'single' | 'mfj'>('single')
@@ -80,7 +83,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     </div>
   )
 
-  return (<div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+  return (<><div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
     <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-6">
       <MoneyInput label="Gross Annual Salary" value={salary} onChange={setSalary} />
       <div className="grid grid-cols-2 gap-6">
@@ -121,5 +124,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <div className="flex flex-wrap gap-x-4 gap-y-1 justify-center">{pie.map((d) => <span key={d.name} className="text-xs flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-sm" style={{ background: d.color }} />{d.name}</span>)}</div>
       </div>
     </div>
-  </div>)
+  </div><ToolActionsBar slug="paycheck-calculator" isPro={isPro} inputs={{ salary, freq, status, statePct, retirement }} /></>)
 }
