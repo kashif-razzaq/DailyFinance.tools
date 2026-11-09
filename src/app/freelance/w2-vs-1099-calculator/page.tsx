@@ -176,7 +176,7 @@ export default function W2vs1099CalculatorPage() {
           </section>
 
           {/* Deep Dive Content Section */}
-          <article className="prose prose-slate prose-lg max-w-none">
+          <article className="content-prose max-w-none">
             <h2 className="text-3xl font-bold text-slate-900 mb-6">The Hidden Costs of the 1099 Freelance Lifestyle</h2>
             <p>
               When a recruiter offers you $100,000 as a W-2 employee versus $120,000 as a 1099 contractor, the 1099 offer looks vastly superior on paper. However, a raw gross-income comparison is financially dangerous. The shift from employee to independent contractor transfers the entire burden of taxes, insurance, and operational overhead directly onto your shoulders.

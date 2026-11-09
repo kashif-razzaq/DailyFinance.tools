@@ -4,7 +4,8 @@ import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import { ArrowRight, Calculator } from "lucide-react"
 import { US_STATES } from "@/data/locations/us-states"
-import { US_CITIES } from "@/data/locations/us-cities"
+import { US_CITIES, getCitiesByState } from "@/data/locations/us-cities"
+import { AVG_CITY_COMBINED, AVG_COMBINED, cityRank, highestCities, lowestCities, pointsDiff } from "@/data/locations/stats"
 
 export function generateStaticParams() {
   return US_CITIES.map((c) => ({ state: c.stateSlug, city: c.slug }))
@@ -32,27 +33,44 @@ export default async function CityGuidePage({ params }: { params: Promise<{ stat
 
   const diff = Math.round((c.combinedRate - s.salesTaxAvgCombined) * 100) / 100
   const taxOn = (price: number) => (price * c.combinedRate) / 100
+  const rank = cityRank(c)
+  const vsNational = pointsDiff(c.combinedRate, AVG_COMBINED)
+  const stateCities = getCitiesByState(s.slug).slice().sort((a, b) => b.combinedRate - a.combinedRate)
+  const baskets = [25, 100, 500, 1000, 10000]
+  const faqs = [
+    {
+      question: `What is the sales tax rate in ${c.name}?`,
+      answer: `The combined sales tax rate in ${c.name} is approximately ${c.combinedRate}%, made up of the ${s.name} state rate plus county, city and district taxes. ${c.fact}`,
+    },
+    {
+      question: `How much tax do I pay on a $100 purchase in ${c.name}?`,
+      answer: `At ${c.combinedRate}%, a $100 taxable purchase in ${c.name} carries about ${money(taxOn(100))} in sales tax, for a total of ${money(100 + taxOn(100))}. On $1,000 the tax is ${money(taxOn(1000))}; on $10,000 it is ${money(taxOn(10000))}.`,
+    },
+    {
+      question: `Why is the ${c.name} rate different from the rest of ${s.name}?`,
+      answer: `Sales tax is stacked: the state sets a base rate and local governments add their own. ${c.name} adds local layers that bring the combined rate to ${c.combinedRate}%, compared with a statewide average combined rate of about ${s.salesTaxAvgCombined}% — a gap of ${Math.abs(diff)} points.`,
+    },
+    {
+      question: `How does ${c.name} compare with other US cities?`,
+      answer: `${c.name} ranks ${rank} of the 30 major cities in our dataset by combined rate (dataset average ${AVG_CITY_COMBINED}%). The highest is ${highestCities(1)[0].name} at ${highestCities(1)[0].combinedRate}% and the lowest is ${lowestCities(1)[0].name} at ${lowestCities(1)[0].combinedRate}%. Against the all-state average combined rate of ${AVG_COMBINED}%, ${c.name} is ${vsNational > 0 ? `${vsNational} points higher` : vsNational < 0 ? `${Math.abs(vsNational)} points lower` : "exactly level"}.`,
+    },
+    {
+      question: `Are groceries taxed in ${c.name}?`,
+      answer: s.groceriesNote,
+    },
+    {
+      question: `Where can I verify the exact rate for a ${c.name} address?`,
+      answer: `The ${c.combinedRate}% figure is the typical combined rate inside city limits; district taxes can shift it block by block. Verify the rate for a specific address with the ${s.name} Department of Revenue before a major purchase or a filing.`,
+    },
+  ]
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: `What is the sales tax rate in ${c.name}?`,
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: `The combined sales tax rate in ${c.name} is approximately ${c.combinedRate}%, made up of the ${s.name} state rate plus county, city and district taxes. ${c.fact}`,
-        },
-      },
-      {
-        "@type": "Question",
-        name: `Why is the ${c.name} rate different from the rest of ${s.name}?`,
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: `Sales tax is stacked: the state sets a base rate and local governments add their own. ${c.name} adds local layers that bring the combined rate to ${c.combinedRate}%, compared with a statewide average combined rate of about ${s.salesTaxAvgCombined}%.`,
-        },
-      },
-    ],
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.question,
+      acceptedAnswer: { "@type": "Answer", text: f.answer },
+    })),
   }
 
   return (
@@ -71,8 +89,9 @@ export default async function CityGuidePage({ params }: { params: Promise<{ stat
         <p className="text-lg text-muted-foreground leading-relaxed mb-10">
           Shopping in {c.name} means paying one of the {diff >= 0 ? "higher" : "lower"} combined sales tax rates in{" "}
           {s.name}: <strong className="text-foreground">{c.combinedRate}%</strong>, against a statewide average
-          combined rate of {s.salesTaxAvgCombined}%. This guide shows how the rate is built and what it adds to real
-          purchases.
+          combined rate of {s.salesTaxAvgCombined}%. Among the 30 major US cities we track, {c.name} ranks{" "}
+          <strong className="text-foreground">{rank}</strong> by combined rate. This guide shows how the rate is
+          built and what it adds to real purchases.
         </p>
 
         <div className="content-prose">
@@ -81,7 +100,7 @@ export default async function CityGuidePage({ params }: { params: Promise<{ stat
           <p>
             No single government sets the {c.combinedRate}% figure. The state of {s.name} sets the base rate of{" "}
             {s.salesTaxBase}%, and county, city and special-district taxes stack on top of it. That stacking is why
-            the rate can change across a city boundary — and why the address of the sale, not the seller's home
+            the rate can change across a city boundary — and why the address of the sale, not the seller&apos;s home
             address, decides the tax on most transactions.
           </p>
 
@@ -91,9 +110,9 @@ export default async function CityGuidePage({ params }: { params: Promise<{ stat
               <tr><th>Purchase</th><th>Tax at {c.combinedRate}%</th><th>Total</th></tr>
             </thead>
             <tbody>
-              <tr><td>$50 of taxable goods</td><td>{money(taxOn(50))}</td><td>{money(50 + taxOn(50))}</td></tr>
-              <tr><td>$200 appliance</td><td>{money(taxOn(200))}</td><td>{money(200 + taxOn(200))}</td></tr>
-              <tr><td>$1,000 laptop</td><td>{money(taxOn(1000))}</td><td>{money(1000 + taxOn(1000))}</td></tr>
+              {baskets.map((amt) => (
+                <tr key={amt}><td>{money(amt)} purchase</td><td>{money(taxOn(amt))}</td><td>{money(amt + taxOn(amt))}</td></tr>
+              ))}
               <tr><td>$35,000 car (where vehicles are taxed at sale)</td><td>{money(taxOn(35000))}</td><td>{money(35000 + taxOn(35000))}</td></tr>
             </tbody>
           </table>
@@ -102,15 +121,81 @@ export default async function CityGuidePage({ params }: { params: Promise<{ stat
             jurisdictions, even where groceries for home consumption are exempt or reduced.
           </p>
 
+          {stateCities.length > 1 ? (
+            <>
+              <h2>{c.name} vs other {s.name} cities</h2>
+              <p>
+                Every city below shares the same {s.salesTaxBase}% {s.name} base rate — the differences are local
+                layers. {c.name} sits {diff > 0 ? `${diff} points above` : diff < 0 ? `${Math.abs(diff)} points below` : "exactly at"} the
+                statewide average combined rate of {s.salesTaxAvgCombined}%.
+              </p>
+              <table>
+                <thead>
+                  <tr><th>City</th><th>Combined rate</th><th>Tax on $1,000</th></tr>
+                </thead>
+                <tbody>
+                  {stateCities.map((x) => (
+                    <tr key={x.slug}>
+                      <td>{x.slug === c.slug ? <strong>{x.name} (this guide)</strong> : <Link href={`/guides/states/${s.slug}/${x.slug}`}>{x.name}</Link>}</td>
+                      <td>{x.combinedRate}%</td>
+                      <td>{money((1000 * x.combinedRate) / 100)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </>
+          ) : (
+            <>
+              <h2>{c.name} vs other major US cities</h2>
+              <p>
+                {c.name} is the {s.name} city we track in detail. Set against the extremes of the 30-city dataset
+                (average {AVG_CITY_COMBINED}%), its position is clear:
+              </p>
+              <table>
+                <thead>
+                  <tr><th>City</th><th>Combined rate</th><th>Tax on $1,000</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td><strong>{c.name} (this guide)</strong></td><td><strong>{c.combinedRate}%</strong></td><td><strong>{money(taxOn(1000))}</strong></td></tr>
+                  {highestCities(2).filter((x) => x.slug !== c.slug).map((x) => (
+                    <tr key={x.slug}><td><Link href={`/guides/states/${x.stateSlug}/${x.slug}`}>{x.name}</Link> — among the highest</td><td>{x.combinedRate}%</td><td>{money((1000 * x.combinedRate) / 100)}</td></tr>
+                  ))}
+                  {lowestCities(2).filter((x) => x.slug !== c.slug).map((x) => (
+                    <tr key={x.slug}><td><Link href={`/guides/states/${x.stateSlug}/${x.slug}`}>{x.name}</Link> — among the lowest</td><td>{x.combinedRate}%</td><td>{money((1000 * x.combinedRate) / 100)}</td></tr>
+                  ))}
+                </tbody>
+              </table>
+            </>
+          )}
+
+          <h2>What this means in {c.name}</h2>
+          <p>
+            {c.combinedRate === 0
+              ? <>There is no sales tax to budget for in {c.name}: the shelf price is the till price. Against the all-state average combined rate of {AVG_COMBINED}%, that saves {money((10000 * AVG_COMBINED) / 100)} on a $10,000 purchase — the saving is structural, and it applies to residents and visitors alike.</>
+              : <>On planned purchases the rate is a line item, not a rounding error: {money(taxOn(10000))} on $10,000, which is {money(Math.abs(taxOn(10000) - (10000 * s.salesTaxAvgCombined) / 100))} {c.combinedRate >= s.salesTaxAvgCombined ? "more" : "less"} than the same purchase at the {s.name} average rate. Households near a lower-rate city boundary sometimes route vehicles, appliances and furniture purchases accordingly; on weekly spending, the difference is a few dollars a month and rarely worth a trip.</>}
+          </p>
+
           <h2>Selling in {c.name}</h2>
           <p>
             If your business delivers into {c.name}, the rate your customer pays is generally the combined rate at
-            their address. Once your {s.name} sales pass the state's economic-nexus threshold you must register,
+            their address. Once your {s.name} sales pass the state&apos;s economic-nexus threshold you must register,
             collect and remit — the threshold and filing basics are covered on the{" "}
             <Link href={`/sales-tax/${s.slug}/${c.slug}`}>{c.name} sales tax page</Link>, and the statewide picture is
             in the <Link href={`/guides/states/${s.slug}`}>{s.name} tax guide</Link>.
           </p>
         </div>
+
+        <section className="mt-12">
+          <h2 className="text-2xl font-extrabold tracking-tight mb-5">{c.name} sales tax FAQs</h2>
+          <div className="space-y-6">
+            {faqs.map((f) => (
+              <div key={f.question}>
+                <h3 className="font-semibold mb-1">{f.question}</h3>
+                <p className="text-muted-foreground leading-relaxed">{f.answer}</p>
+              </div>
+            ))}
+          </div>
+        </section>
 
         <aside className="mt-12 bg-[#064E3B] text-white rounded-2xl p-6 md:p-8">
           <h2 className="text-lg font-bold mb-1 flex items-center gap-2"><Calculator className="h-5 w-5" /> Calculate {c.name} tax</h2>
@@ -121,6 +206,9 @@ export default async function CityGuidePage({ params }: { params: Promise<{ stat
             </Link>
             <Link href="/ecommerce/sales-tax-vat-calculator" className="inline-flex items-center gap-2 bg-white text-[#064E3B] text-sm font-semibold px-4 py-2.5 rounded-full hover:bg-emerald-50 transition-colors">
               Sales tax &amp; VAT calculator <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link href={`/locations/${s.slug}`} className="inline-flex items-center gap-2 bg-white text-[#064E3B] text-sm font-semibold px-4 py-2.5 rounded-full hover:bg-emerald-50 transition-colors">
+              {s.name} taxes &amp; finance <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
         </aside>

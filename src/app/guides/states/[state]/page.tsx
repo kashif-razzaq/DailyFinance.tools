@@ -3,8 +3,9 @@ import Script from "next/script"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import { ArrowRight, Calculator } from "lucide-react"
-import { US_STATES, type USState } from "@/data/locations/us-states"
+import { US_STATES, taxOn, type USState } from "@/data/locations/us-states"
 import { US_CITIES } from "@/data/locations/us-cities"
+import { AVG_COMBINED, AVG_PROPERTY, combinedRank, closestByCombined, highestCombined, lowestCombined, overallMeaning, pointsDiff, propertyRank } from "@/data/locations/stats"
 
 export function generateStaticParams() {
   return US_STATES.map((s) => ({ state: s.slug }))
@@ -44,32 +45,45 @@ export default async function StateGuidePage({ params }: { params: Promise<{ sta
   const homeValue = 400000
   const propertyTaxYear = (homeValue * s.propertyTaxAvg) / 100
   const cities = US_CITIES.filter((c) => c.stateSlug === s.slug)
+  const sRank = combinedRank(s)
+  const pRank = propertyRank(s)
+  const vsAvg = pointsDiff(s.salesTaxAvgCombined, AVG_COMBINED)
+  const peers = closestByCombined(s)
+  const baskets = [25, 100, 500, 1000, 10000]
+  const faqs = [
+    {
+      question: `What is the sales tax rate in ${s.name}?`,
+      answer: `The statewide base rate in ${s.name} is ${s.salesTaxBase}%. With local taxes added, the average combined rate is about ${s.salesTaxAvgCombined}%, and the exact rate depends on where the sale takes place.`,
+    },
+    {
+      question: `Does ${s.name} have a state income tax?`,
+      answer: s.incomeTax === "none" ? `No. ${s.name} does not tax wage income at the state level.` : `Yes. ${s.incomeTaxNote}`,
+    },
+    {
+      question: `Are groceries taxed in ${s.name}?`,
+      answer: s.groceriesNote,
+    },
+    {
+      question: `How does ${s.name} rank for sales tax nationally?`,
+      answer: `${s.name}'s average combined rate of ${s.salesTaxAvgCombined}% ranks ${sRank} of 51 states and DC (1 = highest) — ${vsAvg > 0 ? `${vsAvg} points above` : vsAvg < 0 ? `${Math.abs(vsAvg)} points below` : "equal to"} the all-state average of ${AVG_COMBINED}%. The highest average combined rate is ${highestCombined(1)[0].name} at ${highestCombined(1)[0].salesTaxAvgCombined}%; the lowest is ${lowestCombined(1)[0].name} at ${lowestCombined(1)[0].salesTaxAvgCombined}%.`,
+    },
+    {
+      question: `How much property tax do you pay in ${s.name}?`,
+      answer: `The average effective property tax rate in ${s.name} is about ${s.propertyTaxAvg}% of a home's value per year — rank ${pRank} of 51, against an all-state average of ${AVG_PROPERTY}%. On a $400,000 home that is roughly ${money((400000 * s.propertyTaxAvg) / 100)} a year. County assessors set actual bills, and exemptions can reduce them.`,
+    },
+    {
+      question: `Where can I verify ${s.name} tax rates?`,
+      answer: `The rates in this guide are reviewed averages for planning. For a filing or a specific address, confirm the current rate with the ${s.name} Department of Revenue (sales and income tax) or the county assessor (property tax).`,
+    },
+  ]
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: `What is the sales tax rate in ${s.name}?`,
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: `The statewide base rate in ${s.name} is ${s.salesTaxBase}%. With local taxes added, the average combined rate is about ${s.salesTaxAvgCombined}%, and the exact rate depends on where the sale takes place.`,
-        },
-      },
-      {
-        "@type": "Question",
-        name: `Does ${s.name} have a state income tax?`,
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: s.incomeTax === "none" ? `No. ${s.name} does not tax wage income at the state level.` : `Yes. ${s.incomeTaxNote}`,
-        },
-      },
-      {
-        "@type": "Question",
-        name: `Are groceries taxed in ${s.name}?`,
-        acceptedAnswer: { "@type": "Answer", text: s.groceriesNote },
-      },
-    ],
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.question,
+      acceptedAnswer: { "@type": "Answer", text: f.answer },
+    })),
   }
 
   return (
@@ -90,6 +104,17 @@ export default async function StateGuidePage({ params }: { params: Promise<{ sta
           specific transaction with the {s.name} Department of Revenue.
         </p>
 
+        <div className="bg-primary/5 border border-primary/20 rounded-2xl p-6 mb-10">
+          <h2 className="text-sm font-bold uppercase tracking-wider text-primary mb-2">The short answer</h2>
+          <p className="leading-relaxed">
+            {s.name}: <strong>{s.salesTaxBase}%</strong> state sales tax, about <strong>{s.salesTaxAvgCombined}%</strong>{" "}
+            average combined (rank <strong>{sRank} of 51</strong> — {vsAvg > 0 ? `${vsAvg} points above` : vsAvg < 0 ? `${Math.abs(vsAvg)} points below` : "equal to"} the {AVG_COMBINED}% all-state average),{" "}
+            {s.incomeTax === "none" ? <strong>no state income tax</strong> : <>a <strong>{s.incomeTax}</strong> income tax</>}, and an
+            average effective property tax of <strong>{s.propertyTaxAvg}%</strong> (rank {pRank} of 51). On a $100
+            purchase at the average combined rate, the tax is {money(taxOn(100, s.salesTaxAvgCombined))}.
+          </p>
+        </div>
+
         <div className="content-prose">
           <h2>Sales tax in {s.name}</h2>
           <p>
@@ -101,9 +126,21 @@ export default async function StateGuidePage({ params }: { params: Promise<{ sta
             noticeably different totals on the same item.
           </p>
           <p>{s.groceriesNote}</p>
+          <h3>Worked examples at the average combined rate</h3>
+          <p>What the {s.salesTaxAvgCombined}% average combined rate adds to purchases of different sizes:</p>
+          <table>
+            <thead>
+              <tr><th>Purchase</th><th>Tax</th><th>Total</th></tr>
+            </thead>
+            <tbody>
+              {baskets.map((amt) => (
+                <tr key={amt}><td>{money(amt)}</td><td>{money(taxOn(amt, s.salesTaxAvgCombined))}</td><td>{money(amt + taxOn(amt, s.salesTaxAvgCombined))}</td></tr>
+              ))}
+            </tbody>
+          </table>
           <p>
             If you sell into {s.name} from another state, economic nexus rules can oblige you to collect its tax once
-            your sales pass the state's threshold — the exact threshold and what counts toward it are in the{" "}
+            your sales pass the state&apos;s threshold — the exact threshold and what counts toward it are in the{" "}
             <Link href={`/sales-tax/${s.slug}`}>{s.name} sales tax calculator and rate page</Link>, and the data hub
             for the state is the <Link href={`/locations/${s.slug}`}>{s.name} locations page</Link>.
           </p>
@@ -121,11 +158,40 @@ export default async function StateGuidePage({ params }: { params: Promise<{ sta
           <h2>Property tax in {s.name}</h2>
           <p>
             The average effective property tax rate in {s.name} is about <strong>{s.propertyTaxAvg}%</strong> of a
-            home's value per year. On a {money(homeValue)} home that is roughly {money(propertyTaxYear)} a year, or{" "}
+            home&apos;s value per year. On a {money(homeValue)} home that is roughly {money(propertyTaxYear)} a year, or{" "}
             {money(propertyTaxYear / 12)} a month — a real line in the housing budget, collected through escrow in
             most mortgages. Averages hide wide local variation: the county and school district set most of the rate,
             and homestead exemptions can cut the taxable value for owner-occupiers.
           </p>
+
+          <h2>How {s.name} compares</h2>
+          <p>
+            The states closest to {s.name} on average combined sales tax, with the national extremes for scale. The
+            all-state averages across the 51 entries are {AVG_COMBINED}% for combined sales tax and {AVG_PROPERTY}%
+            for property tax.
+          </p>
+          <table>
+            <thead>
+              <tr><th>State</th><th>Combined sales tax</th><th>Property tax</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>{s.name} (this guide)</strong></td><td><strong>{s.salesTaxAvgCombined}%</strong></td><td><strong>{s.propertyTaxAvg}%</strong></td></tr>
+              {peers.map((o) => (
+                <tr key={o.slug}><td><Link href={`/guides/states/${o.slug}`}>{o.name}</Link></td><td>{o.salesTaxAvgCombined}%</td><td>{o.propertyTaxAvg}%</td></tr>
+              ))}
+              {highestCombined(1).map((o) => o.slug !== s.slug && (
+                <tr key={o.slug}><td><Link href={`/guides/states/${o.slug}`}>{o.name}</Link> — highest combined</td><td>{o.salesTaxAvgCombined}%</td><td>{o.propertyTaxAvg}%</td></tr>
+              ))}
+              {lowestCombined(1).map((o) => o.slug !== s.slug && (
+                <tr key={o.slug}><td><Link href={`/guides/states/${o.slug}`}>{o.name}</Link> — lowest combined</td><td>{o.salesTaxAvgCombined}%</td><td>{o.propertyTaxAvg}%</td></tr>
+              ))}
+            </tbody>
+          </table>
+
+          <h2>What this means for your money</h2>
+          {overallMeaning(s).map((p, i) => (
+            <p key={i}>{p}</p>
+          ))}
 
           <h2>Key figures</h2>
           <table>
@@ -157,6 +223,18 @@ export default async function StateGuidePage({ params }: { params: Promise<{ sta
             </>
           )}
         </div>
+
+        <section className="mt-12">
+          <h2 className="text-2xl font-extrabold tracking-tight mb-5">{s.name} tax FAQs</h2>
+          <div className="space-y-6">
+            {faqs.map((f) => (
+              <div key={f.question}>
+                <h3 className="font-semibold mb-1">{f.question}</h3>
+                <p className="text-muted-foreground leading-relaxed">{f.answer}</p>
+              </div>
+            ))}
+          </div>
+        </section>
 
         <aside className="mt-12 bg-[#064E3B] text-white rounded-2xl p-6 md:p-8">
           <h2 className="text-lg font-bold mb-1 flex items-center gap-2"><Calculator className="h-5 w-5" /> Calculators for {s.name}</h2>

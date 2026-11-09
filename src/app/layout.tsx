@@ -11,14 +11,16 @@ import "./globals.css";
 const sans = Figtree({ subsets: ["latin"], variable: "--font-sans" });
 const mono = JetBrains_Mono({ weight: ["400", "700"], subsets: ["latin"], variable: "--font-mono" });
 
+const SITE_DESCRIPTION =
+  '100+ free financial calculators for personal finance, mortgages, loans, taxes, retirement, freelance rates, creator earnings and e-commerce margins. No signup required.';
+
 export const metadata: Metadata = {
   metadataBase: new URL('https://dailyfinance.tools'),
   title: {
-    default: 'DailyFinance | 57+ Free & Pro Financial Calculators',
+    default: 'DailyFinance.tools | 100+ Free Financial Calculators',
     template: '%s',
   },
-  description:
-    'Free 57+ professional financial calculators. Optimize taxes, investments, cash flow, and wealth building with precision-engineered tools. No signup required.',
+  description: SITE_DESCRIPTION,
   keywords: [
     'financial calculators',
     'freelance tax calculator',
@@ -30,6 +32,14 @@ export const metadata: Metadata = {
     'compound interest calculator',
     'business finance tools',
   ],
+  // Canonical for the homepage only: the home page is a client component and
+  // cannot export metadata. Every other indexable route defines its own
+  // canonical (via generateCalculatorMetadata or its own metadata export),
+  // which overrides this value; it is otherwise inherited only by the
+  // robots-disallowed /dashboard, /login and /embed routes.
+  alternates: {
+    canonical: 'https://dailyfinance.tools/',
+  },
   robots: {
     index: true,
     follow: true,
@@ -38,18 +48,26 @@ export const metadata: Metadata = {
     'max-video-preview': -1,
   },
   openGraph: {
-    title: 'DailyFinance | Professional Financial Calculators',
-    description:
-      'Free 57+ professional financial calculators. Optimize taxes, investments, cash flow, and wealth building with precision-engineered tools. No signup required.',
+    title: 'DailyFinance.tools | 100+ Free Financial Calculators',
+    description: SITE_DESCRIPTION,
     url: 'https://dailyfinance.tools',
-    siteName: 'DailyFinance Tools',
+    siteName: 'DailyFinance.tools',
+    locale: 'en_US',
     type: 'website',
+    images: [
+      {
+        url: 'https://dailyfinance.tools/images/og-base.jpg',
+        width: 1376,
+        height: 768,
+        alt: 'DailyFinance.tools — free financial calculators',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'DailyFinance | Professional Financial Calculators',
-    description:
-      'Free 57+ professional financial calculators. Optimize taxes, investments, cash flow, and wealth building with precision-engineered tools. No signup required.',
+    title: 'DailyFinance.tools | 100+ Free Financial Calculators',
+    description: SITE_DESCRIPTION,
+    images: ['https://dailyfinance.tools/images/og-base.jpg'],
   },
 };
 
@@ -61,26 +79,31 @@ export default function RootLayout({
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "DailyFinance",
+    name: "DailyFinance.tools",
     url: "https://dailyfinance.tools",
-    logo: "https://dailyfinance.tools/logo.png",
+    logo: "https://dailyfinance.tools/logo.svg",
     sameAs: [],
     description:
-      "Free 57+ professional financial calculators for freelancers, creators, ecommerce sellers, real estate investors, and wealth builders.",
+      "100+ free financial calculators for personal finance, mortgages, loans, taxes, retirement, freelancers, creators and e-commerce sellers.",
+    contactPoint: {
+      "@type": "ContactPoint",
+      email: "momintechltd@gmail.com",
+      contactType: "customer support",
+    },
   };
 
+  // No SearchAction: the site has no search results route (the /tools
+  // directory does not consume a query parameter), so claiming one would
+  // point search engines at a URL that does not perform a search.
   const webSiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "DailyFinance",
+    name: "DailyFinance.tools",
     url: "https://dailyfinance.tools",
-    potentialAction: {
-      "@type": "SearchAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: "https://dailyfinance.tools/tools?q={search_term_string}",
-      },
-      "query-input": "required name=search_term_string",
+    publisher: {
+      "@type": "Organization",
+      name: "DailyFinance.tools",
+      url: "https://dailyfinance.tools",
     },
   };
 
@@ -90,16 +113,22 @@ export default function RootLayout({
     name: [
       "Freelance Tools",
       "Creator Economy Tools",
-      "Ecommerce Tools",
+      "E-Commerce Tools",
       "Real Estate Tools",
       "Personal Wealth Tools",
+      "Loans & Debt Tools",
+      "Tax & Salary Tools",
+      "Guides",
     ],
     url: [
-      "https://dailyfinance.tools/freelance/freelance-hourly-rate-calculator",
-      "https://dailyfinance.tools/creator/youtube-adsense-estimator",
-      "https://dailyfinance.tools/ecommerce/shopify-margin-calculator",
-      "https://dailyfinance.tools/real-estate/rental-cash-flow-calculator",
-      "https://dailyfinance.tools/personal-wealth/compound-interest-scaler-calculator",
+      "https://dailyfinance.tools/freelance",
+      "https://dailyfinance.tools/creator",
+      "https://dailyfinance.tools/ecommerce",
+      "https://dailyfinance.tools/real-estate",
+      "https://dailyfinance.tools/personal-wealth",
+      "https://dailyfinance.tools/loans",
+      "https://dailyfinance.tools/tax",
+      "https://dailyfinance.tools/guides",
     ],
   };
 

@@ -166,7 +166,7 @@ export default function AutoLeaseCalculatorPage() {
           </section>
 
           {/* Deep Dive Content Section */}
-          <article className="prose prose-slate prose-lg max-w-none">
+          <article className="content-prose max-w-none">
             <h2 className="text-3xl font-bold text-slate-900 mb-6">Navigating the Tax Benefits of Leased Vehicles</h2>
             <p>
               For freelancers, real estate agents, and small business owners, a vehicle isn't just a mode of transportation—it's a critical operational expense and a powerful tax shield. However, the IRS has strict rules governing exactly how you can write off a leased vehicle on your Schedule C or corporate tax return.

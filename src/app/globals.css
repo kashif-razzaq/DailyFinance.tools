@@ -147,3 +147,14 @@
 .content-prose th { @apply text-left font-bold px-4 py-3 text-neutral-900 dark:text-white; }
 .content-prose td { @apply px-4 py-3 border-t border-neutral-200 dark:border-neutral-800; }
 .content-prose blockquote { @apply border-l-4 border-[#064E3B] pl-4 italic my-6; }
+
+/* Branded route loader (src/app/loading.tsx): indeterminate progress bar.
+   No Tailwind/tw-animate utility covers a sliding progress segment, so the
+   keyframes live here; use via the `animate-df-progress` utility. */
+@theme {
+  --animate-df-progress: df-progress 1.3s ease-in-out infinite;
+}
+@keyframes df-progress {
+  0% { transform: translateX(-110%); }
+  60%, 100% { transform: translateX(330%); }
+}

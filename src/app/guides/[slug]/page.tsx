@@ -11,11 +11,33 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params
   const guide = getGuide(slug)
   if (!guide) return {}
+  const url = `https://dailyfinance.tools/guides/${guide.slug}`
   return {
     title: `${guide.title} | DailyFinance.tools`,
     description: guide.description,
-    alternates: { canonical: `https://dailyfinance.tools/guides/${guide.slug}` },
-    openGraph: { title: guide.title, description: guide.description, type: "article" },
+    alternates: { canonical: url },
+    openGraph: {
+      title: guide.title,
+      description: guide.description,
+      url,
+      siteName: "DailyFinance.tools",
+      locale: "en_US",
+      type: "article",
+      images: [
+        {
+          url: "https://dailyfinance.tools/images/og-base.jpg",
+          width: 1376,
+          height: 768,
+          alt: guide.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: guide.title,
+      description: guide.description,
+      images: ["https://dailyfinance.tools/images/og-base.jpg"],
+    },
   }
 }
 
