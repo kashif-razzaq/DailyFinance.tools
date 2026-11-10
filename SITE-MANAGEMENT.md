@@ -176,3 +176,32 @@ public page content. Pages, content, navigation, guides and sitemap checks
 were all green, and `npx tsc --noEmit` was clean. Re-run check-site to get
 the current truth — it is the single command that answers "is the site
 whole?"
+
+## State note (Round 6, 2026-11-10)
+
+- **Pro Tools category is live in code** (`/pro/<slug>`, navigation category
+  slug `pro`): 5 tools — Monte Carlo Retirement Simulator, Rental Property
+  Analyzer, Business Valuation Calculator, IRR & NPV Analyzer, Portfolio
+  Rebalancer. Each is wrapped in `ProGuard`
+  (`src/components/calculator/ProGuard.tsx`): non-Pro visitors see the
+  calculator blurred/inert under a lock card; the ToolContent guide below
+  stays fully readable. Shared inputs live in
+  `src/components/calculator/ProInputs.tsx`; content in
+  `src/data/tool-content-pro.ts`. check-site enforces ProGuard on every
+  `/pro/` client. isPro still comes from `users.subscription_status`.
+- **Login popup**: `LoginModalHost` (mounted in ConditionalLayout) +
+  `src/lib/auth-modal.ts` `openLoginModal(onSuccess?)`. Logged-out Save in
+  ToolActionsBar and all 14 freelance clients opens the popup and retries
+  the save after password sign-in. AuthForm has a `stayOnPage` prop for
+  popup use (no dashboard redirect; email links return to the same page).
+- **Theme**: class-based dark mode was already tokenised; Round 6 added the
+  switch — `ThemeToggle` (navbar icon + MobileMenu "Appearance" row),
+  localStorage key `df-theme`, pre-paint init script in `layout.tsx`
+  (system preference when unset), and `viewport.themeColor` for light
+  (#fafafa) / dark (#111827). Homepages were swept from hard-coded light
+  classes to semantic tokens so dark mode holds there; loader has `.dark`
+  overrides in globals.css (`.df-loader*`).
+- **Loader**: 3 bars in logo colours/order, single-colour wordmark, caption
+  "Loading your money toolkit…", and a 150ms anti-strobe delay (fast
+  navigations never flash it). Footer-link "bounce back" reports traced to
+  slow connections, verified working in a browser repro 2026-11-09.

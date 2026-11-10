@@ -65,7 +65,7 @@ if (navItems.length < 90) notes.push(`Navigation parse looks thin (${navItems.le
 
 // ---------- parse TOOL_CONTENT keys ----------
 const contentKeys = new Set()
-for (const f of readdirSync("src/data").filter((n) => /^tool-content-[a-z]\d*\.ts$/.test(n)).map((n) => `src/data/${n}`)) {
+for (const f of readdirSync("src/data").filter((n) => /^tool-content-[a-z0-9-]+\.ts$/.test(n)).map((n) => `src/data/${n}`)) {
   for (const m of read(f).matchAll(/^\s{2}"?([a-z0-9][a-z0-9-]*\/[a-z0-9][a-z0-9-]*)"?\s*:/gm)) contentKeys.add(m[1])
 }
 if (contentKeys.size < 40) notes.push(`TOOL_CONTENT parse looks thin (${contentKeys.size} keys) — check the parser.`)
@@ -148,6 +148,9 @@ for (const file of walk(join(ROOT, "src")).filter((f) => f.endsWith("CalculatorC
   const rel = file.replace(ROOT + "/", "")
   if (!src.includes("ToolActionsBar") && !src.includes("CalculatorActions")) {
     fail("wiring", `${rel} renders no actions bar (ToolActionsBar missing)`)
+  }
+  if (file.includes("/pro/") && !src.includes("ProGuard")) {
+    fail("wiring", `${rel} is a Pro tool but renders no ProGuard paywall`)
   }
   if (/'\$'/.test(src)) {
     fail("wiring", `${rel} still has a hard-coded '$' literal — use curSym()/useCurrencySymbol() from @/lib/currency`)

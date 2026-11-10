@@ -9,6 +9,11 @@ import { navigationCategories } from "@/config/navigation"
 // The advanced end of the live suite, pulled from the real navigation data
 // so this library can never drift from what is actually published.
 const ADVANCED_SLUGS = [
+  "monte-carlo",
+  "rental-property-analyzer",
+  "business-valuation",
+  "irr-npv",
+  "portfolio-rebalancer",
   "coast-fire",
   "fat-fire",
   "brrrr",

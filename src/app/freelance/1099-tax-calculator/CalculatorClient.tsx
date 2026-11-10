@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 import React, { useMemo, useState } from 'react'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 
@@ -58,7 +59,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     return { net, seBase, seTax, halfSe, federal1099, state, total, takeHome: net - total, quarterly: total / 4, effRate: net > 0 ? (total / net) * 100 : 0, setAside: net > 0 ? Math.ceil((total / net) * 100) : 0 }
   }, [income, expenses, w2, status, statePct])
 
-  return (<div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+  return (<><div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
     <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-6">
       <div className="grid grid-cols-2 gap-6">
         <MoneyInput label="1099 Income (gross)" value={income} onChange={setIncome} />
@@ -93,5 +94,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <p className="text-xs text-muted-foreground mt-4">Differentiator: SE tax is calculated on 92.35% of net earnings with the deductible half credited back, then split into the four real IRS payment deadlines (Q4 is due the following January).</p>
       </div>
     </div>
-  </div>)
+  </div>
+      <ToolActionsBar slug="1099-tax-calculator" isPro={isPro} inputs={{ income, expenses, w2, status, statePct }} />
+    </>)
 }

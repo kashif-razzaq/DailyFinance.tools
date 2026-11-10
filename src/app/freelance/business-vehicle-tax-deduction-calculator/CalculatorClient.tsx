@@ -6,6 +6,7 @@ import { Slider } from "@/components/ui/slider"
 import { Car, Calculator, FileText, Banknote, ShieldCheck } from "lucide-react"
 import { CalculatorActions } from "@/components/calculator/CalculatorActions"
 import { saveCalculatorAction, getSharedCalculatorAction } from '@/actions/calculator.actions'
+import { openLoginModal } from '@/lib/auth-modal'
 import { ProUpgradeModal } from "@/components/shared/ProUpgradeModal"
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
@@ -144,6 +145,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     } catch (error) {
       console.error(error)
       if (error instanceof Error && error.message.includes('Free accounts can save')) { setShowProModal(true); return }
+      if (error instanceof Error && error.message.includes('Unauthorized')) { openLoginModal(() => { void handleSave() }); return }
       alert("Failed to save.")
     } finally {
       setIsSaving(false)
