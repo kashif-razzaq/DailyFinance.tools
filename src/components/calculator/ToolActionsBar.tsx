@@ -5,6 +5,7 @@ import { CalculatorActions } from './CalculatorActions'
 import { ProUpgradeModal } from '@/components/shared/ProUpgradeModal'
 import { AdSlot } from '@/components/shared/AdSlot'
 import { saveCalculatorAction } from '@/actions/calculator.actions'
+import { unwrapSaveResult } from '@/lib/save-result'
 import { openLoginModal } from '@/lib/auth-modal'
 import { navigationCategories, getToolUrl } from '@/config/navigation'
 import { CheckCircle2 } from 'lucide-react'
@@ -65,12 +66,12 @@ export function ToolActionsBar({
   const handleSave = async () => {
     setIsSaving(true)
     try {
-      await saveCalculatorAction({
+      unwrapSaveResult(await saveCalculatorAction({
         calculator_slug: slug,
         category: tool.categoryName,
         saved_name: `${tool.title} scenario`,
         input_state: inputs,
-      })
+      }))
       setToast('Saved to your Vault')
     } catch (error) {
       const message = error instanceof Error ? error.message : ''

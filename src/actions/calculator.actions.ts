@@ -52,21 +52,35 @@ async function getSessionSafe(supabase: Awaited<ReturnType<typeof getSupabase>>)
   }
 }
 
-async function assertVaultCapacity(supabase: Awaited<ReturnType<typeof getSupabase>>, userId: string) {
+async function vaultLimitMessage(supabase: Awaited<ReturnType<typeof getSupabase>>, userId: string): Promise<string | null> {
   const { data: profile } = await supabase
     .from('users')
     .select('subscription_status')
     .eq('id', userId)
     .single()
-  if (profile?.subscription_status === 'active') return
+  if (profile?.subscription_status === 'active') return null
   const { count } = await supabase
     .from('saved_calculators')
     .select('*', { count: 'exact', head: true })
     .eq('user_id', userId)
   if ((count ?? 0) >= FREE_VAULT_LIMIT) {
-    throw new Error(`Free accounts can save up to ${FREE_VAULT_LIMIT} scenarios. Upgrade to Pro for unlimited Vault storage.`)
+    return `Free accounts can save up to ${FREE_VAULT_LIMIT} scenarios. Upgrade to Pro for unlimited Vault storage.`
   }
+  return null
 }
+
+async function assertVaultCapacity(supabase: Awaited<ReturnType<typeof getSupabase>>, userId: string) {
+  const message = await vaultLimitMessage(supabase, userId)
+  if (message) throw new Error(message)
+}
+
+/** Save outcomes travel as RETURN VALUES, never thrown errors: production
+ *  builds redact thrown server-action messages before they reach the
+ *  browser, so the client cannot branch on them. Callers convert the
+ *  result back into local errors with unwrapSaveResult (lib/save-result). */
+export type SaveCalculatorResult =
+  | { ok: true; data: SavedCalculator }
+  | { ok: false; reason: 'unauthorized' | 'limit' | 'error'; message: string }
 
 /**
  * Saves or updates a calculator scenario state for the logged-in user.
@@ -87,14 +101,14 @@ export async function saveCalculatorAction({
   input_state: Record<string, unknown>;
   core_metric?: number;
   is_public?: boolean;
-}) {
+}): Promise<SaveCalculatorResult> {
   const supabase = await getSupabase()
-  
+
   // Fast local session decoding (RLS securely enforces validity at the DB level)
   const { session, error: authError } = await getSessionSafe(supabase)
   const user = session?.user
   if (authError || !user) {
-    throw new Error('Unauthorized')
+    return { ok: false, reason: 'unauthorized' as const, message: 'Unauthorized' }
   }
 
   const payload = {
@@ -119,7 +133,8 @@ export async function saveCalculatorAction({
       .single()
   } else {
     // Insert new — enforce the free-tier Vault limit (Pro is unlimited)
-    await assertVaultCapacity(supabase, user.id)
+    const limitMessage = await vaultLimitMessage(supabase, user.id)
+    if (limitMessage) return { ok: false, reason: 'limit' as const, message: limitMessage }
     result = await supabase
       .from('saved_calculators')
       .insert([payload])
@@ -127,10 +142,10 @@ export async function saveCalculatorAction({
       .single()
   }
 
-  if (result.error) throw new Error(result.error.message)
-  
+  if (result.error) return { ok: false, reason: 'error' as const, message: result.error.message }
+
   revalidatePath('/dashboard')
-  return result.data as SavedCalculator
+  return { ok: true as const, data: result.data as SavedCalculator }
 }
 
 /**
