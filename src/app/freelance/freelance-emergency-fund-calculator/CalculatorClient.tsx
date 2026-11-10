@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button"
 import { Slider } from "@/components/ui/slider"
 import { Save, Lock, Download, CheckCircle2, Share2, ShieldAlert, Activity, Target, AlertTriangle } from "lucide-react"
 import { saveCalculatorAction, getSharedCalculatorAction } from '@/actions/calculator.actions'
+import { unwrapSaveResult } from '@/lib/save-result'
 import { openLoginModal } from '@/lib/auth-modal'
 import { ProUpgradeModal } from "@/components/shared/ProUpgradeModal"
 
@@ -63,7 +64,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     
     setIsSaving(true)
     try {
-      const savedResult = await saveCalculatorAction({
+      const savedResult = unwrapSaveResult(await saveCalculatorAction({
         calculator_slug: 'irregular-income-buffer-calculator',
         category: 'Freelance & Business',
         saved_name: `Buffer Target: ${currencySymbol}${Math.round(metrics.finalRecommendedBuffer)}`,
@@ -77,7 +78,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           targetMonthsToBuild: store.targetMonthsToBuild
         },
         core_metric: Math.round(metrics.finalRecommendedBuffer)
-      })
+      }))
       if (savedResult?.id) {
         setSavedScenarioId(savedResult.id)
       }

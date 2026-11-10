@@ -12,6 +12,7 @@ import { Slider } from "@/components/ui/slider"
 import { Target, Save, Lock, ArrowRight, ShieldCheck, Download, Percent, Clock, CheckCircle2, Loader2, Share2, Code, ThumbsUp, ThumbsDown, Copy, X } from "lucide-react"
 import { ResponsiveContainer, Tooltip, Legend } from 'recharts'
 import { saveCalculatorAction, getSharedCalculatorAction } from '@/actions/calculator.actions'
+import { unwrapSaveResult } from '@/lib/save-result'
 import { openLoginModal } from '@/lib/auth-modal'
 import { getFeedbackAction, voteFeedbackAction } from '@/actions/feedback.actions'
 import { ProUpgradeModal } from "@/components/shared/ProUpgradeModal"
@@ -91,7 +92,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     
     setIsSaving(true)
     try {
-      const savedResult = await saveCalculatorAction({
+      const savedResult = unwrapSaveResult(await saveCalculatorAction({
         calculator_slug: 'hourly-rate-reverse-engineer-calculator',
         category: 'Freelance & Business',
         saved_name: `Rate Plan: ${currencySymbol}${Math.round(metrics.hourlyRateMAR)}/hr`,
@@ -105,7 +106,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           profitBuffer: store.profitBuffer
         },
         core_metric: Math.round(metrics.hourlyRateMAR)
-      })
+      }))
       if (savedResult?.id) {
         setSavedScenarioId(savedResult.id)
       }

@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button"
 import { Slider } from "@/components/ui/slider"
 import { Save, Lock, Share2, Users, Target, Activity, AlertTriangle, CheckCircle2 } from "lucide-react"
 import { saveCalculatorAction, getSharedCalculatorAction } from '@/actions/calculator.actions'
+import { unwrapSaveResult } from '@/lib/save-result'
 import { openLoginModal } from '@/lib/auth-modal'
 import { ProUpgradeModal } from "@/components/shared/ProUpgradeModal"
 
@@ -45,7 +46,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     
     setIsSaving(true)
     try {
-      const savedResult = await saveCalculatorAction({
+      const savedResult = unwrapSaveResult(await saveCalculatorAction({
         calculator_slug: 'client-ltv-calculator',
         category: 'Freelance & Business',
         saved_name: `Target CAC: ${currencySymbol}${Math.round(metrics.targetMaxCAC)}`,
@@ -57,7 +58,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           targetLtvCacRatio: store.targetLtvCacRatio
         },
         core_metric: Math.round(metrics.targetMaxCAC)
-      })
+      }))
       if (savedResult?.id) {
         setSavedScenarioId(savedResult.id)
       }

@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Slider } from "@/components/ui/slider"
 import { Save, Lock, Share2, MapPin, Plane, CheckCircle2, TrendingUp, PlaneTakeoff, ShieldCheck } from "lucide-react"
 import { saveCalculatorAction, getSharedCalculatorAction } from '@/actions/calculator.actions'
+import { unwrapSaveResult } from '@/lib/save-result'
 import { openLoginModal } from '@/lib/auth-modal'
 import { ProUpgradeModal } from "@/components/shared/ProUpgradeModal"
 import { useGlobalSettingsStore, formatCurrency } from '@/store/global-settings.store'
@@ -44,7 +45,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     
     setIsSaving(true)
     try {
-      const savedResult = await saveCalculatorAction({
+      const savedResult = unwrapSaveResult(await saveCalculatorAction({
         calculator_slug: 'nomad-cost-of-living-calculator',
         category: 'Freelance & Business',
         saved_name: `Runway Ext: +${metrics.runwayExtension.toFixed(1)} mos`,
@@ -56,7 +57,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           monthlyIncome: store.monthlyIncome
         },
         core_metric: Math.round(metrics.runwayExtension) // Storing extension months as core metric
-      })
+      }))
       if (savedResult?.id) {
         setSavedScenarioId(savedResult.id)
       }
