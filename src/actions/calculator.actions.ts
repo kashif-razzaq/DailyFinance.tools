@@ -34,6 +34,24 @@ async function getSupabase() {
  *  saved scenarios; Pro (subscription_status = 'active') is unlimited. */
 const FREE_VAULT_LIMIT = 3
 
+/**
+ * getSession that cannot leak a transport error. Supabase throws
+ * AuthRetryableFetchError when the auth server is unreachable (project
+ * paused, DNS gone, network down); unguarded, that raw error reaches the
+ * client, which cannot tell it apart from a generic failure and shows a
+ * dead "could not save" message. Treating it as signed out routes the
+ * caller into the normal 'Unauthorized' path — the client turns that
+ * into the sign-in popup, as designed.
+ */
+async function getSessionSafe(supabase: Awaited<ReturnType<typeof getSupabase>>) {
+  try {
+    const { data: { session }, error } = await supabase.auth.getSession()
+    return { session, error }
+  } catch {
+    return { session: null, error: null }
+  }
+}
+
 async function assertVaultCapacity(supabase: Awaited<ReturnType<typeof getSupabase>>, userId: string) {
   const { data: profile } = await supabase
     .from('users')
@@ -73,7 +91,7 @@ export async function saveCalculatorAction({
   const supabase = await getSupabase()
   
   // Fast local session decoding (RLS securely enforces validity at the DB level)
-  const { data: { session }, error: authError } = await supabase.auth.getSession()
+  const { session, error: authError } = await getSessionSafe(supabase)
   const user = session?.user
   if (authError || !user) {
     throw new Error('Unauthorized')
@@ -121,7 +139,7 @@ export async function saveCalculatorAction({
 export async function cloneCalculatorAction(id: string) {
   const supabase = await getSupabase()
   
-  const { data: { session }, error: authError } = await supabase.auth.getSession()
+  const { session, error: authError } = await getSessionSafe(supabase)
   const user = session?.user
   if (authError || !user) throw new Error('Unauthorized')
 
@@ -163,7 +181,7 @@ export async function cloneCalculatorAction(id: string) {
 export async function getSavedCalculatorsAction() {
   const supabase = await getSupabase()
   
-  const { data: { session }, error: authError } = await supabase.auth.getSession()
+  const { session, error: authError } = await getSessionSafe(supabase)
   const user = session?.user
   if (authError || !user) {
     throw new Error('Unauthorized')
@@ -185,7 +203,7 @@ export async function getSavedCalculatorsAction() {
 export async function deleteCalculatorAction(id: string) {
   const supabase = await getSupabase()
   
-  const { data: { session } } = await supabase.auth.getSession()
+  const { session } = await getSessionSafe(supabase)
   const user = session?.user
   if (!user) throw new Error('Unauthorized')
 
@@ -220,7 +238,7 @@ export async function getSharedCalculatorAction(id: string) {
   if (error) throw new Error(error.message)
   
   // Ensure we don't accidentally leak private calculators if RLS was misconfigured
-  const { data: { session } } = await supabase.auth.getSession()
+  const { session } = await getSessionSafe(supabase)
   const user = session?.user
   const isOwner = user?.id === data.user_id
   
