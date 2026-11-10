@@ -8,7 +8,7 @@ import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
   title: "Black Friday Discount Calculator: Volume Needed to Keep Profit",
-  description: "Calculate whether your Black Friday discount makes money: discounted margin, profit per unit, and the exact volume uplift needed just to match a normal period.",
+  description: "Does your Black Friday discount make money? Discounted margin, profit per unit, and the exact volume uplift needed just to match a normal period.",
   keywords: ["black friday discount calculator", "discount roi calculator", "sale discount profit calculator", "how much volume to break even on a discount", "discount margin calculator"],
   slug: "ecommerce/black-friday-discount-roi-calculator",
   category: "E-Commerce",
@@ -16,7 +16,7 @@ export const metadata: Metadata = generateCalculatorMetadata({
 
 export default function Page() {
   return (
-    <ToolLayout title="Black Friday Discount ROI Calculator" description="Calculate whether your Black Friday discount makes money: discounted margin, profit per unit, and the exact volume uplift needed just to match a normal period." slug="black-friday-discount-roi-calculator" faqs={TOOL_CONTENT["ecommerce/black-friday-discount-roi-calculator"]?.faqs ?? []} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
+    <ToolLayout title="Black Friday Discount ROI Calculator" description="Does your Black Friday discount make money? Discounted margin, profit per unit, and the exact volume uplift needed just to match a normal period." slug="black-friday-discount-roi-calculator" faqs={TOOL_CONTENT["ecommerce/black-friday-discount-roi-calculator"]?.faqs ?? []} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
       {() => <ToolContent contentKey="ecommerce/black-friday-discount-roi-calculator" />}
     </ToolLayout>
   )

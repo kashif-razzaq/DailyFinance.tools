@@ -5,7 +5,7 @@ import { Calculator, Eye, ShieldCheck, RefreshCw } from "lucide-react"
 
 export const metadata: Metadata = {
   title: "About DailyFinance — Free Financial Calculators, Reviewed by a Finance Professional",
-  description: "DailyFinance builds free, transparent financial calculators for freelancers, creators, e-commerce sellers, real estate investors and wealth builders. Every formula is shown and reviewed by Tahir Shehzad, ACMA.",
+  description: "Free, transparent financial calculators for freelancers, creators, sellers and investors — every formula shown, reviewed by Tahir Shehzad, ACMA.",
   alternates: { canonical: "https://dailyfinance.tools/about" },
 }
 

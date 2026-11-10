@@ -4,7 +4,7 @@ import { generateCalculatorMetadata } from "@/config/metadata"
 
 export const metadata: Metadata = generateCalculatorMetadata({
   title: "Creator Economy Calculators — YouTube, TikTok, Patreon & Sponsorship Tools",
-  description: "Free creator calculators: YouTube money and RPM estimates, TikTok Creator Rewards earnings, sponsorship pricing, Patreon and Substack take-home pay, platform fees and course launch revenue.",
+  description: "Free creator calculators: YouTube and TikTok earnings, sponsorship pricing, Patreon and Substack take-home pay, platform fees and course launch revenue.",
   keywords: ["creator economy calculators", "youtube money calculator", "tiktok money calculator", "sponsorship pricing calculator", "patreon calculator"],
   slug: "creator",
   category: "Tools",

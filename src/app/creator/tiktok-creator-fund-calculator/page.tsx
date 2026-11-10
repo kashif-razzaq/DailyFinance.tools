@@ -8,7 +8,7 @@ import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
   title: "TikTok Money Calculator: Creator Rewards Earnings (Creator Fund Ended 2023)",
-  description: "Estimate TikTok Creator Rewards earnings the current way: qualified views on original videos over 1 minute at roughly $0.40 to $1.00 per 1,000. The old Creator Fund ended in December 2023; this calculator shows both.",
+  description: "TikTok Creator Rewards, estimated the current way: qualified views on original 1-minute-plus videos at $0.40–$1.00 per 1,000. Old Creator Fund included.",
   keywords: ["tiktok money calculator", "tiktok creator rewards calculator", "tiktok creator fund calculator", "how much does tiktok pay per 1000 views", "tiktok creator rewards rpm"],
   slug: "creator/tiktok-creator-fund-calculator",
   category: "Creator Economy",
@@ -16,7 +16,7 @@ export const metadata: Metadata = generateCalculatorMetadata({
 
 export default function Page() {
   return (
-    <ToolLayout title="TikTok Money Calculator" description="Estimate TikTok Creator Rewards earnings the current way: qualified views on original videos over 1 minute at roughly $0.40 to $1.00 per 1,000. The old Creator Fund ended in December 2023; this calculator shows both." slug="tiktok-creator-fund-calculator" faqs={TOOL_CONTENT["creator/tiktok-creator-fund-calculator"]?.faqs ?? []} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
+    <ToolLayout title="TikTok Money Calculator" description="TikTok Creator Rewards, estimated the current way: qualified views on original 1-minute-plus videos at $0.40–$1.00 per 1,000. Old Creator Fund included." slug="tiktok-creator-fund-calculator" faqs={TOOL_CONTENT["creator/tiktok-creator-fund-calculator"]?.faqs ?? []} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
       {() => <ToolContent contentKey="creator/tiktok-creator-fund-calculator" />}
     </ToolLayout>
   )
