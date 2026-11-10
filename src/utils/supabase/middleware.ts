@@ -33,8 +33,14 @@ export async function updateSession(request: NextRequest) {
     }
   )
 
-  // refreshing the auth token
-  await supabase.auth.getUser()
+  // refreshing the auth token — fail-soft: if the auth server cannot be
+  // reached, skip the refresh for this request instead of erroring every
+  // page (pages themselves degrade to logged-out via safeGetUser).
+  try {
+    await supabase.auth.getUser()
+  } catch {
+    // Auth unreachable: continue without a session refresh.
+  }
 
   return supabaseResponse
 }

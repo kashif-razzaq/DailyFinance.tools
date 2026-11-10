@@ -3,6 +3,7 @@ import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 import { Crown, Check } from 'lucide-react'
 import Link from 'next/link'
+import { safeGetUser } from '@/utils/supabase/safe-user'
 
 export const metadata: Metadata = {
   title: 'Subscription — DailyFinance',
@@ -36,9 +37,7 @@ export default async function BillingPage() {
       },
     }
   )
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+  const user = await safeGetUser(supabase)
 
   let status: string = 'free'
   if (user) {

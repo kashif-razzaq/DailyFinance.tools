@@ -5,6 +5,7 @@ import { createServerClient } from "@supabase/ssr"
 import { cookies } from "next/headers"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { safeGetUser } from "@/utils/supabase/safe-user"
 
 export default async function AnalyticsPage() {
   // Cross-Data Analytics is a Pro feature (see /pricing) — enforce server-side.
@@ -14,7 +15,7 @@ export default async function AnalyticsPage() {
     process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
     { cookies: { getAll() { return cookieStore.getAll() } } }
   )
-  const { data: { user } } = await supabase.auth.getUser()
+  const user = await safeGetUser(supabase)
   let isPro = false
   if (user) {
     const { data: profile } = await supabase.from("users").select("subscription_status").eq("id", user.id).single()

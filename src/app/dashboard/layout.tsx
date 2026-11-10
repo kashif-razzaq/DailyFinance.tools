@@ -2,6 +2,7 @@ import { redirect } from "next/navigation"
 import { createServerClient } from "@supabase/ssr"
 import { cookies } from "next/headers"
 import { DashboardSidebar } from "@/components/layout/DashboardSidebar"
+import { safeGetUser } from "@/utils/supabase/safe-user"
 import { DashboardMobileNav } from "@/components/layout/DashboardMobileNav"
 
 export default async function DashboardLayout({
@@ -27,8 +28,9 @@ export default async function DashboardLayout({
     }
   )
 
-  // Secure all dashboard routes
-  const { data: { user } } = await supabase.auth.getUser()
+  // Secure all dashboard routes (fail-soft: a Supabase network failure
+  // reads as logged-out and redirects to login instead of a 500)
+  const user = await safeGetUser(supabase)
   if (!user) {
     redirect("/login")
   }

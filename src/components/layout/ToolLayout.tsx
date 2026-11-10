@@ -12,6 +12,7 @@ import { ProDashboardWidget } from "@/components/shared/ProDashboardWidget"
 import { AdSlot } from "@/components/shared/AdSlot"
 import { PreferredSourceButton } from "@/components/shared/PreferredSourceButton"
 import { getCategoryForTool } from "@/config/navigation"
+import { safeGetUser } from "@/utils/supabase/safe-user"
 
 export interface FAQ {
   question: string;
@@ -52,21 +53,26 @@ export async function ToolLayout({
         },
       })
     : null
-  const { data: { user } } = supabase ? await supabase.auth.getUser() : { data: { user: null } }
-  
+  const user = supabase ? await safeGetUser(supabase) : null
+
   if (user && supabase) {
-    const { data: profile } = await supabase.from('users').select('subscription_status').eq('id', user.id).single()
-    if (profile?.subscription_status === 'active') {
-      isPro = true
+    try {
+      const { data: profile } = await supabase.from('users').select('subscription_status').eq('id', user.id).single()
+      if (profile?.subscription_status === 'active') {
+        isPro = true
+      }
+
+      // Fetch total vault count
+      const { count } = await supabase
+        .from('saved_calculators')
+        .select('*', { count: 'exact', head: true })
+        .eq('user_id', user.id)
+
+      vaultCount = count || 0
+    } catch {
+      // Supabase hiccup mid-render: serve the page with free defaults
+      // rather than failing the whole navigation.
     }
-    
-    // Fetch total vault count
-    const { count } = await supabase
-      .from('saved_calculators')
-      .select('*', { count: 'exact', head: true })
-      .eq('user_id', user.id)
-      
-    vaultCount = count || 0
   }
 
   const softwareSchema = {

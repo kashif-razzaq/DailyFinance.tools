@@ -4,6 +4,7 @@ import { cookies } from 'next/headers'
 import { Crown } from 'lucide-react'
 import Link from 'next/link'
 import { SettingsClient } from './SettingsClient'
+import { safeGetUser } from '@/utils/supabase/safe-user'
 
 export const metadata: Metadata = {
   title: 'Profile & Settings — DailyFinance',
@@ -27,9 +28,7 @@ async function getSupabase() {
 
 export default async function SettingsPage() {
   const supabase = await getSupabase()
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+  const user = await safeGetUser(supabase)
 
   let isPro = false
   let memberSince: string | null = null
