@@ -4,7 +4,7 @@ import { generateCalculatorMetadata } from "@/config/metadata"
 
 export const metadata: Metadata = generateCalculatorMetadata({
   title: "Personal Wealth Calculators — FIRE, Retirement, Debt Payoff & Savings Tools",
-  description: "Free personal wealth calculators: compound interest, Coast FIRE and FIRE numbers, 401(k) and Roth IRA projections, debt avalanche vs snowball payoff, credit card and student loan payoff, net worth and emergency funds.",
+  description: "Free personal wealth calculators: compound interest, Coast FIRE, FIRE numbers, 401(k) and Roth IRA, debt payoff, net worth and emergency funds.",
   keywords: ["personal finance calculators", "compound interest calculator", "coast fire calculator", "retirement calculator", "debt payoff calculator", "net worth calculator"],
   slug: "personal-wealth",
   category: "Tools",

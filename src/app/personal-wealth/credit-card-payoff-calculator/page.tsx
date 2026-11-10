@@ -8,7 +8,7 @@ import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
   title: 'Credit Card Payoff Calculator: Debt-Free Date & Interest Saved',
-  description: 'See when you will be credit-card debt-free with a fixed payment, the total interest, and how the minimum-payment trap compares. Free credit card payoff calculator.',
+  description: 'When will you be credit-card debt-free? Fixed payment vs the minimum-payment trap: debt-free date and total interest, compared. Free calculator.',
   keywords: ['credit card payoff calculator', 'credit card debt payoff', 'minimum payment calculator', 'how long to pay off credit card'],
   slug: "personal-wealth/credit-card-payoff-calculator",
   category: "Personal Wealth",
@@ -16,7 +16,7 @@ export const metadata: Metadata = generateCalculatorMetadata({
 
 export default function Page() {
   return (
-    <ToolLayout title="Credit Card Payoff Calculator" description="See when you will be credit-card debt-free with a fixed payment, the total interest, and how the minimum-payment trap compares. Free credit card payoff calculator." slug="credit-card-payoff-calculator" faqs={TOOL_CONTENT["personal-wealth/credit-card-payoff-calculator"]?.faqs ?? []} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
+    <ToolLayout title="Credit Card Payoff Calculator" description="When will you be credit-card debt-free? Fixed payment vs the minimum-payment trap: debt-free date and total interest, compared. Free calculator." slug="credit-card-payoff-calculator" faqs={TOOL_CONTENT["personal-wealth/credit-card-payoff-calculator"]?.faqs ?? []} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
       {() => <ToolContent contentKey="personal-wealth/credit-card-payoff-calculator" />}
     </ToolLayout>
   )

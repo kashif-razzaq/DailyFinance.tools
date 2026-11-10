@@ -8,7 +8,7 @@ import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
   title: 'Student Loan Payoff Calculator: Payoff Date, Interest & Extra Payments',
-  description: 'Calculate your student loan payoff date, total interest and exactly how much time and money extra monthly payments save you. Free student loan payoff calculator.',
+  description: 'Your student loan payoff date and total interest, calculated — plus exactly how much time and money extra payments save you. Free calculator.',
   keywords: ['student loan payoff calculator', 'student loan calculator', 'how long to pay off student loan', 'student loan interest calculator'],
   slug: "personal-wealth/student-loan-payoff-calculator",
   category: "Personal Wealth",
@@ -16,7 +16,7 @@ export const metadata: Metadata = generateCalculatorMetadata({
 
 export default function Page() {
   return (
-    <ToolLayout title="Student Loan Payoff Calculator" description="Calculate your student loan payoff date, total interest and exactly how much time and money extra monthly payments save you. Free student loan payoff calculator." slug="student-loan-payoff-calculator" faqs={TOOL_CONTENT["personal-wealth/student-loan-payoff-calculator"]?.faqs ?? []} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
+    <ToolLayout title="Student Loan Payoff Calculator" description="Your student loan payoff date and total interest, calculated — plus exactly how much time and money extra payments save you. Free calculator." slug="student-loan-payoff-calculator" faqs={TOOL_CONTENT["personal-wealth/student-loan-payoff-calculator"]?.faqs ?? []} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
       {() => <ToolContent contentKey="personal-wealth/student-loan-payoff-calculator" />}
     </ToolLayout>
   )

@@ -6,11 +6,11 @@ import { ToolContent } from "@/components/shared/ToolContent"
 import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
-export const metadata: Metadata = generateCalculatorMetadata({ title: "Monte Carlo Retirement Simulator – 1,000 Futures for Your Plan (Pro)", description: "Run 1,000 simulated market futures for your retirement plan: success rate, percentile outcomes and sequence risk in today's dollars. A DailyFinance Pro tool.", keywords: ['monte carlo retirement calculator', 'retirement simulator', 'retirement success rate'], slug: "pro/monte-carlo-retirement-simulator", category: "Pro Tools" });
+export const metadata: Metadata = generateCalculatorMetadata({ title: "Monte Carlo Retirement Simulator – 1,000 Futures for Your Plan (Pro)", description: "1,000 simulated market futures for your retirement plan: success rate, percentile outcomes and sequence risk in today's dollars. A Pro tool.", keywords: ['monte carlo retirement calculator', 'retirement simulator', 'retirement success rate'], slug: "pro/monte-carlo-retirement-simulator", category: "Pro Tools" });
 
 export default function Page() {
   return (
-    <ToolLayout title="Monte Carlo Retirement Simulator" description="Run 1,000 simulated market futures for your retirement plan: success rate, percentile outcomes and sequence risk in today's dollars. A DailyFinance Pro tool." slug="monte-carlo-retirement-simulator" faqs={TOOL_CONTENT["pro/monte-carlo-retirement-simulator"]?.faqs ?? []} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
+    <ToolLayout title="Monte Carlo Retirement Simulator" description="1,000 simulated market futures for your retirement plan: success rate, percentile outcomes and sequence risk in today's dollars. A Pro tool." slug="monte-carlo-retirement-simulator" faqs={TOOL_CONTENT["pro/monte-carlo-retirement-simulator"]?.faqs ?? []} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
       {() => <ToolContent contentKey="pro/monte-carlo-retirement-simulator" />}
     </ToolLayout>
   )

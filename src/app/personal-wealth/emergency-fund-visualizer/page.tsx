@@ -8,7 +8,7 @@ import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
   title: 'Emergency Fund Calculator: How Many Months Do You Need?',
-  description: 'Calculate your emergency fund target from your real essential spending and risk level, see how many months you already cover, and when you will be fully funded. Free.',
+  description: 'Your emergency fund target from real essential spending and risk level: months you already cover, and when you’ll be fully funded. Free tool.',
   keywords: ['emergency fund calculator', 'how much emergency fund do i need', 'months of expenses saved', 'starter emergency fund'],
   slug: "personal-wealth/emergency-fund-visualizer",
   category: "Personal Wealth",
@@ -16,7 +16,7 @@ export const metadata: Metadata = generateCalculatorMetadata({
 
 export default function Page() {
   return (
-    <ToolLayout title="Emergency Fund Calculator" description="Calculate your emergency fund target from your real essential spending and risk level, see how many months you already cover, and when you will be fully funded. Free." slug="emergency-fund-visualizer" faqs={TOOL_CONTENT["personal-wealth/emergency-fund-visualizer"]?.faqs ?? []} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
+    <ToolLayout title="Emergency Fund Calculator" description="Your emergency fund target from real essential spending and risk level: months you already cover, and when you’ll be fully funded. Free tool." slug="emergency-fund-visualizer" faqs={TOOL_CONTENT["personal-wealth/emergency-fund-visualizer"]?.faqs ?? []} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
       {() => <ToolContent contentKey="personal-wealth/emergency-fund-visualizer" />}
     </ToolLayout>
   )

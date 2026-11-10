@@ -6,7 +6,7 @@ import { Check, X } from "lucide-react"
 
 export const metadata: Metadata = {
   title: "Pricing — Free Calculators Forever, Pro for $2.99/mo | DailyFinance",
-  description: "DailyFinance is free: all calculators, charts and up to 3 saved scenarios. Go Pro for $2.99/mo — unlimited Scenario Vault, CSV/Excel exports, premium PDF reports, cross-data analytics and zero ads.",
+  description: "DailyFinance is free: all calculators and up to 3 saved scenarios. Pro is $2.99/mo: unlimited Vault, CSV/Excel exports, premium PDFs, analytics, zero ads.",
   alternates: { canonical: "https://dailyfinance.tools/pricing" },
   keywords: ["dailyfinance pro", "financial calculator subscription", "scenario vault pricing"],
 }

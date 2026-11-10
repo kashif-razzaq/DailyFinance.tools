@@ -5,7 +5,7 @@ import { generateCalculatorMetadata } from "@/config/metadata"
 export const metadata: Metadata = generateCalculatorMetadata({
   title: "Pro Tools — Advanced Financial Simulators & Analyzers",
   description:
-    "DailyFinance Pro tools: a Monte Carlo retirement simulator, rental property analyzer, business valuation calculator, IRR & NPV analyzer and portfolio rebalancer. The guides are free to read; the interactive tools are Pro.",
+    "DailyFinance Pro tools: Monte Carlo retirement simulator, rental property analyzer, business valuation, IRR & NPV analyzer and portfolio rebalancer.",
   keywords: ["monte carlo retirement simulator", "rental property analyzer", "business valuation calculator", "irr npv analyzer", "portfolio rebalancer"],
   slug: "pro",
   category: "Tools",
