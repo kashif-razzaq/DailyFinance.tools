@@ -5,7 +5,7 @@ import { generateCalculatorMetadata } from "@/config/metadata"
 export const metadata: Metadata = generateCalculatorMetadata({
   title: "Tax & Salary Calculators — Paycheck, Income Tax, Take-Home Pay",
   description:
-    "Free tax and salary calculators: federal income tax with bracket breakdowns, paycheck and take-home pay, salary conversions, overtime pay and capital gains tax. Estimates labelled, figures shown.",
+    "Free tax and salary calculators: federal income tax with bracket breakdowns, paycheck and take-home pay, salary conversions, overtime and capital gains.",
   keywords: ["tax calculator", "paycheck calculator", "income tax calculator", "take home pay calculator", "salary calculator"],
   slug: "tax",
   category: "Tools",

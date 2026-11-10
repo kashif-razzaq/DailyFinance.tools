@@ -16,8 +16,8 @@ export async function generateMetadata({ params }: { params: Promise<{ state: st
   const s = getStateBySlug(state)
   if (!s) return { title: "State Not Found" }
   return {
-    title: `${s.name} Sales Tax Calculator & Rate Guide — ${s.salesTaxBase}% State, ~${s.salesTaxAvgCombined}% Combined`,
-    description: `How sales tax works in ${s.name}: ${s.salesTaxBase}% state rate, about ${s.salesTaxAvgCombined}% average combined with local taxes, grocery treatment, worked examples for $50–$1,000 purchases, and a free calculator for your exact local rate.`,
+    title: `${s.name} Sales Tax Calculator & 2026 Rates (${s.salesTaxBase}%)`,
+    description: `Calculate sales tax in ${s.name}: ${s.salesTaxBase}% state rate, about ${s.salesTaxAvgCombined}% combined with local taxes. Grocery rules, worked examples and a free calculator.`,
     alternates: { canonical: `https://dailyfinance.tools/sales-tax/${s.slug}` },
     keywords: [`${s.name.toLowerCase()} sales tax rate`, `${s.name.toLowerCase()} sales tax calculator`, `sales tax in ${s.name.toLowerCase()}`, `how much is sales tax in ${s.name.toLowerCase()}`],
   }

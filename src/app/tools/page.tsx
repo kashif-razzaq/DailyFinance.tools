@@ -6,7 +6,7 @@ import { ArrowRight, CheckCircle2 } from "lucide-react"
 
 export const metadata: Metadata = {
   title: "All 100 Free Financial Calculators — The Complete Directory | DailyFinance",
-  description: "The complete DailyFinance directory: the researched Top 100 financial calculators across personal finance, mortgages, loans, tax, retirement, freelance, creator and e-commerce.",
+  description: "The complete DailyFinance directory: the Top 100 financial calculators across personal finance, mortgages, loans, tax, retirement and freelance.",
   alternates: { canonical: "https://dailyfinance.tools/tools" },
   keywords: ["financial calculators", "all calculators", "free finance tools", "calculator directory"],
 }
