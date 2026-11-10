@@ -9,6 +9,7 @@ import { User } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { createSupabaseContext } from '@/utils/supabase/server'
 import { CurrencySelector } from '@/components/layout/CurrencySelector'
+import { ThemeToggle } from '@/components/layout/ThemeToggle'
 
 export async function Navbar() {
   const { data } = await createSupabaseContext()
@@ -62,6 +63,7 @@ export async function Navbar() {
 
         {/* Right Side: CTA & Auth */}
         <div className="flex items-center gap-3">
+          <ThemeToggle />
           <CurrencySelector />
           {user ? (
             <UserBadge user={user} isPremium={isPremium} />

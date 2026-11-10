@@ -24,6 +24,7 @@ export function NavigationLoader() {
   const pathname = usePathname()
   const shownAt = useRef(0)
   const firstRender = useRef(true)
+  const showTimer = useRef<number | undefined>(undefined)
 
   // Show instantly on any internal link click (capture phase, so we paint
   // before the router starts work).
@@ -46,19 +47,26 @@ export function NavigationLoader() {
       if (url.origin !== window.location.origin) return
       if (url.pathname === window.location.pathname && url.search === window.location.search) return
       shownAt.current = Date.now()
-      setVisible(true)
       window.clearTimeout(safety)
-      safety = window.setTimeout(() => setVisible(false), 5000)
+      window.clearTimeout(showTimer.current)
+      // Anti-strobe: only paint the loader if the navigation is actually
+      // taking a moment — instant prefetched pages never flash it.
+      showTimer.current = window.setTimeout(() => {
+        setVisible(true)
+        safety = window.setTimeout(() => setVisible(false), 5000)
+      }, 150)
     }
     document.addEventListener('click', onClick, true)
     return () => {
       document.removeEventListener('click', onClick, true)
       window.clearTimeout(safety)
+      window.clearTimeout(showTimer.current)
     }
   }, [])
 
   // Fade out when the new route lands — but never before ~350ms on screen.
   useEffect(() => {
+    window.clearTimeout(showTimer.current)
     if (firstRender.current) {
       firstRender.current = false
       return
@@ -70,7 +78,10 @@ export function NavigationLoader() {
 
   // Back/forward navigation never fires our click handler.
   useEffect(() => {
-    const onPop = () => setVisible(false)
+    const onPop = () => {
+      window.clearTimeout(showTimer.current)
+      setVisible(false)
+    }
     window.addEventListener('popstate', onPop)
     return () => window.removeEventListener('popstate', onPop)
   }, [])
@@ -80,7 +91,7 @@ export function NavigationLoader() {
       role="status"
       aria-label="Loading"
       aria-hidden={!visible}
-      className={`fixed inset-0 z-[200] flex flex-col items-center justify-center overflow-hidden bg-[#FAFAF8] transition-opacity duration-300 ${
+      className={`df-loader fixed inset-0 z-[200] flex flex-col items-center justify-center overflow-hidden bg-[#FAFAF8] transition-opacity duration-300 ${
         visible ? 'opacity-100' : 'pointer-events-none opacity-0'
       }`}
     >
@@ -90,23 +101,20 @@ export function NavigationLoader() {
 
       {/* White tile with the animated bar-chart mark */}
       <div
-        className={`relative flex h-24 w-24 items-end justify-center gap-[6px] rounded-[1.75rem] border border-neutral-200/70 bg-white pb-6 shadow-[0_24px_50px_-16px_rgba(6,78,59,0.25)] transition-all duration-300 ${
+        className={`df-loader-tile relative flex h-24 w-24 items-end justify-center gap-[6px] rounded-[1.75rem] border border-neutral-200/70 bg-white pb-6 shadow-[0_24px_50px_-16px_rgba(6,78,59,0.25)] transition-all duration-300 ${
           visible ? 'scale-100 opacity-100' : 'scale-95 opacity-0'
         }`}
       >
         <span className="df-eq-bar h-4 w-[7px] rounded-full bg-[#064E3B]" />
-        <span className="df-eq-bar h-7 w-[7px] rounded-full bg-emerald-500" style={{ animationDelay: '0.12s' }} />
-        <span className="df-eq-bar h-10 w-[7px] rounded-full bg-amber-500" style={{ animationDelay: '0.24s' }} />
-        <span className="df-eq-bar h-6 w-[7px] rounded-full bg-[#064E3B]" style={{ animationDelay: '0.36s' }} />
+        <span className="df-eq-bar h-7 w-[7px] rounded-full bg-[#064E3B]" style={{ animationDelay: '0.12s' }} />
+        <span className="df-eq-bar h-10 w-[7px] rounded-full bg-[#D97706]" style={{ animationDelay: '0.24s' }} />
       </div>
 
-      <p className="relative mt-6 text-[1.7rem] font-bold leading-none tracking-tight text-[#1F2937]">
-        Daily<span className="text-[#064E3B]">Finance</span>
-      </p>
-      <p className="relative mt-2.5 text-sm text-neutral-500">Loading your calculators&hellip;</p>
+      <p className="df-loader-word relative mt-6 text-[1.7rem] font-bold leading-none tracking-tight text-[#1F2937]">DailyFinance</p>
+      <p className="df-loader-caption relative mt-2.5 text-sm text-neutral-500">Loading your money toolkit&hellip;</p>
 
       {/* Emerald progress shimmer */}
-      <div className="relative mt-7 h-1 w-48 overflow-hidden rounded-full bg-[#064E3B]/10" aria-hidden="true">
+      <div className="df-loader-track relative mt-7 h-1 w-48 overflow-hidden rounded-full bg-[#064E3B]/10" aria-hidden="true">
         <div className="animate-df-progress h-full w-16 rounded-full bg-[#064E3B]" />
       </div>
     </div>
