@@ -5,6 +5,7 @@ import React, { useState } from 'react'
 import Link from 'next/link'
 import { navigationCategories, getToolUrl } from '@/config/navigation'
 import { X, ChevronRight, ArrowRight, User } from 'lucide-react'
+import { ThemeToggle } from '@/components/layout/ThemeToggle'
 import { Button, buttonVariants } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
@@ -128,6 +129,11 @@ export function MobileMenu({ user }: { user?: any }) {
             Contact Us <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
+      </div>
+
+      {/* Appearance */}
+      <div className="border-t px-4 py-2">
+        <ThemeToggle variant="row" />
       </div>
 
       {/* Sticky Auth Footer */}

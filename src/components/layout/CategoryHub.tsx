@@ -2,7 +2,7 @@ import React from "react"
 import Link from "next/link"
 import Script from "next/script"
 import { navigationCategories, getToolUrl } from "@/config/navigation"
-import { ArrowRight, CheckCircle2, ChevronDown, Zap } from "lucide-react"
+import { ArrowRight, CheckCircle2, ChevronDown, Crown, Zap } from "lucide-react"
 
 export interface HubFAQ { question: string; answer: string }
 
@@ -87,6 +87,11 @@ export function CategoryHub({ categorySlug, quickAnswer, intro, decisions, faqs 
                 <div className="flex items-center gap-3 mb-3">
                   <div className={`p-2 rounded-xl ${category.colorClass}`}><CalcIcon className="h-5 w-5" /></div>
                   <h3 className="font-bold text-foreground group-hover:text-primary transition-colors leading-tight">{calc.title}</h3>
+                  {calc.isPremium && (
+                    <span className="ml-auto inline-flex shrink-0 items-center gap-1 rounded-full bg-[#D97706]/10 px-2 py-0.5 text-[10px] font-extrabold tracking-wide text-[#D97706]">
+                      <Crown className="h-3 w-3" /> PRO
+                    </span>
+                  )}
                 </div>
                 <p className="text-sm text-muted-foreground leading-relaxed mb-4">{calc.description}</p>
                 <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary">Use this calculator <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>

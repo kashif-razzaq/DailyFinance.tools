@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Figtree, JetBrains_Mono } from "next/font/google";
 import Script from "next/script";
 import { Navbar } from "@/components/layout/Navbar";
@@ -13,6 +13,14 @@ const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono" });
 
 const SITE_DESCRIPTION =
   '100+ free financial calculators for personal finance, mortgages, loans, taxes, retirement, freelance rates, creator earnings and e-commerce margins. No signup required.';
+
+// Browser chrome colour, matched to the site's own backgrounds in both modes.
+export const viewport: Viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#fafafa' },
+    { media: '(prefers-color-scheme: dark)', color: '#111827' },
+  ],
+}
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://dailyfinance.tools'),
@@ -135,6 +143,12 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${sans.variable} ${mono.variable} font-sans antialiased bg-background text-foreground min-h-screen flex flex-col`}>
+        {/* Apply the stored/system theme before first paint (no flash). */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('df-theme');if(t==='dark'||(t===null&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.classList.add('dark')}}catch(e){}})()`,
+          }}
+        />
         <AdSenseScript />
         <Script
           id="schema-organization"

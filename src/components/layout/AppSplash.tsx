@@ -57,7 +57,7 @@ export function AppSplash() {
           <Logo className="h-12 w-12" />
         </span>
         <span className="font-bold text-3xl tracking-tight text-foreground">
-          Daily<span className="text-primary">Finance</span>
+DailyFinance
         </span>
         <p className="text-sm text-muted-foreground text-center">
           Precision-engineered financial calculators.

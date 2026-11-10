@@ -79,7 +79,7 @@ export function MobileHome() {
     return (
       <div
         key={tool.slug}
-        className="relative flex items-center gap-3 rounded-3xl border border-neutral-100 bg-white p-4 shadow-sm transition-transform active:scale-[0.98]"
+        className="relative flex items-center gap-3 rounded-3xl border border-border bg-card p-4 shadow-sm transition-transform active:scale-[0.98]"
       >
         <Link
           href={getToolUrl(tool.slug)}
@@ -91,8 +91,8 @@ export function MobileHome() {
           <Icon className="h-5 w-5" />
         </div>
         <div className="relative z-10 min-w-0 flex-1 pointer-events-none">
-          <p className="truncate text-[15px] font-bold leading-snug text-[#1F2937]">{tool.title}</p>
-          <p className="truncate text-[13px] font-light text-neutral-500">{category.name}</p>
+          <p className="truncate text-[15px] font-bold leading-snug text-foreground">{tool.title}</p>
+          <p className="truncate text-[13px] font-light text-muted-foreground">{category.name}</p>
         </div>
         {opts?.showStar !== false && (
           <button
@@ -103,41 +103,41 @@ export function MobileHome() {
             className="relative z-20 flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-transform active:scale-90"
           >
             <Star
-              className={`h-5 w-5 ${isFav ? 'fill-[#D97706] text-[#D97706]' : 'text-neutral-300'}`}
+              className={`h-5 w-5 ${isFav ? 'fill-[#D97706] text-[#D97706]' : 'text-muted-foreground/60'}`}
             />
           </button>
         )}
-        <ChevronRight className="relative z-10 h-5 w-5 shrink-0 text-neutral-300 pointer-events-none" />
+        <ChevronRight className="relative z-10 h-5 w-5 shrink-0 text-muted-foreground/60 pointer-events-none" />
       </div>
     )
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#FAFAFA] pb-8">
+    <div className="flex min-h-screen flex-col bg-background pb-8">
       {/* ── 1 · Hero ─────────────────────────────────────────── */}
-      <header className="bg-white px-5 pb-6 pt-5">
-        <h1 className="text-[28px] font-extrabold leading-[1.15] tracking-tight text-[#1F2937]">
+      <header className="bg-card px-5 pb-6 pt-5">
+        <h1 className="text-[28px] font-extrabold leading-[1.15] tracking-tight text-foreground">
           100+ free <span className="text-[#064E3B]">financial</span> <CalcWord />
         </h1>
-        <p className="mt-2.5 text-[15px] font-light leading-relaxed text-neutral-500">
+        <p className="mt-2.5 text-[15px] font-light leading-relaxed text-muted-foreground">
           Mortgages, paychecks, taxes, loans and savings — worked out in seconds. No sign-up to calculate.
         </p>
 
         {/* Search */}
         <div className="relative z-30 mt-5">
           <div
-            className={`flex items-center rounded-2xl border-2 bg-white transition-all ${
-              searchFocused ? 'border-[#064E3B] shadow-[0_12px_32px_-12px_rgba(6,78,59,0.35)]' : 'border-neutral-200/70 shadow-sm'
+            className={`flex items-center rounded-2xl border-2 bg-card transition-all ${
+              searchFocused ? 'border-[#064E3B] shadow-[0_12px_32px_-12px_rgba(6,78,59,0.35)]' : 'border-border/70 shadow-sm'
             }`}
           >
             <span className="flex items-center justify-center pl-4 pr-2">
-              <Search className={`h-5 w-5 ${searchFocused ? 'text-[#064E3B]' : 'text-neutral-400'}`} />
+              <Search className={`h-5 w-5 ${searchFocused ? 'text-[#064E3B]' : 'text-muted-foreground'}`} />
             </span>
             <input
               type="text"
               inputMode="search"
               placeholder="Search calculators — try “mortgage”"
-              className="w-full bg-transparent py-3.5 pr-4 text-base font-medium text-foreground outline-none placeholder:text-neutral-400"
+              className="w-full bg-transparent py-3.5 pr-4 text-base font-medium text-foreground outline-none placeholder:text-muted-foreground"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onFocus={() => setSearchFocused(true)}
@@ -147,7 +147,7 @@ export function MobileHome() {
           </div>
 
           {query.trim().length > 0 && searchFocused && (
-            <div className="absolute inset-x-0 top-full mt-2 overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-[0_24px_50px_-12px_rgba(0,0,0,0.25)]">
+            <div className="absolute inset-x-0 top-full mt-2 overflow-hidden rounded-2xl border border-border bg-card shadow-[0_24px_50px_-12px_rgba(0,0,0,0.25)]">
               {searchResults.length > 0 ? (
                 <div className="max-h-[60vh] overflow-y-auto py-1.5">
                   {searchResults.map(({ tool, category }) => {
@@ -157,22 +157,22 @@ export function MobileHome() {
                         key={tool.slug}
                         href={getToolUrl(tool.slug)}
                         onClick={() => recordRecent(tool.slug)}
-                        className="flex items-center gap-3 px-4 py-3 transition-colors active:bg-neutral-50"
+                        className="flex items-center gap-3 px-4 py-3 transition-colors active:bg-muted"
                       >
                         <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${category.colorClass}`}>
                           <Icon className="h-5 w-5" />
                         </span>
                         <span className="min-w-0 flex-1">
-                          <span className="block truncate text-[15px] font-bold text-[#1F2937]">{tool.title}</span>
-                          <span className="block truncate text-[13px] font-light text-neutral-500">{category.name}</span>
+                          <span className="block truncate text-[15px] font-bold text-foreground">{tool.title}</span>
+                          <span className="block truncate text-[13px] font-light text-muted-foreground">{category.name}</span>
                         </span>
-                        <ChevronRight className="h-5 w-5 shrink-0 text-neutral-300" />
+                        <ChevronRight className="h-5 w-5 shrink-0 text-muted-foreground/60" />
                       </Link>
                     )
                   })}
                 </div>
               ) : (
-                <p className="px-4 py-5 text-center text-sm font-light text-neutral-500">
+                <p className="px-4 py-5 text-center text-sm font-light text-muted-foreground">
                   No calculators match “{query.trim()}”. Try “tax”, “loan” or “ROI”.
                 </p>
               )}
@@ -188,7 +188,7 @@ export function MobileHome() {
                 key={chip.slug + chip.label}
                 href={chip.href}
                 onClick={() => recordRecent(chip.slug)}
-                className="rounded-full border border-neutral-200 bg-white px-4 py-2 text-sm font-semibold text-[#1F2937] shadow-sm transition-transform active:scale-95"
+                className="rounded-full border border-border bg-card px-4 py-2 text-sm font-semibold text-foreground shadow-sm transition-transform active:scale-95"
               >
                 {chip.label}
               </Link>
@@ -199,7 +199,7 @@ export function MobileHome() {
 
       {/* ── 2 · Popular tools ────────────────────────────────── */}
       <section className="px-5 pt-7">
-        <h2 className="mb-3.5 text-lg font-extrabold tracking-tight text-[#1F2937]">Popular tools</h2>
+        <h2 className="mb-3.5 text-lg font-extrabold tracking-tight text-foreground">Popular tools</h2>
         <div className="grid grid-cols-2 gap-3">
           {popularTools.map(({ tool, category }) => {
             const Icon = tool.icon || Calculator
@@ -207,7 +207,7 @@ export function MobileHome() {
             return (
               <div
                 key={tool.slug}
-                className="relative flex min-h-[132px] flex-col rounded-3xl border border-neutral-100 bg-white p-4 shadow-sm transition-transform active:scale-[0.98]"
+                className="relative flex min-h-[132px] flex-col rounded-3xl border border-border bg-card p-4 shadow-sm transition-transform active:scale-[0.98]"
               >
                 <Link
                   href={getToolUrl(tool.slug)}
@@ -218,7 +218,7 @@ export function MobileHome() {
                 <div className={`relative z-10 flex h-10 w-10 items-center justify-center rounded-2xl ${category.colorClass}`}>
                   <Icon className="h-5 w-5" />
                 </div>
-                <p className="relative z-10 mt-3 pr-6 text-[14px] font-bold leading-snug text-[#1F2937] pointer-events-none">
+                <p className="relative z-10 mt-3 pr-6 text-[14px] font-bold leading-snug text-foreground pointer-events-none">
                   {tool.title}
                 </p>
                 <button
@@ -228,7 +228,7 @@ export function MobileHome() {
                   aria-pressed={isFav}
                   className="absolute right-2.5 top-2.5 z-20 flex h-9 w-9 items-center justify-center rounded-full transition-transform active:scale-90"
                 >
-                  <Star className={`h-5 w-5 ${isFav ? 'fill-[#D97706] text-[#D97706]' : 'text-neutral-300'}`} />
+                  <Star className={`h-5 w-5 ${isFav ? 'fill-[#D97706] text-[#D97706]' : 'text-muted-foreground/60'}`} />
                 </button>
               </div>
             )
@@ -239,12 +239,12 @@ export function MobileHome() {
       {/* ── 3 · Your tools (favourites + recents) ────────────── */}
       {mounted && (
         <section className="px-5 pt-8">
-          <h2 className="mb-3.5 text-lg font-extrabold tracking-tight text-[#1F2937]">Your tools</h2>
+          <h2 className="mb-3.5 text-lg font-extrabold tracking-tight text-foreground">Your tools</h2>
           {hasYourTools ? (
             <div className="flex flex-col gap-5">
               {favouriteTools.length > 0 && (
                 <div>
-                  <p className="mb-2 flex items-center gap-1.5 text-[12px] font-bold uppercase tracking-wider text-neutral-400">
+                  <p className="mb-2 flex items-center gap-1.5 text-[12px] font-bold uppercase tracking-wider text-muted-foreground">
                     <Star className="h-3.5 w-3.5 fill-[#D97706] text-[#D97706]" /> Pinned
                   </p>
                   <div className="flex flex-col gap-2.5">
@@ -254,7 +254,7 @@ export function MobileHome() {
               )}
               {recentTools.length > 0 && (
                 <div>
-                  <p className="mb-2 flex items-center gap-1.5 text-[12px] font-bold uppercase tracking-wider text-neutral-400">
+                  <p className="mb-2 flex items-center gap-1.5 text-[12px] font-bold uppercase tracking-wider text-muted-foreground">
                     <Clock className="h-3.5 w-3.5" /> Recently used
                   </p>
                   <div className="flex flex-col gap-2.5">
@@ -264,8 +264,8 @@ export function MobileHome() {
               )}
             </div>
           ) : (
-            <p className="flex items-center gap-2 rounded-3xl border border-dashed border-neutral-200 bg-white/60 px-4 py-3.5 text-sm font-light text-neutral-500">
-              <Star className="h-4 w-4 shrink-0 text-neutral-300" />
+            <p className="flex items-center gap-2 rounded-3xl border border-dashed border-border bg-white/60 px-4 py-3.5 text-sm font-light text-muted-foreground">
+              <Star className="h-4 w-4 shrink-0 text-muted-foreground/60" />
               Star a tool to pin it here — your pins and recent tools stay on this device.
             </p>
           )}
@@ -274,7 +274,7 @@ export function MobileHome() {
 
       {/* ── 4 · Categories ───────────────────────────────────── */}
       <section className="px-5 pt-8">
-        <h2 className="mb-3.5 text-lg font-extrabold tracking-tight text-[#1F2937]">Categories</h2>
+        <h2 className="mb-3.5 text-lg font-extrabold tracking-tight text-foreground">Categories</h2>
         <div className="flex flex-col gap-2.5">
           {navigationCategories.map((category) => {
             const Icon = category.icon || Calculator
@@ -282,21 +282,21 @@ export function MobileHome() {
               <Link
                 key={category.slug}
                 href={`/${category.slug}`}
-                className="flex items-center gap-3.5 rounded-3xl border border-neutral-100 bg-white p-4 shadow-sm transition-transform active:scale-[0.98]"
+                className="flex items-center gap-3.5 rounded-3xl border border-border bg-card p-4 shadow-sm transition-transform active:scale-[0.98]"
               >
                 <span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl ${category.colorClass}`}>
                   <Icon className="h-5 w-5" />
                 </span>
                 <span className="min-w-0 flex-1">
                   <span className="flex items-baseline gap-2">
-                    <span className="truncate text-[15px] font-bold text-[#1F2937]">{category.name}</span>
-                    <span className="shrink-0 text-[12px] font-semibold text-neutral-400">
+                    <span className="truncate text-[15px] font-bold text-foreground">{category.name}</span>
+                    <span className="shrink-0 text-[12px] font-semibold text-muted-foreground">
                       {category.calculators.length} tools
                     </span>
                   </span>
-                  <span className="block truncate text-[13px] font-light text-neutral-500">{category.description}</span>
+                  <span className="block truncate text-[13px] font-light text-muted-foreground">{category.description}</span>
                 </span>
-                <ChevronRight className="h-5 w-5 shrink-0 text-neutral-300" />
+                <ChevronRight className="h-5 w-5 shrink-0 text-muted-foreground/60" />
               </Link>
             )
           })}
@@ -328,7 +328,7 @@ export function MobileHome() {
       {/* ── 6 · Guides strip ─────────────────────────────────── */}
       <section className="pt-8">
         <div className="mb-3.5 flex items-baseline justify-between px-5">
-          <h2 className="text-lg font-extrabold tracking-tight text-[#1F2937]">Guides</h2>
+          <h2 className="text-lg font-extrabold tracking-tight text-foreground">Guides</h2>
           <Link href="/guides" className="text-sm font-bold text-[#064E3B]">
             All guides
           </Link>
@@ -338,11 +338,11 @@ export function MobileHome() {
             <Link
               key={guide.slug}
               href={`/guides/${guide.slug}`}
-              className="flex w-[238px] shrink-0 snap-start flex-col rounded-3xl border border-neutral-100 bg-white p-5 shadow-sm transition-transform active:scale-[0.98]"
+              className="flex w-[238px] shrink-0 snap-start flex-col rounded-3xl border border-border bg-card p-5 shadow-sm transition-transform active:scale-[0.98]"
             >
               <span className="mb-2 text-[11px] font-bold uppercase tracking-[0.14em] text-[#064E3B]">{guide.hub}</span>
-              <span className="text-[15px] font-bold leading-snug text-[#1F2937]">{guide.title}</span>
-              <span className="mt-2 line-clamp-3 text-[13px] font-light leading-relaxed text-neutral-500">{guide.description}</span>
+              <span className="text-[15px] font-bold leading-snug text-foreground">{guide.title}</span>
+              <span className="mt-2 line-clamp-3 text-[13px] font-light leading-relaxed text-muted-foreground">{guide.description}</span>
             </Link>
           ))}
           <Link
@@ -372,10 +372,10 @@ export function MobileHome() {
             return (
               <div
                 key={item.label}
-                className="flex flex-col items-center gap-2 rounded-3xl border border-neutral-100 bg-white px-2 py-4 text-center shadow-sm"
+                className="flex flex-col items-center gap-2 rounded-3xl border border-border bg-card px-2 py-4 text-center shadow-sm"
               >
                 <Icon className="h-5 w-5 text-[#064E3B]" />
-                <span className="text-[12px] font-bold leading-tight text-[#1F2937]">{item.label}</span>
+                <span className="text-[12px] font-bold leading-tight text-foreground">{item.label}</span>
               </div>
             )
           })}
@@ -390,7 +390,7 @@ export function MobileHome() {
               type="button"
               onClick={dismissA2hs}
               aria-label="Dismiss home screen tip"
-              className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full text-neutral-400 transition-transform active:scale-90"
+              className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground transition-transform active:scale-90"
             >
               <X className="h-4.5 w-4.5" />
             </button>
@@ -399,8 +399,8 @@ export function MobileHome() {
                 <Smartphone className="h-5 w-5" />
               </span>
               <div>
-                <h2 className="text-[15px] font-bold text-[#1F2937]">Add DailyFinance to your home screen</h2>
-                <p className="mt-1 text-[13px] font-light leading-relaxed text-neutral-500">
+                <h2 className="text-[15px] font-bold text-foreground">Add DailyFinance to your home screen</h2>
+                <p className="mt-1 text-[13px] font-light leading-relaxed text-muted-foreground">
                   App-like access, one tap away: open your browser menu and tap “Add to Home Screen”.
                 </p>
               </div>

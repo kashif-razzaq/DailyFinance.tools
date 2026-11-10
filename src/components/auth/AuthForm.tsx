@@ -14,10 +14,17 @@ export type AuthMode = 'magic' | 'login' | 'signup'
 
 export function AuthForm({ 
   onSuccess,
-  defaultMode = 'magic'
+  defaultMode = 'magic',
+  stayOnPage = false
 }: { 
   onSuccess?: () => void
   defaultMode?: AuthMode
+  /**
+   * When the form is used inside a popup (e.g. the save-to-Vault login
+   * prompt), stayOnPage keeps the user where they are after sign-in instead
+   * of sending them to the dashboard, and email links return to this page.
+   */
+  stayOnPage?: boolean
 }) {
   const [mode, setMode] = useState<AuthMode>(defaultMode)
   const [email, setEmail] = useState('')
@@ -35,11 +42,12 @@ export function AuthForm({
 
     const supabase = createClient()
     let authError: any = null
+    const returnTo = stayOnPage ? window.location.pathname : '/dashboard'
 
     if (mode === 'magic') {
       const { error } = await supabase.auth.signInWithOtp({
         email,
-        options: { emailRedirectTo: `${window.location.origin}/auth/callback?next=/dashboard` },
+        options: { emailRedirectTo: `${window.location.origin}/auth/callback?next=${returnTo}` },
       })
       authError = error
     } else if (mode === 'login') {
@@ -49,7 +57,7 @@ export function AuthForm({
       const { error } = await supabase.auth.signUp({
         email,
         password,
-        options: { emailRedirectTo: `${window.location.origin}/auth/callback?next=/dashboard` },
+        options: { emailRedirectTo: `${window.location.origin}/auth/callback?next=${returnTo}` },
       })
       authError = error
     }
@@ -61,7 +69,7 @@ export function AuthForm({
       if (mode === 'login') {
         if (onSuccess) onSuccess()
         router.refresh()
-        router.push('/dashboard')
+        if (!stayOnPage) router.push('/dashboard')
       } else {
         setStatus('success')
       }

@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation'
 import { navigationCategories } from '@/config/navigation'
 import { MobileBottomNav } from './MobileBottomNav'
 import { NavigationLoader } from './NavigationLoader'
+import { LoginModalHost } from '@/components/auth/LoginModalHost'
 import { AppSplash } from './AppSplash'
 import { CookieConsent } from '@/components/shared/CookieConsent'
 
@@ -42,6 +43,7 @@ export function ConditionalLayout({
       {showBottomNav && <MobileBottomNav />}
       {!shouldHide && <NavigationLoader />}
       {!shouldHide && <AppSplash />}
+      {!shouldHide && <LoginModalHost />}
       {!shouldHide && <CookieConsent />}
     </>
   )

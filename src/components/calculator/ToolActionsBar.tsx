@@ -1,11 +1,11 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
 import { CalculatorActions } from './CalculatorActions'
 import { ProUpgradeModal } from '@/components/shared/ProUpgradeModal'
 import { AdSlot } from '@/components/shared/AdSlot'
 import { saveCalculatorAction } from '@/actions/calculator.actions'
+import { openLoginModal } from '@/lib/auth-modal'
 import { navigationCategories, getToolUrl } from '@/config/navigation'
 import { CheckCircle2 } from 'lucide-react'
 
@@ -32,7 +32,6 @@ export function ToolActionsBar({
   isPro: boolean
   inputs: Record<string, unknown>
 }) {
-  const router = useRouter()
   const [isSaving, setIsSaving] = useState(false)
   const [showProModal, setShowProModal] = useState(false)
   const [toast, setToast] = useState<string | null>(null)
@@ -78,7 +77,11 @@ export function ToolActionsBar({
       if (message.includes('Free accounts can save')) {
         setShowProModal(true)
       } else if (message.includes('Unauthorized')) {
-        router.push('/login')
+        // Logged out: show the login popup right here and retry the save
+        // automatically once they are signed in — no page bounce.
+        openLoginModal(() => {
+          void handleSave()
+        })
         return
       } else {
         setToast('Could not save — please try again')
