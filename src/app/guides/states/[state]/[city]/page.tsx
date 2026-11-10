@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: { params: Promise<{ state: st
   if (!c || !s) return {}
   return {
     title: `${c.name} Sales Tax Rate 2026: ${c.combinedRate}% Combined Rate Explained`,
-    description: `The combined sales tax rate in ${c.name}, ${s.name} is ${c.combinedRate}%. How the rate is built, what it does to real purchases, and how it compares with the state average.`,
+    description: `${c.name}'s combined sales tax rate is ${c.combinedRate}%. See how the rate is built, what it adds to real purchases, vs the ${s.name} average.`,
     alternates: { canonical: `https://dailyfinance.tools/guides/states/${state}/${city}` },
   }
 }

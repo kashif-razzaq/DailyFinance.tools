@@ -7,7 +7,7 @@ import { US_CITIES } from "@/data/locations/us-cities"
 export const metadata: Metadata = {
   title: "State tax guides: sales, income and property tax by state | DailyFinance.tools",
   description:
-    "A guide to taxes in every US state and DC: sales tax rates and grocery rules, income tax structure, and average property tax — plus guides for the 30 largest cities.",
+    "Taxes in every US state and DC: sales tax rates and grocery rules, income tax structure and average property tax — plus guides for 30 major cities.",
   alternates: { canonical: "https://dailyfinance.tools/guides/states" },
 }
 

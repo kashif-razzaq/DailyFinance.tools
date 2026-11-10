@@ -5,7 +5,7 @@ import { generateCalculatorMetadata } from "@/config/metadata"
 export const metadata: Metadata = generateCalculatorMetadata({
   title: "Loan & Debt Calculators — Payments, APR, Payoff Plans",
   description:
-    "Free loan calculators for payments, true APR, auto and personal loans, credit card payoff, debt payoff strategies (avalanche vs snowball), consolidation and debt-to-income ratio.",
+    "Free loan calculators: payments, true APR, auto and personal loans, credit card and debt payoff (avalanche vs snowball), consolidation and DTI.",
   keywords: ["loan calculator", "debt payoff calculator", "apr calculator", "auto loan calculator", "debt to income ratio"],
   slug: "loans",
   category: "Tools",

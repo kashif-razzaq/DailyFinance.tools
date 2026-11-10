@@ -5,7 +5,7 @@ import { MapPin } from "lucide-react"
 
 export const metadata: Metadata = {
   title: "Financial Calculators by State — Sales Tax, Property Tax & Income Tax Guides for All 50 States",
-  description: "State-by-state finance guides: sales tax rates, average combined rates, property tax averages and income tax structure for all 50 states and DC, with the calculators that use them.",
+  description: "State-by-state finance guides: sales tax, average combined and property tax rates and income tax structure for all 50 states and DC, with calculators.",
   alternates: { canonical: "https://dailyfinance.tools/locations" },
   keywords: ["sales tax by state", "property tax by state", "income tax by state", "state tax calculators"],
 }

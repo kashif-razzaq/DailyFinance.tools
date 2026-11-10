@@ -4,7 +4,7 @@ import { LegalPage } from "@/components/layout/LegalPage"
 
 export const metadata: Metadata = {
   title: "Methodology — How DailyFinance Calculates, Sources & Reviews Numbers",
-  description: "How DailyFinance builds its calculators: formula sources (IRS, SSA, platform fee schedules, Tax Foundation), professional review by an ACMA accountant, update cadence and accuracy limits.",
+  description: "How DailyFinance builds its calculators: formula sources (IRS, SSA, platform fee schedules), ACMA review, update cadence and accuracy limits.",
   alternates: { canonical: "https://dailyfinance.tools/methodology" },
 }
 

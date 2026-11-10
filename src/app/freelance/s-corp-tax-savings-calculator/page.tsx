@@ -8,7 +8,7 @@ import { Calculator, ShieldAlert, PiggyBank, Briefcase, FileWarning, HelpCircle,
 
 export const metadata: Metadata = generateCalculatorMetadata({
   title: "S Corp Tax Savings Calculator: LLC vs S Corp",
-  description: "Calculate exact tax savings by converting your freelance LLC to an S-Corp. Optimize your W-2 reasonable compensation and owner distributions to minimize FICA taxes.",
+  description: "Tax savings from converting your freelance LLC to an S-Corp, calculated exactly: optimize W-2 salary vs distributions to minimize FICA taxes.",
   keywords: ["s corp salary vs dividend calculator", "llc vs s corp tax calculator", "reasonable compensation calculator s corp", "freelance s corp tax savings", "s corp distribution rules", "self employment tax calculator"],
   slug: "freelance/s-corp-tax-savings-calculator",
   category: "Freelance",
@@ -120,7 +120,7 @@ export default function SCorpOptimizerPage() {
               {
                 "@type": "WebPage",
                 "name": "S Corp Tax Savings Calculator: LLC vs S Corp",
-                "description": "Calculate exact tax savings by converting your freelance LLC to an S-Corp. Optimize your W-2 reasonable compensation and owner distributions to minimize FICA taxes.",
+                "description": "Tax savings from converting your freelance LLC to an S-Corp, calculated exactly: optimize W-2 salary vs distributions to minimize FICA taxes.",
                 "url": "https://dailyfinance.tools/freelance/s-corp-tax-savings-calculator"
               },
               {

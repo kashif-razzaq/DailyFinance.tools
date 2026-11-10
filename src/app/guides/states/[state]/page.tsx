@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ state: st
   if (!s) return {}
   return {
     title: `${s.name} Tax Guide 2026: Sales, Income & Property Tax Rates`,
-    description: `How taxes work in ${s.name}: ${s.salesTaxBase}% state sales tax (${s.salesTaxAvgCombined}% average combined), ${s.incomeTax === "none" ? "no state income tax" : s.incomeTaxNote} and an average ${s.propertyTaxAvg}% property tax rate — with worked examples.`,
+    description: `${s.name} tax rates with real numbers: ${s.salesTaxBase}% sales tax (${s.salesTaxAvgCombined}% combined), ${s.incomeTax === "none" ? "no income tax" : s.incomeTax === "flat" ? "flat income tax" : "income tax brackets"}, ${s.propertyTaxAvg}% property tax — worked examples.`,
     alternates: { canonical: `https://dailyfinance.tools/guides/states/${s.slug}` },
   }
 }
@@ -96,7 +96,7 @@ export default async function StateGuidePage({ params }: { params: Promise<{ sta
           <Link href="/guides/states" className="shrink-0 hover:text-foreground">States</Link><span aria-hidden="true" className="text-border shrink-0 select-none">›</span>
           <span className="truncate max-w-[150px] sm:max-w-[220px] md:max-w-none text-foreground">{s.name}</span>
         </nav>
-        <h1 className="text-3xl md:text-[2.6rem] font-extrabold tracking-tight leading-tight mb-5">{s.name} tax guide</h1>
+        <h1 className="text-3xl md:text-[2.6rem] font-extrabold tracking-tight leading-tight mb-5">{s.name} tax guide: sales, income and property tax</h1>
         <p className="text-lg text-muted-foreground leading-relaxed mb-10">
           Three taxes decide most everyday money calculations in {s.name}: what you pay at the register, what leaves
           your paycheck, and what your home costs each year. This guide sets out each one with the current figures,

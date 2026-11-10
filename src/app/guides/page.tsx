@@ -7,7 +7,7 @@ import { GUIDES, GUIDE_HUBS, guidesByHub } from "@/data/guides"
 export const metadata: Metadata = {
   title: "Personal Finance Guides: Clear Answers With Real Numbers",
   description:
-    "Plain-language guides to compound interest, mortgages, debt payoff, taxes, Social Security, freelance pricing and creator earnings — every guide links to the calculator that runs your numbers.",
+    "Personal finance guides with real numbers: compound interest, mortgages, debt payoff, taxes and Social Security — each one links to a free calculator.",
   alternates: { canonical: "https://dailyfinance.tools/guides" },
 }
 
