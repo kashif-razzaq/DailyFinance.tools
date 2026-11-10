@@ -8,6 +8,7 @@ import {
   BookOpen,
 } from "lucide-react"
 import { TOOL_CONTENT, type ToolContentEntry } from "@/data/tool-content"
+import { navigationCategories } from "@/config/navigation"
 
 /**
  * ToolContent — renders the editorial content block under a calculator.
@@ -45,6 +46,29 @@ function variantFor(contentKey: string): Variant {
     h = Math.imul(h, 0x01000193)
   }
   return ((h >>> 0) % 4) as Variant
+}
+
+
+const HEADING_STOPWORDS = new Set(["vs", "and", "or", "of", "the", "to", "a", "an"])
+
+/** Display name for the tool a content entry belongs to — the exact
+ *  navigation title when the slug is registered, else a title-cased slug.
+ *  Used so section headings carry the tool's keyword (Brian Dean on-page
+ *  guidance: descriptive, keyword-bearing H2s) instead of a generic label. */
+function toolNameFor(contentKey: string): string {
+  const slug = contentKey.split("/").pop() ?? contentKey
+  for (const cat of navigationCategories) {
+    const tool = cat.calculators.find((c) => c.slug === slug)
+    if (tool) return tool.title
+  }
+  return slug
+    .split("-")
+    .map((w, i) => {
+      if (w === "401k") return "401(k)"
+      if (i > 0 && HEADING_STOPWORDS.has(w)) return w
+      return w.charAt(0).toUpperCase() + w.slice(1)
+    })
+    .join(" ")
 }
 
 function entryWordCount(entry: ToolContentEntry): number {
@@ -103,7 +127,7 @@ function FormulaStrip({ formula }: { formula: string }) {
 /* V1 — "Guide": hero answer, numbered steps, banner, worksheet        */
 /* ------------------------------------------------------------------ */
 
-function VariantGuide({ entry }: { entry: ToolContentEntry }) {
+function VariantGuide({ entry, toolName }: { entry: ToolContentEntry; toolName: string }) {
   return (
     <div>
       <section
@@ -120,7 +144,7 @@ function VariantGuide({ entry }: { entry: ToolContentEntry }) {
 
       <section aria-label="How it works">
         <div className="content-prose">
-          <h2>How it works, step by step</h2>
+          <h2>How the {toolName} works, step by step</h2>
         </div>
         <ol className="not-prose space-y-4 mt-6 list-none p-0">
           {entry.howItWorks.map((paragraph, i) => (
@@ -153,9 +177,9 @@ function VariantGuide({ entry }: { entry: ToolContentEntry }) {
           calculator above
         </p>
         <div className="px-6 py-6 md:px-8">
-          <h3 className="text-lg md:text-xl font-bold tracking-tight mb-3 text-neutral-900 dark:text-white">
+          <h2 className="text-lg md:text-xl font-bold tracking-tight mb-3 text-neutral-900 dark:text-white">
             {entry.example.title}
-          </h3>
+          </h2>
           <p className="text-base md:text-lg leading-relaxed text-neutral-700 dark:text-neutral-300 m-0">
             {entry.example.body}
           </p>
@@ -169,7 +193,7 @@ function VariantGuide({ entry }: { entry: ToolContentEntry }) {
 /* V2 — "Two-column": callout, prose + sticky rail                     */
 /* ------------------------------------------------------------------ */
 
-function VariantTwoColumn({ entry }: { entry: ToolContentEntry }) {
+function VariantTwoColumn({ entry, toolName }: { entry: ToolContentEntry; toolName: string }) {
   return (
     <div>
       <section
@@ -186,7 +210,7 @@ function VariantTwoColumn({ entry }: { entry: ToolContentEntry }) {
 
       <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-10 items-start">
         <section aria-label="How it works" className="content-prose">
-          <h2 className="mt-0">How it works</h2>
+          <h2 className="mt-0">How the {toolName} works</h2>
           {entry.howItWorks.map((paragraph, i) => (
             <p key={i}>{paragraph}</p>
           ))}
@@ -207,9 +231,9 @@ function VariantTwoColumn({ entry }: { entry: ToolContentEntry }) {
             <p className={eyebrow}>
               <Calculator className="h-4 w-4" /> Worked example
             </p>
-            <h3 className="text-base font-bold tracking-tight mb-2 text-neutral-900 dark:text-white">
+            <h2 className="text-base font-bold tracking-tight mb-2 text-neutral-900 dark:text-white">
               {entry.example.title}
-            </h3>
+            </h2>
             <p className="text-sm leading-relaxed text-neutral-700 dark:text-neutral-300 m-0">
               {entry.example.body}
             </p>
@@ -224,7 +248,7 @@ function VariantTwoColumn({ entry }: { entry: ToolContentEntry }) {
 /* V3 — "Story": lede, example first, method after, inline formula     */
 /* ------------------------------------------------------------------ */
 
-function VariantStory({ entry }: { entry: ToolContentEntry }) {
+function VariantStory({ entry, toolName }: { entry: ToolContentEntry; toolName: string }) {
   return (
     <div>
       <section aria-label="Quick answer" className="not-prose mb-10">
@@ -252,7 +276,7 @@ function VariantStory({ entry }: { entry: ToolContentEntry }) {
       </section>
 
       <section aria-label="How it works" className="content-prose">
-        <h2>How it works</h2>
+        <h2>How the {toolName} works</h2>
         {entry.howItWorks.map((paragraph, i) => (
           <p key={i}>{paragraph}</p>
         ))}
@@ -267,7 +291,7 @@ function VariantStory({ entry }: { entry: ToolContentEntry }) {
 /* V4 — "Dashboard": answer + entry-derived stats, card grid, pair     */
 /* ------------------------------------------------------------------ */
 
-function VariantDashboard({ entry }: { entry: ToolContentEntry }) {
+function VariantDashboard({ entry, toolName }: { entry: ToolContentEntry; toolName: string }) {
   const minutes = readingMinutes(entry)
   const tiles: { icon: React.ReactNode; value: string; label: string }[] = [
     {
@@ -329,7 +353,7 @@ function VariantDashboard({ entry }: { entry: ToolContentEntry }) {
 
       <section aria-label="How it works">
         <div className="content-prose">
-          <h2>How it works</h2>
+          <h2>How the {toolName} works</h2>
         </div>
         <div className="not-prose grid md:grid-cols-2 gap-4 mt-6">
           {entry.howItWorks.map((paragraph, i) => (
@@ -369,9 +393,9 @@ function VariantDashboard({ entry }: { entry: ToolContentEntry }) {
             <p className={eyebrow}>
               <Calculator className="h-4 w-4" /> Worked example
             </p>
-            <h3 className="text-lg font-bold tracking-tight mb-2 text-neutral-900 dark:text-white">
+            <h2 className="text-lg font-bold tracking-tight mb-2 text-neutral-900 dark:text-white">
               {entry.example.title}
-            </h3>
+            </h2>
             <p className="text-base leading-relaxed text-neutral-700 dark:text-neutral-300 m-0">
               {entry.example.body}
             </p>
@@ -385,9 +409,9 @@ function VariantDashboard({ entry }: { entry: ToolContentEntry }) {
             <p className={eyebrow}>
               <Calculator className="h-4 w-4" /> Worked example
             </p>
-            <h3 className="text-lg font-bold tracking-tight mb-2 text-neutral-900 dark:text-white">
+            <h2 className="text-lg font-bold tracking-tight mb-2 text-neutral-900 dark:text-white">
               {entry.example.title}
-            </h3>
+            </h2>
             <p className="text-base leading-relaxed text-neutral-700 dark:text-neutral-300 m-0">
               {entry.example.body}
             </p>
@@ -404,14 +428,15 @@ export function ToolContent({ contentKey }: { contentKey: string }) {
   const entry = TOOL_CONTENT[contentKey]
   if (!entry) return null
 
+  const toolName = toolNameFor(contentKey)
   switch (variantFor(contentKey)) {
     case 0:
-      return <VariantGuide entry={entry} />
+      return <VariantGuide entry={entry} toolName={toolName} />
     case 1:
-      return <VariantTwoColumn entry={entry} />
+      return <VariantTwoColumn entry={entry} toolName={toolName} />
     case 2:
-      return <VariantStory entry={entry} />
+      return <VariantStory entry={entry} toolName={toolName} />
     case 3:
-      return <VariantDashboard entry={entry} />
+      return <VariantDashboard entry={entry} toolName={toolName} />
   }
 }

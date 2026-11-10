@@ -105,9 +105,10 @@ export function DesktopHome() {
             <span className="h-2 w-2 rounded-full bg-[#D97706]" />
             {allTools.length} free calculators — no sign-up to calculate
           </span>
-          <h1 className="text-6xl font-extrabold leading-[1.04] tracking-tight text-foreground lg:text-7xl">
+          {/* div, not h1: MobileHome carries the page's single H1 (mobile-first indexing); this desktop hero is the visual twin. */}
+          <div className="text-6xl font-extrabold leading-[1.04] tracking-tight text-foreground lg:text-7xl">
             100+ free <span className="text-[#064E3B]">financial</span> <CalcWord />
-          </h1>
+          </div>
           <p className="mt-6 max-w-2xl text-xl font-light leading-relaxed text-muted-foreground">
             Mortgages, paychecks, taxes, loans and savings — worked out in seconds, with the formula and a
             worked example on every page.

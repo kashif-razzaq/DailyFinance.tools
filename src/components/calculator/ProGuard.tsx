@@ -42,7 +42,7 @@ export function ProGuard({
           <p className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-[#D97706]/10 px-3 py-1 text-[11px] font-extrabold uppercase tracking-wider text-[#D97706]">
             <Crown className="h-3.5 w-3.5" /> Pro tool
           </p>
-          <h2 className="mt-3 text-xl font-extrabold tracking-tight text-[#1F2937]">{toolTitle}</h2>
+          <p className="mt-3 text-xl font-extrabold tracking-tight text-[#1F2937]">{toolTitle}</p>
           <p className="mt-2 text-sm font-light leading-relaxed text-neutral-500">
             This is one of the advanced tools reserved for Pro members. The full guide below is free to read —
             the interactive tool unlocks with Pro.
