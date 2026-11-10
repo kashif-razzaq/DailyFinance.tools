@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 import React, { useMemo, useState } from 'react'
+import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 
@@ -41,7 +42,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
 
   const compare = [35, 40, 45, 50].map((h) => ({ h, hourly: r.annual / (h * weeksPerYear) }))
 
-  return (<div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+  return (<><div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
     <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-6">
       <div className="space-y-2"><label className="text-sm font-semibold">Convert</label>
         <div className="grid grid-cols-2 gap-2">
@@ -72,5 +73,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <p className="text-xs text-muted-foreground mt-3">Differentiator: a $80k salary at 50 hrs/week is really a $30.77/hr job. Comparing offers on hourly terms exposes the hours hidden inside a salary.</p>
       </div>
     </div>
-  </div>)
+  </div>
+      <ToolActionsBar slug="salary-to-hourly-calculator" isPro={isPro} inputs={{ mode, amount, hoursPerWeek, weeksPerYear, unpaidWeeks }} />
+    </>)
 }

@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Save, Lock, Share2, Globe, TrendingDown, ArrowRightLeft, DollarSign } from "lucide-react"
 import { saveCalculatorAction, getSharedCalculatorAction } from '@/actions/calculator.actions'
+import { openLoginModal } from '@/lib/auth-modal'
 import { ProUpgradeModal } from "@/components/shared/ProUpgradeModal"
 
 const CURRENCIES = ['USD', 'EUR', 'GBP', 'CAD', 'AUD', 'INR']
@@ -66,6 +67,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     } catch (error) {
       console.error(error)
       if (error instanceof Error && error.message.includes('Free accounts can save')) { setShowProModal(true); return }
+      if (error instanceof Error && error.message.includes('Unauthorized')) { openLoginModal(() => { void handleSave() }); return }
       alert("Failed to save.")
     } finally {
       setIsSaving(false)
