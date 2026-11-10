@@ -13,11 +13,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!guide) return {}
   const url = `https://dailyfinance.tools/guides/${guide.slug}`
   return {
-    title: `${guide.title} | DailyFinance.tools`,
+    title: guide.seoTitle,
     description: guide.description,
     alternates: { canonical: url },
     openGraph: {
-      title: guide.title,
+      title: guide.seoTitle,
       description: guide.description,
       url,
       siteName: "DailyFinance.tools",
@@ -28,13 +28,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
           url: "https://dailyfinance.tools/images/og-base.jpg",
           width: 1376,
           height: 768,
-          alt: guide.title,
+          alt: guide.seoTitle,
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: guide.title,
+      title: guide.seoTitle,
       description: guide.description,
       images: ["https://dailyfinance.tools/images/og-base.jpg"],
     },

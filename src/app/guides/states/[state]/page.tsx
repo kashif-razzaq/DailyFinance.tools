@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: { params: Promise<{ state: st
   const s = getState(state)
   if (!s) return {}
   return {
-    title: `${s.name} tax guide: sales tax, income tax and property tax | DailyFinance.tools`,
+    title: `${s.name} Tax Guide 2026: Sales, Income & Property Tax Rates`,
     description: `How taxes work in ${s.name}: ${s.salesTaxBase}% state sales tax (${s.salesTaxAvgCombined}% average combined), ${s.incomeTax === "none" ? "no state income tax" : s.incomeTaxNote} and an average ${s.propertyTaxAvg}% property tax rate — with worked examples.`,
     alternates: { canonical: `https://dailyfinance.tools/guides/states/${s.slug}` },
   }

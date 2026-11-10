@@ -5,7 +5,7 @@ import { ArrowRight, BookOpen, MapPin } from "lucide-react"
 import { GUIDES, GUIDE_HUBS, guidesByHub } from "@/data/guides"
 
 export const metadata: Metadata = {
-  title: "Finance guides: clear answers with real numbers | DailyFinance.tools",
+  title: "Personal Finance Guides: Clear Answers With Real Numbers",
   description:
     "Plain-language guides to compound interest, mortgages, debt payoff, taxes, Social Security, freelance pricing and creator earnings — every guide links to the calculator that runs your numbers.",
   alternates: { canonical: "https://dailyfinance.tools/guides" },
