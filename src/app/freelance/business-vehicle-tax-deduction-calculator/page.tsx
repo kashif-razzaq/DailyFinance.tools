@@ -8,7 +8,7 @@ import Script from "next/script"
 
 export const metadata: Metadata = generateCalculatorMetadata({
   title: "Business Vehicle Tax Deduction Calculator: Standard Mileage vs Actual Expenses",
-  description: "Calculate your business vehicle tax deduction using the Standard Mileage Rate or Actual Expenses method. See how much you can write off for your leased or owned business car.",
+  description: "Business vehicle tax deduction by Standard Mileage Rate or Actual Expenses: see what you can write off for your leased or owned business car.",
   keywords: ["auto lease write off calculator", "car lease tax deduction calculator", "section 179 leased vehicle", "business mileage deduction calculator", "write off leased car 1099"],
   slug: "freelance/business-vehicle-tax-deduction-calculator",
   category: "Freelance",
@@ -99,7 +99,7 @@ export default function AutoLeaseCalculatorPage() {
           "@id": "https://dailyfinance.tools/freelance/business-vehicle-tax-deduction-calculator/#webpage",
           "url": "https://dailyfinance.tools/freelance/business-vehicle-tax-deduction-calculator",
           "name": "Business Vehicle Tax Deduction Calculator: Standard Mileage vs Actual Expenses",
-          "description": "Calculate your business vehicle tax deduction using the Standard Mileage Rate or Actual Expenses method. See how much you can write off for your leased or owned business car.",
+          "description": "Business vehicle tax deduction by Standard Mileage Rate or Actual Expenses: see what you can write off for your leased or owned business car.",
           "isPartOf": {
             "@id": "https://dailyfinance.tools/#website"
           }
@@ -134,7 +134,7 @@ export default function AutoLeaseCalculatorPage() {
   return (
     <ToolLayout
       title="Business Vehicle Tax Deduction Calculator"
-      description="Calculate your business vehicle tax deduction using the Standard Mileage Rate or Actual Expenses method. See how much you can write off for your leased or owned business car."
+      description="Business vehicle tax deduction by Standard Mileage Rate or Actual Expenses: see what you can write off for your leased or owned business car."
       slug="business-vehicle-tax-deduction-calculator"
       faqs={faqs}
       calculator={(isPro) => (

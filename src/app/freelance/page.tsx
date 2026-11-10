@@ -4,7 +4,7 @@ import { generateCalculatorMetadata } from "@/config/metadata"
 
 export const metadata: Metadata = generateCalculatorMetadata({
   title: "Freelance Financial Calculators — Rates, Taxes & Cash Flow Tools",
-  description: "Free freelance calculators for hourly rates, quarterly estimated taxes, self-employment tax, S-Corp savings, payment fees and project pricing. Formulas shown, reviewed by an ACMA finance professional.",
+  description: "Free freelance calculators: hourly rates, quarterly estimated taxes, self-employment tax, S-Corp savings, payment fees and project pricing. ACMA-reviewed.",
   keywords: ["freelance calculators", "freelance tax calculator", "hourly rate calculator", "self employment tax calculator", "1099 calculator"],
   slug: "freelance",
   category: "Tools",

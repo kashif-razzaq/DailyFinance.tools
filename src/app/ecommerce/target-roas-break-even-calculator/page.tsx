@@ -8,7 +8,7 @@ import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
   title: "ROAS Calculator: Find Your Break-Even ROAS Before You Spend",
-  description: "Calculate your break-even ROAS from your true gross margin. See your maximum allowable CPA and whether your current campaigns actually make money on every order.",
+  description: "Break-even ROAS from your true gross margin: your maximum allowable CPA, and whether your campaigns actually make money on every order.",
   keywords: ["roas calculator", "break even roas calculator", "target roas calculator", "how to calculate roas", "maximum allowable cpa"],
   slug: "ecommerce/target-roas-break-even-calculator",
   category: "E-Commerce",
@@ -16,7 +16,7 @@ export const metadata: Metadata = generateCalculatorMetadata({
 
 export default function Page() {
   return (
-    <ToolLayout title="Target ROAS Break-Even Calculator" description="Calculate your break-even ROAS from your true gross margin. See your maximum allowable CPA and whether your current campaigns actually make money on every order." slug="target-roas-break-even-calculator" faqs={TOOL_CONTENT["ecommerce/target-roas-break-even-calculator"]?.faqs ?? []} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
+    <ToolLayout title="Target ROAS Break-Even Calculator" description="Break-even ROAS from your true gross margin: your maximum allowable CPA, and whether your campaigns actually make money on every order." slug="target-roas-break-even-calculator" faqs={TOOL_CONTENT["ecommerce/target-roas-break-even-calculator"]?.faqs ?? []} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
       {() => <ToolContent contentKey="ecommerce/target-roas-break-even-calculator" />}
     </ToolLayout>
   )

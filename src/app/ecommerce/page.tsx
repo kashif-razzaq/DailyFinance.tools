@@ -4,7 +4,7 @@ import { generateCalculatorMetadata } from "@/config/metadata"
 
 export const metadata: Metadata = generateCalculatorMetadata({
   title: "E-Commerce Profit Calculators — Margins, ROAS, FBA Fees & CAC Tools",
-  description: "Free e-commerce calculators for Shopify margins, Amazon FBA fees, break-even ROAS, customer acquisition cost, LTV to CAC, inventory reorder points, sales tax and business loans.",
+  description: "Free e-commerce calculators: Shopify margins, Amazon FBA fees, break-even ROAS, CAC, LTV:CAC, inventory reorder points, sales tax and business loans.",
   keywords: ["ecommerce calculators", "shopify margin calculator", "amazon fba calculator", "break even roas calculator", "cac calculator", "sales tax calculator"],
   slug: "ecommerce",
   category: "Tools",

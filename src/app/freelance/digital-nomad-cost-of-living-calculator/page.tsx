@@ -8,7 +8,7 @@ import { Calculator, Globe, Plane, ShieldAlert, TrendingUp, DollarSign, MapPin, 
 
 export const metadata: Metadata = generateCalculatorMetadata({
   title: "Digital Nomad Cost of Living Calculator",
-  description: "Calculate how much longer your freelance runway will last by relocating to a lower cost of living city. See your exact payback period and new monthly profit.",
+  description: "How much longer your freelance runway lasts in a lower-cost city: exact payback period and new monthly profit, calculated from your numbers.",
   keywords: ["nomad cost of living calculator", "geo arbitrage calculator", "freelance runway calculator", "digital nomad savings calculator", "cost of living comparison for freelancers", "relocation payback period"],
   slug: "freelance/digital-nomad-cost-of-living-calculator",
   category: "Freelance",
@@ -41,7 +41,7 @@ const softwareSchema = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   "name": "Digital Nomad Cost of Living Calculator",
-  "description": "Calculate how much longer your freelance runway will last by relocating to a lower cost of living city. See your exact payback period and new monthly profit.",
+  "description": "How much longer your freelance runway lasts in a lower-cost city: exact payback period and new monthly profit, calculated from your numbers.",
   "applicationCategory": "BusinessApplication",
   "operatingSystem": "Any",
   "offers": {
@@ -97,7 +97,7 @@ const webPageSchema = {
   "@context": "https://schema.org",
   "@type": "WebPage",
   "name": "Digital Nomad Cost of Living Calculator",
-  "description": "Calculate how much longer your freelance runway will last by relocating to a lower cost of living city. See your exact payback period and new monthly profit.",
+  "description": "How much longer your freelance runway lasts in a lower-cost city: exact payback period and new monthly profit, calculated from your numbers.",
   "url": "https://dailyfinance.tools/freelance/digital-nomad-cost-of-living-calculator"
 };
 
@@ -156,7 +156,7 @@ export default function NomadCOLPage() {
       />
     <ToolLayout
       title="Digital Nomad Cost of Living Calculator"
-      description="Calculate how much longer your freelance runway will last by relocating to a lower cost of living city. See your exact payback period and new monthly profit."
+      description="How much longer your freelance runway lasts in a lower-cost city: exact payback period and new monthly profit, calculated from your numbers."
       slug="digital-nomad-cost-of-living-calculator"
       faqs={faqs}
       calculator={(isPro) => <CalculatorClient isPro={isPro} />}

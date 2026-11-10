@@ -8,7 +8,7 @@ import { CheckCircle2, AlertTriangle, Calculator, DollarSign, Clock, TrendingUp,
 
 export const metadata: Metadata = generateCalculatorMetadata({
   title: "Freelance Hourly Rate Calculator: Calculate Your Minimum Acceptable Rate",
-  description: "Calculate your true freelance hourly rate by factoring in business expenses, self-employment taxes, and unbillable time. Ensure your freelancing rates are profitable.",
+  description: "Your true freelance hourly rate, factoring in business expenses, self-employment tax and unbillable time — so your rates stay profitable.",
   keywords: ["freelance hourly rate calculator", "calculate freelance rate", "minimum acceptable rate", "freelance pricing strategy", "how much should I charge freelance", "billable hours vs non-billable", "freelance taxes"],
   slug: "freelance/freelance-hourly-rate-calculator",
   category: "Freelance",
@@ -101,7 +101,7 @@ export default function HourlyRateCalculatorPage() {
         "@id": "https://dailyfinance.tools/freelance/freelance-hourly-rate-calculator",
         "url": "https://dailyfinance.tools/freelance/freelance-hourly-rate-calculator",
         "name": "Freelance Hourly Rate Calculator: Calculate Your Minimum Acceptable Rate",
-        "description": "Calculate your true freelance hourly rate by factoring in business expenses, self-employment taxes, and unbillable time. Ensure your freelancing rates are profitable."
+        "description": "Your true freelance hourly rate, factoring in business expenses, self-employment tax and unbillable time — so your rates stay profitable."
       },
       {
         "@type": "BreadcrumbList",
@@ -153,7 +153,7 @@ export default function HourlyRateCalculatorPage() {
       />
       <ToolLayout
         title="Freelance Hourly Rate Calculator"
-        description="Calculate your true freelance hourly rate by factoring in business expenses, self-employment taxes, and unbillable time. Ensure your freelancing rates are profitable."
+        description="Your true freelance hourly rate, factoring in business expenses, self-employment tax and unbillable time — so your rates stay profitable."
         slug="freelance-hourly-rate-calculator"
         faqs={faqs}
         calculator={(isPro) => <CalculatorClient isPro={isPro} />}
