@@ -1,0 +1,17 @@
+import { CalculatorClient } from "./CalculatorClient"
+import type { Metadata } from 'next';
+import { generateCalculatorMetadata } from '@/config/metadata';
+import { ToolLayout } from "@/components/layout/ToolLayout"
+import { ToolContent } from "@/components/shared/ToolContent"
+import { TOOL_CONTENT } from "@/data/tool-content"
+import React from "react"
+
+export const metadata: Metadata = generateCalculatorMetadata({ title: "IRR & NPV Analyzer – Investment Cash-Flow Analysis (Pro)", description: "Enter any series of cash flows and get NPV, IRR, payback period and profitability index together, with a verdict on whether the investment clears your hurdle. A DailyFinance Pro tool.", keywords: ['irr calculator', 'npv calculator', 'internal rate of return', 'net present value'], slug: "pro/irr-npv-analyzer", category: "Pro Tools" });
+
+export default function Page() {
+  return (
+    <ToolLayout title="IRR & NPV Analyzer" description="Enter any series of cash flows and get NPV, IRR, payback period and profitability index together, with a verdict on whether the investment clears your hurdle. A DailyFinance Pro tool." slug="irr-npv-analyzer" faqs={TOOL_CONTENT["pro/irr-npv-analyzer"]?.faqs ?? []} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
+      {() => <ToolContent contentKey="pro/irr-npv-analyzer" />}
+    </ToolLayout>
+  )
+}

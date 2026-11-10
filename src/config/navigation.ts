@@ -1,7 +1,7 @@
 import React from 'react'
 import { 
   Briefcase, Video, TrendingUp, Home, Wallet, Calculator, Percent, DollarSign, Building, Camera, Coffee, Globe, PieChart, Shield, Smartphone, PenTool, Receipt, FileText,
-  Clock, Map, BookOpen, Star, Target, ShoppingCart, Activity, Anchor, Award, Banknote, Bookmark, Box, Zap
+  Clock, Map, BookOpen, Star, Target, ShoppingCart, Activity, Anchor, Award, Banknote, Bookmark, Box, Zap, Crown, Scale
 } from "lucide-react"
 
 export type CalculatorItem = {
@@ -208,6 +208,21 @@ export const navigationCategories: Category[] = [
       { title: "Take-Home Pay Calculator", slug: "take-home-pay-calculator", description: "Net pay after 401(k), HSA and premiums.", icon: Wallet },
       { title: "Overtime Calculator", slug: "overtime-calculator", description: "Gross pay with 1.5x and 2x hours priced in.", icon: Clock },
       { title: "Capital Gains Tax Calculator", slug: "capital-gains-tax-calculator", description: "Short vs long-term gains, NIIT included.", icon: TrendingUp },
+    ]
+  },
+  {
+    name: "Pro Tools",
+    slug: "pro",
+    seoSlug: "pro-financial-tools",
+    icon: Crown,
+    description: "Advanced simulators and analyzers for Pro members.",
+    colorClass: "bg-amber-500/10 text-amber-600 dark:text-amber-400",
+    calculators: [
+      { title: "Monte Carlo Retirement Simulator", slug: "monte-carlo-retirement-simulator", description: "1,000 simulated futures for your retirement plan — success rate, not averages.", icon: Activity, isPremium: true },
+      { title: "Rental Property Analyzer", slug: "rental-property-analyzer", description: "Cash flow, cap rate, cash-on-cash and DSCR for any rental deal.", icon: Building, isPremium: true },
+      { title: "Business Valuation Calculator", slug: "business-valuation-calculator", description: "What a business is worth: SDE multiples and a full DCF, side by side.", icon: Scale, isPremium: true },
+      { title: "IRR & NPV Analyzer", slug: "irr-npv-analyzer", description: "NPV, IRR, payback and profitability index for any cash-flow series.", icon: TrendingUp, isPremium: true },
+      { title: "Portfolio Rebalancer", slug: "portfolio-rebalancer", description: "The exact buy/sell list that restores your target allocation.", icon: PieChart, isPremium: true },
     ]
   }
 ]
