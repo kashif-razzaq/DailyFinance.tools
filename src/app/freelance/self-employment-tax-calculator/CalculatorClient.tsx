@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import {  Home, Receipt, Calculator, CheckCircle2, AlertTriangle } from "lucide-react"
 import { saveCalculatorAction, getSharedCalculatorAction } from '@/actions/calculator.actions'
+import { unwrapSaveResult } from '@/lib/save-result'
 import { openLoginModal } from '@/lib/auth-modal'
 import { ProUpgradeModal } from "@/components/shared/ProUpgradeModal"
 
@@ -52,7 +53,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       const optimalSavings = metrics.optimalMethod === 'Simplified' ? metrics.simplifiedTaxSavings : metrics.actualTaxSavings
       const optimalDeduction = metrics.optimalMethod === 'Simplified' ? metrics.simplifiedDeduction : metrics.actualDeduction
 
-      const savedResult = await saveCalculatorAction({
+      const savedResult = unwrapSaveResult(await saveCalculatorAction({
         calculator_slug: 'freelance-tax-deductions-calculator',
         category: 'Freelance & Business',
         saved_name: `Est Savings: ${currencySymbol}${Math.round(optimalSavings)}`,
@@ -68,7 +69,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           homeValue: store.homeValue
         },
         core_metric: Math.round(optimalDeduction)
-      })
+      }))
       if (savedResult?.id) {
         setSavedScenarioId(savedResult.id)
       }

@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button"
 import { Slider } from "@/components/ui/slider"
 import { Save, Lock, Share2, Building2, Calculator, ArrowRight, CheckCircle2, AlertTriangle, TrendingDown } from "lucide-react"
 import { saveCalculatorAction, getSharedCalculatorAction } from '@/actions/calculator.actions'
+import { unwrapSaveResult } from '@/lib/save-result'
 import { openLoginModal } from '@/lib/auth-modal'
 import { ProUpgradeModal } from "@/components/shared/ProUpgradeModal"
 
@@ -42,7 +43,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     
     setIsSaving(true)
     try {
-      const savedResult = await saveCalculatorAction({
+      const savedResult = unwrapSaveResult(await saveCalculatorAction({
         calculator_slug: 's-corp-salary-dividend-calculator',
         category: 'Freelance & Business',
         saved_name: `S-Corp Savings: ${currencySymbol}${Math.round(metrics.annualTaxSavings)}`,
@@ -51,7 +52,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           salaryRatio: store.salaryRatio
         },
         core_metric: Math.round(metrics.annualTaxSavings)
-      })
+      }))
       if (savedResult?.id) {
         setSavedScenarioId(savedResult.id)
       }

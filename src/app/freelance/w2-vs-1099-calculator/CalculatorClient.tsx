@@ -6,6 +6,7 @@ import { Slider } from "@/components/ui/slider"
 import { Banknote, Building, Briefcase, Calculator } from "lucide-react"
 import { CalculatorActions } from "@/components/calculator/CalculatorActions"
 import { saveCalculatorAction, getSharedCalculatorAction } from '@/actions/calculator.actions'
+import { unwrapSaveResult } from '@/lib/save-result'
 import { openLoginModal } from '@/lib/auth-modal'
 import { ProUpgradeModal } from "@/components/shared/ProUpgradeModal"
 
@@ -119,7 +120,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     
     setIsSaving(true)
     try {
-      const savedResult = await saveCalculatorAction({
+      const savedResult = unwrapSaveResult(await saveCalculatorAction({
         calculator_slug: 'w2-vs-1099-paycheck-calculator',
         category: 'Freelance',
         saved_name: `Comparison: 1099 Net ${formatCurrency(results.cNetTakeHome)}`,
@@ -133,7 +134,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           effectiveTaxRate
         },
         core_metric: results.cNetTakeHome
-      })
+      }))
       if (savedResult?.id) {
         setSavedScenarioId(savedResult.id)
       }

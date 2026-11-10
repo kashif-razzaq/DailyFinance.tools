@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Save, Lock, Share2, Globe, TrendingDown, ArrowRightLeft, DollarSign } from "lucide-react"
 import { saveCalculatorAction, getSharedCalculatorAction } from '@/actions/calculator.actions'
+import { unwrapSaveResult } from '@/lib/save-result'
 import { openLoginModal } from '@/lib/auth-modal'
 import { ProUpgradeModal } from "@/components/shared/ProUpgradeModal"
 
@@ -46,7 +47,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     
     setIsSaving(true)
     try {
-      const savedResult = await saveCalculatorAction({
+      const savedResult = unwrapSaveResult(await saveCalculatorAction({
         calculator_slug: 'cross-border-fx-impact-calculator',
         category: 'Freelance & Business',
         saved_name: `FX Impact: ${store.sourceCurrency} to ${store.targetCurrency}`,
@@ -58,7 +59,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           annualInvoices: store.annualInvoices
         },
         core_metric: Math.round(metrics.annualSavingsWiseVsPaypal)
-      })
+      }))
       if (savedResult?.id) {
         setSavedScenarioId(savedResult.id)
       }

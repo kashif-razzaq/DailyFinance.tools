@@ -10,6 +10,7 @@ import { Slider } from "@/components/ui/slider"
 import { Switch } from "@/components/ui/switch"
 import { Target, Save, Lock, CheckCircle2, Loader2, Share2, Download, Percent, Briefcase, Info, ThumbsUp, ThumbsDown, X } from "lucide-react"
 import { saveCalculatorAction, getSharedCalculatorAction } from '@/actions/calculator.actions'
+import { unwrapSaveResult } from '@/lib/save-result'
 import { openLoginModal } from '@/lib/auth-modal'
 import { getFeedbackAction, voteFeedbackAction } from '@/actions/feedback.actions'
 import { ProUpgradeModal } from "@/components/shared/ProUpgradeModal"
@@ -88,7 +89,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     
     setIsSaving(true)
     try {
-      const savedResult = await saveCalculatorAction({
+      const savedResult = unwrapSaveResult(await saveCalculatorAction({
         calculator_slug: 'quarterly-estimated-taxes-calculator',
         category: 'Freelance & Business',
         saved_name: `Q-Taxes on ${currencySymbol}${store.netIncome.toLocaleString()}`,
@@ -98,7 +99,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           claimsQBI: store.claimsQBI
         },
         core_metric: Math.round(metrics.quarterlyPayment)
-      })
+      }))
       if (savedResult?.id) {
         setSavedScenarioId(savedResult.id)
       }
