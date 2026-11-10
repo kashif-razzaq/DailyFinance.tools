@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Slider } from "@/components/ui/slider"
 import { Save, Lock, Share2, MapPin, Plane, CheckCircle2, TrendingUp, PlaneTakeoff, ShieldCheck } from "lucide-react"
 import { saveCalculatorAction, getSharedCalculatorAction } from '@/actions/calculator.actions'
+import { openLoginModal } from '@/lib/auth-modal'
 import { ProUpgradeModal } from "@/components/shared/ProUpgradeModal"
 import { useGlobalSettingsStore, formatCurrency } from '@/store/global-settings.store'
 
@@ -64,6 +65,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     } catch (error) {
       console.error(error)
       if (error instanceof Error && error.message.includes('Free accounts can save')) { setShowProModal(true); return }
+      if (error instanceof Error && error.message.includes('Unauthorized')) { openLoginModal(() => { void handleSave() }); return }
       alert("Failed to save.")
     } finally {
       setIsSaving(false)

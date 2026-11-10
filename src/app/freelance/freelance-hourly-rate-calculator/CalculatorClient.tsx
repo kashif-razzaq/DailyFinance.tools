@@ -12,6 +12,7 @@ import { Slider } from "@/components/ui/slider"
 import { Target, Save, Lock, ArrowRight, ShieldCheck, Download, Percent, Clock, CheckCircle2, Loader2, Share2, Code, ThumbsUp, ThumbsDown, Copy, X } from "lucide-react"
 import { ResponsiveContainer, Tooltip, Legend } from 'recharts'
 import { saveCalculatorAction, getSharedCalculatorAction } from '@/actions/calculator.actions'
+import { openLoginModal } from '@/lib/auth-modal'
 import { getFeedbackAction, voteFeedbackAction } from '@/actions/feedback.actions'
 import { ProUpgradeModal } from "@/components/shared/ProUpgradeModal"
 
@@ -113,6 +114,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     } catch (error) {
       console.error(error)
       if (error instanceof Error && error.message.includes('Free accounts can save')) { setShowProModal(true); return }
+      if (error instanceof Error && error.message.includes('Unauthorized')) { openLoginModal(() => { void handleSave() }); return }
       alert("Failed to save. Ensure you are logged in properly.")
     } finally {
       setIsSaving(false)
