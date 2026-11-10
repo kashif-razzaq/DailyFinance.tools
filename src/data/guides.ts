@@ -16,6 +16,8 @@ export interface GuideSection {
 export interface Guide {
   slug: string
   title: string
+  /** Search-result title tag (SEL 3C rules, approved 2026-11-11). The on-page H1 stays `title`. */
+  seoTitle: string
   description: string
   hub: string
   updated: string
@@ -30,6 +32,7 @@ export const GUIDES: Guide[] = [
   {
     slug: "how-compound-interest-works",
     title: "How compound interest works, with numbers",
+    seoTitle: "How Compound Interest Works (With Real Number Examples)",
     description: "Compound interest explained with real numbers: the formula, why the early years matter most, and how fees and inflation change the result.",
     hub: "Personal Finance",
     updated: "2026-11-06",
@@ -75,6 +78,7 @@ export const GUIDES: Guide[] = [
   {
     slug: "how-to-build-an-emergency-fund",
     title: "How to build an emergency fund",
+    seoTitle: "How to Build an Emergency Fund (How Much You Actually Need)",
     description: "How much to keep in an emergency fund, where to hold it, and a practical order of operations for building one without derailing other goals.",
     hub: "Personal Finance",
     updated: "2026-11-06",
@@ -114,6 +118,7 @@ export const GUIDES: Guide[] = [
   {
     slug: "50-30-20-rule-explained",
     title: "The 50/30/20 rule, explained honestly",
+    seoTitle: "What Is the 50/30/20 Rule? Budget Breakdown With Examples",
     description: "What the 50/30/20 budget rule gets right, where it breaks in expensive cities, and how to adapt the percentages to your actual rent.",
     hub: "Personal Finance",
     updated: "2026-11-06",
@@ -153,6 +158,7 @@ GUIDES.push(
   {
     slug: "how-mortgage-amortization-works",
     title: "How mortgage amortization works",
+    seoTitle: "Mortgage Amortization Explained: How Your Payments Are Split",
     description: "Why early mortgage payments are mostly interest, how the amortization schedule shifts over time, and what extra payments actually change.",
     hub: "Mortgage & Real Estate",
     updated: "2026-11-06",
@@ -191,6 +197,7 @@ GUIDES.push(
   {
     slug: "how-much-house-can-i-afford",
     title: "How much house can you actually afford?",
+    seoTitle: "How Much House Can You Actually Afford? (28/36 Rule Explained)",
     description: "The 28/36 rule lenders use, why the bank's maximum is not your budget, and the ownership costs that never appear in the listing price.",
     hub: "Mortgage & Real Estate",
     updated: "2026-11-06",
@@ -228,6 +235,7 @@ GUIDES.push(
   {
     slug: "avalanche-vs-snowball-debt-payoff",
     title: "Avalanche vs snowball: which debt payoff method wins?",
+    seoTitle: "Debt Avalanche vs Snowball: Which Payoff Method Saves More?",
     description: "The avalanche method saves the most interest; the snowball method clears debts fastest. The maths, the behavioural trade-off, and how to choose.",
     hub: "Loans & Debt",
     updated: "2026-11-06",
@@ -260,6 +268,7 @@ GUIDES.push(
   {
     slug: "how-credit-card-interest-works",
     title: "How credit card interest actually works",
+    seoTitle: "How Credit Card Interest Is Calculated (APR Explained)",
     description: "Average daily balance, grace periods, and why minimum payments are designed to keep you in debt — with the numbers card statements do not show.",
     hub: "Loans & Debt",
     updated: "2026-11-06",
@@ -294,6 +303,7 @@ GUIDES.push(
   {
     slug: "how-federal-income-tax-brackets-work",
     title: "How federal income tax brackets work",
+    seoTitle: "How Federal Income Tax Brackets Work in 2026 (With Examples)",
     description: "Marginal vs effective tax rates explained with a worked example, plus what actually happens when a raise pushes you into a higher bracket.",
     hub: "Salary, Tax, Retirement & Investing",
     updated: "2026-11-06",
@@ -326,6 +336,7 @@ GUIDES.push(
   {
     slug: "how-to-read-your-paycheck",
     title: "How to read your paycheck",
+    seoTitle: "How to Read Your Paycheck (Pay Stub): Deductions Explained",
     description: "Gross pay, pre-tax deductions, FICA, withholding — where each line of a pay stub goes, and the two mistakes worth checking every year.",
     hub: "Salary, Tax, Retirement & Investing",
     updated: "2026-11-06",
@@ -358,6 +369,7 @@ GUIDES.push(
   {
     slug: "roth-vs-traditional-ira",
     title: "Roth vs traditional IRA: the actual difference",
+    seoTitle: "Roth vs Traditional IRA: Which Is Better for Your Taxes?",
     description: "Both accounts shelter growth. The choice is purely when you pay tax — and that makes it a bet on your current bracket versus your retirement bracket.",
     hub: "Salary, Tax, Retirement & Investing",
     updated: "2026-11-06",
@@ -391,6 +403,7 @@ GUIDES.push(
   {
     slug: "self-employment-tax-explained",
     title: "Self-employment tax, explained for freelancers",
+    seoTitle: "Self-Employment Tax 2026: Rate, Deductions & How It Works",
     description: "The 15.3% self-employment tax: what it covers, the 92.35% rule, the deduction most people miss, and how quarterly payments actually work.",
     hub: "Freelance & Business",
     updated: "2026-11-06",
@@ -423,6 +436,7 @@ GUIDES.push(
   {
     slug: "how-youtube-pays-creators",
     title: "How YouTube actually pays creators",
+    seoTitle: "How YouTube Pays Creators: CPM, RPM & Payout Rules Explained",
     description: "CPM vs RPM, the 55% revenue share, why niches pay so differently, and what a million views is really worth in 2026.",
     hub: "Creator & E-Commerce",
     updated: "2026-11-06",
@@ -457,6 +471,7 @@ GUIDES.push(
   {
     slug: "rent-vs-buy-guide",
     title: "Renting vs buying: a guide without slogans",
+    seoTitle: "Renting vs Buying a Home: The Real Costs Compared (2026)",
     description: "The real comparison between renting and buying: unrecoverable costs on both sides, the break-even horizon, and when each choice wins.",
     hub: "Mortgage & Real Estate",
     updated: "2026-11-06",
@@ -488,6 +503,7 @@ GUIDES.push(
   {
     slug: "how-to-price-freelance-work",
     title: "How to price freelance work without guessing",
+    seoTitle: "How to Price Freelance Work: Rates, Formulas & Real Examples",
     description: "Rate-setting from costs up: the billable-hours reality, why hourly pricing caps your income, and how to move to project pricing.",
     hub: "Freelance & Business",
     updated: "2026-11-06",
@@ -525,6 +541,7 @@ GUIDES.push(
   {
     slug: "etsy-and-ebay-fees-explained",
     title: "Etsy and eBay fees, explained line by line",
+    seoTitle: "Etsy and eBay Fees Explained: 2026 Rates, Line by Line",
     description: "Every fee Etsy and eBay charge a seller, what they add up to on a typical sale, and how to price so the platform does not take your margin.",
     hub: "Creator & E-Commerce",
     updated: "2026-11-06",
@@ -562,6 +579,7 @@ GUIDES.push(
   {
     slug: "social-security-benefits-explained",
     title: "Social Security benefits: how the amount is set",
+    seoTitle: "How Social Security Benefits Are Calculated: The Formula",
     description: "How your benefit is calculated from your 35 best years, why claiming age moves the amount by 76%, and the spousal and tax rules that matter.",
     hub: "Salary, Tax, Retirement & Investing",
     updated: "2026-11-06",
