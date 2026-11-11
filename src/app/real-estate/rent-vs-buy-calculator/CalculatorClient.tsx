@@ -23,6 +23,7 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, Legend } from 'recharts'
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 function piPayment(principal: number, ratePct: number, years: number) {
   const r = ratePct / 100 / 12, n = years * 12
   if (principal <= 0) return 0
@@ -39,6 +40,22 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [years, setYears] = useState(7); const [rent, setRent] = useState(1800); const [rentGrowth, setRentGrowth] = useState(3); const [rentIns, setRentIns] = useState(15)
   const [price, setPrice] = useState(425000); const [downPct, setDownPct] = useState(20); const [rate, setRate] = useState(6.75)
   const [taxPct, setTaxPct] = useState(1.1); const [insYear, setInsYear] = useState(1800); const [maintPct, setMaintPct] = useState(1); const [appr, setAppr] = useState(3)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.years !== undefined) setYears(s.years as any)
+    if (s.rent !== undefined) setRent(s.rent as any)
+    if (s.rentGrowth !== undefined) setRentGrowth(s.rentGrowth as any)
+    if (s.rentIns !== undefined) setRentIns(s.rentIns as any)
+    if (s.price !== undefined) setPrice(s.price as any)
+    if (s.downPct !== undefined) setDownPct(s.downPct as any)
+    if (s.rate !== undefined) setRate(s.rate as any)
+    if (s.taxPct !== undefined) setTaxPct(s.taxPct as any)
+    if (s.insYear !== undefined) setInsYear(s.insYear as any)
+    if (s.maintPct !== undefined) setMaintPct(s.maintPct as any)
+    if (s.appr !== undefined) setAppr(s.appr as any)
+  })
+
   const c = useMemo(() => {
     const down = price * downPct / 100, loan = price - down
     const pi = piPayment(loan, rate, 30), mr = rate / 100 / 12

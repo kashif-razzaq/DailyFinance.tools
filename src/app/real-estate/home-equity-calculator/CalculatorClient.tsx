@@ -4,6 +4,7 @@ import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
@@ -21,6 +22,14 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const sym = useCurrencySymbol()
   const [value, setValue] = useState(450000); const [first, setFirst] = useState(285000); const [second, setSecond] = useState(0)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.value !== undefined) setValue(s.value as any)
+    if (s.first !== undefined) setFirst(s.first as any)
+    if (s.second !== undefined) setSecond(s.second as any)
+  })
+
   const c = useMemo(() => {
     const debt = first + second
     const equity = value - debt

@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
@@ -51,6 +52,16 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [months, setMonths] = useState(18)
   const [otherIncome, setOtherIncome] = useState(90000)
   const [status, setStatus] = useState<'single' | 'mfj'>('single')
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.cost !== undefined) setCost(s.cost as any)
+    if (s.sale !== undefined) setSale(s.sale as any)
+    if (s.months !== undefined) setMonths(s.months as any)
+    if (s.otherIncome !== undefined) setOtherIncome(s.otherIncome as any)
+    if (s.status !== undefined) setStatus(s.status as any)
+  })
+
 
   const r = useMemo(() => {
     const gain = sale - cost

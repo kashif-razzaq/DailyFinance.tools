@@ -23,6 +23,7 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip, Legend } from 'recharts'
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 // Monthly principal & interest: M = P * r(1+r)^n / ((1+r)^n - 1), r = annual rate / 12, n = months
 function piPayment(principal: number, ratePct: number, years: number) {
   const r = ratePct / 100 / 12, n = years * 12
@@ -38,6 +39,19 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [rate, setRate] = useState(6.75); const [term, setTerm] = useState(30)
   const [taxYear, setTaxYear] = useState(4675); const [insYear, setInsYear] = useState(1800)
   const [hoa, setHoa] = useState(0); const [pmiRate, setPmiRate] = useState(0.5)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.price !== undefined) setPrice(s.price as any)
+    if (s.downPct !== undefined) setDownPct(s.downPct as any)
+    if (s.rate !== undefined) setRate(s.rate as any)
+    if (s.term !== undefined) setTerm(s.term as any)
+    if (s.taxYear !== undefined) setTaxYear(s.taxYear as any)
+    if (s.insYear !== undefined) setInsYear(s.insYear as any)
+    if (s.hoa !== undefined) setHoa(s.hoa as any)
+    if (s.pmiRate !== undefined) setPmiRate(s.pmiRate as any)
+  })
+
   const c = useMemo(() => {
     const down = price * downPct / 100
     const loan = Math.max(0, price - down)

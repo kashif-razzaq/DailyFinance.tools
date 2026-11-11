@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 export const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 export const fmt2 = (n: number) => curSym() + n.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})
@@ -32,6 +33,20 @@ export function Breakdown({ title, children }: { title: string; children: React.
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const sym = useCurrencySymbol()
   const [capital, setCapital] = useState(100000); const [years, setYears] = useState(20); const [divYield, setDivYield] = useState(4); const [reitAppr, setReitAppr] = useState(5); const [downPct, setDownPct] = useState(25); const [rentMo, setRentMo] = useState(3400); const [propAppr, setPropAppr] = useState(4); const [mortRate, setMortRate] = useState(6); const [expPct, setExpPct] = useState(35)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.capital !== undefined) setCapital(s.capital as any)
+    if (s.years !== undefined) setYears(s.years as any)
+    if (s.divYield !== undefined) setDivYield(s.divYield as any)
+    if (s.reitAppr !== undefined) setReitAppr(s.reitAppr as any)
+    if (s.downPct !== undefined) setDownPct(s.downPct as any)
+    if (s.rentMo !== undefined) setRentMo(s.rentMo as any)
+    if (s.propAppr !== undefined) setPropAppr(s.propAppr as any)
+    if (s.mortRate !== undefined) setMortRate(s.mortRate as any)
+    if (s.expPct !== undefined) setExpPct(s.expPct as any)
+  })
+
   const m = useMemo(() => { const reitFinal = capital * Math.pow(1 + (divYield + reitAppr)/100, years)
     const price = downPct > 0 ? capital / (downPct/100) : 0; const loan = price - capital; const r = mortRate/100/12; const n = 360; const pi = loan > 0 && r > 0 ? loan * r * Math.pow(1+r, n) / (Math.pow(1+r, n) - 1) : 0
     let bal = loan; let cumCF = 0; for (let mo = 0; mo < years * 12 && bal > 0; mo++) { const i = bal * r; bal -= Math.min(pi - i, bal); const rentY = rentMo * Math.pow(1.02, Math.floor(mo/12)); const exp = rentY * expPct/100; const taxIns = price * 0.015 / 12; cumCF += rentY - exp - taxIns - pi }

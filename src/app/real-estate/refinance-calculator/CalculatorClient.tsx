@@ -23,6 +23,7 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, ReferenceLine } from 'recharts'
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 // Standard amortising payment: M = P * r(1+r)^n / ((1+r)^n - 1)
 function piPayment(principal: number, ratePct: number, years: number) {
   const r = ratePct / 100 / 12, n = years * 12
@@ -41,6 +42,17 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const sym = useCurrencySymbol()
   const [balance, setBalance] = useState(320000); const [curRate, setCurRate] = useState(7.5); const [yearsLeft, setYearsLeft] = useState(27)
   const [newRate, setNewRate] = useState(6.0); const [newTerm, setNewTerm] = useState(30); const [costs, setCosts] = useState(6000)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.balance !== undefined) setBalance(s.balance as any)
+    if (s.curRate !== undefined) setCurRate(s.curRate as any)
+    if (s.yearsLeft !== undefined) setYearsLeft(s.yearsLeft as any)
+    if (s.newRate !== undefined) setNewRate(s.newRate as any)
+    if (s.newTerm !== undefined) setNewTerm(s.newTerm as any)
+    if (s.costs !== undefined) setCosts(s.costs as any)
+  })
+
   const c = useMemo(() => {
     const curPay = piPayment(balance, curRate, yearsLeft)
     const newPay = piPayment(balance, newRate, newTerm)

@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 export const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 export const fmt2 = (n: number) => curSym() + n.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})
@@ -32,6 +33,15 @@ export function Breakdown({ title, children }: { title: string; children: React.
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const sym = useCurrencySymbol()
   const [market, setMarket] = useState(500000); const [ratio, setRatio] = useState(100); const [ratePct, setRatePct] = useState(1.25); const [exemption, setExemption] = useState(50000)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.market !== undefined) setMarket(s.market as any)
+    if (s.ratio !== undefined) setRatio(s.ratio as any)
+    if (s.ratePct !== undefined) setRatePct(s.ratePct as any)
+    if (s.exemption !== undefined) setExemption(s.exemption as any)
+  })
+
   const m = useMemo(() => { const assessed = market * ratio/100; const taxable = Math.max(assessed - exemption, 0); const tax = taxable * ratePct/100; return { assessed, taxable, tax, mills: ratePct * 10 } }, [market, ratio, ratePct, exemption])
   return (<><Shell inputs={<>
     <div className="grid grid-cols-2 gap-4"><Num label="Market Value of Home" value={market} set={setMarket} /><Num label="Exemptions (e.g. homestead)" value={exemption} set={setExemption} /></div>

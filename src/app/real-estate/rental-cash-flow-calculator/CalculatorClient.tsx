@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 export const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 export const fmt2 = (n: number) => curSym() + n.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})
@@ -32,6 +33,22 @@ export function Breakdown({ title, children }: { title: string; children: React.
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const sym = useCurrencySymbol()
   const [price, setPrice] = useState(325000); const [downPct, setDownPct] = useState(25); const [rate, setRate] = useState(7); const [rent, setRent] = useState(2950); const [tax, setTax] = useState(3900); const [ins, setIns] = useState(1500); const [vac, setVac] = useState(5); const [maint, setMaint] = useState(5); const [mgmt, setMgmt] = useState(8); const [hoa, setHoa] = useState(0); const [other, setOther] = useState(100)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.price !== undefined) setPrice(s.price as any)
+    if (s.downPct !== undefined) setDownPct(s.downPct as any)
+    if (s.rate !== undefined) setRate(s.rate as any)
+    if (s.rent !== undefined) setRent(s.rent as any)
+    if (s.tax !== undefined) setTax(s.tax as any)
+    if (s.ins !== undefined) setIns(s.ins as any)
+    if (s.vac !== undefined) setVac(s.vac as any)
+    if (s.maint !== undefined) setMaint(s.maint as any)
+    if (s.mgmt !== undefined) setMgmt(s.mgmt as any)
+    if (s.hoa !== undefined) setHoa(s.hoa as any)
+    if (s.other !== undefined) setOther(s.other as any)
+  })
+
   const m = useMemo(() => { const loan = price * (1 - downPct/100); const r = rate/100/12; const n = 360; const pi = r > 0 ? loan * r * Math.pow(1+r, n) / (Math.pow(1+r, n) - 1) : loan/n; const vacC = rent * vac/100; const maintC = rent * maint/100; const mgmtC = rent * mgmt/100; const cf = rent - pi - tax/12 - ins/12 - vacC - maintC - mgmtC - hoa - other; const noi = (rent - vacC - maintC - mgmtC - hoa - other) * 12 - tax - ins; const cap = price > 0 ? noi / price * 100 : 0; const cash = price * downPct/100 + price * 0.02; const coc = cash > 0 ? cf * 12 / cash * 100 : 0; return { loan, pi, cf, noi, cap, cash, coc, vacC, maintC, mgmtC } }, [price, downPct, rate, rent, tax, ins, vac, maint, mgmt, hoa, other])
   return (<><Shell inputs={<>
     <div className="grid grid-cols-2 gap-4"><Num label="Purchase Price" value={price} set={setPrice} /><Num label="Monthly Rent" value={rent} set={setRent} /></div>

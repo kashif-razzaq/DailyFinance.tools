@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 export const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 export const fmt2 = (n: number) => curSym() + n.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})
@@ -32,6 +33,20 @@ export function Breakdown({ title, children }: { title: string; children: React.
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const sym = useCurrencySymbol()
   const [price, setPrice] = useState(450000); const [downPct, setDownPct] = useState(5); const [rate, setRate] = useState(6.5); const [tax, setTax] = useState(5400); const [ins, setIns] = useState(1800); const [rentOther, setRentOther] = useState(1800); const [ownRent, setOwnRent] = useState(1600); const [marketRent, setMarketRent] = useState(2100); const [utilities, setUtilities] = useState(150)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.price !== undefined) setPrice(s.price as any)
+    if (s.downPct !== undefined) setDownPct(s.downPct as any)
+    if (s.rate !== undefined) setRate(s.rate as any)
+    if (s.tax !== undefined) setTax(s.tax as any)
+    if (s.ins !== undefined) setIns(s.ins as any)
+    if (s.rentOther !== undefined) setRentOther(s.rentOther as any)
+    if (s.ownRent !== undefined) setOwnRent(s.ownRent as any)
+    if (s.marketRent !== undefined) setMarketRent(s.marketRent as any)
+    if (s.utilities !== undefined) setUtilities(s.utilities as any)
+  })
+
   const m = useMemo(() => { const loan = price * (1 - downPct/100); const r = rate/100/12; const n = 360; const pi = r > 0 ? loan * r * Math.pow(1+r, n) / (Math.pow(1+r, n) - 1) : loan/n; const piti = pi + tax/12 + ins/12; const eff = piti + utilities - rentOther; const cash = price * downPct/100 + price * 0.02; const grossIfMoved = rentOther + ownRent; const cfMoved = grossIfMoved - piti - utilities; const roi = cash > 0 ? (cfMoved * 12) / cash * 100 : 0; return { loan, pi, piti, eff, cash, cfMoved, roi, saving: marketRent - eff } }, [price, downPct, rate, tax, ins, rentOther, ownRent, marketRent, utilities])
   return (<><Shell inputs={<>
     <Num label="Purchase Price" value={price} set={setPrice} /><Slide label="Down Payment" value={downPct} set={setDownPct} min={0} max={40} step={0.5} />

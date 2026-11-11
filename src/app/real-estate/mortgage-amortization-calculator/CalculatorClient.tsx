@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 export const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 export const fmt2 = (n: number) => curSym() + n.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})
@@ -32,6 +33,19 @@ export function Breakdown({ title, children }: { title: string; children: React.
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const sym = useCurrencySymbol()
   const [price, setPrice] = useState(450000); const [down, setDown] = useState(90000); const [rate, setRate] = useState(6.85); const [term, setTerm] = useState(30); const [taxRate, setTaxRate] = useState(1.1); const [ins, setIns] = useState(1800); const [hoa, setHoa] = useState(0); const [extra, setExtra] = useState(200)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.price !== undefined) setPrice(s.price as any)
+    if (s.down !== undefined) setDown(s.down as any)
+    if (s.rate !== undefined) setRate(s.rate as any)
+    if (s.term !== undefined) setTerm(s.term as any)
+    if (s.taxRate !== undefined) setTaxRate(s.taxRate as any)
+    if (s.ins !== undefined) setIns(s.ins as any)
+    if (s.hoa !== undefined) setHoa(s.hoa as any)
+    if (s.extra !== undefined) setExtra(s.extra as any)
+  })
+
   const m = useMemo(() => { const loan = Math.max(price - down, 0); const r = rate/100/12; const n = term * 12; const pi = loan > 0 ? (r > 0 ? loan * r * Math.pow(1+r, n) / (Math.pow(1+r, n) - 1) : loan/n) : 0; const taxM = price * taxRate/100 / 12; const insM = ins/12; const downPctVal = price > 0 ? down/price*100 : 0; const pmi = downPctVal < 20 ? loan * 0.005 / 12 : 0; const total = pi + taxM + insM + pmi + hoa
     const sim = (extraPay: number) => { let bal = loan; let interest = 0; let months = 0; const yearly: {year:number; principal:number; interest:number; balance:number}[] = []; let yp = 0; let yi = 0; while (bal > 0.01 && months < 600) { const i = bal * r; const p = Math.min(pi + extraPay - i, bal); bal -= p; interest += i; yp += p; yi += i; months++; if (months % 12 === 0 || bal <= 0.01) { yearly.push({ year: Math.ceil(months/12), principal: yp, interest: yi, balance: Math.max(bal, 0) }); yp = 0; yi = 0 } } return { interest, months, yearly } }
     const base = sim(0); const withExtra = sim(extra); return { loan, pi, taxM, insM, pmi, total, base, withExtra, saved: base.interest - withExtra.interest, monthsSaved: base.months - withExtra.months, downPctVal } }, [price, down, rate, term, taxRate, ins, hoa, extra])

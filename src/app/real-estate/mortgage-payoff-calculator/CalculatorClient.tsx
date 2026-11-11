@@ -23,6 +23,7 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, Legend } from 'recharts'
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 // Standard amortising payment: M = P * r(1+r)^n / ((1+r)^n - 1)
 function piPayment(principal: number, ratePct: number, years: number) {
   const r = ratePct / 100 / 12, n = years * 12
@@ -43,6 +44,16 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const sym = useCurrencySymbol()
   const [loan, setLoan] = useState(340000); const [rate, setRate] = useState(6.5); const [term, setTerm] = useState(30)
   const [extra, setExtra] = useState(200); const [lump, setLump] = useState(0)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.loan !== undefined) setLoan(s.loan as any)
+    if (s.rate !== undefined) setRate(s.rate as any)
+    if (s.term !== undefined) setTerm(s.term as any)
+    if (s.extra !== undefined) setExtra(s.extra as any)
+    if (s.lump !== undefined) setLump(s.lump as any)
+  })
+
   const payment = useMemo(() => piPayment(loan, rate, term), [loan, rate, term])
   const base = useMemo(() => simulate(loan, rate, payment, 0, 0), [loan, rate, payment])
   const fast = useMemo(() => simulate(loan, rate, payment, extra, lump), [loan, rate, payment, extra, lump])
