@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 import { CalculatorActions } from "@/components/calculator/CalculatorActions"
+import { SaveToast } from "@/components/shared/SaveToast"
 
 import React, { useState, useEffect } from 'react'
 import { useGlobalSettingsStore } from '@/store/global-settings.store'
@@ -23,6 +24,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     const [showProModal, setShowProModal] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
   const [showToast, setShowToast] = useState(false)
+  const [toastVariant, setToastVariant] = useState<'success' | 'error'>('success')
   const [savedScenarioId, setSavedScenarioId] = useState<string | null>(null)
   
   // Local state for income history inputs (last 6 months)
@@ -82,13 +84,16 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       if (savedResult?.id) {
         setSavedScenarioId(savedResult.id)
       }
+      setToastVariant('success')
       setShowToast(true)
-      setTimeout(() => setShowToast(false), 3000)
+      setTimeout(() => setShowToast(false), 5000)
     } catch (error) {
       console.error(error)
       if (error instanceof Error && error.message.includes('Free accounts can save')) { setShowProModal(true); return }
       if (error instanceof Error && error.message.includes('Unauthorized')) { openLoginModal(() => { void handleSave() }); return }
-      alert("Failed to save.")
+      setToastVariant('error')
+      setShowToast(true)
+      setTimeout(() => setShowToast(false), 5000)
     } finally {
       setIsSaving(false)
     }
@@ -237,12 +242,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       {/* RIGHT COLUMN: Results */}
       <div className="lg:col-span-5 space-y-6 lg:sticky lg:top-8 relative z-20">
         
-        {showToast && (
-          <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-primary/5 text-emerald-600 border border-primary/20 p-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3 z-[100] animate-in slide-in-from-right-8 fade-in duration-300">
-            <CheckCircle2 className="h-5 w-5" />
-            <span className="font-semibold text-sm">Saved to Scenario Vault!</span>
-          </div>
-        )}
+        <SaveToast show={showToast} variant={toastVariant} onClose={() => setShowToast(false)} />
 
         <div className="bg-card border shadow-sm rounded-2xl p-0 overflow-hidden relative">
           <div className={`absolute top-0 left-0 w-full h-1 ${metrics.bufferGap === 0 ? 'bg-emerald-500' : 'bg-primary'}`}></div>
