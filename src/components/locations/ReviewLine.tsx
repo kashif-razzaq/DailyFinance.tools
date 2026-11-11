@@ -6,7 +6,7 @@ import Link from "next/link"
  * author card in ToolLayout and guides carry their own reviewed-by line;
  * this gives the 200+ location pages the same trust furniture.
  */
-export function ReviewLine({ compact = false, scope = "location" }: { compact?: boolean; scope?: "location" | "general" }) {
+export function ReviewLine({ compact = false, scope = "location", deptName }: { compact?: boolean; scope?: "location" | "general"; deptName?: string }) {
   return (
     <p className={`${compact ? "mt-5 border-t border-border/40 pt-4" : "mt-10"} text-xs leading-relaxed text-muted-foreground`}>
       Reviewed by <strong className="font-semibold text-foreground">Tahir Shehzad, ACMA</strong> ·{" "}
@@ -14,6 +14,7 @@ export function ReviewLine({ compact = false, scope = "location" }: { compact?: 
       <Link href="/methodology" className="font-semibold text-primary hover:underline">Methodology</Link> and{" "}
       <Link href="/editorial-policy" className="font-semibold text-primary hover:underline">Editorial Policy</Link>.
       Figures are educational estimates, not tax or financial advice.
+      {deptName ? <> For a filing decision, confirm with the {deptName}.</> : null}
     </p>
   )
 }

@@ -222,7 +222,7 @@ export default async function CityGuidePage({ params }: { params: Promise<{ stat
 <FaqAccordion items={faqs} />
         </section>
 
-        <ReviewLine />
+        <ReviewLine deptName={`${s.name} Department of Revenue`} />
 
         <aside className="mt-12 bg-[#064E3B] text-white rounded-2xl p-6 md:p-8">
           <h2 className="text-lg font-bold mb-1 flex items-center gap-2"><Calculator className="h-5 w-5" /> Calculate {c.name} tax</h2>
@@ -240,11 +240,6 @@ export default async function CityGuidePage({ params }: { params: Promise<{ stat
           </div>
         </aside>
 
-        <p className="mt-10 text-sm text-muted-foreground">
-          Combined rates are approximations for a typical in-city-limits address; district taxes can shift the rate
-          block by block. Verify a specific address with the {s.name} Department of Revenue. See our{" "}
-          <Link href="/methodology" className="underline underline-offset-2">methodology</Link>.
-        </p>
       </article>
     </main>
   )

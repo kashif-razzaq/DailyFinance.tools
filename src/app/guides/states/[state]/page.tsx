@@ -260,7 +260,7 @@ export default async function StateGuidePage({ params }: { params: Promise<{ sta
 <FaqAccordion items={faqs} />
         </section>
 
-        <ReviewLine />
+        <ReviewLine deptName={`${s.name} Department of Revenue`} />
 
         <aside className="mt-12 bg-[#064E3B] text-white rounded-2xl p-6 md:p-8">
           <h2 className="text-lg font-bold mb-1 flex items-center gap-2"><Calculator className="h-5 w-5" /> Calculators for {s.name}</h2>
@@ -281,11 +281,6 @@ export default async function StateGuidePage({ params }: { params: Promise<{ sta
           </div>
         </aside>
 
-        <p className="mt-10 text-sm text-muted-foreground">
-          Rates are approximations for a typical address and are reviewed on the cadence described in our{" "}
-          <Link href="/methodology" className="underline underline-offset-2">methodology</Link>. For a filing
-          decision, confirm with the {s.name} Department of Revenue.
-        </p>
       </article>
     </main>
   )
