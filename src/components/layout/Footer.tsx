@@ -192,6 +192,9 @@ export function Footer() {
             <Link href="/editorial-policy" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
               Editorial Policy
             </Link>
+            <Link href="/sitemap" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
+              Sitemap
+            </Link>
             <Link href="/guides" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
               Guides
             </Link>
