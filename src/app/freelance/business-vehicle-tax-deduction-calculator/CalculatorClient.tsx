@@ -164,7 +164,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
 
   const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://dailyfinance.tools'
   const shareUrl = savedScenarioId 
-    ? `${baseUrl}/freelance/auto-lease-write-off-calculator?savedId=${savedScenarioId}`
+    ? `${baseUrl}/freelance/business-vehicle-tax-deduction-calculator?savedId=${savedScenarioId}`
     : `${baseUrl}/freelance/auto-lease-write-off-calculator`
 
   return (

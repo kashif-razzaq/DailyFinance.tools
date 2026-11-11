@@ -107,7 +107,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
 
   const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://dailyfinance.tools'
   const shareUrl = savedScenarioId 
-    ? `${baseUrl}/freelance/irregular-income-buffer-calculator?savedId=${savedScenarioId}`
+    ? `${baseUrl}/freelance/freelance-emergency-fund-calculator?savedId=${savedScenarioId}`
     : `${baseUrl}/freelance/irregular-income-buffer-calculator`
 
   return (

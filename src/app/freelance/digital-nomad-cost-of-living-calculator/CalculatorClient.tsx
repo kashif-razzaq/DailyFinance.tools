@@ -87,7 +87,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
 
   const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://dailyfinance.tools'
   const shareUrl = savedScenarioId 
-    ? `${baseUrl}/freelance/nomad-cost-of-living-calculator?savedId=${savedScenarioId}`
+    ? `${baseUrl}/freelance/digital-nomad-cost-of-living-calculator?savedId=${savedScenarioId}`
     : `${baseUrl}/freelance/nomad-cost-of-living-calculator`
 
   return (
