@@ -2,6 +2,7 @@ import Link from "next/link"
 import Script from "next/script"
 import { ArrowRight, BookOpen, Calculator } from "lucide-react"
 import type { Guide } from "@/data/guides"
+import { FaqAccordion } from "@/components/shared/FaqAccordion"
 
 /** Renders an editorial guide: hero, prose body, related tools, FAQs, schema. */
 export function GuideArticle({ guide }: { guide: Guide }) {
@@ -82,14 +83,7 @@ export function GuideArticle({ guide }: { guide: Guide }) {
 
         <section className="mt-12">
           <h2 className="text-2xl font-extrabold tracking-tight mb-6">Questions, answered</h2>
-          <div className="space-y-4">
-            {guide.faqs.map((f) => (
-              <details key={f.question} className="border rounded-2xl p-5 group">
-                <summary className="font-semibold cursor-pointer list-none">{f.question}</summary>
-                <p className="text-muted-foreground leading-relaxed mt-3">{f.answer}</p>
-              </details>
-            ))}
-          </div>
+          <FaqAccordion items={guide.faqs} />
         </section>
 
         <p className="mt-10 text-sm text-muted-foreground">

@@ -2,6 +2,7 @@ import React from "react"
 import Link from "next/link"
 import Script from "next/script"
 import { navigationCategories, getToolUrl } from "@/config/navigation"
+import { FaqAccordion } from "@/components/shared/FaqAccordion"
 import { ArrowRight, CheckCircle2, ChevronDown, Crown, Zap } from "lucide-react"
 
 export interface HubFAQ { question: string; answer: string }
@@ -145,17 +146,7 @@ export function CategoryHub({ categorySlug, quickAnswer, intro, decisions, faqs 
 
           <aside className="lg:col-span-4 bg-card border border-border/60 rounded-3xl p-6 lg:sticky lg:top-24">
             <h3 className="font-bold text-lg mb-2">Frequently Asked Questions</h3>
-            <div className="divide-y divide-border/60">
-              {faqs.map((f) => (
-                <details key={f.question} className="group py-4 first:pt-2 last:pb-0">
-                  <summary className="flex cursor-pointer list-none items-start justify-between gap-3 font-semibold text-sm text-foreground [&::-webkit-details-marker]:hidden">
-                    {f.question}
-                    <ChevronDown className="h-4 w-4 shrink-0 mt-0.5 text-muted-foreground transition-transform duration-200 group-open:rotate-180" />
-                  </summary>
-                  <p className="text-sm text-muted-foreground leading-relaxed mt-2.5">{f.answer}</p>
-                </details>
-              ))}
-            </div>
+            <FaqAccordion items={faqs} variant="compact" />
           </aside>
         </div>
       </section>

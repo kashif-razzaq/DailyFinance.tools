@@ -11,6 +11,7 @@ import { SidebarAdSpace } from "@/components/shared/SidebarAdSpace"
 import { ProDashboardWidget } from "@/components/shared/ProDashboardWidget"
 import { AdSlot } from "@/components/shared/AdSlot"
 import { PreferredSourceButton } from "@/components/shared/PreferredSourceButton"
+import { FaqAccordion } from "@/components/shared/FaqAccordion"
 import { getCategoryForTool } from "@/config/navigation"
 import { safeGetUser } from "@/utils/supabase/safe-user"
 
@@ -196,14 +197,7 @@ export async function ToolLayout({
           {faqs.length > 0 && (
             <section className="bg-primary/5 border border-primary/20 rounded-3xl p-8 md:p-12 mt-16">
               <h2 id="faq" className="text-2xl md:text-3xl font-extrabold mb-8 mt-0 text-foreground scroll-mt-24">Frequently Asked Questions</h2>
-              <div className="space-y-8">
-                {faqs.map((faq, i) => (
-                  <article key={i}>
-                    <h3 className="text-lg font-bold mt-0 mb-2 scroll-mt-24">{faq.question}</h3>
-                    <p className="text-muted-foreground m-0">{faq.answer}</p>
-                  </article>
-                ))}
-              </div>
+              <FaqAccordion items={faqs} variant="bare" />
             </section>
           )}
 

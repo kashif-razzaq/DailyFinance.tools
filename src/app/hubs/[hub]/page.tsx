@@ -6,6 +6,7 @@ import { ArrowRight, BookOpen, CheckCircle2, ChevronDown, XCircle, Zap } from "l
 import { HUBS, getHub } from "@/data/hubs"
 import { TOOL_REGISTRY, EXTRA_LIVE_TOOLS } from "@/config/tool-registry"
 import { getGuide } from "@/data/guides"
+import { FaqAccordion } from "@/components/shared/FaqAccordion"
 
 export function generateStaticParams() {
   return HUBS.map((h) => ({ hub: h.slug }))
@@ -153,17 +154,7 @@ export default async function HubPage({ params }: { params: Promise<{ hub: strin
 
           <section>
             <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-foreground mb-6">Questions, answered</h2>
-            <div className="bg-card border border-border/60 rounded-3xl px-6 divide-y divide-border/60">
-              {h.faqs.map((f) => (
-                <details key={f.question} className="group py-5 first:pt-6 last:pb-6">
-                  <summary className="flex cursor-pointer list-none items-start justify-between gap-3 font-semibold text-foreground [&::-webkit-details-marker]:hidden">
-                    {f.question}
-                    <ChevronDown className="h-5 w-5 shrink-0 mt-0.5 text-muted-foreground transition-transform duration-200 group-open:rotate-180" />
-                  </summary>
-                  <p className="text-muted-foreground leading-relaxed mt-3">{f.answer}</p>
-                </details>
-              ))}
-            </div>
+            <FaqAccordion items={h.faqs} />
           </section>
 
           {guides.length > 0 && (

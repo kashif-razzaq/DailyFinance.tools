@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { FaqAccordion } from "@/components/shared/FaqAccordion"
 import Script from "next/script"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
@@ -202,14 +203,7 @@ export default async function CityGuidePage({ params }: { params: Promise<{ stat
 
         <section className="mt-12">
           <h2 className="text-2xl font-extrabold tracking-tight mb-5">{c.name} sales tax FAQs</h2>
-          <div className="space-y-6">
-            {faqs.map((f) => (
-              <div key={f.question}>
-                <h3 className="font-semibold mb-1">{f.question}</h3>
-                <p className="text-muted-foreground leading-relaxed">{f.answer}</p>
-              </div>
-            ))}
-          </div>
+<FaqAccordion items={faqs} />
         </section>
 
         <aside className="mt-12 bg-[#064E3B] text-white rounded-2xl p-6 md:p-8">
