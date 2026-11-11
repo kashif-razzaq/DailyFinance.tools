@@ -97,7 +97,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
 
   const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://dailyfinance.tools'
   const shareUrl = savedScenarioId 
-    ? `${baseUrl}/freelance/project-flat-fee-quoter?savedId=${savedScenarioId}`
+    ? `${baseUrl}/freelance/freelance-project-pricing-calculator?savedId=${savedScenarioId}`
     : `${baseUrl}/freelance/project-flat-fee-quoter`
 
   return (

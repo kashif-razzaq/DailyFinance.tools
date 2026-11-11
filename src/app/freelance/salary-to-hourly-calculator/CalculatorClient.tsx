@@ -2,6 +2,7 @@
 'use client'
 import React, { useMemo, useState } from 'react'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 
@@ -27,6 +28,16 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [hoursPerWeek, setHoursPerWeek] = useState(40)
   const [weeksPerYear, setWeeksPerYear] = useState(52)
   const [unpaidWeeks, setUnpaidWeeks] = useState(0)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.mode !== undefined) setMode(s.mode as any)
+    if (s.amount !== undefined) setAmount(s.amount as any)
+    if (s.hoursPerWeek !== undefined) setHoursPerWeek(s.hoursPerWeek as any)
+    if (s.weeksPerYear !== undefined) setWeeksPerYear(s.weeksPerYear as any)
+    if (s.unpaidWeeks !== undefined) setUnpaidWeeks(s.unpaidWeeks as any)
+  })
+
 
   const r = useMemo(() => {
     const paidHours = Math.max(1, hoursPerWeek * weeksPerYear)

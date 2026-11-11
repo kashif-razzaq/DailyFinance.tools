@@ -137,7 +137,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
 
   const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://dailyfinance.tools'
   const shareUrl = savedScenarioId 
-    ? `${baseUrl}/freelance/hourly-rate-reverse-engineer-calculator?savedId=${savedScenarioId}`
+    ? `${baseUrl}/freelance/freelance-hourly-rate-calculator?savedId=${savedScenarioId}`
     : `${baseUrl}/freelance/hourly-rate-reverse-engineer-calculator`
 
   return (
