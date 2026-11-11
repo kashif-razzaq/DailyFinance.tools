@@ -172,5 +172,6 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
         <p className="text-xs text-muted-foreground mt-3">Past performance does not guarantee future results. This projection assumes a smooth return every month and is educational only, not investment advice.</p>
       </div>
-    </div></div><ToolActionsBar slug="investment-calculator" isPro={isPro} inputs={{ initial, monthly, years, ret, fees, inflation, scenario }} /></>)
+    <ToolActionsBar slug="investment-calculator" isPro={isPro} inputs={{ initial, monthly, years, ret, fees, inflation, scenario }} />
+    </div></div></>)
 }

@@ -183,6 +183,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </ResponsiveContainer>
         <p className="text-xs text-muted-foreground mt-2">{isPro ? 'Pro view: ' : ''}Chart simulates monthly growth at {apy}% APY with {fmt(calc.effectiveMonthly)}/month contributions.</p>
       </div>
+    <ToolActionsBar slug="savings-goal-calculator" isPro={isPro} inputs={{ mode, goal, current, apy, targetYears, monthlyAmount }} />
     </div>
-  </div><ToolActionsBar slug="savings-goal-calculator" isPro={isPro} inputs={{ mode, goal, current, apy, targetYears, monthlyAmount }} /></>)
+  </div></>)
 }

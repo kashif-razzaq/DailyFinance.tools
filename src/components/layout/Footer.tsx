@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { GUIDES } from '@/data/guides'
-import { HUBS } from '@/data/hubs'
+import { navigationCategories } from '@/config/navigation'
 import { FooterAccordion } from '@/components/layout/FooterAccordion'
 import { Logo } from '@/components/layout/Logo'
 import { Input } from '@/components/ui/input'
@@ -96,28 +96,71 @@ export function Footer() {
             All tool links stay in the DOM for SEO; see FooterAccordion. */}
         <FooterAccordion />
 
-        {/* Middle Tier (desktop): 4 columns only — Hubs, Guides, Important, Legal.
-            No tool links (Kashif, 2026-11-12); mobile uses the accordion above. */}
-        <div className="hidden md:grid md:grid-cols-4 gap-8 mb-16">
-          <div className="flex flex-col gap-4">
-            <h4 className="font-semibold text-sm text-foreground">Hubs</h4>
-            <ul className="flex flex-col gap-2.5">
-              {HUBS.map((h) => (
-                <li key={h.slug}>
-                  <Link href={`/hubs/${h.slug}`} className="text-[13px] text-muted-foreground hover:text-foreground transition-colors leading-tight">
-                    {h.title.replace(/ calculators$/i, "")}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+        {/* Middle Tier (desktop): 3 decorated columns on the left, Guides card on the
+            right — the same width as the newsletter box above (28rem). No hub links
+            (Kashif, 2026-11-12): column 1 is the 8 category pages. */}
+        <div className="hidden md:flex md:flex-col lg:flex-row gap-6 lg:gap-10 mb-16">
+          <div className="flex-1 rounded-3xl border border-border/60 bg-muted/20 p-6 md:p-8">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
+              <div className="flex flex-col gap-4">
+                <div>
+                  <h4 className="font-semibold text-sm text-foreground">Categories</h4>
+                  <span aria-hidden="true" className="mt-2 block h-0.5 w-6 rounded bg-[#D97706]" />
+                </div>
+                <ul className="flex flex-col gap-2.5">
+                  {navigationCategories.map((category) => (
+                    <li key={category.slug}>
+                      <Link href={`/${category.slug}`} className="text-[13px] text-muted-foreground hover:text-foreground transition-colors leading-tight">
+                        {category.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="flex flex-col gap-4">
+                <div>
+                  <h4 className="font-semibold text-sm text-foreground">Important</h4>
+                  <span aria-hidden="true" className="mt-2 block h-0.5 w-6 rounded bg-[#D97706]" />
+                </div>
+                <ul className="flex flex-col gap-2.5">
+                  {[["About", "/about"], ["Contact", "/contact"], ["Pricing", "/pricing"], ["Methodology", "/methodology"], ["Editorial Policy", "/editorial-policy"], ["Sitemap", "/sitemap"]].map(([label, href]) => (
+                    <li key={href}>
+                      <Link href={href} className="text-[13px] text-muted-foreground hover:text-foreground transition-colors leading-tight">
+                        {label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="flex flex-col gap-4">
+                <div>
+                  <h4 className="font-semibold text-sm text-foreground">Legal</h4>
+                  <span aria-hidden="true" className="mt-2 block h-0.5 w-6 rounded bg-[#D97706]" />
+                </div>
+                <ul className="flex flex-col gap-2.5">
+                  {[["Privacy Policy", "/privacy"], ["Terms of Service", "/terms"], ["Cookie Policy", "/cookies"], ["Disclaimer", "/disclaimer"]].map(([label, href]) => (
+                    <li key={href}>
+                      <Link href={href} className="text-[13px] text-muted-foreground hover:text-foreground transition-colors leading-tight">
+                        {label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </div>
 
-          <div className="flex flex-col gap-4">
-            <h4 className="font-semibold text-sm text-foreground">Guides</h4>
-            <ul className="flex flex-col gap-2.5">
+          <div className="w-full shrink-0 rounded-3xl border border-[#064E3B]/15 bg-[#064E3B]/5 p-6 md:p-8 lg:w-[28rem]">
+            <div className="mb-4">
+              <h4 className="font-semibold text-sm text-foreground">Guides</h4>
+              <span aria-hidden="true" className="mt-2 block h-0.5 w-6 rounded bg-[#D97706]" />
+            </div>
+            <ul className="mb-5 flex flex-col gap-3">
               {GUIDES.slice(0, 4).map((guide) => (
                 <li key={guide.slug}>
-                  <Link href={`/guides/${guide.slug}`} className="text-[13px] text-muted-foreground hover:text-foreground transition-colors leading-tight line-clamp-2">
+                  <Link href={`/guides/${guide.slug}`} className="text-[14px] font-medium leading-snug text-foreground/90 transition-colors hover:text-[#064E3B] dark:hover:text-emerald-400">
                     {guide.title}
                   </Link>
                 </li>
@@ -132,35 +175,9 @@ export function Footer() {
               </Link>
             </div>
           </div>
-
-          <div className="flex flex-col gap-4">
-            <h4 className="font-semibold text-sm text-foreground">Important</h4>
-            <ul className="flex flex-col gap-2.5">
-              {[["About", "/about"], ["Contact", "/contact"], ["Pricing", "/pricing"], ["Methodology", "/methodology"], ["Editorial Policy", "/editorial-policy"], ["Sitemap", "/sitemap"]].map(([label, href]) => (
-                <li key={href}>
-                  <Link href={href} className="text-[13px] text-muted-foreground hover:text-foreground transition-colors leading-tight">
-                    {label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="flex flex-col gap-4">
-            <h4 className="font-semibold text-sm text-foreground">Legal</h4>
-            <ul className="flex flex-col gap-2.5">
-              {[["Privacy Policy", "/privacy"], ["Terms of Service", "/terms"], ["Cookie Policy", "/cookies"], ["Disclaimer", "/disclaimer"]].map(([label, href]) => (
-                <li key={href}>
-                  <Link href={href} className="text-[13px] text-muted-foreground hover:text-foreground transition-colors leading-tight">
-                    {label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
 
-        {/* Bottom Tier: Legal & GEO */}
+                {/* Bottom Tier: Legal & GEO */}
         <div className="pt-8 border-t flex flex-col gap-5">
           <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground md:order-3 md:w-full md:justify-between md:border-t md:border-border/50 md:pt-6">
             <span>&copy; {currentYear} DailyFinance.</span>

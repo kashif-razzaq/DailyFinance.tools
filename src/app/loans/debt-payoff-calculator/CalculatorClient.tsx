@@ -117,5 +117,6 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <ol className="space-y-3">{shown.order.map((o, i) => (<li key={i} className="flex items-center justify-between text-sm"><span className="flex items-center gap-3"><span className="w-6 h-6 rounded-full bg-[#064E3B]/10 text-[#064E3B] font-bold text-xs flex items-center justify-center">{i + 1}</span>{o.name}</span><span className="font-mono font-semibold">{dateStr(o.month)} <span className="text-muted-foreground font-normal">(mo {o.month})</span></span></li>))}
           {shown.order.length === 0 && <li className="text-sm text-muted-foreground">Nothing clears within 50 years at this budget.</li>}</ol>
       </div>
-    </div></div><ToolActionsBar slug="debt-payoff-calculator" isPro={isPro} inputs={{ debts, budget, view }} /></>)
+    <ToolActionsBar slug="debt-payoff-calculator" isPro={isPro} inputs={{ debts, budget, view }} />
+    </div></div></>)
 }

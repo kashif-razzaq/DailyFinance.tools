@@ -138,5 +138,6 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
 
       <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Monthly Benefit by Claiming Age</h4>
         <ResponsiveContainer width="100%" height={200}><BarChart data={chartData}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="name" /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Bar dataKey="monthly" name="Monthly benefit" radius={[6, 6, 0, 0]}>{chartData.map((_, i) => (<Cell key={i} fill={i === 1 ? '#064E3B' : i === 2 ? '#059669' : '#D97706'} />))}</Bar></BarChart></ResponsiveContainer></div>
-    </div></div><ToolActionsBar slug="social-security-calculator" isPro={isPro} inputs={{ earnings, yearsWorked }} /></>)
+    <ToolActionsBar slug="social-security-calculator" isPro={isPro} inputs={{ earnings, yearsWorked }} />
+    </div></div></>)
 }

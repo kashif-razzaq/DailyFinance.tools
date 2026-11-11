@@ -129,5 +129,6 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <li>The {fmt(fee)} fee is rolled into the new loan, so you pay interest on the fee itself.</li>
           <li>If your current path clears sooner, paying the consolidation loan on the shorter schedule usually beats both options.</li>
         </ul></div>
-    </div></div><ToolActionsBar slug="debt-consolidation-calculator" isPro={isPro} inputs={{ balance, currentApr, currentPayment, newRate, newTerm, feePct }} /></>)
+    <ToolActionsBar slug="debt-consolidation-calculator" isPro={isPro} inputs={{ balance, currentApr, currentPayment, newRate, newTerm, feePct }} />
+    </div></div></>)
 }

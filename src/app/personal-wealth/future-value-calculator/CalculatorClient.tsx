@@ -160,6 +160,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         )}
         <p className="text-xs text-muted-foreground mt-3">{isPro ? '' : ''}Breakdown splits the result into lump-sum growth ({fmt(calc.lumpGrowth)}), payments growth ({fmt(calc.paymentsGrowth)}) and principal you put in.</p>
       </div>
+    <ToolActionsBar slug="future-value-calculator" isPro={isPro} inputs={{ pv, pmtInput, frequency, rate, years, annuityType, inflation }} />
     </div>
-  </div><ToolActionsBar slug="future-value-calculator" isPro={isPro} inputs={{ pv, pmtInput, frequency, rate, years, annuityType, inflation }} /></>)
+  </div></>)
 }

@@ -138,5 +138,6 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <ResponsiveContainer width="100%" height={220}><LineChart data={calc.series}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="age" /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt2(Number(v))} /><Legend /><Line type="monotone" dataKey="traditional" stroke="#D97706" strokeWidth={2} dot={false} name="Traditional (after tax)" /><Line type="monotone" dataKey="roth" stroke="#064E3B" strokeWidth={2} dot={false} name="Roth (after tax)" /></LineChart></ResponsiveContainer>
         <p className="text-xs text-muted-foreground mt-3">Both lines start from the same gross balance; the gap between them is purely the tax-rate difference. {fmt2(calc.rothAfterTax)} is the Roth line&apos;s endpoint.</p>
       </div>
-    </div></div><ToolActionsBar slug="ira-calculator" isPro={isPro} inputs={{ currentAge, retirementAge, balance, contribution, ret, taxNow, taxRet }} /></>)
+    <ToolActionsBar slug="ira-calculator" isPro={isPro} inputs={{ currentAge, retirementAge, balance, contribution, ret, taxNow, taxRet }} />
+    </div></div></>)
 }
