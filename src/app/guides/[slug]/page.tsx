@@ -25,10 +25,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       type: "article",
       images: [
         {
-          url: "https://dailyfinance.tools/images/og-base.jpg",
-          width: 1376,
-          height: 768,
-          alt: guide.seoTitle,
+          url: `https://dailyfinance.tools${guide.image}`,
+          width: 2048,
+          height: 1152,
+          alt: guide.imageAlt,
         },
       ],
     },
@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       card: "summary_large_image",
       title: guide.seoTitle,
       description: guide.description,
-      images: ["https://dailyfinance.tools/images/og-base.jpg"],
+      images: [`https://dailyfinance.tools${guide.image}`],
     },
   }
 }

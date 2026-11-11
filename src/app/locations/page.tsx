@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { US_STATES } from "@/data/locations/us-states"
-import { MapPin } from "lucide-react"
+import { StateCard } from "@/components/locations/StateCard"
 
 export const metadata: Metadata = {
   title: "Financial Calculators by State — Sales, Property & Income Tax",
@@ -46,12 +46,7 @@ export default function LocationsIndexPage() {
         <h2 className="text-2xl font-bold tracking-tight mb-5">All 50 states + District of Columbia</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-14">
           {US_STATES.map((s) => (
-            <Link key={s.slug} href={`/locations/${s.slug}`} className="group bg-card border rounded-2xl p-5 hover:border-primary/40 transition-colors">
-              <span className="flex items-center gap-2 font-bold group-hover:text-primary transition-colors"><MapPin className="h-4 w-4 text-primary" /> {s.name} <span className="text-xs text-muted-foreground font-semibold">({s.abbr})</span></span>
-              <span className="block text-xs text-muted-foreground mt-2 leading-relaxed">
-                Sales tax {s.salesTaxBase === 0 ? "— none statewide" : `${s.salesTaxBase}% state · ~${s.salesTaxAvgCombined}% combined`} · Property tax avg {s.propertyTaxAvg}% · Income tax: {s.incomeTax === "none" ? "none on wages" : s.incomeTax}
-              </span>
-            </Link>
+            <StateCard key={s.slug} state={s} href={`/locations/${s.slug}`} cta={`Explore ${s.name}`} />
           ))}
         </div>
 

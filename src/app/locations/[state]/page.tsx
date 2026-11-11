@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { TaxCompareChart } from "@/components/locations/TaxCompareChart"
 import { FaqAccordion } from "@/components/shared/FaqAccordion"
 import Link from "next/link"
 import Script from "next/script"
@@ -134,6 +135,18 @@ export default async function StateHubPage({ params }: { params: Promise<{ state
             <p><strong>Sales tax.</strong> {s.salesTaxBase === 0 ? `${s.name} levies no statewide sales tax${s.salesTaxAvgCombined > 0 ? ", although some local jurisdictions add their own, which is why the average combined figure is not zero" : ""}.` : `${s.name} charges a ${s.salesTaxBase}% statewide sales tax, and counties, cities and special districts add their own on top — which is why the average combined rate of about ${s.salesTaxAvgCombined}% is the number that matters at the till.`} {s.groceriesNote}</p>
             <p><strong>Property tax.</strong> At an average effective rate of about {s.propertyTaxAvg}%, a ${homePrice.toLocaleString()} home in {s.name} carries roughly ${annualPropertyTax.toLocaleString()} a year in property tax before exemptions. {s.propertyTaxAvg >= 1.5 ? `${s.name} is a high-property-tax state — factor the tax bill into affordability, not just the mortgage payment.` : s.propertyTaxAvg <= 0.6 ? `${s.name} is a low-property-tax state, which quietly lowers the true cost of owning there.` : "That is near the middle of US states."} Local assessors set actual bills, so verify with the county for any specific property.</p>
             <p><strong>Income tax.</strong> {s.incomeTaxNote} {s.incomeTax === "none" ? "Remember that 'no income tax' states fund services through other taxes — compare the full picture (sales, property) before assuming a move saves money." : "If you are self-employed in " + s.name + ", you still owe federal self-employment tax plus quarterly state estimates where applicable."}</p>
+            <div className="not-prose my-8">
+              <TaxCompareChart title={`How {s.name} compares with the US average`} groups={[
+                { heading: "Sales tax · average combined", bars: [
+                  { label: s.name, value: s.salesTaxAvgCombined, highlight: true },
+                  { label: "US average", value: AVG_COMBINED },
+                ]},
+                { heading: "Property tax · average effective", bars: [
+                  { label: s.name, value: s.propertyTaxAvg, highlight: true },
+                  { label: "US average", value: AVG_PROPERTY },
+                ]},
+              ]} />
+            </div>
             <h2>How {s.name} compares with similar states</h2>
             <p>The states closest to {s.name} on average combined sales tax. Property tax is the average effective rate; income tax shows the structure, not a single rate.</p>
             <div className="overflow-x-auto -mx-1 px-1"><table>

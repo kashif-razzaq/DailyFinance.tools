@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { GuideImage } from "@/components/shared/GuideImage"
 import Script from "next/script"
 import type { Metadata } from "next"
 import { ArrowRight, BookOpen, MapPin } from "lucide-react"
@@ -62,11 +63,14 @@ export default function GuidesIndexPage() {
             <h2 className="text-2xl font-extrabold tracking-tight mb-5">{hub}</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
               {guidesByHub(hub).map((g) => (
-                <Link key={g.slug} href={`/guides/${g.slug}`} className="border rounded-2xl p-6 hover:border-[#064E3B] hover:shadow-md transition-all group bg-card">
-                  <h3 className="font-bold text-lg leading-snug mb-2 group-hover:text-[#064E3B] dark:group-hover:text-emerald-400">{g.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-4">{g.description}</p>
-                  <span className="text-sm font-semibold text-[#064E3B] dark:text-emerald-400 inline-flex items-center gap-1.5">
-                    Read the guide <ArrowRight className="h-4 w-4" />
+                <Link key={g.slug} href={`/guides/${g.slug}`} className="border rounded-3xl overflow-hidden hover:border-[#064E3B] hover:shadow-md transition-all group bg-card flex flex-col">
+                  <GuideImage src={g.image} alt={g.imageAlt} imgClassName="aspect-video w-full object-cover" />
+                  <span className="flex flex-col p-6">
+                    <h3 className="font-bold text-lg leading-snug mb-2 group-hover:text-[#064E3B] dark:group-hover:text-emerald-400">{g.title}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed mb-4">{g.description}</p>
+                    <span className="text-sm font-semibold text-[#064E3B] dark:text-emerald-400 inline-flex items-center gap-1.5">
+                      Read the guide <ArrowRight className="h-4 w-4" />
+                    </span>
                   </span>
                 </Link>
               ))}

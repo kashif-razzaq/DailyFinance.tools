@@ -1,26 +1,14 @@
-import { Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
-import "@/app/globals.css";
-
-const plusJakarta = Plus_Jakarta_Sans({
-  variable: "--font-sans",
-  subsets: ["latin"],
-});
-
-const jetBrainsMono = JetBrains_Mono({
-  variable: "--font-mono",
-  subsets: ["latin"],
-});
-
-// A stripped-down layout specifically for iframes
+/**
+ * Embed layout — the ROOT layout owns <html>/<body> on every route, and
+ * ConditionalLayout already hides the site header/footer on /embed/*.
+ * This nested layout therefore only guarantees the transparent backdrop
+ * (overriding the root body's bg) so widgets blend into host pages.
+ */
 export default function EmbedLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang="en"
-      className={`${plusJakarta.variable} ${jetBrainsMono.variable} h-full antialiased`}
-    >
-      <body className="h-full bg-transparent p-4">
-        {children}
-      </body>
-    </html>
+    <>
+      <style>{`html, body { background: transparent !important; min-height: 0 !important; }`}</style>
+      {children}
+    </>
   );
 }
