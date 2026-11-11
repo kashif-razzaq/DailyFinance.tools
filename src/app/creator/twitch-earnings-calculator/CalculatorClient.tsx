@@ -95,6 +95,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         {row('Donations & sponsors', 'paid to you directly', donations)}
         <p className="text-xs text-muted-foreground mt-3">Differentiator: models the real tier mix and your actual revenue share — one Tier 3 sub is worth five Tier 1s gross, and the 50% vs 70% split is the single biggest lever on this page.</p>
       </div>
+    <ToolActionsBar slug="twitch-earnings-calculator" isPro={isPro} inputs={{ t1, t2, t3, sharePct, bits, ads, donations }} />
     </div>
-  </div><ToolActionsBar slug="twitch-earnings-calculator" isPro={isPro} inputs={{ t1, t2, t3, sharePct, bits, ads, donations }} /></>)
+  </div></>)
 }

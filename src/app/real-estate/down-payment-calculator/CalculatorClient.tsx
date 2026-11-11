@@ -72,5 +72,6 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div></ResultCard>
       <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Savings Growth to Goal</h4>
         <ResponsiveContainer width="100%" height={200}><AreaChart data={c.series}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="month" /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Area type="monotone" dataKey="balance" stroke="#064E3B" fill="#064E3B" fillOpacity={0.15} strokeWidth={2} name="Savings balance" /></AreaChart></ResponsiveContainer></div>
-    </div></div><ToolActionsBar slug="down-payment-calculator" isPro={isPro} inputs={{ price, pct, saved, monthly, ret }} /></>)
+    <ToolActionsBar slug="down-payment-calculator" isPro={isPro} inputs={{ price, pct, saved, monthly, ret }} />
+    </div></div></>)
 }

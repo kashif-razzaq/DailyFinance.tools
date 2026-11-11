@@ -74,5 +74,6 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       </ResultCard>
       <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Growth With No Further Contributions</h4>
         <ResponsiveContainer width="100%" height={220}><AreaChart data={r.chart}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="year" /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Area type="monotone" dataKey="value" stroke="#064E3B" fill="#064E3B" fillOpacity={0.15} name="Portfolio" /></AreaChart></ResponsiveContainer></div>
-    </div></div><ToolActionsBar slug="coast-fire-calculator" isPro={isPro} inputs={{ age, retireAge, invested, spending, ret, monthly }} /></>)
+    <ToolActionsBar slug="coast-fire-calculator" isPro={isPro} inputs={{ age, retireAge, invested, spending, ret, monthly }} />
+    </div></div></>)
 }

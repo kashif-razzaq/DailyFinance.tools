@@ -98,6 +98,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <p className="text-sm mt-3"><span className="font-bold" style={{ color: r.g.color }}>{r.g.label}.</span> <span className="text-muted-foreground">{r.g.note}</span></p>
         <p className="text-xs text-muted-foreground mt-2">Differentiator: you are graded against your own follower tier — a 2% ER is weak for a nano account but strong for a mega account, and honest tools should say so.</p>
       </div>
+    <ToolActionsBar slug="instagram-engagement-rate-calculator" isPro={isPro} inputs={{ followers, likes, comments, shares, saves, reach }} />
     </div>
-  </div><ToolActionsBar slug="instagram-engagement-rate-calculator" isPro={isPro} inputs={{ followers, likes, comments, shares, saves, reach }} /></>)
+  </div></>)
 }

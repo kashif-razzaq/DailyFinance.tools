@@ -70,5 +70,6 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Balance vs Money Paid In</h4>
         <ResponsiveContainer width="100%" height={210}><AreaChart data={r.chart}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="year" /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Area type="monotone" dataKey="balance" stroke="#064E3B" fill="#064E3B" fillOpacity={0.18} name="Balance" /><Area type="monotone" dataKey="paidIn" stroke="#D97706" fill="#D97706" fillOpacity={0.1} name="Paid in" /></AreaChart></ResponsiveContainer>
         <div className="mt-4 space-y-1 font-mono text-sm">{r.table.map(t => (<div key={t.year} className="flex justify-between border-b last:border-0 py-1"><span>Year {t.year}</span><span>{fmt(t.balance)}</span></div>))}</div></div>
-    </div></div><ToolActionsBar slug="compound-interest-scaler-calculator" isPro={isPro} inputs={{ principal, monthly, rate, years, freq }} /></>)
+    <ToolActionsBar slug="compound-interest-scaler-calculator" isPro={isPro} inputs={{ principal, monthly, rate, years, freq }} />
+    </div></div></>)
 }

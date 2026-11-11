@@ -85,7 +85,8 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <div className="bg-[#FAFAFA] border border-neutral-200 rounded-2xl p-6 text-sm text-neutral-600">
           <strong className="text-[#1F2937]">Formula:</strong> <span className="font-mono">Net = (List × Conversion % × Price) − Refunds − Platform % − Processing − Affiliates</span>. Revenue per subscriber is the metric to optimise — it is what lets you outbid competitors for audience growth.
         </div>
-      </div>
+      <ToolActionsBar slug="course-launch-revenue-calculator" isPro={isPro} inputs={{ listSize, conversion, price, refundPct, platformPct, affiliatePct }} />
     </div>
-  <ToolActionsBar slug="course-launch-revenue-calculator" isPro={isPro} inputs={{ listSize, conversion, price, refundPct, platformPct, affiliatePct }} /></>)
+    </div>
+  </>)
 }

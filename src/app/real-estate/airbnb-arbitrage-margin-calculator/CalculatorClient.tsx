@@ -59,5 +59,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     <Result label="Monthly Profit" value={fmt(m.profit)} sub={`Net margin ${pct(m.margin)} on ${fmt(m.gross)} gross. RevPAR is ${fmt2(m.revpar)}.`} />
     <Breakdown title="Monthly P&L"><Row label="Booked nights" value={m.nights.toFixed(1)} /><Row label="Gross revenue" value={fmt(m.gross)} /><Row label="Platform fees" value={'−' + fmt(m.plat)} /><Row label={`Cleaning (${m.turnovers.toFixed(1)} turnovers)`} value={'−' + fmt(m.cleaning)} /><Row label="Housing cost" value={'−' + fmt(housing)} /><Row label="Net margin" value={pct(m.margin)} bold /></Breakdown>
     <p className="text-xs text-muted-foreground">Cleaning fees charged to guests can offset cleaning cost — this model conservatively treats cleaning as a pure cost. Add your actual cleaning-fee income to profit if you charge one.</p>
-  </Shell><ToolActionsBar slug="airbnb-arbitrage-margin-calculator" isPro={isPro} inputs={{ mode, adr, occ, housing, utilities, supplies, cleanFee, stay, platform }} /></>)
+  <ToolActionsBar slug="airbnb-arbitrage-margin-calculator" isPro={isPro} inputs={{ mode, adr, occ, housing, utilities, supplies, cleanFee, stay, platform }} /></Shell></>)
 }

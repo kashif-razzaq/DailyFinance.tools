@@ -59,5 +59,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   </>}>
     <Result label="Monthly Cash Flow" value={fmt(m.cf)} sub={m.cf >= 200 ? 'Healthy by the $200-per-door benchmark many investors target.' : m.cf >= 0 ? 'Positive, but thin — stress-test rent and rate before you buy.' : 'Negative cash flow: this deal needs a lower price, higher rent, or more down.'} />
     <Breakdown title="Rental Breakdown (Monthly)"><Row label="Principal & interest" value={fmt(m.pi)} /><Row label="Vacancy reserve" value={fmt(m.vacC)} /><Row label="Maintenance reserve" value={fmt(m.maintC)} /><Row label="Management" value={fmt(m.mgmtC)} /><Row label="Annual NOI" value={fmt(m.noi)} /><Row label="Cap rate" value={pct(m.cap)} bold /><Row label="Cash invested" value={fmt(m.cash)} /><Row label="Cash-on-cash return" value={pct(m.coc)} bold /></Breakdown>
-  </Shell><ToolActionsBar slug="rental-cash-flow-calculator" isPro={isPro} inputs={{ price, downPct, rate, rent, tax, ins, vac, maint, mgmt, hoa, other }} /></>)
+  <ToolActionsBar slug="rental-cash-flow-calculator" isPro={isPro} inputs={{ price, downPct, rate, rent, tax, ins, vac, maint, mgmt, hoa, other }} /></Shell></>)
 }

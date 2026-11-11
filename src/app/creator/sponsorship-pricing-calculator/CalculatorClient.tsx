@@ -91,7 +91,8 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <div className="bg-[#FAFAFA] border border-neutral-200 rounded-2xl p-6 text-sm text-neutral-600">
           <strong className="text-[#1F2937]">Formula:</strong> <span className="font-mono">Price = (Avg Views ÷ 1,000) × Niche CPM × Engagement Factor × (1 + Usage %) × (1 + Exclusivity %) × Deliverables</span>. Quote the mid-point, keep the low end as your walk-away floor.
         </div>
-      </div>
+      <ToolActionsBar slug="sponsorship-pricing-calculator" isPro={isPro} inputs={{ avgViews, engagement, niche, deliverables, usagePct, exclusivityPct }} />
     </div>
-  <ToolActionsBar slug="sponsorship-pricing-calculator" isPro={isPro} inputs={{ avgViews, engagement, niche, deliverables, usagePct, exclusivityPct }} /></>)
+    </div>
+  </>)
 }

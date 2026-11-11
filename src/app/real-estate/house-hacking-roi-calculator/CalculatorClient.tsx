@@ -57,5 +57,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     <Result label="Your Effective Housing Cost / Month" value={fmt(m.eff)} sub={m.eff <= 0 ? 'Your tenants cover your entire housing cost — you live for free or better.' : `Versus ${fmt(marketRent)} renting elsewhere, you save ${fmt(m.saving)} every month.`} />
     <Breakdown title="House Hack Breakdown"><Row label="Loan amount" value={fmt(m.loan)} /><Row label="Principal & interest" value={fmt(m.pi)} /><Row label="Full PITI payment" value={fmt(m.piti)} /><Row label="Minus rent from other units" value={'−' + fmt(rentOther)} /><Row label="Cash invested (down + 2% closing)" value={fmt(m.cash)} /><Row label="Cash flow if you move out later" value={fmt(m.cfMoved) + ' / mo'} /><Row label="Cash-on-cash ROI after move-out" value={pct(m.roi)} bold /></Breakdown>
     <p className="text-xs text-muted-foreground">Assumes a 30-year fixed mortgage. Add vacancy and maintenance reserves for a conservative view — see the guide below.</p>
-  </Shell><ToolActionsBar slug="house-hacking-roi-calculator" isPro={isPro} inputs={{ price, downPct, rate, tax, ins, rentOther, ownRent, marketRent, utilities }} /></>)
+  <ToolActionsBar slug="house-hacking-roi-calculator" isPro={isPro} inputs={{ price, downPct, rate, tax, ins, rentOther, ownRent, marketRent, utilities }} /></Shell></>)
 }

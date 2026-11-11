@@ -72,5 +72,6 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div></ResultCard>
       <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Converted Amount: Roth vs Traditional</h4>
         <ResponsiveContainer width="100%" height={200}><BarChart data={chart}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="name" /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Bar dataKey="Roth" fill="#064E3B" /><Bar dataKey="Traditional" fill="#94a3b8" /></BarChart></ResponsiveContainer></div>
-    </div></div><ToolActionsBar slug="roth-ira-conversion-simulator" isPro={isPro} inputs={{ balance, convert, nowRate, futureRate, years, ret }} /></>)
+    <ToolActionsBar slug="roth-ira-conversion-simulator" isPro={isPro} inputs={{ balance, convert, nowRate, futureRate, years, ret }} />
+    </div></div></>)
 }

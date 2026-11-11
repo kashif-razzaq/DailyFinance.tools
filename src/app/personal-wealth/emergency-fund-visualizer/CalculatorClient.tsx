@@ -74,5 +74,6 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div></ResultCard>
       <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Target by Months of Cover</h4>
         <ResponsiveContainer width="100%" height={200}><BarChart data={r.tiers}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="label" /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Bar dataKey="amount" name="Target">{r.tiers.map((t, i) => (<Cell key={i} fill={t.current ? '#064E3B' : '#cbd5e1'} />))}</Bar></BarChart></ResponsiveContainer></div>
-    </div></div><ToolActionsBar slug="emergency-fund-visualizer" isPro={isPro} inputs={{ rent, food, transport, insurance, other, saved, monthlySave, months }} /></>)
+    <ToolActionsBar slug="emergency-fund-visualizer" isPro={isPro} inputs={{ rent, food, transport, insurance, other, saved, monthlySave, months }} />
+    </div></div></>)
 }

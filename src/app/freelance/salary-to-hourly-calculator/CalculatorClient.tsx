@@ -83,8 +83,9 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </table>
         <p className="text-xs text-muted-foreground mt-3">Differentiator: a $80k salary at 50 hrs/week is really a $30.77/hr job. Comparing offers on hourly terms exposes the hours hidden inside a salary.</p>
       </div>
+    <ToolActionsBar slug="salary-to-hourly-calculator" isPro={isPro} inputs={{ mode, amount, hoursPerWeek, weeksPerYear, unpaidWeeks }} />
     </div>
   </div>
-      <ToolActionsBar slug="salary-to-hourly-calculator" isPro={isPro} inputs={{ mode, amount, hoursPerWeek, weeksPerYear, unpaidWeeks }} />
+      
     </>)
 }

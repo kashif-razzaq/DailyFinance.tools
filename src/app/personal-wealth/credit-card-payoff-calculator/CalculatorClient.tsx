@@ -69,5 +69,6 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div></ResultCard>
       <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Balance Decline — Fixed Payment</h4>
         <ResponsiveContainer width="100%" height={200}><LineChart data={fixed.series}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="month" /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Line type="monotone" dataKey="balance" stroke="#064E3B" strokeWidth={2} dot={false} name="Balance" /></LineChart></ResponsiveContainer></div>
-    </div></div><ToolActionsBar slug="credit-card-payoff-calculator" isPro={isPro} inputs={{ balance, apr, payment }} /></>)
+    <ToolActionsBar slug="credit-card-payoff-calculator" isPro={isPro} inputs={{ balance, apr, payment }} />
+    </div></div></>)
 }
