@@ -8,6 +8,21 @@ export const metadata: Metadata = {
   title: "Pricing — Free Calculators Forever, Pro for $2.99/mo | DailyFinance",
   description: "DailyFinance is free: all calculators and up to 3 saved scenarios. Pro is $2.99/mo: unlimited Vault, CSV/Excel exports, premium PDFs, analytics, zero ads.",
   alternates: { canonical: "https://dailyfinance.tools/pricing" },
+  openGraph: {
+    title: "Pricing — Free Calculators Forever, Pro for $2.99/mo | DailyFinance",
+    description: "DailyFinance is free: all calculators and up to 3 saved scenarios. Pro is $2.99/mo: unlimited Vault, CSV/Excel exports, premium PDFs, analytics, zero ads.",
+    url: "https://dailyfinance.tools/pricing",
+    siteName: "DailyFinance.tools",
+    locale: "en_US",
+    type: "website",
+    images: [{ url: "https://dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Pricing — Free Calculators Forever, Pro for $2.99/mo | DailyFinance" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Pricing — Free Calculators Forever, Pro for $2.99/mo | DailyFinance",
+    description: "DailyFinance is free: all calculators and up to 3 saved scenarios. Pro is $2.99/mo: unlimited Vault, CSV/Excel exports, premium PDFs, analytics, zero ads.",
+    images: ["https://dailyfinance.tools/images/og-base.jpg"],
+  },
   keywords: ["dailyfinance pro", "financial calculator subscription", "scenario vault pricing"],
 }
 

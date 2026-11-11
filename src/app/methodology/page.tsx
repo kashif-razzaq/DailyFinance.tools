@@ -6,6 +6,21 @@ export const metadata: Metadata = {
   title: "Methodology — How DailyFinance Calculates, Sources & Reviews Numbers",
   description: "How DailyFinance builds its calculators: formula sources (IRS, SSA, platform fee schedules), ACMA review, update cadence and accuracy limits.",
   alternates: { canonical: "https://dailyfinance.tools/methodology" },
+  openGraph: {
+    title: "Methodology — How DailyFinance Calculates, Sources & Reviews Numbers",
+    description: "How DailyFinance builds its calculators: formula sources (IRS, SSA, platform fee schedules), ACMA review, update cadence and accuracy limits.",
+    url: "https://dailyfinance.tools/methodology",
+    siteName: "DailyFinance.tools",
+    locale: "en_US",
+    type: "website",
+    images: [{ url: "https://dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Methodology — How DailyFinance Calculates, Sources & Reviews Numbers" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Methodology — How DailyFinance Calculates, Sources & Reviews Numbers",
+    description: "How DailyFinance builds its calculators: formula sources (IRS, SSA, platform fee schedules), ACMA review, update cadence and accuracy limits.",
+    images: ["https://dailyfinance.tools/images/og-base.jpg"],
+  },
 }
 
 export default function MethodologyPage() {

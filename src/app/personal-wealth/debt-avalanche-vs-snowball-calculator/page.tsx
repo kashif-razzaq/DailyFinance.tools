@@ -7,7 +7,7 @@ import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
-  title: 'Debt Avalanche vs Snowball Calculator: Compare Interest & Payoff Dates',
+  title: 'Debt Avalanche vs Snowball: Interest & Payoff Dates',
   description: 'Debt avalanche vs snowball, side by side: enter your debts and see total interest, debt-free date and payoff order for each method. Free, instant.',
   keywords: ['debt avalanche vs snowball calculator', 'debt payoff calculator', 'avalanche method', 'snowball method', 'fastest way to pay off debt'],
   slug: "personal-wealth/debt-avalanche-vs-snowball-calculator",

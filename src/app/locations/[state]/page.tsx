@@ -18,6 +18,21 @@ export async function generateMetadata({ params }: { params: Promise<{ state: st
     title: `${s.name} Taxes & Finance Guide — Sales Tax ${s.salesTaxBase}%, Property & Income Tax Explained`,
     description: `${s.name} (${s.abbr}) finance guide: ${s.salesTaxBase}% state sales tax (~${s.salesTaxAvgCombined}% average combined), ${s.propertyTaxAvg}% average property tax, ${s.incomeTax === "none" ? "no tax on wage income" : s.incomeTax + " income tax"}, grocery tax treatment, plus the calculators that use these rates.`,
     alternates: { canonical: `https://dailyfinance.tools/locations/${s.slug}` },
+    openGraph: {
+      title: `${s.name} Taxes & Finance Guide — Sales Tax ${s.salesTaxBase}%, Property & Income Tax Explained`,
+      description: `${s.name} (${s.abbr}) finance guide: ${s.salesTaxBase}% state sales tax (~${s.salesTaxAvgCombined}% average combined), ${s.propertyTaxAvg}% average property tax, ${s.incomeTax === "none" ? "no tax on wage income" : s.incomeTax + " income tax"}, grocery tax treatment, plus the calculators that use these rates.`,
+      url: `https://dailyfinance.tools/locations/${s.slug}`,
+      siteName: "DailyFinance.tools",
+      locale: "en_US",
+      type: "website",
+      images: [{ url: "https://dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: `${s.name} Taxes & Finance Guide — Sales Tax ${s.salesTaxBase}%, Property & Income Tax Explained` }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${s.name} Taxes & Finance Guide — Sales Tax ${s.salesTaxBase}%, Property & Income Tax Explained`,
+      description: `${s.name} (${s.abbr}) finance guide: ${s.salesTaxBase}% state sales tax (~${s.salesTaxAvgCombined}% average combined), ${s.propertyTaxAvg}% average property tax, ${s.incomeTax === "none" ? "no tax on wage income" : s.incomeTax + " income tax"}, grocery tax treatment, plus the calculators that use these rates.`,
+      images: ["https://dailyfinance.tools/images/og-base.jpg"],
+    },
     keywords: [`${s.name.toLowerCase()} sales tax`, `${s.name.toLowerCase()} property tax`, `${s.name.toLowerCase()} income tax`, `${s.name.toLowerCase()} tax calculator`],
   }
 }

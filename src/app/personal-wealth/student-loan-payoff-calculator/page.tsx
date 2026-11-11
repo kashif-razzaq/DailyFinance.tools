@@ -7,7 +7,7 @@ import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
-  title: 'Student Loan Payoff Calculator: Payoff Date, Interest & Extra Payments',
+  title: 'Student Loan Payoff Calculator: Payoff Date & Interest',
   description: 'Your student loan payoff date and total interest, calculated — plus exactly how much time and money extra payments save you. Free calculator.',
   keywords: ['student loan payoff calculator', 'student loan calculator', 'how long to pay off student loan', 'student loan interest calculator'],
   slug: "personal-wealth/student-loan-payoff-calculator",

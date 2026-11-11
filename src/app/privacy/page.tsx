@@ -5,6 +5,21 @@ export const metadata: Metadata = {
   title: "Privacy Policy | DailyFinance",
   description: "How DailyFinance collects, uses and protects your information, including advertising cookies from Google AdSense and your choices about them.",
   alternates: { canonical: "https://dailyfinance.tools/privacy" },
+  openGraph: {
+    title: "Privacy Policy | DailyFinance",
+    description: "How DailyFinance collects, uses and protects your information, including advertising cookies from Google AdSense and your choices about them.",
+    url: "https://dailyfinance.tools/privacy",
+    siteName: "DailyFinance.tools",
+    locale: "en_US",
+    type: "website",
+    images: [{ url: "https://dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Privacy Policy | DailyFinance" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Privacy Policy | DailyFinance",
+    description: "How DailyFinance collects, uses and protects your information, including advertising cookies from Google AdSense and your choices about them.",
+    images: ["https://dailyfinance.tools/images/og-base.jpg"],
+  },
 }
 
 export default function Page() {

@@ -7,7 +7,7 @@ import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
-  title: 'Credit Card Payoff Calculator: Debt-Free Date & Interest Saved',
+  title: 'Credit Card Payoff Calculator: Debt-Free Date & Interest',
   description: 'When will you be credit-card debt-free? Fixed payment vs the minimum-payment trap: debt-free date and total interest, compared. Free calculator.',
   keywords: ['credit card payoff calculator', 'credit card debt payoff', 'minimum payment calculator', 'how long to pay off credit card'],
   slug: "personal-wealth/credit-card-payoff-calculator",

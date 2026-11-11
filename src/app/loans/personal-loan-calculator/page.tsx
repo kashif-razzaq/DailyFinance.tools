@@ -6,11 +6,11 @@ import { ToolContent } from "@/components/shared/ToolContent"
 import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
-export const metadata: Metadata = generateCalculatorMetadata({ title: 'Personal Loan Calculator – Free, Instant Results (2026)', description: 'Use our free Personal Loan Calculator to calculate personal loan payments and total cost. Free, instant results with worked examples and FAQs.', keywords: ['personal loan calculator', 'personal loan payment calculator', 'personal loan interest calculator'], slug: "loans/personal-loan-calculator", category: "Loans" });
+export const metadata: Metadata = generateCalculatorMetadata({ title: 'Personal Loan Calculator: Payment, Total Cost & Payoff Date', description: 'Personal loan payments and total cost for any amount, rate and term — with the payoff date and how much interest extra payments save you.', keywords: ['personal loan calculator', 'personal loan payment calculator', 'personal loan interest calculator'], slug: "loans/personal-loan-calculator", category: "Loans" });
 
 export default function Page() {
   return (
-    <ToolLayout title="Personal Loan Calculator" description="Use our free Personal Loan Calculator to calculate personal loan payments and total cost. Free, instant results with worked examples and FAQs." slug="personal-loan-calculator" faqs={TOOL_CONTENT["loans/personal-loan-calculator"]?.faqs ?? []} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
+    <ToolLayout title="Personal Loan Calculator" description="Personal loan payments and total cost for any amount, rate and term — with the payoff date and how much interest extra payments save you." slug="personal-loan-calculator" faqs={TOOL_CONTENT["loans/personal-loan-calculator"]?.faqs ?? []} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
       {() => <ToolContent contentKey="loans/personal-loan-calculator" />}
     </ToolLayout>
   )

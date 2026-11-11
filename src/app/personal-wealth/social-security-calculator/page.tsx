@@ -6,7 +6,7 @@ import { ToolContent } from "@/components/shared/ToolContent"
 import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
-export const metadata: Metadata = generateCalculatorMetadata({ title: 'Social Security Calculator – Free, Instant Results (2026)', description: 'Social Security Calculator: your estimated benefit at 62, 67 and 70, and the real cost of claiming early. Free, instant results with examples.', keywords: ['social security calculator', 'social security benefits estimator', 'claiming at 62 vs 67 vs 70', 'retirement benefits calculator'], slug: "personal-wealth/social-security-calculator", category: "Personal Wealth" });
+export const metadata: Metadata = generateCalculatorMetadata({ title: 'Social Security Calculator: Benefits at 62, 67 & 70', description: 'Social Security Calculator: your estimated benefit at 62, 67 and 70, and the real cost of claiming early. Free, instant results with examples.', keywords: ['social security calculator', 'social security benefits estimator', 'claiming at 62 vs 67 vs 70', 'retirement benefits calculator'], slug: "personal-wealth/social-security-calculator", category: "Personal Wealth" });
 
 export default function Page() {
   return (
