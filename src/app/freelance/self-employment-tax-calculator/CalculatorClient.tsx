@@ -97,7 +97,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
 
   const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://dailyfinance.tools'
   const shareUrl = savedScenarioId 
-    ? `${baseUrl}/freelance/freelance-tax-deductions-calculator?savedId=${savedScenarioId}`
+    ? `${baseUrl}/freelance/self-employment-tax-calculator?savedId=${savedScenarioId}`
     : `${baseUrl}/freelance/freelance-tax-deductions-calculator`
 
   return (

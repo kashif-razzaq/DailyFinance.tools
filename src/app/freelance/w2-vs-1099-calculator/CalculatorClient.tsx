@@ -160,7 +160,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
 
   const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://dailyfinance.tools'
   const shareUrl = savedScenarioId 
-    ? `${baseUrl}/freelance/w2-vs-1099-paycheck-calculator?savedId=${savedScenarioId}`
+    ? `${baseUrl}/freelance/w2-vs-1099-calculator?savedId=${savedScenarioId}`
     : `${baseUrl}/freelance/w2-vs-1099-paycheck-calculator`
 
   return (

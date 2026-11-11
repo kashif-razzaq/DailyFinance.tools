@@ -6,6 +6,7 @@ import { Slider } from "@/components/ui/slider"
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Cell } from 'recharts'
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
@@ -55,6 +56,15 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [rate, setRate] = useState(9)
   const [fees, setFees] = useState(800)
   const [months, setMonths] = useState(60)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.amount !== undefined) setAmount(s.amount as any)
+    if (s.rate !== undefined) setRate(s.rate as any)
+    if (s.fees !== undefined) setFees(s.fees as any)
+    if (s.months !== undefined) setMonths(s.months as any)
+  })
+
 
   const payment = useMemo(() => monthlyPayment(amount, rate, months), [amount, rate, months])
   const netReceived = Math.max(0, amount - fees)

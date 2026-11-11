@@ -88,7 +88,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
 
   const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://dailyfinance.tools'
   const shareUrl = savedScenarioId 
-    ? `${baseUrl}/freelance/cross-border-fx-impact-calculator?savedId=${savedScenarioId}`
+    ? `${baseUrl}/freelance/stripe-paypal-fee-calculator?savedId=${savedScenarioId}`
     : `${baseUrl}/freelance/cross-border-fx-impact-calculator`
 
   return (

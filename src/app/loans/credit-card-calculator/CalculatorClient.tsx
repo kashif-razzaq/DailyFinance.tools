@@ -6,6 +6,7 @@ import { Slider } from "@/components/ui/slider"
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts'
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
@@ -51,6 +52,16 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [mode, setMode] = useState<Mode>('minimum')
   const [fixedPayment, setFixedPayment] = useState(200)
   const [pct, setPct] = useState(3)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.balance !== undefined) setBalance(s.balance as any)
+    if (s.apr !== undefined) setApr(s.apr as any)
+    if (s.mode !== undefined) setMode(s.mode as any)
+    if (s.fixedPayment !== undefined) setFixedPayment(s.fixedPayment as any)
+    if (s.pct !== undefined) setPct(s.pct as any)
+  })
+
 
   const current = useMemo(() => simulate(balance, apr, mode, fixedPayment, pct), [balance, apr, mode, fixedPayment, pct])
   const cmpFixed = useMemo(() => simulate(balance, apr, 'fixed', fixedPayment, pct), [balance, apr, fixedPayment, pct])

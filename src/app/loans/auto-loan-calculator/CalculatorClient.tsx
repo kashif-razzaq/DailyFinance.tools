@@ -6,6 +6,7 @@ import { Slider } from "@/components/ui/slider"
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Cell } from 'recharts'
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
@@ -41,6 +42,17 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [down, setDown] = useState(4000)
   const [rate, setRate] = useState(7.9)
   const [term, setTerm] = useState(60)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.price !== undefined) setPrice(s.price as any)
+    if (s.tradeIn !== undefined) setTradeIn(s.tradeIn as any)
+    if (s.taxPct !== undefined) setTaxPct(s.taxPct as any)
+    if (s.down !== undefined) setDown(s.down as any)
+    if (s.rate !== undefined) setRate(s.rate as any)
+    if (s.term !== undefined) setTerm(s.term as any)
+  })
+
 
   // Amount financed = price - trade-in + sales tax on the taxable amount (price - trade-in in most states) - down payment.
   const taxable = Math.max(0, price - tradeIn)
