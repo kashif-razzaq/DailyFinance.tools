@@ -3,13 +3,14 @@
 import React from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { FolderGit2, BarChart3, Settings, Sparkles } from "lucide-react"
+import { FolderGit2, BarChart3, Settings, Sparkles, Home } from "lucide-react"
 import { cn } from '@/lib/utils'
 
 export function DashboardMobileNav() {
   const pathname = usePathname()
 
   const navItems = [
+    { name: "Home", href: "/", icon: Home, color: "text-muted-foreground", matchExact: true },
     { name: "Vault", href: "/dashboard", icon: FolderGit2, color: "text-primary", matchExact: true },
     { name: "Analytics", href: "/dashboard/analytics", icon: BarChart3, color: "text-primary" },
     { name: "Pro Tools", href: "/dashboard/tools", icon: Sparkles, color: "text-accent" },

@@ -31,7 +31,7 @@ export function ProUpgradeModal({ isOpen, onClose }: ProUpgradeModalProps) {
             Unlock Pro Features
           </h2>
           <p className="text-muted-foreground mb-8 leading-relaxed text-sm">
-            Join our Pro tier to instantly unlock saving, exporting, and powerful analytics across all 57+ calculators.
+            Join our Pro tier to instantly unlock unlimited saving, scenario comparison, 5 exclusive Pro tools and the full analytics across all 100+ calculators.
           </p>
           
           <div className="bg-muted/30 p-5 rounded-2xl mb-8 text-left space-y-3.5 border border-border/50 text-sm">
@@ -45,7 +45,11 @@ export function ProUpgradeModal({ isOpen, onClose }: ProUpgradeModalProps) {
             </div>
             <div className="flex items-center gap-3">
               <ShieldCheck className="h-4 w-4 text-muted-foreground shrink-0" />
-              <span className="font-medium text-foreground">Dynamic version history & cloning</span>
+              <span className="font-medium text-foreground">5 exclusive Pro tools — Monte Carlo, Rental Analyzer & more</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <ShieldCheck className="h-4 w-4 text-muted-foreground shrink-0" />
+              <span className="font-medium text-foreground">Scenario comparison & cloning</span>
             </div>
             <div className="flex items-center gap-3">
               <ShieldCheck className="h-4 w-4 text-muted-foreground shrink-0" />
@@ -61,7 +65,7 @@ export function ProUpgradeModal({ isOpen, onClose }: ProUpgradeModalProps) {
             </div>
             <div className="flex items-center gap-3">
               <ShieldCheck className="h-4 w-4 text-muted-foreground shrink-0" />
-              <span className="font-medium text-foreground">Cross-Data Analytics Engine</span>
+              <span className="font-medium text-foreground">Full Cross-Data Analytics (balance sheet, debt costs, cash flow)</span>
             </div>
           </div>
           

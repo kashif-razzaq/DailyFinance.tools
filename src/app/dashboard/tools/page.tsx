@@ -42,7 +42,7 @@ export default function ProToolsLibrary() {
     <div className="space-y-10">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Pro Tools Library</h1>
+          <h1 className="text-2xl font-extrabold tracking-tight text-foreground md:text-3xl">Pro Tools Library</h1>
           <p className="text-muted-foreground mt-1">Advanced calculators from the full DailyFinance suite — every one live and ready to open.</p>
         </div>
       </div>

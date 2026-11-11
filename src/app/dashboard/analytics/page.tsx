@@ -26,7 +26,7 @@ export default async function AnalyticsPage() {
     <div className="space-y-10">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Cross-Data Analytics</h1>
+          <h1 className="text-2xl font-extrabold tracking-tight text-foreground md:text-3xl">Cross-Data Analytics</h1>
           <p className="text-muted-foreground mt-1">Your saved scenarios, combined: balance sheet, debt costs, cash flow and savings — from your own numbers.</p>
         </div>
       </div>
