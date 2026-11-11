@@ -102,6 +102,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <Bar dataKey="Take-home" stackId="a" fill="#064E3B" /><Bar dataKey="Federal" stackId="a" fill="#D97706" /><Bar dataKey="State" stackId="a" fill="#9333EA" /><Bar dataKey="FICA" stackId="a" fill="#2563EB" /></BarChart></ResponsiveContainer>
         <p className="text-xs text-muted-foreground mt-3">Differentiator: most calculators show federal tax only — this one stacks federal + state + FICA so you see the true all-in burden.</p>
       </div>
+    <ToolActionsBar slug="income-tax-calculator" isPro={isPro} inputs={{ income, status, stateIdx, customState, customPct }} />
     </div>
-  </div><ToolActionsBar slug="income-tax-calculator" isPro={isPro} inputs={{ income, status, stateIdx, customState, customPct }} /></>)
+  </div></>)
 }

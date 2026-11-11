@@ -114,5 +114,6 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <div className="flex justify-between border-t pt-3"><span className="font-semibold">Extra cost of the fee</span><span className="font-mono font-bold text-[#B45309]">{fmt(fee)}</span></div>
           <p className="text-xs text-muted-foreground">Tip: a lender quoting a low rate with a high origination fee can cost more than a slightly higher rate with no fee. Compare effective APRs, not headline rates.</p>
         </div></div>
-    </div></div><ToolActionsBar slug="personal-loan-calculator" isPro={isPro} inputs={{ amount, rate, months, feePct }} /></>)
+    <ToolActionsBar slug="personal-loan-calculator" isPro={isPro} inputs={{ amount, rate, months, feePct }} />
+    </div></div></>)
 }

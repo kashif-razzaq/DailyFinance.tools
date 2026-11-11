@@ -111,5 +111,6 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       </ResultCard>
       <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Balance by Age</h4>
         <ResponsiveContainer width="100%" height={220}><AreaChart data={r.series}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="age" /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt2(Number(v))} /><Area type="monotone" dataKey="balance" stroke="#064E3B" fill="#064E3B" fillOpacity={0.25} name="Balance" /></AreaChart></ResponsiveContainer></div>
-    </div></div><ToolActionsBar slug="retirement-calculator" isPro={isPro} inputs={{ currentAge, retireAge, savings, monthly, ret, spending, life }} /></>)
+    <ToolActionsBar slug="retirement-calculator" isPro={isPro} inputs={{ currentAge, retireAge, savings, monthly, ret, spending, life }} />
+    </div></div></>)
 }

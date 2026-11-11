@@ -94,5 +94,6 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <tbody className="font-mono">{r.table.map(row => (<tr key={row.year} className="border-b last:border-0"><td className="py-2 pr-2">{row.label}</td><td className="py-2 pr-2 text-right">{fmt(row.accrued)}</td><td className="py-2 text-right font-bold">{fmt(row.balance)}</td></tr>))}</tbody></table></div>
         <p className="text-xs text-muted-foreground mt-3">Simple interest grows in a straight line — exactly {fmt(principal * rate / 100)} added every year, never more.</p>
       </div>
-    </div></div><ToolActionsBar slug="simple-interest-calculator" isPro={isPro} inputs={{ principal, rate, years, months, showCompound }} /></>)
+    <ToolActionsBar slug="simple-interest-calculator" isPro={isPro} inputs={{ principal, rate, years, months, showCompound }} />
+    </div></div></>)
 }

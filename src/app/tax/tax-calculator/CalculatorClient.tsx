@@ -132,6 +132,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
         <p className="text-xs text-muted-foreground mt-4">Differentiator: this is the real marginal system — only the dollars inside each bracket are taxed at that bracket's rate, so a pay rise never makes you worse off.</p>
       </div>
+  <ToolActionsBar slug="tax-calculator" isPro={isPro} inputs={{ income, status, useItemized, itemized, credits, withheld }} />
     </div>
-  </div><ToolActionsBar slug="tax-calculator" isPro={isPro} inputs={{ income, status, useItemized, itemized, credits, withheld }} /></>)
+    </div></>)
 }

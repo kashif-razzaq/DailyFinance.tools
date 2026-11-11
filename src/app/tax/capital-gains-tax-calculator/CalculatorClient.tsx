@@ -113,6 +113,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <p className="text-xs text-muted-foreground mt-3">Differentiator: side-by-side short vs long-term tax on the same sale. {r.isLong ? `Selling as short-term would have cost ${fmt(Math.max(0, r.stTax - r.chosen))} more.` : `Holding past 12 months would save about ${fmt(Math.max(0, r.stTax - r.lt.tax))} on this gain.`}</p>
         </div>
       )}
+    <ToolActionsBar slug="capital-gains-tax-calculator" isPro={isPro} inputs={{ cost, sale, months, otherIncome, status }} />
     </div>
-  </div><ToolActionsBar slug="capital-gains-tax-calculator" isPro={isPro} inputs={{ cost, sale, months, otherIncome, status }} /></>)
+  </div></>)
 }

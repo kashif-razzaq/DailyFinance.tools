@@ -107,5 +107,6 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
             ? <>You could take on about <strong className="text-[#1F2937]">{fmt(room43)}/mo</strong> more in debt payments before crossing 43%{room36 > 0 && <>, or {fmt(room36)}/mo to stay inside the comfortable 36% zone</>}.</>
             : <>To reach the 43% line, cut monthly debt payments by <strong className="text-[#1F2937]">{fmt(cutTo43)}</strong> — or add about <strong className="text-[#1F2937]">{fmt(totalDebts / 0.43 - income)}/mo</strong> in gross income.</>}</div>
         </div></div>
-    </div></div><ToolActionsBar slug="debt-to-income-ratio-calculator" isPro={isPro} inputs={{ income, housing, auto, student, cards, other }} /></>)
+    <ToolActionsBar slug="debt-to-income-ratio-calculator" isPro={isPro} inputs={{ income, housing, auto, student, cards, other }} />
+    </div></div></>)
 }

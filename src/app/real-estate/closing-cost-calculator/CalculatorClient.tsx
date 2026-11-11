@@ -94,5 +94,6 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <div className="relative h-4 rounded-full bg-gradient-to-r from-emerald-200 via-amber-200 to-red-200"><div className="absolute -top-1 w-6 h-6 rounded-full bg-[#064E3B] border-4 border-white shadow" style={{ left: `calc(${rangePos}% - 12px)` }} /></div>
         <div className="flex justify-between text-xs text-muted-foreground mt-2"><span>1%</span><span>Your estimate: {pctOfPrice.toFixed(1)}%</span><span>6%+</span></div>
         <p className="text-sm text-muted-foreground mt-4">{pctOfPrice < 2 ? 'Below the typical range — double-check nothing is missing, especially prepaid taxes and insurance.' : pctOfPrice <= 5 ? 'Inside the typical 2–5% band for US buyers.' : 'Above the typical band — the biggest levers are origination and title insurance; both are negotiable or shoppable in many states.'}</p></div>
-    </div></div><ToolActionsBar slug="closing-cost-calculator" isPro={isPro} inputs={{ price, downPct, taxPct, insYear, rate, overrides }} /></>)
+    <ToolActionsBar slug="closing-cost-calculator" isPro={isPro} inputs={{ price, downPct, taxPct, insYear, rate, overrides }} />
+    </div></div></>)
 }

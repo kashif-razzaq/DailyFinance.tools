@@ -93,7 +93,8 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           </div>
           <p className="mt-6 flex items-start gap-2 text-sm text-primary-foreground/90 relative z-10"><Receipt className="h-5 w-5 shrink-0" /><span>{mode === 'add' ? 'Add mode: tax is charged on top of the net price — the US checkout model.' : 'Extract mode: the tax inside a tax-inclusive price — the VAT shelf-price model. Never calculate it as gross × rate; divide by (1 + rate) first.'}</span></p>
         </div>
-      </div>
+      <ToolActionsBar slug="sales-tax-vat-calculator" isPro={isPro} inputs={{ system, mode, amount, state, vatPreset, localAdd, customVat, useCustomVat }} />
     </div>
-  <ToolActionsBar slug="sales-tax-vat-calculator" isPro={isPro} inputs={{ system, mode, amount, state, vatPreset, localAdd, customVat, useCustomVat }} /></>)
+    </div>
+  </>)
 }

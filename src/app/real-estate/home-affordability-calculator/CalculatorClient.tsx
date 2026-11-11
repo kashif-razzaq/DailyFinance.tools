@@ -96,5 +96,6 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
         <p className="text-xs text-muted-foreground">Many lenders stretch to 43–50% back-end DTI for well-qualified borrowers; the 28/36 view is the conservative, budget-safe line.</p>
       </div>
-    </div></div><ToolActionsBar slug="home-affordability-calculator" isPro={isPro} inputs={{ income, debts, down, rate, term, taxPct, insYear, hoa }} /></>)
+    <ToolActionsBar slug="home-affordability-calculator" isPro={isPro} inputs={{ income, debts, down, rate, term, taxPct, insYear, hoa }} />
+    </div></div></>)
 }

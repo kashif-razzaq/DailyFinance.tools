@@ -128,6 +128,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           </table>
         )}
       </div>
+    <ToolActionsBar slug="high-yield-savings-calculator" isPro={isPro} inputs={{ deposit, monthly, years, hysaApy, regularApy }} />
     </div>
-  </div><ToolActionsBar slug="high-yield-savings-calculator" isPro={isPro} inputs={{ deposit, monthly, years, hysaApy, regularApy }} /></>)
+  </div></>)
 }
