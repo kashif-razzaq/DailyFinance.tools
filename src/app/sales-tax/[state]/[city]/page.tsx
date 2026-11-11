@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { ReviewLine } from "@/components/locations/ReviewLine"
 import { FaqAccordion } from "@/components/shared/FaqAccordion"
 import Link from "next/link"
 import Script from "next/script"
@@ -150,6 +151,7 @@ export default async function CitySalesTaxPage({ params }: { params: Promise<{ s
           <aside className="lg:col-span-4 bg-card border rounded-3xl p-6">
             <h3 className="font-bold text-lg mb-4">{c.name} Sales Tax FAQs</h3>
 <FaqAccordion items={faqs} variant="compact" />
+            <ReviewLine compact />
             <div className="mt-6 pt-5 border-t border-border/40 space-y-2">
               <Link href={`/sales-tax/${s.slug}`} className="block text-sm text-primary font-semibold">Full {s.name} sales tax guide →</Link>
               <Link href={`/locations/${s.slug}`} className="block text-sm text-primary font-semibold">{s.name} tax &amp; finance guide →</Link>

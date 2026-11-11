@@ -1,4 +1,5 @@
 import React from "react"
+import { ReviewLine } from "@/components/locations/ReviewLine"
 import Link from "next/link"
 import Script from "next/script"
 import { navigationCategories, getToolUrl } from "@/config/navigation"
@@ -147,6 +148,7 @@ export function CategoryHub({ categorySlug, quickAnswer, intro, decisions, faqs 
           <aside className="lg:col-span-4 bg-card border border-border/60 rounded-3xl p-6 lg:sticky lg:top-24">
             <h3 className="font-bold text-lg mb-2">Frequently Asked Questions</h3>
             <FaqAccordion items={faqs} variant="compact" />
+            <ReviewLine compact scope="general" />
           </aside>
         </div>
       </section>

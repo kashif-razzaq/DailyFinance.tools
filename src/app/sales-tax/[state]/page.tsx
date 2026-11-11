@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { ReviewLine } from "@/components/locations/ReviewLine"
 import { TaxCompareChart } from "@/components/locations/TaxCompareChart"
 import { FaqAccordion } from "@/components/shared/FaqAccordion"
 import Link from "next/link"
@@ -168,6 +169,7 @@ export default async function StateSalesTaxPage({ params }: { params: Promise<{ 
           <aside className="lg:col-span-4 bg-card border rounded-3xl p-6">
             <h3 className="font-bold text-lg mb-4">{s.name} Sales Tax FAQs</h3>
 <FaqAccordion items={faqs} variant="compact" />
+            <ReviewLine compact />
             <div className="mt-6 pt-5 border-t border-border/40">
               <h4 className="font-semibold text-sm mb-2">More for {s.name}</h4>
               <Link href={`/locations/${s.slug}`} className="block text-sm text-primary font-semibold">Full {s.name} tax &amp; finance guide →</Link>
