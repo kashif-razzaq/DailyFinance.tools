@@ -21,7 +21,7 @@ model and status), `ADSENSE-SETUP.md` (ad go-live steps).
 | Topic hubs | `src/data/hubs.ts` | The 6 plan hubs at `/hubs/[slug]`, plus the 7 category hub pages from navigation. Homepage Hubs + Guides sections read these files. |
 | Location data | `src/data/locations/us-states.ts` (50 states + DC), `us-cities.ts` (30 cities) | Generates `/locations`, `/locations/[state]`, `/sales-tax/[state]`, `/sales-tax/[state]/[city]`, `/guides/states/**`. One dataset edit updates every variant page. |
 | Metadata | `src/config/metadata.ts` | `generateCalculatorMetadata` — every tool page uses it (title, description, canonical, OG/Twitter with `/api/og` image). |
-| Sitemap + llms.txt | `src/app/sitemap.ts`, `src/app/llms.txt/route.ts` | Auto-generated from registry/navigation/guides/locations data. Never edit by hand; if a URL is missing, the data files disagree — `npm run check-site` finds it. |
+| Sitemaps | `public/sitemap.xml` + `public/sitemap/*.xml` (static, styled by `public/sitemap.xsl`) | Static files generated from the data — see 'Sitemaps' section below. `src/app/sitemap.ts` is a retired stub. llms.txt stays a route: `src/app/llms.txt/route.ts`. |
 | Calculators | `src/app/<category>/<slug>/CalculatorClient.tsx` | Client component, house pattern: local MoneyInput/slider helpers, `lg:grid-cols-12` (inputs 7 / results 5), dark-green `#064E3B` result card. `page.tsx` beside it is the thin wired shell. |
 | Pro / free gating | Supabase `users.subscription_status = 'active'` → `isPro` | Free Vault limit 3 saves (`src/actions/calculator.actions.ts`); `/dashboard/analytics` is Pro-gated. See MONETIZATION.md. |
 
@@ -243,3 +243,9 @@ whole?"
   debt-to-income band, balance sheet, debts-by-balance chart, budget cash
   flow + savings rate, emergency months, monthly investing, highest-APR
   callout. Verified against hand-computed cases.
+
+## Sitemaps (Yoast-style, static + styled)
+
+- `/sitemap.xml` is the index; children: `/sitemap/{pages,calculators,hubs,guides,states}.xml` — all static files in `public/`, each carrying `<?xml-stylesheet … href="/sitemap.xsl"?>` so browsers render the designed, clickable hierarchy view (crawlers/GSC read the raw XML as usual).
+- `src/app/sitemap.ts` is a retired stub — do NOT re-add generateSitemaps (its dynamic routes would shadow the static files and cannot carry the stylesheet).
+- REGENERATE after adding/removing tools, guides, states or cities: rebuild the URL sets from the data (navigation config, GUIDES, US_STATES/US_CITIES in state→cities hierarchy order), write the files with the stylesheet PI on line 2, and verify the union still equals the intended URL set before pushing.

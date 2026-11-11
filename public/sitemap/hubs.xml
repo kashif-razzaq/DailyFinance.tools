@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="/sitemap.xsl"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+<loc>https://dailyfinance.tools/hubs/personal-finance</loc>
+<lastmod>2026-11-11T14:00:19.352Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.85</priority>
+</url>
+<url>
+<loc>https://dailyfinance.tools/hubs/mortgage-and-real-estate</loc>
+<lastmod>2026-11-11T14:00:19.352Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.85</priority>
+</url>
+<url>
+<loc>https://dailyfinance.tools/hubs/loans-and-debt</loc>
+<lastmod>2026-11-11T14:00:19.352Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.85</priority>
+</url>
+<url>
+<loc>https://dailyfinance.tools/hubs/salary-tax-and-investing</loc>
+<lastmod>2026-11-11T14:00:19.352Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.85</priority>
+</url>
+<url>
+<loc>https://dailyfinance.tools/hubs/freelance-and-business</loc>
+<lastmod>2026-11-11T14:00:19.352Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.85</priority>
+</url>
+<url>
+<loc>https://dailyfinance.tools/hubs/creator-and-ecommerce</loc>
+<lastmod>2026-11-11T14:00:19.352Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.85</priority>
+</url>
+</urlset>
