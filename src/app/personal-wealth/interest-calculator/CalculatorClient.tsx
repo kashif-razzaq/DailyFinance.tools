@@ -91,5 +91,6 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <ResponsiveContainer width="100%" height={210}><AreaChart data={r.chart}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="year" /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Area type="monotone" dataKey="compound" stroke="#064E3B" fill="#064E3B" fillOpacity={0.18} name="Compound" /><Area type="monotone" dataKey="simple" stroke="#D97706" fill="#D97706" fillOpacity={0.12} name="Simple" /></AreaChart></ResponsiveContainer>
         <p className="text-xs text-muted-foreground mt-3">The lines start together and diverge — slowly at first, then dramatically. Time is what makes compounding win.</p>
       </div>
-    </div></div><ToolActionsBar slug="interest-calculator" isPro={isPro} inputs={{ principal, monthly, rate, years, freqKey }} /></>)
+    <ToolActionsBar slug="interest-calculator" isPro={isPro} inputs={{ principal, monthly, rate, years, freqKey }} />
+    </div></div></>)
 }

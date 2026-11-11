@@ -97,5 +97,6 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <ResponsiveContainer width="100%" height={230}><PieChart><Pie data={c.parts} dataKey="value" nameKey="name" innerRadius={55} outerRadius={85} paddingAngle={2}>{c.parts.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}</Pie><Tooltip formatter={(v: any) => fmt(Number(v)) + '/mo'} /><Legend /></PieChart></ResponsiveContainer>
         <div className="mt-2 space-y-1">{c.parts.map(p => (<div key={p.name} className="flex justify-between text-sm py-1 border-b border-neutral-100 last:border-0"><span className="text-neutral-500">{p.name}</span><span className="font-mono font-semibold">{fmt(p.value)}/mo</span></div>))}</div>
       </div>
-    </div></div><ToolActionsBar slug="mortgage-payment-calculator" isPro={isPro} inputs={{ price, downPct, rate, term, taxYear, insYear, hoa, pmiRate }} /></>)
+    <ToolActionsBar slug="mortgage-payment-calculator" isPro={isPro} inputs={{ price, downPct, rate, term, taxYear, insYear, hoa, pmiRate }} />
+    </div></div></>)
 }

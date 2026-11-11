@@ -100,7 +100,8 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <div className="bg-[#FAFAFA] border border-neutral-200 rounded-2xl p-6 text-sm text-neutral-600">
           <strong className="text-[#1F2937]">Formula:</strong> <span className="font-mono">Profit = Price − Base − Print − Platform % − Payment Fees + (Shipping Charged − Shipping Cost)</span>. Margin and markup are not the same number: margin divides by price, markup divides by cost.
         </div>
-      </div>
+      <ToolActionsBar slug="merch-margin-calculator" isPro={isPro} inputs={{ price, baseCost, printCost, platformPct, txnPct, txnFixed, shipCharged, shipCost, units, returnPct }} />
     </div>
-  <ToolActionsBar slug="merch-margin-calculator" isPro={isPro} inputs={{ price, baseCost, printCost, platformPct, txnPct, txnFixed, shipCharged, shipCost, units, returnPct }} /></>)
+    </div>
+  </>)
 }

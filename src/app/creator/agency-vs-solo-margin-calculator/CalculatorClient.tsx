@@ -94,7 +94,8 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <div className="bg-[#FAFAFA] border border-neutral-200 rounded-2xl p-6 text-sm text-neutral-600">
           <strong className="text-[#1F2937]">Formula:</strong> <span className="font-mono">Solo Profit = Revenue − Solo Overhead · Team Profit = Revenue − Editor − Team − Agency Overhead · Compare profit ÷ YOUR hours, not margin % alone</span>. Hiring almost always lowers margin % — the question is whether it raises profit per hour of your own time and total capacity.
         </div>
-      </div>
+      <ToolActionsBar slug="agency-vs-solo-margin-calculator" isPro={isPro} inputs={{ revenue, editorCost, otherTeamCost, soloOverhead, agencyOverhead, soloHours, agencyHours, capacityGain }} />
     </div>
-  <ToolActionsBar slug="agency-vs-solo-margin-calculator" isPro={isPro} inputs={{ revenue, editorCost, otherTeamCost, soloOverhead, agencyOverhead, soloHours, agencyHours, capacityGain }} /></>)
+    </div>
+  </>)
 }

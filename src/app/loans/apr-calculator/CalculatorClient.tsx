@@ -109,5 +109,6 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <li>Fees hurt most on short terms: the same {fmt(fees)} fee spread over {months} months adds {gap.toFixed(2)} points here; on a 12-month loan it would add several times more.</li>
           <li>For mortgages, APR also folds in points and many closing costs; for credit cards, APR usually excludes fees — read what is included.</li>
         </ul></div>
-    </div></div><ToolActionsBar slug="apr-calculator" isPro={isPro} inputs={{ amount, rate, fees, months }} /></>)
+    <ToolActionsBar slug="apr-calculator" isPro={isPro} inputs={{ amount, rate, fees, months }} />
+    </div></div></>)
 }

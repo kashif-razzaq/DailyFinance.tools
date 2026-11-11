@@ -111,6 +111,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <p className="text-sm text-muted-foreground">To keep a <strong className="text-foreground">{targetMargin}% margin</strong> after all Etsy fees and your costs, price this item at <strong className="text-foreground font-mono text-base">{fmt(Math.max(0, r.needed))}</strong> (with {fmt(shippingCharged)} shipping).</p>
         <p className="text-xs text-muted-foreground mt-2">Differentiator: a reverse price solver — enter the margin you want and get the listing price that survives Etsy's full fee stack.</p>
       </div>
+    <ToolActionsBar slug="etsy-fee-calculator" isPro={isPro} inputs={{ price, shippingCharged, itemCost, shippingCost, regPct, offsiteAds, targetMargin }} />
     </div>
-  </div><ToolActionsBar slug="etsy-fee-calculator" isPro={isPro} inputs={{ price, shippingCharged, itemCost, shippingCost, regPct, offsiteAds, targetMargin }} /></>)
+  </div></>)
 }

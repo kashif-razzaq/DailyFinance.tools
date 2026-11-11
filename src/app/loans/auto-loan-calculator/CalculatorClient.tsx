@@ -97,5 +97,6 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       <div className="bg-card border rounded-2xl p-6 overflow-x-auto"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Term Comparison</h4>
         <table className="w-full text-sm"><thead><tr className="text-left text-muted-foreground border-b"><th className="py-2 pr-3 font-semibold">Term</th><th className="py-2 pr-3 font-semibold text-right">Payment</th><th className="py-2 font-semibold text-right">Interest</th></tr></thead>
           <tbody>{termCompare.map((t) => (<tr key={t.term} className={`border-b last:border-0 ${t.term === term ? 'font-bold text-[#064E3B]' : ''}`}><td className="py-2 pr-3 font-mono">{t.term} mo</td><td className="py-2 pr-3 font-mono text-right">{fmt(t.payment)}</td><td className="py-2 font-mono text-right">{fmt(t.interest)}</td></tr>))}</tbody></table></div>
-    </div></div><ToolActionsBar slug="auto-loan-calculator" isPro={isPro} inputs={{ price, tradeIn, taxPct, down, rate, term }} /></>)
+    <ToolActionsBar slug="auto-loan-calculator" isPro={isPro} inputs={{ price, tradeIn, taxPct, down, rate, term }} />
+    </div></div></>)
 }

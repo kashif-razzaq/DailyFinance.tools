@@ -101,5 +101,6 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       </ResultCard>
       <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Target vs Actual ($)</h4>
         <ResponsiveContainer width="100%" height={220}><BarChart data={r.chart}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="name" /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt2(Number(v))} /><Legend /><Bar dataKey="Target" fill="#9CA3AF" radius={[4, 4, 0, 0]} /><Bar dataKey="Actual" fill="#064E3B" radius={[4, 4, 0, 0]} /></BarChart></ResponsiveContainer></div>
-    </div></div><ToolActionsBar slug="50-30-20-budget-calculator" isPro={isPro} inputs={{ income, needs, wants, savings }} /></>)
+    <ToolActionsBar slug="50-30-20-budget-calculator" isPro={isPro} inputs={{ income, needs, wants, savings }} />
+    </div></div></>)
 }

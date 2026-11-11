@@ -105,5 +105,6 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       </ResultCard>
       <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Roth vs Taxable by Age</h4>
         <ResponsiveContainer width="100%" height={220}><LineChart data={r.series}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="age" /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt2(Number(v))} /><Legend /><Line type="monotone" dataKey="roth" stroke="#064E3B" strokeWidth={2} dot={false} name="Roth IRA" /><Line type="monotone" dataKey="taxable" stroke="#D97706" strokeWidth={2} dot={false} name="Taxable (after tax)" /></LineChart></ResponsiveContainer></div>
-    </div></div><ToolActionsBar slug="roth-ira-calculator" isPro={isPro} inputs={{ currentAge, retireAge, balance, annual, ret, taxRate }} /></>)
+    <ToolActionsBar slug="roth-ira-calculator" isPro={isPro} inputs={{ currentAge, retireAge, balance, annual, ret, taxRate }} />
+    </div></div></>)
 }

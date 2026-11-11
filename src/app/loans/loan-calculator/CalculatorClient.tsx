@@ -106,5 +106,6 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       </ResultCard>
       <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Balance Over Time</h4>
         <ResponsiveContainer width="100%" height={200}><AreaChart data={series}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="year" tickFormatter={(v: number) => 'Yr ' + v} /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} labelFormatter={(v: any) => 'Year ' + v} /><Area type="monotone" dataKey="balance" stroke="#064E3B" fill="#064E3B" fillOpacity={0.15} strokeWidth={2} name="Balance" /></AreaChart></ResponsiveContainer></div>
-    </div></div><ToolActionsBar slug="loan-calculator" isPro={isPro} inputs={{ amount, rate, years }} /></>)
+    <ToolActionsBar slug="loan-calculator" isPro={isPro} inputs={{ amount, rate, years }} />
+    </div></div></>)
 }

@@ -104,8 +104,9 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
         <p className="text-xs text-muted-foreground mt-4">Differentiator: SE tax is calculated on 92.35% of net earnings with the deductible half credited back, then split into the four real IRS payment deadlines (Q4 is due the following January).</p>
       </div>
+    <ToolActionsBar slug="1099-tax-calculator" isPro={isPro} inputs={{ income, expenses, w2, status, statePct }} />
     </div>
   </div>
-      <ToolActionsBar slug="1099-tax-calculator" isPro={isPro} inputs={{ income, expenses, w2, status, statePct }} />
+      
     </>)
 }
