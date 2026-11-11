@@ -44,7 +44,7 @@ export function ShareCalculatorModal({ children, url, slug, isPro = false }: Sha
             <DialogTitle className="text-xl font-bold">Share this Calculator</DialogTitle>
           </div>
           <DialogDescription className="text-base text-muted-foreground mt-1">
-            Copy a link or embed this tool directly on your own website.
+            Copy a link or embed this tool directly on your own website — the widget is transparent, auto-sizes to fit (no blank space), and always shows DailyFinance.tools branding with a link back to the full calculator.
           </DialogDescription>
         </DialogHeader>
 

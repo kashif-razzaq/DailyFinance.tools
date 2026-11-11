@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 import React, { useState } from 'react'
-import { LogOut, Settings, Crown, LayoutDashboard, FolderGit2, BarChart3, ChevronDown } from 'lucide-react'
+import { LogOut, Settings, Crown, LayoutDashboard, FolderGit2, BarChart3, ChevronDown, Globe } from 'lucide-react'
+import { CurrencySelector } from '@/components/layout/CurrencySelector'
 import { createClient } from '@/utils/supabase/client'
 import { useRouter } from 'next/navigation'
 
@@ -143,6 +144,13 @@ export function UserBadge({ user, isPremium }: { user: any; isPremium?: boolean 
             <button onClick={() => go('/dashboard/settings')} className={menuItem}>
               <Settings className="h-4 w-4 text-muted-foreground" /> Profile &amp; settings
             </button>
+
+            <div className="px-1 pb-1 pt-2">
+              <p className="flex items-center gap-2 px-2 pb-1.5 text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
+                <Globe className="h-3.5 w-3.5" /> Currency
+              </p>
+              <CurrencySelector variant="menu" />
+            </div>
 
             {!isPremium && (
               <button
