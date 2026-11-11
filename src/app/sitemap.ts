@@ -68,6 +68,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const locationPages: MetadataRoute.Sitemap = [
     { url: `${baseUrl}/locations`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.8 },
     { url: `${baseUrl}/methodology`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.6 },
+    { url: `${baseUrl}/editorial-policy`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.6 },
     ...US_STATES.flatMap((s) => [
       { url: `${baseUrl}/locations/${s.slug}`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.7 },
       { url: `${baseUrl}/sales-tax/${s.slug}`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.7 },

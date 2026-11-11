@@ -175,6 +175,10 @@ export function Footer() {
             </Link></span>
           </div>
 
+          <p className="mx-auto mb-5 max-w-2xl text-center text-xs leading-relaxed text-muted-foreground">
+            DailyFinance.tools offers free educational calculators and guides. Results are estimates only — not financial, tax or investment advice.
+          </p>
+
           <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
             <Link href="/about" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
               About
@@ -184,6 +188,9 @@ export function Footer() {
             </Link>
             <Link href="/methodology" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
               Methodology
+            </Link>
+            <Link href="/editorial-policy" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
+              Editorial Policy
             </Link>
             <Link href="/guides" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
               Guides
