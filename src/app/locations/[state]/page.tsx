@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { FaqAccordion } from "@/components/shared/FaqAccordion"
 import Link from "next/link"
 import Script from "next/script"
 import { notFound } from "next/navigation"
@@ -163,14 +164,7 @@ export default async function StateHubPage({ params }: { params: Promise<{ state
           </article>
           <aside className="lg:col-span-4 bg-card border rounded-3xl p-6">
             <h3 className="font-bold text-lg mb-4">{s.name} FAQs</h3>
-            <div className="space-y-5">
-              {faqs.map((f) => (
-                <div key={f.question}>
-                  <h4 className="font-semibold text-sm mb-1">{f.question}</h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{f.answer}</p>
-                </div>
-              ))}
-            </div>
+<FaqAccordion items={faqs} variant="compact" />
           </aside>
         </div>
 

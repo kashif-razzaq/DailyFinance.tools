@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { FaqAccordion } from "@/components/shared/FaqAccordion"
 import Link from "next/link"
 import Script from "next/script"
 import { Button } from "@/components/ui/button"
@@ -141,25 +142,16 @@ export default function PricingPage() {
         </div>
         {/* Pricing FAQ — also emitted as FAQPage schema */}
         <div className="mx-auto mt-24 max-w-3xl">
-          <h2 className="text-2xl font-bold tracking-tight mb-8 text-center">Pricing questions</h2>
-          <div className="space-y-6 text-left">
-            <div className="border-b border-border/50 pb-6">
-              <h3 className="font-semibold mb-1.5">Are the calculators really free?</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">Yes. Every calculator on DailyFinance is free to use with no sign-up, including real-time charts. A free account adds basic URL sharing and a Scenario Vault with up to 3 saved scenarios.</p>
-            </div>
-            <div className="border-b border-border/50 pb-6">
-              <h3 className="font-semibold mb-1.5">What does Pro add?</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">Pro removes all advertising and unlocks the power features: unlimited Scenario Vault storage with cloning, scenario comparison side by side, 5 exclusive Pro tools, premium PDF report generation, an analytics-wide CSV export, and the full Cross-Data Analytics that combine your saved scenarios into a balance sheet, debt costs and cash flow.</p>
-            </div>
-            <div className="border-b border-border/50 pb-6">
-              <h3 className="font-semibold mb-1.5">How do I upgrade?</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">Create a free account first, then choose Upgrade from your dashboard or this page. Your saved scenarios and data carry over — nothing is lost when you upgrade or if you later return to Free.</p>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-1.5">Can I cancel anytime?</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">Yes. Pro is a simple monthly subscription with no lock-in. Cancelling returns your account to Free at the end of the billing period; your saved data stays in your account.</p>
-            </div>
-          </div>
+          <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight mb-8 text-center">Pricing questions</h2>
+          <FaqAccordion
+            className="text-left"
+            items={[
+              { question: "Are the calculators really free?", answer: "Yes. Every calculator on DailyFinance is free to use with no sign-up, including real-time charts. A free account adds basic URL sharing and a Scenario Vault with up to 3 saved scenarios." },
+              { question: "What does Pro add?", answer: "Pro removes all advertising and unlocks the power features: unlimited Scenario Vault storage with cloning, scenario comparison side by side, 5 exclusive Pro tools, premium PDF report generation, an analytics-wide CSV export, and the full Cross-Data Analytics that combine your saved scenarios into a balance sheet, debt costs and cash flow." },
+              { question: "How do I upgrade?", answer: "Create a free account first, then choose Upgrade from your dashboard or this page. Your saved scenarios and data carry over — nothing is lost when you upgrade or if you later return to Free." },
+              { question: "Can I cancel anytime?", answer: "Yes. Pro is a simple monthly subscription with no lock-in. Cancelling returns your account to Free at the end of the billing period; your saved data stays in your account." },
+            ]}
+          />
         </div>
         <Script id="schema-pricing-faq" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
           "@context": "https://schema.org", "@type": "FAQPage", mainEntity: [
