@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 const fmt2 = (n: number) => curSym() + n.toLocaleString('en-US', { maximumFractionDigits: 2 })
@@ -28,6 +29,16 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [principal, setPrincipal] = useState(10000); const [rate, setRate] = useState(6)
   const [years, setYears] = useState(5); const [months, setMonths] = useState(0)
   const [showCompound, setShowCompound] = useState(true)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.principal !== undefined) setPrincipal(s.principal as any)
+    if (s.rate !== undefined) setRate(s.rate as any)
+    if (s.years !== undefined) setYears(s.years as any)
+    if (s.months !== undefined) setMonths(s.months as any)
+    if (s.showCompound !== undefined) setShowCompound(s.showCompound as any)
+  })
+
   const r = useMemo(() => {
     // Formula: Simple interest I = P × r × t, Total A = P(1 + r·t) where t = years + months/12
     const t = years + months / 12

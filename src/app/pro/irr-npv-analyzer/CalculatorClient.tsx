@@ -6,6 +6,7 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContaine
 import { Plus, Trash2 } from 'lucide-react'
 import { useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 import { ProGuard } from '@/components/calculator/ProGuard'
 import { MoneyInput, PctSlider, ResultCard, Stat, fmt } from '@/components/calculator/ProInputs'
 
@@ -45,6 +46,12 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [initial, setInitial] = useState(50000)
   const [discount, setDiscount] = useState(10)
   const [flows, setFlows] = useState<number[]>([8000, 12000, 15000, 18000, 22000])
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.initial !== undefined) setInitial(s.initial as any)
+    if (s.discount !== undefined) setDiscount(s.discount as any)
+    if (s.flows !== undefined) setFlows(String(s.flows).split(',').map((x) => Number(x.trim()) || 0))
+  })
 
   const setFlow = (idx: number, value: number) => setFlows((prev) => prev.map((f, i) => (i === idx ? value : f)))
   const addFlow = () => setFlows((prev) => (prev.length >= 15 ? prev : [...prev, 0]))

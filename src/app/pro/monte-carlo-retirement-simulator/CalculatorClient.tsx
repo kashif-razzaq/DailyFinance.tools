@@ -5,6 +5,7 @@ import React, { useMemo, useState } from 'react'
 import { ComposedChart, Area, Line, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer } from 'recharts'
 import { useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 import { ProGuard } from '@/components/calculator/ProGuard'
 import { MoneyInput, PctSlider, NumSlider, ResultCard, Stat, fmt } from '@/components/calculator/ProInputs'
 
@@ -137,6 +138,19 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [inflation, setInflation] = useState(2.5)
   const [retirementYears, setRetirementYears] = useState(30)
   const [annualSpending, setAnnualSpending] = useState(50000)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.currentSavings !== undefined) setCurrentSavings(s.currentSavings as any)
+    if (s.monthlyContribution !== undefined) setMonthlyContribution(s.monthlyContribution as any)
+    if (s.yearsToRetirement !== undefined) setYearsToRetirement(s.yearsToRetirement as any)
+    if (s.expectedReturn !== undefined) setExpectedReturn(s.expectedReturn as any)
+    if (s.volatility !== undefined) setVolatility(s.volatility as any)
+    if (s.inflation !== undefined) setInflation(s.inflation as any)
+    if (s.retirementYears !== undefined) setRetirementYears(s.retirementYears as any)
+    if (s.annualSpending !== undefined) setAnnualSpending(s.annualSpending as any)
+  })
+
 
   const sim = useMemo(
     () =>

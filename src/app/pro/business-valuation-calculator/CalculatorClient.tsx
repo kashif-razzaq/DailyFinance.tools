@@ -3,6 +3,7 @@
 import React, { useMemo, useState } from 'react'
 import { useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 import { ProGuard } from '@/components/calculator/ProGuard'
 import { MoneyInput, PctSlider, NumSlider, ResultCard, Stat, fmt } from '@/components/calculator/ProInputs'
 
@@ -35,6 +36,20 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [discount, setDiscount] = useState(20)
   const [terminalGrowth, setTerminalGrowth] = useState(2.5)
   const [years, setYears] = useState(5)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.revenue !== undefined) setRevenue(s.revenue as any)
+    if (s.sde !== undefined) setSde(s.sde as any)
+    if (s.industry !== undefined) setIndustry(s.industry as any)
+    if (s.multipleLow !== undefined) setMultipleLow(s.multipleLow as any)
+    if (s.multipleHigh !== undefined) setMultipleHigh(s.multipleHigh as any)
+    if (s.growth !== undefined) setGrowth(s.growth as any)
+    if (s.discount !== undefined) setDiscount(s.discount as any)
+    if (s.terminalGrowth !== undefined) setTerminalGrowth(s.terminalGrowth as any)
+    if (s.years !== undefined) setYears(s.years as any)
+  })
+
 
   const pickIndustry = (idx: number) => {
     setIndustry(idx)

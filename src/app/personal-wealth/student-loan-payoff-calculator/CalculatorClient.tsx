@@ -24,6 +24,7 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts'
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 function amort(balance: number, ratePct: number, payment: number) {
   let bal = balance, months = 0, interest = 0; const series: { month: number; balance: number }[] = [{ month: 0, balance: Math.round(bal) }]
   const mr = ratePct / 100 / 12
@@ -34,6 +35,15 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const sym = useCurrencySymbol()
   const [balance, setBalance] = useState(37000); const [rate, setRate] = useState(6.5)
   const [payment, setPayment] = useState(400); const [extra, setExtra] = useState(100)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.balance !== undefined) setBalance(s.balance as any)
+    if (s.rate !== undefined) setRate(s.rate as any)
+    if (s.payment !== undefined) setPayment(s.payment as any)
+    if (s.extra !== undefined) setExtra(s.extra as any)
+  })
+
   const base = useMemo(() => amort(balance, rate, payment), [balance, rate, payment])
   const withExtra = useMemo(() => amort(balance, rate, payment + extra), [balance, rate, payment, extra])
   const tooLow = payment <= balance * rate / 100 / 12

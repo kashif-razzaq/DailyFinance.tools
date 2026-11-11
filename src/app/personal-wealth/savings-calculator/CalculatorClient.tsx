@@ -24,10 +24,20 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts'
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const sym = useCurrencySymbol()
   const [starting, setStarting] = useState(5000); const [monthly, setMonthly] = useState(300)
   const [apy, setApy] = useState(4.5); const [years, setYears] = useState(10)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.starting !== undefined) setStarting(s.starting as any)
+    if (s.monthly !== undefined) setMonthly(s.monthly as any)
+    if (s.apy !== undefined) setApy(s.apy as any)
+    if (s.years !== undefined) setYears(s.years as any)
+  })
+
   const r = useMemo(() => {
     // Formula: FV via monthly compounding — each month balance = balance * (1 + APY/12) + monthly contribution
     const mr = apy / 100 / 12

@@ -24,6 +24,7 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, Legend } from 'recharts'
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 const PRESETS = [
   { label: 'House deposit $50k', amount: 50000 },
@@ -42,6 +43,17 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [apy, setApy] = useState(4.5)
   const [targetYears, setTargetYears] = useState(5)
   const [monthlyAmount, setMonthlyAmount] = useState(500)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.mode !== undefined) setMode(s.mode as any)
+    if (s.goal !== undefined) setGoal(s.goal as any)
+    if (s.current !== undefined) setCurrent(s.current as any)
+    if (s.apy !== undefined) setApy(s.apy as any)
+    if (s.targetYears !== undefined) setTargetYears(s.targetYears as any)
+    if (s.monthlyAmount !== undefined) setMonthlyAmount(s.monthlyAmount as any)
+  })
+
 
   const calc = useMemo(() => {
     const i = apy / 100 / 12

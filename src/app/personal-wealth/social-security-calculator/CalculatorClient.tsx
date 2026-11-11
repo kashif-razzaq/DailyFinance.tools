@@ -29,6 +29,7 @@ function NumInput({ label, value, onChange, hint, min, max }: { label: string; v
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Cell } from 'recharts'
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 // Formula (simplified PIA estimate, 2024 bend points):
 //  Effective average earnings adjust for short careers: if yearsWorked < 35, the missing years count as $0,
@@ -55,6 +56,13 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   void isPro
   const [earnings, setEarnings] = useState(70000)
   const [yearsWorked, setYearsWorked] = useState(35)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.earnings !== undefined) setEarnings(s.earnings as any)
+    if (s.yearsWorked !== undefined) setYearsWorked(s.yearsWorked as any)
+  })
+
 
   const calc = useMemo(() => {
     const cappedYears = Math.min(35, Math.max(0, yearsWorked))
