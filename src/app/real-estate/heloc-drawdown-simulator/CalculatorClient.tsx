@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 export const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 export const fmt2 = (n: number) => curSym() + n.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})
@@ -32,6 +33,17 @@ export function Breakdown({ title, children }: { title: string; children: React.
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const sym = useCurrencySymbol()
   const [value, setValue] = useState(600000); const [balance, setBalance] = useState(300000); const [maxLtv, setMaxLtv] = useState(85); const [draw, setDraw] = useState(100000); const [rate, setRate] = useState(8.5); const [repayYears, setRepayYears] = useState(20)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.value !== undefined) setValue(s.value as any)
+    if (s.balance !== undefined) setBalance(s.balance as any)
+    if (s.maxLtv !== undefined) setMaxLtv(s.maxLtv as any)
+    if (s.draw !== undefined) setDraw(s.draw as any)
+    if (s.rate !== undefined) setRate(s.rate as any)
+    if (s.repayYears !== undefined) setRepayYears(s.repayYears as any)
+  })
+
   const m = useMemo(() => { const available = Math.max(value * maxLtv/100 - balance, 0); const d = Math.min(draw, available || draw); const io = d * rate/100 / 12; const r = rate/100/12; const n = repayYears * 12; const amort = r > 0 ? d * r * Math.pow(1+r, n) / (Math.pow(1+r, n) - 1) : d/n; const totalInterestRepay = amort * n - d; return { available, d, io, amort, totalInterestRepay, ltvAfter: value > 0 ? (balance + d)/value*100 : 0 } }, [value, balance, maxLtv, draw, rate, repayYears])
   return (<><Shell inputs={<>
     <div className="grid grid-cols-2 gap-4"><Num label="Home Value" value={value} set={setValue} /><Num label="Current Mortgage Balance" value={balance} set={setBalance} /></div>

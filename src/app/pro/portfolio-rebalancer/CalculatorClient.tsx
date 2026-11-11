@@ -7,6 +7,7 @@ import { Plus, Trash2 } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { useCurrencySymbol, curSym } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 import { ProGuard } from '@/components/calculator/ProGuard'
 import { ResultCard, Stat, fmt, num } from '@/components/calculator/ProInputs'
 
@@ -29,6 +30,17 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     { name: 'Bonds', value: 24000, target: 15 },
     { name: 'Cash', value: 10000, target: 5 },
   ])
+  // Restore a saved scenario opened from the Vault (?savedId=…). Holdings are
+  // saved as one "Name: value @ target%" string per holding, joined by '; '.
+  useSavedScenarioRestore((s) => {
+    if (typeof s.holdings === 'string') {
+      const parsed = s.holdings.split('; ').map((part) => {
+        const m = part.match(/^(.*): ([\d.]+) @ ([\d.]+)%$/)
+        return m ? { name: m[1], value: Number(m[2]) || 0, target: Number(m[3]) || 0 } : null
+      }).filter((h): h is Holding => h !== null)
+      if (parsed.length >= 2) setHoldings(parsed)
+    }
+  })
 
   const update = (idx: number, patch: Partial<Holding>) =>
     setHoldings((prev) => prev.map((h, i) => (i === idx ? { ...h, ...patch } : h)))

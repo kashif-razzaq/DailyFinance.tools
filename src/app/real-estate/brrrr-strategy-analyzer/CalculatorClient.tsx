@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 export const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 export const fmt2 = (n: number) => curSym() + n.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})
@@ -32,6 +33,20 @@ export function Breakdown({ title, children }: { title: string; children: React.
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const sym = useCurrencySymbol()
   const [buy, setBuy] = useState(180000); const [rehab, setRehab] = useState(60000); const [holding, setHolding] = useState(8000); const [arv, setArv] = useState(320000); const [ltv, setLtv] = useState(75); const [rate, setRate] = useState(7); const [refiCosts, setRefiCosts] = useState(5000); const [rent, setRent] = useState(2250); const [expenses, setExpenses] = useState(600)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.buy !== undefined) setBuy(s.buy as any)
+    if (s.rehab !== undefined) setRehab(s.rehab as any)
+    if (s.holding !== undefined) setHolding(s.holding as any)
+    if (s.arv !== undefined) setArv(s.arv as any)
+    if (s.ltv !== undefined) setLtv(s.ltv as any)
+    if (s.rate !== undefined) setRate(s.rate as any)
+    if (s.refiCosts !== undefined) setRefiCosts(s.refiCosts as any)
+    if (s.rent !== undefined) setRent(s.rent as any)
+    if (s.expenses !== undefined) setExpenses(s.expenses as any)
+  })
+
   const m = useMemo(() => { const total = buy + rehab + holding; const loan = arv * ltv/100; const left = total + refiCosts - loan; const r = rate/100/12; const n = 360; const pi = loan > 0 && r > 0 ? loan * r * Math.pow(1+r, n) / (Math.pow(1+r, n) - 1) : 0; const cf = rent - pi - expenses; const coc = left > 0 ? cf * 12 / left * 100 : Infinity; return { total, loan, left, pi, cf, coc, equity: arv - loan } }, [buy, rehab, holding, arv, ltv, rate, refiCosts, rent, expenses])
   return (<><Shell inputs={<>
     <div className="grid grid-cols-2 gap-4"><Num label="Purchase Price" value={buy} set={setBuy} /><Num label="Rehab Budget" value={rehab} set={setRehab} /></div>

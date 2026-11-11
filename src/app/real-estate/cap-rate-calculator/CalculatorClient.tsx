@@ -23,6 +23,7 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip, Legend } from 'recharts'
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 function piPayment(principal: number, ratePct: number, years: number) {
   const r = ratePct / 100 / 12, n = years * 12
   if (principal <= 0) return 0
@@ -39,6 +40,25 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [vacancy, setVacancy] = useState(5); const [taxYear, setTaxYear] = useState(4200); const [insYear, setInsYear] = useState(1500)
   const [maintPct, setMaintPct] = useState(5); const [mgmtPct, setMgmtPct] = useState(8); const [hoaMo, setHoaMo] = useState(0); const [otherExp, setOtherExp] = useState(0)
   const [downPct, setDownPct] = useState(25); const [finRate, setFinRate] = useState(7); const [finTerm, setFinTerm] = useState(30); const [closing, setClosing] = useState(7000)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.value !== undefined) setValue(s.value as any)
+    if (s.rent !== undefined) setRent(s.rent as any)
+    if (s.other !== undefined) setOther(s.other as any)
+    if (s.vacancy !== undefined) setVacancy(s.vacancy as any)
+    if (s.taxYear !== undefined) setTaxYear(s.taxYear as any)
+    if (s.insYear !== undefined) setInsYear(s.insYear as any)
+    if (s.maintPct !== undefined) setMaintPct(s.maintPct as any)
+    if (s.mgmtPct !== undefined) setMgmtPct(s.mgmtPct as any)
+    if (s.hoaMo !== undefined) setHoaMo(s.hoaMo as any)
+    if (s.otherExp !== undefined) setOtherExp(s.otherExp as any)
+    if (s.downPct !== undefined) setDownPct(s.downPct as any)
+    if (s.finRate !== undefined) setFinRate(s.finRate as any)
+    if (s.finTerm !== undefined) setFinTerm(s.finTerm as any)
+    if (s.closing !== undefined) setClosing(s.closing as any)
+  })
+
   const c = useMemo(() => {
     const grossScheduled = rent * 12 + other * 12
     const vacancyLoss = grossScheduled * vacancy / 100

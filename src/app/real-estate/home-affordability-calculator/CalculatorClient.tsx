@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
@@ -30,6 +31,19 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [income, setIncome] = useState(95000); const [debts, setDebts] = useState(450)
   const [down, setDown] = useState(60000); const [rate, setRate] = useState(6.75); const [term, setTerm] = useState(30)
   const [taxPct, setTaxPct] = useState(1.1); const [insYear, setInsYear] = useState(1800); const [hoa, setHoa] = useState(0)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.income !== undefined) setIncome(s.income as any)
+    if (s.debts !== undefined) setDebts(s.debts as any)
+    if (s.down !== undefined) setDown(s.down as any)
+    if (s.rate !== undefined) setRate(s.rate as any)
+    if (s.term !== undefined) setTerm(s.term as any)
+    if (s.taxPct !== undefined) setTaxPct(s.taxPct as any)
+    if (s.insYear !== undefined) setInsYear(s.insYear as any)
+    if (s.hoa !== undefined) setHoa(s.hoa as any)
+  })
+
   const c = useMemo(() => {
     const mi = income / 12
     const frontCap = 0.28 * mi                      // max PITI under the 28% front-end rule

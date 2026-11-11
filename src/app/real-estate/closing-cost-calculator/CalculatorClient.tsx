@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
@@ -47,6 +48,17 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const loan = Math.max(0, price - price * downPct / 100)
   const defaults = useMemo(() => estimates(price, loan, taxPct, insYear, rate), [price, loan, taxPct, insYear, rate])
   const [overrides, setOverrides] = useState<Record<number, number>>({})
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.price !== undefined) setPrice(s.price as any)
+    if (s.downPct !== undefined) setDownPct(s.downPct as any)
+    if (s.taxPct !== undefined) setTaxPct(s.taxPct as any)
+    if (s.insYear !== undefined) setInsYear(s.insYear as any)
+    if (s.rate !== undefined) setRate(s.rate as any)
+    if (s.overrides !== undefined) setOverrides(s.overrides as any)
+  })
+
   const items = defaults.map((d, i) => ({ ...d, amount: overrides[i] !== undefined ? overrides[i] : Math.round(d.amount) }))
   const total = items.reduce((s, i) => s + i.amount, 0)
   const down = price * downPct / 100

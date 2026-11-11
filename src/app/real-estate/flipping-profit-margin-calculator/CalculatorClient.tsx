@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 export const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 export const fmt2 = (n: number) => curSym() + n.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})
@@ -32,6 +33,17 @@ export function Breakdown({ title, children }: { title: string; children: React.
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const sym = useCurrencySymbol()
   const [arv, setArv] = useState(400000); const [purchase, setPurchase] = useState(230000); const [rehab, setRehab] = useState(50000); const [months, setMonths] = useState(6); const [holdingMo, setHoldingMo] = useState(1200); const [sellPct, setSellPct] = useState(8)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.arv !== undefined) setArv(s.arv as any)
+    if (s.purchase !== undefined) setPurchase(s.purchase as any)
+    if (s.rehab !== undefined) setRehab(s.rehab as any)
+    if (s.months !== undefined) setMonths(s.months as any)
+    if (s.holdingMo !== undefined) setHoldingMo(s.holdingMo as any)
+    if (s.sellPct !== undefined) setSellPct(s.sellPct as any)
+  })
+
   const m = useMemo(() => { const maxOffer = arv * 0.70 - rehab; const holding = months * holdingMo; const selling = arv * sellPct/100; const buying = purchase * 0.02; const totalIn = purchase + rehab + holding + buying; const profit = arv - totalIn - selling; return { maxOffer, holding, selling, buying, totalIn, profit, roi: totalIn > 0 ? profit/totalIn*100 : 0, margin: arv > 0 ? profit/arv*100 : 0 } }, [arv, purchase, rehab, months, holdingMo, sellPct])
   return (<><Shell inputs={<>
     <div className="grid grid-cols-2 gap-4"><Num label="After Repair Value (ARV)" value={arv} set={setArv} /><Num label="Your Purchase Price" value={purchase} set={setPurchase} /></div>

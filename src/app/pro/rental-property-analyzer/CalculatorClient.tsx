@@ -3,6 +3,7 @@
 import React, { useMemo, useState } from 'react'
 import { useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 import { ProGuard } from '@/components/calculator/ProGuard'
 import { MoneyInput, PctSlider, NumSlider, ResultCard, Stat, fmt, fmt2 } from '@/components/calculator/ProInputs'
 
@@ -35,6 +36,23 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [maintenancePct, setMaintenancePct] = useState(5)
   const [vacancyPct, setVacancyPct] = useState(5)
   const [managementPct, setManagementPct] = useState(8)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.price !== undefined) setPrice(s.price as any)
+    if (s.downPct !== undefined) setDownPct(s.downPct as any)
+    if (s.rate !== undefined) setRate(s.rate as any)
+    if (s.termYears !== undefined) setTermYears(s.termYears as any)
+    if (s.closingPct !== undefined) setClosingPct(s.closingPct as any)
+    if (s.rent !== undefined) setRent(s.rent as any)
+    if (s.taxPct !== undefined) setTaxPct(s.taxPct as any)
+    if (s.insurance !== undefined) setInsurance(s.insurance as any)
+    if (s.hoa !== undefined) setHoa(s.hoa as any)
+    if (s.maintenancePct !== undefined) setMaintenancePct(s.maintenancePct as any)
+    if (s.vacancyPct !== undefined) setVacancyPct(s.vacancyPct as any)
+    if (s.managementPct !== undefined) setManagementPct(s.managementPct as any)
+  })
+
 
   const r = useMemo(() => {
     const down = (price * downPct) / 100

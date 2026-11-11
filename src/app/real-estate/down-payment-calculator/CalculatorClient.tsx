@@ -23,11 +23,22 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts'
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 // Savings simulation: balance grows at the annual return / 12, plus the monthly contribution, until the goal is hit.
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const sym = useCurrencySymbol()
   const [price, setPrice] = useState(425000); const [pct, setPct] = useState(20)
   const [saved, setSaved] = useState(15000); const [monthly, setMonthly] = useState(600); const [ret, setRet] = useState(3)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.price !== undefined) setPrice(s.price as any)
+    if (s.pct !== undefined) setPct(s.pct as any)
+    if (s.saved !== undefined) setSaved(s.saved as any)
+    if (s.monthly !== undefined) setMonthly(s.monthly as any)
+    if (s.ret !== undefined) setRet(s.ret as any)
+  })
+
   const c = useMemo(() => {
     const goal = price * pct / 100
     let bal = saved, months = 0, contributed = 0

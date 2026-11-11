@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 export const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 export const fmt2 = (n: number) => curSym() + n.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})
@@ -32,6 +33,20 @@ export function Breakdown({ title, children }: { title: string; children: React.
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const sym = useCurrencySymbol()
   const [mode, setMode] = useState<'arbitrage'|'owned'>('arbitrage'); const [adr, setAdr] = useState(150); const [occ, setOcc] = useState(70); const [housing, setHousing] = useState(1800); const [utilities, setUtilities] = useState(250); const [supplies, setSupplies] = useState(120); const [cleanFee, setCleanFee] = useState(75); const [stay, setStay] = useState(3); const [platform, setPlatform] = useState(3)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.mode !== undefined) setMode(s.mode as any)
+    if (s.adr !== undefined) setAdr(s.adr as any)
+    if (s.occ !== undefined) setOcc(s.occ as any)
+    if (s.housing !== undefined) setHousing(s.housing as any)
+    if (s.utilities !== undefined) setUtilities(s.utilities as any)
+    if (s.supplies !== undefined) setSupplies(s.supplies as any)
+    if (s.cleanFee !== undefined) setCleanFee(s.cleanFee as any)
+    if (s.stay !== undefined) setStay(s.stay as any)
+    if (s.platform !== undefined) setPlatform(s.platform as any)
+  })
+
   const m = useMemo(() => { const nights = 30 * occ/100; const gross = adr * nights; const turnovers = stay > 0 ? nights / stay : 0; const cleaning = turnovers * cleanFee; const plat = gross * platform/100; const profit = gross - plat - cleaning - housing - utilities - supplies; return { nights, gross, turnovers, cleaning, plat, profit, margin: gross > 0 ? profit / gross * 100 : 0, revpar: adr * occ/100 } }, [adr, occ, housing, utilities, supplies, cleanFee, stay, platform])
   return (<><Shell inputs={<>
     <div className="flex gap-2">{(['arbitrage','owned'] as const).map(x => (<button key={x} onClick={() => setMode(x)} className={`px-4 py-2 rounded-full text-sm font-semibold border ${mode===x?'bg-[#064E3B] text-white':'bg-white'}`}>{x === 'arbitrage' ? 'Arbitrage (I rent the unit)' : 'Owned (I own the unit)'}</button>))}</div>

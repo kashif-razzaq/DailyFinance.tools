@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 export const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 export const fmt2 = (n: number) => curSym() + n.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})
@@ -37,6 +38,13 @@ const DEFAULTS = [
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const sym = useCurrencySymbol()
   const [items, setItems] = useState(DEFAULTS); const [units, setUnits] = useState(1)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.items !== undefined) setItems(s.items as any)
+    if (s.units !== undefined) setUnits(s.units as any)
+  })
+
   const setItem = (i: number, key: 'cost'|'life', v: number) => setItems(prev => prev.map((x, idx) => idx === i ? { ...x, [key]: v } : x))
   const annual = items.reduce((s, x) => s + (x.life > 0 ? x.cost / x.life : 0), 0); const monthly = annual / 12 * units; const totalCost = items.reduce((s, x) => s + x.cost, 0)
   return (<><Shell inputs={<>
