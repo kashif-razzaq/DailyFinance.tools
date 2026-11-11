@@ -228,3 +228,18 @@ whole?"
   12-week activity, most-used tools. `InsightsPanel` computes locally:
   net-worth snapshot (latest Net Worth Tracker scenario), hub composition,
   compare-ready tools, stale scenarios, shared count. No external AI.
+
+### Follow-ups (2026-11-11, Kashif's phone test)
+- ScenarioCard: clone/delete were hover-reveal (opacity-0) — invisible on
+  touch. Now always visible; delete is two-tap ("Sure?") since it no longer
+  hides. Compare toggle shows on every card; the tray explains when a tool
+  has only one saved scenario.
+- Cross-Data Analytics refined to SAVED-DATA analysis only (no activity
+  stats): `src/lib/financial-picture.ts` builds the picture from scenario
+  inputs — latest save per tool; Net Worth Tracker is the balance sheet of
+  record when present (loan tools add payments/APR only); income from ONE
+  source; amortization estimates use the tools' own formula. Panels:
+  net position, total debts, monthly payments + lifetime interest,
+  debt-to-income band, balance sheet, debts-by-balance chart, budget cash
+  flow + savings rate, emergency months, monthly investing, highest-APR
+  callout. Verified against hand-computed cases.

@@ -23,6 +23,7 @@ export function ScenarioCard({
 }) {
   const [isCloning, setIsCloning] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
+  const [confirmDelete, setConfirmDelete] = useState(false)
 
   const handleClone = async () => {
     setIsCloning(true)
@@ -36,12 +37,20 @@ export function ScenarioCard({
   }
 
   const handleDelete = async () => {
+    // Two-tap confirm: the button is always visible now (including on
+    // touch screens), so the first tap arms it and the second deletes.
+    if (!confirmDelete) {
+      setConfirmDelete(true)
+      setTimeout(() => setConfirmDelete(false), 3000)
+      return
+    }
     setIsDeleting(true)
     try {
       await deleteCalculatorAction(calc.id)
     } catch (error) {
       console.error(error)
-      setIsDeleting(false) 
+      setIsDeleting(false)
+      setConfirmDelete(false)
     }
   }
 
@@ -73,28 +82,31 @@ export function ScenarioCard({
                 {selected ? "Selected" : "Compare"}
               </button>
             )}
-            <span className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              className="h-8 w-8 text-muted-foreground hover:text-foreground" 
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8 bg-muted/60 text-muted-foreground hover:bg-muted hover:text-foreground"
               onClick={handleClone}
               disabled={isCloning}
               title="Duplicate Scenario"
             >
               <Copy className="h-4 w-4" />
             </Button>
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              className="h-8 w-8 text-muted-foreground hover:text-destructive" 
+            <Button
+              variant="ghost"
+              size="icon"
+              className={`h-8 text-muted-foreground hover:text-destructive ${
+                confirmDelete
+                  ? "w-auto gap-1 rounded-full bg-destructive px-2.5 text-xs font-bold text-destructive-foreground hover:bg-destructive hover:text-destructive-foreground"
+                  : "w-8 bg-muted/60 hover:bg-muted"
+              }`}
               onClick={handleDelete}
               disabled={isDeleting}
-              title="Delete Scenario"
+              title={confirmDelete ? "Tap again to delete" : "Delete Scenario"}
             >
               <Trash2 className="h-4 w-4" />
+              {confirmDelete && "Sure?"}
             </Button>
-            </span>
           </div>
         </div>
         

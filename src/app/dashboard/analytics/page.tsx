@@ -1,6 +1,6 @@
 import { getSavedCalculatorsAction } from "@/actions/calculator.actions"
-import { AnalyticsCharts, InsightsPanel } from "@/components/dashboard/AnalyticsCharts"
-import { BarChart3, Target, LayoutGrid, Wrench, Share2, Lock } from "lucide-react"
+import { CrossDataAnalytics } from "@/components/dashboard/AnalyticsCharts"
+import { BarChart3, Lock } from "lucide-react"
 import { createServerClient } from "@supabase/ssr"
 import { cookies } from "next/headers"
 import Link from "next/link"
@@ -29,7 +29,7 @@ export default async function AnalyticsPage() {
         </div>
         <h1 className="text-3xl font-bold tracking-tight">Cross-Data Analytics is a Pro feature</h1>
         <p className="text-muted-foreground max-w-md mx-auto">
-          Pro turns your saved scenarios into hub breakdowns, activity trends and a net-worth snapshot — all computed from your own numbers. Your Vault data is safe — it unlocks the moment you upgrade.
+          Pro combines your saved scenarios into one financial picture — assets, debts, payments, income and cash flow, all from your own numbers. Your Vault data is safe — it unlocks the moment you upgrade.
         </p>
         <Link href="/pricing"><Button size="lg" className="rounded-full px-8">Upgrade to Pro</Button></Link>
       </div>
@@ -42,7 +42,7 @@ export default async function AnalyticsPage() {
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Cross-Data Analytics</h1>
-          <p className="text-muted-foreground mt-1">Unified insights across all your saved scenarios.</p>
+          <p className="text-muted-foreground mt-1">Your saved scenarios, combined: balance sheet, debt costs, cash flow and savings — from your own numbers.</p>
         </div>
       </div>
 
@@ -57,43 +57,7 @@ export default async function AnalyticsPage() {
           </p>
         </div>
       ) : (
-        <div className="space-y-8">
-          {/* Honest KPI cards — every number from the user's saved rows */}
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            <div className="bg-card border rounded-2xl p-6 shadow-sm">
-              <div className="flex items-center gap-3 text-muted-foreground mb-4">
-                <Target className="w-5 h-5" />
-                <h3 className="font-semibold text-sm uppercase tracking-wider">Total Scenarios</h3>
-              </div>
-              <p className="text-4xl font-bold font-mono">{savedCalculators.length}</p>
-            </div>
-            <div className="bg-card border rounded-2xl p-6 shadow-sm">
-              <div className="flex items-center gap-3 text-muted-foreground mb-4">
-                <LayoutGrid className="w-5 h-5" />
-                <h3 className="font-semibold text-sm uppercase tracking-wider">Hubs Covered</h3>
-              </div>
-              <p className="text-4xl font-bold font-mono">{new Set(savedCalculators.map((c) => c.category)).size}</p>
-            </div>
-            <div className="bg-card border rounded-2xl p-6 shadow-sm">
-              <div className="flex items-center gap-3 text-muted-foreground mb-4">
-                <Wrench className="w-5 h-5" />
-                <h3 className="font-semibold text-sm uppercase tracking-wider">Tools Used</h3>
-              </div>
-              <p className="text-4xl font-bold font-mono">{new Set(savedCalculators.map((c) => c.calculator_slug)).size}</p>
-            </div>
-            <div className="bg-card border rounded-2xl p-6 shadow-sm">
-              <div className="flex items-center gap-3 text-muted-foreground mb-4">
-                <Share2 className="w-5 h-5" />
-                <h3 className="font-semibold text-sm uppercase tracking-wider">Shared</h3>
-              </div>
-              <p className="text-4xl font-bold font-mono">{savedCalculators.filter((c) => c.is_public).length}</p>
-            </div>
-          </div>
-
-          <InsightsPanel calculators={savedCalculators} />
-
-          <AnalyticsCharts calculators={savedCalculators} />
-        </div>
+        <CrossDataAnalytics calculators={savedCalculators} />
       )}
     </div>
   )

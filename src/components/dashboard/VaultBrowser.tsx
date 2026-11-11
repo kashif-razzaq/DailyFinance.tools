@@ -291,7 +291,7 @@ export function VaultBrowser({
                   <ScenarioCard
                     key={calc.id}
                     calc={calc}
-                    selectable={comparableTools.has(pageSlugOf(calc))}
+                    selectable
                     selected={compareIds.includes(calc.id)}
                     onToggleSelect={() => toggleCompare(calc)}
                   />
@@ -329,7 +329,11 @@ export function VaultBrowser({
             {compareCalcs.length > 0 && (
               <span className="block text-xs font-normal text-white/70">
                 {toolTitleOf(compareCalcs[0])}
-                {!isPro && ' · Pro feature'}
+                {compareIds.length < 2 && !comparableTools.has(pageSlugOf(compareCalcs[0]))
+                  ? ' — only one saved scenario; save another run of this tool to compare'
+                  : !isPro
+                    ? ' · Pro feature'
+                    : ''}
               </span>
             )}
           </p>
