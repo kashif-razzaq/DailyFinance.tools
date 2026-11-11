@@ -6,6 +6,7 @@ import { Slider } from "@/components/ui/slider"
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip } from 'recharts'
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 const fmtC = (n: number) => curSym() + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
@@ -48,6 +49,16 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [status, setStatus] = useState<'single' | 'mfj'>('single')
   const [statePct, setStatePct] = useState(5)
   const [retirement, setRetirement] = useState(3120) // annual pre-tax 401(k) etc.
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.salary !== undefined) setSalary(s.salary as any)
+    if (s.freq !== undefined) setFreq(s.freq as any)
+    if (s.status !== undefined) setStatus(s.status as any)
+    if (s.statePct !== undefined) setStatePct(s.statePct as any)
+    if (s.retirement !== undefined) setRetirement(s.retirement as any)
+  })
+
 
   const r = useMemo(() => {
     const periods = FREQ[freq].periods

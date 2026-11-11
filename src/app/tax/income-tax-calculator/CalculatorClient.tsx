@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input"
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Legend } from 'recharts'
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
@@ -42,6 +43,16 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [stateIdx, setStateIdx] = useState(11) // California default shows the full picture
   const [customState, setCustomState] = useState(false)
   const [customPct, setCustomPct] = useState(5)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.income !== undefined) setIncome(s.income as any)
+    if (s.status !== undefined) setStatus(s.status as any)
+    if (s.stateIdx !== undefined) setStateIdx(s.stateIdx as any)
+    if (s.customState !== undefined) setCustomState(s.customState as any)
+    if (s.customPct !== undefined) setCustomPct(s.customPct as any)
+  })
+
 
   const r = useMemo(() => {
     const taxable = Math.max(0, income - STD_DED[status])

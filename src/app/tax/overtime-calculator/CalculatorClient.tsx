@@ -6,6 +6,7 @@ import { Slider } from "@/components/ui/slider"
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Legend } from 'recharts'
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 const fmtC = (n: number) => curSym() + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
 const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
@@ -30,6 +31,15 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [regHours, setRegHours] = useState(40)
   const [otHours, setOtHours] = useState(8)
   const [dtHours, setDtHours] = useState(0)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.rate !== undefined) setRate(s.rate as any)
+    if (s.regHours !== undefined) setRegHours(s.regHours as any)
+    if (s.otHours !== undefined) setOtHours(s.otHours as any)
+    if (s.dtHours !== undefined) setDtHours(s.dtHours as any)
+  })
+
 
   const r = useMemo(() => {
     // Regular pay = rate x regular hours; OT pays 1.5x; double time pays 2x.

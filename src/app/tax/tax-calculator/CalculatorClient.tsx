@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 const pct = (n: number) => (n * 100).toFixed(1) + '%'
@@ -57,6 +58,17 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [itemized, setItemized] = useState(18000)
   const [credits, setCredits] = useState(0)
   const [withheld, setWithheld] = useState(11000)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.income !== undefined) setIncome(s.income as any)
+    if (s.status !== undefined) setStatus(s.status as any)
+    if (s.useItemized !== undefined) setUseItemized(s.useItemized as any)
+    if (s.itemized !== undefined) setItemized(s.itemized as any)
+    if (s.credits !== undefined) setCredits(s.credits as any)
+    if (s.withheld !== undefined) setWithheld(s.withheld as any)
+  })
+
 
   const r = useMemo(() => {
     const deduction = useItemized ? Math.max(itemized, 0) : STD_DED[status]
