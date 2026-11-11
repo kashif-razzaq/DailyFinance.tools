@@ -24,10 +24,18 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts'
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const sym = useCurrencySymbol()
   const [assets, setAssets] = useState({ home: 350000, bank: 25000, investments: 90000, vehicles: 28000, other: 5000 })
   const [liabs, setLiabs] = useState({ mortgage: 265000, auto: 14000, student: 18000, cards: 4500, other: 0 })
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.assets !== undefined) setAssets(s.assets as any)
+    if (s.liabs !== undefined) setLiabs(s.liabs as any)
+  })
+
   const setA = (k: keyof typeof assets, v: number) => setAssets(p => ({ ...p, [k]: v }))
   const setL = (k: keyof typeof liabs, v: number) => setLiabs(p => ({ ...p, [k]: v }))
   const totalA = Object.values(assets).reduce((a, b) => a + b, 0), totalL = Object.values(liabs).reduce((a, b) => a + b, 0)

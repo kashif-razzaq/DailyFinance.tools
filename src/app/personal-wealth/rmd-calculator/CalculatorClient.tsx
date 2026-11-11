@@ -29,6 +29,7 @@ function NumInput({ label, value, onChange, hint, min, max }: { label: string; v
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts'
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 // IRS Uniform Lifetime Table (2022+, Treas. Reg. §1.401(a)(9)-9) — distribution period by age.
 // Ages below 72 are not in the table; age 120+ uses 2.0.
@@ -55,6 +56,14 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [age, setAge] = useState(73)
   const [balance, setBalance] = useState(500000)
   const [ret, setRet] = useState(5)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.age !== undefined) setAge(s.age as any)
+    if (s.balance !== undefined) setBalance(s.balance as any)
+    if (s.ret !== undefined) setRet(s.ret as any)
+  })
+
 
   const calc = useMemo(() => {
     const startAge = Math.min(100, Math.max(60, age || 60))

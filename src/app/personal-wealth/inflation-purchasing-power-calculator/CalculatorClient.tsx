@@ -24,9 +24,18 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts'
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const sym = useCurrencySymbol()
   const [amount, setAmount] = useState(10000); const [rate, setRate] = useState(3); const [years, setYears] = useState(20)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.amount !== undefined) setAmount(s.amount as any)
+    if (s.rate !== undefined) setRate(s.rate as any)
+    if (s.years !== undefined) setYears(s.years as any)
+  })
+
   const r = useMemo(() => {
     const power = amount / Math.pow(1 + rate / 100, years)
     const futureCost = amount * Math.pow(1 + rate / 100, years)

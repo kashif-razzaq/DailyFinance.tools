@@ -24,6 +24,7 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, Legend } from 'recharts'
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const sym = useCurrencySymbol()
@@ -33,6 +34,17 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [annual, setAnnual] = useState(7500)
   const [ret, setRet] = useState(7)
   const [taxRate, setTaxRate] = useState(15)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.currentAge !== undefined) setCurrentAge(s.currentAge as any)
+    if (s.retireAge !== undefined) setRetireAge(s.retireAge as any)
+    if (s.balance !== undefined) setBalance(s.balance as any)
+    if (s.annual !== undefined) setAnnual(s.annual as any)
+    if (s.ret !== undefined) setRet(s.ret as any)
+    if (s.taxRate !== undefined) setTaxRate(s.taxRate as any)
+  })
+
 
   const limit = currentAge >= 50 ? 8600 : 7500
   const effectiveAnnual = Math.min(Math.max(0, annual), limit)

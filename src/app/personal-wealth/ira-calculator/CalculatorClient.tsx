@@ -29,6 +29,7 @@ function NumInput({ label, value, onChange, hint, min, max }: { label: string; v
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, Legend } from 'recharts'
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 // Formula (equal out-of-pocket comparison):
 //  Years n = retirementAge - currentAge, growth factor per year = (1 + r).
@@ -53,6 +54,18 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [ret, setRet] = useState(7)
   const [taxNow, setTaxNow] = useState(22)
   const [taxRet, setTaxRet] = useState(22)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.currentAge !== undefined) setCurrentAge(s.currentAge as any)
+    if (s.retirementAge !== undefined) setRetirementAge(s.retirementAge as any)
+    if (s.balance !== undefined) setBalance(s.balance as any)
+    if (s.contribution !== undefined) setContribution(s.contribution as any)
+    if (s.ret !== undefined) setRet(s.ret as any)
+    if (s.taxNow !== undefined) setTaxNow(s.taxNow as any)
+    if (s.taxRet !== undefined) setTaxRet(s.taxRet as any)
+  })
+
 
   const calc = useMemo(() => {
     const n = Math.max(0, retirementAge - currentAge)

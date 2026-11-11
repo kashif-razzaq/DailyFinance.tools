@@ -24,12 +24,23 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts'
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 const FREQ: Record<string, number> = { annually: 1, quarterly: 4, monthly: 12, daily: 365 }
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const sym = useCurrencySymbol()
   const [principal, setPrincipal] = useState(10000); const [monthly, setMonthly] = useState(200)
   const [rate, setRate] = useState(7); const [years, setYears] = useState(15)
   const [freqKey, setFreqKey] = useState('monthly')
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.principal !== undefined) setPrincipal(s.principal as any)
+    if (s.monthly !== undefined) setMonthly(s.monthly as any)
+    if (s.rate !== undefined) setRate(s.rate as any)
+    if (s.years !== undefined) setYears(s.years as any)
+    if (s.freqKey !== undefined) setFreqKey(s.freqKey as any)
+  })
+
   const r = useMemo(() => {
     // Formula: Compound FV = P(1+r/n)^(nt) + contributions compounded monthly; Simple: I = P·r·t with interest kept separate (never earns interest)
     const rr = rate / 100

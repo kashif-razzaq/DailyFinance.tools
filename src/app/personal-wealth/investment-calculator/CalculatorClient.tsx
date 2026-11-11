@@ -29,6 +29,7 @@ function NumInput({ label, value, onChange, hint, min, max }: { label: string; v
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, Legend } from 'recharts'
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 // Formula (monthly compounding, net of fees):
 //  Monthly rate m = (annualReturn% - fees%) / 100 / 12. Months N = years x 12.
@@ -64,6 +65,18 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [fees, setFees] = useState(0.5)
   const [inflation, setInflation] = useState(3)
   const [scenario, setScenario] = useState<string>('Base')
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.initial !== undefined) setInitial(s.initial as any)
+    if (s.monthly !== undefined) setMonthly(s.monthly as any)
+    if (s.years !== undefined) setYears(s.years as any)
+    if (s.ret !== undefined) setRet(s.ret as any)
+    if (s.fees !== undefined) setFees(s.fees as any)
+    if (s.inflation !== undefined) setInflation(s.inflation as any)
+    if (s.scenario !== undefined) setScenario(s.scenario as any)
+  })
+
 
   const pickScenario = (name: string, rate: number) => { setScenario(name); setRet(rate) }
 

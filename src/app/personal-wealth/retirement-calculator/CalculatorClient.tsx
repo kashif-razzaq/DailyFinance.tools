@@ -24,6 +24,7 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts'
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const sym = useCurrencySymbol()
@@ -34,6 +35,18 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [ret, setRet] = useState(7)
   const [spending, setSpending] = useState(40000)
   const [life, setLife] = useState(90)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.currentAge !== undefined) setCurrentAge(s.currentAge as any)
+    if (s.retireAge !== undefined) setRetireAge(s.retireAge as any)
+    if (s.savings !== undefined) setSavings(s.savings as any)
+    if (s.monthly !== undefined) setMonthly(s.monthly as any)
+    if (s.ret !== undefined) setRet(s.ret as any)
+    if (s.spending !== undefined) setSpending(s.spending as any)
+    if (s.life !== undefined) setLife(s.life as any)
+  })
+
 
   // Formula: balance compounds monthly: B = B x (1 + r/12) + monthly contribution, each month to retirement.
   // Target (simple drawdown) = annual spending x years in retirement. 4%-rule target = spending x 25.
