@@ -5,6 +5,7 @@ import { Slider } from "@/components/ui/slider"
 import { Calculator, TrendingUp } from "lucide-react"
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 const fmt = (n: number) => curSym() + n.toLocaleString(undefined, { maximumFractionDigits: 0 })
 const fmt2 = (n: number) => curSym() + n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
@@ -18,6 +19,16 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [processingPct] = useState(2.9)
   const [perTxn, setPerTxn] = useState(0.3)
   const [payoutPct, setPayoutPct] = useState(1)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.patrons !== undefined) setPatrons(s.patrons as any)
+    if (s.pledge !== undefined) setPledge(s.pledge as any)
+    if (s.planPct !== undefined) setPlanPct(s.planPct as any)
+    if (s.perTxn !== undefined) setPerTxn(s.perTxn as any)
+    if (s.payoutPct !== undefined) setPayoutPct(s.payoutPct as any)
+  })
+
 
   const r = useMemo(() => {
     const gross = patrons * pledge

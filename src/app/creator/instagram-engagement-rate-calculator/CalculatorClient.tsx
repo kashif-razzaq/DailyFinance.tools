@@ -4,6 +4,7 @@ import React, { useMemo, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Cell } from 'recharts'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
 function NumInput({ label, value, onChange, hint }: { label: string; value: number; onChange: (n: number) => void; hint?: string }) {
@@ -40,6 +41,17 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [shares, setShares] = useState(140)
   const [saves, setSaves] = useState(210)
   const [reach, setReach] = useState(18000)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.followers !== undefined) setFollowers(s.followers as any)
+    if (s.likes !== undefined) setLikes(s.likes as any)
+    if (s.comments !== undefined) setComments(s.comments as any)
+    if (s.shares !== undefined) setShares(s.shares as any)
+    if (s.saves !== undefined) setSaves(s.saves as any)
+    if (s.reach !== undefined) setReach(s.reach as any)
+  })
+
 
   const r = useMemo(() => {
     // Engagement rate = total interactions ÷ followers × 100 (per post, using your averages)

@@ -205,3 +205,26 @@ whole?"
   "Loading your money toolkit…", and a 150ms anti-strobe delay (fast
   navigations never flash it). Footer-link "bounce back" reports traced to
   slow connections, verified working in a browser repro 2026-11-09.
+
+## Dashboard round (2026-11-11)
+- **Save → Open restore works on every tool.** `src/lib/use-saved-scenario.ts`
+  (`useSavedScenarioRestore`) reads `?savedId=` on mount, fetches the row via
+  `getSharedCalculatorAction` (owner-or-public enforced there) and applies
+  `input_state` through the client's own setters. Wired into all 102
+  ToolActionsBar clients; the 14 gold freelance clients use their own
+  equivalent effect. check-site fails any client missing the hook.
+- **Scenario URLs**: `getScenarioUrl(slug)` in navigation.ts resolves a
+  saved row's calculator_slug to its real page URL, translating the 12
+  legacy freelance save-slugs via `SCENARIO_SLUG_ALIASES`. The Vault's Open
+  button and the gold tools' share links use real page URLs.
+- **Vault** (`VaultBrowser`): hub sections resolved from the slug (not the
+  free-text category), search + hub chips, overview strip (count, Free
+  usage meter, hubs, last activity, jump-back-in), per-hub new-scenario
+  cards. **Compare**: tick up to 3 scenarios of the same tool → tray →
+  side-by-side table with differing rows highlighted (Pro-gated via
+  ProUpgradeModal).
+- **Analytics is real data only** — the old mock net-worth series and
+  fabricated payoff waterfall were removed. Charts: scenarios per hub,
+  12-week activity, most-used tools. `InsightsPanel` computes locally:
+  net-worth snapshot (latest Net Worth Tracker scenario), hub composition,
+  compare-ready tools, stale scenarios, shared count. No external AI.

@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
@@ -36,6 +37,17 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [posts, setPosts] = useState(4)
   const [reels, setReels] = useState(6)
   const [stories, setStories] = useState(10)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.followers !== undefined) setFollowers(s.followers as any)
+    if (s.engagement !== undefined) setEngagement(s.engagement as any)
+    if (s.nicheIdx !== undefined) setNicheIdx(s.nicheIdx as any)
+    if (s.posts !== undefined) setPosts(s.posts as any)
+    if (s.reels !== undefined) setReels(s.reels as any)
+    if (s.stories !== undefined) setStories(s.stories as any)
+  })
+
 
   const r = useMemo(() => {
     const niche = NICHES[nicheIdx]

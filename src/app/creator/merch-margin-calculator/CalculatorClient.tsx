@@ -5,6 +5,7 @@ import { Slider } from "@/components/ui/slider"
 import { Calculator, TrendingUp } from "lucide-react"
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 const fmt = (n: number) => curSym() + n.toLocaleString(undefined, { maximumFractionDigits: 0 })
 const fmt2 = (n: number) => curSym() + n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
@@ -22,6 +23,21 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [shipCost, setShipCost] = useState(4.5)
   const [units, setUnits] = useState(300)
   const [returnPct, setReturnPct] = useState(2)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.price !== undefined) setPrice(s.price as any)
+    if (s.baseCost !== undefined) setBaseCost(s.baseCost as any)
+    if (s.printCost !== undefined) setPrintCost(s.printCost as any)
+    if (s.platformPct !== undefined) setPlatformPct(s.platformPct as any)
+    if (s.txnPct !== undefined) setTxnPct(s.txnPct as any)
+    if (s.txnFixed !== undefined) setTxnFixed(s.txnFixed as any)
+    if (s.shipCharged !== undefined) setShipCharged(s.shipCharged as any)
+    if (s.shipCost !== undefined) setShipCost(s.shipCost as any)
+    if (s.units !== undefined) setUnits(s.units as any)
+    if (s.returnPct !== undefined) setReturnPct(s.returnPct as any)
+  })
+
 
   const r = useMemo(() => {
     const platform = price * (platformPct / 100)

@@ -5,6 +5,7 @@ import { Slider } from "@/components/ui/slider"
 import { Calculator, TrendingUp } from "lucide-react"
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 const fmt = (n: number) => curSym() + Math.round(n).toLocaleString()
 const NICHE_CPM: Record<string, number> = {
@@ -21,6 +22,17 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [deliverables, setDeliverables] = useState(1)
   const [usagePct, setUsagePct] = useState(30)
   const [exclusivityPct, setExclusivityPct] = useState(0)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.avgViews !== undefined) setAvgViews(s.avgViews as any)
+    if (s.engagement !== undefined) setEngagement(s.engagement as any)
+    if (s.niche !== undefined) setNiche(s.niche as any)
+    if (s.deliverables !== undefined) setDeliverables(s.deliverables as any)
+    if (s.usagePct !== undefined) setUsagePct(s.usagePct as any)
+    if (s.exclusivityPct !== undefined) setExclusivityPct(s.exclusivityPct as any)
+  })
+
 
   const r = useMemo(() => {
     const cpm = NICHE_CPM[niche]

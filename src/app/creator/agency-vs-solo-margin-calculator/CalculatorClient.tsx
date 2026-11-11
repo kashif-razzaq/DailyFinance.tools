@@ -5,6 +5,7 @@ import { Slider } from "@/components/ui/slider"
 import { Calculator, TrendingUp } from "lucide-react"
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 const fmt = (n: number) => curSym() + Math.round(n).toLocaleString()
 
@@ -19,6 +20,19 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [soloHours, setSoloHours] = useState(120)
   const [agencyHours, setAgencyHours] = useState(45)
   const [capacityGain, setCapacityGain] = useState(40)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.revenue !== undefined) setRevenue(s.revenue as any)
+    if (s.editorCost !== undefined) setEditorCost(s.editorCost as any)
+    if (s.otherTeamCost !== undefined) setOtherTeamCost(s.otherTeamCost as any)
+    if (s.soloOverhead !== undefined) setSoloOverhead(s.soloOverhead as any)
+    if (s.agencyOverhead !== undefined) setAgencyOverhead(s.agencyOverhead as any)
+    if (s.soloHours !== undefined) setSoloHours(s.soloHours as any)
+    if (s.agencyHours !== undefined) setAgencyHours(s.agencyHours as any)
+    if (s.capacityGain !== undefined) setCapacityGain(s.capacityGain as any)
+  })
+
 
   const r = useMemo(() => {
     const soloProfit = revenue - soloOverhead

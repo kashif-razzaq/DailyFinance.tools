@@ -5,6 +5,7 @@ import { Slider } from "@/components/ui/slider"
 import { Calculator, TrendingUp } from "lucide-react"
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 const fmt = (n: number) => curSym() + Math.round(n).toLocaleString()
 const fmt2 = (n: number) => curSym() + n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
@@ -16,6 +17,15 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [conversion, setConversion] = useState(3)
   const [commission, setCommission] = useState(45)
   const [spend, setSpend] = useState(800)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.clicks !== undefined) setClicks(s.clicks as any)
+    if (s.conversion !== undefined) setConversion(s.conversion as any)
+    if (s.commission !== undefined) setCommission(s.commission as any)
+    if (s.spend !== undefined) setSpend(s.spend as any)
+  })
+
 
   const r = useMemo(() => {
     const sales = clicks * (conversion / 100)

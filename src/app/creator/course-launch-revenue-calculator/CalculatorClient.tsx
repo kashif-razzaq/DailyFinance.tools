@@ -5,6 +5,7 @@ import { Slider } from "@/components/ui/slider"
 import { Calculator, TrendingUp } from "lucide-react"
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 const fmt = (n: number) => curSym() + Math.round(n).toLocaleString()
 
@@ -17,6 +18,17 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [refundPct, setRefundPct] = useState(5)
   const [platformPct, setPlatformPct] = useState(5)
   const [affiliatePct, setAffiliatePct] = useState(0)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.listSize !== undefined) setListSize(s.listSize as any)
+    if (s.conversion !== undefined) setConversion(s.conversion as any)
+    if (s.price !== undefined) setPrice(s.price as any)
+    if (s.refundPct !== undefined) setRefundPct(s.refundPct as any)
+    if (s.platformPct !== undefined) setPlatformPct(s.platformPct as any)
+    if (s.affiliatePct !== undefined) setAffiliatePct(s.affiliatePct as any)
+  })
+
 
   const r = useMemo(() => {
     const buyers = listSize * (conversion / 100)
