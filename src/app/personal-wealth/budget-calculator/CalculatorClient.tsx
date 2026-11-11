@@ -146,6 +146,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
         <p className="text-xs text-muted-foreground mt-4">Common guide: housing ≤30%, savings ≥20% (50/30/20 rule). Compare your bars against those benchmarks.</p>
       </div>
+    <ToolActionsBar slug="budget-calculator" isPro={isPro} inputs={{ income, housing, transport, food, utilities, insurance, entertainment, dining, subscriptions, other, savings }} />
     </div>
-  </div><ToolActionsBar slug="budget-calculator" isPro={isPro} inputs={{ income, housing, transport, food, utilities, insurance, entertainment, dining, subscriptions, other, savings }} /></>)
+  </div></>)
 }

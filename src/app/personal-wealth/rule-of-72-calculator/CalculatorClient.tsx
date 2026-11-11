@@ -107,5 +107,6 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </ResultCard>
       )}
       <div className="bg-card border rounded-2xl p-6 text-sm text-muted-foreground leading-relaxed"><strong className="text-foreground">Why two answers?</strong> The Rule of 72 is a mental shortcut — very accurate near 8%, slightly optimistic at low rates and slightly pessimistic at high ones. The exact figure uses ln(2) / ln(1 + r), so you can see the shortcut&apos;s error for yourself.</div>
-    </div></div><ToolActionsBar slug="rule-of-72-calculator" isPro={isPro} inputs={{ mode, rate, amount, targetYears }} /></>)
+    <ToolActionsBar slug="rule-of-72-calculator" isPro={isPro} inputs={{ mode, rate, amount, targetYears }} />
+    </div></div></>)
 }

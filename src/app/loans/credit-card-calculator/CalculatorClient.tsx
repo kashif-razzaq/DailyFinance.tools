@@ -112,5 +112,6 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <table className="w-full text-sm"><thead><tr className="text-left text-muted-foreground border-b"><th className="py-2 pr-3 font-semibold">Mode</th><th className="py-2 pr-3 font-semibold text-right">Time</th><th className="py-2 font-semibold text-right">Interest</th></tr></thead>
           <tbody>{rows.map((row) => (<tr key={row.key} className={`border-b last:border-0 ${mode === row.key ? 'font-bold text-[#064E3B]' : ''}`}><td className="py-2 pr-3">{row.label}</td><td className="py-2 pr-3 font-mono text-right">{row.r.cleared ? row.r.months + ' mo' : 'Never'}</td><td className="py-2 font-mono text-right">{fmt(row.r.interest)}</td></tr>))}</tbody></table>
         <p className="text-xs text-muted-foreground mt-3">For a full multi-card payoff plan with extra payments, use the Credit Card Payoff Calculator in Personal Wealth or the Debt Payoff Calculator.</p></div>
-    </div></div><ToolActionsBar slug="credit-card-calculator" isPro={isPro} inputs={{ balance, apr, mode, fixedPayment, pct }} /></>)
+    <ToolActionsBar slug="credit-card-calculator" isPro={isPro} inputs={{ balance, apr, mode, fixedPayment, pct }} />
+    </div></div></>)
 }

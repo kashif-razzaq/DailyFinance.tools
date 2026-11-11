@@ -129,5 +129,6 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
 
       <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Annual RMD by Age</h4>
         <ResponsiveContainer width="100%" height={200}><BarChart data={chartData}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="name" label={{ value: 'Age', position: 'insideBottom', offset: -2 }} /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Bar dataKey="rmd" fill="#064E3B" name="RMD" radius={[4, 4, 0, 0]} /></BarChart></ResponsiveContainer></div>
-    </div></div><ToolActionsBar slug="rmd-calculator" isPro={isPro} inputs={{ age, balance, ret }} /></>)
+    <ToolActionsBar slug="rmd-calculator" isPro={isPro} inputs={{ age, balance, ret }} />
+    </div></div></>)
 }

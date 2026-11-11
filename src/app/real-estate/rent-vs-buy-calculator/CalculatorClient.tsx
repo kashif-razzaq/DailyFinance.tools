@@ -105,5 +105,6 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Cumulative Net Cost by Year</h4>
         <ResponsiveContainer width="100%" height={220}><LineChart data={c.rows}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="year" /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Legend /><Line type="monotone" dataKey="Renting" stroke="#D97706" strokeWidth={2} dot={false} /><Line type="monotone" dataKey="Buying" stroke="#064E3B" strokeWidth={2} dot={false} /></LineChart></ResponsiveContainer>
         <p className="text-xs text-muted-foreground mt-3">Buying assumes 2% purchase closing costs, 6% selling costs, and excludes opportunity cost on the down payment — a fuller model narrows buying&apos;s edge slightly.</p></div>
-    </div></div><ToolActionsBar slug="rent-vs-buy-calculator" isPro={isPro} inputs={{ years, rent, rentGrowth, rentIns, price, downPct, rate, taxPct, insYear, maintPct, appr }} /></>)
+    <ToolActionsBar slug="rent-vs-buy-calculator" isPro={isPro} inputs={{ years, rent, rentGrowth, rentIns, price, downPct, rate, taxPct, insYear, maintPct, appr }} />
+    </div></div></>)
 }

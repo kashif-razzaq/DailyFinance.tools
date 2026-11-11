@@ -134,6 +134,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <ResponsiveContainer width="100%" height={190}><PieChart><Pie data={pie} dataKey="value" nameKey="name" innerRadius={45} outerRadius={75} paddingAngle={2}>{pie.map((d) => <Cell key={d.name} fill={d.color} />)}</Pie><Tooltip formatter={(v: any) => fmt(Number(v))} /></PieChart></ResponsiveContainer>
         <div className="flex flex-wrap gap-x-4 gap-y-1 justify-center">{pie.map((d) => <span key={d.name} className="text-xs flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-sm" style={{ background: d.color }} />{d.name}</span>)}</div>
       </div>
+    <ToolActionsBar slug="paycheck-calculator" isPro={isPro} inputs={{ salary, freq, status, statePct, retirement }} />
     </div>
-  </div><ToolActionsBar slug="paycheck-calculator" isPro={isPro} inputs={{ salary, freq, status, statePct, retirement }} /></>)
+  </div></>)
 }

@@ -112,5 +112,6 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
             <tr><td className="py-2 pr-3">Extended — 20 years</td><td className="py-2 pr-3 font-mono text-right">{fmt(extended.payment)}</td><td className="py-2 font-mono text-right">{fmt(extended.interest)}</td></tr>
           </tbody></table>
         <p className="text-xs text-muted-foreground mt-3">Stretching from 10 to 20 years cuts the payment by {fmt(standard.payment - extended.payment)}/mo but adds {fmt(extended.interest - standard.interest)} in interest. For a payoff-focused plan with extra payments, see the Student Loan Payoff Calculator in Personal Wealth.</p></div>
-    </div></div><ToolActionsBar slug="student-loan-calculator" isPro={isPro} inputs={{ balance, rate, mode, termYears, paymentInput }} /></>)
+    <ToolActionsBar slug="student-loan-calculator" isPro={isPro} inputs={{ balance, rate, mode, termYears, paymentInput }} />
+    </div></div></>)
 }

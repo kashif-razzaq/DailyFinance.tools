@@ -132,6 +132,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <Bar dataKey="amount" name="Remaining pay">{waterfall.map((w) => <Cell key={w.step} fill={w.color} />)}</Bar></BarChart></ResponsiveContainer>
         <p className="text-xs text-muted-foreground mt-2">Differentiator: watch each deduction shrink your pay step by step — and see exactly how much tax your pre-tax contributions save you.</p>
       </div>
+    <ToolActionsBar slug="take-home-pay-calculator" isPro={isPro} inputs={{ gross, freq, status, k401Pct, hsa, healthPerCheck, statePct }} />
     </div>
-  </div><ToolActionsBar slug="take-home-pay-calculator" isPro={isPro} inputs={{ gross, freq, status, k401Pct, hsa, healthPerCheck, statePct }} /></>)
+  </div></>)
 }

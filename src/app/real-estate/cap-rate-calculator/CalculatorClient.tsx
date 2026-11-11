@@ -113,5 +113,6 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
         {c.expenses.length > 0 && <ResponsiveContainer width="100%" height={200}><PieChart><Pie data={c.expenses} dataKey="value" nameKey="name" innerRadius={45} outerRadius={70} paddingAngle={2}>{c.expenses.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}</Pie><Tooltip formatter={(v: any) => fmt(Number(v)) + '/yr'} /><Legend /></PieChart></ResponsiveContainer>}
       </div>
-    </div></div><ToolActionsBar slug="cap-rate-calculator" isPro={isPro} inputs={{ value, rent, other, vacancy, taxYear, insYear, maintPct, mgmtPct, hoaMo, otherExp, downPct, finRate, finTerm, closing }} /></>)
+    <ToolActionsBar slug="cap-rate-calculator" isPro={isPro} inputs={{ value, rent, other, vacancy, taxYear, insYear, maintPct, mgmtPct, hoaMo, otherExp, downPct, finRate, finTerm, closing }} />
+    </div></div></>)
 }

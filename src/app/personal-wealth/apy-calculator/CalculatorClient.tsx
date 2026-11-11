@@ -102,5 +102,6 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <tbody className="font-mono">{r.table.map(row => (<tr key={row.key} className={`border-b last:border-0 ${row.isCurrent ? 'bg-emerald-50 dark:bg-emerald-950/30 font-bold' : ''}`}><td className="py-2 pr-2">{row.label} <span className="text-muted-foreground">×{row.n}</span></td><td className="py-2 pr-2 text-right">{pct(row.apy)}</td><td className="py-2 text-right">{fmt(row.value)}</td></tr>))}</tbody></table></div>
         <p className="text-xs text-muted-foreground mt-3">More frequent compounding always wins, but the gap shrinks fast — daily vs monthly is pennies on most deposits. Compare APYs, not APRs, when shopping accounts.</p>
       </div>
-    </div></div><ToolActionsBar slug="apy-calculator" isPro={isPro} inputs={{ mode, rateInput, freqKey, deposit, years }} /></>)
+    <ToolActionsBar slug="apy-calculator" isPro={isPro} inputs={{ mode, rateInput, freqKey, deposit, years }} />
+    </div></div></>)
 }
