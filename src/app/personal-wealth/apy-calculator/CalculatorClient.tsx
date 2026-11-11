@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 const fmt2 = (n: number) => curSym() + n.toLocaleString('en-US', { maximumFractionDigits: 0 })
@@ -36,6 +37,16 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [rateInput, setRateInput] = useState(5)
   const [freqKey, setFreqKey] = useState<string>('daily')
   const [deposit, setDeposit] = useState(10000); const [years, setYears] = useState(5)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.mode !== undefined) setMode(s.mode as any)
+    if (s.rateInput !== undefined) setRateInput(s.rateInput as any)
+    if (s.freqKey !== undefined) setFreqKey(s.freqKey as any)
+    if (s.deposit !== undefined) setDeposit(s.deposit as any)
+    if (s.years !== undefined) setYears(s.years as any)
+  })
+
   const r = useMemo(() => {
     // Formula: APY = (1 + r/n)^n − 1  ·  Reverse: APR = n × ((1 + APY)^(1/n) − 1)
     const n = FREQS.find(f => f.key === freqKey)?.n ?? 365

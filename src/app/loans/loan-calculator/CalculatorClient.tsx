@@ -6,6 +6,7 @@ import { Slider } from "@/components/ui/slider"
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts'
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
@@ -42,6 +43,14 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [amount, setAmount] = useState(25000)
   const [rate, setRate] = useState(7.5)
   const [years, setYears] = useState(5)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.amount !== undefined) setAmount(s.amount as any)
+    if (s.rate !== undefined) setRate(s.rate as any)
+    if (s.years !== undefined) setYears(s.years as any)
+  })
+
   const months = Math.round(years * 12)
   const payment = useMemo(() => monthlyPayment(amount, rate, months), [amount, rate, months])
 

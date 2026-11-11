@@ -6,6 +6,7 @@ import { Slider } from "@/components/ui/slider"
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts'
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
@@ -54,6 +55,15 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [rate, setRate] = useState(11.5)
   const [months, setMonths] = useState(36)
   const [feePct, setFeePct] = useState(5)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.amount !== undefined) setAmount(s.amount as any)
+    if (s.rate !== undefined) setRate(s.rate as any)
+    if (s.months !== undefined) setMonths(s.months as any)
+    if (s.feePct !== undefined) setFeePct(s.feePct as any)
+  })
+
 
   // Origination fee is deducted from the proceeds, but interest is charged on the FULL amount.
   const fee = amount * feePct / 100

@@ -6,6 +6,7 @@ import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianG
 import { Plus, Trash2 } from 'lucide-react'
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
@@ -56,6 +57,14 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const avalanche = useMemo(() => simulate(debts, budget, 'avalanche'), [debts, budget])
   const snowball = useMemo(() => simulate(debts, budget, 'snowball'), [debts, budget])
   const [view, setView] = useState<'avalanche' | 'snowball'>('avalanche')
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.debts !== undefined) setDebts(s.debts as any)
+    if (s.budget !== undefined) setBudget(s.budget as any)
+    if (s.view !== undefined) setView(s.view as any)
+  })
+
   const shown = view === 'avalanche' ? avalanche : snowball
   const winner = avalanche.interest <= snowball.interest ? 'avalanche' : 'snowball'
   const saving = Math.abs(avalanche.interest - snowball.interest)

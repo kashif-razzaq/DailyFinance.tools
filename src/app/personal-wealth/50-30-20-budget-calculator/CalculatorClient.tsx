@@ -24,6 +24,7 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Legend } from 'recharts'
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const sym = useCurrencySymbol()
@@ -31,6 +32,15 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [needs, setNeeds] = useState(2900)
   const [wants, setWants] = useState(1500)
   const [savings, setSavings] = useState(600)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.income !== undefined) setIncome(s.income as any)
+    if (s.needs !== undefined) setNeeds(s.needs as any)
+    if (s.wants !== undefined) setWants(s.wants as any)
+    if (s.savings !== undefined) setSavings(s.savings as any)
+  })
+
 
   // Formula: target bucket = income x rule % (Needs 50%, Wants 30%, Savings 20%)
   const r = useMemo(() => {

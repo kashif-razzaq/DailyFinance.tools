@@ -6,6 +6,7 @@ import { Slider } from "@/components/ui/slider"
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, Legend } from 'recharts'
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
@@ -51,6 +52,17 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [newRate, setNewRate] = useState(11.9)
   const [newTerm, setNewTerm] = useState(48)
   const [feePct, setFeePct] = useState(4)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.balance !== undefined) setBalance(s.balance as any)
+    if (s.currentApr !== undefined) setCurrentApr(s.currentApr as any)
+    if (s.currentPayment !== undefined) setCurrentPayment(s.currentPayment as any)
+    if (s.newRate !== undefined) setNewRate(s.newRate as any)
+    if (s.newTerm !== undefined) setNewTerm(s.newTerm as any)
+    if (s.feePct !== undefined) setFeePct(s.feePct as any)
+  })
+
 
   // Current path: keep paying the current combined payment against the balances at their average APR.
   const current = useMemo(() => simulateFixed(balance, currentApr, currentPayment), [balance, currentApr, currentPayment])

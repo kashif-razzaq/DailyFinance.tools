@@ -24,12 +24,26 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts'
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const sym = useCurrencySymbol()
   const [age, setAge] = useState(35); const [retireAge, setRetireAge] = useState(65)
   const [balance, setBalance] = useState(40000); const [comp, setComp] = useState(120000)
   const [employee, setEmployee] = useState(15000); const [matchPct, setMatchPct] = useState(4)
   const [profitShare, setProfitShare] = useState(15000); const [ret, setRet] = useState(7)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.age !== undefined) setAge(s.age as any)
+    if (s.retireAge !== undefined) setRetireAge(s.retireAge as any)
+    if (s.balance !== undefined) setBalance(s.balance as any)
+    if (s.comp !== undefined) setComp(s.comp as any)
+    if (s.employee !== undefined) setEmployee(s.employee as any)
+    if (s.matchPct !== undefined) setMatchPct(s.matchPct as any)
+    if (s.profitShare !== undefined) setProfitShare(s.profitShare as any)
+    if (s.ret !== undefined) setRet(s.ret as any)
+  })
+
   const EMP_LIMIT = 24500, COMBINED_LIMIT = 72000, CATCHUP = 7500
   const empCapped = Math.min(employee, EMP_LIMIT + (age >= 50 ? CATCHUP : 0))
   const r = useMemo(() => {

@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
@@ -45,6 +46,17 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [student, setStudent] = useState(290)
   const [cards, setCards] = useState(160)
   const [other, setOther] = useState(0)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.income !== undefined) setIncome(s.income as any)
+    if (s.housing !== undefined) setHousing(s.housing as any)
+    if (s.auto !== undefined) setAuto(s.auto as any)
+    if (s.student !== undefined) setStudent(s.student as any)
+    if (s.cards !== undefined) setCards(s.cards as any)
+    if (s.other !== undefined) setOther(s.other as any)
+  })
+
 
   // Front-end DTI = housing / gross monthly income. Back-end DTI = (housing + all recurring debts) / income.
   const totalDebts = housing + auto + student + cards + other

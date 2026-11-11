@@ -6,6 +6,7 @@ import { Slider } from "@/components/ui/slider"
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, Legend } from 'recharts'
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
@@ -50,6 +51,16 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [mode, setMode] = useState<'term' | 'payment'>('term')
   const [termYears, setTermYears] = useState(10)
   const [paymentInput, setPaymentInput] = useState(400)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.balance !== undefined) setBalance(s.balance as any)
+    if (s.rate !== undefined) setRate(s.rate as any)
+    if (s.mode !== undefined) setMode(s.mode as any)
+    if (s.termYears !== undefined) setTermYears(s.termYears as any)
+    if (s.paymentInput !== undefined) setPaymentInput(s.paymentInput as any)
+  })
+
 
   const termPayment = useMemo(() => monthlyPayment(balance, rate, termYears * 12), [balance, rate, termYears])
   const payment = mode === 'term' ? termPayment : paymentInput
