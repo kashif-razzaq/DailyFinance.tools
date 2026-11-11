@@ -39,11 +39,9 @@ export default async function DashboardPage() {
             Your saved scenarios, organized by hub. Open one and the calculator restores your exact numbers.
           </p>
         </div>
-        {isPro && (
-          <Link href="/dashboard/analytics">
-            <Button variant="outline" className="rounded-full">View analytics</Button>
-          </Link>
-        )}
+        <Link href="/dashboard/analytics">
+          <Button variant="outline" className="rounded-full">View analytics</Button>
+        </Link>
       </div>
 
       {savedCalculators.length === 0 ? (

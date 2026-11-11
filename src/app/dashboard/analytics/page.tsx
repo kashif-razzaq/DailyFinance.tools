@@ -1,14 +1,13 @@
 import { getSavedCalculatorsAction } from "@/actions/calculator.actions"
 import { CrossDataAnalytics } from "@/components/dashboard/AnalyticsCharts"
-import { BarChart3, Lock } from "lucide-react"
+import { BarChart3 } from "lucide-react"
 import { createServerClient } from "@supabase/ssr"
 import { cookies } from "next/headers"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
 import { safeGetUser } from "@/utils/supabase/safe-user"
 
 export default async function AnalyticsPage() {
-  // Cross-Data Analytics is a Pro feature (see /pricing) — enforce server-side.
+  // Free users get the basic snapshot; Pro gets the full picture
+  // (the split is rendered inside CrossDataAnalytics).
   const cookieStore = await cookies()
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -20,20 +19,6 @@ export default async function AnalyticsPage() {
   if (user) {
     const { data: profile } = await supabase.from("users").select("subscription_status").eq("id", user.id).single()
     isPro = profile?.subscription_status === "active"
-  }
-  if (!isPro) {
-    return (
-      <div className="flex flex-col items-center justify-center py-24 text-center space-y-6">
-        <div className="w-32 h-32 rounded-3xl bg-muted border flex items-center justify-center shadow-sm">
-          <Lock className="w-12 h-12 text-muted-foreground opacity-60" />
-        </div>
-        <h1 className="text-3xl font-bold tracking-tight">Cross-Data Analytics is a Pro feature</h1>
-        <p className="text-muted-foreground max-w-md mx-auto">
-          Pro combines your saved scenarios into one financial picture — assets, debts, payments, income and cash flow, all from your own numbers. Your Vault data is safe — it unlocks the moment you upgrade.
-        </p>
-        <Link href="/pricing"><Button size="lg" className="rounded-full px-8">Upgrade to Pro</Button></Link>
-      </div>
-    )
   }
   const savedCalculators = await getSavedCalculatorsAction()
 
@@ -57,7 +42,7 @@ export default async function AnalyticsPage() {
           </p>
         </div>
       ) : (
-        <CrossDataAnalytics calculators={savedCalculators} />
+        <CrossDataAnalytics calculators={savedCalculators} isPro={isPro} />
       )}
     </div>
   )

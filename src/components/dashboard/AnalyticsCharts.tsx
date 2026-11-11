@@ -8,7 +8,7 @@ import {
 import Link from "next/link"
 import {
   Wallet, Landmark, CalendarClock, Percent, Flame, PiggyBank, Umbrella,
-  TrendingUp, Info,
+  TrendingUp, Info, Lock,
 } from "lucide-react"
 import { buildFinancialPicture, type FinancialPicture, type MoneyLine } from "@/lib/financial-picture"
 import { getToolUrl } from "@/config/navigation"
@@ -94,11 +94,108 @@ function UnlockCard() {
   )
 }
 
-export function CrossDataAnalytics({ calculators }: { calculators: SavedCalculator[] }) {
+function BalanceSheetCard({ pic }: { pic: FinancialPicture }) {
+  return (
+<Card className="border shadow-sm">
+  <CardHeader>
+    <CardTitle>Balance sheet</CardTitle>
+    <CardDescription>
+      {pic.basis === 'net-worth'
+        ? 'From your Net Worth Tracker scenario — your balance sheet of record.'
+        : 'Combined from your latest scenario in each tool.'}
+    </CardDescription>
+  </CardHeader>
+  <CardContent className="space-y-6">
+    <div>
+      <div className="mb-2 flex items-baseline justify-between">
+        <p className="text-sm font-bold text-emerald-700">Assets · {money(pic.totalAssets)}</p>
+      </div>
+      <LinesList lines={pic.assets} tone="asset" />
+    </div>
+    <div>
+      <div className="mb-2 flex items-baseline justify-between">
+        <p className="text-sm font-bold text-red-600">Debts · {money(pic.totalDebts)}</p>
+      </div>
+      <LinesList lines={pic.debts} tone="debt" />
+    </div>
+  </CardContent>
+</Card>
+  )
+}
+
+
+/**
+ * Free tier: the basic snapshot — net position, totals and the balance
+ * sheet list, then a clear view of what the full (Pro) picture adds.
+ */
+function BasicSnapshot({ pic }: { pic: FinancialPicture }) {
+  return (
+    <div className="space-y-6">
+      <div className="grid gap-6 sm:grid-cols-3">
+        <div className="rounded-2xl border bg-gradient-to-br from-primary to-emerald-800 p-6 text-primary-foreground shadow-sm">
+          <div className="mb-4 flex items-center gap-3 text-emerald-100">
+            <Wallet className="h-5 w-5" />
+            <h3 className="text-sm font-semibold uppercase tracking-wider">Net position</h3>
+          </div>
+          <p className="font-mono text-4xl font-bold">{money(pic.netPosition)}</p>
+          <p className="mt-1 text-xs text-emerald-100">Assets minus debts, from your saves</p>
+        </div>
+        <div className="rounded-2xl border bg-card p-6 shadow-sm">
+          <div className="mb-4 flex items-center gap-3 text-muted-foreground">
+            <PiggyBank className="h-5 w-5" />
+            <h3 className="text-sm font-semibold uppercase tracking-wider">Total assets</h3>
+          </div>
+          <p className="font-mono text-4xl font-bold">{money(pic.totalAssets)}</p>
+          <p className="mt-1 text-xs text-muted-foreground">Across {pic.assets.length} saved line{pic.assets.length === 1 ? '' : 's'}</p>
+        </div>
+        <div className="rounded-2xl border bg-card p-6 shadow-sm">
+          <div className="mb-4 flex items-center gap-3 text-muted-foreground">
+            <Landmark className="h-5 w-5" />
+            <h3 className="text-sm font-semibold uppercase tracking-wider">Total debts</h3>
+          </div>
+          <p className="font-mono text-4xl font-bold">{money(pic.totalDebts)}</p>
+          <p className="mt-1 text-xs text-muted-foreground">Across {pic.debts.length} saved balance{pic.debts.length === 1 ? '' : 's'}</p>
+        </div>
+      </div>
+
+      <BalanceSheetCard pic={pic} />
+
+      <Card className="border-2 border-dashed border-primary/40 bg-primary/5 shadow-sm">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Lock className="h-5 w-5 text-[#064E3B]" /> The full picture is Pro
+          </CardTitle>
+          <CardDescription>
+            Your snapshot above is live and free forever. Pro turns the same saved scenarios into the full
+            Cross-Data Analytics — plus unlimited Vault saves and scenario comparison.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+          <ul className="grid gap-2 text-sm font-medium sm:grid-cols-2 sm:gap-x-8">
+            <li>· Debts chart with payments & interest cost</li>
+            <li>· Debt-to-income with a plain-language band</li>
+            <li>· Monthly cash flow & savings rate</li>
+            <li>· Emergency cover & most-expensive-debt callout</li>
+          </ul>
+          <Link
+            href="/pricing"
+            className="inline-flex shrink-0 items-center justify-center rounded-full bg-[#064E3B] px-6 py-3 text-sm font-bold text-white shadow-sm transition hover:brightness-110"
+          >
+            Upgrade to Pro — $2.99/mo
+          </Link>
+        </CardContent>
+      </Card>
+    </div>
+  )
+}
+
+export function CrossDataAnalytics({ calculators, isPro = false }: { calculators: SavedCalculator[]; isPro?: boolean }) {
   const pic: FinancialPicture = buildFinancialPicture(calculators)
   const hasMoney = pic.assets.length > 0 || pic.debts.length > 0 || pic.cashFlow != null
 
   if (!hasMoney) return <UnlockCard />
+
+  if (!isPro) return <BasicSnapshot pic={pic} />
 
   const debtChart = [...pic.debts]
     .sort((a, b) => b.value - a.value)
@@ -199,30 +296,7 @@ export function CrossDataAnalytics({ calculators }: { calculators: SavedCalculat
 
       {/* ── Balance sheet + debt chart ──────────────────────── */}
       <div className="grid gap-6 lg:grid-cols-2">
-        <Card className="border shadow-sm">
-          <CardHeader>
-            <CardTitle>Balance sheet</CardTitle>
-            <CardDescription>
-              {pic.basis === 'net-worth'
-                ? 'From your Net Worth Tracker scenario — your balance sheet of record.'
-                : 'Combined from your latest scenario in each tool.'}
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div>
-              <div className="mb-2 flex items-baseline justify-between">
-                <p className="text-sm font-bold text-emerald-700">Assets · {money(pic.totalAssets)}</p>
-              </div>
-              <LinesList lines={pic.assets} tone="asset" />
-            </div>
-            <div>
-              <div className="mb-2 flex items-baseline justify-between">
-                <p className="text-sm font-bold text-red-600">Debts · {money(pic.totalDebts)}</p>
-              </div>
-              <LinesList lines={pic.debts} tone="debt" />
-            </div>
-          </CardContent>
-        </Card>
+        <BalanceSheetCard pic={pic} />
 
         <Card className="border shadow-sm">
           <CardHeader>

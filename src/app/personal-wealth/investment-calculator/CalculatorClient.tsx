@@ -106,7 +106,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     return { ending, endingNoFees, totalContributions, totalGrowth, feeCost, realEnding, rows, series, scenarioRows }
   }, [initial, monthly, years, ret, fees, inflation])
 
-  return (<div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+  return (<><div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
     <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-6">
       <div>
         <label className="text-sm font-semibold block mb-3">Return Scenario</label>
@@ -125,7 +125,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       <PctSlider label="Expected Annual Return" value={ret} onChange={(v) => { setRet(v) }} min={0} max={15} step={0.25} />
       <PctSlider label="Annual Fees (Expense Ratio)" value={fees} onChange={setFees} min={0} max={3} step={0.05} />
       <PctSlider label="Inflation (for real, inflation-adjusted result)" value={inflation} onChange={setInflation} min={0} max={8} step={0.1} />
-      {ret - fees < 0 && <p className="text-sm text-red-600 font-semibold">Warning: fees ({fees}%) exceed the expected return (<>{ret}%<ToolActionsBar slug="investment-calculator" isPro={isPro} inputs={{ initial, monthly, years, ret, fees, inflation, scenario }} /></>), so the portfolio shrinks in nominal terms before contributions.</p>}
+      {ret - fees < 0 && <p className="text-sm text-red-600 font-semibold">Warning: fees ({fees}%) exceed the expected return ({ret}%), so the portfolio shrinks in nominal terms before contributions.</p>}
       {years === 0 && <p className="text-sm text-amber-700 font-semibold">Set at least 1 year to see growth, fee drag and the year-by-year table.</p>}
     </div>
     <div className="lg:col-span-5 space-y-6">
@@ -172,5 +172,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
         <p className="text-xs text-muted-foreground mt-3">Past performance does not guarantee future results. This projection assumes a smooth return every month and is educational only, not investment advice.</p>
       </div>
-    </div></div>)
+    </div></div><ToolActionsBar slug="investment-calculator" isPro={isPro} inputs={{ initial, monthly, years, ret, fees, inflation, scenario }} /></>)
 }

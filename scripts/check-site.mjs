@@ -157,6 +157,24 @@ for (const file of walk(join(ROOT, "src")).filter((f) => f.endsWith("CalculatorC
   if (!src.includes("useSavedScenarioRestore")) {
     fail("wiring", `${rel} cannot restore saved scenarios (useSavedScenarioRestore missing)`)
   }
+  // (d) the actions bar must render unconditionally: flag it when it sits
+  // inside a JSX conditional (&& or ?:) or inside a paragraph — the
+  // investment-calculator bug, where the bar only appeared when a warning
+  // showed. Heuristic: the 60 chars before the tag mention `&&` or `?`
+  // without an intervening JSX tag close, or the tag is inside <p>...</p>.
+  const barIdx = src.indexOf("<ToolActionsBar")
+  if (barIdx >= 0) {
+    const before = src.slice(Math.max(0, barIdx - 400), barIdx)
+    const lastP = before.lastIndexOf("<p")
+    const lastPc = before.lastIndexOf("</p>")
+    if (lastP > lastPc) {
+      fail("wiring", `${rel} renders ToolActionsBar inside a <p> element — it must sit at the end of the calculator, outside any paragraph or conditional`)
+    }
+    const tail = before.slice(-120)
+    if (/(&&|\?)\s*$/.test(tail) || /&&\s*<[^>]*$/.test(tail)) {
+      fail("wiring", `${rel} appears to render ToolActionsBar inside a conditional — it must render unconditionally`)
+    }
+  }
   if (file.includes("/pro/") && !src.includes("ProGuard")) {
     fail("wiring", `${rel} is a Pro tool but renders no ProGuard paywall`)
   }
