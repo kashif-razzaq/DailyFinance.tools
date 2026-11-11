@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 const fmt = (n: number) => curSym() + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
@@ -33,6 +34,18 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [fvfPct, setFvfPct] = useState(13.25)
   const [perOrder, setPerOrder] = useState(0.40)
   const [promotedPct, setPromotedPct] = useState(0)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.price !== undefined) setPrice(s.price as any)
+    if (s.shippingCharged !== undefined) setShippingCharged(s.shippingCharged as any)
+    if (s.itemCost !== undefined) setItemCost(s.itemCost as any)
+    if (s.shippingCost !== undefined) setShippingCost(s.shippingCost as any)
+    if (s.fvfPct !== undefined) setFvfPct(s.fvfPct as any)
+    if (s.perOrder !== undefined) setPerOrder(s.perOrder as any)
+    if (s.promotedPct !== undefined) setPromotedPct(s.promotedPct as any)
+  })
+
 
   const r = useMemo(() => {
     const total = price + shippingCharged

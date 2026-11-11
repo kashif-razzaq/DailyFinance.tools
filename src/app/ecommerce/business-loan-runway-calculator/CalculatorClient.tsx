@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { CheckCircle2, AlertTriangle } from "lucide-react"
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 import { useCurrencySymbol } from '@/lib/currency'
 
 const fmt = (n: number, sym: string) => sym + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
@@ -17,6 +18,16 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [term, setTerm] = useState(36)
   const [cash, setCash] = useState(150000)
   const [burn, setBurn] = useState(18000)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.loan !== undefined) setLoan(s.loan as any)
+    if (s.apr !== undefined) setApr(s.apr as any)
+    if (s.term !== undefined) setTerm(s.term as any)
+    if (s.cash !== undefined) setCash(s.cash as any)
+    if (s.burn !== undefined) setBurn(s.burn as any)
+  })
+
 
   const r = apr / 100 / 12
   const payment = loan > 0 ? (r > 0 ? (loan * r) / (1 - Math.pow(1 + r, -term)) : loan / Math.max(term, 1)) : 0

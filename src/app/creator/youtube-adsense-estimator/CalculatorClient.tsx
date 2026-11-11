@@ -5,6 +5,7 @@ import { Slider } from "@/components/ui/slider"
 import { Calculator, TrendingUp } from "lucide-react"
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 const fmt = (n: number) => curSym() + Math.round(n).toLocaleString()
 const NICHE_RPM: Record<string, number> = {
@@ -21,6 +22,16 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [rpm, setRpm] = useState(15)
   const [format, setFormat] = useState<'long' | 'shorts'>('long')
   const [videosPerMonth, setVideosPerMonth] = useState(12)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.views !== undefined) setViews(s.views as any)
+    if (s.niche !== undefined) setNiche(s.niche as any)
+    if (s.rpm !== undefined) setRpm(s.rpm as any)
+    if (s.format !== undefined) setFormat(s.format as any)
+    if (s.videosPerMonth !== undefined) setVideosPerMonth(s.videosPerMonth as any)
+  })
+
 
   const effectiveRpm = format === 'shorts' ? Math.min(rpm, 0.12) : rpm
   const r = useMemo(() => {

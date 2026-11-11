@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { CheckCircle2, AlertTriangle } from "lucide-react"
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 import { useCurrencySymbol } from '@/lib/currency'
 
 const fmt = (n: number, sym: string) => sym + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
@@ -17,6 +18,16 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [units, setUnits] = useState(1000)
   const [discount, setDiscount] = useState(30)
   const [uplift, setUplift] = useState(50)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.price !== undefined) setPrice(s.price as any)
+    if (s.cost !== undefined) setCost(s.cost as any)
+    if (s.units !== undefined) setUnits(s.units as any)
+    if (s.discount !== undefined) setDiscount(s.discount as any)
+    if (s.uplift !== undefined) setUplift(s.uplift as any)
+  })
+
 
   const profitBefore = (price - cost) * units
   const salePrice = price * (1 - discount / 100)

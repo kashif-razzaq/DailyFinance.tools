@@ -4,6 +4,7 @@ import { useGlobalSettingsStore } from '@/store/global-settings.store'
 import { Input } from "@/components/ui/input"
 import { CheckCircle2, AlertTriangle } from "lucide-react"
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 import { useCurrencySymbol } from '@/lib/currency'
 
 const fmt = (n: number, sym: string) => sym + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
@@ -16,6 +17,16 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [newCustomers, setNewCustomers] = useState(400)
   const [paidCustomers, setPaidCustomers] = useState(250)
   const [aov, setAov] = useState(65)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.adSpend !== undefined) setAdSpend(s.adSpend as any)
+    if (s.otherSpend !== undefined) setOtherSpend(s.otherSpend as any)
+    if (s.newCustomers !== undefined) setNewCustomers(s.newCustomers as any)
+    if (s.paidCustomers !== undefined) setPaidCustomers(s.paidCustomers as any)
+    if (s.aov !== undefined) setAov(s.aov as any)
+  })
+
 
   const totalSpend = adSpend + otherSpend
   const blendedCac = newCustomers > 0 ? totalSpend / newCustomers : 0

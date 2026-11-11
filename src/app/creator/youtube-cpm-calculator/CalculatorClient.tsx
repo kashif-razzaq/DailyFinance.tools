@@ -6,6 +6,7 @@ import { Slider } from "@/components/ui/slider"
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Cell } from 'recharts'
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 const fmtC = (n: number) => curSym() + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
@@ -33,6 +34,15 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [rate, setRate] = useState(25)
   const [viewsPerDay, setViewsPerDay] = useState(8500)
   const [nicheIdx, setNicheIdx] = useState(2)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.mode !== undefined) setMode(s.mode as any)
+    if (s.rate !== undefined) setRate(s.rate as any)
+    if (s.viewsPerDay !== undefined) setViewsPerDay(s.viewsPerDay as any)
+    if (s.nicheIdx !== undefined) setNicheIdx(s.nicheIdx as any)
+  })
+
 
   const r = useMemo(() => {
     // CPM mode: advertiser pays CPM per 1,000 monetised views; creator share is 55% → RPM = CPM x 0.55 (approx).

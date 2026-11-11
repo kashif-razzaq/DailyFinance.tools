@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 const fmt = (n: number) => curSym() + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
 const fmtR = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
@@ -32,6 +33,18 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [bits, setBits] = useState(25000)
   const [ads, setAds] = useState(180)
   const [donations, setDonations] = useState(120)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.t1 !== undefined) setT1(s.t1 as any)
+    if (s.t2 !== undefined) setT2(s.t2 as any)
+    if (s.t3 !== undefined) setT3(s.t3 as any)
+    if (s.sharePct !== undefined) setSharePct(s.sharePct as any)
+    if (s.bits !== undefined) setBits(s.bits as any)
+    if (s.ads !== undefined) setAds(s.ads as any)
+    if (s.donations !== undefined) setDonations(s.donations as any)
+  })
+
 
   const r = useMemo(() => {
     const grossSubs = t1 * TIER_PRICE.t1 + t2 * TIER_PRICE.t2 + t3 * TIER_PRICE.t3

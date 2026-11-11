@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { TrendingUp } from "lucide-react"
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 import { useCurrencySymbol } from '@/lib/currency'
 
 const fmt = (n: number, sym: string) => sym + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
@@ -17,6 +18,16 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [bumpPrice, setBumpPrice] = useState(19)
   const [takeRate, setTakeRate] = useState(25)
   const [bumpMargin, setBumpMargin] = useState(70)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.orders !== undefined) setOrders(s.orders as any)
+    if (s.aov !== undefined) setAov(s.aov as any)
+    if (s.bumpPrice !== undefined) setBumpPrice(s.bumpPrice as any)
+    if (s.takeRate !== undefined) setTakeRate(s.takeRate as any)
+    if (s.bumpMargin !== undefined) setBumpMargin(s.bumpMargin as any)
+  })
+
 
   const bumpRevenuePerOrder = bumpPrice * (takeRate / 100)
   const newAov = aov + bumpRevenuePerOrder

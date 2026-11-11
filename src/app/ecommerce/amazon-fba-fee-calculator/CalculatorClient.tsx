@@ -4,6 +4,7 @@ import { useGlobalSettingsStore } from '@/store/global-settings.store'
 import { Input } from "@/components/ui/input"
 import { CheckCircle2, AlertTriangle } from "lucide-react"
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 import { useCurrencySymbol } from '@/lib/currency'
 
 const fmt = (n: number, sym: string) => sym + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
@@ -21,6 +22,18 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [storage, setStorage] = useState(0.45)
   const [inbound, setInbound] = useState(0.80)
   const [units, setUnits] = useState(500)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.price !== undefined) setPrice(s.price as any)
+    if (s.cogs !== undefined) setCogs(s.cogs as any)
+    if (s.category !== undefined) setCategory(s.category as any)
+    if (s.tier !== undefined) setTier(s.tier as any)
+    if (s.storage !== undefined) setStorage(s.storage as any)
+    if (s.inbound !== undefined) setInbound(s.inbound as any)
+    if (s.units !== undefined) setUnits(s.units as any)
+  })
+
 
   const referralFee = price * (REFERRAL[category] / 100)
   const fbaFee = FBA_FEE[tier]
