@@ -96,6 +96,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <tbody>{rows.map((row) => (<tr key={row.label} className="border-b last:border-0"><td className="py-2.5 font-medium">{row.label}</td><td className="py-2.5 text-right font-mono">{row.gross}</td><td className="py-2.5 text-right font-mono text-[#064E3B] dark:text-emerald-400 font-semibold">{row.net}</td></tr>))}</tbody>
         </table>
       </div>
+    <ToolActionsBar slug="salary-calculator" isPro={isPro} inputs={{ amount, period, hoursPerWeek, weeksPerYear }} />
     </div>
-  </div><ToolActionsBar slug="salary-calculator" isPro={isPro} inputs={{ amount, period, hoursPerWeek, weeksPerYear }} /></>)
+  </div></>)
 }

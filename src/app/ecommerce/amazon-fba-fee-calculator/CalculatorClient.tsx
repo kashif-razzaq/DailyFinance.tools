@@ -80,7 +80,8 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
             <span>{profit <= 0 ? 'Amazon keeps more than you do on this product. Renegotiate COGS, shrink the package into a cheaper tier, or raise the price before ordering inventory.' : margin < 0.15 ? 'Profitable but thin — under 15% net margin leaves little room for PPC. Check your break-even ACoS in the guide below.' : 'A workable FBA margin. Protect it by watching storage age and tier creep as packaging changes.'}</span>
           </p>
         </div>
-      </div>
+      <ToolActionsBar slug="amazon-fba-fee-calculator" isPro={isPro} inputs={{ price, cogs, category, tier, storage, inbound, units }} />
     </div>
-  <ToolActionsBar slug="amazon-fba-fee-calculator" isPro={isPro} inputs={{ price, cogs, category, tier, storage, inbound, units }} /></>)
+    </div>
+  </>)
 }

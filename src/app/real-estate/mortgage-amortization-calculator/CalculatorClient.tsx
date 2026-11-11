@@ -59,5 +59,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   </>}>
     <Result label="Total Monthly Payment (PITI)" value={fmt(m.total)} sub={`Loan ${fmt(m.loan)} at ${rate}% for ${term} years. Principal & interest alone: ${fmt(m.pi)}.`} />
     <Breakdown title="Payment Breakdown (Monthly)"><Row label="Principal & interest" value={fmt(m.pi)} /><Row label="Property tax" value={fmt(m.taxM)} /><Row label="Home insurance" value={fmt(m.insM)} /><Row label="PMI (down < 20%)" value={fmt(m.pmi)} /><Row label="HOA" value={fmt(hoa)} /><Row label="Total interest over loan" value={fmt(m.base.interest)} bold /><Row label={`Interest with +${fmt(extra)}/mo extra`} value={fmt(m.withExtra.interest)} /><Row label="Interest saved by extra payments" value={fmt(m.saved)} bold /><Row label="Time saved" value={`${Math.floor(m.monthsSaved/12)} yrs ${m.monthsSaved%12} mos`} /></Breakdown>
-  </Shell><ToolActionsBar slug="mortgage-amortization-calculator" isPro={isPro} inputs={{ price, down, rate, term, taxRate, ins, hoa, extra }} /></>)
+  <ToolActionsBar slug="mortgage-amortization-calculator" isPro={isPro} inputs={{ price, down, rate, term, taxRate, ins, hoa, extra }} /></Shell></>)
 }

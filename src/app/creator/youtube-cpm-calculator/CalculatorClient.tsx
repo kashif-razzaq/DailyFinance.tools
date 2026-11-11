@@ -87,6 +87,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <Bar dataKey="cpm" name="CPM">{nicheChart.map((n) => <Cell key={n.name} fill={n.active ? '#064E3B' : '#9CA3AF'} />)}</Bar></BarChart></ResponsiveContainer>
         <p className="text-xs text-muted-foreground mt-2">Differentiator: converts CPM ↔ RPM properly through the 55% revenue share instead of treating them as the same number — the mistake most CPM calculators make.</p>
       </div>
+    <ToolActionsBar slug="youtube-cpm-calculator" isPro={isPro} inputs={{ mode, rate, viewsPerDay, nicheIdx }} />
     </div>
-  </div><ToolActionsBar slug="youtube-cpm-calculator" isPro={isPro} inputs={{ mode, rate, viewsPerDay, nicheIdx }} /></>)
+  </div></>)
 }

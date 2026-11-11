@@ -80,7 +80,8 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
             <span>{flatNet >= 0 ? 'Your flat rate covers your weighted carrier cost. Keep monitoring the zone mix — a shift toward national orders can flip this quietly.' : 'Your flat rate loses money on the average order. Raise the flat rate toward the weighted cost, add a far-zone surcharge, or use a free-shipping threshold (' + (freeThreshold > 0 ? 'currently ' + sym + freeThreshold : 'not set') + ') high enough that margin absorbs shipping.'}</span>
           </p>
         </div>
-      </div>
+      <ToolActionsBar slug="shipping-zone-optimizer" isPro={isPro} inputs={{ orders, flatCharge, freeThreshold, localCost, regionalCost, nationalCost, localPct, regionalPct }} />
     </div>
-  <ToolActionsBar slug="shipping-zone-optimizer" isPro={isPro} inputs={{ orders, flatCharge, freeThreshold, localCost, regionalCost, nationalCost, localPct, regionalPct }} /></>)
+    </div>
+  </>)
 }

@@ -75,5 +75,6 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div></ResultCard>
       <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Growth Comparison</h4>
         <ResponsiveContainer width="100%" height={220}><AreaChart data={r.chart}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="age" /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Area type="monotone" dataKey="w2" stroke="#94a3b8" fill="#94a3b8" fillOpacity={0.15} name="W-2 401(k)" /><Area type="monotone" dataKey="solo" stroke="#064E3B" fill="#064E3B" fillOpacity={0.2} name="Solo 401(k)" /></AreaChart></ResponsiveContainer></div>
-    </div></div><ToolActionsBar slug="401k-vs-solo-401k-calculator" isPro={isPro} inputs={{ age, retireAge, balance, comp, employee, matchPct, profitShare, ret }} /></>)
+    <ToolActionsBar slug="401k-vs-solo-401k-calculator" isPro={isPro} inputs={{ age, retireAge, balance, comp, employee, matchPct, profitShare, ret }} />
+    </div></div></>)
 }

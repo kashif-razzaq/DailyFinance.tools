@@ -102,6 +102,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         {monthRow('Story sets', stories, r.perStory)}
         <p className="text-xs text-muted-foreground mt-3">Differentiator: earnings are priced per format and per niche — a finance account at 85k followers can out-earn an entertainment account three times its size, because brands pay for purchasing power, not headcount.</p>
       </div>
+    <ToolActionsBar slug="instagram-money-calculator" isPro={isPro} inputs={{ followers, engagement, nicheIdx, posts, reels, stories }} />
     </div>
-  </div><ToolActionsBar slug="instagram-money-calculator" isPro={isPro} inputs={{ followers, engagement, nicheIdx, posts, reels, stories }} /></>)
+  </div></>)
 }

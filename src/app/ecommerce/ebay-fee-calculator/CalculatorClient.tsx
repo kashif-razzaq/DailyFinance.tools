@@ -95,6 +95,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <p className="text-sm text-muted-foreground">Below <strong className="text-foreground font-mono text-base">{fmt(Math.max(0, r.breakeven))}</strong> this listing loses money after fees and costs{promotedPct > 0 ? ` — including the ${promotedPct}% promoted rate` : ''}. Every $1 of promoted rate adds roughly {fmt(r.total * 0.01)} per sale in fees at the current price.</p>
         <p className="text-xs text-muted-foreground mt-2">Differentiator: a live break-even solver that includes the promoted-listings rate, so you can see the exact ad rate at which a listing stops being worth promoting.</p>
       </div>
+    <ToolActionsBar slug="ebay-fee-calculator" isPro={isPro} inputs={{ price, shippingCharged, itemCost, shippingCost, fvfPct, perOrder, promotedPct }} />
     </div>
-  </div><ToolActionsBar slug="ebay-fee-calculator" isPro={isPro} inputs={{ price, shippingCharged, itemCost, shippingCost, fvfPct, perOrder, promotedPct }} /></>)
+  </div></>)
 }

@@ -93,7 +93,8 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <div className="bg-[#FAFAFA] border border-neutral-200 rounded-2xl p-6 text-sm text-neutral-600">
           <strong className="text-[#1F2937]">Formula (per month):</strong> <span className="font-mono">Paid = Free × Conversion % (after churn) · Net MRR = Paid × Price − 10% Substack − (2.9% + $0.30) Stripe</span>. Churn is the silent killer — at 5% monthly churn you must replace a twentieth of your paid base every month just to stand still.
         </div>
-      </div>
+      <ToolActionsBar slug="substack-growth-predictor-simulator" isPro={isPro} inputs={{ freeSubs, growthPct, conversion, price, churnPct, months }} />
     </div>
-  <ToolActionsBar slug="substack-growth-predictor-simulator" isPro={isPro} inputs={{ freeSubs, growthPct, conversion, price, churnPct, months }} /></>)
+    </div>
+  </>)
 }

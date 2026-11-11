@@ -85,5 +85,6 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div></ResultCard>
       <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Balance: Baseline vs Accelerated</h4>
         <ResponsiveContainer width="100%" height={220}><LineChart data={chart}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="year" /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Legend /><Line type="monotone" dataKey="Baseline" stroke="#9CA3AF" strokeWidth={2} dot={false} /><Line type="monotone" dataKey="Accelerated" stroke="#064E3B" strokeWidth={2} dot={false} /></LineChart></ResponsiveContainer></div>
-    </div></div><ToolActionsBar slug="mortgage-payoff-calculator" isPro={isPro} inputs={{ loan, rate, term, extra, lump }} /></>)
+    <ToolActionsBar slug="mortgage-payoff-calculator" isPro={isPro} inputs={{ loan, rate, term, extra, lump }} />
+    </div></div></>)
 }

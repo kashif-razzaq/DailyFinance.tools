@@ -94,6 +94,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <p className="text-sm"><span className="font-bold" style={{ color: v.color }}>{v.label}.</span> <span className="text-muted-foreground">{v.note}</span></p>
         <p className="text-xs text-muted-foreground mt-3">Differentiator: reverse pricing mode plus a health verdict — most margin calculators never tell you whether the number is actually good enough to survive fees and ads.</p>
       </div>
+    <ToolActionsBar slug="profit-margin-calculator" isPro={isPro} inputs={{ mode, cost, price, targetMargin, units }} />
     </div>
-  </div><ToolActionsBar slug="profit-margin-calculator" isPro={isPro} inputs={{ mode, cost, price, targetMargin, units }} /></>)
+  </div></>)
 }
