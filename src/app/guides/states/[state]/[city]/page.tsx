@@ -203,7 +203,7 @@ export default async function CityGuidePage({ params }: { params: Promise<{ stat
         </div>
 
         <section className="mt-12">
-          <TaxCompareChart title={`How {c.name} compares`} groups={[
+          <TaxCompareChart title={`How ${c.name} compares`} groups={[
                 { heading: "Sales tax · combined rate", bars: [
                   { label: c.name, value: c.combinedRate, highlight: true },
                   { label: `${s.name} average`, value: s.salesTaxAvgCombined },

@@ -242,7 +242,7 @@ export default async function StateGuidePage({ params }: { params: Promise<{ sta
         </div>
 
         <section className="mt-12">
-          <TaxCompareChart title={`How {s.name} compares with the US average`} groups={[
+          <TaxCompareChart title={`How ${s.name} compares with the US average`} groups={[
                 { heading: "Sales tax · average combined", bars: [
                   { label: s.name, value: s.salesTaxAvgCombined, highlight: true },
                   { label: "US average", value: AVG_COMBINED },

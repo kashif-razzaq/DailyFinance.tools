@@ -110,7 +110,7 @@ export default async function StateSalesTaxPage({ params }: { params: Promise<{ 
               </tbody>
             </table></div>
             <div className="not-prose my-8">
-              <TaxCompareChart title={`{s.name} sales tax vs the US average`} groups={[
+              <TaxCompareChart title={`${s.name} sales tax vs the US average`} groups={[
                 { heading: "Sales tax rates", bars: [
                   { label: `${s.name} · average combined`, value: s.salesTaxAvgCombined, highlight: true },
                   { label: `${s.name} · state base`, value: s.salesTaxBase },
