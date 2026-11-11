@@ -23,6 +23,8 @@ import { SCENARIO_SLUG_ALIASES, getScenarioUrl } from '@/config/navigation'
 export interface MoneyLine {
   label: string
   source: string
+  /** Asset class for composition charts. */
+  kind?: string
   /** Deep link back to the exact saved scenario this line came from. */
   href?: string
   value: number
@@ -31,7 +33,24 @@ export interface MoneyLine {
   interestCost?: number | null
 }
 
+export interface BusinessMetric {
+  label: string
+  value: string
+  detail?: string
+  href?: string
+}
+
+export interface BusinessPicture {
+  metrics: BusinessMetric[]
+  estMonthlyEarnings: number | null
+  taxSetAsideMonthly: number | null
+  runwayMonths: number | null
+  toolsUsed: number
+}
+
 export interface FinancialPicture {
+  business: BusinessPicture | null
+  snapshots: { label: string; value: string; href?: string }[]
   basis: 'net-worth' | 'combined' | 'empty'
   assets: MoneyLine[]
   debts: MoneyLine[]
@@ -59,6 +78,8 @@ export interface FinancialPicture {
   monthlyInvesting: number | null
   toolsUsed: number
 }
+
+const money = (n: number) => '$' + Math.round(n).toLocaleString('en-US')
 
 const num = (state: Record<string, unknown> | undefined, key: string): number | null => {
   const v = state?.[key]
@@ -262,25 +283,106 @@ function mortgageDebt(byTool: Map<string, SavedCalculator>): MoneyLine | null {
   return null
 }
 
-const ASSET_SPECS: { slug: string; label: string; source: string; key: string }[] = [
-  { slug: 'savings-calculator', label: 'Savings', source: 'Savings Calculator', key: 'starting' },
-  { slug: 'high-yield-savings-calculator', label: 'High-yield savings', source: 'High-Yield Savings Calculator', key: 'deposit' },
-  { slug: 'compound-interest-scaler-calculator', label: 'Investments (compound plan)', source: 'Compound Interest Calculator', key: 'principal' },
-  { slug: 'investment-calculator', label: 'Investments', source: 'Investment Calculator', key: 'initial' },
-  { slug: 'retirement-calculator', label: 'Retirement savings', source: 'Retirement Calculator', key: 'savings' },
-  { slug: 'ira-calculator', label: 'IRA', source: 'IRA Calculator', key: 'balance' },
-  { slug: 'roth-ira-calculator', label: 'Roth IRA', source: 'Roth IRA Calculator', key: 'balance' },
-  { slug: '401k-vs-solo-401k-calculator', label: '401(k)', source: '401(k) Calculator', key: 'balance' },
-  { slug: 'hsa-triple-tax-advantage-calculator', label: 'HSA', source: 'HSA Calculator', key: 'balance' },
-  { slug: 'future-value-calculator', label: 'Future-value plan', source: 'Future Value Calculator', key: 'pv' },
-  { slug: 'coast-fire-calculator', label: 'Invested (Coast FIRE)', source: 'Coast FIRE Calculator', key: 'invested' },
-  { slug: 'emergency-fund-visualizer', label: 'Emergency fund', source: 'Emergency Fund Visualizer', key: 'saved' },
-  { slug: 'savings-goal-calculator', label: 'Savings goal', source: 'Savings Goal Calculator', key: 'current' },
-  { slug: 'interest-calculator', label: 'Interest plan', source: 'Interest Calculator', key: 'principal' },
-  { slug: 'fat-fire-vs-lean-fire-calculator', label: 'Invested (FIRE plan)', source: 'Fat FIRE vs Lean FIRE', key: 'saved' },
-  { slug: 'rmd-calculator', label: 'Retirement (RMD)', source: 'RMD Calculator', key: 'balance' },
-  { slug: 'down-payment-calculator', label: 'Down-payment fund', source: 'Down Payment Calculator', key: 'saved' },
+const ASSET_SPECS: { slug: string; label: string; source: string; key: string; kind: string }[] = [
+  { slug: 'savings-calculator', label: 'Savings', source: 'Savings Calculator', key: 'starting', kind: 'Cash & savings' },
+  { slug: 'high-yield-savings-cd-calculator', label: 'High-yield savings', source: 'High-Yield Savings Calculator', key: 'deposit', kind: 'Cash & savings' },
+  { slug: 'compound-interest-scaler-calculator', label: 'Investments (compound plan)', source: 'Compound Interest Calculator', key: 'principal', kind: 'Investments' },
+  { slug: 'investment-calculator', label: 'Investments', source: 'Investment Calculator', key: 'initial', kind: 'Investments' },
+  { slug: 'retirement-calculator', label: 'Retirement savings', source: 'Retirement Calculator', key: 'savings', kind: 'Investments' },
+  { slug: 'ira-calculator', label: 'IRA', source: 'IRA Calculator', key: 'balance', kind: 'Investments' },
+  { slug: 'roth-ira-calculator', label: 'Roth IRA', source: 'Roth IRA Calculator', key: 'balance', kind: 'Investments' },
+  { slug: '401k-vs-solo-401k-calculator', label: '401(k)', source: '401(k) Calculator', key: 'balance', kind: 'Investments' },
+  { slug: 'hsa-triple-tax-advantage-calculator', label: 'HSA', source: 'HSA Calculator', key: 'balance', kind: 'Investments' },
+  { slug: 'future-value-calculator', label: 'Future-value plan', source: 'Future Value Calculator', key: 'pv', kind: 'Investments' },
+  { slug: 'coast-fire-calculator', label: 'Invested (Coast FIRE)', source: 'Coast FIRE Calculator', key: 'invested', kind: 'Investments' },
+  { slug: 'emergency-fund-visualizer', label: 'Emergency fund', source: 'Emergency Fund Visualizer', key: 'saved', kind: 'Cash & savings' },
+  { slug: 'savings-goal-calculator', label: 'Savings goal', source: 'Savings Goal Calculator', key: 'current', kind: 'Cash & savings' },
+  { slug: 'interest-calculator', label: 'Interest plan', source: 'Interest Calculator', key: 'principal', kind: 'Investments' },
+  { slug: 'fat-fire-vs-lean-fire-calculator', label: 'Invested (FIRE plan)', source: 'Fat FIRE vs Lean FIRE', key: 'saved', kind: 'Investments' },
+  { slug: 'rmd-calculator', label: 'Retirement (RMD)', source: 'RMD Calculator', key: 'balance', kind: 'Investments' },
+  { slug: 'down-payment-calculator', label: 'Down-payment fund', source: 'Down Payment Calculator', key: 'saved', kind: 'Cash & savings' },
+  { slug: 'simple-interest-calculator', label: 'Simple interest account', source: 'Simple Interest Calculator', key: 'principal', kind: 'Cash & savings' },
+  { slug: 'apy-calculator', label: 'APY account', source: 'APY Calculator', key: 'deposit', kind: 'Cash & savings' },
 ]
+function buildBusiness(byTool: Map<string, SavedCalculator>, hrefOf: (c: SavedCalculator) => string | undefined): BusinessPicture | null {
+  const metrics: BusinessMetric[] = []
+  const used = new Set<string>()
+  let earnings = 0
+  let taxSetAside: number | null = null
+  let runway: number | null = null
+  const push = (slug: string, label: string, value: string, detail?: string) => {
+    const calc = byTool.get(slug)
+    if (!calc || used.has(slug)) return
+    used.add(slug)
+    metrics.push({ label, value, detail, href: hrefOf(calc) })
+  }
+  const earn = (slug: string, label: string, amount: number | null, detail: string) => {
+    if (amount && amount > 0) { earnings += amount; push(slug, label, money(amount) + '/mo', detail) }
+  }
+  const g = (slug: string) => byTool.get(slug)
+
+  // Creator earnings — estimates computed from the user's own saved assumptions.
+  const tt = g('tiktok-creator-fund-calculator')
+  if (tt) { const v = num(tt.input_state, 'views'); const r = num(tt.input_state, 'rpm'); earn('tiktok-creator-fund-calculator', 'TikTok earnings (est.)', v != null && r != null ? v / 1000 * r : null, 'Saved views × RPM') }
+  const yt = g('youtube-adsense-estimator')
+  if (yt) { const v = num(yt.input_state, 'views'); const r = num(yt.input_state, 'rpm'); earn('youtube-adsense-estimator', 'YouTube AdSense (est.)', v != null && r != null ? v / 1000 * r : null, 'Saved views × RPM') }
+  const yc = g('youtube-cpm-calculator')
+  if (yc) { const v = num(yc.input_state, 'viewsPerDay'); const r = num(yc.input_state, 'rate'); earn('youtube-cpm-calculator', 'YouTube CPM earnings (est.)', v != null && r != null ? v * 30 * r / 1000 * 0.55 : null, 'Daily views × CPM × 55% creator share') }
+  const tw = g('twitch-earnings-calculator')
+  if (tw) { const s = tw.input_state; const subs = ((num(s, 't1') ?? 0) * 4.99 + (num(s, 't2') ?? 0) * 9.99 + (num(s, 't3') ?? 0) * 24.99) * ((num(s, 'sharePct') ?? 50) / 100); earn('twitch-earnings-calculator', 'Twitch earnings (est.)', subs + (num(s, 'bits') ?? 0) * 0.01 + (num(s, 'ads') ?? 0) + (num(s, 'donations') ?? 0), 'Subs, bits, ads and donations from your saved scenario') }
+  const pa = g('patreon-tier-optimization')
+  if (pa) { const s = pa.input_state; const gross = (num(s, 'patrons') ?? 0) * (num(s, 'pledge') ?? 0); const net = (gross * (1 - (num(s, 'planPct') ?? 0) / 100) - (num(s, 'patrons') ?? 0) * (num(s, 'perTxn') ?? 0)) * (1 - (num(s, 'payoutPct') ?? 0) / 100); earn('patreon-tier-optimization', 'Patreon payouts (est.)', net, 'Patrons × pledge after platform fees') }
+  const ss = g('substack-growth-predictor-simulator')
+  if (ss) { const s = ss.input_state; earn('substack-growth-predictor-simulator', 'Substack paid MRR (est.)', (num(s, 'freeSubs') ?? 0) * ((num(s, 'conversion') ?? 0) / 100) * (num(s, 'price') ?? 0), 'Free subscribers × conversion × price') }
+
+  // Commerce and freelance metrics.
+  const sh = g('shopify-margin-calculator')
+  if (sh) { const s = sh.input_state; const price = num(s, 'price') ?? 0; const per = price + (num(s, 'shipCharged') ?? 0) - (num(s, 'cogs') ?? 0) - (num(s, 'shipCost') ?? 0) - (num(s, 'other') ?? 0) - price * 0.029 - 0.30; const monthly = per * (num(s, 'orders') ?? 0); if (monthly > 0) push('shopify-margin-calculator', 'Shopify profit (est.)', money(monthly) + '/mo', money(per) + ' profit per order × saved monthly orders') }
+  const cl = g('course-launch-revenue-calculator')
+  if (cl) { const s = cl.input_state; const rev = (num(s, 'listSize') ?? 0) * ((num(s, 'conversion') ?? 0) / 100) * (num(s, 'price') ?? 0) * (1 - (num(s, 'refundPct') ?? 0) / 100) * (1 - ((num(s, 'platformPct') ?? 0) + (num(s, 'affiliatePct') ?? 0)) / 100); if (rev > 0) push('course-launch-revenue-calculator', 'Course launch revenue (est.)', money(rev), 'List × conversion × price after refunds and platform fees') }
+  const et = g('etsy-fee-calculator')
+  if (et) { const s = et.input_state; const price = num(s, 'price') ?? 0; const ship = num(s, 'shippingCharged') ?? 0; const profit = price + ship - (price + ship) * 0.065 - price * ((num(s, 'regPct') ?? 0) / 100) - (price * 0.03 + 0.25) - 0.20 - (num(s, 'itemCost') ?? 0) - (num(s, 'shippingCost') ?? 0); push('etsy-fee-calculator', 'Etsy profit per sale (est.)', money(profit), 'After Etsy transaction, payment and listing fees') }
+  const eb = g('ebay-fee-calculator')
+  if (eb) { const s = eb.input_state; const price = num(s, 'price') ?? 0; const ship = num(s, 'shippingCharged') ?? 0; const profit = price + ship - (price + ship) * ((num(s, 'fvfPct') ?? 0) / 100) - (num(s, 'perOrder') ?? 0) - price * ((num(s, 'promotedPct') ?? 0) / 100) - (num(s, 'itemCost') ?? 0) - (num(s, 'shippingCost') ?? 0); push('ebay-fee-calculator', 'eBay profit per sale (est.)', money(profit), 'After final-value and promoted-listing fees') }
+  const pf = g('platform-fee-visualizer')
+  if (pf) { const s = pf.input_state; const gross = num(s, 'gross') ?? 0; if (gross > 0) push('platform-fee-visualizer', 'Payment fees on saved revenue (Stripe est.)', money(gross * 0.029 + (num(s, 'txns') ?? 0) * 0.30), 'On ' + money(gross) + ' of saved sales volume') }
+  const br = g('business-loan-runway-calculator')
+  if (br) { const s = br.input_state; const burn = num(s, 'burn') ?? 0; if (burn > 0) { runway = Math.round((((num(s, 'cash') ?? 0) + (num(s, 'loan') ?? 0)) / burn) * 10) / 10; push('business-loan-runway-calculator', 'Business runway', runway + ' months', 'Cash + loan against your saved monthly burn') } }
+  const tx = g('1099-tax-calculator')
+  if (tx) { const s = tx.input_state; const net = (num(s, 'income') ?? 0) - (num(s, 'expenses') ?? 0); if (net > 0) { push('1099-tax-calculator', '1099 net income', money(net) + '/yr', 'Saved income minus expenses'); taxSetAside = net * 0.9235 * 0.153 / 12 } }
+  const q = g('quarterly-estimated-tax-calculator')
+  if (q && q.core_metric && q.core_metric > 0) { taxSetAside = q.core_metric / 3; push('quarterly-estimated-tax-calculator', 'Quarterly estimated tax', money(q.core_metric), 'Your saved quarterly payment — set aside ' + money(q.core_metric / 3) + '/mo') }
+  const hr = g('freelance-hourly-rate-calculator')
+  if (hr && hr.core_metric && hr.core_metric > 0) push('freelance-hourly-rate-calculator', 'Target hourly rate', money(hr.core_metric) + '/hr', 'The rate your saved plan needs to hit its income goal')
+  const bh = g('billable-hours-calculator')
+  if (bh && bh.core_metric && bh.core_metric > 0) push('billable-hours-calculator', 'Time-tracking ROI (saved result)', money(bh.core_metric), 'Headline result from your saved scenario')
+
+  // Remaining business tools: surface the headline result the tool itself saved.
+  const fallback: [string, string][] = [
+    ['s-corp-tax-savings-calculator', 'S-corp tax savings (saved result)'],
+    ['client-lifetime-value-calculator', 'Client lifetime value (saved result)'],
+    ['freelance-project-pricing-calculator', 'Project price (saved result)'],
+    ['digital-nomad-cost-of-living-calculator', 'Nomad living cost (saved result)'],
+    ['stripe-paypal-fee-calculator', 'Fee impact (saved result)'],
+    ['business-vehicle-tax-deduction-calculator', 'Vehicle deduction (saved result)'],
+    ['freelance-emergency-fund-calculator', 'Freelance safety net (saved result)'],
+    ['self-employment-tax-calculator', 'Self-employment tax (saved result)'],
+    ['w2-vs-1099-calculator', 'W2 vs 1099 result (saved result)'],
+  ]
+  for (const [slug, label] of fallback) {
+    const calc = g(slug)
+    if (calc && calc.core_metric && calc.core_metric > 0) push(slug, label, money(calc.core_metric), 'Headline result from your saved scenario')
+  }
+
+  if (!metrics.length && !earnings) return null
+  return {
+    metrics: metrics.slice(0, 12),
+    estMonthlyEarnings: earnings > 0 ? Math.round(earnings) : null,
+    taxSetAsideMonthly: taxSetAside ? Math.round(taxSetAside) : null,
+    runwayMonths: runway,
+    toolsUsed: used.size,
+  }
+}
 
 export function buildFinancialPicture(calculators: SavedCalculator[]): FinancialPicture {
   const byTool = latestPerTool(calculators)
@@ -295,6 +397,7 @@ export function buildFinancialPicture(calculators: SavedCalculator[]): Financial
     // The two student-loan tools describe the same loan — the payoff
     // planner (explicit payment + extra) wins when both are saved.
     if (spec.slug === 'student-loan-calculator' && byTool.has('student-loan-payoff-calculator')) continue
+    if (spec.slug === 'rental-cash-flow-calculator' && byTool.has('rental-property-analyzer')) continue
     const calc = byTool.get(spec.slug)
     if (calc) {
       const built = spec.build(calc.input_state) ?? []
@@ -329,7 +432,7 @@ export function buildFinancialPicture(calculators: SavedCalculator[]): Financial
     assets = recordLines(nw.input_state, 'assets', 'Net Worth Tracker', {
       home: 'Home', bank: 'Bank accounts', investments: 'Investments', vehicles: 'Vehicles', other: 'Other assets',
     })
-    assets.forEach((l) => { l.href = hrefOf(nw) })
+    assets.forEach((l) => { l.href = hrefOf(nw); l.kind = l.label === 'Investments' ? 'Investments' : (l.label === 'Home' || l.label === 'Vehicles') ? 'Property' : 'Cash & savings' })
     debts = recordLines(nw.input_state, 'liabs', 'Net Worth Tracker', {
       mortgage: 'Mortgage', auto: 'Auto loan', student: 'Student loan', cards: 'Credit cards', other: 'Other debts',
     })
@@ -339,19 +442,45 @@ export function buildFinancialPicture(calculators: SavedCalculator[]): Financial
     for (const spec of ASSET_SPECS) {
       const calc = byTool.get(spec.slug)
       const v = calc ? num(calc.input_state, spec.key) : null
-      if (calc && v && v > 0) assets.push({ label: spec.label, source: spec.source, value: v, href: hrefOf(calc) })
+      if (calc && v && v > 0) assets.push({ label: spec.label, source: spec.source, value: v, href: hrefOf(calc), kind: spec.kind })
+    }
+    if (!byTool.has('retirement-calculator')) {
+      const mc = byTool.get('monte-carlo-retirement-simulator')
+      const v = mc ? num(mc.input_state, 'currentSavings') : null
+      if (mc && v && v > 0) assets.push({ label: 'Retirement (Monte Carlo plan)', source: 'Monte Carlo Retirement Simulator', value: v, href: hrefOf(mc), kind: 'Investments' })
+    }
+    if (!byTool.has('investment-calculator')) {
+      const pr = byTool.get('portfolio-rebalancer')
+      const raw = pr?.input_state?.holdings
+      if (pr && typeof raw === 'string') {
+        const total = [...raw.matchAll(/:\s*([\d.]+)\s*@/g)].reduce((a, m) => a + Number(m[1]), 0)
+        if (total > 0) assets.push({ label: 'Portfolio (rebalancer)', source: 'Portfolio Rebalancer', value: Math.round(total), href: hrefOf(pr), kind: 'Investments' })
+      }
+    }
+    const analyzer = byTool.get('rental-property-analyzer')
+    if (analyzer) {
+      const s = analyzer.input_state
+      const price = num(s, 'price'); const downPct = num(s, 'downPct') ?? 20
+      const rate = num(s, 'rate') ?? 0; const months = (num(s, 'termYears') ?? 30) * 12
+      if (price) {
+        const loan = Math.round(price * (1 - downPct / 100))
+        const pay = amortize(loan, rate, months)
+        debts.push({ label: 'Rental property loan', source: 'Rental Property Analyzer', value: loan, apr: rate, monthlyPayment: pay, interestCost: pay ? Math.max(0, Math.round(pay * months - loan)) : null, href: hrefOf(analyzer) })
+        const eqv = Math.round(price * downPct / 100)
+        if (eqv > 0) assets.push({ label: 'Rental property equity', source: 'Rental Property Analyzer', value: eqv, href: hrefOf(analyzer), kind: 'Property' })
+      }
     }
     const equity = byTool.get('home-equity-calculator')
     if (equity) {
       const s = equity.input_state
       const eq = (num(s, 'value') ?? 0) - (num(s, 'first') ?? 0) - (num(s, 'second') ?? 0)
-      if (eq > 0) assets.push({ label: 'Home equity', source: 'Home Equity Calculator', value: eq, href: hrefOf(equity) })
+      if (eq > 0) assets.push({ label: 'Home equity', source: 'Home Equity Calculator', value: eq, href: hrefOf(equity), kind: 'Property' })
     }
     const rental = byTool.get('rental-cash-flow-calculator')
     if (rental) {
       const s = rental.input_state
       const price = num(s, 'price')
-      if (price) assets.push({ label: 'Rental property equity', source: 'Rental Cash Flow Calculator', value: Math.round(price * ((num(s, 'downPct') ?? 25) / 100)), href: hrefOf(rental) })
+      if (price) assets.push({ label: 'Rental property equity', source: 'Rental Cash Flow Calculator', value: Math.round(price * ((num(s, 'downPct') ?? 25) / 100)), href: hrefOf(rental), kind: 'Property' })
     }
     if (assets.length || debts.length) basis = 'combined'
   }
@@ -472,13 +601,26 @@ export function buildFinancialPicture(calculators: SavedCalculator[]): Financial
     const v = calc ? num(calc.input_state, key) : null
     if (v) { monthlyInvesting += v / 12; anyInvesting = true }
   }
-  for (const [slug, key] of [['investment-calculator', 'monthly'], ['savings-calculator', 'monthly'], ['compound-interest-scaler-calculator', 'monthly'], ['high-yield-savings-calculator', 'monthly'], ['retirement-calculator', 'monthly'], ['interest-calculator', 'monthly'], ['fat-fire-vs-lean-fire-calculator', 'monthlySave'], ['down-payment-calculator', 'monthly'], ['savings-goal-calculator', 'monthlyAmount']] as [string, string][]) {
+  for (const [slug, key] of [['investment-calculator', 'monthly'], ['savings-calculator', 'monthly'], ['compound-interest-scaler-calculator', 'monthly'], ['retirement-calculator', 'monthly'], ['interest-calculator', 'monthly'], ['fat-fire-vs-lean-fire-calculator', 'monthlySave'], ['down-payment-calculator', 'monthly'], ['savings-goal-calculator', 'monthlyAmount']] as [string, string][]) {
     const calc = byTool.get(slug)
     const v = calc ? num(calc.input_state, key) : null
     if (v) { monthlyInvesting += v; anyInvesting = true }
   }
 
+  const snapshots: FinancialPicture['snapshots'] = []
+  const rvb = byTool.get('rent-vs-buy-calculator')
+  const rentAmt = rvb ? num(rvb.input_state, 'rent') : null
+  if (rvb && rentAmt) snapshots.push({ label: 'Current rent', value: money(rentAmt) + '/mo', href: hrefOf(rvb) })
+  const cg = byTool.get('capital-gains-tax-calculator')
+  if (cg) {
+    const gain = (num(cg.input_state, 'sale') ?? 0) - (num(cg.input_state, 'cost') ?? 0)
+    if (gain > 0) snapshots.push({ label: 'Capital gain modeled', value: money(gain) + ((num(cg.input_state, 'months') ?? 0) >= 12 ? ' · long-term' : ' · short-term'), href: hrefOf(cg) })
+  }
+  const business = buildBusiness(byTool, hrefOf)
+
   return {
+    business,
+    snapshots,
     basis,
     assets, debts,
     totalAssets, totalDebts,
