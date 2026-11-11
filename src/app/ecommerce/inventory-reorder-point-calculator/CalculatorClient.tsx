@@ -69,7 +69,8 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
             <span>{urgent ? 'Order now. Your stock is already at or below the reorder point — every day of delay eats your safety cover.' : 'You have about ' + daysUntilRop.toFixed(0) + ' days before you hit the reorder point. Put the order date in your calendar now, not when stock looks low.'}</span>
           </p>
         </div>
-      </div>
+      <ToolActionsBar slug="inventory-reorder-point-calculator" isPro={isPro} inputs={{ dailySales, leadTime, safetyDays, currentStock, coverDays }} />
     </div>
-  <ToolActionsBar slug="inventory-reorder-point-calculator" isPro={isPro} inputs={{ dailySales, leadTime, safetyDays, currentStock, coverDays }} /></>)
+    </div>
+  </>)
 }

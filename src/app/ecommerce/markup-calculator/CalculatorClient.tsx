@@ -73,6 +73,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </table>
         <p className="text-xs text-muted-foreground mt-3">Differentiator: the full conversion table — pin it next to your pricing spreadsheet. Margin can never reach 100%; markup has no ceiling.</p>
       </div>
+    <ToolActionsBar slug="markup-calculator" isPro={isPro} inputs={{ mode, cost, pctVal }} />
     </div>
-  </div><ToolActionsBar slug="markup-calculator" isPro={isPro} inputs={{ mode, cost, pctVal }} /></>)
+  </div></>)
 }

@@ -69,7 +69,8 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <div className="bg-[#FAFAFA] border border-neutral-200 rounded-2xl p-6 text-sm text-neutral-600">
           <strong className="text-[#1F2937]">Formula:</strong> <span className="font-mono">Sales = Clicks × Conversion % · Revenue = Sales × Commission · EPC = Revenue ÷ Clicks · ROI = (Revenue − Cost) ÷ Cost</span>. EPC is the only honest way to compare two affiliate programs: a $100 commission at 0.5% conversion loses to a $30 commission at 4%.
         </div>
-      </div>
+      <ToolActionsBar slug="affiliate-link-roi-calculator" isPro={isPro} inputs={{ clicks, conversion, commission, spend }} />
     </div>
-  <ToolActionsBar slug="affiliate-link-roi-calculator" isPro={isPro} inputs={{ clicks, conversion, commission, spend }} /></>)
+    </div>
+  </>)
 }

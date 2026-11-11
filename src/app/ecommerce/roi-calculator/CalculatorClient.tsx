@@ -71,6 +71,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <ResponsiveContainer width="100%" height={200}><LineChart data={r.series}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="year" tickFormatter={(v: number) => 'Yr ' + v} /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Line type="monotone" dataKey="value" stroke="#064E3B" strokeWidth={2} dot={false} name="Value" /></LineChart></ResponsiveContainer>
         <p className="text-xs text-muted-foreground mt-2">Differentiator: annualised ROI + doubling time, so a 3-month campaign and a 5-year property deal can finally be compared like-for-like.</p>
       </div>
+    <ToolActionsBar slug="roi-calculator" isPro={isPro} inputs={{ invested, returned, years }} />
     </div>
-  </div><ToolActionsBar slug="roi-calculator" isPro={isPro} inputs={{ invested, returned, years }} /></>)
+  </div></>)
 }

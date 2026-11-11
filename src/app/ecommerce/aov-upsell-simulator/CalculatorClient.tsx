@@ -67,7 +67,8 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           </div>
           <p className="mt-6 flex items-start gap-2 text-sm text-primary-foreground/90 relative z-10"><TrendingUp className="h-5 w-5 shrink-0" /><span>This revenue costs no extra ad spend — the buyer was already checking out (current monthly revenue {fmt0(revenueNow, sym)}). That is why a bump is usually the highest-ROI change a store can ship this week.</span></p>
         </div>
-      </div>
+      <ToolActionsBar slug="aov-upsell-simulator" isPro={isPro} inputs={{ orders, aov, bumpPrice, takeRate, bumpMargin }} />
     </div>
-  <ToolActionsBar slug="aov-upsell-simulator" isPro={isPro} inputs={{ orders, aov, bumpPrice, takeRate, bumpMargin }} /></>)
+    </div>
+  </>)
 }

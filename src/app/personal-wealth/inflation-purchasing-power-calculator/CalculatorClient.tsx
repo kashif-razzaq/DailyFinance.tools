@@ -57,5 +57,6 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       </ResultCard>
       <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Purchasing Power at 2%, Your Rate, and 5%</h4>
         <ResponsiveContainer width="100%" height={210}><LineChart data={r.chart}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="year" /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Line type="monotone" dataKey="power" stroke="#064E3B" strokeWidth={2} name="Your rate" dot={false} /><Line type="monotone" dataKey="at2" stroke="#94a3b8" name="2%" dot={false} /><Line type="monotone" dataKey="at5" stroke="#dc2626" name="5%" dot={false} /></LineChart></ResponsiveContainer></div>
-    </div></div><ToolActionsBar slug="inflation-purchasing-power-calculator" isPro={isPro} inputs={{ amount, rate, years }} /></>)
+    <ToolActionsBar slug="inflation-purchasing-power-calculator" isPro={isPro} inputs={{ amount, rate, years }} />
+    </div></div></>)
 }

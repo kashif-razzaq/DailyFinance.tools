@@ -54,5 +54,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   </>}>
     <Result label="Monthly CapEx Reserve Needed" value={fmt(monthly)} sub={`Per property: ${fmt(annual/12)}/mo, ${fmt(annual)}/yr. Skipping this reserve is the #1 way rental cash flow gets overstated.`} />
     <Breakdown title="Reserve Breakdown">{items.map(x => (<Row key={x.name} label={`${x.name} (${x.life} yrs)`} value={fmt(x.life > 0 ? x.cost/x.life/12 * units : 0) + ' / mo'} />))}<Row label="Total replacement exposure" value={fmt(totalCost * units)} bold /><Row label="Annual reserve" value={fmt(annual * units)} bold /></Breakdown>
-  </Shell><ToolActionsBar slug="capex-reserve-planner" isPro={isPro} inputs={{ items, units }} /></>)
+  <ToolActionsBar slug="capex-reserve-planner" isPro={isPro} inputs={{ items, units }} /></Shell></>)
 }

@@ -64,5 +64,6 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-3">Available Equity by Lender Cap (CLTV)</h4>
         {c.caps.map(x => (<div key={x.cap} className="flex justify-between py-2 border-b border-neutral-100 last:border-0 text-sm"><span className="text-neutral-500">{x.cap}% combined loan-to-value{x.cap === 80 ? ' (most common HELOC cap)' : x.cap === 85 ? ' (common for strong credit)' : ' (select lenders)'}</span><span className="font-mono font-semibold">{fmt(x.available)}</span></div>))}
         <p className="text-xs text-muted-foreground mt-3">Lenders cap total borrowing — first mortgage plus any new loan or HELOC — at a combined loan-to-value ratio. The amount above is the room left under each cap.</p></div>
-    </div></div><ToolActionsBar slug="home-equity-calculator" isPro={isPro} inputs={{ value, first, second }} /></>)
+    <ToolActionsBar slug="home-equity-calculator" isPro={isPro} inputs={{ value, first, second }} />
+    </div></div></>)
 }

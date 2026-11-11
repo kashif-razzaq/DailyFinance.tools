@@ -63,7 +63,8 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
             <span>{blendedCac >= aov ? 'Your CAC is at or above the first order value. You only profit if repeat purchases reliably arrive — check your LTV:CAC ratio before scaling spend.' : 'CAC sits below first order value. Whether that is good depends on margin: compare CAC with gross profit per order, not revenue, before scaling.'}</span>
           </p>
         </div>
-      </div>
+      <ToolActionsBar slug="customer-acquisition-cost-calculator" isPro={isPro} inputs={{ adSpend, otherSpend, newCustomers, paidCustomers, aov }} />
     </div>
-  <ToolActionsBar slug="customer-acquisition-cost-calculator" isPro={isPro} inputs={{ adSpend, otherSpend, newCustomers, paidCustomers, aov }} /></>)
+    </div>
+  </>)
 }

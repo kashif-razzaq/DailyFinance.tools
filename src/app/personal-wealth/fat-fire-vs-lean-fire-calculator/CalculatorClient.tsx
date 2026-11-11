@@ -56,5 +56,6 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <p className="text-white/80 text-sm mt-2">Your FIRE number for this lifestyle. At {fmt(monthlySave)}/month of saving you reach it in about <strong className="font-mono">{x.yrs >= 100 ? '100+' : x.yrs.toFixed(1)} years</strong>.</p>
         </div>))}
       <div className="bg-amber-50 border border-amber-200 rounded-2xl p-6 text-amber-900 text-sm">The gap between the two lifestyles is <strong className="font-mono">{fmt(fatTarget - leanTarget)}</strong> and about <strong>{(yearsTo(fatTarget) - yearsTo(leanTarget)).toFixed(1)} extra years</strong> of saving. Most people land between the two — Barista FIRE and Coast FIRE (also on this site) exist for exactly that middle ground. Assumed monthly income for savings-rate context: saving {fmt(monthlySave)} is the lever, whichever number you choose.</div>
-    </div></div><ToolActionsBar slug="fat-fire-vs-lean-fire-calculator" isPro={isPro} inputs={{ lean, fat, saved, monthlySave, ret }} /></>)
+    <ToolActionsBar slug="fat-fire-vs-lean-fire-calculator" isPro={isPro} inputs={{ lean, fat, saved, monthlySave, ret }} />
+    </div></div></>)
 }

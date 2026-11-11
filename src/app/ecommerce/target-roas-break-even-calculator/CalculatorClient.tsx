@@ -67,7 +67,8 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
             <span>{margin <= 0 ? 'Your costs exceed your price — no ROAS can save this product until margin is fixed.' : profitable ? 'Your current ROAS is above break-even. Every order is profitable before overheads.' : 'Your current ROAS is below break-even. You are paying for revenue and losing money on every order.'}</span>
           </p>
         </div>
-      </div>
+      <ToolActionsBar slug="target-roas-break-even-calculator" isPro={isPro} inputs={{ price, cogs, ship, other, currentRoas }} />
     </div>
-  <ToolActionsBar slug="target-roas-break-even-calculator" isPro={isPro} inputs={{ price, cogs, ship, other, currentRoas }} /></>)
+    </div>
+  </>)
 }

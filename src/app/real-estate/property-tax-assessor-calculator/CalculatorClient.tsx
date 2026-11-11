@@ -50,5 +50,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   </>}>
     <Result label="Estimated Annual Property Tax" value={fmt(m.tax)} sub={`Monthly escrow: ${fmt(m.tax/12)}. Tax is an operating cost of owning — it never disappears when the mortgage does.`} />
     <Breakdown title="Assessment Breakdown"><Row label="Assessed value" value={fmt(m.assessed)} /><Row label="Minus exemptions" value={'−' + fmt(exemption)} /><Row label="Taxable value" value={fmt(m.taxable)} bold /><Row label="Effective rate" value={pct(ratePct)} /><Row label="Monthly escrow" value={fmt(m.tax/12)} /></Breakdown>
-  </Shell><ToolActionsBar slug="property-tax-assessor-calculator" isPro={isPro} inputs={{ market, ratio, ratePct, exemption }} /></>)
+  <ToolActionsBar slug="property-tax-assessor-calculator" isPro={isPro} inputs={{ market, ratio, ratePct, exemption }} /></Shell></>)
 }
