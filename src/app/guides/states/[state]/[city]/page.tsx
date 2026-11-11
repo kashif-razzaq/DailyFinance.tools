@@ -20,6 +20,21 @@ export async function generateMetadata({ params }: { params: Promise<{ state: st
     title: `${c.name} Sales Tax Rate 2026: ${c.combinedRate}% Combined Rate Explained`,
     description: `${c.name}'s combined sales tax rate is ${c.combinedRate}%. See how the rate is built, what it adds to real purchases, vs the ${s.name} average.`,
     alternates: { canonical: `https://dailyfinance.tools/guides/states/${state}/${city}` },
+    openGraph: {
+      title: `${c.name} Sales Tax Rate 2026: ${c.combinedRate}% Combined Rate Explained`,
+      description: `${c.name}'s combined sales tax rate is ${c.combinedRate}%. See how the rate is built, what it adds to real purchases, vs the ${s.name} average.`,
+      url: `https://dailyfinance.tools/guides/states/${state}/${city}`,
+      siteName: "DailyFinance.tools",
+      locale: "en_US",
+      type: "website",
+      images: [{ url: "https://dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: `${c.name} Sales Tax Rate 2026: ${c.combinedRate}% Combined Rate Explained` }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${c.name} Sales Tax Rate 2026: ${c.combinedRate}% Combined Rate Explained`,
+      description: `${c.name}'s combined sales tax rate is ${c.combinedRate}%. See how the rate is built, what it adds to real purchases, vs the ${s.name} average.`,
+      images: ["https://dailyfinance.tools/images/og-base.jpg"],
+    },
   }
 }
 

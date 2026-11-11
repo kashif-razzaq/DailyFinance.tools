@@ -6,8 +6,8 @@ import React from "react"
 import { Calculator, FileText, Home, Car, AlertTriangle, TrendingDown, ShieldCheck, DollarSign, Receipt } from "lucide-react"
 import Script from "next/script"
 
-const PAGE_TITLE = "Self-Employment Tax Calculator";
-const PAGE_DESCRIPTION = "Calculate your estimated 1099 freelance taxes with our self-employment tax calculator. Estimate Social Security, Medicare, and discover your tax deductions.";
+const PAGE_TITLE = "Self-Employment Tax Calculator: 15.3% Rate & Deductions";
+const PAGE_DESCRIPTION = "Self-employment tax on your freelance income: the 15.3% rate, the 92.35% rule, deductions and quarterly payments, calculated exactly.";
 
 export const metadata: Metadata = generateCalculatorMetadata({
   title: PAGE_TITLE,
@@ -56,7 +56,7 @@ export default function FreelanceTaxDeductionsPage() {
   const schemaHowTo = {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    "name": `How to Use the Self-Employment Tax Calculator`,
+    "name": `How to Use the Self-Employment Tax Calculator: 15.3% Rate & Deductions`,
     "step": [
       {
         "@type": "HowToStep",
@@ -121,7 +121,7 @@ export default function FreelanceTaxDeductionsPage() {
       {
         "@type": "ListItem",
         "position": 3,
-        "name": "Self-Employment Tax Calculator",
+        "name": "Self-Employment Tax Calculator: 15.3% Rate & Deductions",
         "item": "https://dailyfinance.tools/freelance/self-employment-tax-calculator"
       }
     ]

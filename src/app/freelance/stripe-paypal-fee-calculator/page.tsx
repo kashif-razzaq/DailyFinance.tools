@@ -7,7 +7,7 @@ import Script from "next/script"
 import { CheckCircle2, AlertTriangle, Calculator, DollarSign, Globe, CreditCard, Landmark, Coins } from "lucide-react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
-  title: "Stripe vs PayPal Fee Calculator: Compare International FX Rates",
+  title: "Stripe vs PayPal Fee Calculator: Fees + FX Compared",
   description: "Calculate hidden cross-border FX (foreign exchange) conversion fees for freelancers. Compare Stripe, PayPal, and Wise international transfer costs.",
   keywords: ["freelance cross border fees calculator", "paypal vs stripe international fees", "fx spread calculator freelancer", "wise multi currency account fees", "mid market exchange rate", "foreign exchange markup"],
   slug: "freelance/stripe-paypal-fee-calculator",
@@ -98,7 +98,7 @@ export default function CrossBorderFxImpactPage() {
     {
       "@context": "https://schema.org",
       "@type": "WebPage",
-      "name": "Stripe vs PayPal Fee Calculator: Compare International FX Rates",
+      "name": "Stripe vs PayPal Fee Calculator: Fees + FX Compared",
       "description": "Calculate hidden cross-border FX (foreign exchange) conversion fees for freelancers. Compare Stripe, PayPal, and Wise international transfer costs.",
       "url": "https://dailyfinance.tools/freelance/stripe-paypal-fee-calculator"
     },

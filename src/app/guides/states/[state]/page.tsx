@@ -21,6 +21,21 @@ export async function generateMetadata({ params }: { params: Promise<{ state: st
     title: `${s.name} Tax Guide 2026: Sales, Income & Property Tax Rates`,
     description: `${s.name} tax rates with real numbers: ${s.salesTaxBase}% sales tax (${s.salesTaxAvgCombined}% combined), ${s.incomeTax === "none" ? "no income tax" : s.incomeTax === "flat" ? "flat income tax" : "income tax brackets"}, ${s.propertyTaxAvg}% property tax — worked examples.`,
     alternates: { canonical: `https://dailyfinance.tools/guides/states/${s.slug}` },
+    openGraph: {
+      title: `${s.name} Tax Guide 2026: Sales, Income & Property Tax Rates`,
+      description: `${s.name} tax rates with real numbers: ${s.salesTaxBase}% sales tax (${s.salesTaxAvgCombined}% combined), ${s.incomeTax === "none" ? "no income tax" : s.incomeTax === "flat" ? "flat income tax" : "income tax brackets"}, ${s.propertyTaxAvg}% property tax — worked examples.`,
+      url: `https://dailyfinance.tools/guides/states/${s.slug}`,
+      siteName: "DailyFinance.tools",
+      locale: "en_US",
+      type: "website",
+      images: [{ url: "https://dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: `${s.name} Tax Guide 2026: Sales, Income & Property Tax Rates` }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${s.name} Tax Guide 2026: Sales, Income & Property Tax Rates`,
+      description: `${s.name} tax rates with real numbers: ${s.salesTaxBase}% sales tax (${s.salesTaxAvgCombined}% combined), ${s.incomeTax === "none" ? "no income tax" : s.incomeTax === "flat" ? "flat income tax" : "income tax brackets"}, ${s.propertyTaxAvg}% property tax — worked examples.`,
+      images: ["https://dailyfinance.tools/images/og-base.jpg"],
+    },
   }
 }
 

@@ -9,6 +9,21 @@ export const metadata: Metadata = {
   description:
     "Personal finance guides with real numbers: compound interest, mortgages, debt payoff, taxes and Social Security — each one links to a free calculator.",
   alternates: { canonical: "https://dailyfinance.tools/guides" },
+  openGraph: {
+    title: "Personal Finance Guides: Clear Answers With Real Numbers",
+    description: "Personal finance guides with real numbers: compound interest, mortgages, debt payoff, taxes and Social Security — each one links to a free calculator.",
+    url: "https://dailyfinance.tools/guides",
+    siteName: "DailyFinance.tools",
+    locale: "en_US",
+    type: "website",
+    images: [{ url: "https://dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Personal Finance Guides: Clear Answers With Real Numbers" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Personal Finance Guides: Clear Answers With Real Numbers",
+    description: "Personal finance guides with real numbers: compound interest, mortgages, debt payoff, taxes and Social Security — each one links to a free calculator.",
+    images: ["https://dailyfinance.tools/images/og-base.jpg"],
+  },
 }
 
 export default function GuidesIndexPage() {

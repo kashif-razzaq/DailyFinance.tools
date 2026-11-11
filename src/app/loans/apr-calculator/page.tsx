@@ -6,11 +6,11 @@ import { ToolContent } from "@/components/shared/ToolContent"
 import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
-export const metadata: Metadata = generateCalculatorMetadata({ title: 'APR Calculator – Free, Instant Results (2026)', description: 'Use our free APR Calculator to find the true APR including fees on any loan or card. Free, instant results with worked examples and FAQs.', keywords: ['apr calculator', 'annual percentage rate calculator', 'loan apr calculator', 'true apr calculator'], slug: "loans/apr-calculator", category: "Loans" });
+export const metadata: Metadata = generateCalculatorMetadata({ title: 'APR Calculator: The True APR Including Fees', description: 'The true APR including fees on any loan or credit card — the rate lenders must disclose, and the one that decides what you really pay.', keywords: ['apr calculator', 'annual percentage rate calculator', 'loan apr calculator', 'true apr calculator'], slug: "loans/apr-calculator", category: "Loans" });
 
 export default function Page() {
   return (
-    <ToolLayout title="APR Calculator" description="Use our free APR Calculator to find the true APR including fees on any loan or card. Free, instant results with worked examples and FAQs." slug="apr-calculator" faqs={TOOL_CONTENT["loans/apr-calculator"]?.faqs ?? []} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
+    <ToolLayout title="APR Calculator" description="The true APR including fees on any loan or credit card — the rate lenders must disclose, and the one that decides what you really pay." slug="apr-calculator" faqs={TOOL_CONTENT["loans/apr-calculator"]?.faqs ?? []} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
       {() => <ToolContent contentKey="loans/apr-calculator" />}
     </ToolLayout>
   )
