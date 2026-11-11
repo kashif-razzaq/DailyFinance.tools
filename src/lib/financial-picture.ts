@@ -616,6 +616,19 @@ export function buildFinancialPicture(calculators: SavedCalculator[]): Financial
     const gain = (num(cg.input_state, 'sale') ?? 0) - (num(cg.input_state, 'cost') ?? 0)
     if (gain > 0) snapshots.push({ label: 'Capital gain modeled', value: money(gain) + ((num(cg.input_state, 'months') ?? 0) >= 12 ? ' · long-term' : ' · short-term'), href: hrefOf(cg) })
   }
+  const ot = byTool.get('overtime-calculator')
+  if (ot) {
+    const s = ot.input_state
+    const otPay = (num(s, 'rate') ?? 0) * ((num(s, 'otHours') ?? 0) * 1.5 + (num(s, 'dtHours') ?? 0) * 2) * 52 / 12
+    if (otPay > 0) snapshots.push({ label: 'Overtime pay modeled', value: money(otPay) + '/mo', href: hrefOf(ot) })
+  }
+  const pta = byTool.get('property-tax-assessor-calculator')
+  if (pta) {
+    const s = pta.input_state
+    const assessed = (num(s, 'market') ?? 0) * ((num(s, 'ratio') ?? 100) / 100) - (num(s, 'exemption') ?? 0)
+    const tax = assessed * ((num(s, 'ratePct') ?? 0) / 100)
+    if (tax > 0) snapshots.push({ label: 'Property tax modeled', value: money(tax) + '/yr', href: hrefOf(pta) })
+  }
   const business = buildBusiness(byTool, hrefOf)
 
   return {
