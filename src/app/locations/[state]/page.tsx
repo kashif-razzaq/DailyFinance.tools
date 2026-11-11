@@ -15,22 +15,22 @@ export async function generateMetadata({ params }: { params: Promise<{ state: st
   const s = getStateBySlug(state)
   if (!s) return { title: "State Not Found" }
   return {
-    title: `${s.name} Taxes & Finance Guide — Sales Tax ${s.salesTaxBase}%, Property & Income Tax Explained`,
-    description: `${s.name} (${s.abbr}) finance guide: ${s.salesTaxBase}% state sales tax (~${s.salesTaxAvgCombined}% average combined), ${s.propertyTaxAvg}% average property tax, ${s.incomeTax === "none" ? "no tax on wage income" : s.incomeTax + " income tax"}, grocery tax treatment, plus the calculators that use these rates.`,
+    title: `${s.name} Tax Guide: Sales Tax ${s.salesTaxBase}%, Property & Income Tax`,
+    description: `${s.name} finance guide: ${s.salesTaxBase}% state sales tax (~${s.salesTaxAvgCombined}% combined), ${s.propertyTaxAvg}% average property tax, ${s.incomeTax === "none" ? "no tax on wage income" : s.incomeTax + " income tax"} — with calculators.`,
     alternates: { canonical: `https://dailyfinance.tools/locations/${s.slug}` },
     openGraph: {
-      title: `${s.name} Taxes & Finance Guide — Sales Tax ${s.salesTaxBase}%, Property & Income Tax Explained`,
-      description: `${s.name} (${s.abbr}) finance guide: ${s.salesTaxBase}% state sales tax (~${s.salesTaxAvgCombined}% average combined), ${s.propertyTaxAvg}% average property tax, ${s.incomeTax === "none" ? "no tax on wage income" : s.incomeTax + " income tax"}, grocery tax treatment, plus the calculators that use these rates.`,
+      title: `${s.name} Tax Guide: Sales Tax ${s.salesTaxBase}%, Property & Income Tax`,
+      description: `${s.name} finance guide: ${s.salesTaxBase}% state sales tax (~${s.salesTaxAvgCombined}% combined), ${s.propertyTaxAvg}% average property tax, ${s.incomeTax === "none" ? "no tax on wage income" : s.incomeTax + " income tax"} — with calculators.`,
       url: `https://dailyfinance.tools/locations/${s.slug}`,
       siteName: "DailyFinance.tools",
       locale: "en_US",
       type: "website",
-      images: [{ url: "https://dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: `${s.name} Taxes & Finance Guide — Sales Tax ${s.salesTaxBase}%, Property & Income Tax Explained` }],
+      images: [{ url: "https://dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: `${s.name} Tax Guide: Sales Tax ${s.salesTaxBase}%, Property & Income Tax` }],
     },
     twitter: {
       card: "summary_large_image",
-      title: `${s.name} Taxes & Finance Guide — Sales Tax ${s.salesTaxBase}%, Property & Income Tax Explained`,
-      description: `${s.name} (${s.abbr}) finance guide: ${s.salesTaxBase}% state sales tax (~${s.salesTaxAvgCombined}% average combined), ${s.propertyTaxAvg}% average property tax, ${s.incomeTax === "none" ? "no tax on wage income" : s.incomeTax + " income tax"}, grocery tax treatment, plus the calculators that use these rates.`,
+      title: `${s.name} Tax Guide: Sales Tax ${s.salesTaxBase}%, Property & Income Tax`,
+      description: `${s.name} finance guide: ${s.salesTaxBase}% state sales tax (~${s.salesTaxAvgCombined}% combined), ${s.propertyTaxAvg}% average property tax, ${s.incomeTax === "none" ? "no tax on wage income" : s.incomeTax + " income tax"} — with calculators.`,
       images: ["https://dailyfinance.tools/images/og-base.jpg"],
     },
     keywords: [`${s.name.toLowerCase()} sales tax`, `${s.name.toLowerCase()} property tax`, `${s.name.toLowerCase()} income tax`, `${s.name.toLowerCase()} tax calculator`],

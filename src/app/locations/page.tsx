@@ -4,21 +4,21 @@ import { US_STATES } from "@/data/locations/us-states"
 import { MapPin } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "Financial Calculators by State — Sales Tax, Property Tax & Income Tax Guides for All 50 States",
+  title: "Financial Calculators by State — Sales, Property & Income Tax",
   description: "State-by-state finance guides: sales tax, average combined and property tax rates and income tax structure for all 50 states and DC, with calculators.",
   alternates: { canonical: "https://dailyfinance.tools/locations" },
   openGraph: {
-    title: "Financial Calculators by State — Sales Tax, Property Tax & Income Tax Guides for All 50 States",
+    title: "Financial Calculators by State — Sales, Property & Income Tax",
     description: "State-by-state finance guides: sales tax, average combined and property tax rates and income tax structure for all 50 states and DC, with calculators.",
     url: "https://dailyfinance.tools/locations",
     siteName: "DailyFinance.tools",
     locale: "en_US",
     type: "website",
-    images: [{ url: "https://dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Financial Calculators by State — Sales Tax, Property Tax & Income Tax Guides for All 50 States" }],
+    images: [{ url: "https://dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Financial Calculators by State — Sales, Property & Income Tax" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Financial Calculators by State — Sales Tax, Property Tax & Income Tax Guides for All 50 States",
+    title: "Financial Calculators by State — Sales, Property & Income Tax",
     description: "State-by-state finance guides: sales tax, average combined and property tax rates and income tax structure for all 50 states and DC, with calculators.",
     images: ["https://dailyfinance.tools/images/og-base.jpg"],
   },

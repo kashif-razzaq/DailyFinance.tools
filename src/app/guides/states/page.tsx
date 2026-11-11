@@ -5,22 +5,22 @@ import { US_STATES } from "@/data/locations/us-states"
 import { US_CITIES } from "@/data/locations/us-cities"
 
 export const metadata: Metadata = {
-  title: "State tax guides: sales, income and property tax by state | DailyFinance.tools",
+  title: "State Tax Guides: Sales, Income & Property Tax by State",
   description:
     "Taxes in every US state and DC: sales tax rates and grocery rules, income tax structure and average property tax — plus guides for 30 major cities.",
   alternates: { canonical: "https://dailyfinance.tools/guides/states" },
   openGraph: {
-    title: "State tax guides: sales, income and property tax by state | DailyFinance.tools",
+    title: "State Tax Guides: Sales, Income & Property Tax by State",
     description: "Taxes in every US state and DC: sales tax rates and grocery rules, income tax structure and average property tax — plus guides for 30 major cities.",
     url: "https://dailyfinance.tools/guides/states",
     siteName: "DailyFinance.tools",
     locale: "en_US",
     type: "website",
-    images: [{ url: "https://dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "State tax guides: sales, income and property tax by state | DailyFinance.tools" }],
+    images: [{ url: "https://dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "State Tax Guides: Sales, Income & Property Tax by State" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "State tax guides: sales, income and property tax by state | DailyFinance.tools",
+    title: "State Tax Guides: Sales, Income & Property Tax by State",
     description: "Taxes in every US state and DC: sales tax rates and grocery rules, income tax structure and average property tax — plus guides for 30 major cities.",
     images: ["https://dailyfinance.tools/images/og-base.jpg"],
   },
