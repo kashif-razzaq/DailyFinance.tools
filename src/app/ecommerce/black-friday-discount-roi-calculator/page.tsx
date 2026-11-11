@@ -7,7 +7,7 @@ import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
-  title: "Black Friday Discount Calculator: Volume Needed to Keep Profit",
+  title: "Black Friday Discount Calculator: Volume to Keep Profit",
   description: "Does your Black Friday discount make money? Discounted margin, profit per unit, and the exact volume uplift needed just to match a normal period.",
   keywords: ["black friday discount calculator", "discount roi calculator", "sale discount profit calculator", "how much volume to break even on a discount", "discount margin calculator"],
   slug: "ecommerce/black-friday-discount-roi-calculator",

@@ -7,7 +7,7 @@ import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
-  title: "Course Launch Revenue Calculator: Model List, Conversion, Price & Refunds",
+  title: "Course Launch Revenue Calculator: List, Price & Refunds",
   description: "Model your course launch before running it: list size, conversion and price, minus refunds, fees and affiliate payouts — plus revenue per subscriber.",
   keywords: ["course launch calculator", "online course revenue calculator", "course launch revenue", "how much can I make selling a course", "email list conversion rate course"],
   slug: "creator/course-launch-revenue-calculator",

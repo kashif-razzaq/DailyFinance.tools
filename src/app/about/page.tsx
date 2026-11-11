@@ -7,6 +7,21 @@ export const metadata: Metadata = {
   title: "About DailyFinance — Free Financial Calculators, Reviewed by a Finance Professional",
   description: "Free, transparent financial calculators for freelancers, creators, sellers and investors — every formula shown, reviewed by Tahir Shehzad, ACMA.",
   alternates: { canonical: "https://dailyfinance.tools/about" },
+  openGraph: {
+    title: "About DailyFinance — Free Financial Calculators, Reviewed by a Finance Professional",
+    description: "Free, transparent financial calculators for freelancers, creators, sellers and investors — every formula shown, reviewed by Tahir Shehzad, ACMA.",
+    url: "https://dailyfinance.tools/about",
+    siteName: "DailyFinance.tools",
+    locale: "en_US",
+    type: "website",
+    images: [{ url: "https://dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "About DailyFinance — Free Financial Calculators, Reviewed by a Finance Professional" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About DailyFinance — Free Financial Calculators, Reviewed by a Finance Professional",
+    description: "Free, transparent financial calculators for freelancers, creators, sellers and investors — every formula shown, reviewed by Tahir Shehzad, ACMA.",
+    images: ["https://dailyfinance.tools/images/og-base.jpg"],
+  },
 }
 
 export default function AboutPage() {

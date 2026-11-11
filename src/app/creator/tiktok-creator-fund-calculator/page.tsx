@@ -7,7 +7,7 @@ import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
-  title: "TikTok Money Calculator: Creator Rewards Earnings (Creator Fund Ended 2023)",
+  title: "TikTok Money Calculator: Creator Rewards per 1,000 Views",
   description: "TikTok Creator Rewards, estimated the current way: qualified views on original 1-minute-plus videos at $0.40–$1.00 per 1,000. Old Creator Fund included.",
   keywords: ["tiktok money calculator", "tiktok creator rewards calculator", "tiktok creator fund calculator", "how much does tiktok pay per 1000 views", "tiktok creator rewards rpm"],
   slug: "creator/tiktok-creator-fund-calculator",

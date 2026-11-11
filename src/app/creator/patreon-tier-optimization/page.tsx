@@ -7,7 +7,7 @@ import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
-  title: "Patreon Earnings Calculator: What You Keep After Fees by Tier & Plan",
+  title: "Patreon Earnings Calculator: Take-Home by Tier & Plan",
   description: "Patreon take-home pay, calculated: after the 5, 8 or 12% platform fee, processing and payout fees. See net per patron and why small tiers lose most.",
   keywords: ["patreon calculator", "patreon earnings calculator", "patreon fees", "how much does patreon take", "patreon tier pricing", "patreon income calculator"],
   slug: "creator/patreon-tier-optimization",

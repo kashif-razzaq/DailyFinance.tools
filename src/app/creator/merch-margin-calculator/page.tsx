@@ -7,7 +7,7 @@ import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
-  title: "Merch Margin Calculator: Profit Per Unit After Print, Platform & Payment Fees",
+  title: "Merch Margin Calculator: Profit per Unit After All Fees",
   description: "Merch profit per unit: selling price minus base and print costs, platform and payment fees, plus shipping net. See margin, markup and monthly profit.",
   keywords: ["merch margin calculator", "merch profit calculator", "print on demand profit calculator", "merch markup calculator", "how to price merch"],
   slug: "creator/merch-margin-calculator",

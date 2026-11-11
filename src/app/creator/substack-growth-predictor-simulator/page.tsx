@@ -7,7 +7,7 @@ import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
-  title: "Substack Earnings Calculator: Project Paid Subscribers, MRR & Churn",
+  title: "Substack Earnings Calculator: Subscribers, MRR & Churn",
   description: "Project Substack income month by month: subscriber growth, free-to-paid conversion and churn, minus Substack's 10% and Stripe fees. MRR, ARR and totals.",
   keywords: ["substack calculator", "substack earnings calculator", "substack income", "how much can you make on substack", "substack conversion rate", "newsletter revenue calculator"],
   slug: "creator/substack-growth-predictor-simulator",

@@ -7,7 +7,7 @@ import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
-  title: "Agency vs Solo Calculator: Editor & Team Costs vs Solo Margin for Creators",
+  title: "Agency vs Solo Calculator: Team Costs vs Solo Margin",
   description: "Compare your creator business solo vs with an editor and team. See profit, margin and profit per hour, plus what happens if freed hours grow your output.",
   keywords: ["agency vs solo calculator", "hire an editor calculator", "creator editor cost", "should I hire a video editor", "creator team margin", "freelance vs agency margin"],
   slug: "creator/agency-vs-solo-margin-calculator",

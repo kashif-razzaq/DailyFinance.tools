@@ -7,7 +7,7 @@ import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
-  title: "Business Loan Calculator: Payment, Total Interest & Runway Impact",
+  title: "Business Loan Calculator: Payment, Interest & Runway",
   description: "Business loan payment and total interest, calculated — plus the truth about runway: months the loan really adds once its payment joins your monthly burn.",
   keywords: ["business loan calculator", "startup runway calculator", "business loan payment calculator", "how much runway does a loan add", "sba loan calculator"],
   slug: "ecommerce/business-loan-runway-calculator",

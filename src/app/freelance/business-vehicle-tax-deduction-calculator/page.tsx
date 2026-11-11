@@ -7,7 +7,7 @@ import { Calculator, Car, TrendingUp, AlertTriangle, FileText, CheckCircle2 } fr
 import Script from "next/script"
 
 export const metadata: Metadata = generateCalculatorMetadata({
-  title: "Business Vehicle Tax Deduction Calculator: Standard Mileage vs Actual Expenses",
+  title: "Business Vehicle Tax Deduction: Mileage vs Expenses",
   description: "Business vehicle tax deduction by Standard Mileage Rate or Actual Expenses: see what you can write off for your leased or owned business car.",
   keywords: ["auto lease write off calculator", "car lease tax deduction calculator", "section 179 leased vehicle", "business mileage deduction calculator", "write off leased car 1099"],
   slug: "freelance/business-vehicle-tax-deduction-calculator",
@@ -98,7 +98,7 @@ export default function AutoLeaseCalculatorPage() {
           "@type": "WebPage",
           "@id": "https://dailyfinance.tools/freelance/business-vehicle-tax-deduction-calculator/#webpage",
           "url": "https://dailyfinance.tools/freelance/business-vehicle-tax-deduction-calculator",
-          "name": "Business Vehicle Tax Deduction Calculator: Standard Mileage vs Actual Expenses",
+          "name": "Business Vehicle Tax Deduction: Mileage vs Expenses",
           "description": "Business vehicle tax deduction by Standard Mileage Rate or Actual Expenses: see what you can write off for your leased or owned business car.",
           "isPartOf": {
             "@id": "https://dailyfinance.tools/#website"

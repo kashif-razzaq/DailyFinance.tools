@@ -7,7 +7,7 @@ import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
-  title: "Reorder Point Calculator: When to Reorder + Safety Stock Formula",
+  title: "Reorder Point Calculator: When & How Much to Reorder",
   description: "Inventory reorder point from daily sales, lead time and safety stock: know exactly when to reorder, and how much, before you stock out or overstock.",
   keywords: ["reorder point calculator", "inventory reorder point", "safety stock calculator", "when to reorder inventory", "reorder point formula"],
   slug: "ecommerce/inventory-reorder-point-calculator",

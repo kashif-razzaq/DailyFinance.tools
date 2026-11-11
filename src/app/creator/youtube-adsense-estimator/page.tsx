@@ -7,7 +7,7 @@ import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
-  title: "YouTube Money Calculator: Estimate AdSense Earnings by Views & RPM",
+  title: "YouTube Money Calculator: AdSense Earnings by Views & RPM",
   description: "Estimate your YouTube AdSense earnings from views and RPM by niche: long-form vs Shorts, per-video, daily and yearly revenue, with the formula explained.",
   keywords: ["youtube money calculator", "youtube adsense estimator", "youtube earnings calculator", "youtube rpm calculator", "how much do youtubers make", "youtube cpm by niche", "youtube shorts money calculator"],
   slug: "creator/youtube-adsense-estimator",

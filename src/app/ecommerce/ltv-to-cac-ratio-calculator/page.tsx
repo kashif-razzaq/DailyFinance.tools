@@ -7,7 +7,7 @@ import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
-  title: "LTV:CAC Ratio Calculator: Lifetime Value on Gross Profit, Not Revenue",
+  title: "LTV:CAC Ratio Calculator: Lifetime Value vs CAC",
   description: "Customer lifetime value from AOV, purchase frequency, lifespan and gross margin — plus your LTV:CAC ratio, verdict band and CAC payback period.",
   keywords: ["ltv to cac ratio calculator", "ltv cac calculator", "customer lifetime value calculator ecommerce", "cac payback period", "what is a good ltv cac ratio"],
   slug: "ecommerce/ltv-to-cac-ratio-calculator",

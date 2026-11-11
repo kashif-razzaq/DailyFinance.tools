@@ -7,7 +7,7 @@ import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
-  title: "Sponsorship Pricing Calculator: Price Brand Deals by Views & Engagement",
+  title: "Sponsorship Pricing Calculator: Brand Deals by Views",
   description: "What to charge for sponsored videos, posts and brand deals, from average views, niche CPM and engagement rate. Usage and exclusivity uplifts included.",
   keywords: ["sponsorship pricing calculator", "brand deal calculator", "how much to charge for sponsorship", "influencer rate calculator", "sponsored video price", "creator brand deal pricing"],
   slug: "creator/sponsorship-pricing-calculator",
