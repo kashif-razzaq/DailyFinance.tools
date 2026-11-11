@@ -31,7 +31,7 @@ export interface Guide {
 export const GUIDES: Guide[] = [
   {
     slug: "how-compound-interest-works",
-    title: "How compound interest works, with numbers",
+    title: "How Compound Interest Works (With Real Number Examples)",
     seoTitle: "How Compound Interest Works (With Real Number Examples)",
     description: "How compound interest works, with real numbers: the formula, why the early years matter most, and what fees and inflation change. Free calculator included.",
     hub: "Personal Finance",
@@ -77,7 +77,7 @@ export const GUIDES: Guide[] = [
   },
   {
     slug: "how-to-build-an-emergency-fund",
-    title: "How to build an emergency fund",
+    title: "How to Build an Emergency Fund (How Much You Actually Need)",
     seoTitle: "How to Build an Emergency Fund (How Much You Actually Need)",
     description: "How to build an emergency fund: how much you actually need, where to keep it, and the order to build it in — without derailing your other goals.",
     hub: "Personal Finance",
@@ -117,7 +117,7 @@ export const GUIDES: Guide[] = [
   },
   {
     slug: "50-30-20-rule-explained",
-    title: "The 50/30/20 rule, explained honestly",
+    title: "What Is the 50/30/20 Rule? Budget Breakdown With Examples",
     seoTitle: "What Is the 50/30/20 Rule? Budget Breakdown With Examples",
     description: "What is the 50/30/20 rule? What it gets right, where it breaks in expensive cities, and how to adapt the percentages to your actual rent.",
     hub: "Personal Finance",
@@ -157,7 +157,7 @@ export const GUIDES: Guide[] = [
 GUIDES.push(
   {
     slug: "how-mortgage-amortization-works",
-    title: "How mortgage amortization works",
+    title: "Mortgage Amortization Explained: How Your Payments Are Split",
     seoTitle: "Mortgage Amortization Explained: How Your Payments Are Split",
     description: "How mortgage amortization works: why early payments are mostly interest, how the schedule shifts over time, and what extra payments actually change.",
     hub: "Mortgage & Real Estate",
@@ -196,7 +196,7 @@ GUIDES.push(
   },
   {
     slug: "how-much-house-can-i-afford",
-    title: "How much house can you actually afford?",
+    title: "How Much House Can You Actually Afford? (28/36 Rule Explained)",
     seoTitle: "How Much House Can You Actually Afford? (28/36 Rule Explained)",
     description: "How much house can you afford? The 28/36 rule lenders use, why the bank's maximum is not your budget, and the costs listings never show.",
     hub: "Mortgage & Real Estate",
@@ -234,7 +234,7 @@ GUIDES.push(
   },
   {
     slug: "avalanche-vs-snowball-debt-payoff",
-    title: "Avalanche vs snowball: which debt payoff method wins?",
+    title: "Debt Avalanche vs Snowball: Which Payoff Method Saves More?",
     seoTitle: "Debt Avalanche vs Snowball: Which Payoff Method Saves More?",
     description: "Debt avalanche vs snowball: avalanche saves the most interest, snowball clears debts fastest. The maths, the trade-off, and how to choose yours.",
     hub: "Loans & Debt",
@@ -267,7 +267,7 @@ GUIDES.push(
   },
   {
     slug: "how-credit-card-interest-works",
-    title: "How credit card interest actually works",
+    title: "How Credit Card Interest Is Calculated (APR Explained)",
     seoTitle: "How Credit Card Interest Is Calculated (APR Explained)",
     description: "How credit card interest is calculated: average daily balance, grace periods, and why minimum payments keep you in debt — with the numbers statements hide.",
     hub: "Loans & Debt",
@@ -302,7 +302,7 @@ GUIDES.push(
 GUIDES.push(
   {
     slug: "how-federal-income-tax-brackets-work",
-    title: "How federal income tax brackets work",
+    title: "How Federal Income Tax Brackets Work in 2026 (With Examples)",
     seoTitle: "How Federal Income Tax Brackets Work in 2026 (With Examples)",
     description: "How tax brackets work: marginal vs effective rates explained with a worked example — and what actually happens when a raise moves you up a bracket.",
     hub: "Salary, Tax, Retirement & Investing",
@@ -335,7 +335,7 @@ GUIDES.push(
   },
   {
     slug: "how-to-read-your-paycheck",
-    title: "How to read your paycheck",
+    title: "How to Read Your Paycheck (Pay Stub): Deductions Explained",
     seoTitle: "How to Read Your Paycheck (Pay Stub): Deductions Explained",
     description: "How to read your paycheck: gross pay, FICA, withholding and every deduction line explained — plus two mistakes worth checking every year.",
     hub: "Salary, Tax, Retirement & Investing",
@@ -368,7 +368,7 @@ GUIDES.push(
   },
   {
     slug: "roth-vs-traditional-ira",
-    title: "Roth vs traditional IRA: the actual difference",
+    title: "Roth vs Traditional IRA: Which Is Better for Your Taxes?",
     seoTitle: "Roth vs Traditional IRA: Which Is Better for Your Taxes?",
     description: "Roth vs traditional IRA: both shelter growth, so the choice is when you pay tax — a bet on your current bracket vs your retirement bracket. How to decide.",
     hub: "Salary, Tax, Retirement & Investing",
@@ -402,7 +402,7 @@ GUIDES.push(
   },
   {
     slug: "self-employment-tax-explained",
-    title: "Self-employment tax, explained for freelancers",
+    title: "Self-Employment Tax 2026: Rate, Deductions & How It Works",
     seoTitle: "Self-Employment Tax 2026: Rate, Deductions & How It Works",
     description: "Self-employment tax explained: the 15.3% rate, the 92.35% rule, the deduction most freelancers miss, and how quarterly payments actually work.",
     hub: "Freelance & Business",
@@ -435,7 +435,7 @@ GUIDES.push(
   },
   {
     slug: "how-youtube-pays-creators",
-    title: "How YouTube actually pays creators",
+    title: "How YouTube Pays Creators: CPM, RPM & Payout Rules Explained",
     seoTitle: "How YouTube Pays Creators: CPM, RPM & Payout Rules Explained",
     description: "How YouTube pays creators in 2026: CPM vs RPM, the 55% revenue share, why niches pay so differently, and what a million views is really worth.",
     hub: "Creator & E-Commerce",
@@ -470,7 +470,7 @@ GUIDES.push(
 GUIDES.push(
   {
     slug: "rent-vs-buy-guide",
-    title: "Renting vs buying: a guide without slogans",
+    title: "Renting vs Buying a Home: The Real Costs Compared (2026)",
     seoTitle: "Renting vs Buying a Home: The Real Costs Compared (2026)",
     description: "Renting vs buying a home: the real costs on both sides, the break-even point most people miss, and how to tell which choice wins for you.",
     hub: "Mortgage & Real Estate",
@@ -502,7 +502,7 @@ GUIDES.push(
   },
   {
     slug: "how-to-price-freelance-work",
-    title: "How to price freelance work without guessing",
+    title: "How to Price Freelance Work: Rates, Formulas & Real Examples",
     seoTitle: "How to Price Freelance Work: Rates, Formulas & Real Examples",
     description: "How to price freelance work from your costs up: the billable-hours reality, why hourly pricing caps your income, and how to move to project pricing.",
     hub: "Freelance & Business",
@@ -540,7 +540,7 @@ GUIDES.push(
   },
   {
     slug: "etsy-and-ebay-fees-explained",
-    title: "Etsy and eBay fees, explained line by line",
+    title: "Etsy and eBay Fees Explained: 2026 Rates, Line by Line",
     seoTitle: "Etsy and eBay Fees Explained: 2026 Rates, Line by Line",
     description: "Etsy and eBay fees explained line by line: every charge on a typical sale, what they add up to, and how to price so the platform keeps less of your margin.",
     hub: "Creator & E-Commerce",
@@ -578,7 +578,7 @@ GUIDES.push(
   },
   {
     slug: "social-security-benefits-explained",
-    title: "Social Security benefits: how the amount is set",
+    title: "How Social Security Benefits Are Calculated: The Formula",
     seoTitle: "How Social Security Benefits Are Calculated: The Formula",
     description: "How Social Security benefits are calculated: your 35 best years, why claiming age moves the amount by 76%, and the spousal and tax rules that matter.",
     hub: "Salary, Tax, Retirement & Investing",
