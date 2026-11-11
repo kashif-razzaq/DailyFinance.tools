@@ -6,7 +6,7 @@ import { Check, X } from "lucide-react"
 
 export const metadata: Metadata = {
   title: "Pricing — Free Calculators Forever, Pro for $2.99/mo | DailyFinance",
-  description: "Free: 100+ calculators and a 3-scenario Vault. Pro ($2.99/mo): unlimited saves, scenario comparison, 5 Pro tools, full analytics, exports, zero ads.",
+  description: "Free: 100+ calculators and a 3-scenario Vault. Pro ($2.99/mo): unlimited saves, scenario comparison, 5 Pro tools, full analytics, premium PDFs, zero ads.",
   alternates: { canonical: "https://dailyfinance.tools/pricing" },
   openGraph: {
     title: "Pricing — Free Calculators Forever, Pro for $2.99/mo | DailyFinance",
@@ -40,10 +40,11 @@ const tiers = [
       "Scenario Vault — save up to 3 scenarios",
       "Basic analytics snapshot (net position & balance sheet)",
       "Saved scenarios reopen with your numbers in place",
+      "CSV & Excel data exports",
       "Community support",
     ],
     notIncluded: [
-      "No CSV/Excel data exports or Premium PDFs",
+      "No Premium PDF reports",
       "No scenario comparison or Pro tools",
       "No full Cross-Data Analytics (charts, cash flow, DTI)",
       "Contains display ads",
@@ -62,7 +63,7 @@ const tiers = [
       "Zero display ads",
       "Unlimited Scenario Vault storage",
       "Scenario cloning & duplicates",
-      "Instant CSV & Excel (XLSX) exports",
+      "Analytics CSV export — your whole financial picture",
       "Premium PDF report generation",
       "Scenario comparison — saved plans side by side",
       "5 exclusive Pro tools (Monte Carlo, Rental Analyzer, Business Valuation, IRR & NPV, Portfolio Rebalancer)",
@@ -148,7 +149,7 @@ export default function PricingPage() {
             </div>
             <div className="border-b border-border/50 pb-6">
               <h3 className="font-semibold mb-1.5">What does Pro add?</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">Pro removes all advertising and unlocks the power features: unlimited Scenario Vault storage with cloning, scenario comparison side by side, 5 exclusive Pro tools, instant CSV and Excel exports, premium PDF report generation, and the full Cross-Data Analytics that combine your saved scenarios into a balance sheet, debt costs and cash flow.</p>
+              <p className="text-sm text-muted-foreground leading-relaxed">Pro removes all advertising and unlocks the power features: unlimited Scenario Vault storage with cloning, scenario comparison side by side, 5 exclusive Pro tools, premium PDF report generation, an analytics-wide CSV export, and the full Cross-Data Analytics that combine your saved scenarios into a balance sheet, debt costs and cash flow.</p>
             </div>
             <div className="border-b border-border/50 pb-6">
               <h3 className="font-semibold mb-1.5">How do I upgrade?</h3>
@@ -163,7 +164,7 @@ export default function PricingPage() {
         <Script id="schema-pricing-faq" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
           "@context": "https://schema.org", "@type": "FAQPage", mainEntity: [
             { "@type": "Question", name: "Are the calculators really free?", acceptedAnswer: { "@type": "Answer", text: "Yes. Every calculator is free with no sign-up. A free account adds URL sharing and a Scenario Vault with up to 3 saved scenarios." } },
-            { "@type": "Question", name: "What does Pro add?", acceptedAnswer: { "@type": "Answer", text: "Pro ($2.99/mo) removes ads and unlocks unlimited Vault storage with cloning, scenario comparison, 5 exclusive Pro tools, CSV/Excel exports, premium PDF reports and full Cross-Data Analytics across personal and business saves." } },
+            { "@type": "Question", name: "What does Pro add?", acceptedAnswer: { "@type": "Answer", text: "Pro ($2.99/mo) removes ads and unlocks unlimited Vault storage with cloning, scenario comparison, 5 exclusive Pro tools, premium PDF reports, an analytics CSV export and full Cross-Data Analytics across personal and business saves." } },
             { "@type": "Question", name: "Can I cancel anytime?", acceptedAnswer: { "@type": "Answer", text: "Yes — no lock-in. Cancelling returns the account to Free at the end of the billing period and saved data is kept." } },
           ],
         }) }} />

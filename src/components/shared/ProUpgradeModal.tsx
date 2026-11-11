@@ -57,7 +57,7 @@ export function ProUpgradeModal({ isOpen, onClose }: ProUpgradeModalProps) {
             </div>
             <div className="flex items-center gap-3">
               <ShieldCheck className="h-4 w-4 text-muted-foreground shrink-0" />
-              <span className="font-medium text-foreground">Instant CSV & Excel exports</span>
+              <span className="font-medium text-foreground">Analytics CSV export — your whole financial picture</span>
             </div>
             <div className="flex items-center gap-3">
               <ShieldCheck className="h-4 w-4 text-muted-foreground shrink-0" />
