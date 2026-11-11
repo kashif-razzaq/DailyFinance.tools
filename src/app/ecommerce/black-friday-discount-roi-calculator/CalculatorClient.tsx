@@ -71,7 +71,8 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
             <span>{profitPerUnitAfter <= 0 ? 'At this discount you lose money on every unit — more volume only loses money faster. Reduce the discount below ' + (price > 0 ? (((price - cost) / price) * 100).toFixed(0) : '0') + '% (your margin) or do not run this offer.' : works ? 'Your expected uplift clears the break-even volume. The sale should beat a normal period on profit, before extra ad spend.' : 'Your expected uplift is not enough. Revenue will look great while profit falls — the classic Black Friday trap.'}</span>
           </p>
         </div>
-      </div>
+      <ToolActionsBar slug="black-friday-discount-roi-calculator" isPro={isPro} inputs={{ price, cost, units, discount, uplift }} />
     </div>
-  <ToolActionsBar slug="black-friday-discount-roi-calculator" isPro={isPro} inputs={{ price, cost, units, discount, uplift }} /></>)
+    </div>
+  </>)
 }

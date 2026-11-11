@@ -70,5 +70,6 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div></ResultCard>
       <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">HSA Growth</h4>
         <ResponsiveContainer width="100%" height={200}><AreaChart data={r.chart}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="year" /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Area type="monotone" dataKey="value" stroke="#064E3B" fill="#064E3B" fillOpacity={0.15} name="HSA balance" /></AreaChart></ResponsiveContainer></div>
-    </div></div><ToolActionsBar slug="hsa-triple-tax-advantage-calculator" isPro={isPro} inputs={{ contrib, balance, years, ret, bracket }} /></>)
+    <ToolActionsBar slug="hsa-triple-tax-advantage-calculator" isPro={isPro} inputs={{ contrib, balance, years, ret, bracket }} />
+    </div></div></>)
 }

@@ -79,6 +79,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <Bar dataKey="Regular" stackId="a" fill="#1F2937" /><Bar dataKey="Overtime (1.5x)" stackId="a" fill="#D97706" /><Bar dataKey="Double time (2x)" stackId="a" fill="#064E3B" /></BarChart></ResponsiveContainer>
         <p className="text-xs text-muted-foreground mt-3">Differentiator: overtime is {r.otShare.toFixed(0)}% of this paycheck, and {fmt(r.premium * 52)}/year of it is pure premium — the extra half/double above straight time.</p>
       </div>
+    <ToolActionsBar slug="overtime-calculator" isPro={isPro} inputs={{ rate, regHours, otHours, dtHours }} />
     </div>
-  </div><ToolActionsBar slug="overtime-calculator" isPro={isPro} inputs={{ rate, regHours, otHours, dtHours }} /></>)
+  </div></>)
 }

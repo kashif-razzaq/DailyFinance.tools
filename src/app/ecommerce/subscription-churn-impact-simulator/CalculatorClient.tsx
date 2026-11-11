@@ -79,7 +79,8 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           </div>
           <p className="mt-6 flex items-start gap-2 text-sm text-primary-foreground/90 relative z-10"><TrendingUp className="h-5 w-5 shrink-0" /><span>Churn compounds. A small monthly reduction is worth more every month that passes, because every saved subscriber keeps paying — and keeps being saved again.</span></p>
         </div>
-      </div>
+      <ToolActionsBar slug="subscription-churn-impact-simulator" isPro={isPro} inputs={{ customers, arpu, churn, reducedChurn, adds, months }} />
     </div>
-  <ToolActionsBar slug="subscription-churn-impact-simulator" isPro={isPro} inputs={{ customers, arpu, churn, reducedChurn, adds, months }} /></>)
+    </div>
+  </>)
 }

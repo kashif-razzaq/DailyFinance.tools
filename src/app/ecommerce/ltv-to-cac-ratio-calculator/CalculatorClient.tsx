@@ -68,7 +68,8 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
             <span>{ratio < 1 ? 'You pay more to acquire a customer than they will ever return in gross profit. Stop scaling paid acquisition until retention or margin improves.' : ratio < 3 ? 'The model works but has no slack. A CAC rise or a churn rise breaks it — fix retention before increasing spend.' : ratio <= 5 ? 'The healthy zone: each customer returns 3–5x their acquisition cost in gross profit. Scale carefully and watch payback time.' : 'A very high ratio can mean you are underspending on growth. Test higher CAC channels — you have room to buy market share.'}</span>
           </p>
         </div>
-      </div>
+      <ToolActionsBar slug="ltv-to-cac-ratio-calculator" isPro={isPro} inputs={{ aov, freq, lifespan, margin, cac }} />
     </div>
-  <ToolActionsBar slug="ltv-to-cac-ratio-calculator" isPro={isPro} inputs={{ aov, freq, lifespan, margin, cac }} /></>)
+    </div>
+  </>)
 }

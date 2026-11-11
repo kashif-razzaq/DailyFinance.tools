@@ -54,5 +54,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     <Result label="Interest-Only Payment (Draw Period)" value={fmt(m.io)} sub={`On a ${fmt(m.d)} draw at ${rate}%. This payment covers interest only — the balance does not fall.`} />
     <Breakdown title="HELOC Breakdown"><Row label="Available credit" value={fmt(m.available)} bold /><Row label="Combined LTV after draw" value={pct(m.ltvAfter)} /><Row label="Interest-only payment / mo" value={fmt(m.io)} /><Row label="Repayment-phase payment / mo" value={fmt(m.amort)} bold /><Row label="Total interest in repayment phase" value={fmt(m.totalInterestRepay)} /></Breakdown>
     <p className="text-xs text-muted-foreground">HELOC rates are variable and tied to the prime rate. Model +2% before drawing — the repayment-phase jump is where borrowers get caught.</p>
-  </Shell><ToolActionsBar slug="heloc-drawdown-simulator" isPro={isPro} inputs={{ value, balance, maxLtv, draw, rate, repayYears }} /></>)
+  <ToolActionsBar slug="heloc-drawdown-simulator" isPro={isPro} inputs={{ value, balance, maxLtv, draw, rate, repayYears }} /></Shell></>)
 }

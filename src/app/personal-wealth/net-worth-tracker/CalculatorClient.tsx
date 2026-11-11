@@ -60,5 +60,6 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div></ResultCard>
       <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Where Your Net Worth Lives</h4>
         <ResponsiveContainer width="100%" height={210}><BarChart data={chart}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="name" tick={{ fontSize: 10 }} interval={0} angle={-20} height={50} /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Bar dataKey="v" fill="#064E3B" name="Value" /></BarChart></ResponsiveContainer></div>
-    </div></div><ToolActionsBar slug="net-worth-tracker" isPro={isPro} inputs={{ assets, liabs }} /></>)
+    <ToolActionsBar slug="net-worth-tracker" isPro={isPro} inputs={{ assets, liabs }} />
+    </div></div></>)
 }

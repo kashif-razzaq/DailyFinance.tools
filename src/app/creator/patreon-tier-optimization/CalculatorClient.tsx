@@ -84,7 +84,8 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <div className="bg-[#FAFAFA] border border-neutral-200 rounded-2xl p-6 text-sm text-neutral-600">
           <strong className="text-[#1F2937]">Formula:</strong> <span className="font-mono">Net = Patrons × Pledge − Platform % − (Processing % + per-pledge fee) − Payout %</span>. Small tiers are hit hardest: the fixed per-pledge fee makes a $2 tier lose far more, proportionally, than a $10 tier.
         </div>
-      </div>
+      <ToolActionsBar slug="patreon-tier-optimization" isPro={isPro} inputs={{ patrons, pledge, planPct, perTxn, payoutPct }} />
     </div>
-  <ToolActionsBar slug="patreon-tier-optimization" isPro={isPro} inputs={{ patrons, pledge, planPct, perTxn, payoutPct }} /></>)
+    </div>
+  </>)
 }

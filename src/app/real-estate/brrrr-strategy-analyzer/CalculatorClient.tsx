@@ -57,5 +57,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   </>}>
     <Result label="Cash Left in the Deal" value={fmt(m.left)} sub={m.left <= 0 ? 'Perfect BRRRR: the refinance returns all your cash (or more) — your return is effectively infinite.' : 'Cash still trapped in the deal after refinancing. A higher ARV or lower rehab is the lever.'} />
     <Breakdown title="BRRRR Breakdown"><Row label="Total project cost" value={fmt(m.total)} /><Row label="Refinance loan (LTV × ARV)" value={fmt(m.loan)} /><Row label="Equity after refinance" value={fmt(m.equity)} /><Row label="New mortgage payment (P&I)" value={fmt(m.pi)} /><Row label="Monthly cash flow after refi" value={fmt(m.cf)} /><Row label="Cash-on-cash return" value={isFinite(m.coc) ? pct(m.coc) : 'Infinite — $0 left in deal'} bold /></Breakdown>
-  </Shell><ToolActionsBar slug="brrrr-strategy-analyzer" isPro={isPro} inputs={{ buy, rehab, holding, arv, ltv, rate, refiCosts, rent, expenses }} /></>)
+  <ToolActionsBar slug="brrrr-strategy-analyzer" isPro={isPro} inputs={{ buy, rehab, holding, arv, ltv, rate, refiCosts, rent, expenses }} /></Shell></>)
 }

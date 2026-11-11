@@ -53,5 +53,5 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   </>}>
     <Result label="Projected Flip Profit" value={fmt(m.profit)} sub={`ROI ${pct(m.roi)} on ${fmt(m.totalIn)} total invested. Profit margin ${pct(m.margin)} of ARV.`} />
     <Breakdown title="Flip Breakdown"><Row label="70% rule max offer (ARV×70% − rehab)" value={fmt(m.maxOffer)} bold /><Row label="Buying closing costs (2%)" value={fmt(m.buying)} /><Row label="Holding costs" value={fmt(m.holding)} /><Row label="Selling costs" value={fmt(m.selling)} /><Row label="Total cash in" value={fmt(m.totalIn)} /><Row label="ROI" value={pct(m.roi)} bold /></Breakdown>
-  </Shell><ToolActionsBar slug="flipping-profit-margin-calculator" isPro={isPro} inputs={{ arv, purchase, rehab, months, holdingMo, sellPct }} /></>)
+  <ToolActionsBar slug="flipping-profit-margin-calculator" isPro={isPro} inputs={{ arv, purchase, rehab, months, holdingMo, sellPct }} /></Shell></>)
 }

@@ -90,7 +90,8 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <div className="bg-[#FAFAFA] border border-neutral-200 rounded-2xl p-6 text-sm text-neutral-600">
           <strong className="text-[#1F2937]">Formula:</strong> <span className="font-mono">Earnings = (Views ÷ 1,000) × RPM</span>. RPM already includes YouTube&apos;s cut — never multiply raw CPM by views without applying the 55% long-form (or 45% Shorts pool) creator share first.
         </div>
-      </div>
+      <ToolActionsBar slug="youtube-adsense-estimator" isPro={isPro} inputs={{ views, niche, rpm, format, videosPerMonth }} />
     </div>
-  <ToolActionsBar slug="youtube-adsense-estimator" isPro={isPro} inputs={{ views, niche, rpm, format, videosPerMonth }} /></>)
+    </div>
+  </>)
 }

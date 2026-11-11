@@ -67,7 +67,8 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
             <span>{profit <= 0 ? 'This product loses money on every order once payment fees and shipping are included — reprice or cut costs before spending on ads.' : margin < 0.2 ? 'Profitable, but under a 20% true margin there is almost no room left for ad spend. Your break-even ROAS is above ' + (margin > 0 ? (1 / margin).toFixed(1) : '—') + 'x.' : 'Healthy true margin. You have room to fund ads, discounts and growth from profit.'}</span>
           </p>
         </div>
-      </div>
+      <ToolActionsBar slug="shopify-margin-calculator" isPro={isPro} inputs={{ price, cogs, shipCharged, shipCost, other, orders }} />
     </div>
-  <ToolActionsBar slug="shopify-margin-calculator" isPro={isPro} inputs={{ price, cogs, shipCharged, shipCost, other, orders }} /></>)
+    </div>
+  </>)
 }

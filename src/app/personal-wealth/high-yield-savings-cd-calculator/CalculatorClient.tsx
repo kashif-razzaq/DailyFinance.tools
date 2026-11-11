@@ -62,5 +62,6 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div></ResultCard>
       <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Interest Earned Compared</h4>
         <ResponsiveContainer width="100%" height={200}><BarChart data={chart}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="name" tick={{ fontSize: 11 }} /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Bar dataKey="earnings" fill="#064E3B" name="Interest earned" /></BarChart></ResponsiveContainer></div>
-    </div></div><ToolActionsBar slug="high-yield-savings-cd-calculator" isPro={isPro} inputs={{ deposit, hysaApy, cdApy, term, freq, taxRate }} /></>)
+    <ToolActionsBar slug="high-yield-savings-cd-calculator" isPro={isPro} inputs={{ deposit, hysaApy, cdApy, term, freq, taxRate }} />
+    </div></div></>)
 }

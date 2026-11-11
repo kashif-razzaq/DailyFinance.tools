@@ -72,7 +72,8 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
             <span>{extraMonths <= 0 ? 'This loan barely extends — or even shortens — your runway, because the payment eats the cash it adds. A loan only helps if it buys time to reach revenue, a raise, or profitability.' : extraMonths <= 3 ? 'The loan buys a little time at a real interest cost. Only take it with a concrete milestone it funds.' : 'The loan meaningfully extends runway. The question is no longer maths — it is whether the extra months get used to fix the burn.'}</span>
           </p>
         </div>
-      </div>
+      <ToolActionsBar slug="business-loan-runway-calculator" isPro={isPro} inputs={{ loan, apr, term, cash, burn }} />
     </div>
-  <ToolActionsBar slug="business-loan-runway-calculator" isPro={isPro} inputs={{ loan, apr, term, cash, burn }} /></>)
+    </div>
+  </>)
 }

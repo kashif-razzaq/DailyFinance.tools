@@ -73,7 +73,8 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <div className="bg-[#FAFAFA] border border-neutral-200 rounded-2xl p-6 text-sm text-neutral-600">
           <strong className="text-[#1F2937]">Formula:</strong> <span className="font-mono">Earnings = (Total Views × Qualified %) ÷ 1,000 × Rewards RPM</span>. Eligibility also requires 10,000+ followers and 100,000 views in the last 30 days, and an account in good standing in an eligible country.
         </div>
-      </div>
+      <ToolActionsBar slug="tiktok-creator-fund-calculator" isPro={isPro} inputs={{ views, qualifiedPct, rpm, videos }} />
     </div>
-  <ToolActionsBar slug="tiktok-creator-fund-calculator" isPro={isPro} inputs={{ views, qualifiedPct, rpm, videos }} /></>)
+    </div>
+  </>)
 }
