@@ -37,19 +37,33 @@ function LinesList({ lines, tone }: { lines: MoneyLine[]; tone: 'asset' | 'debt'
   if (!lines.length) return <p className="text-sm text-muted-foreground">Nothing saved yet.</p>
   return (
     <ul className="divide-y">
-      {[...lines].sort((a, b) => b.value - a.value).map((l) => (
-        <li key={l.label + l.source} className="flex items-baseline justify-between gap-3 py-2">
-          <span className="min-w-0">
-            <span className="block truncate font-semibold">{l.label}</span>
-            <span className="block text-xs text-muted-foreground">
-              {l.source}
-              {l.apr != null && tone === 'debt' ? ` · ${l.apr}% APR` : ''}
-              {l.monthlyPayment != null && tone === 'debt' ? ` · ${money(l.monthlyPayment)}/mo` : ''}
+      {[...lines].sort((a, b) => b.value - a.value).map((l) => {
+        const inner = (
+          <>
+            <span className="min-w-0">
+              <span className="block truncate font-semibold">{l.label}</span>
+              <span className="block text-xs text-muted-foreground">
+                {l.source}
+                {l.apr != null && tone === 'debt' ? ` · ${l.apr}% APR` : ''}
+                {l.monthlyPayment != null && tone === 'debt' ? ` · ${money(l.monthlyPayment)}/mo` : ''}
+                {l.href ? ' · Open scenario' : ''}
+              </span>
             </span>
-          </span>
-          <span className="font-mono font-bold">{money(l.value)}</span>
-        </li>
-      ))}
+            <span className="font-mono font-bold">{money(l.value)}</span>
+          </>
+        )
+        return (
+          <li key={l.label + l.source}>
+            {l.href ? (
+              <Link href={l.href} className="flex items-baseline justify-between gap-3 py-2 transition-colors hover:bg-muted/40">
+                {inner}
+              </Link>
+            ) : (
+              <div className="flex items-baseline justify-between gap-3 py-2">{inner}</div>
+            )}
+          </li>
+        )
+      })}
     </ul>
   )
 }
@@ -135,9 +149,13 @@ export function CrossDataAnalytics({ calculators }: { calculators: SavedCalculat
             {pic.monthlyDebtPayments != null && <span className="text-base font-semibold text-muted-foreground">/mo</span>}
           </p>
           <p className="mt-1 text-xs text-muted-foreground">
-            {pic.totalInterestCost != null
-              ? `${money(pic.totalInterestCost)} of interest still to pay on these terms`
-              : 'Save a loan scenario to see the payment total'}
+            {pic.totalInterestCost != null ? (
+              `${money(pic.totalInterestCost)} of interest still to pay on these terms`
+            ) : (
+              <Link href={getToolUrl('personal-loan-calculator')} className="font-semibold text-[#064E3B] underline">
+                Save a loan scenario to see the payment total
+              </Link>
+            )}
           </p>
         </div>
         <div className="rounded-2xl border bg-card p-6 shadow-sm">
@@ -151,11 +169,15 @@ export function CrossDataAnalytics({ calculators }: { calculators: SavedCalculat
             {pic.dti != null ? `${pic.dti.toFixed(0)}%` : pic.weightedApr != null ? `${pic.weightedApr.toFixed(1)}%` : '—'}
           </p>
           <p className="mt-1 text-xs text-muted-foreground">
-            {pic.dti != null
-              ? `${dtiBand} · payments vs income from your ${pic.incomeSource}`
-              : pic.weightedApr != null
-                ? 'Balance-weighted across your saved debts'
-                : 'Save an income or loan scenario to unlock'}
+            {pic.dti != null ? (
+              `${dtiBand} · payments vs income from your ${pic.incomeSource}`
+            ) : pic.weightedApr != null ? (
+              'Balance-weighted across your saved debts'
+            ) : (
+              <Link href={getToolUrl('paycheck-calculator')} className="font-semibold text-[#064E3B] underline">
+                Save a paycheck scenario to unlock
+              </Link>
+            )}
           </p>
         </div>
       </div>
@@ -236,6 +258,14 @@ export function CrossDataAnalytics({ calculators }: { calculators: SavedCalculat
             <CardTitle>Monthly cash flow</CardTitle>
             <CardDescription>
               From your {pic.cashFlow.source} — income against where it goes.
+              {pic.cashFlow.href && (
+                <>
+                  {' '}
+                  <Link href={pic.cashFlow.href} className="font-semibold text-[#064E3B] underline">
+                    Open the scenario
+                  </Link>
+                </>
+              )}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -285,11 +315,20 @@ export function CrossDataAnalytics({ calculators }: { calculators: SavedCalculat
               <p className="mt-2 font-mono text-3xl font-bold">{pic.emergency.monthsCovered.toFixed(1)} months</p>
               <p className="mt-1 text-xs text-muted-foreground">
                 {money(pic.emergency.saved)} saved against {money(pic.emergency.monthlyExpenses)}/mo of essential spending.
+                {pic.emergency.href && (
+                  <>
+                    {' '}
+                    <Link href={pic.emergency.href} className="font-semibold text-[#064E3B] underline">Open the scenario</Link>
+                  </>
+                )}
               </p>
             </>
           ) : (
             <p className="mt-2 text-sm text-muted-foreground">
-              Save an Emergency Fund scenario to see your months of cover.
+              <Link href={getToolUrl('emergency-fund-visualizer')} className="font-semibold text-[#064E3B] underline">
+                Save an Emergency Fund scenario
+              </Link>{' '}
+              to see your months of cover.
             </p>
           )}
         </Card>
@@ -306,7 +345,10 @@ export function CrossDataAnalytics({ calculators }: { calculators: SavedCalculat
             </>
           ) : (
             <p className="mt-2 text-sm text-muted-foreground">
-              Save an investment or retirement scenario to total your monthly contributions.
+              <Link href={getToolUrl('investment-calculator')} className="font-semibold text-[#064E3B] underline">
+                Save an investment or retirement scenario
+              </Link>{' '}
+              to total your monthly contributions.
             </p>
           )}
         </Card>
@@ -326,7 +368,10 @@ export function CrossDataAnalytics({ calculators }: { calculators: SavedCalculat
             </>
           ) : (
             <p className="mt-2 text-sm text-muted-foreground">
-              Save a loan with its rate and term to price the interest you still owe.
+              <Link href={getToolUrl('personal-loan-calculator')} className="font-semibold text-[#064E3B] underline">
+                Save a loan with its rate and term
+              </Link>{' '}
+              to price the interest you still owe.
             </p>
           )}
         </Card>

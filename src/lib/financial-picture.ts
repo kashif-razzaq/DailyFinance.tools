@@ -1,5 +1,5 @@
 import type { SavedCalculator } from '@/types/database'
-import { SCENARIO_SLUG_ALIASES } from '@/config/navigation'
+import { SCENARIO_SLUG_ALIASES, getScenarioUrl } from '@/config/navigation'
 
 /**
  * financial-picture — Cross-Data Analytics core.
@@ -23,6 +23,8 @@ import { SCENARIO_SLUG_ALIASES } from '@/config/navigation'
 export interface MoneyLine {
   label: string
   source: string
+  /** Deep link back to the exact saved scenario this line came from. */
+  href?: string
   value: number
   apr?: number | null
   monthlyPayment?: number | null
@@ -45,6 +47,7 @@ export interface FinancialPicture {
   dti: number | null
   cashFlow: {
     source: string
+    href?: string
     income: number
     outgo: { label: string; value: number }[]
     totalOutgo: number
@@ -52,7 +55,7 @@ export interface FinancialPicture {
     leftover: number
     savingsRate: number
   } | null
-  emergency: { monthsCovered: number; saved: number; monthlyExpenses: number } | null
+  emergency: { monthsCovered: number; saved: number; monthlyExpenses: number; href?: string } | null
   monthlyInvesting: number | null
   toolsUsed: number
 }
@@ -92,6 +95,8 @@ function withInterest(line: MoneyLine, months: number | null): MoneyLine {
   return line
 }
 
+const hrefOf = (calc: SavedCalculator) => `${getScenarioUrl(calc.calculator_slug)}?savedId=${calc.id}`
+
 function recordLines(
   state: Record<string, unknown> | undefined,
   key: string,
@@ -107,6 +112,7 @@ function recordLines(
       source,
       value: v as number,
     }))
+
 }
 
 interface DebtSpec {
@@ -158,6 +164,14 @@ const DEBT_SPECS: DebtSpec[] = [
       const byTerm = amortize(balance, rate, (num(s, 'termYears') ?? 10) * 12)
       const payment = s.mode === 'payment' ? (num(s, 'paymentInput') ?? byTerm) : byTerm
       return [{ label: 'Student loan', source: 'Student Loan Calculator', value: balance, apr: rate, monthlyPayment: payment }]
+    },
+  },
+  {
+    slug: 'student-loan-payoff-calculator',
+    build: (s) => {
+      const balance = num(s, 'balance'); if (!balance) return null
+      const payment = (num(s, 'payment') ?? 0) + (num(s, 'extra') ?? 0)
+      return [{ label: 'Student loan', source: 'Student Loan Payoff Calculator', value: balance, apr: num(s, 'rate'), monthlyPayment: payment > 0 ? payment : null }]
     },
   },
   {
@@ -261,6 +275,11 @@ const ASSET_SPECS: { slug: string; label: string; source: string; key: string }[
   { slug: 'future-value-calculator', label: 'Future-value plan', source: 'Future Value Calculator', key: 'pv' },
   { slug: 'coast-fire-calculator', label: 'Invested (Coast FIRE)', source: 'Coast FIRE Calculator', key: 'invested' },
   { slug: 'emergency-fund-visualizer', label: 'Emergency fund', source: 'Emergency Fund Visualizer', key: 'saved' },
+  { slug: 'savings-goal-calculator', label: 'Savings goal', source: 'Savings Goal Calculator', key: 'current' },
+  { slug: 'interest-calculator', label: 'Interest plan', source: 'Interest Calculator', key: 'principal' },
+  { slug: 'fat-fire-vs-lean-fire-calculator', label: 'Invested (FIRE plan)', source: 'Fat FIRE vs Lean FIRE', key: 'saved' },
+  { slug: 'rmd-calculator', label: 'Retirement (RMD)', source: 'RMD Calculator', key: 'balance' },
+  { slug: 'down-payment-calculator', label: 'Down-payment fund', source: 'Down Payment Calculator', key: 'saved' },
 ]
 
 export function buildFinancialPicture(calculators: SavedCalculator[]): FinancialPicture {
@@ -273,16 +292,32 @@ export function buildFinancialPicture(calculators: SavedCalculator[]): Financial
   if (mortgage) detailDebts.push(mortgage)
   detailDebts.push(...cardDebts(byTool))
   for (const spec of DEBT_SPECS) {
+    // The two student-loan tools describe the same loan — the payoff
+    // planner (explicit payment + extra) wins when both are saved.
+    if (spec.slug === 'student-loan-calculator' && byTool.has('student-loan-payoff-calculator')) continue
     const calc = byTool.get(spec.slug)
-    if (calc) detailDebts.push(...(spec.build(calc.input_state) ?? []))
+    if (calc) {
+      const built = spec.build(calc.input_state) ?? []
+      built.forEach((l) => { l.href = hrefOf(calc) })
+      detailDebts.push(...built)
+    }
   }
   const payoffCalc = byTool.get('debt-payoff-calculator')
   const avalancheCalc = byTool.get('debt-avalanche-vs-snowball-calculator')
-  detailDebts.push(
-    ...(payoffCalc
-      ? listDebts(payoffCalc, 'Debt Payoff Calculator')
-      : listDebts(avalancheCalc, 'Debt Avalanche vs Snowball')),
-  )
+  const listCalc = payoffCalc ?? avalancheCalc
+  if (listCalc) {
+    const listed = listDebts(listCalc, payoffCalc ? 'Debt Payoff Calculator' : 'Debt Avalanche vs Snowball')
+    listed.forEach((l) => { l.href = hrefOf(listCalc) })
+    detailDebts.push(...listed)
+  }
+  // hrefs for the mortgage and card lines (built from their own scenarios)
+  if (mortgage) {
+    const src = ['mortgage-payoff-calculator', 'refinance-calculator', 'mortgage-amortization-calculator', 'mortgage-payment-calculator', 'home-equity-calculator']
+      .map((s) => byTool.get(s)).find(Boolean)
+    if (src) mortgage.href = hrefOf(src)
+  }
+  const cardCalc = byTool.get('credit-card-payoff-calculator') ?? byTool.get('credit-card-calculator')
+  if (cardCalc) detailDebts.forEach((l) => { if (l.label === 'Credit cards') l.href = hrefOf(cardCalc) })
 
   // ── Balance sheet ──
   let assets: MoneyLine[] = []
@@ -294,27 +329,29 @@ export function buildFinancialPicture(calculators: SavedCalculator[]): Financial
     assets = recordLines(nw.input_state, 'assets', 'Net Worth Tracker', {
       home: 'Home', bank: 'Bank accounts', investments: 'Investments', vehicles: 'Vehicles', other: 'Other assets',
     })
+    assets.forEach((l) => { l.href = hrefOf(nw) })
     debts = recordLines(nw.input_state, 'liabs', 'Net Worth Tracker', {
       mortgage: 'Mortgage', auto: 'Auto loan', student: 'Student loan', cards: 'Credit cards', other: 'Other debts',
     })
+    debts.forEach((l) => { l.href = hrefOf(nw) })
   } else if (detailDebts.length || byTool.size) {
     debts = detailDebts
     for (const spec of ASSET_SPECS) {
       const calc = byTool.get(spec.slug)
       const v = calc ? num(calc.input_state, spec.key) : null
-      if (v && v > 0) assets.push({ label: spec.label, source: spec.source, value: v })
+      if (calc && v && v > 0) assets.push({ label: spec.label, source: spec.source, value: v, href: hrefOf(calc) })
     }
     const equity = byTool.get('home-equity-calculator')
     if (equity) {
       const s = equity.input_state
       const eq = (num(s, 'value') ?? 0) - (num(s, 'first') ?? 0) - (num(s, 'second') ?? 0)
-      if (eq > 0) assets.push({ label: 'Home equity', source: 'Home Equity Calculator', value: eq })
+      if (eq > 0) assets.push({ label: 'Home equity', source: 'Home Equity Calculator', value: eq, href: hrefOf(equity) })
     }
     const rental = byTool.get('rental-cash-flow-calculator')
     if (rental) {
       const s = rental.input_state
       const price = num(s, 'price')
-      if (price) assets.push({ label: 'Rental property equity', source: 'Rental Cash Flow Calculator', value: Math.round(price * ((num(s, 'downPct') ?? 25) / 100)) })
+      if (price) assets.push({ label: 'Rental property equity', source: 'Rental Cash Flow Calculator', value: Math.round(price * ((num(s, 'downPct') ?? 25) / 100)), href: hrefOf(rental) })
     }
     if (assets.length || debts.length) basis = 'combined'
   }
@@ -366,7 +403,19 @@ export function buildFinancialPicture(calculators: SavedCalculator[]): Financial
     if (v && v > 0) { monthlyIncome = v; incomeSource = cand.source; break }
   }
 
-  const dti = monthlyIncome && monthlyDebtPayments ? (monthlyDebtPayments / monthlyIncome) * 100 : null
+  // Fallback: a saved Debt-to-Income scenario itemizes monthly payments —
+  // use its total when no loan scenario supplied payments directly.
+  let monthlyDebtPaymentsFinal = monthlyDebtPayments
+  if (monthlyDebtPaymentsFinal == null) {
+    const dtiCalc = byTool.get('debt-to-income-ratio-calculator')
+    if (dtiCalc) {
+      const s = dtiCalc.input_state
+      const sum = ['housing', 'auto', 'student', 'cards', 'other'].reduce((a, k) => a + (num(s, k) ?? 0), 0)
+      if (sum > 0) monthlyDebtPaymentsFinal = sum
+    }
+  }
+
+  const dti = monthlyIncome && monthlyDebtPaymentsFinal ? (monthlyDebtPaymentsFinal / monthlyIncome) * 100 : null
 
   // ── Cash flow: budget scenario wins over 50/30/20 ──
   let cashFlow: FinancialPicture['cashFlow'] = null
@@ -384,7 +433,7 @@ export function buildFinancialPicture(calculators: SavedCalculator[]): Financial
     const totalOutgo = outgo.reduce((a, o) => a + o.value, 0)
     const savings = num(s, 'savings') ?? 0
     cashFlow = {
-      source: 'Budget Calculator', income, outgo, totalOutgo, savings,
+      source: 'Budget Calculator', href: hrefOf(budget), income, outgo, totalOutgo, savings,
       leftover: income - totalOutgo - savings,
       savingsRate: income > 0 ? (savings / income) * 100 : 0,
     }
@@ -393,7 +442,7 @@ export function buildFinancialPicture(calculators: SavedCalculator[]): Financial
     const income = num(s, 'income') ?? 0
     const needs = num(s, 'needs') ?? 0; const wants = num(s, 'wants') ?? 0; const savings = num(s, 'savings') ?? 0
     cashFlow = {
-      source: '50/30/20 Budget Calculator', income,
+      source: '50/30/20 Budget Calculator', href: hrefOf(rule), income,
       outgo: [{ label: 'Needs', value: needs }, { label: 'Wants', value: wants }].filter((o) => o.value > 0),
       totalOutgo: needs + wants, savings,
       leftover: income - needs - wants - savings,
@@ -408,7 +457,7 @@ export function buildFinancialPicture(calculators: SavedCalculator[]): Financial
     const s = ef.input_state
     const monthlyExpenses = ['rent', 'food', 'transport', 'insurance', 'other'].reduce((a, k) => a + (num(s, k) ?? 0), 0)
     const saved = num(s, 'saved') ?? 0
-    if (monthlyExpenses > 0) emergency = { monthsCovered: saved / monthlyExpenses, saved, monthlyExpenses }
+    if (monthlyExpenses > 0) emergency = { monthsCovered: saved / monthlyExpenses, saved, monthlyExpenses, href: hrefOf(ef) }
   }
 
   // ── Monthly saving & investing across saved plans ──
@@ -423,7 +472,7 @@ export function buildFinancialPicture(calculators: SavedCalculator[]): Financial
     const v = calc ? num(calc.input_state, key) : null
     if (v) { monthlyInvesting += v / 12; anyInvesting = true }
   }
-  for (const [slug, key] of [['investment-calculator', 'monthly'], ['savings-calculator', 'monthly'], ['compound-interest-scaler-calculator', 'monthly'], ['high-yield-savings-calculator', 'monthly'], ['retirement-calculator', 'monthly']] as [string, string][]) {
+  for (const [slug, key] of [['investment-calculator', 'monthly'], ['savings-calculator', 'monthly'], ['compound-interest-scaler-calculator', 'monthly'], ['high-yield-savings-calculator', 'monthly'], ['retirement-calculator', 'monthly'], ['interest-calculator', 'monthly'], ['fat-fire-vs-lean-fire-calculator', 'monthlySave'], ['down-payment-calculator', 'monthly'], ['savings-goal-calculator', 'monthlyAmount']] as [string, string][]) {
     const calc = byTool.get(slug)
     const v = calc ? num(calc.input_state, key) : null
     if (v) { monthlyInvesting += v; anyInvesting = true }
@@ -434,7 +483,7 @@ export function buildFinancialPicture(calculators: SavedCalculator[]): Financial
     assets, debts,
     totalAssets, totalDebts,
     netPosition: totalAssets - totalDebts,
-    monthlyDebtPayments,
+    monthlyDebtPayments: monthlyDebtPaymentsFinal,
     weightedApr,
     totalInterestCost,
     highestAprDebt,
