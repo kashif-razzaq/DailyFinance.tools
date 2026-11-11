@@ -19,6 +19,21 @@ export async function generateMetadata({ params }: { params: Promise<{ state: st
     title: `${s.name} Sales Tax Calculator & 2026 Rates (${s.salesTaxBase}%)`,
     description: `Calculate sales tax in ${s.name}: ${s.salesTaxBase}% state rate, about ${s.salesTaxAvgCombined}% combined with local taxes. Grocery rules, worked examples and a free calculator.`,
     alternates: { canonical: `https://dailyfinance.tools/sales-tax/${s.slug}` },
+    openGraph: {
+      title: `${s.name} Sales Tax Calculator & 2026 Rates (${s.salesTaxBase}%)`,
+      description: `Calculate sales tax in ${s.name}: ${s.salesTaxBase}% state rate, about ${s.salesTaxAvgCombined}% combined with local taxes. Grocery rules, worked examples and a free calculator.`,
+      url: `https://dailyfinance.tools/sales-tax/${s.slug}`,
+      siteName: "DailyFinance.tools",
+      locale: "en_US",
+      type: "website",
+      images: [{ url: "https://dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: `${s.name} Sales Tax Calculator & 2026 Rates (${s.salesTaxBase}%)` }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${s.name} Sales Tax Calculator & 2026 Rates (${s.salesTaxBase}%)`,
+      description: `Calculate sales tax in ${s.name}: ${s.salesTaxBase}% state rate, about ${s.salesTaxAvgCombined}% combined with local taxes. Grocery rules, worked examples and a free calculator.`,
+      images: ["https://dailyfinance.tools/images/og-base.jpg"],
+    },
     keywords: [`${s.name.toLowerCase()} sales tax rate`, `${s.name.toLowerCase()} sales tax calculator`, `sales tax in ${s.name.toLowerCase()}`, `how much is sales tax in ${s.name.toLowerCase()}`],
   }
 }

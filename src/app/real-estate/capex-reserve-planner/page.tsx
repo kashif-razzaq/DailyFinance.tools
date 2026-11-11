@@ -7,7 +7,7 @@ import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
-  title: 'CapEx Reserve Planner: Monthly Reserves for Roof, HVAC & Major Repairs',
+  title: 'CapEx Reserve Planner: Monthly Reserves for Big Repairs',
   description: 'Capital expenditure reserves for rental property: replacement cost and lifespan for roof, HVAC, water heater and more — your true monthly reserve.',
   keywords: ['capex calculator rental property', 'capital expenditure reserve calculator', 'rental property reserves calculator', 'roof replacement reserve', 'capex reserve planner'],
   slug: "real-estate/capex-reserve-planner",

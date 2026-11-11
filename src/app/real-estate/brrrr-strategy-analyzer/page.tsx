@@ -7,7 +7,7 @@ import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
-  title: 'BRRRR Calculator: Buy, Rehab, Rent, Refinance, Repeat — Model the Deal',
+  title: 'BRRRR Calculator: Model the Deal End to End',
   description: 'Model a BRRRR deal end to end: purchase + rehab, ARV, refinance at 75% LTV, cash left in the deal and cash-on-cash return after refinancing.',
   keywords: ['brrrr calculator', 'brrrr strategy calculator', 'buy rehab rent refinance repeat', 'brrrr refinance calculator', 'cash left in deal'],
   slug: "real-estate/brrrr-strategy-analyzer",

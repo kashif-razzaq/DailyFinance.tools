@@ -7,7 +7,7 @@ import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
-  title: 'Property Tax Calculator: Assessed Value, Mill Rate & Monthly Escrow',
+  title: 'Property Tax Calculator: Assessed Value & Mill Rate',
   description: 'Estimate annual property tax from market value, assessment ratio, exemptions and tax or mill rate. See your monthly escrow and effective rate.',
   keywords: ['property tax calculator', 'property tax estimator', 'mill rate calculator', 'how to calculate property tax', 'property tax by assessed value'],
   slug: "real-estate/property-tax-assessor-calculator",

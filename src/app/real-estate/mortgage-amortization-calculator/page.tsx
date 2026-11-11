@@ -7,7 +7,7 @@ import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
-  title: 'Mortgage Calculator & Amortization Schedule: Payment, PITI & Total Interest',
+  title: 'Mortgage Amortization Calculator: Schedule, PITI & Interest',
   description: 'Mortgage amortization schedule, free: monthly payment (PITI), total interest, PMI and the effect of extra payments — the complete payment calculator.',
   keywords: ['mortgage calculator', 'mortgage payment calculator', 'amortization calculator', 'mortgage amortization calculator', 'mortgage calculator with taxes and insurance', 'extra payment mortgage calculator'],
   slug: "real-estate/mortgage-amortization-calculator",

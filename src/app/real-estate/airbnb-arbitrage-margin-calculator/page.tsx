@@ -7,7 +7,7 @@ import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
-  title: 'Airbnb Calculator: Arbitrage Margin, Occupancy & Short-Term Rental Profit',
+  title: 'Airbnb Calculator: Arbitrage Margin & Rental Profit',
   description: 'Airbnb and short-term rental profit: ADR × occupancy minus rent or mortgage, platform fees, cleaning and running costs. Arbitrage and owned modes.',
   keywords: ['airbnb calculator', 'airbnb arbitrage calculator', 'short term rental calculator', 'airbnb profit calculator', 'airbnb occupancy calculator'],
   slug: "real-estate/airbnb-arbitrage-margin-calculator",

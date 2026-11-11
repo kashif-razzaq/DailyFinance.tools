@@ -5,6 +5,21 @@ export const metadata: Metadata = {
   title: "Terms of Service | DailyFinance",
   description: "The terms that govern your use of DailyFinance calculators and content: educational estimates, acceptable use, and liability limits.",
   alternates: { canonical: "https://dailyfinance.tools/terms" },
+  openGraph: {
+    title: "Terms of Service | DailyFinance",
+    description: "The terms that govern your use of DailyFinance calculators and content: educational estimates, acceptable use, and liability limits.",
+    url: "https://dailyfinance.tools/terms",
+    siteName: "DailyFinance.tools",
+    locale: "en_US",
+    type: "website",
+    images: [{ url: "https://dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Terms of Service | DailyFinance" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Terms of Service | DailyFinance",
+    description: "The terms that govern your use of DailyFinance calculators and content: educational estimates, acceptable use, and liability limits.",
+    images: ["https://dailyfinance.tools/images/og-base.jpg"],
+  },
 }
 
 export default function Page() {

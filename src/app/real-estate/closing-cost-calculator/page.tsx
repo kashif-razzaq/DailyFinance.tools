@@ -6,11 +6,11 @@ import { ToolContent } from "@/components/shared/ToolContent"
 import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
-export const metadata: Metadata = generateCalculatorMetadata({ title: 'Closing Cost Calculator – Free, Instant Results (2026)', description: 'Use our free Closing Cost Calculator to estimate buyer and seller closing costs and cash to close. Free, instant results with worked examples and FAQs.', keywords: ['closing costs calculator', 'closing cost calculator', 'cash to close calculator', 'estimate closing costs'], slug: "real-estate/closing-cost-calculator", category: "Real Estate" });
+export const metadata: Metadata = generateCalculatorMetadata({ title: 'Closing Cost Calculator: Buyer & Seller Cash to Close', description: 'Buyer and seller closing costs and cash to close, estimated line by line — lender fees, title, escrow, taxes and prepaid items.', keywords: ['closing costs calculator', 'closing cost calculator', 'cash to close calculator', 'estimate closing costs'], slug: "real-estate/closing-cost-calculator", category: "Real Estate" });
 
 export default function Page() {
   return (
-    <ToolLayout title="Closing Cost Calculator" description="Use our free Closing Cost Calculator to estimate buyer and seller closing costs and cash to close. Free, instant results with worked examples and FAQs." slug="closing-cost-calculator" faqs={TOOL_CONTENT["real-estate/closing-cost-calculator"]?.faqs ?? []} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
+    <ToolLayout title="Closing Cost Calculator" description="Buyer and seller closing costs and cash to close, estimated line by line — lender fees, title, escrow, taxes and prepaid items." slug="closing-cost-calculator" faqs={TOOL_CONTENT["real-estate/closing-cost-calculator"]?.faqs ?? []} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
       {() => <ToolContent contentKey="real-estate/closing-cost-calculator" />}
     </ToolLayout>
   )

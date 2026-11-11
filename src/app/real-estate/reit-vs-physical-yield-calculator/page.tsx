@@ -7,7 +7,7 @@ import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
-  title: 'REIT vs Rental Property Calculator: Which Builds More Wealth?',
+  title: 'REIT vs Rental Property: Which Builds More Wealth?',
   description: 'Compare the same capital invested in a REIT (dividend + appreciation, reinvested) versus a leveraged physical rental (cash flow + equity) over 10–30 years.',
   keywords: ['reit vs real estate calculator', 'reit vs rental property', 'is a reit better than rental property', 'real estate vs reit returns calculator'],
   slug: "real-estate/reit-vs-physical-yield-calculator",

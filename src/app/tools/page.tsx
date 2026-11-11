@@ -8,6 +8,21 @@ export const metadata: Metadata = {
   title: "All 100 Free Financial Calculators — The Complete Directory | DailyFinance",
   description: "The complete DailyFinance directory: the Top 100 financial calculators across personal finance, mortgages, loans, tax, retirement and freelance.",
   alternates: { canonical: "https://dailyfinance.tools/tools" },
+  openGraph: {
+    title: "All 100 Free Financial Calculators — The Complete Directory | DailyFinance",
+    description: "The complete DailyFinance directory: the Top 100 financial calculators across personal finance, mortgages, loans, tax, retirement and freelance.",
+    url: "https://dailyfinance.tools/tools",
+    siteName: "DailyFinance.tools",
+    locale: "en_US",
+    type: "website",
+    images: [{ url: "https://dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "All 100 Free Financial Calculators — The Complete Directory | DailyFinance" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "All 100 Free Financial Calculators — The Complete Directory | DailyFinance",
+    description: "The complete DailyFinance directory: the Top 100 financial calculators across personal finance, mortgages, loans, tax, retirement and freelance.",
+    images: ["https://dailyfinance.tools/images/og-base.jpg"],
+  },
   keywords: ["financial calculators", "all calculators", "free finance tools", "calculator directory"],
 }
 

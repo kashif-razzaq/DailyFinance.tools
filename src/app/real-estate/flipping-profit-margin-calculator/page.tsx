@@ -7,7 +7,7 @@ import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
-  title: 'House Flipping Calculator: 70% Rule, Profit Margin & Maximum Offer',
+  title: 'House Flipping Calculator: 70% Rule & Max Offer',
   description: 'Calculate flip profit, ROI and profit margin, and your maximum offer with the 70% rule: ARV × 70% minus rehab. Includes holding, buying and selling costs.',
   keywords: ['house flipping calculator', '70 percent rule calculator', 'flip calculator', 'house flip profit calculator', 'maximum allowable offer calculator'],
   slug: "real-estate/flipping-profit-margin-calculator",

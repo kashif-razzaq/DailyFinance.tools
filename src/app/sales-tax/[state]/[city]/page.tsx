@@ -20,6 +20,21 @@ export async function generateMetadata({ params }: { params: Promise<{ state: st
     title: `Sales Tax in ${c.name}, ${s.abbr} — ${c.combinedRate}% Combined Rate, Examples & Calculator`,
     description: `The combined sales tax rate in ${c.name}, ${s.name} is about ${c.combinedRate}% (state ${s.salesTaxBase}% + local). See tax on $50–$1,000 purchases, how the rate is built, grocery rules and a free calculator.`,
     alternates: { canonical: `https://dailyfinance.tools/sales-tax/${s.slug}/${c.slug}` },
+    openGraph: {
+      title: `Sales Tax in ${c.name}, ${s.abbr} — ${c.combinedRate}% Combined Rate, Examples & Calculator`,
+      description: `The combined sales tax rate in ${c.name}, ${s.name} is about ${c.combinedRate}% (state ${s.salesTaxBase}% + local). See tax on $50–$1,000 purchases, how the rate is built, grocery rules and a free calculator.`,
+      url: `https://dailyfinance.tools/sales-tax/${s.slug}/${c.slug}`,
+      siteName: "DailyFinance.tools",
+      locale: "en_US",
+      type: "website",
+      images: [{ url: "https://dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: `Sales Tax in ${c.name}, ${s.abbr} — ${c.combinedRate}% Combined Rate, Examples & Calculator` }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `Sales Tax in ${c.name}, ${s.abbr} — ${c.combinedRate}% Combined Rate, Examples & Calculator`,
+      description: `The combined sales tax rate in ${c.name}, ${s.name} is about ${c.combinedRate}% (state ${s.salesTaxBase}% + local). See tax on $50–$1,000 purchases, how the rate is built, grocery rules and a free calculator.`,
+      images: ["https://dailyfinance.tools/images/og-base.jpg"],
+    },
     keywords: [`sales tax in ${c.name.toLowerCase()}`, `${c.name.toLowerCase()} sales tax rate`, `${c.name.toLowerCase()} ${s.abbr.toLowerCase()} tax calculator`],
   }
 }

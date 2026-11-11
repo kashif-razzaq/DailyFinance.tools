@@ -7,7 +7,7 @@ import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
-  title: 'HELOC Calculator: Draw, Interest-Only Payment & Repayment Simulator',
+  title: 'HELOC Calculator: Draw & Repayment Payment Simulator',
   description: 'Calculate your available HELOC credit, interest-only draw-period payment and the amortized repayment-phase payment. See the payment jump before it happens.',
   keywords: ['heloc calculator', 'heloc payment calculator', 'home equity line of credit calculator', 'heloc draw calculator', 'interest only heloc payment'],
   slug: "real-estate/heloc-drawdown-simulator",

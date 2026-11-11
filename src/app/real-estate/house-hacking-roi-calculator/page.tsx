@@ -7,7 +7,7 @@ import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
-  title: 'House Hacking Calculator: Live Rent-Free & Calculate Your ROI',
+  title: 'House Hacking Calculator: Your Effective Housing Cost',
   description: 'House hacking a duplex or multi-family: your effective housing cost and ROI, how rent from other units offsets your mortgage (PITI), vs renting.',
   keywords: ['house hacking calculator', 'house hacking roi calculator', 'house hack mortgage calculator', 'live rent free calculator', 'duplex house hack calculator'],
   slug: "real-estate/house-hacking-roi-calculator",

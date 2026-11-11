@@ -7,7 +7,7 @@ import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
-  title: 'Rental Property Calculator: Cash Flow, Cap Rate & Cash-on-Cash',
+  title: 'Rental Property Calculator: Cash Flow & Cap Rate',
   description: 'Rental property cash flow, cap rate and cash-on-cash return: full PITI, vacancy, maintenance and management reserves — no flattering omissions.',
   keywords: ['rental property calculator', 'rental cash flow calculator', 'cap rate calculator', 'cash on cash return calculator', 'rental roi calculator'],
   slug: "real-estate/rental-cash-flow-calculator",
