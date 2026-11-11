@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { CheckCircle2, AlertTriangle } from "lucide-react"
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 import { useCurrencySymbol } from '@/lib/currency'
 
 const fmt = (n: number, sym: string) => sym + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
@@ -18,6 +19,17 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [shipCost, setShipCost] = useState(6)
   const [other, setOther] = useState(2)
   const [orders, setOrders] = useState(300)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.price !== undefined) setPrice(s.price as any)
+    if (s.cogs !== undefined) setCogs(s.cogs as any)
+    if (s.shipCharged !== undefined) setShipCharged(s.shipCharged as any)
+    if (s.shipCost !== undefined) setShipCost(s.shipCost as any)
+    if (s.other !== undefined) setOther(s.other as any)
+    if (s.orders !== undefined) setOrders(s.orders as any)
+  })
+
 
   const charged = price + shipCharged
   const payFee = charged * 0.029 + 0.30

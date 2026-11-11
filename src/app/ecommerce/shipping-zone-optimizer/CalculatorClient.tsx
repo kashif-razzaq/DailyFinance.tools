@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { CheckCircle2, AlertTriangle } from "lucide-react"
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 import { useCurrencySymbol } from '@/lib/currency'
 
 const fmt = (n: number, sym: string) => sym + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
@@ -20,6 +21,19 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [nationalCost, setNationalCost] = useState(13.50)
   const [localPct, setLocalPct] = useState(25)
   const [regionalPct, setRegionalPct] = useState(45)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.orders !== undefined) setOrders(s.orders as any)
+    if (s.flatCharge !== undefined) setFlatCharge(s.flatCharge as any)
+    if (s.freeThreshold !== undefined) setFreeThreshold(s.freeThreshold as any)
+    if (s.localCost !== undefined) setLocalCost(s.localCost as any)
+    if (s.regionalCost !== undefined) setRegionalCost(s.regionalCost as any)
+    if (s.nationalCost !== undefined) setNationalCost(s.nationalCost as any)
+    if (s.localPct !== undefined) setLocalPct(s.localPct as any)
+    if (s.regionalPct !== undefined) setRegionalPct(s.regionalPct as any)
+  })
+
 
   const nationalPct = Math.max(0, 100 - localPct - regionalPct)
   const avgCarrier = (localCost * localPct + regionalCost * regionalPct + nationalCost * nationalPct) / 100

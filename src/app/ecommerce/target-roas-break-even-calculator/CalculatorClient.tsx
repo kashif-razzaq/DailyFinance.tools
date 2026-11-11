@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { CheckCircle2, AlertTriangle } from "lucide-react"
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 import { useCurrencySymbol } from '@/lib/currency'
 
 const fmt = (n: number, sym: string) => sym + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
@@ -16,6 +17,16 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [ship, setShip] = useState(7)
   const [other, setOther] = useState(5)
   const [currentRoas, setCurrentRoas] = useState(3)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.price !== undefined) setPrice(s.price as any)
+    if (s.cogs !== undefined) setCogs(s.cogs as any)
+    if (s.ship !== undefined) setShip(s.ship as any)
+    if (s.other !== undefined) setOther(s.other as any)
+    if (s.currentRoas !== undefined) setCurrentRoas(s.currentRoas as any)
+  })
+
 
   const grossProfit = price - cogs - ship - other
   const margin = price > 0 ? grossProfit / price : 0

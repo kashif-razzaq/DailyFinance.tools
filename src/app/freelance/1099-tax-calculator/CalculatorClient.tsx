@@ -2,6 +2,7 @@
 'use client'
 import React, { useMemo, useState } from 'react'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 
@@ -40,6 +41,16 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [w2, setW2] = useState(0)
   const [status, setStatus] = useState<'single' | 'mfj'>('single')
   const [statePct, setStatePct] = useState(5)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.income !== undefined) setIncome(s.income as any)
+    if (s.expenses !== undefined) setExpenses(s.expenses as any)
+    if (s.w2 !== undefined) setW2(s.w2 as any)
+    if (s.status !== undefined) setStatus(s.status as any)
+    if (s.statePct !== undefined) setStatePct(s.statePct as any)
+  })
+
 
   const r = useMemo(() => {
     const net = Math.max(0, income - expenses)

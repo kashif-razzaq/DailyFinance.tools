@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { CheckCircle2, AlertTriangle } from "lucide-react"
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [dailySales, setDailySales] = useState(20)
@@ -11,6 +12,16 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [safetyDays, setSafetyDays] = useState(7)
   const [currentStock, setCurrentStock] = useState(500)
   const [coverDays, setCoverDays] = useState(30)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.dailySales !== undefined) setDailySales(s.dailySales as any)
+    if (s.leadTime !== undefined) setLeadTime(s.leadTime as any)
+    if (s.safetyDays !== undefined) setSafetyDays(s.safetyDays as any)
+    if (s.currentStock !== undefined) setCurrentStock(s.currentStock as any)
+    if (s.coverDays !== undefined) setCoverDays(s.coverDays as any)
+  })
+
 
   const demandDuringLead = dailySales * leadTime
   const safetyStock = dailySales * safetyDays

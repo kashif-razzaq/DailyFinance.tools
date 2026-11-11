@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 const fmt = (n: number) => curSym() + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
@@ -33,6 +34,16 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [price, setPrice] = useState(49.99)
   const [targetMargin, setTargetMargin] = useState(40)
   const [units, setUnits] = useState(100)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.mode !== undefined) setMode(s.mode as any)
+    if (s.cost !== undefined) setCost(s.cost as any)
+    if (s.price !== undefined) setPrice(s.price as any)
+    if (s.targetMargin !== undefined) setTargetMargin(s.targetMargin as any)
+    if (s.units !== undefined) setUnits(s.units as any)
+  })
+
 
   const r = useMemo(() => {
     // Margin = (price − cost) / price; Markup = (price − cost) / cost. They are NOT the same number.

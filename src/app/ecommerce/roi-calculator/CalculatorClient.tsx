@@ -6,6 +6,7 @@ import { Slider } from "@/components/ui/slider"
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts'
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
@@ -24,6 +25,14 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [invested, setInvested] = useState(10000)
   const [returned, setReturned] = useState(14500)
   const [years, setYears] = useState(3)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.invested !== undefined) setInvested(s.invested as any)
+    if (s.returned !== undefined) setReturned(s.returned as any)
+    if (s.years !== undefined) setYears(s.years as any)
+  })
+
 
   const r = useMemo(() => {
     const profit = returned - invested

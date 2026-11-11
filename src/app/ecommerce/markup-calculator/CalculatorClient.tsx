@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 const fmt = (n: number) => curSym() + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
@@ -25,6 +26,14 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [mode, setMode] = useState<'markup' | 'margin'>('markup')
   const [cost, setCost] = useState(30)
   const [pctVal, setPctVal] = useState(66.7)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.mode !== undefined) setMode(s.mode as any)
+    if (s.cost !== undefined) setCost(s.cost as any)
+    if (s.pctVal !== undefined) setPctVal(s.pctVal as any)
+  })
+
 
   const r = useMemo(() => {
     // Markup mode: price = cost x (1 + markup). Margin mode: price = cost / (1 − margin).

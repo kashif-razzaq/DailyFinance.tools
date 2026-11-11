@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { TrendingUp } from "lucide-react"
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 import { useCurrencySymbol } from '@/lib/currency'
 
 const fmt0 = (n: number, sym: string) => sym + Math.round(n).toLocaleString('en-US')
@@ -17,6 +18,17 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [reducedChurn, setReducedChurn] = useState(4)
   const [adds, setAdds] = useState(80)
   const [months, setMonths] = useState(12)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.customers !== undefined) setCustomers(s.customers as any)
+    if (s.arpu !== undefined) setArpu(s.arpu as any)
+    if (s.churn !== undefined) setChurn(s.churn as any)
+    if (s.reducedChurn !== undefined) setReducedChurn(s.reducedChurn as any)
+    if (s.adds !== undefined) setAdds(s.adds as any)
+    if (s.months !== undefined) setMonths(s.months as any)
+  })
+
 
   const project = (churnPct: number) => {
     let c = customers

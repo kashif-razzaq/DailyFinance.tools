@@ -5,6 +5,7 @@ import { Slider } from "@/components/ui/slider"
 import { Receipt } from "lucide-react"
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 const fmt = (n: number) => curSym() + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
 
@@ -24,6 +25,19 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [localAdd, setLocalAdd] = useState(1.5)
   const [customVat, setCustomVat] = useState(20)
   const [useCustomVat, setUseCustomVat] = useState(false)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.system !== undefined) setSystem(s.system as any)
+    if (s.mode !== undefined) setMode(s.mode as any)
+    if (s.amount !== undefined) setAmount(s.amount as any)
+    if (s.state !== undefined) setState(s.state as any)
+    if (s.vatPreset !== undefined) setVatPreset(s.vatPreset as any)
+    if (s.localAdd !== undefined) setLocalAdd(s.localAdd as any)
+    if (s.customVat !== undefined) setCustomVat(s.customVat as any)
+    if (s.useCustomVat !== undefined) setUseCustomVat(s.useCustomVat as any)
+  })
+
 
   const rate = system === 'us' ? (STATE_RATES[state] + localAdd) : (useCustomVat ? customVat : VAT_RATES[vatPreset])
   const tax = mode === 'add' ? amount * (rate / 100) : amount - amount / (1 + rate / 100)

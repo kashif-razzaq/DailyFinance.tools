@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { CheckCircle2, AlertTriangle } from "lucide-react"
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 import { useCurrencySymbol } from '@/lib/currency'
 
 const fmt = (n: number, sym: string) => sym + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
@@ -17,6 +18,16 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [lifespan, setLifespan] = useState(3)
   const [margin, setMargin] = useState(60)
   const [cac, setCac] = useState(45)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.aov !== undefined) setAov(s.aov as any)
+    if (s.freq !== undefined) setFreq(s.freq as any)
+    if (s.lifespan !== undefined) setLifespan(s.lifespan as any)
+    if (s.margin !== undefined) setMargin(s.margin as any)
+    if (s.cac !== undefined) setCac(s.cac as any)
+  })
+
 
   const revenueLtv = aov * freq * lifespan
   const ltv = revenueLtv * (margin / 100)
