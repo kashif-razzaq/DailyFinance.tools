@@ -45,7 +45,7 @@ export default function AboutPage() {
           <div className="bg-card border rounded-3xl p-6">
             <ShieldCheck className="h-6 w-6 text-primary mb-3" />
             <h2 className="font-bold text-lg mb-2">Reviewed by a professional</h2>
-            <p className="text-sm text-muted-foreground leading-relaxed">Our calculators are reviewed by Tahir Shehzad, ACMA — an Assistant Manager, Accounts &amp; Finance running finance for a multi-entity group across IFRS reporting, payroll, taxation and compliance. His models keep the tools grounded in how finance actually works.</p>
+            <p className="text-sm text-muted-foreground leading-relaxed">Our calculators are reviewed by Tahir Shehzad, ACMA — an Assistant Manager, Accounts &amp; Finance running finance for a multi-entity group across IFRS reporting, payroll, taxation and compliance. His models keep the tools grounded in how finance actually works. How we research, write and correct content is set out in our <Link href="/editorial-policy" className="font-semibold text-primary hover:underline">Editorial Policy</Link> and <Link href="/methodology" className="font-semibold text-primary hover:underline">Methodology</Link>.</p>
           </div>
           <div className="bg-card border rounded-3xl p-6">
             <RefreshCw className="h-6 w-6 text-primary mb-3" />

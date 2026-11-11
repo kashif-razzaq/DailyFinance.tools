@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { ReviewLine } from "@/components/locations/ReviewLine"
 import { TaxCompareChart } from "@/components/locations/TaxCompareChart"
 import { FaqAccordion } from "@/components/shared/FaqAccordion"
 import Link from "next/link"
@@ -180,6 +181,8 @@ export default async function StateHubPage({ params }: { params: Promise<{ state
 <FaqAccordion items={faqs} variant="compact" />
           </aside>
         </div>
+
+        <ReviewLine />
 
         <h2 className="text-xl font-bold tracking-tight mt-14 mb-4">Other states</h2>
         <div className="flex flex-wrap gap-2">

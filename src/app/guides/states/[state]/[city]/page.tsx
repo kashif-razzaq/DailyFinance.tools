@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { ReviewLine } from "@/components/locations/ReviewLine"
 import { TaxCompareChart } from "@/components/locations/TaxCompareChart"
 import { FaqAccordion } from "@/components/shared/FaqAccordion"
 import Script from "next/script"
@@ -220,6 +221,8 @@ export default async function CityGuidePage({ params }: { params: Promise<{ stat
           <h2 className="text-2xl font-extrabold tracking-tight mb-5">{c.name} sales tax FAQs</h2>
 <FaqAccordion items={faqs} />
         </section>
+
+        <ReviewLine />
 
         <aside className="mt-12 bg-[#064E3B] text-white rounded-2xl p-6 md:p-8">
           <h2 className="text-lg font-bold mb-1 flex items-center gap-2"><Calculator className="h-5 w-5" /> Calculate {c.name} tax</h2>

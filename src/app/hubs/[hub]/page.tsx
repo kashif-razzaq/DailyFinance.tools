@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { ReviewLine } from "@/components/locations/ReviewLine"
 import Script from "next/script"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
@@ -156,6 +157,8 @@ export default async function HubPage({ params }: { params: Promise<{ hub: strin
             <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-foreground mb-6">Questions, answered</h2>
             <FaqAccordion items={h.faqs} />
           </section>
+
+          <ReviewLine scope="general" />
 
           {guides.length > 0 && (
             <section>
