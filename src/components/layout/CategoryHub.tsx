@@ -56,7 +56,7 @@ export function CategoryHub({ categorySlug, quickAnswer, intro, decisions, faqs 
       <Script id={`schema-hub-faq-${category.slug}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <Script id={`schema-hub-crumb-${category.slug}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
-      <section className="container mx-auto px-4 md:px-8 pt-14 pb-10">
+      <section className="mx-auto w-full max-w-7xl px-6 pt-14 pb-10 lg:px-8">
         <nav className="flex items-center gap-1.5 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider flex-nowrap overflow-x-auto whitespace-nowrap [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden mb-6">
           <Link href="/" className="shrink-0 hover:text-foreground transition-colors">Home</Link>
           <span aria-hidden="true" className="text-border shrink-0 select-none">›</span>
@@ -79,7 +79,7 @@ export function CategoryHub({ categorySlug, quickAnswer, intro, decisions, faqs 
         </div>
       </section>
 
-      <section className="container mx-auto px-4 md:px-8 pb-6">
+      <section className="mx-auto w-full max-w-7xl px-6 pb-6 lg:px-8">
         <h2 className="text-2xl font-bold tracking-tight mb-6">All {category.name} Tools ({category.calculators.length})</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {category.calculators.map((calc) => {
@@ -103,7 +103,7 @@ export function CategoryHub({ categorySlug, quickAnswer, intro, decisions, faqs 
         </div>
       </section>
 
-      <section className="container mx-auto px-4 md:px-8 py-10">
+      <section className="mx-auto w-full max-w-7xl px-6 py-10 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           <article className="lg:col-span-8 min-w-0 space-y-14">
             <div className="content-prose">

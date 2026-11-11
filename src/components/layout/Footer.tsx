@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { GUIDES } from '@/data/guides'
+import { HUBS } from '@/data/hubs'
 import { FooterAccordion } from '@/components/layout/FooterAccordion'
 import { Logo } from '@/components/layout/Logo'
 import { Input } from '@/components/ui/input'
@@ -99,12 +100,12 @@ export function Footer() {
             No tool links (Kashif, 2026-11-12); mobile uses the accordion above. */}
         <div className="hidden md:grid md:grid-cols-4 gap-8 mb-16">
           <div className="flex flex-col gap-4">
-            <h4 className="font-semibold text-sm text-foreground">Explore</h4>
+            <h4 className="font-semibold text-sm text-foreground">Hubs</h4>
             <ul className="flex flex-col gap-2.5">
-              {[["All 100 Tools", "/tools"], ["Calculators by State", "/locations"], ["State Tax Guides", "/guides/states"]].map(([label, href]) => (
-                <li key={href}>
-                  <Link href={href} className="text-[13px] text-muted-foreground hover:text-foreground transition-colors leading-tight">
-                    {label}
+              {HUBS.map((h) => (
+                <li key={h.slug}>
+                  <Link href={`/hubs/${h.slug}`} className="text-[13px] text-muted-foreground hover:text-foreground transition-colors leading-tight">
+                    {h.title.replace(/ calculators$/i, "")}
                   </Link>
                 </li>
               ))}
@@ -114,7 +115,7 @@ export function Footer() {
           <div className="flex flex-col gap-4">
             <h4 className="font-semibold text-sm text-foreground">Guides</h4>
             <ul className="flex flex-col gap-2.5">
-              {GUIDES.slice(0, 6).map((guide) => (
+              {GUIDES.slice(0, 4).map((guide) => (
                 <li key={guide.slug}>
                   <Link href={`/guides/${guide.slug}`} className="text-[13px] text-muted-foreground hover:text-foreground transition-colors leading-tight line-clamp-2">
                     {guide.title}

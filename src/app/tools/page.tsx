@@ -43,7 +43,7 @@ export default function ToolsDirectoryPage() {
   return (
     <main className="w-full bg-background min-h-screen">
       <Script id="schema-tools-directory" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemList) }} />
-      <div className="container mx-auto px-4 md:px-8 py-14">
+      <div className="mx-auto w-full max-w-7xl px-6 py-14 lg:px-8">
         <nav className="flex items-center gap-1.5 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider flex-nowrap overflow-x-auto whitespace-nowrap [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden mb-6">
           <Link href="/" className="shrink-0 hover:text-foreground">Home</Link><span aria-hidden="true" className="text-border shrink-0 select-none">›</span><span className="truncate max-w-[150px] sm:max-w-[220px] md:max-w-none text-foreground">All Tools</span>
         </nav>

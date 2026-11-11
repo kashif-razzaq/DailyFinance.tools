@@ -51,7 +51,7 @@ const linkCls = "text-sm text-muted-foreground underline-offset-2 transition-col
 
 export default function SitemapPage() {
   return (
-    <main className="mx-auto w-full max-w-6xl px-5 py-12 md:py-16">
+    <main className="mx-auto w-full max-w-7xl px-6 py-12 lg:px-8 md:py-16">
       <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.15em] text-[#064E3B]">DailyFinance.tools</p>
       <h1 className="mb-3 text-3xl font-extrabold tracking-tight text-foreground md:text-4xl">Sitemap</h1>
       <p className="mb-4 max-w-2xl font-light leading-relaxed text-muted-foreground">
