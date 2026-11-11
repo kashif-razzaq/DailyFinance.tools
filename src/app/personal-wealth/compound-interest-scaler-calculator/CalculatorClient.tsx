@@ -24,10 +24,21 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts'
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const sym = useCurrencySymbol()
   const [principal, setPrincipal] = useState(10000); const [monthly, setMonthly] = useState(300)
   const [rate, setRate] = useState(8); const [years, setYears] = useState(25); const [freq, setFreq] = useState(12)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.principal !== undefined) setPrincipal(s.principal as any)
+    if (s.monthly !== undefined) setMonthly(s.monthly as any)
+    if (s.rate !== undefined) setRate(s.rate as any)
+    if (s.years !== undefined) setYears(s.years as any)
+    if (s.freq !== undefined) setFreq(s.freq as any)
+  })
+
   const r = useMemo(() => {
     const n = freq, rr = rate / 100
     const fvLump = principal * Math.pow(1 + rr / n, n * years)

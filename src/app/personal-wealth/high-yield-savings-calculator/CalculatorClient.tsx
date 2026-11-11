@@ -24,6 +24,7 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, Legend } from 'recharts'
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 // Formula: monthly compounding — Balance(m+1) = Balance(m) × (1 + APY/12) + MonthlyContribution
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
@@ -33,6 +34,16 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [years, setYears] = useState(5)
   const [hysaApy, setHysaApy] = useState(4.5)
   const [regularApy, setRegularApy] = useState(0.4)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.deposit !== undefined) setDeposit(s.deposit as any)
+    if (s.monthly !== undefined) setMonthly(s.monthly as any)
+    if (s.years !== undefined) setYears(s.years as any)
+    if (s.hysaApy !== undefined) setHysaApy(s.hysaApy as any)
+    if (s.regularApy !== undefined) setRegularApy(s.regularApy as any)
+  })
+
 
   const calc = useMemo(() => {
     const safeYears = Math.max(0, Math.min(50, years || 0))

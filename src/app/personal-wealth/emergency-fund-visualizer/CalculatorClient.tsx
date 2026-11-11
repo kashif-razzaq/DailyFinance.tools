@@ -24,11 +24,25 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Cell } from 'recharts'
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const sym = useCurrencySymbol()
   const [rent, setRent] = useState(1500); const [food, setFood] = useState(600); const [transport, setTransport] = useState(350)
   const [insurance, setInsurance] = useState(300); const [other, setOther] = useState(450)
   const [saved, setSaved] = useState(5000); const [monthlySave, setMonthlySave] = useState(400); const [months, setMonths] = useState(6)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.rent !== undefined) setRent(s.rent as any)
+    if (s.food !== undefined) setFood(s.food as any)
+    if (s.transport !== undefined) setTransport(s.transport as any)
+    if (s.insurance !== undefined) setInsurance(s.insurance as any)
+    if (s.other !== undefined) setOther(s.other as any)
+    if (s.saved !== undefined) setSaved(s.saved as any)
+    if (s.monthlySave !== undefined) setMonthlySave(s.monthlySave as any)
+    if (s.months !== undefined) setMonths(s.months as any)
+  })
+
   const monthly = rent + food + transport + insurance + other
   const r = useMemo(() => {
     const target = monthly * months

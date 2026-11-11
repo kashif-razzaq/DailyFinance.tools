@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 const fmt2 = (n: number) => curSym() + n.toLocaleString('en-US', { maximumFractionDigits: 0 })
@@ -27,6 +28,16 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const sym = useCurrencySymbol()
   const [lean, setLean] = useState(3000); const [fat, setFat] = useState(10000)
   const [saved, setSaved] = useState(80000); const [monthlySave, setMonthlySave] = useState(1500); const [ret, setRet] = useState(7)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.lean !== undefined) setLean(s.lean as any)
+    if (s.fat !== undefined) setFat(s.fat as any)
+    if (s.saved !== undefined) setSaved(s.saved as any)
+    if (s.monthlySave !== undefined) setMonthlySave(s.monthlySave as any)
+    if (s.ret !== undefined) setRet(s.ret as any)
+  })
+
   const yearsTo = (target: number) => { let bal = saved, m = 0; const mr = ret / 100 / 12; while (bal < target && m < 1200) { bal = bal * (1 + mr) + monthlySave; m++ } return m / 12 }
   const leanTarget = lean * 12 * 25, fatTarget = fat * 12 * 25
   const incomeProxy = monthlySave * 4

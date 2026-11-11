@@ -24,6 +24,7 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip, Legend } from 'recharts'
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 const COLORS = ['#064E3B', '#0E7C61', '#D97706', '#2563EB', '#7C3AED', '#DB2777', '#0891B2', '#65A30D', '#EA580C', '#475569', '#059669']
 
@@ -41,6 +42,22 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [subscriptions, setSubscriptions] = useState(60)
   const [other, setOther] = useState(150)
   const [savings, setSavings] = useState(600)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.income !== undefined) setIncome(s.income as any)
+    if (s.housing !== undefined) setHousing(s.housing as any)
+    if (s.transport !== undefined) setTransport(s.transport as any)
+    if (s.food !== undefined) setFood(s.food as any)
+    if (s.utilities !== undefined) setUtilities(s.utilities as any)
+    if (s.insurance !== undefined) setInsurance(s.insurance as any)
+    if (s.entertainment !== undefined) setEntertainment(s.entertainment as any)
+    if (s.dining !== undefined) setDining(s.dining as any)
+    if (s.subscriptions !== undefined) setSubscriptions(s.subscriptions as any)
+    if (s.other !== undefined) setOther(s.other as any)
+    if (s.savings !== undefined) setSavings(s.savings as any)
+  })
+
 
   const categories = useMemo(() => [
     { name: 'Housing', value: housing || 0 },

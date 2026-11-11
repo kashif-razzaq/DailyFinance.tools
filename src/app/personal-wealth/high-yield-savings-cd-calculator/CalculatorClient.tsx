@@ -24,10 +24,22 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts'
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const sym = useCurrencySymbol()
   const [deposit, setDeposit] = useState(20000); const [hysaApy, setHysaApy] = useState(4.2); const [cdApy, setCdApy] = useState(4.75)
   const [term, setTerm] = useState(3); const [freq, setFreq] = useState(12); const [taxRate, setTaxRate] = useState(22)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.deposit !== undefined) setDeposit(s.deposit as any)
+    if (s.hysaApy !== undefined) setHysaApy(s.hysaApy as any)
+    if (s.cdApy !== undefined) setCdApy(s.cdApy as any)
+    if (s.term !== undefined) setTerm(s.term as any)
+    if (s.freq !== undefined) setFreq(s.freq as any)
+    if (s.taxRate !== undefined) setTaxRate(s.taxRate as any)
+  })
+
   const fv = (apy: number) => deposit * Math.pow(1 + apy / 100 / freq, freq * term)
   const h = fv(hysaApy), c = fv(cdApy)
   const chart = [{ name: 'HYSA', earnings: Math.round(h - deposit) }, { name: 'CD', earnings: Math.round(c - deposit) }, { name: 'Regular savings (0.5%)', earnings: Math.round(fv(0.5) - deposit) }]

@@ -24,6 +24,7 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts'
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 function fixedPayoff(balance: number, apr: number, payment: number) {
   let bal = balance, months = 0, interest = 0; const mr = apr / 100 / 12; const series = [{ month: 0, balance: Math.round(bal) }]
   while (bal > 0 && months < 600) { const i = bal * mr; interest += i; bal = bal + i - payment; months++; if (months % 6 === 0 || bal <= 0) series.push({ month: months, balance: Math.round(Math.max(0, bal)) }) }
@@ -37,6 +38,14 @@ function minimumPayoff(balance: number, apr: number) {
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const sym = useCurrencySymbol()
   const [balance, setBalance] = useState(6500); const [apr, setApr] = useState(24.99); const [payment, setPayment] = useState(250)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.balance !== undefined) setBalance(s.balance as any)
+    if (s.apr !== undefined) setApr(s.apr as any)
+    if (s.payment !== undefined) setPayment(s.payment as any)
+  })
+
   const fixed = useMemo(() => fixedPayoff(balance, apr, payment), [balance, apr, payment])
   const min = useMemo(() => minimumPayoff(balance, apr), [balance, apr])
   const tooLow = payment <= balance * apr / 100 / 12

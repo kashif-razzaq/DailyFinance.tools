@@ -24,10 +24,21 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts'
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const sym = useCurrencySymbol()
   const [contrib, setContrib] = useState(4400); const [balance, setBalance] = useState(5000)
   const [years, setYears] = useState(20); const [ret, setRet] = useState(7); const [bracket, setBracket] = useState(22)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.contrib !== undefined) setContrib(s.contrib as any)
+    if (s.balance !== undefined) setBalance(s.balance as any)
+    if (s.years !== undefined) setYears(s.years as any)
+    if (s.ret !== undefined) setRet(s.ret as any)
+    if (s.bracket !== undefined) setBracket(s.bracket as any)
+  })
+
   const LIMIT_NOTE = '2026 IRS limits used here: $4,400 self-only / $8,750 family, plus $1,000 catch-up at 55+. Limits change — check IRS.gov for the current year.'
   const r = useMemo(() => {
     const rate = ret / 100

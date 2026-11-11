@@ -24,11 +24,23 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts'
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const sym = useCurrencySymbol()
   const [age, setAge] = useState(30); const [retireAge, setRetireAge] = useState(65)
   const [invested, setInvested] = useState(50000); const [spending, setSpending] = useState(50000)
   const [ret, setRet] = useState(7); const [monthly, setMonthly] = useState(500)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.age !== undefined) setAge(s.age as any)
+    if (s.retireAge !== undefined) setRetireAge(s.retireAge as any)
+    if (s.invested !== undefined) setInvested(s.invested as any)
+    if (s.spending !== undefined) setSpending(s.spending as any)
+    if (s.ret !== undefined) setRet(s.ret as any)
+    if (s.monthly !== undefined) setMonthly(s.monthly as any)
+  })
+
   const r = useMemo(() => {
     const years = Math.max(0, retireAge - age)
     const fire = spending * 25

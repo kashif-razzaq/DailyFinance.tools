@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 const fmt2 = (n: number) => curSym() + n.toLocaleString('en-US', { maximumFractionDigits: 0 })
@@ -47,6 +48,13 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     { name: 'Store Card', balance: 2200, apr: 29.99, min: 65 },
     { name: 'Personal Loan', balance: 9000, apr: 11.5, min: 210 }])
   const [extra, setExtra] = useState(200)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.debts !== undefined) setDebts(s.debts as any)
+    if (s.extra !== undefined) setExtra(s.extra as any)
+  })
+
   const upd = (i: number, k: keyof Debt, v: any) => setDebts(prev => prev.map((d, j) => j === i ? { ...d, [k]: v } : d))
   const av = useMemo(() => simulate(debts, extra, 'avalanche'), [debts, extra])
   const sn = useMemo(() => simulate(debts, extra, 'snowball'), [debts, extra])

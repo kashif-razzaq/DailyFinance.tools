@@ -24,6 +24,7 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts'
 import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
+import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
 // Formula: FV = PV(1+r)^t + PMT × [((1+r)^t − 1)/r]  (× (1+r) if annuity due); r = periodic rate, t = total periods. If r=0: FV = PV + PMT×t
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
@@ -35,6 +36,18 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [years, setYears] = useState(10)
   const [annuityType, setAnnuityType] = useState<'ordinary' | 'due'>('ordinary')
   const [inflation, setInflation] = useState(3)
+
+  // Restore a saved scenario opened from the Vault (?savedId=…).
+  useSavedScenarioRestore((s) => {
+    if (s.pv !== undefined) setPv(s.pv as any)
+    if (s.pmtInput !== undefined) setPmtInput(s.pmtInput as any)
+    if (s.frequency !== undefined) setFrequency(s.frequency as any)
+    if (s.rate !== undefined) setRate(s.rate as any)
+    if (s.years !== undefined) setYears(s.years as any)
+    if (s.annuityType !== undefined) setAnnuityType(s.annuityType as any)
+    if (s.inflation !== undefined) setInflation(s.inflation as any)
+  })
+
 
   const calc = useMemo(() => {
     const periodsPerYear = frequency === 'monthly' ? 12 : 1
