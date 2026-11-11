@@ -1,11 +1,18 @@
 import Link from "next/link"
 import Script from "next/script"
-import { ArrowRight, BookOpen, Calculator } from "lucide-react"
+import { ArrowRight, BookOpen, Calculator, CalendarDays, Clock } from "lucide-react"
 import type { Guide } from "@/data/guides"
 import { FaqAccordion } from "@/components/shared/FaqAccordion"
 import { GuideImage } from "@/components/shared/GuideImage"
 
 /** Renders an editorial guide: hero, prose body, related tools, FAQs, schema. */
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+function formatGuideDate(iso: string): string {
+  const [y, m, d] = iso.split("-").map(Number)
+  if (!y || !m || !d) return iso
+  return `${MONTHS[m - 1]} ${d}, ${y}`
+}
+
 export function GuideArticle({ guide }: { guide: Guide }) {
   const articleSchema = {
     "@context": "https://schema.org",
@@ -42,9 +49,17 @@ export function GuideArticle({ guide }: { guide: Guide }) {
           <Link href="/guides" className="shrink-0 hover:text-foreground">Guides</Link><span aria-hidden="true" className="text-border shrink-0 select-none">›</span>
           <span className="text-foreground truncate max-w-[220px] md:max-w-none">{guide.title}</span>
         </nav>
-        <p className="text-xs font-bold uppercase tracking-[0.15em] text-[#064E3B] dark:text-emerald-400 mb-3 flex items-center gap-2">
-          <BookOpen className="h-4 w-4" /> {guide.hub} · {guide.readMinutes} min read · Updated {guide.updated}
-        </p>
+        <div className="mb-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-[13px] text-muted-foreground">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-[#064E3B]/10 px-3 py-1 text-xs font-bold text-[#064E3B] dark:text-emerald-400">
+            <BookOpen className="h-3.5 w-3.5" /> {guide.hub}
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <Clock className="h-4 w-4 text-[#064E3B] dark:text-emerald-400" /> {guide.readMinutes} min read
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <CalendarDays className="h-4 w-4 text-[#064E3B] dark:text-emerald-400" /> Updated {formatGuideDate(guide.updated)}
+          </span>
+        </div>
         <h1 className="text-3xl md:text-[2.6rem] font-extrabold tracking-tight leading-tight mb-5">{guide.title}</h1>
         <p className="text-lg text-muted-foreground leading-relaxed mb-6">{guide.intro}</p>
 

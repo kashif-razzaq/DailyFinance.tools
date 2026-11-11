@@ -166,8 +166,8 @@ export function Footer() {
         </div>
 
         {/* Bottom Tier: Legal & GEO */}
-        <div className="pt-8 border-t flex flex-col md:flex-row justify-between items-center gap-4">
-          <div className="flex items-center gap-2 text-xs text-muted-foreground">
+        <div className="pt-8 border-t flex flex-col gap-5">
+          <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground md:order-3 md:w-full md:justify-between md:border-t md:border-border/50 md:pt-6">
             <span>&copy; {currentYear} DailyFinance.</span>
             <span className="hidden sm:inline">&bull;</span>
             <span>    <Link href="/about" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
@@ -175,11 +175,30 @@ export function Footer() {
             </Link></span>
           </div>
 
-          <p className="mx-auto mb-5 max-w-2xl text-center text-xs leading-relaxed text-muted-foreground">
+          <p className="mx-auto max-w-2xl text-center text-xs leading-relaxed text-muted-foreground md:order-2">
             DailyFinance.tools offers free educational calculators and guides. Results are estimates only — not financial, tax or investment advice.
           </p>
 
-          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+          {/* Desktop only: grouped footer links (the mobile wrap row above stays untouched) */}
+          <div className="hidden md:order-1 md:grid md:grid-cols-4 md:gap-8">
+            {[
+              { heading: "Explore", links: [["Guides", "/guides"], ["State Tax Guides", "/guides/states"], ["All 100 Tools", "/tools"], ["Calculators by State", "/locations"], ["Sitemap", "/sitemap"]] },
+              { heading: "Company", links: [["About", "/about"], ["Contact", "/contact"]] },
+              { heading: "Our standards", links: [["Methodology", "/methodology"], ["Editorial Policy", "/editorial-policy"], ["Disclaimer", "/disclaimer"]] },
+              { heading: "Legal", links: [["Privacy Policy", "/privacy"], ["Terms of Service", "/terms"], ["Cookie Policy", "/cookies"]] },
+            ].map((group) => (
+              <div key={group.heading} className="flex flex-col gap-2.5">
+                <h4 className="text-[11px] font-bold uppercase tracking-[0.14em] text-foreground">{group.heading}</h4>
+                {group.links.map(([label, href]) => (
+                  <Link key={href} href={href} className="text-[13px] text-muted-foreground transition-colors hover:text-foreground">
+                    {label}
+                  </Link>
+                ))}
+              </div>
+            ))}
+          </div>
+
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 md:hidden">
             <Link href="/about" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
               About
             </Link>
