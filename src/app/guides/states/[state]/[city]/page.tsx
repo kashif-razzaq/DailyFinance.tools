@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { TaxCompareChart } from "@/components/locations/TaxCompareChart"
 import { FaqAccordion } from "@/components/shared/FaqAccordion"
 import Script from "next/script"
 import { notFound } from "next/navigation"
@@ -6,7 +7,7 @@ import type { Metadata } from "next"
 import { ArrowRight, Calculator } from "lucide-react"
 import { US_STATES } from "@/data/locations/us-states"
 import { US_CITIES, getCitiesByState } from "@/data/locations/us-cities"
-import { AVG_CITY_COMBINED, AVG_COMBINED, cityRank, highestCities, lowestCities, pointsDiff } from "@/data/locations/stats"
+import { AVG_CITY_COMBINED, AVG_COMBINED, AVG_PROPERTY, cityRank, highestCities, lowestCities, pointsDiff } from "@/data/locations/stats"
 
 export function generateStaticParams() {
   return US_CITIES.map((c) => ({ state: c.stateSlug, city: c.slug }))
@@ -200,6 +201,20 @@ export default async function CityGuidePage({ params }: { params: Promise<{ stat
             in the <Link href={`/guides/states/${s.slug}`}>{s.name} tax guide</Link>.
           </p>
         </div>
+
+        <section className="mt-12">
+          <TaxCompareChart title={`How {c.name} compares`} groups={[
+                { heading: "Sales tax · combined rate", bars: [
+                  { label: c.name, value: c.combinedRate, highlight: true },
+                  { label: `${s.name} average`, value: s.salesTaxAvgCombined },
+                  { label: "US average", value: AVG_COMBINED },
+                ]},
+                { heading: "Property tax · average effective", bars: [
+                  { label: s.name, value: s.propertyTaxAvg, highlight: true },
+                  { label: "US average", value: AVG_PROPERTY },
+                ]},
+              ]} />
+        </section>
 
         <section className="mt-12">
           <h2 className="text-2xl font-extrabold tracking-tight mb-5">{c.name} sales tax FAQs</h2>

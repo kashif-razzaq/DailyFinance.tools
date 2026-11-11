@@ -3,6 +3,7 @@ import Script from "next/script"
 import { ArrowRight, BookOpen, Calculator } from "lucide-react"
 import type { Guide } from "@/data/guides"
 import { FaqAccordion } from "@/components/shared/FaqAccordion"
+import { GuideImage } from "@/components/shared/GuideImage"
 
 /** Renders an editorial guide: hero, prose body, related tools, FAQs, schema. */
 export function GuideArticle({ guide }: { guide: Guide }) {
@@ -45,7 +46,9 @@ export function GuideArticle({ guide }: { guide: Guide }) {
           <BookOpen className="h-4 w-4" /> {guide.hub} · {guide.readMinutes} min read · Updated {guide.updated}
         </p>
         <h1 className="text-3xl md:text-[2.6rem] font-extrabold tracking-tight leading-tight mb-5">{guide.title}</h1>
-        <p className="text-lg text-muted-foreground leading-relaxed mb-10">{guide.intro}</p>
+        <p className="text-lg text-muted-foreground leading-relaxed mb-6">{guide.intro}</p>
+
+        <GuideImage src={guide.image} alt={guide.imageAlt} caption="Illustration: DailyFinance.tools" priority className="mb-10" />
 
         <div className="content-prose">
           {guide.sections.map((s) => (

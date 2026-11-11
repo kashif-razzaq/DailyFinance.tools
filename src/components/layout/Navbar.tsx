@@ -62,7 +62,7 @@ export async function Navbar() {
 
         {/* Right Side: CTA & Auth */}
         <div className="flex items-center gap-3">
-          <CurrencySelector />
+          {!user && <CurrencySelector />}
           {user ? (
             <UserBadge user={user} isPremium={isPremium} />
           ) : (

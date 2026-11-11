@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { TaxCompareChart } from "@/components/locations/TaxCompareChart"
 import { FaqAccordion } from "@/components/shared/FaqAccordion"
 import Script from "next/script"
 import { notFound } from "next/navigation"
@@ -239,6 +240,19 @@ export default async function StateGuidePage({ params }: { params: Promise<{ sta
             </>
           )}
         </div>
+
+        <section className="mt-12">
+          <TaxCompareChart title={`How {s.name} compares with the US average`} groups={[
+                { heading: "Sales tax · average combined", bars: [
+                  { label: s.name, value: s.salesTaxAvgCombined, highlight: true },
+                  { label: "US average", value: AVG_COMBINED },
+                ]},
+                { heading: "Property tax · average effective", bars: [
+                  { label: s.name, value: s.propertyTaxAvg, highlight: true },
+                  { label: "US average", value: AVG_PROPERTY },
+                ]},
+              ]} />
+        </section>
 
         <section className="mt-12">
           <h2 className="text-2xl font-extrabold tracking-tight mb-5">{s.name} tax FAQs</h2>

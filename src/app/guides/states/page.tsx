@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { StateCard } from "@/components/locations/StateCard"
 import type { Metadata } from "next"
 import { MapPin } from "lucide-react"
 import { US_STATES } from "@/data/locations/us-states"
@@ -42,14 +43,9 @@ export default function StateGuidesIndexPage() {
         </p>
 
         <h2 className="text-2xl font-extrabold tracking-tight mb-5">All 50 states and DC</h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-14">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-14">
           {US_STATES.map((s) => (
-            <Link key={s.slug} href={`/guides/states/${s.slug}`} className="border rounded-2xl p-5 hover:border-[#064E3B] hover:shadow-md transition-all bg-card group">
-              <h3 className="font-bold group-hover:text-[#064E3B] dark:group-hover:text-emerald-400">{s.name} tax guide</h3>
-              <p className="text-sm text-muted-foreground mt-1">
-                Sales tax {s.salesTaxBase === 0 ? "none statewide" : `${s.salesTaxBase}% base`} · Income tax: {s.incomeTax === "none" ? "none" : s.incomeTax}
-              </p>
-            </Link>
+            <StateCard key={s.slug} state={s} href={`/guides/states/${s.slug}`} cta={`${s.name} tax guide`} />
           ))}
         </div>
 

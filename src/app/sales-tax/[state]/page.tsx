@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { TaxCompareChart } from "@/components/locations/TaxCompareChart"
 import { FaqAccordion } from "@/components/shared/FaqAccordion"
 import Link from "next/link"
 import Script from "next/script"
@@ -108,6 +109,15 @@ export default async function StateSalesTaxPage({ params }: { params: Promise<{ 
                 ))}
               </tbody>
             </table></div>
+            <div className="not-prose my-8">
+              <TaxCompareChart title={`{s.name} sales tax vs the US average`} groups={[
+                { heading: "Sales tax rates", bars: [
+                  { label: `${s.name} · average combined`, value: s.salesTaxAvgCombined, highlight: true },
+                  { label: `${s.name} · state base`, value: s.salesTaxBase },
+                  { label: "US average combined", value: AVG_COMBINED },
+                ]},
+              ]} />
+            </div>
             <h2>How {s.name} compares with other states</h2>
             <p>The states closest to {s.name} on average combined rate, plus the national extremes — all rates are average combined (state + local):</p>
             <div className="overflow-x-auto -mx-1 px-1"><table>
