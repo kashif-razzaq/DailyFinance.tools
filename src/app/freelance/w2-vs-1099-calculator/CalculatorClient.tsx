@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
+import { SaveToast } from "@/components/shared/SaveToast"
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { Banknote, Building, Briefcase, Calculator } from "lucide-react"
@@ -22,6 +23,13 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [showProModal, setShowProModal] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
   const [savedScenarioId, setSavedScenarioId] = useState<string | null>(null)
+  const [saveToast, setSaveToast] = useState<'success' | 'error' | null>(null)
+
+  useEffect(() => {
+    if (!saveToast) return
+    const timer = setTimeout(() => setSaveToast(null), 5000)
+    return () => clearTimeout(timer)
+  }, [saveToast])
 
   const [results, setResults] = useState({
     w2Gross: 0,
@@ -138,11 +146,12 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       if (savedResult?.id) {
         setSavedScenarioId(savedResult.id)
       }
+      setSaveToast('success')
     } catch (error) {
       console.error(error)
       if (error instanceof Error && error.message.includes('Free accounts can save')) { setShowProModal(true); return }
       if (error instanceof Error && error.message.includes('Unauthorized')) { openLoginModal(() => { void handleSave() }); return }
-      alert("Failed to save. Ensure you are logged in properly.")
+      setSaveToast('error')
     } finally {
       setIsSaving(false)
     }
@@ -386,6 +395,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
       </div>
       <ProUpgradeModal isOpen={showProModal} onClose={() => setShowProModal(false)} />
+      <SaveToast show={!!saveToast} variant={saveToast ?? 'success'} onClose={() => setSaveToast(null)} />
     </div>
   )
 }
