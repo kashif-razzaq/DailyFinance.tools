@@ -2,6 +2,7 @@
 'use client'
 
 import { CalcWord } from '@/components/home/CalcWord'
+import { GuideImage } from "@/components/shared/GuideImage"
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import {
@@ -338,11 +339,14 @@ export function MobileHome() {
             <Link
               key={guide.slug}
               href={`/guides/${guide.slug}`}
-              className="flex w-[238px] shrink-0 snap-start flex-col rounded-3xl border border-border bg-card p-5 shadow-sm transition-transform active:scale-[0.98]"
+              className="flex w-[238px] shrink-0 snap-start flex-col overflow-hidden rounded-3xl border border-border bg-card shadow-sm transition-transform active:scale-[0.98]"
             >
-              <span className="mb-2 text-[11px] font-bold uppercase tracking-[0.14em] text-[#064E3B]">{guide.hub}</span>
-              <span className="text-[15px] font-bold leading-snug text-foreground">{guide.title}</span>
-              <span className="mt-2 line-clamp-3 text-[13px] font-light leading-relaxed text-muted-foreground">{guide.description}</span>
+              <GuideImage src={guide.image} alt={guide.imageAlt} imgClassName="h-[104px] w-full object-cover" />
+              <span className="flex flex-col p-5">
+                <span className="mb-2 text-[11px] font-bold uppercase tracking-[0.14em] text-[#064E3B]">{guide.hub}</span>
+                <span className="text-[15px] font-bold leading-snug text-foreground">{guide.title}</span>
+                <span className="mt-2 line-clamp-3 text-[13px] font-light leading-relaxed text-muted-foreground">{guide.description}</span>
+              </span>
             </Link>
           ))}
           <Link

@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import { GuideImage } from "@/components/shared/GuideImage"
 import Link from 'next/link'
 import {
   ArrowRight,
@@ -385,11 +386,14 @@ export function DesktopHome() {
               <Link
                 key={g.slug}
                 href={`/guides/${g.slug}`}
-                className="group rounded-3xl border border-border bg-card p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#064E3B]/40 hover:shadow-[0_20px_40px_-16px_rgba(6,78,59,0.18)]"
+                className="group flex flex-col overflow-hidden rounded-3xl border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#064E3B]/40 hover:shadow-[0_20px_40px_-16px_rgba(6,78,59,0.18)]"
               >
-                <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.15em] text-[#064E3B]">{g.hub}</p>
-                <h3 className="mb-2 font-bold leading-snug text-foreground transition-colors group-hover:text-[#064E3B]">{g.title}</h3>
-                <p className="line-clamp-3 text-sm font-light leading-relaxed text-muted-foreground">{g.description}</p>
+                <GuideImage src={g.image} alt={g.imageAlt} imgClassName="aspect-video w-full object-cover" />
+                <span className="block p-6">
+                  <span className="mb-2 block text-[11px] font-bold uppercase tracking-[0.15em] text-[#064E3B]">{g.hub}</span>
+                  <span className="mb-2 block font-bold leading-snug text-foreground transition-colors group-hover:text-[#064E3B]">{g.title}</span>
+                  <span className="line-clamp-3 block text-sm font-light leading-relaxed text-muted-foreground">{g.description}</span>
+                </span>
               </Link>
             ))}
           </div>

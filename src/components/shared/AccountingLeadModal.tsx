@@ -57,6 +57,7 @@ export function AccountingLeadModal({ isOpen, onClose }: { isOpen: boolean, onCl
       
       if (res.success) {
         setSuccess(true)
+        try { localStorage.setItem('df-consult-submitted', '1') } catch { /* ignore */ }
       } else {
         setErrorMsg(res.message || 'An error occurred. Please try again.')
         // Reload captcha on failure to prevent replay

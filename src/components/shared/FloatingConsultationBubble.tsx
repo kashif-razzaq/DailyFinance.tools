@@ -15,13 +15,35 @@ export function FloatingConsultationBubble() {
   const calculatorPrefixes = ['/freelance', '/creator', '/ecommerce', '/real-estate', '/personal-wealth', '/tools', '/dashboard/tools']
   const isToolPage = pathname ? calculatorPrefixes.some(prefix => pathname.startsWith(prefix)) : false
 
+  // The bubble must never nag: once a visitor dismisses it, it stays away
+  // for 30 days (localStorage); once they submit the form, forever; and it
+  // appears at most once per browser session.
   useEffect(() => {
-    // Show after 5 seconds
+    try {
+      if (localStorage.getItem('df-consult-submitted')) return
+      const dismissedAt = Number(localStorage.getItem('df-consult-dismissed-at') || 0)
+      if (dismissedAt && Date.now() - dismissedAt < 30 * 24 * 60 * 60 * 1000) return
+      if (sessionStorage.getItem('df-consult-handled')) return
+    } catch { /* storage unavailable — fall through and show once */ }
     const timer = setTimeout(() => {
-      if (!isDismissed) setIsVisible(true)
+      setIsVisible(true)
+      try { sessionStorage.setItem('df-consult-handled', '1') } catch { /* ignore */ }
     }, 5000)
     return () => clearTimeout(timer)
-  }, [isDismissed])
+  }, [])
+
+  const dismiss = () => {
+    setIsVisible(false)
+    setIsDismissed(true)
+    try { localStorage.setItem('df-consult-dismissed-at', String(Date.now())) } catch { /* ignore */ }
+  }
+
+  const handleModalClose = () => {
+    setIsModalOpen(false)
+    // Engaging with the modal counts as handled — no re-pop this session.
+    setIsVisible(false)
+    try { sessionStorage.setItem('df-consult-handled', '1') } catch { /* ignore */ }
+  }
 
   if (!isVisible || isDismissed) return null
 
@@ -30,15 +52,16 @@ export function FloatingConsultationBubble() {
       <div className={`fixed bottom-20 right-4 sm:bottom-6 sm:right-6 z-[999] animate-in slide-in-from-bottom-10 fade-in duration-500 ease-out ${isModalOpen ? 'opacity-0 pointer-events-none' : ''} ${isToolPage ? 'lg:hidden' : 'flex'}`}>
         <div className="relative group">
           {/* Close button */}
-          <button 
+          <button
+            type="button"
+            aria-label="Dismiss"
             onClick={(e) => {
               e.stopPropagation()
-              setIsVisible(false)
-              setIsDismissed(true)
+              dismiss()
             }}
-            className="absolute -top-2 -right-2 bg-background border shadow-sm rounded-full p-1 z-10 hover:bg-muted transition-colors focus:outline-none"
+            className="absolute -top-2.5 -right-2.5 bg-background border shadow-md rounded-full p-2 z-10 hover:bg-muted transition-colors focus:outline-none"
           >
-            <X className="h-3 w-3 text-muted-foreground" />
+            <X className="h-4 w-4 text-muted-foreground" />
           </button>
           
           {/* Bubble Trigger */}
@@ -64,9 +87,9 @@ export function FloatingConsultationBubble() {
         </div>
       </div>
 
-      <AccountingLeadModal 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
+      <AccountingLeadModal
+        isOpen={isModalOpen}
+        onClose={handleModalClose}
       />
     </>
   )
