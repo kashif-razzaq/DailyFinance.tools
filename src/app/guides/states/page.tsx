@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { StateCard } from "@/components/locations/StateCard"
+import { StateDirectory } from "@/components/locations/StateDirectory"
 import type { Metadata } from "next"
 import { MapPin } from "lucide-react"
 import { US_STATES } from "@/data/locations/us-states"
@@ -31,7 +31,7 @@ export default function StateGuidesIndexPage() {
   const stateName = (slug: string) => US_STATES.find((s) => s.slug === slug)?.name ?? slug
   return (
     <main className="w-full bg-background min-h-screen">
-      <section className="container mx-auto px-4 md:px-8 py-14 max-w-6xl">
+      <section className="mx-auto w-full max-w-7xl px-6 py-14 lg:px-8">
         <p className="text-xs font-bold uppercase tracking-[0.15em] text-[#064E3B] dark:text-emerald-400 mb-3 flex items-center gap-2">
           <MapPin className="h-4 w-4" /> State guides
         </p>
@@ -42,12 +42,7 @@ export default function StateGuidesIndexPage() {
           rates for that state and links to the calculators that use them.
         </p>
 
-        <h2 className="text-2xl font-extrabold tracking-tight mb-5">All 50 states and DC</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-14">
-          {US_STATES.map((s) => (
-            <StateCard key={s.slug} state={s} href={`/guides/states/${s.slug}`} cta={`${s.name} tax guide`} />
-          ))}
-        </div>
+        <StateDirectory states={US_STATES} hrefPrefix="/guides/states" cta="guide" heading="All 50 states and DC" />
 
         <h2 className="text-2xl font-extrabold tracking-tight mb-5">City guides</h2>
         <p className="text-muted-foreground max-w-3xl mb-6">

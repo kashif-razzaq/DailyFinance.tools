@@ -42,7 +42,7 @@ export default function GuidesIndexPage() {
   return (
     <main className="w-full bg-background min-h-screen">
       <Script id="schema-guides-list" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
-      <section className="container mx-auto px-4 md:px-8 py-14 max-w-6xl">
+      <section className="mx-auto w-full max-w-7xl px-6 py-14 lg:px-8">
         <p className="text-xs font-bold uppercase tracking-[0.15em] text-[#064E3B] dark:text-emerald-400 mb-3 flex items-center gap-2">
           <BookOpen className="h-4 w-4" /> Guides
         </p>

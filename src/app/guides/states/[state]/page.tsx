@@ -107,7 +107,7 @@ export default async function StateGuidePage({ params }: { params: Promise<{ sta
   return (
     <main className="w-full bg-background min-h-screen">
       <Script id={`schema-faq-state-${s.slug}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-      <article className="container mx-auto px-4 md:px-8 py-12 max-w-3xl">
+      <article className="mx-auto w-full max-w-7xl px-6 py-12 lg:px-8">
         <nav className="flex items-center gap-1.5 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider flex-nowrap overflow-x-auto whitespace-nowrap [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden mb-6">
           <Link href="/" className="shrink-0 hover:text-foreground">Home</Link><span aria-hidden="true" className="text-border shrink-0 select-none">›</span>
           <Link href="/guides" className="shrink-0 hover:text-foreground">Guides</Link><span aria-hidden="true" className="text-border shrink-0 select-none">›</span>

@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { US_STATES } from "@/data/locations/us-states"
-import { StateCard } from "@/components/locations/StateCard"
+import { StateDirectory } from "@/components/locations/StateDirectory"
 
 export const metadata: Metadata = {
   title: "Financial Calculators by State — Sales, Property & Income Tax",
@@ -30,7 +30,7 @@ export default function LocationsIndexPage() {
   const noIncomeTax = US_STATES.filter((s) => s.incomeTax === "none")
   return (
     <main className="w-full bg-background min-h-screen">
-      <div className="container mx-auto px-4 md:px-8 py-14">
+      <div className="mx-auto w-full max-w-7xl px-6 py-14 lg:px-8">
         <nav className="flex items-center gap-1.5 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider flex-nowrap overflow-x-auto whitespace-nowrap [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden mb-6">
           <Link href="/" className="shrink-0 hover:text-foreground">Home</Link><span aria-hidden="true" className="text-border shrink-0 select-none">›</span><span className="truncate max-w-[150px] sm:max-w-[220px] md:max-w-none text-foreground">Locations</span>
         </nav>
@@ -43,12 +43,7 @@ export default function LocationsIndexPage() {
           <p className="leading-relaxed">Five states have <strong>no statewide sales tax</strong> ({noSalesTax.map((s) => s.name).join(", ")}), and {noIncomeTax.length} entries below have <strong>no tax on wage income</strong>. Every state page shows the state base rate, the average combined rate shoppers actually pay, how groceries are treated, the average effective property tax rate, and the state&apos;s income-tax structure — with worked examples.</p>
         </div>
 
-        <h2 className="text-2xl font-bold tracking-tight mb-5">All 50 states + District of Columbia</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-14">
-          {US_STATES.map((s) => (
-            <StateCard key={s.slug} state={s} href={`/locations/${s.slug}`} cta={`Explore ${s.name}`} />
-          ))}
-        </div>
+        <StateDirectory states={US_STATES} hrefPrefix="/locations" cta="explore" heading="All 50 states + District of Columbia" />
 
         <div className="content-prose max-w-none">
           <h2>How these state pages work</h2>

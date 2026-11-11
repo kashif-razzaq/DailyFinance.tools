@@ -39,7 +39,7 @@ const faqs = [
 export default function ContactPage() {
   return (
     <main className="w-full bg-background min-h-screen">
-      <div className="container mx-auto px-4 md:px-8 py-14 max-w-4xl">
+      <div className="mx-auto w-full max-w-7xl px-6 py-14 lg:px-8">
         <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-5">Contact Us</h1>
         <p className="text-lg text-muted-foreground leading-relaxed mb-4">
           Have a question, a correction or a tool request? We want to hear it — DailyFinance improves fastest when readers tell us where a number looks wrong or a calculator is missing.

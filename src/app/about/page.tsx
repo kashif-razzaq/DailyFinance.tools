@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <main className="w-full bg-background min-h-screen">
-      <div className="container mx-auto px-4 md:px-8 py-14 max-w-4xl">
+      <div className="mx-auto w-full max-w-7xl px-6 py-14 lg:px-8">
         <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-5">About DailyFinance</h1>
         <p className="text-lg text-muted-foreground leading-relaxed mb-6">
           DailyFinance exists because most financial decisions are made with guessed numbers. A freelancer guesses a rate. A seller guesses a margin. A home buyer guesses a payment. We build free, precision-engineered calculators that replace the guess with a model — the formula shown, the assumptions visible, and a worked example you can check yourself.
