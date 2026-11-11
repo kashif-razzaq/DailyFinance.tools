@@ -17,11 +17,11 @@ export async function generateMetadata({ params }: { params: Promise<{ state: st
   if (!s) return { title: "State Not Found" }
   return {
     title: `${s.name} Sales Tax Calculator & 2026 Rates (${s.salesTaxBase}%)`,
-    description: `Calculate sales tax in ${s.name}: ${s.salesTaxBase}% state rate, about ${s.salesTaxAvgCombined}% combined with local taxes. Grocery rules, worked examples and a free calculator.`,
+    description: `Sales tax in ${s.name}: ${s.salesTaxBase}% state rate, ~${s.salesTaxAvgCombined}% combined with local taxes. Grocery rules, examples and a free calculator.`,
     alternates: { canonical: `https://dailyfinance.tools/sales-tax/${s.slug}` },
     openGraph: {
       title: `${s.name} Sales Tax Calculator & 2026 Rates (${s.salesTaxBase}%)`,
-      description: `Calculate sales tax in ${s.name}: ${s.salesTaxBase}% state rate, about ${s.salesTaxAvgCombined}% combined with local taxes. Grocery rules, worked examples and a free calculator.`,
+      description: `Sales tax in ${s.name}: ${s.salesTaxBase}% state rate, ~${s.salesTaxAvgCombined}% combined with local taxes. Grocery rules, examples and a free calculator.`,
       url: `https://dailyfinance.tools/sales-tax/${s.slug}`,
       siteName: "DailyFinance.tools",
       locale: "en_US",
@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: { params: Promise<{ state: st
     twitter: {
       card: "summary_large_image",
       title: `${s.name} Sales Tax Calculator & 2026 Rates (${s.salesTaxBase}%)`,
-      description: `Calculate sales tax in ${s.name}: ${s.salesTaxBase}% state rate, about ${s.salesTaxAvgCombined}% combined with local taxes. Grocery rules, worked examples and a free calculator.`,
+      description: `Sales tax in ${s.name}: ${s.salesTaxBase}% state rate, ~${s.salesTaxAvgCombined}% combined with local taxes. Grocery rules, examples and a free calculator.`,
       images: ["https://dailyfinance.tools/images/og-base.jpg"],
     },
     keywords: [`${s.name.toLowerCase()} sales tax rate`, `${s.name.toLowerCase()} sales tax calculator`, `sales tax in ${s.name.toLowerCase()}`, `how much is sales tax in ${s.name.toLowerCase()}`],

@@ -3,7 +3,7 @@ import { CategoryHub } from "@/components/layout/CategoryHub"
 import { generateCalculatorMetadata } from "@/config/metadata"
 
 export const metadata: Metadata = generateCalculatorMetadata({
-  title: "Real Estate Investment Calculators — Mortgage, Rental Cash Flow & ROI Tools",
+  title: "Real Estate Calculators — Mortgage, Rental Cash Flow & ROI",
   description: "Free real estate calculators: mortgage payments and amortization, rental cash flow, cap rate, house hacking ROI, HELOC, flipping profit and property tax.",
   keywords: ["real estate calculators", "mortgage calculator", "rental cash flow calculator", "cap rate calculator", "brrrr calculator", "house hacking calculator"],
   slug: "real-estate",
