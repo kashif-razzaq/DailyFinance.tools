@@ -65,7 +65,7 @@ export function ProUpgradeModal({ isOpen, onClose }: ProUpgradeModalProps) {
             </div>
             <div className="flex items-center gap-3">
               <ShieldCheck className="h-4 w-4 text-muted-foreground shrink-0" />
-              <span className="font-medium text-foreground">Full Cross-Data Analytics (balance sheet, debt costs, cash flow)</span>
+              <span className="font-medium text-foreground">Full Cross-Data Analytics — personal + business, charts & exports</span>
             </div>
           </div>
           

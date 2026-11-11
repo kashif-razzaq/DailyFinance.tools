@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import type { SavedCalculator } from "@/types/database"
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
+  PieChart, Pie, Cell,
 } from 'recharts'
 import Link from "next/link"
 import {
@@ -189,13 +190,80 @@ function BasicSnapshot({ pic }: { pic: FinancialPicture }) {
   )
 }
 
+function BusinessPanel({ pic }: { pic: FinancialPicture }) {
+  const biz = pic.business
+  if (!biz) return null
+  return (
+    <Card className="border shadow-sm">
+      <CardHeader>
+        <CardTitle>Business &amp; creator snapshot</CardTitle>
+        <CardDescription>Built from your saved freelance, creator and e-commerce scenarios — estimates use the assumptions inside those saves.</CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-5">
+        {(biz.estMonthlyEarnings != null || biz.taxSetAsideMonthly != null || biz.runwayMonths != null) && (
+          <div className="grid gap-4 sm:grid-cols-3">
+            {biz.estMonthlyEarnings != null && (
+              <div className="rounded-xl bg-muted/50 p-4">
+                <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Est. platform earnings</p>
+                <p className="mt-1 font-mono text-2xl font-bold">{money(biz.estMonthlyEarnings)}/mo</p>
+                <p className="mt-0.5 text-xs text-muted-foreground">Across your saved creator scenarios</p>
+              </div>
+            )}
+            {biz.taxSetAsideMonthly != null && (
+              <div className="rounded-xl bg-muted/50 p-4">
+                <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Tax set-aside</p>
+                <p className="mt-1 font-mono text-2xl font-bold">{money(biz.taxSetAsideMonthly)}/mo</p>
+                <p className="mt-0.5 text-xs text-muted-foreground">From your saved tax scenarios</p>
+              </div>
+            )}
+            {biz.runwayMonths != null && (
+              <div className="rounded-xl bg-muted/50 p-4">
+                <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Business runway</p>
+                <p className="mt-1 font-mono text-2xl font-bold">{biz.runwayMonths} months</p>
+                <p className="mt-0.5 text-xs text-muted-foreground">Cash + loan vs saved monthly burn</p>
+              </div>
+            )}
+          </div>
+        )}
+        <ul className="divide-y divide-border/60">
+          {biz.metrics.map((m) => {
+            const row = (
+              <>
+                <span className="min-w-0">
+                  <span className="block truncate font-medium">{m.label}</span>
+                  {m.detail && <span className="block text-xs text-muted-foreground">{m.detail}{m.href ? ' · Open scenario' : ''}</span>}
+                </span>
+                <span className="shrink-0 font-mono font-semibold">{m.value}</span>
+              </>
+            )
+            return m.href ? (
+              <li key={m.label}><Link href={m.href} className="flex items-center justify-between gap-4 py-2.5 transition-colors hover:text-[#064E3B]">{row}</Link></li>
+            ) : (
+              <li key={m.label} className="flex items-center justify-between gap-4 py-2.5">{row}</li>
+            )
+          })}
+        </ul>
+      </CardContent>
+    </Card>
+  )
+}
+
 export function CrossDataAnalytics({ calculators, isPro = false }: { calculators: SavedCalculator[]; isPro?: boolean }) {
   const pic: FinancialPicture = buildFinancialPicture(calculators)
   const hasMoney = pic.assets.length > 0 || pic.debts.length > 0 || pic.cashFlow != null
 
-  if (!hasMoney) return <UnlockCard />
+  if (!hasMoney && !pic.business) return <UnlockCard />
 
   if (!isPro) return <BasicSnapshot pic={pic} />
+
+  if (!hasMoney && pic.business) {
+    return (
+      <div className="space-y-6">
+        <BusinessPanel pic={pic} />
+        <UnlockCard />
+      </div>
+    )
+  }
 
   const debtChart = [...pic.debts]
     .sort((a, b) => b.value - a.value)
@@ -208,6 +276,19 @@ export function CrossDataAnalytics({ calculators, isPro = false }: { calculators
         { name: 'Savings', amount: Math.round(pic.cashFlow.savings), fill: '#D97706' },
       ]
     : []
+
+  const assetChart = [...pic.assets]
+    .sort((a, b) => b.value - a.value)
+    .slice(0, 8)
+    .map((a) => ({ name: a.label, value: Math.round(a.value) }))
+  const aprChart = pic.debts
+    .filter((d) => d.apr != null)
+    .map((d) => ({ name: d.label, apr: d.apr as number, fill: (d.apr as number) > 20 ? '#DC2626' : (d.apr as number) >= 10 ? '#D97706' : '#0B7A5C' }))
+  const KIND_COLORS: Record<string, string> = { 'Cash & savings': '#34D399', Investments: '#0B7A5C', Property: '#D97706', Other: '#94a3b8' }
+  const kindTotals = new Map<string, number>()
+  for (const a of pic.assets) kindTotals.set(a.kind ?? 'Other', (kindTotals.get(a.kind ?? 'Other') ?? 0) + a.value)
+  const donutData = [...kindTotals.entries()].map(([name, value]) => ({ name, value: Math.round(value), fill: KIND_COLORS[name] ?? '#94a3b8' }))
+  if (pic.totalDebts > 0) donutData.push({ name: 'Debts', value: Math.round(pic.totalDebts), fill: '#DC2626' })
 
   const dtiBand =
     pic.dti == null ? null : pic.dti < 20 ? 'Comfortable' : pic.dti <= 36 ? 'Manageable' : 'High — worth a plan'
@@ -378,6 +459,85 @@ export function CrossDataAnalytics({ calculators, isPro = false }: { calculators
         </Card>
       )}
 
+      {/* ── Composition charts ───────────────────────────────── */}
+      <div className="grid gap-6 lg:grid-cols-3">
+        {donutData.length > 1 && (
+          <Card className="border shadow-sm">
+            <CardHeader>
+              <CardTitle>Wealth mix</CardTitle>
+              <CardDescription>Where your money sits — and what you owe.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="relative mx-auto h-[190px] max-w-[240px]">
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Pie data={donutData} dataKey="value" nameKey="name" innerRadius={58} outerRadius={88} paddingAngle={2} strokeWidth={0}>
+                      {donutData.map((d) => <Cell key={d.name} fill={d.fill} />)}
+                    </Pie>
+                    <Tooltip contentStyle={tooltipStyle} formatter={(v) => [money2(Number(v)), '']} />
+                  </PieChart>
+                </ResponsiveContainer>
+                <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Net</span>
+                  <span className="font-mono text-lg font-bold">{money(pic.netPosition)}</span>
+                </div>
+              </div>
+              <div className="mt-3 flex flex-wrap justify-center gap-x-4 gap-y-1.5">
+                {donutData.map((d) => (
+                  <span key={d.name} className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                    <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: d.fill }} /> {d.name}
+                  </span>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        )}
+        {assetChart.length > 1 && (
+          <Card className="border shadow-sm">
+            <CardHeader>
+              <CardTitle>Assets by account</CardTitle>
+              <CardDescription>Your biggest holdings first.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="h-[240px] w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={assetChart} layout="vertical" margin={{ top: 0, right: 16, left: 16, bottom: 0 }}>
+                    <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#e2e8f0" />
+                    <XAxis type="number" hide />
+                    <YAxis type="category" dataKey="name" width={110} tick={{ fontSize: 11 }} axisLine={false} tickLine={false} />
+                    <Tooltip cursor={{ fill: 'transparent' }} contentStyle={tooltipStyle} formatter={(v) => [money2(Number(v)), 'Value']} />
+                    <Bar dataKey="value" fill="#0B7A5C" radius={[0, 4, 4, 0]} barSize={16} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+        {aprChart.length > 1 && (
+          <Card className="border shadow-sm">
+            <CardHeader>
+              <CardTitle>Debts by APR</CardTitle>
+              <CardDescription>The most expensive money you owe.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="h-[240px] w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={aprChart} layout="vertical" margin={{ top: 0, right: 16, left: 16, bottom: 0 }}>
+                    <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#e2e8f0" />
+                    <XAxis type="number" hide />
+                    <YAxis type="category" dataKey="name" width={110} tick={{ fontSize: 11 }} axisLine={false} tickLine={false} />
+                    <Tooltip cursor={{ fill: 'transparent' }} contentStyle={tooltipStyle} formatter={(v) => [Number(v).toFixed(2) + '%', 'APR']} />
+                    <Bar dataKey="apr" radius={[0, 4, 4, 0]} barSize={16}>
+                      {aprChart.map((d) => <Cell key={d.name} fill={d.fill} />)}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+      </div>
+
       {/* ── Snapshot strip ──────────────────────────────────── */}
       <div className="grid gap-6 sm:grid-cols-3">
         <Card className="border p-5 shadow-sm">
@@ -450,6 +610,27 @@ export function CrossDataAnalytics({ calculators, isPro = false }: { calculators
           )}
         </Card>
       </div>
+
+      {pic.snapshots.length > 0 && (
+        <div className="grid gap-6 sm:grid-cols-2">
+          {pic.snapshots.map((s) => {
+            const inner = (
+              <>
+                <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">{s.label}</p>
+                <p className="mt-2 font-mono text-2xl font-bold">{s.value}</p>
+                {s.href && <p className="mt-1 text-xs text-muted-foreground">From a saved scenario · Open it</p>}
+              </>
+            )
+            return s.href ? (
+              <Link key={s.label} href={s.href} className="block rounded-xl border bg-card p-5 shadow-sm transition-colors hover:border-[#0B7A5C]/50">{inner}</Link>
+            ) : (
+              <div key={s.label} className="rounded-xl border bg-card p-5 shadow-sm">{inner}</div>
+            )
+          })}
+        </div>
+      )}
+
+      <BusinessPanel pic={pic} />
 
       <p className="flex items-start gap-2 text-xs leading-relaxed text-muted-foreground">
         <Info className="mt-0.5 h-3.5 w-3.5 shrink-0" />

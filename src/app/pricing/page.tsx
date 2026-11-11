@@ -66,7 +66,7 @@ const tiers = [
       "Premium PDF report generation",
       "Scenario comparison — saved plans side by side",
       "5 exclusive Pro tools (Monte Carlo, Rental Analyzer, Business Valuation, IRR & NPV, Portfolio Rebalancer)",
-      "Full Cross-Data Analytics (balance sheet, debt costs, cash flow)",
+      "Full Cross-Data Analytics (personal + business — balance sheet, debt costs, cash flow, charts & exports)",
       "Priority feature requests",
     ],
     notIncluded: [],
@@ -163,7 +163,7 @@ export default function PricingPage() {
         <Script id="schema-pricing-faq" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
           "@context": "https://schema.org", "@type": "FAQPage", mainEntity: [
             { "@type": "Question", name: "Are the calculators really free?", acceptedAnswer: { "@type": "Answer", text: "Yes. Every calculator is free with no sign-up. A free account adds URL sharing and a Scenario Vault with up to 3 saved scenarios." } },
-            { "@type": "Question", name: "What does Pro add?", acceptedAnswer: { "@type": "Answer", text: "Pro ($2.99/mo) removes ads and unlocks unlimited Vault storage with cloning, scenario comparison, 5 exclusive Pro tools, CSV/Excel exports, premium PDF reports and full Cross-Data Analytics." } },
+            { "@type": "Question", name: "What does Pro add?", acceptedAnswer: { "@type": "Answer", text: "Pro ($2.99/mo) removes ads and unlocks unlimited Vault storage with cloning, scenario comparison, 5 exclusive Pro tools, CSV/Excel exports, premium PDF reports and full Cross-Data Analytics across personal and business saves." } },
             { "@type": "Question", name: "Can I cancel anytime?", acceptedAnswer: { "@type": "Answer", text: "Yes — no lock-in. Cancelling returns the account to Free at the end of the billing period and saved data is kept." } },
           ],
         }) }} />

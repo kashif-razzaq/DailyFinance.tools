@@ -1,5 +1,7 @@
 import { getSavedCalculatorsAction } from "@/actions/calculator.actions"
 import { CrossDataAnalytics } from "@/components/dashboard/AnalyticsCharts"
+import { AnalyticsActions } from "@/components/dashboard/AnalyticsActions"
+import { buildFinancialPicture } from "@/lib/financial-picture"
 import { BarChart3 } from "lucide-react"
 import { createServerClient } from "@supabase/ssr"
 import { cookies } from "next/headers"
@@ -29,6 +31,9 @@ export default async function AnalyticsPage() {
           <h1 className="text-2xl font-extrabold tracking-tight text-foreground md:text-3xl">Cross-Data Analytics</h1>
           <p className="text-muted-foreground mt-1">Your saved scenarios, combined: balance sheet, debt costs, cash flow and savings — from your own numbers.</p>
         </div>
+        {savedCalculators.length > 0 && (
+          <AnalyticsActions pic={buildFinancialPicture(savedCalculators)} isPro={isPro} />
+        )}
       </div>
 
       {savedCalculators.length === 0 ? (
