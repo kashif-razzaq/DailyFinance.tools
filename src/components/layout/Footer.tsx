@@ -1,11 +1,10 @@
 import Link from 'next/link'
-import { navigationCategories, getToolUrl } from '@/config/navigation'
 import { GUIDES } from '@/data/guides'
 import { FooterAccordion } from '@/components/layout/FooterAccordion'
 import { Logo } from '@/components/layout/Logo'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { Mail } from 'lucide-react'
+import { Mail, ShieldCheck } from 'lucide-react'
 
 // Custom SVGs for Social Icons to avoid version/export issues with lucide
 const XIcon = ({ className }: { className?: string }) => (
@@ -96,53 +95,28 @@ export function Footer() {
             All tool links stay in the DOM for SEO; see FooterAccordion. */}
         <FooterAccordion />
 
-        {/* Middle Tier (desktop): The SEO Mega Grid — all 7 categories with
-            their top tools + hub link, plus the latest guides column. */}
-        <div className="hidden md:grid md:grid-cols-3 lg:grid-cols-4 gap-8 mb-16">
-          {navigationCategories.map((category) => (
-            <div key={category.slug} className="flex flex-col gap-4">
-              <Link
-                href={`/${category.slug}`}
-                className="font-semibold text-sm text-foreground hover:text-primary transition-colors flex items-center gap-2"
-              >
-                {category.name} Tools
-              </Link>
-              <ul className="flex flex-col gap-2.5">
-                {category.calculators.slice(0, 8).map((calc) => (
-                  <li key={calc.slug}>
-                    <Link
-                      href={getToolUrl(calc.slug)}
-                      className="text-xs text-muted-foreground hover:text-foreground transition-colors leading-tight line-clamp-2"
-                    >
-                      {calc.title}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-              <Link
-                href={`/${category.slug}`}
-                className="text-xs font-semibold text-primary hover:underline underline-offset-2"
-              >
-                All {category.name} tools &rarr;
-              </Link>
-            </div>
-          ))}
-
-          {/* Latest guides + explore */}
+        {/* Middle Tier (desktop): 4 columns only — Hubs, Guides, Important, Legal.
+            No tool links (Kashif, 2026-11-12); mobile uses the accordion above. */}
+        <div className="hidden md:grid md:grid-cols-4 gap-8 mb-16">
           <div className="flex flex-col gap-4">
-            <Link
-              href="/guides"
-              className="font-semibold text-sm text-foreground hover:text-primary transition-colors flex items-center gap-2"
-            >
-              Latest Guides
-            </Link>
+            <h4 className="font-semibold text-sm text-foreground">Explore</h4>
+            <ul className="flex flex-col gap-2.5">
+              {[["All 100 Tools", "/tools"], ["Calculators by State", "/locations"], ["State Tax Guides", "/guides/states"]].map(([label, href]) => (
+                <li key={href}>
+                  <Link href={href} className="text-[13px] text-muted-foreground hover:text-foreground transition-colors leading-tight">
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="flex flex-col gap-4">
+            <h4 className="font-semibold text-sm text-foreground">Guides</h4>
             <ul className="flex flex-col gap-2.5">
               {GUIDES.slice(0, 6).map((guide) => (
                 <li key={guide.slug}>
-                  <Link
-                    href={`/guides/${guide.slug}`}
-                    className="text-xs text-muted-foreground hover:text-foreground transition-colors leading-tight line-clamp-2"
-                  >
+                  <Link href={`/guides/${guide.slug}`} className="text-[13px] text-muted-foreground hover:text-foreground transition-colors leading-tight line-clamp-2">
                     {guide.title}
                   </Link>
                 </li>
@@ -155,13 +129,33 @@ export function Footer() {
               <Link href="/guides/states" className="text-xs font-semibold text-primary hover:underline underline-offset-2">
                 State tax guides &rarr;
               </Link>
-              <Link href="/tools" className="text-xs font-semibold text-primary hover:underline underline-offset-2">
-                All 100 tools &rarr;
-              </Link>
-              <Link href="/locations" className="text-xs font-semibold text-primary hover:underline underline-offset-2">
-                Calculators by state &rarr;
-              </Link>
             </div>
+          </div>
+
+          <div className="flex flex-col gap-4">
+            <h4 className="font-semibold text-sm text-foreground">Important</h4>
+            <ul className="flex flex-col gap-2.5">
+              {[["About", "/about"], ["Contact", "/contact"], ["Pricing", "/pricing"], ["Methodology", "/methodology"], ["Editorial Policy", "/editorial-policy"], ["Sitemap", "/sitemap"]].map(([label, href]) => (
+                <li key={href}>
+                  <Link href={href} className="text-[13px] text-muted-foreground hover:text-foreground transition-colors leading-tight">
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="flex flex-col gap-4">
+            <h4 className="font-semibold text-sm text-foreground">Legal</h4>
+            <ul className="flex flex-col gap-2.5">
+              {[["Privacy Policy", "/privacy"], ["Terms of Service", "/terms"], ["Cookie Policy", "/cookies"], ["Disclaimer", "/disclaimer"]].map(([label, href]) => (
+                <li key={href}>
+                  <Link href={href} className="text-[13px] text-muted-foreground hover:text-foreground transition-colors leading-tight">
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 
@@ -175,27 +169,19 @@ export function Footer() {
             </Link></span>
           </div>
 
-          <p className="mx-auto max-w-2xl text-center text-xs leading-relaxed text-muted-foreground md:order-2">
+          <p className="mx-auto max-w-2xl text-center text-xs leading-relaxed text-muted-foreground md:hidden">
             DailyFinance.tools offers free educational calculators and guides. Results are estimates only — not financial, tax or investment advice.
           </p>
 
-          {/* Desktop only: grouped footer links (the mobile wrap row above stays untouched) */}
-          <div className="hidden md:order-1 md:grid md:grid-cols-4 md:gap-8">
-            {[
-              { heading: "Explore", links: [["Guides", "/guides"], ["State Tax Guides", "/guides/states"], ["All 100 Tools", "/tools"], ["Calculators by State", "/locations"], ["Sitemap", "/sitemap"]] },
-              { heading: "Company", links: [["About", "/about"], ["Contact", "/contact"]] },
-              { heading: "Our standards", links: [["Methodology", "/methodology"], ["Editorial Policy", "/editorial-policy"], ["Disclaimer", "/disclaimer"]] },
-              { heading: "Legal", links: [["Privacy Policy", "/privacy"], ["Terms of Service", "/terms"], ["Cookie Policy", "/cookies"]] },
-            ].map((group) => (
-              <div key={group.heading} className="flex flex-col gap-2.5">
-                <h4 className="text-[11px] font-bold uppercase tracking-[0.14em] text-foreground">{group.heading}</h4>
-                {group.links.map(([label, href]) => (
-                  <Link key={href} href={href} className="text-[13px] text-muted-foreground transition-colors hover:text-foreground">
-                    {label}
-                  </Link>
-                ))}
-              </div>
-            ))}
+
+          {/* Desktop only: the disclaimer as a designed strip in the same slot */}
+          <div className="hidden items-start gap-3 rounded-2xl border border-[#064E3B]/15 bg-[#064E3B]/5 px-5 py-4 md:order-2 md:flex">
+            <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-[#064E3B] dark:text-emerald-400" />
+            <p className="text-[13px] leading-relaxed text-muted-foreground">
+              <strong className="font-semibold text-foreground">Estimates, not advice.</strong>{" "}
+              DailyFinance.tools offers free educational calculators and guides — every result is an estimate based on the inputs and assumptions shown, not financial, tax or investment advice. For decisions about your own money, verify the figures with official sources or a qualified professional. Read the full{" "}
+              <Link href="/disclaimer" className="font-semibold text-[#064E3B] hover:underline dark:text-emerald-400">Disclaimer</Link>.
+            </p>
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 md:hidden">

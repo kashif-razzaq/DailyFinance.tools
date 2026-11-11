@@ -20,7 +20,6 @@ import {
   Zap,
 } from 'lucide-react'
 import { navigationCategories, getToolUrl } from '@/config/navigation'
-import { HUBS } from '@/data/hubs'
 import { GUIDES } from '@/data/guides'
 import { CalcWord } from '@/components/home/CalcWord'
 import { useMyTools, type ToolWithCategory } from '@/components/home/useMyTools'
@@ -329,34 +328,6 @@ export function DesktopHome() {
                 </Link>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── 6 · Hubs ─────────────────────────────────────────── */}
-      <section className="bg-background py-20">
-        <div className="container mx-auto px-8">
-          <div className="mb-10 max-w-2xl">
-            <h2 className="mb-3 text-3xl font-extrabold tracking-tight text-foreground">Six hubs, every money decision</h2>
-            <p className="font-light leading-relaxed text-muted-foreground">
-              The full Top 100, organised by the decision you are making — with guidance on which calculator
-              answers which question, and the mistakes that distort the answer.
-            </p>
-          </div>
-          <div className="grid grid-cols-2 gap-4 xl:grid-cols-3">
-            {HUBS.map((h) => (
-              <Link
-                key={h.slug}
-                href={`/hubs/${h.slug}`}
-                className="group rounded-3xl border border-border bg-card p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#064E3B]/40 hover:shadow-[0_20px_40px_-16px_rgba(6,78,59,0.18)]"
-              >
-                <h3 className="mb-2 text-lg font-bold text-foreground transition-colors group-hover:text-[#064E3B]">{h.title}</h3>
-                <p className="mb-4 line-clamp-3 text-sm font-light leading-relaxed text-muted-foreground">{h.description}</p>
-                <span className="inline-flex items-center text-sm font-bold text-foreground transition-colors group-hover:text-[#064E3B]">
-                  Explore the hub <ArrowRight className="ml-1.5 h-4 w-4" />
-                </span>
-              </Link>
-            ))}
           </div>
         </div>
       </section>
