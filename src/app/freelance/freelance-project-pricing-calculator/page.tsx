@@ -7,7 +7,7 @@ import { Calculator, AlertTriangle, TrendingUp, ShieldCheck, Target, Clock, Zap,
 import Script from "next/script"
 
 export const metadata: Metadata = generateCalculatorMetadata({
-  title: "Freelance Project Pricing Calculator: Flat-Fee Quote Estimator",
+  title: "Freelance Project Pricing Calculator: Flat-Fee Quotes",
   description: "Convert your hourly estimates into profitable flat-fee project proposals. Automatically account for scope creep, communication buffers, and risk premiums.",
   keywords: ["freelance flat fee calculator", "project quote calculator", "hourly to flat rate calculator", "value based pricing calculator", "scope creep buffer", "freelance risk premium", "how to quote a project"],
   slug: "freelance/freelance-project-pricing-calculator",
@@ -41,7 +41,7 @@ export default function ProjectFlatFeeQuoterPage() {
   const softwareSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "Freelance Project Pricing Calculator: Flat-Fee Quote Estimator",
+    "name": "Freelance Project Pricing Calculator: Flat-Fee Quotes",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Any",
     "offers": {
@@ -95,7 +95,7 @@ export default function ProjectFlatFeeQuoterPage() {
   const webPageSchema = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": "Freelance Project Pricing Calculator: Flat-Fee Quote Estimator",
+    "name": "Freelance Project Pricing Calculator: Flat-Fee Quotes",
     "url": "https://dailyfinance.tools/freelance/freelance-project-pricing-calculator"
   };
 

@@ -7,7 +7,7 @@ import React from "react"
 import {  Calculator, ShieldCheck, TrendingDown, Target, Clock, Zap } from "lucide-react"
 
 export const metadata: Metadata = generateCalculatorMetadata({
-  title: "Freelance Emergency Fund Calculator: Calculate Your Cash Runway",
+  title: "Freelance Emergency Fund Calculator: Your Cash Runway",
   description: "Calculate your ideal freelance emergency fund based on your irregular income volatility, client concentration risk, and essential business expenses.",
   keywords: ["irregular income emergency fund calculator", "freelance income buffer calculator", "cash buffer variable income", "how much emergency fund freelancer", "feast or famine freelancer", "days sales outstanding freelancer"],
   slug: "freelance/freelance-emergency-fund-calculator",
@@ -130,7 +130,7 @@ export default function IrregularIncomeBufferPage() {
                     "@type": "WebPage",
                     "@id": "https://dailyfinance.tools/freelance/freelance-emergency-fund-calculator",
                     "url": "https://dailyfinance.tools/freelance/freelance-emergency-fund-calculator",
-                    "name": "Freelance Emergency Fund Calculator: Calculate Your Cash Runway",
+                    "name": "Freelance Emergency Fund Calculator: Your Cash Runway",
                     "description": "Calculate your ideal freelance emergency fund based on your irregular income volatility, client concentration risk, and essential business expenses."
                   },
                   {
