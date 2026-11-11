@@ -8,7 +8,7 @@ import { saveCalculatorAction } from '@/actions/calculator.actions'
 import { unwrapSaveResult } from '@/lib/save-result'
 import { openLoginModal } from '@/lib/auth-modal'
 import { navigationCategories, getToolUrl } from '@/config/navigation'
-import { CheckCircle2 } from 'lucide-react'
+import { SaveToast } from '@/components/shared/SaveToast'
 
 /**
  * ToolActionsBar — the standard actions block for every calculator:
@@ -35,7 +35,7 @@ export function ToolActionsBar({
 }) {
   const [isSaving, setIsSaving] = useState(false)
   const [showProModal, setShowProModal] = useState(false)
-  const [toast, setToast] = useState<string | null>(null)
+  const [toast, setToast] = useState<{ variant: 'success' | 'error' } | null>(null)
 
   const tool = (() => {
     for (const category of navigationCategories) {
@@ -47,7 +47,7 @@ export function ToolActionsBar({
 
   useEffect(() => {
     if (!toast) return
-    const t = setTimeout(() => setToast(null), 3200)
+    const t = setTimeout(() => setToast(null), 5000)
     return () => clearTimeout(t)
   }, [toast])
 
@@ -72,7 +72,7 @@ export function ToolActionsBar({
         saved_name: `${tool.title} scenario`,
         input_state: inputs,
       }))
-      setToast('Saved to your Vault')
+      setToast({ variant: 'success' })
     } catch (error) {
       const message = error instanceof Error ? error.message : ''
       if (message.includes('Free accounts can save')) {
@@ -85,7 +85,7 @@ export function ToolActionsBar({
         })
         return
       } else {
-        setToast('Could not save — please try again')
+        setToast({ variant: 'error' })
       }
     } finally {
       setIsSaving(false)
@@ -110,12 +110,7 @@ export function ToolActionsBar({
 
       <ProUpgradeModal isOpen={showProModal} onClose={() => setShowProModal(false)} />
 
-      {toast && (
-        <div className="fixed bottom-24 right-4 z-[90] flex items-center gap-2 rounded-full bg-[#064E3B] py-2.5 pl-3 pr-4 text-sm font-semibold text-white shadow-xl sm:bottom-6">
-          <CheckCircle2 className="h-4 w-4 shrink-0" />
-          {toast}
-        </div>
-      )}
+      <SaveToast show={!!toast} variant={toast?.variant ?? 'success'} onClose={() => setToast(null)} />
     </div>
   )
 }
