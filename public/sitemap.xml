@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap>
+    <loc>https://dailyfinance.tools/sitemap/pages.xml</loc>
+  </sitemap>
+  <sitemap>
+    <loc>https://dailyfinance.tools/sitemap/calculators.xml</loc>
+  </sitemap>
+  <sitemap>
+    <loc>https://dailyfinance.tools/sitemap/hubs.xml</loc>
+  </sitemap>
+  <sitemap>
+    <loc>https://dailyfinance.tools/sitemap/guides.xml</loc>
+  </sitemap>
+  <sitemap>
+    <loc>https://dailyfinance.tools/sitemap/states.xml</loc>
+  </sitemap>
+</sitemapindex>

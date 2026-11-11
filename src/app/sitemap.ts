@@ -5,107 +5,87 @@ import { US_CITIES } from '@/data/locations/us-cities';
 import { GUIDES } from '@/data/guides';
 import { HUBS } from '@/data/hubs';
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://dailyfinance.tools';
+const baseUrl = 'https://dailyfinance.tools';
 
-  const staticPages: MetadataRoute.Sitemap = [
-    {
-      url: `${baseUrl}/`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 1.0,
-    },
-    {
-      url: `${baseUrl}/tools`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/pricing`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/about`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.5,
-    },
-    {
-      url: `${baseUrl}/contact`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.5,
-    },
-    {
-      url: `${baseUrl}/privacy`,
-      lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 0.3,
-    },
-    {
-      url: `${baseUrl}/terms`,
-      lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 0.3,
-    },
-    {
-      url: `${baseUrl}/cookies`,
-      lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 0.3,
-    },
-    {
-      url: `${baseUrl}/disclaimer`,
-      lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 0.3,
-    },
+/**
+ * Yoast-style sitemap structure: /sitemap.xml is the index, and each content
+ * family gets its own sitemap file —
+ *   pages       static + trust pages and the section indexes
+ *   calculators category landings, then every calculator grouped by category
+ *   hubs        the /hubs/* pillar pages
+ *   guides      the editorial guides
+ *   states      per state, in hierarchy order: the state's three pages
+ *               (locations, state guide, sales tax), then that state's
+ *               city guides and city sales-tax pages
+ */
+export async function generateSitemaps() {
+  return [
+    { id: 'pages' },
+    { id: 'calculators' },
+    { id: 'hubs' },
+    { id: 'guides' },
+    { id: 'states' },
   ];
+}
 
-  const locationPages: MetadataRoute.Sitemap = [
-    { url: `${baseUrl}/locations`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${baseUrl}/methodology`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.6 },
-    { url: `${baseUrl}/editorial-policy`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.6 },
-    ...US_STATES.flatMap((s) => [
-      { url: `${baseUrl}/locations/${s.slug}`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.7 },
-      { url: `${baseUrl}/sales-tax/${s.slug}`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.7 },
-    ]),
-    ...US_CITIES.map((c) => ({ url: `${baseUrl}/sales-tax/${c.stateSlug}/${c.slug}`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.65 })),
-  ]
+const entry = (path: string, changeFrequency: MetadataRoute.Sitemap[number]['changeFrequency'], priority: number) => ({
+  url: `${baseUrl}${path}`,
+  lastModified: new Date(),
+  changeFrequency,
+  priority,
+});
 
-  const hubPages: MetadataRoute.Sitemap = navigationCategories.map((category) => ({
-    url: `${baseUrl}/${category.slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'weekly' as const,
-    priority: 0.85,
-  }));
+export default async function sitemap(props: { id: Promise<string> }): Promise<MetadataRoute.Sitemap> {
+  const id = await props.id;
 
-  const calculatorPages: MetadataRoute.Sitemap = navigationCategories.flatMap((category) =>
-    category.calculators.map((calc) => ({
-      url: `${baseUrl}${getToolUrl(calc.slug)}`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.7,
-    }))
-  );
+  switch (id) {
+    case 'pages':
+      return [
+        entry('/', 'weekly', 1.0),
+        entry('/tools', 'weekly', 0.9),
+        entry('/pricing', 'monthly', 0.8),
+        entry('/guides', 'weekly', 0.85),
+        entry('/guides/states', 'monthly', 0.8),
+        entry('/locations', 'monthly', 0.8),
+        entry('/about', 'monthly', 0.5),
+        entry('/contact', 'monthly', 0.5),
+        entry('/methodology', 'monthly', 0.6),
+        entry('/editorial-policy', 'monthly', 0.6),
+        entry('/privacy', 'yearly', 0.3),
+        entry('/terms', 'yearly', 0.3),
+        entry('/cookies', 'yearly', 0.3),
+        entry('/disclaimer', 'yearly', 0.3),
+      ];
 
-  const planHubPages: MetadataRoute.Sitemap = HUBS.map((h) => ({
-    url: `${baseUrl}/hubs/${h.slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'weekly' as const,
-    priority: 0.85,
-  }));
+    case 'calculators':
+      return [
+        ...navigationCategories.map((category) => entry(`/${category.slug}`, 'weekly', 0.85)),
+        ...navigationCategories.flatMap((category) =>
+          category.calculators.map((calc) => entry(getToolUrl(calc.slug), 'weekly', 0.7))
+        ),
+      ];
 
-  const guidePages: MetadataRoute.Sitemap = [
-    { url: `${baseUrl}/guides`, lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 0.85 },
-    { url: `${baseUrl}/guides/states`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.8 },
-    ...GUIDES.map((g) => ({ url: `${baseUrl}/guides/${g.slug}`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.75 })),
-    ...US_STATES.map((s) => ({ url: `${baseUrl}/guides/states/${s.slug}`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.7 })),
-    ...US_CITIES.map((c) => ({ url: `${baseUrl}/guides/states/${c.stateSlug}/${c.slug}`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.65 })),
-  ];
+    case 'hubs':
+      return HUBS.map((h) => entry(`/hubs/${h.slug}`, 'weekly', 0.85));
 
-  return [...staticPages, ...hubPages, ...calculatorPages, ...locationPages, ...planHubPages, ...guidePages];
+    case 'guides':
+      return GUIDES.map((g) => entry(`/guides/${g.slug}`, 'monthly', 0.75));
+
+    case 'states':
+      return US_STATES.flatMap((s) => {
+        const cities = US_CITIES.filter((c) => c.stateSlug === s.slug);
+        return [
+          entry(`/locations/${s.slug}`, 'monthly', 0.7),
+          entry(`/guides/states/${s.slug}`, 'monthly', 0.7),
+          entry(`/sales-tax/${s.slug}`, 'monthly', 0.7),
+          ...cities.flatMap((c) => [
+            entry(`/guides/states/${s.slug}/${c.slug}`, 'monthly', 0.65),
+            entry(`/sales-tax/${s.slug}/${c.slug}`, 'monthly', 0.65),
+          ]),
+        ];
+      });
+
+    default:
+      return [];
+  }
 }

@@ -146,12 +146,11 @@ export default async function CitySalesTaxPage({ params }: { params: Promise<{ s
             <p>
               <Link href="/ecommerce/sales-tax-vat-calculator" className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-xl font-semibold text-sm no-underline hover:bg-primary/90">Open the Sales Tax Calculator <ArrowRight className="h-4 w-4" /></Link>
             </p>
-            <p className="text-sm">Rates are reviewed approximations for a typical in-city address (Tax Foundation city data, cross-checked — see <Link href="/methodology">Methodology</Link>). Verify your exact rate with the {s.name} Department of Revenue before filing or a major purchase.</p>
           </article>
           <aside className="lg:col-span-4 bg-card border rounded-3xl p-6">
             <h3 className="font-bold text-lg mb-4">{c.name} Sales Tax FAQs</h3>
 <FaqAccordion items={faqs} variant="compact" />
-            <ReviewLine compact />
+            <ReviewLine compact deptName={`${s.name} Department of Revenue`} />
             <div className="mt-6 pt-5 border-t border-border/40 space-y-2">
               <Link href={`/sales-tax/${s.slug}`} className="block text-sm text-primary font-semibold">Full {s.name} sales tax guide →</Link>
               <Link href={`/locations/${s.slug}`} className="block text-sm text-primary font-semibold">{s.name} tax &amp; finance guide →</Link>

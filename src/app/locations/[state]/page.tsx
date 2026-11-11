@@ -174,7 +174,6 @@ export default async function StateHubPage({ params }: { params: Promise<{ state
               <li><Link href="/real-estate/property-tax-assessor-calculator">Property Tax Calculator</Link> — estimate a specific property&apos;s bill.</li>
               <li><Link href="/freelance/self-employment-tax-calculator">Self-Employment Tax Calculator</Link> — federal SE tax for {s.name} freelancers.</li>
             </ul>
-            <p className="text-sm">Rates on this page are reviewed approximations for planning (see <Link href="/methodology">Methodology</Link>). Verify current rates with the {s.name} Department of Revenue before filing or pricing.</p>
           </article>
           <aside className="lg:col-span-4 bg-card border rounded-3xl p-6">
             <h3 className="font-bold text-lg mb-4">{s.name} FAQs</h3>
@@ -182,7 +181,7 @@ export default async function StateHubPage({ params }: { params: Promise<{ state
           </aside>
         </div>
 
-        <ReviewLine />
+        <ReviewLine deptName={`${s.name} Department of Revenue`} />
 
         <h2 className="text-xl font-bold tracking-tight mt-14 mb-4">Other states</h2>
         <div className="flex flex-wrap gap-2">
