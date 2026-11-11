@@ -149,11 +149,28 @@ for (const file of walk(join(ROOT, "src")).filter((f) => f.endsWith("CalculatorC
   if (!src.includes("ToolActionsBar") && !src.includes("CalculatorActions")) {
     fail("wiring", `${rel} renders no actions bar (ToolActionsBar missing)`)
   }
+  // (c) every client must restore a saved scenario opened from the Vault
+  // (?savedId=…) via the shared hook — a save that cannot be reopened is a
+  // dead end. The two freelance clients that use ToolActionsBar are checked
+  // by the extra pass below; the gold freelance clients restore through
+  // their own savedId effect.
+  if (!src.includes("useSavedScenarioRestore")) {
+    fail("wiring", `${rel} cannot restore saved scenarios (useSavedScenarioRestore missing)`)
+  }
   if (file.includes("/pro/") && !src.includes("ProGuard")) {
     fail("wiring", `${rel} is a Pro tool but renders no ProGuard paywall`)
   }
   if (/'\$'/.test(src)) {
     fail("wiring", `${rel} still has a hard-coded '$' literal — use curSym()/useCurrencySymbol() from @/lib/currency`)
+  }
+}
+
+// Freelance clients on the standard actions bar must restore too.
+for (const file of walk(join(ROOT, "src")).filter((f) => f.endsWith("CalculatorClient.tsx") && f.includes("/freelance/"))) {
+  const src = readFileSync(file, "utf8")
+  const rel = file.replace(ROOT + "/", "")
+  if (src.includes("ToolActionsBar") && !src.includes("useSavedScenarioRestore")) {
+    fail("wiring", `${rel} uses ToolActionsBar but cannot restore saved scenarios (useSavedScenarioRestore missing)`)
   }
 }
 

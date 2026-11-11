@@ -233,6 +233,31 @@ export function getCategoryForTool(toolSlug: string): Category | undefined {
   )
 }
 
+/**
+ * Legacy save-slugs: the original freelance tools save scenarios under
+ * older internal slugs that are not page URLs. Map them to the real page
+ * slug so a saved scenario always resolves to a working tool page.
+ */
+export const SCENARIO_SLUG_ALIASES: Record<string, string> = {
+  'time-tracking-roi-calculator': 'billable-hours-calculator',
+  'auto-lease-write-off-calculator': 'business-vehicle-tax-deduction-calculator',
+  'client-ltv-calculator': 'client-lifetime-value-calculator',
+  'nomad-cost-of-living-calculator': 'digital-nomad-cost-of-living-calculator',
+  'irregular-income-buffer-calculator': 'freelance-emergency-fund-calculator',
+  'hourly-rate-reverse-engineer-calculator': 'freelance-hourly-rate-calculator',
+  'project-flat-fee-quoter': 'freelance-project-pricing-calculator',
+  'quarterly-estimated-taxes-calculator': 'quarterly-estimated-tax-calculator',
+  's-corp-salary-dividend-calculator': 's-corp-tax-savings-calculator',
+  'freelance-tax-deductions-calculator': 'self-employment-tax-calculator',
+  'cross-border-fx-impact-calculator': 'stripe-paypal-fee-calculator',
+  'w2-vs-1099-paycheck-calculator': 'w2-vs-1099-calculator',
+}
+
+/** Canonical page URL for a saved scenario's calculator_slug. */
+export function getScenarioUrl(toolSlug: string): string {
+  return getToolUrl(SCENARIO_SLUG_ALIASES[toolSlug] ?? toolSlug)
+}
+
 export function getToolUrl(toolSlug: string): string {
   const category = getCategoryForTool(toolSlug)
   if (category) {

@@ -1,6 +1,6 @@
 import { getSavedCalculatorsAction } from "@/actions/calculator.actions"
-import { AnalyticsCharts } from "@/components/dashboard/AnalyticsCharts"
-import { BarChart3, TrendingUp, Target, Lock } from "lucide-react"
+import { AnalyticsCharts, InsightsPanel } from "@/components/dashboard/AnalyticsCharts"
+import { BarChart3, Target, LayoutGrid, Wrench, Share2, Lock } from "lucide-react"
 import { createServerClient } from "@supabase/ssr"
 import { cookies } from "next/headers"
 import Link from "next/link"
@@ -29,7 +29,7 @@ export default async function AnalyticsPage() {
         </div>
         <h1 className="text-3xl font-bold tracking-tight">Cross-Data Analytics is a Pro feature</h1>
         <p className="text-muted-foreground max-w-md mx-auto">
-          Pro turns your saved scenarios into unified net-worth, debt and cash-flow analytics. Your Vault data is safe — it unlocks the moment you upgrade.
+          Pro turns your saved scenarios into hub breakdowns, activity trends and a net-worth snapshot — all computed from your own numbers. Your Vault data is safe — it unlocks the moment you upgrade.
         </p>
         <Link href="/pricing"><Button size="lg" className="rounded-full px-8">Upgrade to Pro</Button></Link>
       </div>
@@ -58,9 +58,8 @@ export default async function AnalyticsPage() {
         </div>
       ) : (
         <div className="space-y-8">
-          
-          {/* Top KPI Cards */}
-          <div className="grid gap-6 md:grid-cols-3">
+          {/* Honest KPI cards — every number from the user's saved rows */}
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             <div className="bg-card border rounded-2xl p-6 shadow-sm">
               <div className="flex items-center gap-3 text-muted-foreground mb-4">
                 <Target className="w-5 h-5" />
@@ -68,21 +67,32 @@ export default async function AnalyticsPage() {
               </div>
               <p className="text-4xl font-bold font-mono">{savedCalculators.length}</p>
             </div>
-            
-            <div className="bg-card border rounded-2xl p-6 shadow-sm md:col-span-2 bg-gradient-to-br from-primary to-emerald-800 text-primary-foreground border-none">
-              <div className="flex items-center gap-3 text-emerald-100 mb-4">
-                <TrendingUp className="w-5 h-5" />
-                <h3 className="font-semibold text-sm uppercase tracking-wider">Net Worth Velocity Status</h3>
+            <div className="bg-card border rounded-2xl p-6 shadow-sm">
+              <div className="flex items-center gap-3 text-muted-foreground mb-4">
+                <LayoutGrid className="w-5 h-5" />
+                <h3 className="font-semibold text-sm uppercase tracking-wider">Hubs Covered</h3>
               </div>
-              <p className="text-2xl font-semibold leading-tight max-w-lg">
-                Your Vault data indicates a healthy upward trajectory. Review the consolidated waterfalls below.
-              </p>
+              <p className="text-4xl font-bold font-mono">{new Set(savedCalculators.map((c) => c.category)).size}</p>
+            </div>
+            <div className="bg-card border rounded-2xl p-6 shadow-sm">
+              <div className="flex items-center gap-3 text-muted-foreground mb-4">
+                <Wrench className="w-5 h-5" />
+                <h3 className="font-semibold text-sm uppercase tracking-wider">Tools Used</h3>
+              </div>
+              <p className="text-4xl font-bold font-mono">{new Set(savedCalculators.map((c) => c.calculator_slug)).size}</p>
+            </div>
+            <div className="bg-card border rounded-2xl p-6 shadow-sm">
+              <div className="flex items-center gap-3 text-muted-foreground mb-4">
+                <Share2 className="w-5 h-5" />
+                <h3 className="font-semibold text-sm uppercase tracking-wider">Shared</h3>
+              </div>
+              <p className="text-4xl font-bold font-mono">{savedCalculators.filter((c) => c.is_public).length}</p>
             </div>
           </div>
 
-          {/* Client-Side Recharts */}
-          <AnalyticsCharts calculators={savedCalculators} />
+          <InsightsPanel calculators={savedCalculators} />
 
+          <AnalyticsCharts calculators={savedCalculators} />
         </div>
       )}
     </div>

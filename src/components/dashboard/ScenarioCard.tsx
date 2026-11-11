@@ -2,14 +2,25 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Calculator, ArrowRight, Trash2, Copy, Globe } from "lucide-react"
+import { Calculator, ArrowRight, Trash2, Copy, Globe, Scale } from "lucide-react"
 import Link from "next/link"
+import { getScenarioUrl } from "@/config/navigation"
 import { formatDistanceToNow } from "date-fns"
 import { cloneCalculatorAction, deleteCalculatorAction } from "@/actions/calculator.actions"
 import type { SavedCalculator } from "@/types/database"
 import { useState } from "react"
 
-export function ScenarioCard({ calc }: { calc: SavedCalculator }) {
+export function ScenarioCard({
+  calc,
+  selectable = false,
+  selected = false,
+  onToggleSelect,
+}: {
+  calc: SavedCalculator
+  selectable?: boolean
+  selected?: boolean
+  onToggleSelect?: () => void
+}) {
   const [isCloning, setIsCloning] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
 
@@ -35,7 +46,7 @@ export function ScenarioCard({ calc }: { calc: SavedCalculator }) {
   }
 
   return (
-    <Card className="relative overflow-hidden group flex flex-col border-border/50 hover:border-border transition-colors bg-card shadow-sm">
+    <Card className={`relative overflow-hidden group flex flex-col border-border/50 hover:border-border transition-colors bg-card shadow-sm ${selected ? "ring-2 ring-primary border-primary" : ""}`}>
       <CardHeader className="pb-4 flex-1">
         <div className="flex justify-between items-start">
           <div className="bg-primary/10 p-2 rounded-lg text-primary mb-2 flex items-center gap-2">
@@ -48,7 +59,21 @@ export function ScenarioCard({ calc }: { calc: SavedCalculator }) {
             )}
           </div>
           
-          <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+          <div className="flex items-center gap-1">
+            {selectable && (
+              <button
+                onClick={onToggleSelect}
+                aria-pressed={selected}
+                title={selected ? "Selected for comparison" : "Select to compare with another scenario of this tool"}
+                className={`flex h-8 items-center gap-1.5 rounded-full px-2.5 text-xs font-bold transition-colors ${
+                  selected ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                <Scale className="h-3.5 w-3.5" />
+                {selected ? "Selected" : "Compare"}
+              </button>
+            )}
+            <span className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
             <Button 
               variant="ghost" 
               size="icon" 
@@ -69,6 +94,7 @@ export function ScenarioCard({ calc }: { calc: SavedCalculator }) {
             >
               <Trash2 className="h-4 w-4" />
             </Button>
+            </span>
           </div>
         </div>
         
@@ -93,7 +119,7 @@ export function ScenarioCard({ calc }: { calc: SavedCalculator }) {
       </CardContent>
       
       <CardFooter className="pt-4 border-t mt-auto bg-muted/20">
-        <Link href={`/tools/${calc.calculator_slug}?savedId=${calc.id}`} className="w-full">
+        <Link href={`${getScenarioUrl(calc.calculator_slug)}?savedId=${calc.id}`} className="w-full">
           <Button variant="outline" className="w-full justify-between hover:bg-background">
             Open Scenario
             <ArrowRight className="h-4 w-4" />
