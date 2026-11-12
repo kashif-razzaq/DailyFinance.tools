@@ -1,32 +1,20 @@
-import {
-  Zap,
-  Sigma,
-  Calculator,
-  Clock,
-  ListOrdered,
-  MessagesSquare,
-  BookOpen,
-} from "lucide-react"
+import { Zap, Sigma, Calculator } from "lucide-react"
 import { TOOL_CONTENT, type ToolContentEntry } from "@/data/tool-content"
 import { navigationCategories } from "@/config/navigation"
 
 /**
  * ToolContent — renders the editorial content block under a calculator.
  *
- * The words are unique per tool (see src/data/tool-content.ts); the frame is
- * not allowed to be. Four genuinely different layouts rotate across tools,
- * assigned deterministically from the content key so a given tool always
- * renders the same design while neighbouring tools look crafted, not stamped:
+ * ONE layout for every tool (Kashif, 2026-11-12): all 114 tool pages share
+ * the same structure so the site reads as one crafted product, not a set of
+ * experiments. The words are unique per tool (see src/data/tool-content.ts);
+ * the frame is identical:
  *
- *   V1 "Guide"     — quick-answer hero, numbered step cards, dark formula
- *                    banner, worksheet-style example card.
- *   V2 "Two-column"— slim quick-answer callout, prose column beside a sticky
- *                    rail holding the formula and the example.
- *   V3 "Story"     — plain lede, the example first as a dark scenario panel,
- *                    method after, formula as an inline code strip.
- *   V4 "Dashboard" — quick answer plus a stats strip derived from the entry
- *                    itself, method in a card grid, formula and example
- *                    side by side.
+ *   1. Quick-answer hero (40–60 words, AEO) — no meta blocks (no read time,
+ *      no counts; Kashif, 2026-11-12: keep it a clean tool content page)
+ *   2. "How the <Tool> works, step by step" — numbered step cards
+ *   3. The formula — dark banner (when the tool has one)
+ *   4. Worked example — worksheet-style dashed card, with real numbers
  *
  * FAQs are NOT rendered here: ToolLayout renders them from its faqs prop
  * (and emits the FAQ schema), so pages pass entry.faqs to ToolLayout.
@@ -35,19 +23,6 @@ import { navigationCategories } from "@/config/navigation"
  * scripts/check-site.mjs), so a missing entry renders nothing rather than
  * any placeholder panel.
  */
-
-type Variant = 0 | 1 | 2 | 3
-
-/** FNV-1a hash of the content key → stable variant per tool. */
-function variantFor(contentKey: string): Variant {
-  let h = 0x811c9dc5
-  for (let i = 0; i < contentKey.length; i++) {
-    h ^= contentKey.charCodeAt(i)
-    h = Math.imul(h, 0x01000193)
-  }
-  return ((h >>> 0) % 4) as Variant
-}
-
 
 const HEADING_STOPWORDS = new Set(["vs", "and", "or", "of", "the", "to", "a", "an"])
 
@@ -71,63 +46,15 @@ function toolNameFor(contentKey: string): string {
     .join(" ")
 }
 
-function entryWordCount(entry: ToolContentEntry): number {
-  const parts = [
-    entry.quickAnswer,
-    ...entry.howItWorks,
-    entry.example.title,
-    entry.example.body,
-    entry.formula ?? "",
-  ]
-  return parts.join(" ").split(/\s+/).filter(Boolean).length
-}
-
-function readingMinutes(entry: ToolContentEntry): number {
-  return Math.max(1, Math.round(entryWordCount(entry) / 200))
-}
-
 const eyebrow =
   "flex items-center gap-2 text-xs font-bold uppercase tracking-[0.15em] text-[#064E3B] dark:text-emerald-400 mb-2"
 
-/* ------------------------------------------------------------------ */
-/* Shared pieces (each variant arranges and weights them differently)  */
-/* ------------------------------------------------------------------ */
+export function ToolContent({ contentKey }: { contentKey: string }) {
+  const entry = TOOL_CONTENT[contentKey]
+  if (!entry) return null
 
-function FormulaBanner({ formula }: { formula: string }) {
-  return (
-    <section aria-label="Formula" className="not-prose my-10">
-      <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 mb-2">
-        <Sigma className="h-4 w-4" /> The formula
-      </p>
-      <p className="font-mono text-sm md:text-base bg-[#064E3B] text-emerald-50 rounded-2xl px-6 py-5 leading-relaxed shadow-sm">
-        {formula}
-      </p>
-    </section>
-  )
-}
+  const toolName = toolNameFor(contentKey)
 
-function FormulaStrip({ formula }: { formula: string }) {
-  return (
-    <section
-      aria-label="Formula"
-      className="not-prose mt-10 flex items-start gap-3 bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xl px-5 py-4"
-    >
-      <Sigma className="h-5 w-5 shrink-0 text-[#064E3B] dark:text-emerald-400 mt-0.5" />
-      <p className="font-mono text-sm leading-relaxed m-0">
-        <span className="font-sans font-bold text-neutral-900 dark:text-white mr-2">
-          Formula:
-        </span>
-        {formula}
-      </p>
-    </section>
-  )
-}
-
-/* ------------------------------------------------------------------ */
-/* V1 — "Guide": hero answer, numbered steps, banner, worksheet        */
-/* ------------------------------------------------------------------ */
-
-function VariantGuide({ entry, toolName }: { entry: ToolContentEntry; toolName: string }) {
   return (
     <div>
       <section
@@ -166,7 +93,16 @@ function VariantGuide({ entry, toolName }: { entry: ToolContentEntry; toolName: 
         </ol>
       </section>
 
-      {entry.formula && <FormulaBanner formula={entry.formula} />}
+      {entry.formula && (
+        <section aria-label="Formula" className="not-prose my-10">
+          <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 mb-2">
+            <Sigma className="h-4 w-4" /> The formula
+          </p>
+          <p className="font-mono text-sm md:text-base bg-[#064E3B] text-emerald-50 rounded-2xl px-6 py-5 leading-relaxed shadow-sm">
+            {entry.formula}
+          </p>
+        </section>
+      )}
 
       <section
         aria-label="Worked example"
@@ -187,256 +123,4 @@ function VariantGuide({ entry, toolName }: { entry: ToolContentEntry; toolName: 
       </section>
     </div>
   )
-}
-
-/* ------------------------------------------------------------------ */
-/* V2 — "Two-column": callout, prose + sticky rail                     */
-/* ------------------------------------------------------------------ */
-
-function VariantTwoColumn({ entry, toolName }: { entry: ToolContentEntry; toolName: string }) {
-  return (
-    <div>
-      <section
-        aria-label="Quick answer"
-        className="not-prose border-l-4 border-[#064E3B] bg-[#064E3B]/5 dark:bg-emerald-400/10 rounded-r-2xl px-6 py-5 mb-10"
-      >
-        <p className={eyebrow}>
-          <Zap className="h-4 w-4" /> Quick answer
-        </p>
-        <p className="text-base md:text-lg leading-relaxed text-neutral-800 dark:text-neutral-100 m-0">
-          {entry.quickAnswer}
-        </p>
-      </section>
-
-      <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-10 items-start">
-        <section aria-label="How it works" className="content-prose">
-          <h2 className="mt-0">How the {toolName} works</h2>
-          {entry.howItWorks.map((paragraph, i) => (
-            <p key={i}>{paragraph}</p>
-          ))}
-        </section>
-
-        <aside className="not-prose mt-10 lg:mt-0 lg:sticky lg:top-24 space-y-5">
-          {entry.formula && (
-            <div className="border border-neutral-200 dark:border-neutral-800 rounded-2xl bg-neutral-50 dark:bg-neutral-900 p-5">
-              <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 mb-3">
-                <Sigma className="h-4 w-4" /> The formula
-              </p>
-              <p className="font-mono text-[13px] leading-relaxed text-neutral-800 dark:text-neutral-100 m-0">
-                {entry.formula}
-              </p>
-            </div>
-          )}
-          <div className="border border-[#064E3B]/20 dark:border-emerald-400/25 rounded-2xl bg-[#064E3B]/5 dark:bg-emerald-400/10 p-5">
-            <p className={eyebrow}>
-              <Calculator className="h-4 w-4" /> Worked example
-            </p>
-            <h2 className="text-base font-bold tracking-tight mb-2 text-neutral-900 dark:text-white">
-              {entry.example.title}
-            </h2>
-            <p className="text-sm leading-relaxed text-neutral-700 dark:text-neutral-300 m-0">
-              {entry.example.body}
-            </p>
-          </div>
-        </aside>
-      </div>
-    </div>
-  )
-}
-
-/* ------------------------------------------------------------------ */
-/* V3 — "Story": lede, example first, method after, inline formula     */
-/* ------------------------------------------------------------------ */
-
-function VariantStory({ entry, toolName }: { entry: ToolContentEntry; toolName: string }) {
-  return (
-    <div>
-      <section aria-label="Quick answer" className="not-prose mb-10">
-        <p className={eyebrow}>
-          <BookOpen className="h-4 w-4" /> The short answer
-        </p>
-        <p className="text-xl md:text-2xl leading-relaxed font-medium text-neutral-900 dark:text-white m-0">
-          {entry.quickAnswer}
-        </p>
-      </section>
-
-      <section
-        aria-label="Worked example"
-        className="not-prose rounded-3xl bg-[#064E3B] text-white px-6 py-7 md:px-9 md:py-9 mb-12 shadow-md"
-      >
-        <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.15em] text-emerald-200 mb-3">
-          <Calculator className="h-4 w-4" /> See it with real numbers
-        </p>
-        <h2 className="text-xl md:text-2xl font-bold tracking-tight mb-3 text-white">
-          {entry.example.title}
-        </h2>
-        <p className="text-base md:text-lg leading-relaxed text-emerald-50/90 m-0">
-          {entry.example.body}
-        </p>
-      </section>
-
-      <section aria-label="How it works" className="content-prose">
-        <h2>How the {toolName} works</h2>
-        {entry.howItWorks.map((paragraph, i) => (
-          <p key={i}>{paragraph}</p>
-        ))}
-      </section>
-
-      {entry.formula && <FormulaStrip formula={entry.formula} />}
-    </div>
-  )
-}
-
-/* ------------------------------------------------------------------ */
-/* V4 — "Dashboard": answer + entry-derived stats, card grid, pair     */
-/* ------------------------------------------------------------------ */
-
-function VariantDashboard({ entry, toolName }: { entry: ToolContentEntry; toolName: string }) {
-  const minutes = readingMinutes(entry)
-  const tiles: { icon: React.ReactNode; value: string; label: string }[] = [
-    {
-      icon: <Clock className="h-4 w-4" />,
-      value: `${minutes} min`,
-      label: "Reading time for this guide",
-    },
-    {
-      icon: <MessagesSquare className="h-4 w-4" />,
-      value: String(entry.faqs.length),
-      label: "Questions answered below",
-    },
-    entry.formula
-      ? {
-          icon: <Sigma className="h-4 w-4" />,
-          value: "In full",
-          label: "The formula, shown below",
-        }
-      : {
-          icon: <ListOrdered className="h-4 w-4" />,
-          value: String(entry.howItWorks.length),
-          label: "Parts to how it works",
-        },
-  ]
-
-  return (
-    <div>
-      <section
-        aria-label="Quick answer"
-        className="not-prose border border-neutral-200 dark:border-neutral-800 rounded-2xl px-6 py-5 bg-white dark:bg-neutral-950 mb-6"
-      >
-        <p className={eyebrow}>
-          <Zap className="h-4 w-4" /> Quick answer
-        </p>
-        <p className="text-base md:text-lg leading-relaxed text-neutral-800 dark:text-neutral-100 m-0">
-          {entry.quickAnswer}
-        </p>
-      </section>
-
-      <dl
-        aria-label="About this guide"
-        className="not-prose grid grid-cols-3 gap-3 md:gap-4 mb-12"
-      >
-        {tiles.map((tile) => (
-          <div
-            key={tile.label}
-            className="flex flex-col border border-neutral-200 dark:border-neutral-800 rounded-2xl bg-neutral-50 dark:bg-neutral-900 px-4 py-4 text-center"
-          >
-            <dt className="order-2 flex items-center justify-center gap-1.5 text-[11px] md:text-xs font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400 mt-1">
-              {tile.icon}
-              {tile.label}
-            </dt>
-            <dd className="order-1 text-xl md:text-2xl font-extrabold tracking-tight text-[#064E3B] dark:text-emerald-400 m-0">
-              {tile.value}
-            </dd>
-          </div>
-        ))}
-      </dl>
-
-      <section aria-label="How it works">
-        <div className="content-prose">
-          <h2>How the {toolName} works</h2>
-        </div>
-        <div className="not-prose grid md:grid-cols-2 gap-4 mt-6">
-          {entry.howItWorks.map((paragraph, i) => (
-            <div
-              key={i}
-              className="border border-neutral-200 dark:border-neutral-800 rounded-2xl bg-white dark:bg-neutral-950 p-5 md:p-6"
-            >
-              <p className="text-xs font-extrabold uppercase tracking-[0.15em] text-[#064E3B] dark:text-emerald-400 mb-2">
-                Part {i + 1} of {entry.howItWorks.length}
-              </p>
-              <p className="text-base leading-relaxed text-neutral-700 dark:text-neutral-300 m-0">
-                {paragraph}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <div className="not-prose grid md:grid-cols-2 gap-4 mt-10 items-stretch">
-        {entry.formula ? (
-          <section
-            aria-label="Formula"
-            className="border border-neutral-200 dark:border-neutral-800 rounded-2xl bg-neutral-50 dark:bg-neutral-900 p-6"
-          >
-            <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 mb-3">
-              <Sigma className="h-4 w-4" /> The formula
-            </p>
-            <p className="font-mono text-sm leading-relaxed text-neutral-800 dark:text-neutral-100 m-0">
-              {entry.formula}
-            </p>
-          </section>
-        ) : (
-          <section
-            aria-label="Worked example"
-            className="border border-[#064E3B]/20 dark:border-emerald-400/25 rounded-2xl bg-[#064E3B]/5 dark:bg-emerald-400/10 p-6 md:col-span-2"
-          >
-            <p className={eyebrow}>
-              <Calculator className="h-4 w-4" /> Worked example
-            </p>
-            <h2 className="text-lg font-bold tracking-tight mb-2 text-neutral-900 dark:text-white">
-              {entry.example.title}
-            </h2>
-            <p className="text-base leading-relaxed text-neutral-700 dark:text-neutral-300 m-0">
-              {entry.example.body}
-            </p>
-          </section>
-        )}
-        {entry.formula && (
-          <section
-            aria-label="Worked example"
-            className="border border-[#064E3B]/20 dark:border-emerald-400/25 rounded-2xl bg-[#064E3B]/5 dark:bg-emerald-400/10 p-6"
-          >
-            <p className={eyebrow}>
-              <Calculator className="h-4 w-4" /> Worked example
-            </p>
-            <h2 className="text-lg font-bold tracking-tight mb-2 text-neutral-900 dark:text-white">
-              {entry.example.title}
-            </h2>
-            <p className="text-base leading-relaxed text-neutral-700 dark:text-neutral-300 m-0">
-              {entry.example.body}
-            </p>
-          </section>
-        )}
-      </div>
-    </div>
-  )
-}
-
-/* ------------------------------------------------------------------ */
-
-export function ToolContent({ contentKey }: { contentKey: string }) {
-  const entry = TOOL_CONTENT[contentKey]
-  if (!entry) return null
-
-  const toolName = toolNameFor(contentKey)
-  switch (variantFor(contentKey)) {
-    case 0:
-      return <VariantGuide entry={entry} toolName={toolName} />
-    case 1:
-      return <VariantTwoColumn entry={entry} toolName={toolName} />
-    case 2:
-      return <VariantStory entry={entry} toolName={toolName} />
-    case 3:
-      return <VariantDashboard entry={entry} toolName={toolName} />
-  }
 }
