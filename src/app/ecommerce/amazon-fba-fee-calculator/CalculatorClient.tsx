@@ -10,7 +10,23 @@ import { useCurrencySymbol } from '@/lib/currency'
 const fmt = (n: number, sym: string) => sym + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
 const fmt0 = (n: number, sym: string) => sym + Math.round(n).toLocaleString('en-US')
 
-const REFERRAL: Record<string, number> = { 'Home & Kitchen (15%)': 15, 'Health & Personal Care (15%)': 15, 'Beauty (15%)': 15, 'Grocery (8–15%)': 12, 'Electronics (8%)': 8, 'Clothing & Accessories (17%)': 17, 'Toys & Games (17%)': 17, 'Office Products (15%)': 15, 'Pet Supplies (15%)': 15, 'Baby Products (8–15%)': 12 }
+const REFERRAL: Record<string, number> = { 'Home & Kitchen (15%)': 15, 'Health & Personal Care (8–15%)': 15, 'Beauty (8–15%)': 15, 'Grocery (8–15%)': 15, 'Electronics (8%)': 8, 'Clothing & Accessories (5–17%)': 17, 'Toys & Games (15%)': 15, 'Office Products (15%)': 15, 'Pet Supplies (15%)': 15, 'Baby Products (8–15%)': 15 }
+// 2026 US referral fees, verified November 2026 (frozen since Jan 2024). Tiered
+// categories charge ONE rate on the WHOLE price (not marginal): Clothing 5% ≤$15 /
+// 10% $15–$20 / 17% above $20; Baby, Beauty, Health & Personal Care 8% ≤$10 / 15%
+// above; Grocery 8% ≤$15 / 15% above. Toys & Games is a flat 15%.
+function referralPct(category: string, price: number): number {
+  if (category.startsWith('Clothing')) return price <= 15 ? 5 : price <= 20 ? 10 : 17
+  if (category.startsWith('Baby') || category.startsWith('Beauty') || category.startsWith('Health')) return price <= 10 ? 8 : 15
+  if (category.startsWith('Grocery')) return price <= 15 ? 8 : 15
+  return REFERRAL[category] ?? 15
+}
+// Saved scenarios store the category label; labels changed when tiers were added,
+// so match by category name so older saves still resolve to the current label.
+function normalizeCategory(stored: string): string {
+  const name = stored.split(' (')[0]
+  return Object.keys(REFERRAL).find((k) => k.split(' (')[0] === name) ?? 'Home & Kitchen (15%)'
+}
 // 2026 US FBA fulfilment fees, verified November 2026 (non-peak base rates effective 15 Jan 2026, before
 // the surcharge). Each tier is [under $10, $10–$50, over $50] by selling price; bulky tiers have only two
 // bands (under $10 / $10 and up), so the over-$50 figure repeats the middle band. Small standard 12–16 oz
@@ -33,7 +49,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   useSavedScenarioRestore((s) => {
     if (s.price !== undefined) setPrice(s.price as any)
     if (s.cogs !== undefined) setCogs(s.cogs as any)
-    if (s.category !== undefined) setCategory(s.category as any)
+    if (s.category !== undefined) setCategory(normalizeCategory(s.category as string))
     if (s.tier !== undefined) setTier(s.tier as any)
     if (s.storage !== undefined) setStorage(s.storage as any)
     if (s.inbound !== undefined) setInbound(s.inbound as any)
@@ -41,7 +57,8 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   })
 
 
-  const referralFee = price * (REFERRAL[category] / 100)
+  // $0.30 minimum referral fee per item on most categories (Grocery has none).
+  const referralFee = Math.max(price * (referralPct(category, price) / 100), category.startsWith('Grocery') ? 0 : 0.30)
   // Saved scenarios store the tier label; match by tier name so saves made before a fee update still resolve.
   const tierBands = Object.entries(FBA_FEE).find(([k]) => k === tier || k.startsWith(tier.split(' — ')[0] + ' —'))?.[1] ?? FBA_FEE['Large standard (≤1 lb) — $3.78–$4.86']
   const bandIdx = price < 10 ? 0 : price <= 50 ? 1 : 2

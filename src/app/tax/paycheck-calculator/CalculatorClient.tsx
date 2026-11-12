@@ -48,7 +48,11 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [freq, setFreq] = useState<keyof typeof FREQ>('biweekly')
   const [status, setStatus] = useState<'single' | 'mfj'>('single')
   const [statePct, setStatePct] = useState(5)
-  const [retirement, setRetirement] = useState(3120) // annual pre-tax 401(k) etc.
+  // 401(k) lowers federal income tax only — deferrals stay FICA-taxable (IRS rules).
+  // HSA + Section 125 health premiums lower federal tax AND FICA. They must be
+  // separate inputs because they hit different tax bases.
+  const [retirement401k, setRetirement401k] = useState(3120) // annual 401(k)/403(b)
+  const [hsaHealth, setHsaHealth] = useState(0) // annual payroll HSA + pre-tax health premiums
 
   // Restore a saved scenario opened from the Vault (?savedId=…).
   useSavedScenarioRestore((s) => {
@@ -56,35 +60,43 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     if (s.freq !== undefined) setFreq(s.freq as any)
     if (s.status !== undefined) setStatus(s.status as any)
     if (s.statePct !== undefined) setStatePct(s.statePct as any)
-    if (s.retirement !== undefined) setRetirement(s.retirement as any)
+    if (s.retirement401k !== undefined) setRetirement401k(s.retirement401k as any)
+    if (s.hsaHealth !== undefined) setHsaHealth(s.hsaHealth as any)
+    // Legacy saves stored one combined "retirement" figure — treat it as 401(k).
+    if (s.retirement401k === undefined && s.retirement !== undefined) setRetirement401k(s.retirement as any)
   })
 
 
   const r = useMemo(() => {
     const periods = FREQ[freq].periods
-    const taxableWages = Math.max(0, salary - retirement)
+    // Federal income tax base: both 401(k) and HSA/health premiums come off.
+    const fedWages = Math.max(0, salary - retirement401k - hsaHealth)
+    // FICA base: only HSA/health premiums come off — 401(k) stays FICA-taxable.
+    const ficaWages = Math.max(0, salary - hsaHealth)
     // Federal income tax on wages after pre-tax deductions and the standard deduction
-    const federal = bracketTax(Math.max(0, taxableWages - STD_DED[status]), BRACKETS[status])
+    const federal = bracketTax(Math.max(0, fedWages - STD_DED[status]), BRACKETS[status])
     // FICA: Social Security 6.2% up to the wage base + Medicare 1.45% (+0.9% over $200k/$250k)
-    const ss = Math.min(taxableWages, SS_WAGE_BASE) * 0.062
-    const medicare = taxableWages * 0.0145 + Math.max(0, taxableWages - (status === 'mfj' ? 250000 : 200000)) * 0.009
+    const ss = Math.min(ficaWages, SS_WAGE_BASE) * 0.062
+    const medicare = ficaWages * 0.0145 + Math.max(0, ficaWages - (status === 'mfj' ? 250000 : 200000)) * 0.009
     const state = salary * (statePct / 100)
     const totalTax = federal + ss + medicare + state
-    const netAnnual = salary - totalTax - retirement
+    const netAnnual = salary - totalTax - retirement401k - hsaHealth
     const per = (annual: number) => annual / periods
     return {
       periods, federal, ss, medicare, state, totalTax, netAnnual,
-      grossP: per(salary), fedP: per(federal), ssP: per(ss), medP: per(medicare), stateP: per(state), retP: per(retirement), netP: per(netAnnual),
+      grossP: per(salary), fedP: per(federal), ssP: per(ss), medP: per(medicare), stateP: per(state),
+      k401P: per(retirement401k), hsaP: per(hsaHealth), netP: per(netAnnual),
       takeHomePct: salary > 0 ? (netAnnual / salary) * 100 : 0,
     }
-  }, [salary, freq, status, statePct, retirement])
+  }, [salary, freq, status, statePct, retirement401k, hsaHealth])
 
   const pie = [
     { name: 'Take-home', value: Math.max(0, Math.round(r.netAnnual)), color: '#064E3B' },
     { name: 'Federal tax', value: Math.round(r.federal), color: '#D97706' },
     { name: 'FICA', value: Math.round(r.ss + r.medicare), color: '#2563EB' },
     { name: 'State tax', value: Math.round(r.state), color: '#9333EA' },
-    { name: 'Retirement', value: Math.round(retirement), color: '#6B7280' },
+    { name: '401(k)', value: Math.round(retirement401k), color: '#6B7280' },
+    { name: 'HSA / health', value: Math.round(hsaHealth), color: '#059669' },
   ].filter((d) => d.value > 0)
 
   const stubRow = (label: string, per: number, annual: number, neg = true) => (
@@ -108,7 +120,8 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           </select></div>
       </div>
       <PctSlider label="State Income Tax (flat estimate)" value={statePct} onChange={setStatePct} min={0} max={13} step={0.1} />
-      <MoneyInput label="Pre-Tax Deductions per Year (401k, HSA…)" value={retirement} onChange={setRetirement} hint="Pre-tax deductions lower your federal taxable wages before tax is worked out." />
+      <MoneyInput label="401(k) / Retirement per Year" value={retirement401k} onChange={setRetirement401k} hint="Lowers federal income tax, but Social Security and Medicare tax still apply to the full wage — 401(k) deferrals are not exempt from FICA." />
+      <MoneyInput label="HSA + Health Premiums per Year" value={hsaHealth} onChange={setHsaHealth} hint="Payroll HSA contributions and pre-tax health premiums lower federal income tax and FICA." />
       <p className="text-xs text-muted-foreground">Estimate only, using 2026 federal brackets and FICA rates — verify with the IRS / your payroll provider.</p>
     </div>
     <div className="lg:col-span-5 space-y-6">
@@ -127,14 +140,15 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         {stubRow('Social Security (6.2%)', r.ssP, r.ss)}
         {stubRow('Medicare (1.45%)', r.medP, r.medicare)}
         {stubRow('State income tax', r.stateP, r.state)}
-        {stubRow('Pre-tax deductions', r.retP, retirement)}
+        {stubRow('401(k) contributions', r.k401P, retirement401k)}
+        {hsaHealth > 0 && stubRow('HSA / health premiums', r.hsaP, hsaHealth)}
         <div className="flex justify-between text-sm pt-3 font-bold"><span>Net pay</span><span className="font-mono">{fmtC(r.netP)} / {fmt(r.netAnnual)}</span></div>
       </div>
       <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-2">Where Each Paycheck Goes</h4>
         <ResponsiveContainer width="100%" height={190}><PieChart><Pie data={pie} dataKey="value" nameKey="name" innerRadius={45} outerRadius={75} paddingAngle={2}>{pie.map((d) => <Cell key={d.name} fill={d.color} />)}</Pie><Tooltip formatter={(v: any) => fmt(Number(v))} /></PieChart></ResponsiveContainer>
         <div className="flex flex-wrap gap-x-4 gap-y-1 justify-center">{pie.map((d) => <span key={d.name} className="text-xs flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-sm" style={{ background: d.color }} />{d.name}</span>)}</div>
       </div>
-    <ToolActionsBar slug="paycheck-calculator" isPro={isPro} inputs={{ salary, freq, status, statePct, retirement }} />
+    <ToolActionsBar slug="paycheck-calculator" isPro={isPro} inputs={{ salary, freq, status, statePct, retirement401k, hsaHealth }} />
     </div>
   </div></>)
 }
