@@ -91,7 +91,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     "Payback Period (Months)": metrics.paybackPeriod.toFixed(1)
   }]
 
-  const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://dailyfinance.tools'
+  const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://www.dailyfinance.tools'
   const shareUrl = savedScenarioId 
     ? `${baseUrl}/freelance/client-lifetime-value-calculator?savedId=${savedScenarioId}`
     : `${baseUrl}/freelance/client-ltv-calculator`

@@ -1,6 +1,5 @@
 import { createServerClient } from "@supabase/ssr"
 import { cookies } from "next/headers"
-import Script from "next/script"
 import Link from "next/link"
 import { CheckCircle2 } from "lucide-react"
 import Image from "next/image"
@@ -14,6 +13,8 @@ import { PreferredSourceButton } from "@/components/shared/PreferredSourceButton
 import { FaqAccordion } from "@/components/shared/FaqAccordion"
 import { getCategoryForTool } from "@/config/navigation"
 import { safeGetUser } from "@/utils/supabase/safe-user"
+import { webApp, faq, article, breadcrumb, howTo, stringifyJsonLd, CONTENT_REVIEWED } from "@/lib/schema"
+import { TOOL_CONTENT } from "@/data/tool-content"
 
 export interface FAQ {
   question: string;
@@ -76,56 +77,24 @@ export async function ToolLayout({
     }
   }
 
-  const softwareSchema = {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": title,
-    "url": `https://dailyfinance.tools/${category ? category.slug + "/" : ""}${slug}`,
-    "applicationCategory": "BusinessApplication",
-    "operatingSystem": "All",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-    "description": description
-  }
-
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": faqs.map(faq => ({
-      "@type": "Question",
-      "name": faq.question,
-      "acceptedAnswer": { "@type": "Answer", "text": faq.answer }
-    }))
-  }
-
-  const articleSchema = {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "headline": title,
-    "author": { "@type": "Person", "name": "Tahir Shehzad" },
-    "publisher": { "@type": "Organization", "name": "DailyFinance.tools" }
-  }
-
-  const toolUrl = `https://dailyfinance.tools/${category ? category.slug + "/" : ""}${slug}`
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://dailyfinance.tools/" },
-      ...(category
-        ? [{ "@type": "ListItem", "position": 2, "name": category.name, "item": `https://dailyfinance.tools/${category.slug}` }]
-        : []),
-      { "@type": "ListItem", "position": category ? 3 : 2, "name": title, "item": toolUrl },
-    ],
-  }
+  const toolUrl = `https://www.dailyfinance.tools/${category ? category.slug + "/" : ""}${slug}`
+  const steps = category ? TOOL_CONTENT[`${category.slug}/${slug}`]?.howItWorks : undefined
 
   return (
     <main className="w-full bg-background min-h-screen">
-      <Script id="schema-software" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }} />
+      <script id="schema-software" type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(webApp({ name: title, url: toolUrl, description })) }} />
       {faqs.length > 0 && (
-        <Script id="schema-faq" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+        <script id="schema-faq" type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(faq(faqs)) }} />
       )}
-      <Script id="schema-article" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
-      <Script id="schema-breadcrumb" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script id="schema-article" type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(article({ headline: title, description, url: toolUrl, dateModified: CONTENT_REVIEWED, datePublished: CONTENT_REVIEWED })) }} />
+      <script id="schema-breadcrumb" type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(breadcrumb([
+        { name: "Home", url: "https://www.dailyfinance.tools/" },
+        ...(category ? [{ name: category.name, url: `https://www.dailyfinance.tools/${category.slug}` }] : []),
+        { name: title, url: toolUrl },
+      ])) }} />
+      {steps && steps.length > 0 && (
+        <script id="schema-howto" type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(howTo({ name: `How to use the ${title}`, steps: steps.map((text) => ({ text })) })) }} />
+      )}
 
       {/* Main Interactive Tool Area */}
       <section className="container mx-auto px-4 md:px-8 pt-12 pb-2 md:pb-8" aria-label={`${title} Tool`}>

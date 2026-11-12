@@ -1,30 +1,33 @@
 import type { Metadata } from "next"
 import { LegalPage } from "@/components/layout/LegalPage"
+import { breadcrumb, stringifyJsonLd } from "@/lib/schema"
 
 export const metadata: Metadata = {
   title: "Editorial Policy — How DailyFinance Researches, Writes & Reviews",
   description: "How DailyFinance chooses topics, researches primary sources, drafts with human-led AI assistance, verifies every figure and corrects errors.",
-  alternates: { canonical: "https://dailyfinance.tools/editorial-policy" },
+  alternates: { canonical: "https://www.dailyfinance.tools/editorial-policy" },
   openGraph: {
     title: "Editorial Policy — How DailyFinance Researches, Writes & Reviews",
     description: "How DailyFinance chooses topics, researches primary sources, drafts with human-led AI assistance, verifies every figure and corrects errors.",
-    url: "https://dailyfinance.tools/editorial-policy",
+    url: "https://www.dailyfinance.tools/editorial-policy",
     siteName: "DailyFinance.tools",
     locale: "en_US",
     type: "website",
-    images: [{ url: "https://dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Editorial Policy — DailyFinance.tools" }],
+    images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Editorial Policy — DailyFinance.tools" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Editorial Policy — How DailyFinance Researches, Writes & Reviews",
     description: "How DailyFinance chooses topics, researches primary sources, drafts with human-led AI assistance, verifies every figure and corrects errors.",
-    images: ["https://dailyfinance.tools/images/og-base.jpg"],
+    images: ["https://www.dailyfinance.tools/images/og-base.jpg"],
   },
 }
 
 export default function EditorialPolicyPage() {
   return (
-    <LegalPage
+    <>
+      <script id="schema-crumb-editorial-policy" type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(breadcrumb([{ name: "Home", url: "https://www.dailyfinance.tools/" }, { name: "Editorial Policy", url: "https://www.dailyfinance.tools/editorial-policy" }])) }} />
+      <LegalPage
       title="Editorial Policy"
       updated="11 November 2026"
       intro="DailyFinance publishes financial calculators and guides in a high-trust category — your money. This page sets out, plainly, how our content is chosen, researched, written, checked and corrected, so readers (and reviewers) can judge whether it deserves that trust."
@@ -56,5 +59,6 @@ export default function EditorialPolicyPage() {
         ]},
       ]}
     />
+    </>
   )
 }

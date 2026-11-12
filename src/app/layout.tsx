@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Figtree, JetBrains_Mono } from "next/font/google";
-import Script from "next/script";
 import { Navbar } from "@/components/layout/Navbar";
+import { organization, webSite, siteNavigation, stringifyJsonLd } from "@/lib/schema";
 import { Footer } from "@/components/layout/Footer";
 import { ConditionalLayout } from "@/components/layout/ConditionalLayout";
 import { FloatingConsultationBubble } from "@/components/shared/FloatingConsultationBubble";
@@ -23,7 +23,7 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://dailyfinance.tools'),
+  metadataBase: new URL('https://www.dailyfinance.tools'),
   title: {
     default: 'DailyFinance.tools | 100+ Free Financial Calculators',
     template: '%s',
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
   // which overrides this value; it is otherwise inherited only by the
   // robots-disallowed /dashboard, /login and /embed routes.
   alternates: {
-    canonical: 'https://dailyfinance.tools/',
+    canonical: 'https://www.dailyfinance.tools/',
   },
   robots: {
     index: true,
@@ -58,13 +58,13 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'DailyFinance.tools | 100+ Free Financial Calculators',
     description: SITE_DESCRIPTION,
-    url: 'https://dailyfinance.tools',
+    url: 'https://www.dailyfinance.tools',
     siteName: 'DailyFinance.tools',
     locale: 'en_US',
     type: 'website',
     images: [
       {
-        url: 'https://dailyfinance.tools/images/og-base.jpg',
+        url: 'https://www.dailyfinance.tools/images/og-base.jpg',
         width: 1376,
         height: 768,
         alt: 'DailyFinance.tools — free financial calculators',
@@ -75,7 +75,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'DailyFinance.tools | 100+ Free Financial Calculators',
     description: SITE_DESCRIPTION,
-    images: ['https://dailyfinance.tools/images/og-base.jpg'],
+    images: ['https://www.dailyfinance.tools/images/og-base.jpg'],
   },
 };
 
@@ -84,62 +84,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const organizationSchema = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    name: "DailyFinance.tools",
-    url: "https://dailyfinance.tools",
-    logo: "https://dailyfinance.tools/logo.svg",
-    sameAs: [],
-    description:
-      "100+ free financial calculators for personal finance, mortgages, loans, taxes, retirement, freelancers, creators and e-commerce sellers.",
-    contactPoint: {
-      "@type": "ContactPoint",
-      email: "momintechltd@gmail.com",
-      contactType: "customer support",
-    },
-  };
-
-  // No SearchAction: the site has no search results route (the /tools
-  // directory does not consume a query parameter), so claiming one would
-  // point search engines at a URL that does not perform a search.
-  const webSiteSchema = {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: "DailyFinance.tools",
-    url: "https://dailyfinance.tools",
-    publisher: {
-      "@type": "Organization",
-      name: "DailyFinance.tools",
-      url: "https://dailyfinance.tools",
-    },
-  };
-
-  const navigationSchema = {
-    "@context": "https://schema.org",
-    "@type": "SiteNavigationElement",
-    name: [
-      "Freelance Tools",
-      "Creator Economy Tools",
-      "E-Commerce Tools",
-      "Real Estate Tools",
-      "Personal Wealth Tools",
-      "Loans & Debt Tools",
-      "Tax & Salary Tools",
-      "Guides",
-    ],
-    url: [
-      "https://dailyfinance.tools/freelance",
-      "https://dailyfinance.tools/creator",
-      "https://dailyfinance.tools/ecommerce",
-      "https://dailyfinance.tools/real-estate",
-      "https://dailyfinance.tools/personal-wealth",
-      "https://dailyfinance.tools/loans",
-      "https://dailyfinance.tools/tax",
-      "https://dailyfinance.tools/guides",
-    ],
-  };
-
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${sans.variable} ${mono.variable} font-sans antialiased bg-background text-foreground min-h-screen flex flex-col`}>
@@ -150,20 +94,20 @@ export default function RootLayout({
           }}
         />
         <AdSenseScript />
-        <Script
+        <script
           id="schema-organization"
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+          dangerouslySetInnerHTML={{ __html: stringifyJsonLd(organization()) }}
         />
-        <Script
+        <script
           id="schema-website"
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteSchema) }}
+          dangerouslySetInnerHTML={{ __html: stringifyJsonLd(webSite()) }}
         />
-        <Script
+        <script
           id="schema-navigation"
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(navigationSchema) }}
+          dangerouslySetInnerHTML={{ __html: stringifyJsonLd(siteNavigation()) }}
         />
         <ConditionalLayout header={<Navbar />} footer={<Footer />}>
           {children}

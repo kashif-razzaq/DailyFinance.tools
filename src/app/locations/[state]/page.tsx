@@ -3,8 +3,8 @@ import { ReviewLine } from "@/components/locations/ReviewLine"
 import { TaxCompareChart } from "@/components/locations/TaxCompareChart"
 import { FaqAccordion } from "@/components/shared/FaqAccordion"
 import Link from "next/link"
-import Script from "next/script"
 import { notFound } from "next/navigation"
+import { breadcrumb, CONTENT_REVIEWED, faq, stringifyJsonLd, webPage } from "@/lib/schema"
 import { US_STATES, getStateBySlug, taxOn } from "@/data/locations/us-states"
 import { AVG_COMBINED, AVG_PROPERTY, combinedRank, closestByCombined, overallMeaning, pointsDiff, propertyRank } from "@/data/locations/stats"
 import { ArrowRight, MapPin } from "lucide-react"
@@ -20,21 +20,21 @@ export async function generateMetadata({ params }: { params: Promise<{ state: st
   return {
     title: `${s.name} Tax Guide: Sales Tax ${s.salesTaxBase}%, Property & Income Tax`,
     description: `${s.name} finance guide: ${s.salesTaxBase}% state sales tax (~${s.salesTaxAvgCombined}% combined), ${s.propertyTaxAvg}% average property tax, ${s.incomeTax === "none" ? "no tax on wage income" : s.incomeTax + " income tax"} — with calculators.`,
-    alternates: { canonical: `https://dailyfinance.tools/locations/${s.slug}` },
+    alternates: { canonical: `https://www.dailyfinance.tools/locations/${s.slug}` },
     openGraph: {
       title: `${s.name} Tax Guide: Sales Tax ${s.salesTaxBase}%, Property & Income Tax`,
       description: `${s.name} finance guide: ${s.salesTaxBase}% state sales tax (~${s.salesTaxAvgCombined}% combined), ${s.propertyTaxAvg}% average property tax, ${s.incomeTax === "none" ? "no tax on wage income" : s.incomeTax + " income tax"} — with calculators.`,
-      url: `https://dailyfinance.tools/locations/${s.slug}`,
+      url: `https://www.dailyfinance.tools/locations/${s.slug}`,
       siteName: "DailyFinance.tools",
       locale: "en_US",
       type: "website",
-      images: [{ url: "https://dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: `${s.name} Tax Guide: Sales Tax ${s.salesTaxBase}%, Property & Income Tax` }],
+      images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: `${s.name} Tax Guide: Sales Tax ${s.salesTaxBase}%, Property & Income Tax` }],
     },
     twitter: {
       card: "summary_large_image",
       title: `${s.name} Tax Guide: Sales Tax ${s.salesTaxBase}%, Property & Income Tax`,
       description: `${s.name} finance guide: ${s.salesTaxBase}% state sales tax (~${s.salesTaxAvgCombined}% combined), ${s.propertyTaxAvg}% average property tax, ${s.incomeTax === "none" ? "no tax on wage income" : s.incomeTax + " income tax"} — with calculators.`,
-      images: ["https://dailyfinance.tools/images/og-base.jpg"],
+      images: ["https://www.dailyfinance.tools/images/og-base.jpg"],
     },
     keywords: [`${s.name.toLowerCase()} sales tax`, `${s.name.toLowerCase()} property tax`, `${s.name.toLowerCase()} income tax`, `${s.name.toLowerCase()} tax calculator`],
   }
@@ -78,18 +78,25 @@ export default async function StateHubPage({ params }: { params: Promise<{ state
       answer: `The figures here are reviewed averages for planning. Combined sales tax varies by exact address, and property tax bills are set by the county. Verify a specific rate or bill with the ${s.name} Department of Revenue or the county assessor before filing, pricing or a major purchase.`,
     },
   ]
-  const faqSchema = { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.question, acceptedAnswer: { "@type": "Answer", text: f.answer } })) }
-  const breadcrumbSchema = { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: "https://dailyfinance.tools/" },
-    { "@type": "ListItem", position: 2, name: "Locations", item: "https://dailyfinance.tools/locations" },
-    { "@type": "ListItem", position: 3, name: s.name, item: `https://dailyfinance.tools/locations/${s.slug}` },
-  ] }
+  const faqSchema = faq(faqs)
+  const breadcrumbSchema = breadcrumb([
+    { name: "Home", url: "https://www.dailyfinance.tools/" },
+    { name: "Locations", url: "https://www.dailyfinance.tools/locations" },
+    { name: s.name, url: `https://www.dailyfinance.tools/locations/${s.slug}` },
+  ])
+  const pageSchema = webPage({
+    name: `${s.name} Tax Guide: Sales Tax ${s.salesTaxBase}%, Property & Income Tax`,
+    url: `https://www.dailyfinance.tools/locations/${s.slug}`,
+    datePublished: CONTENT_REVIEWED,
+    dateModified: CONTENT_REVIEWED,
+  })
   const others = US_STATES.filter((o) => o.slug !== s.slug)
 
   return (
     <main className="w-full bg-background min-h-screen">
-      <Script id={`schema-state-faq-${s.slug}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-      <Script id={`schema-state-crumb-${s.slug}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script id={`schema-state-faq-${s.slug}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(faqSchema) }} />
+      <script id={`schema-state-crumb-${s.slug}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(breadcrumbSchema) }} />
+      <script id={`schema-state-page-${s.slug}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(pageSchema) }} />
       <div className="mx-auto w-full max-w-7xl px-6 py-14 lg:px-8">
         <nav className="flex items-center gap-1.5 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider flex-nowrap overflow-x-auto whitespace-nowrap [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden mb-6">
           <Link href="/" className="shrink-0 hover:text-foreground">Home</Link><span aria-hidden="true" className="text-border shrink-0 select-none">›</span>

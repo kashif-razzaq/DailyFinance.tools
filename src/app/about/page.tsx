@@ -1,32 +1,34 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { navigationCategories, getToolUrl } from "@/config/navigation"
+import { breadcrumb, stringifyJsonLd } from "@/lib/schema"
 import { Calculator, Eye, ShieldCheck, RefreshCw } from "lucide-react"
 
 export const metadata: Metadata = {
   title: "About DailyFinance — Free Calculators, Professionally Reviewed",
   description: "Free, transparent financial calculators for freelancers, creators, sellers and investors — every formula shown, reviewed by Tahir Shehzad, ACMA.",
-  alternates: { canonical: "https://dailyfinance.tools/about" },
+  alternates: { canonical: "https://www.dailyfinance.tools/about" },
   openGraph: {
     title: "About DailyFinance — Free Calculators, Professionally Reviewed",
     description: "Free, transparent financial calculators for freelancers, creators, sellers and investors — every formula shown, reviewed by Tahir Shehzad, ACMA.",
-    url: "https://dailyfinance.tools/about",
+    url: "https://www.dailyfinance.tools/about",
     siteName: "DailyFinance.tools",
     locale: "en_US",
     type: "website",
-    images: [{ url: "https://dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "About DailyFinance — Free Calculators, Professionally Reviewed" }],
+    images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "About DailyFinance — Free Calculators, Professionally Reviewed" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "About DailyFinance — Free Calculators, Professionally Reviewed",
     description: "Free, transparent financial calculators for freelancers, creators, sellers and investors — every formula shown, reviewed by Tahir Shehzad, ACMA.",
-    images: ["https://dailyfinance.tools/images/og-base.jpg"],
+    images: ["https://www.dailyfinance.tools/images/og-base.jpg"],
   },
 }
 
 export default function AboutPage() {
   return (
     <main className="w-full bg-background min-h-screen">
+      <script id="schema-crumb-about" type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(breadcrumb([{ name: "Home", url: "https://www.dailyfinance.tools/" }, { name: "About", url: "https://www.dailyfinance.tools/about" }])) }} />
       <div className="mx-auto w-full max-w-7xl px-6 py-14 lg:px-8">
         <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-5">About DailyFinance</h1>
         <p className="text-lg text-muted-foreground leading-relaxed mb-6">

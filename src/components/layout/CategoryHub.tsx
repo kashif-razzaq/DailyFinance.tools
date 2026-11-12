@@ -1,8 +1,8 @@
 import React from "react"
 import { ReviewLine } from "@/components/locations/ReviewLine"
 import Link from "next/link"
-import Script from "next/script"
 import { navigationCategories, getToolUrl } from "@/config/navigation"
+import { itemList, faq, breadcrumb, stringifyJsonLd, SITE_URL } from "@/lib/schema"
 import { FaqAccordion } from "@/components/shared/FaqAccordion"
 import { ArrowRight, CheckCircle2, ChevronDown, Crown, Zap } from "lucide-react"
 
@@ -21,40 +21,14 @@ export function CategoryHub({ categorySlug, quickAnswer, intro, decisions, faqs 
   if (!category) return null
   const Icon = category.icon
 
-  const itemListSchema = {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    name: `${category.name} Financial Calculators`,
-    itemListElement: category.calculators.map((calc, i) => ({
-      "@type": "ListItem",
-      position: i + 1,
-      name: calc.title,
-      url: `https://dailyfinance.tools${getToolUrl(calc.slug)}`,
-    })),
-  }
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faqs.map((f) => ({
-      "@type": "Question",
-      name: f.question,
-      acceptedAnswer: { "@type": "Answer", text: f.answer },
-    })),
-  }
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://dailyfinance.tools/" },
-      { "@type": "ListItem", position: 2, name: `${category.name} Tools`, item: `https://dailyfinance.tools/${category.slug}` },
-    ],
-  }
-
   return (
     <main className="w-full bg-background min-h-screen">
-      <Script id={`schema-hub-list-${category.slug}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
-      <Script id={`schema-hub-faq-${category.slug}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-      <Script id={`schema-hub-crumb-${category.slug}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script id={`schema-hub-list-${category.slug}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(itemList({ name: `${category.name} Financial Calculators`, items: category.calculators.map((calc) => ({ name: calc.title, url: `${SITE_URL}${getToolUrl(calc.slug)}` })) })) }} />
+      <script id={`schema-hub-faq-${category.slug}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(faq(faqs)) }} />
+      <script id={`schema-hub-crumb-${category.slug}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(breadcrumb([
+        { name: "Home", url: "https://www.dailyfinance.tools/" },
+        { name: `${category.name} Tools`, url: `https://www.dailyfinance.tools/${category.slug}` },
+      ])) }} />
 
       <section className="mx-auto w-full max-w-7xl px-6 pt-14 pb-10 lg:px-8">
         <nav className="flex items-center gap-1.5 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider flex-nowrap overflow-x-auto whitespace-nowrap [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden mb-6">

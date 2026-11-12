@@ -167,7 +167,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     "1099 Equivalent Hourly Required": formatCurrency(results.equivalentHourly)
   }]
 
-  const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://dailyfinance.tools'
+  const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://www.dailyfinance.tools'
   const shareUrl = savedScenarioId 
     ? `${baseUrl}/freelance/w2-vs-1099-calculator?savedId=${savedScenarioId}`
     : `${baseUrl}/freelance/w2-vs-1099-paycheck-calculator`

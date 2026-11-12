@@ -1,24 +1,25 @@
 import type { Metadata } from "next"
 import Link from "next/link"
+import { breadcrumb, stringifyJsonLd } from "@/lib/schema"
 
 export const metadata: Metadata = {
   title: "Contact DailyFinance — Corrections, Tool Requests & Enquiries",
   description: "Contact the DailyFinance team: report a calculator error, request a new tool, or ask about partnerships and embeds. We read every message.",
-  alternates: { canonical: "https://dailyfinance.tools/contact" },
+  alternates: { canonical: "https://www.dailyfinance.tools/contact" },
   openGraph: {
     title: "Contact DailyFinance — Corrections, Tool Requests & Enquiries",
     description: "Contact the DailyFinance team: report a calculator error, request a new tool, or ask about partnerships and embeds. We read every message.",
-    url: "https://dailyfinance.tools/contact",
+    url: "https://www.dailyfinance.tools/contact",
     siteName: "DailyFinance.tools",
     locale: "en_US",
     type: "website",
-    images: [{ url: "https://dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Contact DailyFinance — Corrections, Tool Requests & Enquiries" }],
+    images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Contact DailyFinance — Corrections, Tool Requests & Enquiries" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Contact DailyFinance — Corrections, Tool Requests & Enquiries",
     description: "Contact the DailyFinance team: report a calculator error, request a new tool, or ask about partnerships and embeds. We read every message.",
-    images: ["https://dailyfinance.tools/images/og-base.jpg"],
+    images: ["https://www.dailyfinance.tools/images/og-base.jpg"],
   },
 }
 
@@ -39,6 +40,7 @@ const faqs = [
 export default function ContactPage() {
   return (
     <main className="w-full bg-background min-h-screen">
+      <script id="schema-crumb-contact" type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(breadcrumb([{ name: "Home", url: "https://www.dailyfinance.tools/" }, { name: "Contact", url: "https://www.dailyfinance.tools/contact" }])) }} />
       <div className="mx-auto w-full max-w-7xl px-6 py-14 lg:px-8">
         <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-5">Contact Us</h1>
         <p className="text-lg text-muted-foreground leading-relaxed mb-4">

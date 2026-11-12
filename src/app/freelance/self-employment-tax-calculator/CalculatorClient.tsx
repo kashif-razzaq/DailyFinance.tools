@@ -126,7 +126,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     "Net Earnings After SE Tax": `${currency} ${fmt(netAfterSeTaxCents)}`
   }]
 
-  const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://dailyfinance.tools'
+  const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://www.dailyfinance.tools'
   const shareUrl = savedScenarioId 
     ? `${baseUrl}/freelance/self-employment-tax-calculator?savedId=${savedScenarioId}`
     : `${baseUrl}/freelance/self-employment-tax-calculator`

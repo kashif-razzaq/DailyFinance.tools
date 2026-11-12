@@ -649,6 +649,160 @@ GUIDES.push(
       { question: "Can I claim and keep working?", answer: "Yes. Before full retirement age, earning above the annual limit temporarily withholds $1 of benefits per $2 earned above it (the withheld amounts are credited back later). After full retirement age there is no limit." },
     ],
   },
+  {
+    slug: "how-va-loans-work",
+    title: "How VA Loans Work (Funding Fee, Eligibility & Payments)",
+    seoTitle: "How VA Loans Work (Funding Fee, Eligibility & Payments)",
+    description: "How VA loans work: who qualifies, the funding fee table, what your payment includes, and how VA compares with FHA and conventional loans.",
+    image: "/images/how-va-loans-work.jpg",
+    imageAlt: "Illustration of a veteran receiving house keys in front of a home, with a VA loan document and a funding fee chart",
+    hub: "Mortgage & Real Estate",
+    updated: "2026-11-12",
+    readMinutes: 7,
+    relatedTools: [
+      { name: "VA Loan Calculator", url: "/real-estate/va-loan-calculator" },
+      { name: "Mortgage Payment Calculator", url: "/real-estate/mortgage-payment-calculator" },
+      { name: "Home Affordability Calculator", url: "/real-estate/home-affordability-calculator" },
+    ],
+    intro: "A VA loan is a mortgage guaranteed by the Department of Veterans Affairs for eligible service members, veterans, and surviving spouses. The VA guarantee lets private lenders offer no down payment and no monthly mortgage insurance. Instead, most borrowers pay a one-time funding fee of 1.25% to 3.3% of the loan, which can be financed into the balance.",
+    sections: [
+      {
+        heading: "Eligibility and the Certificate of Eligibility",
+        paragraphs: [
+          "You qualify through service: 90 consecutive days of active duty during wartime, 181 days during peacetime, or six years in the National Guard or Reserves. Surviving spouses of service members who died in service, or from a service-connected disability, also qualify. There is no minimum credit score set by the VA itself, though most lenders require around 620.",
+          "Before you apply, you need a Certificate of Eligibility (COE), which confirms your service record and how much entitlement you have. Your lender can usually pull it from the VA's system in minutes; you can also apply on VA.gov or by mailing VA Form 26-1880. Entitlement is reusable: once a VA loan is paid off, usually by selling the home, your full entitlement is restored and you can use the benefit again.",
+        ],
+      },
+      {
+        heading: "The funding fee, tier by tier",
+        paragraphs: [
+          "The funding fee is the VA's one-time charge for guaranteeing the loan, and it replaces monthly mortgage insurance. The rate depends on your down payment and whether you have used a VA loan before. It is charged on the base loan amount — the price minus your down payment — not on the purchase price. These rates come from the VA funding fee table on VA.gov, effective April 7, 2023.",
+          "Some borrowers pay nothing: you are exempt if you receive VA compensation for a service-connected disability, or would receive it but take retirement or active-duty pay instead; if you are a surviving spouse receiving Dependency and Indemnity Compensation (DIC); or if you are an active-duty service member who received a Purple Heart before closing. Everyone else can finance the fee into the loan — the only closing cost VA rules allow you to finance on a purchase — or pay it in cash at closing. A streamline refinance (IRRRL) carries a flat 0.5% fee.",
+        ],
+        table: {
+          head: ["Down payment", "First use", "Subsequent use"],
+          rows: [
+            ["Less than 5%", "2.15%", "3.3%"],
+            ["5% or more", "1.5%", "1.5%"],
+            ["10% or more", "1.25%", "1.25%"],
+          ],
+        },
+      },
+      {
+        heading: "What the monthly payment includes",
+        paragraphs: [
+          "A VA loan payment is principal and interest plus property tax and homeowners insurance, with HOA dues on top when they apply. There is no PMI line — VA loans never charge private mortgage insurance, and the funding fee is what takes its place. If you finance the fee, it joins the loan balance and adds to principal and interest every month for the whole term.",
+          "The numbers show the trade. On a $375,000 home with no down payment, first use, 6.5% over 30 years, the 2.15% fee is $8,062.50 and the financed loan is $383,062.50. Principal and interest is $2,421.22 a month; with $4,125 a year of tax and $1,875 of insurance, the total payment is $2,921.22. Paying the fee in cash instead would cut the payment to $2,370.26 and save $10,283.10 of interest over the term.",
+        ],
+      },
+      {
+        heading: "VA vs FHA vs conventional",
+        paragraphs: [
+          "For eligible borrowers, VA usually wins on monthly cost: no down payment required, no monthly insurance premium, and rates that typically price below conventional. The main cost is the funding fee, and it is a one-time charge — unlike FHA's annual mortgage insurance premium of 0.55%, which lasts the life of the loan when you put less than 10% down, or conventional PMI at 0.3% to 1.5% a year until you reach 80% loan-to-value.",
+          "VA is not always the cheapest route. A subsequent-use borrower putting nothing down pays a 3.3% fee — $12,375 on a $375,000 loan — while a conventional borrower with 20% down pays no PMI and no funding fee at all. And VA loans are for primary residences only, with a VA appraisal that can slow a purchase in a competitive market. If you have a large down payment and strong credit, run both options through the calculators before deciding.",
+        ],
+        table: {
+          head: ["", "VA loan", "FHA loan", "Conventional loan"],
+          rows: [
+            ["Minimum down payment", "0%", "3.5% (580+ credit)", "3%"],
+            ["Upfront fee", "1.25–3.3% funding fee", "1.75% upfront MIP", "None"],
+            ["Monthly insurance", "None — no PMI, ever", "0.55%/yr MIP, life of loan below 10% down", "PMI 0.3–1.5%/yr below 20% down, cancellable at 80% LTV"],
+            ["Who qualifies", "Veterans, service members, surviving spouses", "Any buyer meeting credit and DTI rules", "Any buyer meeting credit and DTI rules"],
+          ],
+        },
+      },
+    ],
+    faqs: [
+      { question: "Can I use a VA loan more than once?", answer: "Yes — there is no limit on how many times you can use the benefit. Once a VA loan is paid off, usually by selling the home, your full entitlement is restored. The cost of reuse is the subsequent-use funding fee: 3.3% with less than 5% down, versus 2.15% on first use. At 5% down both are 1.5%, and at 10% down both are 1.25%." },
+      { question: "Is there a maximum loan amount on a VA loan?", answer: "The VA sets no maximum loan amount for borrowers with full entitlement. In practice, lenders cap no-down-payment VA loans at the conforming loan limit — $832,750 for a single-family home in most counties in 2026. Above that, the lender typically asks for a down payment on the amount over the limit." },
+      { question: "How long does it take to get a Certificate of Eligibility?", answer: "Usually minutes. Most lenders can pull your COE from the VA's system while you apply. If the VA needs more documentation, applying online at VA.gov or by mailing VA Form 26-1880 takes longer — days to weeks — so it is worth requesting the COE before you start house hunting." },
+      { question: "Can the seller pay my VA funding fee?", answer: "Yes, within limits. The VA allows sellers to offer credits toward closing costs, and a credit for the funding fee counts as a seller concession. Concessions are capped at 4% of the home's reasonable value, so on a $375,000 home the seller can contribute up to $15,000 toward your funding fee and other closing costs." },
+    ],
+  },
+  {
+    slug: "how-fha-loans-work",
+    title: "How FHA Loans Work (MIP, Down Payment & Limits)",
+    seoTitle: "How FHA Loans Work (MIP, Down Payment & Limits)",
+    description: "How FHA loans work: the 3.5% down payment, the two MIP charges and how long they last, 2026 loan limits, and how FHA compares with conventional loans.",
+    image: "/images/how-fha-loans-work.jpg",
+    imageAlt: "Illustration of a first-time buyer receiving the keys to a modest house, with a small FHA shield emblem",
+    hub: "Mortgage & Real Estate",
+    updated: "2026-11-12",
+    readMinutes: 7,
+    relatedTools: [
+      { name: "FHA Loan Calculator", url: "/real-estate/fha-loan-calculator" },
+      { name: "Mortgage Payment Calculator", url: "/real-estate/mortgage-payment-calculator" },
+      { name: "Down Payment Calculator", url: "/real-estate/down-payment-calculator" },
+    ],
+    intro: "An FHA loan is a mortgage insured by the Federal Housing Administration, which lets lenders accept a 3.5% down payment and credit scores from 580. In exchange, every borrower pays two mortgage insurance premiums: 1.75% of the loan upfront and an annual premium of 0.15% to 0.75%, which can run for the life of the loan.",
+    sections: [
+      {
+        heading: "Who FHA loans are for, and the down payment rules",
+        paragraphs: [
+          "The FHA does not lend money itself. A private lender makes the loan, and the Federal Housing Administration — part of HUD — insures it, which is what lets the lender accept a small down payment and a lower credit score than a conventional loan would allow. The trade is mortgage insurance on every loan, with no exceptions.",
+          "The minimum down payment is 3.5% with a credit score of 580 or higher, or 10% with a score of 500 to 579. Below 500, FHA-insured financing is not available. These are HUD's floors, not guarantees: individual lenders can set stricter minimums, and many do — a 620 score is a common lender overlay even though HUD allows 580.",
+          "The home must be your primary residence. You have to move in within 60 days of closing and live there for at least a year, so FHA loans do not work for investment properties or second homes. The loan also has to fit your county's FHA limit, covered below.",
+        ],
+      },
+      {
+        heading: "The two MIP charges, and what they cost",
+        paragraphs: [
+          "Every FHA loan carries two separate insurance charges. The upfront mortgage insurance premium (UFMIP) is a one-time 1.75% of the base loan amount, charged at closing. Most buyers finance it into the loan, which raises the amount they pay interest on for the whole term: on a $337,750 base loan the UFMIP is $5,911, making the total loan $343,661.",
+          "The monthly amount is not a flat rate times the original balance. HUD charges each year's premium on the average outstanding balance for that year, so the payment falls as the balance amortises. On a $350,000 home with 3.5% down at 6.5% over 30 years, year-1 monthly MIP is $157 at 0.55%, and total MIP over the loan is $37,000. With 10% down instead, the rate drops to 0.50%, MIP ends after 11 years, and the total is $16,277.",
+          "Base loans above the $832,750 conforming limit pay higher rates: 0.70% or 0.75% on terms over 15 years, and 0.15% to 0.65% on terms of 15 years or less. The duration rule is the same either way — the dividing line is the down payment. Under 10% down, annual MIP runs for the life of the loan; at 10% or more, it ends after 11 years.",
+          "The annual MIP is the ongoing charge, paid monthly. Its rate comes from HUD Mortgagee Letter 2023-05 and depends on the loan term, the loan-to-value ratio and whether the base loan is above the national conforming limit ($832,750 for 2026). For base loans at or below that limit, the rates are:",
+        ],
+        table: {
+          head: ["Term", "Loan-to-value", "Annual MIP", "How long it lasts"],
+          rows: [
+            ["Over 15 years", "90% or less", "0.50%", "11 years"],
+            ["Over 15 years", "90% to 95%", "0.50%", "Life of the loan"],
+            ["Over 15 years", "Over 95%", "0.55%", "Life of the loan"],
+            ["15 years or less", "90% or less", "0.15%", "11 years"],
+            ["15 years or less", "Over 90%", "0.40%", "Life of the loan"],
+          ],
+        },
+      },
+      {
+        heading: "Loan limits in 2026",
+        paragraphs: [
+          "FHA caps the base loan by county, and the cap moves with local home prices. For 2026 the national floor is $541,287 for a one-unit home in low-cost counties, and the ceiling is $1,249,125 in the highest-cost counties, set by HUD Mortgagee Letter 2025-23. Most counties sit at the floor; a smaller number sit at the ceiling, and some land in between.",
+          "The limit applies to the base loan — price minus down payment — before any financed upfront MIP, not to the home price. A $600,000 home in a floor county still qualifies if the base loan is $541,287 or less, which means a down payment of about $58,700. Alaska, Hawaii, Guam and the U.S. Virgin Islands have a higher special-exception ceiling of $1,873,625 for a one-unit home.",
+        ],
+      },
+      {
+        heading: "FHA vs conventional: when each wins",
+        paragraphs: [
+          "FHA wins when the down payment or the credit score is the constraint. A buyer with 3.5% down and a 620 score can usually get an FHA loan where a conventional lender would decline or price the loan punitively, and FHA interest rates are often slightly lower than conventional rates for the same borrower.",
+          "Conventional wins once you have 20% down or strong credit. Private mortgage insurance on a conventional loan can be cancelled — you can request it at 80% of the original value, and it must end automatically at 78% — while FHA annual MIP with less than 10% down never ends on its own. A borrower who can put 20% down and has a 720 score will almost always pay less with a conventional loan.",
+          "The common middle path is to buy with FHA, then refinance into a conventional loan once the home has gained enough equity — usually 20% — to drop mortgage insurance entirely. That refinance is also the only way to escape FHA annual MIP early when it runs for the life of the loan; an FHA streamline refinance keeps MIP in place.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: "How much house can I buy with an FHA loan?",
+        answer:
+          "It depends on your county. The 2026 FHA limit for a one-unit home runs from $541,287 in low-cost counties to $1,249,125 in high-cost counties, and the limit applies to the base loan, not the price — so in a floor county you can buy a more expensive home if your down payment brings the base loan under $541,287. Your income and debts still have to support the payment under the lender's debt-to-income limits.",
+      },
+      {
+        question: "Do I need 20% down to avoid FHA mortgage insurance?",
+        answer:
+          "No — there is no down payment that avoids FHA mortgage insurance. UFMIP of 1.75% and annual MIP apply to every FHA loan, even at 20% down. What a bigger down payment changes is the rate and the duration: at 10% or more down, the annual rate on a 30-year loan is 0.50% and MIP ends after 11 years, instead of 0.55% for the life of the loan at 3.5% down.",
+      },
+      {
+        question: "Can I use an FHA loan for an investment property?",
+        answer:
+          "No. FHA loans are for primary residences only — you must move in within 60 days of closing and live in the home for at least a year. Buying a property you do not intend to live in with an FHA loan is occupancy fraud. One exception buyers use legitimately is a two- to four-unit property: you live in one unit and rent the others, and FHA allows that with higher loan limits for multi-unit homes.",
+      },
+      {
+        question: "What credit score do I need for an FHA loan?",
+        answer:
+          "HUD's minimum is 580 for the 3.5% down payment, or 500 to 579 with 10% down. In practice most lenders add their own overlays — a 620 minimum is common — so a score between 500 and 620 may qualify on paper but find few lenders willing to write the loan. A higher score does not change the MIP rate, which is set by term, loan-to-value and loan size, but it usually earns a lower interest rate.",
+      },
+    ],
+  },
+
 )
 
 export const GUIDE_HUBS = [...new Set(GUIDES.map((g) => g.hub))]

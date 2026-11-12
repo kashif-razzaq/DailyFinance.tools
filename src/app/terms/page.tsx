@@ -1,30 +1,33 @@
 import type { Metadata } from "next"
 import { LegalPage } from "@/components/layout/LegalPage"
+import { breadcrumb, stringifyJsonLd } from "@/lib/schema"
 
 export const metadata: Metadata = {
   title: "Terms of Service | DailyFinance",
   description: "The terms that govern your use of DailyFinance calculators and content: educational estimates, acceptable use, and liability limits.",
-  alternates: { canonical: "https://dailyfinance.tools/terms" },
+  alternates: { canonical: "https://www.dailyfinance.tools/terms" },
   openGraph: {
     title: "Terms of Service | DailyFinance",
     description: "The terms that govern your use of DailyFinance calculators and content: educational estimates, acceptable use, and liability limits.",
-    url: "https://dailyfinance.tools/terms",
+    url: "https://www.dailyfinance.tools/terms",
     siteName: "DailyFinance.tools",
     locale: "en_US",
     type: "website",
-    images: [{ url: "https://dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Terms of Service | DailyFinance" }],
+    images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Terms of Service | DailyFinance" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Terms of Service | DailyFinance",
     description: "The terms that govern your use of DailyFinance calculators and content: educational estimates, acceptable use, and liability limits.",
-    images: ["https://dailyfinance.tools/images/og-base.jpg"],
+    images: ["https://www.dailyfinance.tools/images/og-base.jpg"],
   },
 }
 
 export default function Page() {
   return (
-    <LegalPage
+    <>
+      <script id="schema-crumb-terms" type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(breadcrumb([{ name: "Home", url: "https://www.dailyfinance.tools/" }, { name: "Terms of Service", url: "https://www.dailyfinance.tools/terms" }])) }} />
+      <LegalPage
       title="Terms of Service"
       updated="6 November 2026"
       intro={"These terms govern your use of dailyfinance.tools (the 'Site'), operated as DailyFinance. By using the Site you accept these terms. If you do not agree, please do not use the Site."}
@@ -79,5 +82,6 @@ export default function Page() {
       }
 ]}
     />
+    </>
   )
 }

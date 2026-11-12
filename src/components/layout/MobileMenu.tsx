@@ -168,7 +168,7 @@ export function MobileMenu({ user }: { user?: any }) {
     <div className="lg:hidden">
       <button 
         onClick={() => setIsOpen(true)}
-        className="group flex items-center justify-center hover:opacity-80 transition-opacity focus:outline-none"
+        className="group flex items-center justify-center hover:opacity-80 transition-opacity focus:outline-none p-[6px]"
         aria-label="Open Menu"
       >
         <div className="flex flex-col justify-center items-start gap-[5px] bg-primary/10 rounded-lg w-9 h-9 pl-[9px] group-hover:bg-primary/20 transition-colors">

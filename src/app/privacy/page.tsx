@@ -1,30 +1,33 @@
 import type { Metadata } from "next"
 import { LegalPage } from "@/components/layout/LegalPage"
+import { breadcrumb, stringifyJsonLd } from "@/lib/schema"
 
 export const metadata: Metadata = {
   title: "Privacy Policy | DailyFinance",
   description: "How DailyFinance collects, uses and protects your information, including advertising cookies from Google AdSense and your choices about them.",
-  alternates: { canonical: "https://dailyfinance.tools/privacy" },
+  alternates: { canonical: "https://www.dailyfinance.tools/privacy" },
   openGraph: {
     title: "Privacy Policy | DailyFinance",
     description: "How DailyFinance collects, uses and protects your information, including advertising cookies from Google AdSense and your choices about them.",
-    url: "https://dailyfinance.tools/privacy",
+    url: "https://www.dailyfinance.tools/privacy",
     siteName: "DailyFinance.tools",
     locale: "en_US",
     type: "website",
-    images: [{ url: "https://dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Privacy Policy | DailyFinance" }],
+    images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Privacy Policy | DailyFinance" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Privacy Policy | DailyFinance",
     description: "How DailyFinance collects, uses and protects your information, including advertising cookies from Google AdSense and your choices about them.",
-    images: ["https://dailyfinance.tools/images/og-base.jpg"],
+    images: ["https://www.dailyfinance.tools/images/og-base.jpg"],
   },
 }
 
 export default function Page() {
   return (
-    <LegalPage
+    <>
+      <script id="schema-crumb-privacy" type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(breadcrumb([{ name: "Home", url: "https://www.dailyfinance.tools/" }, { name: "Privacy Policy", url: "https://www.dailyfinance.tools/privacy" }])) }} />
+      <LegalPage
       title="Privacy Policy"
       updated="6 November 2026"
       intro={"DailyFinance (dailyfinance.tools) provides free financial calculators. This policy explains what information we collect when you use the site, how we use it, the advertising and analytics cookies involved, and the choices you have. By using this website you agree to this policy."}
@@ -96,5 +99,6 @@ export default function Page() {
       }
 ]}
     />
+    </>
   )
 }

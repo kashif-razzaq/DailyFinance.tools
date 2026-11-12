@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { ReviewLine } from "@/components/locations/ReviewLine"
-import Script from "next/script"
+import { breadcrumb, faq, stringifyJsonLd } from "@/lib/schema"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import { ArrowRight, BookOpen, CheckCircle2, ChevronDown, XCircle, Zap } from "lucide-react"
@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ hub: stri
   const { hub } = await params
   const h = getHub(hub)
   if (!h) return {}
-  const url = `https://dailyfinance.tools/hubs/${h.slug}`
+  const url = `https://www.dailyfinance.tools/hubs/${h.slug}`
   return {
     title: `${h.title} | DailyFinance.tools`,
     description: h.description,
@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: { params: Promise<{ hub: stri
       type: "website",
       images: [
         {
-          url: "https://dailyfinance.tools/images/og-base.jpg",
+          url: "https://www.dailyfinance.tools/images/og-base.jpg",
           width: 1376,
           height: 768,
           alt: h.title,
@@ -42,7 +42,7 @@ export async function generateMetadata({ params }: { params: Promise<{ hub: stri
       card: "summary_large_image",
       title: h.title,
       description: h.description,
-      images: ["https://dailyfinance.tools/images/og-base.jpg"],
+      images: ["https://www.dailyfinance.tools/images/og-base.jpg"],
     },
   }
 }
@@ -55,26 +55,18 @@ export default async function HubPage({ params }: { params: Promise<{ hub: strin
   const tools = TOOL_REGISTRY.filter((t) => t.hub === h.registryHub)
   const extras = EXTRA_LIVE_TOOLS.filter((t) => t.hub === h.registryHub)
   const guides = h.guideSlugs.map(getGuide).filter(Boolean)
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: h.faqs.map((f) => ({ "@type": "Question", name: f.question, acceptedAnswer: { "@type": "Answer", text: f.answer } })),
-  }
+  const faqSchema = faq(h.faqs)
 
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://dailyfinance.tools/" },
-      { "@type": "ListItem", position: 2, name: "Tools", item: "https://dailyfinance.tools/tools" },
-      { "@type": "ListItem", position: 3, name: h.title, item: `https://dailyfinance.tools/hubs/${h.slug}` },
-    ],
-  }
+  const breadcrumbSchema = breadcrumb([
+    { name: "Home", url: "https://www.dailyfinance.tools/" },
+    { name: "Tools", url: "https://www.dailyfinance.tools/tools" },
+    { name: h.title, url: `https://www.dailyfinance.tools/hubs/${h.slug}` },
+  ])
 
   return (
     <main className="w-full bg-background min-h-screen">
-      <Script id={`schema-faq-hub-${h.slug}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-      <Script id={`schema-breadcrumb-hub-${h.slug}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script id={`schema-faq-hub-${h.slug}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(faqSchema) }} />
+      <script id={`schema-breadcrumb-hub-${h.slug}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(breadcrumbSchema) }} />
       <section className="mx-auto w-full max-w-7xl px-6 py-14 lg:px-8">
         <nav className="flex items-center gap-1.5 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider flex-nowrap overflow-x-auto whitespace-nowrap [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden mb-6">
           <Link href="/" className="shrink-0 hover:text-foreground">Home</Link><span aria-hidden="true" className="text-border shrink-0 select-none">›</span>

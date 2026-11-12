@@ -11,19 +11,19 @@ const INDEX_XML = `<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="/sitemap.xsl"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <sitemap>
-    <loc>https://dailyfinance.tools/sitemap/pages.xml</loc>
+    <loc>https://www.dailyfinance.tools/sitemap/pages.xml</loc>
   </sitemap>
   <sitemap>
-    <loc>https://dailyfinance.tools/sitemap/calculators.xml</loc>
+    <loc>https://www.dailyfinance.tools/sitemap/calculators.xml</loc>
   </sitemap>
   <sitemap>
-    <loc>https://dailyfinance.tools/sitemap/hubs.xml</loc>
+    <loc>https://www.dailyfinance.tools/sitemap/hubs.xml</loc>
   </sitemap>
   <sitemap>
-    <loc>https://dailyfinance.tools/sitemap/guides.xml</loc>
+    <loc>https://www.dailyfinance.tools/sitemap/guides.xml</loc>
   </sitemap>
   <sitemap>
-    <loc>https://dailyfinance.tools/sitemap/states.xml</loc>
+    <loc>https://www.dailyfinance.tools/sitemap/states.xml</loc>
   </sitemap>
 </sitemapindex>
 `

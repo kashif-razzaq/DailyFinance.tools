@@ -2,7 +2,7 @@
  * DailyFinance.tools embed loader.
  *
  * Usage:
- *   <script src="https://dailyfinance.tools/embed.js"
+ *   <script src="https://www.dailyfinance.tools/embed.js"
  *           data-calculator="mortgage-payment-calculator"
  *           data-theme="light"></script>
  *
@@ -33,7 +33,7 @@
 
     var domain = window.location.hostname === 'localhost'
       ? 'http://localhost:3000'
-      : 'https://dailyfinance.tools';
+      : 'https://www.dailyfinance.tools';
 
     var iframe = document.createElement('iframe');
     iframe.src = domain + '/embed/' + slug + '?theme=' + encodeURIComponent(theme);

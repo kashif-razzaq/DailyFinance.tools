@@ -20,7 +20,7 @@ export function ShareCalculatorModal({ children, url, slug, isPro = false }: Sha
   const [copiedLink, setCopiedLink] = useState(false)
   const [copiedEmbed, setCopiedEmbed] = useState(false)
 
-  const embedCode = `<script src="https://dailyfinance.tools/embed.js" data-calculator="${slug}" data-theme="light"></script>`
+  const embedCode = `<script src="https://www.dailyfinance.tools/embed.js" data-calculator="${slug}" data-theme="light"></script>`
 
   const handleCopyLink = () => {
     navigator.clipboard.writeText(url)

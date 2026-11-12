@@ -11,7 +11,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params
   const guide = getGuide(slug)
   if (!guide) return {}
-  const url = `https://dailyfinance.tools/guides/${guide.slug}`
+  const url = `https://www.dailyfinance.tools/guides/${guide.slug}`
   return {
     title: guide.seoTitle,
     description: guide.description,
@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       type: "article",
       images: [
         {
-          url: `https://dailyfinance.tools${guide.image}`,
+          url: `https://www.dailyfinance.tools${guide.image}`,
           width: 2048,
           height: 1152,
           alt: guide.imageAlt,
@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       card: "summary_large_image",
       title: guide.seoTitle,
       description: guide.description,
-      images: [`https://dailyfinance.tools${guide.image}`],
+      images: [`https://www.dailyfinance.tools${guide.image}`],
     },
   }
 }

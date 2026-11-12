@@ -129,5 +129,7 @@ export const EXTRA_LIVE_TOOLS: { name: string; hub: string; status: "live"; url:
   {"name": "House Hacking ROI", "hub": "Mortgage & Real Estate", "status": "live", "url": "/real-estate/house-hacking-roi-calculator"},
   {"name": "CapEx Reserve Planner", "hub": "Mortgage & Real Estate", "status": "live", "url": "/real-estate/capex-reserve-planner"},
   {"name": "REIT vs Physical Yield", "hub": "Mortgage & Real Estate", "status": "live", "url": "/real-estate/reit-vs-physical-yield-calculator"},
+  {"name": "VA Loan Calculator", "hub": "Mortgage & Real Estate", "status": "live", "url": "/real-estate/va-loan-calculator"},
+  {"name": "FHA Loan Calculator", "hub": "Mortgage & Real Estate", "status": "live", "url": "/real-estate/fha-loan-calculator"},
   {"name": "Fat FIRE vs Lean FIRE", "hub": "Personal Finance", "status": "live", "url": "/personal-wealth/fat-fire-vs-lean-fire-calculator"},
 ]

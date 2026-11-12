@@ -88,7 +88,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     "ROI Multiplier": `${metrics.roiMultiplier.toFixed(1)}x`
   }]
 
-  const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://dailyfinance.tools'
+  const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://www.dailyfinance.tools'
   const shareUrl = savedScenarioId 
     ? `${baseUrl}/freelance/billable-hours-calculator?savedId=${savedScenarioId}`
     : `${baseUrl}/freelance/time-tracking-roi-calculator`

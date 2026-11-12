@@ -21,7 +21,7 @@ export default async function EmbeddedCalculatorPage({ params }: { params: Promi
     notFound()
   }
 
-  const toolUrl = `https://dailyfinance.tools${getToolUrl(slug)}`
+  const toolUrl = `https://www.dailyfinance.tools${getToolUrl(slug)}`
 
   return (
     <EmbedShell>
@@ -32,7 +32,7 @@ export default async function EmbeddedCalculatorPage({ params }: { params: Promi
             <Calculator className="h-3 w-3" />
           </span>
           Powered by
-          <a href="https://dailyfinance.tools" target="_blank" rel="noopener" className="font-bold text-[#064E3B] hover:underline dark:text-emerald-400">
+          <a href="https://www.dailyfinance.tools" target="_blank" rel="noopener" className="font-bold text-[#064E3B] hover:underline dark:text-emerald-400">
             DailyFinance.tools
           </a>
         </span>

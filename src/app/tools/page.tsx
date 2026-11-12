@@ -1,48 +1,43 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import Script from "next/script"
+import { itemList, stringifyJsonLd } from "@/lib/schema"
 import { TOOL_REGISTRY, EXTRA_LIVE_TOOLS, REGISTRY_HUBS, LIVE_TOOLS, PLANNED_TOOLS } from "@/config/tool-registry"
 import { ArrowRight, CheckCircle2 } from "lucide-react"
 
 export const metadata: Metadata = {
   title: "All 100+ Free Financial Calculators — Complete Directory",
   description: "The complete DailyFinance directory: the Top 100 financial calculators across personal finance, mortgages, loans, tax, retirement and freelance.",
-  alternates: { canonical: "https://dailyfinance.tools/tools" },
+  alternates: { canonical: "https://www.dailyfinance.tools/tools" },
   openGraph: {
     title: "All 100+ Free Financial Calculators — Complete Directory",
     description: "The complete DailyFinance directory: the Top 100 financial calculators across personal finance, mortgages, loans, tax, retirement and freelance.",
-    url: "https://dailyfinance.tools/tools",
+    url: "https://www.dailyfinance.tools/tools",
     siteName: "DailyFinance.tools",
     locale: "en_US",
     type: "website",
-    images: [{ url: "https://dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "All 100+ Free Financial Calculators — Complete Directory" }],
+    images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "All 100+ Free Financial Calculators — Complete Directory" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "All 100+ Free Financial Calculators — Complete Directory",
     description: "The complete DailyFinance directory: the Top 100 financial calculators across personal finance, mortgages, loans, tax, retirement and freelance.",
-    images: ["https://dailyfinance.tools/images/og-base.jpg"],
+    images: ["https://www.dailyfinance.tools/images/og-base.jpg"],
   },
   keywords: ["financial calculators", "all calculators", "free finance tools", "calculator directory"],
 }
 
 export default function ToolsDirectoryPage() {
-  const itemList = {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
+  const toolsListSchema = itemList({
     name: "DailyFinance Top 100 Financial Calculators",
-    numberOfItems: LIVE_TOOLS.length + EXTRA_LIVE_TOOLS.length,
-    itemListElement: [...LIVE_TOOLS, ...EXTRA_LIVE_TOOLS].map((t, i) => ({
-      "@type": "ListItem",
-      position: i + 1,
+    items: [...LIVE_TOOLS, ...EXTRA_LIVE_TOOLS].map((t) => ({
       name: t.name,
-      url: `https://dailyfinance.tools${t.url}`,
+      url: `https://www.dailyfinance.tools${t.url}`,
     })),
-  }
+  })
 
   return (
     <main className="w-full bg-background min-h-screen">
-      <Script id="schema-tools-directory" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemList) }} />
+      <script id="schema-tools-directory" type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(toolsListSchema) }} />
       <div className="mx-auto w-full max-w-7xl px-6 py-14 lg:px-8">
         <nav className="flex items-center gap-1.5 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider flex-nowrap overflow-x-auto whitespace-nowrap [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden mb-6">
           <Link href="/" className="shrink-0 hover:text-foreground">Home</Link><span aria-hidden="true" className="text-border shrink-0 select-none">›</span><span className="truncate max-w-[150px] sm:max-w-[220px] md:max-w-none text-foreground">All Tools</span>

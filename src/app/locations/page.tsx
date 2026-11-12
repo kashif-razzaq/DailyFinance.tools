@@ -2,25 +2,26 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { US_STATES } from "@/data/locations/us-states"
 import { StateDirectory } from "@/components/locations/StateDirectory"
+import { breadcrumb, stringifyJsonLd } from "@/lib/schema"
 
 export const metadata: Metadata = {
   title: "Financial Calculators by State — Sales, Property & Income Tax",
   description: "State-by-state finance guides: sales tax, average combined and property tax rates and income tax structure for all 50 states and DC, with calculators.",
-  alternates: { canonical: "https://dailyfinance.tools/locations" },
+  alternates: { canonical: "https://www.dailyfinance.tools/locations" },
   openGraph: {
     title: "Financial Calculators by State — Sales, Property & Income Tax",
     description: "State-by-state finance guides: sales tax, average combined and property tax rates and income tax structure for all 50 states and DC, with calculators.",
-    url: "https://dailyfinance.tools/locations",
+    url: "https://www.dailyfinance.tools/locations",
     siteName: "DailyFinance.tools",
     locale: "en_US",
     type: "website",
-    images: [{ url: "https://dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Financial Calculators by State — Sales, Property & Income Tax" }],
+    images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Financial Calculators by State — Sales, Property & Income Tax" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Financial Calculators by State — Sales, Property & Income Tax",
     description: "State-by-state finance guides: sales tax, average combined and property tax rates and income tax structure for all 50 states and DC, with calculators.",
-    images: ["https://dailyfinance.tools/images/og-base.jpg"],
+    images: ["https://www.dailyfinance.tools/images/og-base.jpg"],
   },
   keywords: ["sales tax by state", "property tax by state", "income tax by state", "state tax calculators"],
 }
@@ -30,6 +31,7 @@ export default function LocationsIndexPage() {
   const noIncomeTax = US_STATES.filter((s) => s.incomeTax === "none")
   return (
     <main className="w-full bg-background min-h-screen">
+      <script id="schema-crumb-locations" type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(breadcrumb([{ name: "Home", url: "https://www.dailyfinance.tools/" }, { name: "Locations", url: "https://www.dailyfinance.tools/locations" }])) }} />
       <div className="mx-auto w-full max-w-7xl px-6 py-14 lg:px-8">
         <nav className="flex items-center gap-1.5 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider flex-nowrap overflow-x-auto whitespace-nowrap [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden mb-6">
           <Link href="/" className="shrink-0 hover:text-foreground">Home</Link><span aria-hidden="true" className="text-border shrink-0 select-none">›</span><span className="truncate max-w-[150px] sm:max-w-[220px] md:max-w-none text-foreground">Locations</span>

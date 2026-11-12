@@ -21,7 +21,7 @@ export function CalculatorLayout({ title, description, inputs, results, seoConte
   const [saveName, setSaveName] = useState("")
   const isPremium = false // Mock premium status
 
-  const embedCode = `<script src="https://dailyfinance.tools/embed.js" data-calculator="${slug}" data-theme="light"></script>`
+  const embedCode = `<script src="https://www.dailyfinance.tools/embed.js" data-calculator="${slug}" data-theme="light"></script>`
 
   return (
     <div className="container mx-auto max-w-7xl px-4 md:px-8 py-10">
@@ -120,7 +120,7 @@ export function CalculatorLayout({ title, description, inputs, results, seoConte
                       <div className="space-y-2">
                         <Label className="flex items-center gap-2"><LinkIcon className="h-4 w-4" /> Direct Link</Label>
                         <div className="flex space-x-2">
-                          <Input value={`https://dailyfinance.tools/tools/${slug}`} readOnly />
+                          <Input value={`https://www.dailyfinance.tools/tools/${slug}`} readOnly />
                           <Button variant="secondary">Copy</Button>
                         </div>
                       </div>

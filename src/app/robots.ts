@@ -33,6 +33,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: PRIVATE_PATHS,
       },
     ],
-    sitemap: 'https://dailyfinance.tools/sitemap.xml',
+    sitemap: 'https://www.dailyfinance.tools/sitemap.xml',
   };
 }

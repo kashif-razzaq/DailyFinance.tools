@@ -4,7 +4,7 @@ import { US_CITIES } from "@/data/locations/us-cities"
 import { GUIDES } from "@/data/guides"
 import { HUBS } from "@/data/hubs"
 
-const BASE = "https://dailyfinance.tools"
+const BASE = "https://www.dailyfinance.tools"
 
 /**
  * llms.txt — a plain-language map of the site for AI answer engines (AEO/GEO).

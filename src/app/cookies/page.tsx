@@ -1,30 +1,33 @@
 import type { Metadata } from "next"
 import { LegalPage } from "@/components/layout/LegalPage"
+import { breadcrumb, stringifyJsonLd } from "@/lib/schema"
 
 export const metadata: Metadata = {
   title: "Cookie Policy | DailyFinance",
   description: "What cookies DailyFinance and its partners use, what they do, and how to control them — including Google AdSense advertising cookies.",
-  alternates: { canonical: "https://dailyfinance.tools/cookies" },
+  alternates: { canonical: "https://www.dailyfinance.tools/cookies" },
   openGraph: {
     title: "Cookie Policy | DailyFinance",
     description: "What cookies DailyFinance and its partners use, what they do, and how to control them — including Google AdSense advertising cookies.",
-    url: "https://dailyfinance.tools/cookies",
+    url: "https://www.dailyfinance.tools/cookies",
     siteName: "DailyFinance.tools",
     locale: "en_US",
     type: "website",
-    images: [{ url: "https://dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Cookie Policy | DailyFinance" }],
+    images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Cookie Policy | DailyFinance" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Cookie Policy | DailyFinance",
     description: "What cookies DailyFinance and its partners use, what they do, and how to control them — including Google AdSense advertising cookies.",
-    images: ["https://dailyfinance.tools/images/og-base.jpg"],
+    images: ["https://www.dailyfinance.tools/images/og-base.jpg"],
   },
 }
 
 export default function Page() {
   return (
-    <LegalPage
+    <>
+      <script id="schema-crumb-cookies" type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(breadcrumb([{ name: "Home", url: "https://www.dailyfinance.tools/" }, { name: "Cookie Policy", url: "https://www.dailyfinance.tools/cookies" }])) }} />
+      <LegalPage
       title="Cookie Policy"
       updated="6 November 2026"
       intro={"This policy explains the cookies and similar technologies used on dailyfinance.tools, why they are used, and how you can control them. It should be read with our Privacy Policy."}
@@ -68,5 +71,6 @@ export default function Page() {
       }
 ]}
     />
+    </>
   )
 }

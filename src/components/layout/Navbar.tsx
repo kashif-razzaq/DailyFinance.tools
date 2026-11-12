@@ -68,13 +68,13 @@ export async function Navbar() {
           ) : (
             <>
               <AuthModal>
-                <div className={cn(buttonVariants({ variant: "default" }), "hidden sm:flex bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl px-6 shadow-sm shadow-primary/20 transition-all active:scale-95 cursor-pointer")}>
+                <div className={cn(buttonVariants({ variant: "default" }), "hidden sm:flex min-h-[44px] bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl px-6 shadow-sm shadow-primary/20 transition-all active:scale-95 cursor-pointer")}>
                   Sign In
                 </div>
               </AuthModal>
               <AuthModal>
                 <div 
-                  className="flex sm:hidden items-center justify-center bg-primary/10 rounded-lg w-9 h-9 text-primary hover:bg-primary/20 transition-colors cursor-pointer"
+                  className="flex sm:hidden items-center justify-center bg-primary/10 rounded-lg min-w-[48px] min-h-[44px] text-primary hover:bg-primary/20 transition-colors cursor-pointer"
                   aria-label="Sign In"
                   role="button"
                 >

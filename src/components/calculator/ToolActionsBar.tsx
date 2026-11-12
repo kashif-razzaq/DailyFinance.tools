@@ -102,7 +102,7 @@ export function ToolActionsBar({
         exportData={exportData}
         exportFilename={slug}
         onRequirePro={() => setShowProModal(true)}
-        shareUrl={`https://dailyfinance.tools${tool.url}`}
+        shareUrl={`https://www.dailyfinance.tools${tool.url}`}
       />
 
       {/* Ad placeholder — invisible in production until AdSense is configured. */}

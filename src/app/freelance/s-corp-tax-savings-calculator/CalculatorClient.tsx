@@ -84,7 +84,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     "Worth It?": metrics.isWorthIt ? "Yes" : "No"
   }]
 
-  const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://dailyfinance.tools'
+  const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://www.dailyfinance.tools'
   const shareUrl = savedScenarioId 
     ? `${baseUrl}/freelance/s-corp-tax-savings-calculator?savedId=${savedScenarioId}`
     : `${baseUrl}/freelance/s-corp-salary-dividend-calculator`

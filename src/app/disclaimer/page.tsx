@@ -1,30 +1,33 @@
 import type { Metadata } from "next"
 import { LegalPage } from "@/components/layout/LegalPage"
+import { breadcrumb, stringifyJsonLd } from "@/lib/schema"
 
 export const metadata: Metadata = {
   title: "Disclaimer | DailyFinance",
   description: "DailyFinance calculators provide educational estimates, not financial, tax or investment advice. Read the limits before relying on any result.",
-  alternates: { canonical: "https://dailyfinance.tools/disclaimer" },
+  alternates: { canonical: "https://www.dailyfinance.tools/disclaimer" },
   openGraph: {
     title: "Disclaimer | DailyFinance",
     description: "DailyFinance calculators provide educational estimates, not financial, tax or investment advice. Read the limits before relying on any result.",
-    url: "https://dailyfinance.tools/disclaimer",
+    url: "https://www.dailyfinance.tools/disclaimer",
     siteName: "DailyFinance.tools",
     locale: "en_US",
     type: "website",
-    images: [{ url: "https://dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Disclaimer | DailyFinance" }],
+    images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Disclaimer | DailyFinance" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Disclaimer | DailyFinance",
     description: "DailyFinance calculators provide educational estimates, not financial, tax or investment advice. Read the limits before relying on any result.",
-    images: ["https://dailyfinance.tools/images/og-base.jpg"],
+    images: ["https://www.dailyfinance.tools/images/og-base.jpg"],
   },
 }
 
 export default function Page() {
   return (
-    <LegalPage
+    <>
+      <script id="schema-crumb-disclaimer" type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(breadcrumb([{ name: "Home", url: "https://www.dailyfinance.tools/" }, { name: "Disclaimer", url: "https://www.dailyfinance.tools/disclaimer" }])) }} />
+      <LegalPage
       title="Disclaimer"
       updated="6 November 2026"
       intro={"The information and calculators on dailyfinance.tools are provided for general education and planning only. Please read this disclaimer before relying on any result."}
@@ -61,5 +64,6 @@ export default function Page() {
       }
 ]}
     />
+    </>
   )
 }

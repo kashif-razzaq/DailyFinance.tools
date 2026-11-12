@@ -133,6 +133,8 @@ export const navigationCategories: Category[] = [
       { title: "Closing Cost Calculator", slug: "closing-cost-calculator", description: "Itemised closing costs and cash to close.", icon: Receipt },
       { title: "Home Equity Calculator", slug: "home-equity-calculator", description: "Equity, LTV and HELOC room.", icon: PieChart },
       { title: "Cap Rate Calculator", slug: "cap-rate-calculator", description: "Cap rate, cash-on-cash and GRM for rentals.", icon: Target },
+      { title: "VA Loan Calculator", slug: "va-loan-calculator", description: "Monthly payment with the VA funding fee.", icon: Shield },
+      { title: "FHA Loan Calculator", slug: "fha-loan-calculator", description: "Monthly payment with FHA MIP and limits.", icon: Scale },
     ]
   },
   {

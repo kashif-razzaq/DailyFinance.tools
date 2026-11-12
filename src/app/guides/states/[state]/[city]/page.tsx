@@ -2,7 +2,7 @@ import Link from "next/link"
 import { ReviewLine } from "@/components/locations/ReviewLine"
 import { TaxCompareChart } from "@/components/locations/TaxCompareChart"
 import { FaqAccordion } from "@/components/shared/FaqAccordion"
-import Script from "next/script"
+import { CONTENT_REVIEWED, faq, stringifyJsonLd, webPage } from "@/lib/schema"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import { ArrowRight, Calculator } from "lucide-react"
@@ -22,21 +22,21 @@ export async function generateMetadata({ params }: { params: Promise<{ state: st
   return {
     title: `${c.name} Sales Tax Rate 2026: ${c.combinedRate}% Combined Rate Explained`,
     description: `${c.name}'s combined sales tax rate is ${c.combinedRate}%. See how the rate is built, what it adds to real purchases, vs the ${s.name} average.`,
-    alternates: { canonical: `https://dailyfinance.tools/guides/states/${state}/${city}` },
+    alternates: { canonical: `https://www.dailyfinance.tools/guides/states/${state}/${city}` },
     openGraph: {
       title: `${c.name} Sales Tax Rate 2026: ${c.combinedRate}% Combined Rate Explained`,
       description: `${c.name}'s combined sales tax rate is ${c.combinedRate}%. See how the rate is built, what it adds to real purchases, vs the ${s.name} average.`,
-      url: `https://dailyfinance.tools/guides/states/${state}/${city}`,
+      url: `https://www.dailyfinance.tools/guides/states/${state}/${city}`,
       siteName: "DailyFinance.tools",
       locale: "en_US",
       type: "website",
-      images: [{ url: "https://dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: `${c.name} Sales Tax Rate 2026: ${c.combinedRate}% Combined Rate Explained` }],
+      images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: `${c.name} Sales Tax Rate 2026: ${c.combinedRate}% Combined Rate Explained` }],
     },
     twitter: {
       card: "summary_large_image",
       title: `${c.name} Sales Tax Rate 2026: ${c.combinedRate}% Combined Rate Explained`,
       description: `${c.name}'s combined sales tax rate is ${c.combinedRate}%. See how the rate is built, what it adds to real purchases, vs the ${s.name} average.`,
-      images: ["https://dailyfinance.tools/images/og-base.jpg"],
+      images: ["https://www.dailyfinance.tools/images/og-base.jpg"],
     },
   }
 }
@@ -81,19 +81,18 @@ export default async function CityGuidePage({ params }: { params: Promise<{ stat
       answer: `The ${c.combinedRate}% figure is the typical combined rate inside city limits; district taxes can shift it block by block. Verify the rate for a specific address with the ${s.name} Department of Revenue before a major purchase or a filing.`,
     },
   ]
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faqs.map((f) => ({
-      "@type": "Question",
-      name: f.question,
-      acceptedAnswer: { "@type": "Answer", text: f.answer },
-    })),
-  }
+  const faqSchema = faq(faqs)
+  const pageSchema = webPage({
+    name: `${c.name} Sales Tax Rate 2026: ${c.combinedRate}% Combined Rate Explained`,
+    url: `https://www.dailyfinance.tools/guides/states/${s.slug}/${c.slug}`,
+    datePublished: CONTENT_REVIEWED,
+    dateModified: CONTENT_REVIEWED,
+  })
 
   return (
     <main className="w-full bg-background min-h-screen">
-      <Script id={`schema-faq-city-${c.slug}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script id={`schema-faq-city-${c.slug}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(faqSchema) }} />
+      <script id={`schema-city-page-${c.slug}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(pageSchema) }} />
       <article className="mx-auto w-full max-w-7xl px-6 py-12 lg:px-8">
         <nav className="flex items-center gap-1.5 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider flex-nowrap overflow-x-auto whitespace-nowrap [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden mb-6">
           <Link href="/" className="shrink-0 hover:text-foreground">Home</Link><span aria-hidden="true" className="text-border shrink-0 select-none">›</span>

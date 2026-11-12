@@ -5,19 +5,20 @@ import { US_STATES } from "@/data/locations/us-states"
 import { US_CITIES } from "@/data/locations/us-cities"
 import { GUIDES } from "@/data/guides"
 import { HUBS } from "@/data/hubs"
+import { breadcrumb, stringifyJsonLd } from "@/lib/schema"
 
 export const metadata: Metadata = {
   title: "Sitemap — Every Calculator, Guide & State Page",
   description: "The complete DailyFinance.tools sitemap in hierarchy order: calculators by category, hubs, guides, and every state and city tax page.",
-  alternates: { canonical: "https://dailyfinance.tools/sitemap" },
+  alternates: { canonical: "https://www.dailyfinance.tools/sitemap" },
   openGraph: {
     title: "Sitemap — DailyFinance.tools",
     description: "Every calculator, guide and state page on DailyFinance.tools, in one clickable hierarchy.",
-    url: "https://dailyfinance.tools/sitemap",
+    url: "https://www.dailyfinance.tools/sitemap",
     siteName: "DailyFinance.tools",
     locale: "en_US",
     type: "website",
-    images: [{ url: "https://dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Sitemap — DailyFinance.tools" }],
+    images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Sitemap — DailyFinance.tools" }],
   },
 }
 
@@ -52,6 +53,7 @@ const linkCls = "text-sm text-muted-foreground underline-offset-2 transition-col
 export default function SitemapPage() {
   return (
     <main className="mx-auto w-full max-w-7xl px-6 py-12 lg:px-8 md:py-16">
+      <script id="schema-crumb-sitemap" type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(breadcrumb([{ name: "Home", url: "https://www.dailyfinance.tools/" }, { name: "Sitemap", url: "https://www.dailyfinance.tools/sitemap" }])) }} />
       <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.15em] text-[#064E3B]">DailyFinance.tools</p>
       <h1 className="mb-3 text-3xl font-extrabold tracking-tight text-foreground md:text-4xl">Sitemap</h1>
       <p className="mb-4 max-w-2xl font-light leading-relaxed text-muted-foreground">

@@ -3,8 +3,8 @@ import { ReviewLine } from "@/components/locations/ReviewLine"
 import { TaxCompareChart } from "@/components/locations/TaxCompareChart"
 import { FaqAccordion } from "@/components/shared/FaqAccordion"
 import Link from "next/link"
-import Script from "next/script"
 import { notFound } from "next/navigation"
+import { breadcrumb, CONTENT_REVIEWED, faq, howTo, stringifyJsonLd, webPage } from "@/lib/schema"
 import { US_STATES, getStateBySlug, taxOn } from "@/data/locations/us-states"
 import { getCitiesByState } from "@/data/locations/us-cities"
 import { AVG_COMBINED, combinedRank, closestByCombined, highestCombined, lowestCombined, pointsDiff, salesTaxMeaning } from "@/data/locations/stats"
@@ -21,21 +21,21 @@ export async function generateMetadata({ params }: { params: Promise<{ state: st
   return {
     title: `${s.name} Sales Tax Calculator & 2026 Rates (${s.salesTaxBase}%)`,
     description: `Sales tax in ${s.name}: ${s.salesTaxBase}% state rate, ~${s.salesTaxAvgCombined}% combined with local taxes. Grocery rules, examples and a free calculator.`,
-    alternates: { canonical: `https://dailyfinance.tools/sales-tax/${s.slug}` },
+    alternates: { canonical: `https://www.dailyfinance.tools/sales-tax/${s.slug}` },
     openGraph: {
       title: `${s.name} Sales Tax Calculator & 2026 Rates (${s.salesTaxBase}%)`,
       description: `Sales tax in ${s.name}: ${s.salesTaxBase}% state rate, ~${s.salesTaxAvgCombined}% combined with local taxes. Grocery rules, examples and a free calculator.`,
-      url: `https://dailyfinance.tools/sales-tax/${s.slug}`,
+      url: `https://www.dailyfinance.tools/sales-tax/${s.slug}`,
       siteName: "DailyFinance.tools",
       locale: "en_US",
       type: "website",
-      images: [{ url: "https://dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: `${s.name} Sales Tax Calculator & 2026 Rates (${s.salesTaxBase}%)` }],
+      images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: `${s.name} Sales Tax Calculator & 2026 Rates (${s.salesTaxBase}%)` }],
     },
     twitter: {
       card: "summary_large_image",
       title: `${s.name} Sales Tax Calculator & 2026 Rates (${s.salesTaxBase}%)`,
       description: `Sales tax in ${s.name}: ${s.salesTaxBase}% state rate, ~${s.salesTaxAvgCombined}% combined with local taxes. Grocery rules, examples and a free calculator.`,
-      images: ["https://dailyfinance.tools/images/og-base.jpg"],
+      images: ["https://www.dailyfinance.tools/images/og-base.jpg"],
     },
     keywords: [`${s.name.toLowerCase()} sales tax rate`, `${s.name.toLowerCase()} sales tax calculator`, `sales tax in ${s.name.toLowerCase()}`, `how much is sales tax in ${s.name.toLowerCase()}`],
   }
@@ -58,23 +58,33 @@ export default async function StateSalesTaxPage({ params }: { params: Promise<{ 
     { question: `How does ${s.name}'s sales tax compare with other states?`, answer: `${s.name}'s average combined rate of ${s.salesTaxAvgCombined}% ranks ${rank} of 51 states and DC (1 = highest), ${vsAvg > 0 ? `${vsAvg} points above` : vsAvg < 0 ? `${Math.abs(vsAvg)} points below` : "equal to"} the all-state average of ${AVG_COMBINED}%. The highest average combined rate in the dataset is ${highestCombined(1)[0].name} at ${highestCombined(1)[0].salesTaxAvgCombined}%; the lowest is ${lowestCombined(1)[0].name} at ${lowestCombined(1)[0].salesTaxAvgCombined}%.` },
     { question: `Where can I verify the exact sales tax rate for a ${s.name} address?`, answer: `Rates on this page are reviewed averages; the combined rate at a specific address can differ because of county, city and district layers. Confirm the exact rate with the ${s.name} Department of Revenue's rate lookup before a major purchase or a filing. This page's worked examples use the ${s.salesTaxAvgCombined}% average combined rate.` },
   ]
-  const faqSchema = { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.question, acceptedAnswer: { "@type": "Answer", text: f.answer } })) }
-  const howToSchema = { "@context": "https://schema.org", "@type": "HowTo", name: `How to Calculate Sales Tax in ${s.name}`, step: [
-    { "@type": "HowToStep", name: "Find your combined rate", text: `Add the ${s.salesTaxBase}% state rate to your county, city and district rates (state average combined ≈ ${s.salesTaxAvgCombined}%).` },
-    { "@type": "HowToStep", name: "Multiply price by the rate", text: "Tax = taxable price × (combined rate ÷ 100)." },
-    { "@type": "HowToStep", name: "Add tax to the price", text: "Total = price + tax. To extract tax from a tax-inclusive total, divide the total by (1 + rate ÷ 100)." },
-  ] }
-  const breadcrumbSchema = { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: "https://dailyfinance.tools/" },
-    { "@type": "ListItem", position: 2, name: "Locations", item: "https://dailyfinance.tools/locations" },
-    { "@type": "ListItem", position: 3, name: `${s.name} Sales Tax`, item: `https://dailyfinance.tools/sales-tax/${s.slug}` },
-  ] }
+  const faqSchema = faq(faqs)
+  const howToSchema = howTo({
+    name: `How to Calculate Sales Tax in ${s.name}`,
+    steps: [
+      { name: "Find your combined rate", text: `Add the ${s.salesTaxBase}% state rate to your county, city and district rates (state average combined ≈ ${s.salesTaxAvgCombined}%).` },
+      { name: "Multiply price by the rate", text: "Tax = taxable price × (combined rate ÷ 100)." },
+      { name: "Add tax to the price", text: "Total = price + tax. To extract tax from a tax-inclusive total, divide the total by (1 + rate ÷ 100)." },
+    ],
+  })
+  const breadcrumbSchema = breadcrumb([
+    { name: "Home", url: "https://www.dailyfinance.tools/" },
+    { name: "Locations", url: "https://www.dailyfinance.tools/locations" },
+    { name: `${s.name} Sales Tax`, url: `https://www.dailyfinance.tools/sales-tax/${s.slug}` },
+  ])
+  const pageSchema = webPage({
+    name: `${s.name} Sales Tax Calculator & 2026 Rates (${s.salesTaxBase}%)`,
+    url: `https://www.dailyfinance.tools/sales-tax/${s.slug}`,
+    datePublished: CONTENT_REVIEWED,
+    dateModified: CONTENT_REVIEWED,
+  })
 
   return (
     <main className="w-full bg-background min-h-screen">
-      <Script id={`schema-st-faq-${s.slug}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-      <Script id={`schema-st-howto-${s.slug}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
-      <Script id={`schema-st-crumb-${s.slug}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script id={`schema-st-faq-${s.slug}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(faqSchema) }} />
+      <script id={`schema-st-howto-${s.slug}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(howToSchema) }} />
+      <script id={`schema-st-crumb-${s.slug}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(breadcrumbSchema) }} />
+      <script id={`schema-st-page-${s.slug}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(pageSchema) }} />
       <div className="mx-auto w-full max-w-7xl px-6 py-14 lg:px-8">
         <nav className="flex items-center gap-1.5 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider flex-nowrap overflow-x-auto whitespace-nowrap [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden mb-6">
           <Link href="/" className="shrink-0 hover:text-foreground">Home</Link><span aria-hidden="true" className="text-border shrink-0 select-none">›</span>

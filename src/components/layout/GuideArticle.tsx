@@ -1,7 +1,7 @@
 import Link from "next/link"
-import Script from "next/script"
 import { ArrowRight, BookOpen, Calculator, CalendarDays, Clock } from "lucide-react"
 import type { Guide } from "@/data/guides"
+import { article, faq, breadcrumb, stringifyJsonLd } from "@/lib/schema"
 import { FaqAccordion } from "@/components/shared/FaqAccordion"
 import { GuideImage } from "@/components/shared/GuideImage"
 
@@ -14,35 +14,15 @@ function formatGuideDate(iso: string): string {
 }
 
 export function GuideArticle({ guide }: { guide: Guide }) {
-  const articleSchema = {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    headline: guide.title,
-    description: guide.description,
-    author: { "@type": "Person", name: "Tahir Shehzad", jobTitle: "ACMA" },
-    publisher: { "@type": "Organization", name: "DailyFinance.tools" },
-    dateModified: guide.updated,
-    mainEntityOfPage: `https://dailyfinance.tools/guides/${guide.slug}`,
-  }
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: guide.faqs.map((f) => ({ "@type": "Question", name: f.question, acceptedAnswer: { "@type": "Answer", text: f.answer } })),
-  }
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://dailyfinance.tools/" },
-      { "@type": "ListItem", position: 2, name: "Guides", item: "https://dailyfinance.tools/guides" },
-      { "@type": "ListItem", position: 3, name: guide.title, item: `https://dailyfinance.tools/guides/${guide.slug}` },
-    ],
-  }
   return (
     <main className="w-full bg-background min-h-screen">
-      <Script id={`schema-article-${guide.slug}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
-      <Script id={`schema-faq-${guide.slug}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-      <Script id={`schema-bc-${guide.slug}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script id={`schema-article-${guide.slug}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(article({ headline: guide.title, description: guide.description, url: `https://www.dailyfinance.tools/guides/${guide.slug}`, dateModified: guide.updated })) }} />
+      <script id={`schema-faq-${guide.slug}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(faq(guide.faqs)) }} />
+      <script id={`schema-bc-${guide.slug}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(breadcrumb([
+        { name: "Home", url: "https://www.dailyfinance.tools/" },
+        { name: "Guides", url: "https://www.dailyfinance.tools/guides" },
+        { name: guide.title, url: `https://www.dailyfinance.tools/guides/${guide.slug}` },
+      ])) }} />
       <article className="mx-auto w-full max-w-7xl px-6 py-12 lg:px-8">
         <nav className="flex items-center gap-1.5 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider flex-nowrap overflow-x-auto whitespace-nowrap [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden mb-6">
           <Link href="/" className="shrink-0 hover:text-foreground">Home</Link><span aria-hidden="true" className="text-border shrink-0 select-none">›</span>

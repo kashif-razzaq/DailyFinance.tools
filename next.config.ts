@@ -26,7 +26,7 @@ const nextConfig: NextConfig = {
     return [
       {
         // All normal pages: cannot be framed by other sites
-        source: "/((?!embed).*)",
+        source: "/((?!embed/).*)",
         headers: [
           ...baseHeaders,
           { key: "X-Frame-Options", value: "SAMEORIGIN" },
@@ -39,7 +39,9 @@ const nextConfig: NextConfig = {
       },
       {
         // Embeddable calculators: framing allowed by design (product feature)
-        source: "/embed/:path*",
+        // :path+ (one or more segments) so bare /embed does NOT match this
+        // rule and keeps the standard frame-ancestors 'self' CSP.
+        source: "/embed/:path+",
         headers: [
           ...baseHeaders,
           {

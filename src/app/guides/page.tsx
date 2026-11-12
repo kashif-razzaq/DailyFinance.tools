@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { GuideImage } from "@/components/shared/GuideImage"
-import Script from "next/script"
+import { breadcrumb, itemList, stringifyJsonLd } from "@/lib/schema"
 import type { Metadata } from "next"
 import { ArrowRight, BookOpen, MapPin } from "lucide-react"
 import { GUIDES, GUIDE_HUBS, guidesByHub } from "@/data/guides"
@@ -9,39 +9,40 @@ export const metadata: Metadata = {
   title: "Personal Finance Guides: Clear Answers With Real Numbers",
   description:
     "Personal finance guides with real numbers: compound interest, mortgages, debt payoff, taxes and Social Security — each one links to a free calculator.",
-  alternates: { canonical: "https://dailyfinance.tools/guides" },
+  alternates: { canonical: "https://www.dailyfinance.tools/guides" },
   openGraph: {
     title: "Personal Finance Guides: Clear Answers With Real Numbers",
     description: "Personal finance guides with real numbers: compound interest, mortgages, debt payoff, taxes and Social Security — each one links to a free calculator.",
-    url: "https://dailyfinance.tools/guides",
+    url: "https://www.dailyfinance.tools/guides",
     siteName: "DailyFinance.tools",
     locale: "en_US",
     type: "website",
-    images: [{ url: "https://dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Personal Finance Guides: Clear Answers With Real Numbers" }],
+    images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Personal Finance Guides: Clear Answers With Real Numbers" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Personal Finance Guides: Clear Answers With Real Numbers",
     description: "Personal finance guides with real numbers: compound interest, mortgages, debt payoff, taxes and Social Security — each one links to a free calculator.",
-    images: ["https://dailyfinance.tools/images/og-base.jpg"],
+    images: ["https://www.dailyfinance.tools/images/og-base.jpg"],
   },
 }
 
 export default function GuidesIndexPage() {
-  const itemListSchema = {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
+  const itemListSchema = itemList({
     name: "DailyFinance.tools guides",
-    itemListElement: GUIDES.map((g, i) => ({
-      "@type": "ListItem",
-      position: i + 1,
+    items: GUIDES.map((g) => ({
       name: g.title,
-      url: `https://dailyfinance.tools/guides/${g.slug}`,
+      url: `https://www.dailyfinance.tools/guides/${g.slug}`,
     })),
-  }
+  })
+  const guidesCrumbSchema = breadcrumb([
+    { name: "Home", url: "https://www.dailyfinance.tools/" },
+    { name: "Guides", url: "https://www.dailyfinance.tools/guides" },
+  ])
   return (
     <main className="w-full bg-background min-h-screen">
-      <Script id="schema-guides-list" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
+      <script id="schema-guides-list" type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(itemListSchema) }} />
+      <script id="schema-guides-crumb" type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(guidesCrumbSchema) }} />
       <section className="mx-auto w-full max-w-7xl px-6 py-14 lg:px-8">
         <p className="text-xs font-bold uppercase tracking-[0.15em] text-[#064E3B] dark:text-emerald-400 mb-3 flex items-center gap-2">
           <BookOpen className="h-4 w-4" /> Guides

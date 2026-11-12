@@ -1,28 +1,28 @@
 import type { Metadata } from "next"
 import { FaqAccordion } from "@/components/shared/FaqAccordion"
 import Link from "next/link"
-import Script from "next/script"
+import { breadcrumb, faq, offer, product, stringifyJsonLd } from "@/lib/schema"
 import { Button } from "@/components/ui/button"
 import { Check, X } from "lucide-react"
 
 export const metadata: Metadata = {
   title: "Pricing — Free Calculators Forever, Pro for $2.99/mo | DailyFinance",
   description: "Free: 100+ calculators and a 3-scenario Vault. Pro ($2.99/mo): unlimited saves, scenario comparison, 5 Pro tools, full analytics, premium PDFs, zero ads.",
-  alternates: { canonical: "https://dailyfinance.tools/pricing" },
+  alternates: { canonical: "https://www.dailyfinance.tools/pricing" },
   openGraph: {
     title: "Pricing — Free Calculators Forever, Pro for $2.99/mo | DailyFinance",
     description: "Free: 100+ calculators and a 3-scenario Vault. Pro ($2.99/mo): unlimited saves, scenario comparison, 5 Pro tools, full analytics, exports, zero ads.",
-    url: "https://dailyfinance.tools/pricing",
+    url: "https://www.dailyfinance.tools/pricing",
     siteName: "DailyFinance.tools",
     locale: "en_US",
     type: "website",
-    images: [{ url: "https://dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Pricing — Free Calculators Forever, Pro for $2.99/mo | DailyFinance" }],
+    images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Pricing — Free Calculators Forever, Pro for $2.99/mo | DailyFinance" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Pricing — Free Calculators Forever, Pro for $2.99/mo | DailyFinance",
     description: "Free: 100+ calculators and a 3-scenario Vault. Pro ($2.99/mo): unlimited saves, scenario comparison, 5 Pro tools, full analytics, exports, zero ads.",
-    images: ["https://dailyfinance.tools/images/og-base.jpg"],
+    images: ["https://www.dailyfinance.tools/images/og-base.jpg"],
   },
   keywords: ["dailyfinance pro", "financial calculator subscription", "scenario vault pricing"],
 }
@@ -78,6 +78,22 @@ const tiers = [
 ]
 
 export default function PricingPage() {
+  const pricingFaqs = [
+    { question: "Are the calculators really free?", answer: "Yes. Every calculator is free with no sign-up. A free account adds URL sharing and a Scenario Vault with up to 3 saved scenarios." },
+    { question: "What does Pro add?", answer: "Pro ($2.99/mo) removes ads and unlocks unlimited Vault storage with cloning, scenario comparison, 5 exclusive Pro tools, premium PDF reports, an analytics CSV export and full Cross-Data Analytics across personal and business saves." },
+    { question: "Can I cancel anytime?", answer: "Yes — no lock-in. Cancelling returns the account to Free at the end of the billing period and saved data is kept." },
+  ]
+  const pricingFaqSchema = faq(pricingFaqs)
+  const pricingOfferSchema = product({
+    name: "DailyFinance.tools",
+    url: "https://www.dailyfinance.tools/pricing",
+    description: "Free financial calculators for everyone, with an optional Pro plan at $2.99 per month.",
+    offers: [offer({ name: "Free", price: "0" }), offer({ name: "Pro", price: "2.99", billingDuration: "P1M" })],
+  })
+  const pricingCrumbSchema = breadcrumb([
+    { name: "Home", url: "https://www.dailyfinance.tools/" },
+    { name: "Pricing", url: "https://www.dailyfinance.tools/pricing" },
+  ])
   return (
     <div className="py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -153,13 +169,9 @@ export default function PricingPage() {
             ]}
           />
         </div>
-        <Script id="schema-pricing-faq" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-          "@context": "https://schema.org", "@type": "FAQPage", mainEntity: [
-            { "@type": "Question", name: "Are the calculators really free?", acceptedAnswer: { "@type": "Answer", text: "Yes. Every calculator is free with no sign-up. A free account adds URL sharing and a Scenario Vault with up to 3 saved scenarios." } },
-            { "@type": "Question", name: "What does Pro add?", acceptedAnswer: { "@type": "Answer", text: "Pro ($2.99/mo) removes ads and unlocks unlimited Vault storage with cloning, scenario comparison, 5 exclusive Pro tools, premium PDF reports, an analytics CSV export and full Cross-Data Analytics across personal and business saves." } },
-            { "@type": "Question", name: "Can I cancel anytime?", acceptedAnswer: { "@type": "Answer", text: "Yes — no lock-in. Cancelling returns the account to Free at the end of the billing period and saved data is kept." } },
-          ],
-        }) }} />
+        <script id="schema-pricing-faq" type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(pricingFaqSchema) }} />
+        <script id="schema-pricing-offer" type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(pricingOfferSchema) }} />
+        <script id="schema-pricing-crumb" type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(pricingCrumbSchema) }} />
 
       </div>
     </div>

@@ -1,31 +1,34 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { LegalPage } from "@/components/layout/LegalPage"
+import { breadcrumb, stringifyJsonLd } from "@/lib/schema"
 
 export const metadata: Metadata = {
   title: "Methodology — How DailyFinance Calculates, Sources & Reviews Numbers",
   description: "How DailyFinance builds its calculators: formula sources (IRS, SSA, platform fee schedules), ACMA review, update cadence and accuracy limits.",
-  alternates: { canonical: "https://dailyfinance.tools/methodology" },
+  alternates: { canonical: "https://www.dailyfinance.tools/methodology" },
   openGraph: {
     title: "Methodology — How DailyFinance Calculates, Sources & Reviews Numbers",
     description: "How DailyFinance builds its calculators: formula sources (IRS, SSA, platform fee schedules), ACMA review, update cadence and accuracy limits.",
-    url: "https://dailyfinance.tools/methodology",
+    url: "https://www.dailyfinance.tools/methodology",
     siteName: "DailyFinance.tools",
     locale: "en_US",
     type: "website",
-    images: [{ url: "https://dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Methodology — How DailyFinance Calculates, Sources & Reviews Numbers" }],
+    images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Methodology — How DailyFinance Calculates, Sources & Reviews Numbers" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Methodology — How DailyFinance Calculates, Sources & Reviews Numbers",
     description: "How DailyFinance builds its calculators: formula sources (IRS, SSA, platform fee schedules), ACMA review, update cadence and accuracy limits.",
-    images: ["https://dailyfinance.tools/images/og-base.jpg"],
+    images: ["https://www.dailyfinance.tools/images/og-base.jpg"],
   },
 }
 
 export default function MethodologyPage() {
   return (
-    <LegalPage
+    <>
+      <script id="schema-crumb-methodology" type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(breadcrumb([{ name: "Home", url: "https://www.dailyfinance.tools/" }, { name: "Methodology", url: "https://www.dailyfinance.tools/methodology" }])) }} />
+      <LegalPage
       title="Our Methodology"
       updated="6 November 2026"
       intro="Every number on DailyFinance comes from a published formula, an official schedule or a documented assumption — never a guess dressed up as precision. This page explains where our inputs come from, who reviews them, how location data is handled, and how often everything is re-checked."
@@ -54,5 +57,6 @@ export default function MethodologyPage() {
         ]},
       ]}
     />
+    </>
   )
 }

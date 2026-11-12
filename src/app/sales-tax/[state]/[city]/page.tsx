@@ -2,8 +2,8 @@ import type { Metadata } from "next"
 import { ReviewLine } from "@/components/locations/ReviewLine"
 import { FaqAccordion } from "@/components/shared/FaqAccordion"
 import Link from "next/link"
-import Script from "next/script"
 import { notFound } from "next/navigation"
+import { breadcrumb, CONTENT_REVIEWED, faq, stringifyJsonLd, webPage } from "@/lib/schema"
 import { US_CITIES, getCity, getCitiesByState } from "@/data/locations/us-cities"
 import { getStateBySlug, taxOn } from "@/data/locations/us-states"
 import { AVG_CITY_COMBINED, AVG_COMBINED, cityRank, highestCities, lowestCities, pointsDiff } from "@/data/locations/stats"
@@ -21,21 +21,21 @@ export async function generateMetadata({ params }: { params: Promise<{ state: st
   return {
     title: `Sales Tax in ${c.name}, ${s.abbr}: ${c.combinedRate}% Combined Rate & Calculator`,
     description: `Combined sales tax in ${c.name}, ${s.name} is about ${c.combinedRate}% (state ${s.salesTaxBase}% + local). Tax on $50–$1,000 purchases, grocery rules and a free calculator.`,
-    alternates: { canonical: `https://dailyfinance.tools/sales-tax/${s.slug}/${c.slug}` },
+    alternates: { canonical: `https://www.dailyfinance.tools/sales-tax/${s.slug}/${c.slug}` },
     openGraph: {
       title: `Sales Tax in ${c.name}, ${s.abbr}: ${c.combinedRate}% Combined Rate & Calculator`,
       description: `Combined sales tax in ${c.name}, ${s.name} is about ${c.combinedRate}% (state ${s.salesTaxBase}% + local). Tax on $50–$1,000 purchases, grocery rules and a free calculator.`,
-      url: `https://dailyfinance.tools/sales-tax/${s.slug}/${c.slug}`,
+      url: `https://www.dailyfinance.tools/sales-tax/${s.slug}/${c.slug}`,
       siteName: "DailyFinance.tools",
       locale: "en_US",
       type: "website",
-      images: [{ url: "https://dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: `Sales Tax in ${c.name}, ${s.abbr}: ${c.combinedRate}% Combined Rate & Calculator` }],
+      images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: `Sales Tax in ${c.name}, ${s.abbr}: ${c.combinedRate}% Combined Rate & Calculator` }],
     },
     twitter: {
       card: "summary_large_image",
       title: `Sales Tax in ${c.name}, ${s.abbr}: ${c.combinedRate}% Combined Rate & Calculator`,
       description: `Combined sales tax in ${c.name}, ${s.name} is about ${c.combinedRate}% (state ${s.salesTaxBase}% + local). Tax on $50–$1,000 purchases, grocery rules and a free calculator.`,
-      images: ["https://dailyfinance.tools/images/og-base.jpg"],
+      images: ["https://www.dailyfinance.tools/images/og-base.jpg"],
     },
     keywords: [`sales tax in ${c.name.toLowerCase()}`, `${c.name.toLowerCase()} sales tax rate`, `${c.name.toLowerCase()} ${s.abbr.toLowerCase()} tax calculator`],
   }
@@ -61,18 +61,25 @@ export default async function CitySalesTaxPage({ params }: { params: Promise<{ s
     { question: `How does ${c.name} compare with other US cities?`, answer: `${c.name}'s ${c.combinedRate}% combined rate ranks ${rank} of the 30 major cities in our dataset (average ${AVG_CITY_COMBINED}%). The highest is ${highestCities(1)[0].name} at ${highestCities(1)[0].combinedRate}%; the lowest is ${lowestCities(1)[0].name} at ${lowestCities(1)[0].combinedRate}%. Against the all-state average combined rate of ${AVG_COMBINED}%, ${c.name} is ${vsNational > 0 ? `${vsNational} points higher` : vsNational < 0 ? `${Math.abs(vsNational)} points lower` : "exactly level"}.` },
     { question: `Where can I verify the exact sales tax rate for a ${c.name} address?`, answer: `District taxes inside ${c.name} can shift the combined rate street by street, so ${c.combinedRate}% is the typical in-city figure, not a guarantee for every address. Confirm the rate for a specific address with the ${s.name} Department of Revenue before a major purchase or a filing.` },
   ]
-  const faqSchema = { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.question, acceptedAnswer: { "@type": "Answer", text: f.answer } })) }
-  const breadcrumbSchema = { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: "https://dailyfinance.tools/" },
-    { "@type": "ListItem", position: 2, name: "Locations", item: "https://dailyfinance.tools/locations" },
-    { "@type": "ListItem", position: 3, name: `${s.name} Sales Tax`, item: `https://dailyfinance.tools/sales-tax/${s.slug}` },
-    { "@type": "ListItem", position: 4, name: c.name, item: `https://dailyfinance.tools/sales-tax/${s.slug}/${c.slug}` },
-  ] }
+  const faqSchema = faq(faqs)
+  const breadcrumbSchema = breadcrumb([
+    { name: "Home", url: "https://www.dailyfinance.tools/" },
+    { name: "Locations", url: "https://www.dailyfinance.tools/locations" },
+    { name: `${s.name} Sales Tax`, url: `https://www.dailyfinance.tools/sales-tax/${s.slug}` },
+    { name: c.name, url: `https://www.dailyfinance.tools/sales-tax/${s.slug}/${c.slug}` },
+  ])
+  const pageSchema = webPage({
+    name: `Sales Tax in ${c.name}, ${s.abbr}: ${c.combinedRate}% Combined Rate & Calculator`,
+    url: `https://www.dailyfinance.tools/sales-tax/${s.slug}/${c.slug}`,
+    datePublished: CONTENT_REVIEWED,
+    dateModified: CONTENT_REVIEWED,
+  })
 
   return (
     <main className="w-full bg-background min-h-screen">
-      <Script id={`schema-city-faq-${c.slug}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-      <Script id={`schema-city-crumb-${c.slug}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script id={`schema-city-faq-${c.slug}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(faqSchema) }} />
+      <script id={`schema-city-crumb-${c.slug}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(breadcrumbSchema) }} />
+      <script id={`schema-city-page-${c.slug}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(pageSchema) }} />
       <div className="mx-auto w-full max-w-7xl px-6 py-14 lg:px-8">
         <nav className="flex items-center gap-1.5 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider flex-nowrap overflow-x-auto whitespace-nowrap [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden mb-6">
           <Link href="/" className="shrink-0 hover:text-foreground">Home</Link><span aria-hidden="true" className="text-border shrink-0 select-none">›</span>

@@ -130,7 +130,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     "Effective Tax Rate %": metrics.effectiveTaxRate.toFixed(1)
   }]
 
-  const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://dailyfinance.tools'
+  const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://www.dailyfinance.tools'
   const shareUrl = savedScenarioId 
     ? `${baseUrl}/freelance/quarterly-estimated-tax-calculator?savedId=${savedScenarioId}`
     : `${baseUrl}/freelance/quarterly-estimated-taxes-calculator`

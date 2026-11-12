@@ -22,7 +22,7 @@ export function ConditionalLayout({
   // Hide global nav/footer on auth pages, dashboard workspace, and embeds
   const isAuthPage = pathname?.startsWith('/login') || pathname?.startsWith('/register')
   const isDashboard = pathname?.startsWith('/dashboard')
-  const isEmbed = pathname?.startsWith('/embed')
+  const isEmbed = pathname !== '/embed' && pathname?.startsWith('/embed/')
   const shouldHide = isAuthPage || isDashboard || isEmbed
 
   // Tool pages have their own dedicated mobile action bar (CalculatorActions,

@@ -15,7 +15,7 @@ export function generateCalculatorMetadata({
   slug,
   category = 'Calculator',
 }: SEOMetadataProps): Metadata {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://dailyfinance.tools'
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.dailyfinance.tools'
   const url = `${baseUrl}/${slug}`
   
   // Construct dynamic OG image URL

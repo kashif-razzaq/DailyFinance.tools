@@ -663,4 +663,80 @@ export const TOOL_CONTENT_A3: Record<string, ToolContentEntry> = {
       },
     ],
   },
+  "real-estate/va-loan-calculator": {
+    quickAnswer:
+      "A VA loan calculator adds the VA funding fee to your payment instead of PMI. On a $375,000 home with no down payment, first use, 6.5% over 30 years, the 2.15% fee is $8,062.50, the financed loan is $383,062.50, and the total monthly payment is $2,921.22 including tax and insurance — with no PMI, ever.",
+    howItWorks: [
+      "The funding fee is the VA's one-time charge for guaranteeing your loan, set by your down payment and whether you have used a VA loan before. First use costs 2.15% with less than 5% down, 1.5% at 5% or more, and 1.25% at 10% or more. Subsequent use costs 3.3% below 5% down, then the same 1.5% and 1.25%. The fee applies to the loan amount, not the purchase price.",
+      "Some borrowers pay no funding fee at all. You are exempt if you receive VA compensation for a service-connected disability, or would but take retirement or active-duty pay instead; if you are a surviving spouse receiving Dependency and Indemnity Compensation (DIC); or if you are an active-duty service member who received a Purple Heart before closing. A later disability award backdated to before closing earns the fee back.",
+      "Most borrowers finance the fee, rolling it into the loan — the only closing cost VA rules allow you to finance on a purchase. The price: you pay interest on the fee for 30 years. In the worked example below, financing an $8,062.50 fee adds $50.96 a month and costs $10,283.10 of extra interest over the term. Paying the fee in cash at closing avoids all of it, if you have the money spare.",
+      "VA loans never charge private mortgage insurance — the funding fee replaces it, so there is no PMI line in the payment. Your payment is principal and interest plus property tax and homeowners insurance, with HOA dues on top when they apply. Before you apply you need a Certificate of Eligibility (COE), confirming your service record and entitlement; your lender can usually pull it from the VA in minutes.",
+      "A down payment is optional on a VA loan, but it is the cheapest way to cut the fee. On a $375,000 purchase, putting 5% down drops a subsequent-use fee from 3.3% to 1.5% — from $12,375 on the full loan to $5,343.75 on a $356,250 loan. At 10% down the rate is 1.25% for everyone. The calculator shows the fee at each tier.",
+    ],
+    formula: "Funding fee = base loan × fee rate, where the base loan is the price minus the down payment. Monthly principal and interest = loan × [r(1 + r)^n] ÷ [(1 + r)^n − 1], where r is the monthly rate and n the number of payments. Total monthly payment = principal and interest + tax + insurance + HOA. VA loans charge no PMI.",
+    example: {
+      title: "Worked example: $375,000 home, 0% down, first use at 6.5%",
+      body: "With no down payment, the base loan is $375,000. The first-use fee at 2.15% is $8,062.50, and financing it makes the loan $383,062.50. Principal and interest on that amount at 6.5% over 360 payments is $2,421.22 a month. Property tax of $4,125 a year adds $343.75 and insurance of $1,875 a year adds $156.25, so the total payment is $2,921.22. Total interest over the term is $488,576.70. Paying the fee in cash instead would cut the payment to $2,370.26 and save $10,283.10 of interest.",
+    },
+    faqs: [
+      {
+        question: "How much is the VA funding fee?",
+        answer:
+          "It depends on your down payment and whether you have used a VA loan before. On a purchase, first use costs 2.15% of the base loan with less than 5% down, 1.5% at 5% or more, and 1.25% at 10% or more. Subsequent use costs 3.3% below 5% down, then the same 1.5% and 1.25%. The fee is charged on the loan amount, not the purchase price. These rates come from the VA funding fee table on VA.gov, effective April 7, 2023.",
+      },
+      {
+        question: "Who is exempt from the VA funding fee?",
+        answer:
+          "You pay no funding fee if you receive VA compensation for a service-connected disability, or would receive it but take retirement or active-duty pay instead; if you are a surviving spouse receiving Dependency and Indemnity Compensation (DIC); or if you are an active-duty service member who received a Purple Heart before closing. If the VA later awards you disability compensation with an effective date before your closing, you can claim a refund of the fee you paid.",
+      },
+      {
+        question: "Should I finance the funding fee or pay it in cash?",
+        answer:
+          "Financing is convenient — most borrowers roll the fee into the loan — but you pay interest on it for the whole term. On a $375,000 first-use loan at 6.5% over 30 years, financing an $8,062.50 fee costs $10,283.10 of extra interest. Paying cash at closing avoids all of it. The trade is liquidity: cash spent on the fee is cash you cannot use for moving costs or an emergency fund.",
+      },
+      {
+        question: "Do VA loans require PMI or a down payment?",
+        answer:
+          "Neither. VA loans never charge private mortgage insurance — the one-time funding fee replaces it — and no down payment is required unless the lender asks for one or the price exceeds the home's reasonable value. A down payment is still worth considering: 5% down cuts a subsequent-use fee from 3.3% to 1.5%, and 10% down brings every borrower to 1.25%.",
+      },
+    ],
+  },
+  "real-estate/fha-loan-calculator": {
+    quickAnswer:
+      "An FHA loan calculator works out your real monthly payment on an FHA-insured mortgage: principal and interest, both mortgage insurance premiums, tax and insurance. On a $350,000 home with 3.5% down at 6.5% over 30 years, the payment is $2,795 a month — $2,172 of principal and interest, $157 of monthly MIP, plus tax and insurance.",
+    howItWorks: [
+      "Enter the home price, down payment, rate and term. The calculator works out the base loan (price minus down payment), then adds the upfront mortgage insurance premium (UFMIP) of 1.75% of the base loan. On the $350,000 example the base loan is $337,750, the UFMIP is $5,911, and the amount amortised is $343,661.",
+      "The annual MIP rate comes from HUD's table in Mortgagee Letter 2023-05, set by term, loan-to-value and loan size. On terms over 15 years with a base loan at or below the 2026 conforming limit of $832,750, the rate is 0.50% a year up to 95% LTV and 0.55% above it; over that limit it is 0.70% or 0.75%. A 15-year loan pays just 0.15% to 0.40%.",
+      "Monthly MIP is not a flat figure. HUD charges each year's premium on the average outstanding balance for that year, so the monthly amount falls as the balance amortises. In the example the year-1 monthly MIP is $157 at 0.55%, and total MIP over 30 years is $37,000 — well under the $55,729 a flat estimate would give.",
+      "How long MIP lasts depends on the down payment. Under 10% down it runs for the life of the loan; at 10% or more it ends after 11 years. On this home, 10% down cuts the rate to 0.50% and caps total MIP at $16,277 over 11 years, against $37,000 for life at 3.5% down. Refinancing into a conventional loan is the only way to drop MIP early when it runs for life.",
+      "FHA also caps the loan by county. For 2026 the national floor is $541,287 and the ceiling is $1,249,125 for a one-unit home, set by Mortgagee Letter 2025-23; your county's limit sits between the two. The minimum down payment is 3.5% with credit of 580 or higher, or 10% with credit of 500 to 579.",
+    ],
+    formula: "Base loan = price − down payment; UFMIP = 1.75% × base loan; total loan = base loan + UFMIP when financed. Monthly principal and interest = total loan × [r(1 + r)^n] ÷ [(1 + r)^n − 1], where r is the monthly rate and n the number of payments. Annual MIP each year = rate × that year's average balance, ÷ 12 monthly. Total monthly = principal and interest + monthly MIP + tax ÷ 12 + insurance ÷ 12 + HOA.",
+    example: {
+      title: "Worked example: $350,000 home, 3.5% down at 6.5% for 30 years",
+      body: "Down payment: 3.5% of $350,000 = $12,250; base loan $337,750 at 96.5% loan-to-value. UFMIP: 1.75% of $337,750 = $5,910.63, financed for a total loan of $343,660.63. Principal and interest at 6.5% over 360 payments: $2,172.17 a month. Annual MIP at 0.55% on the year-1 average balance of $341,740.04: $1,879.57 a year, or $156.63 a month. Tax of $3,850 a year adds $320.83, insurance of $1,750 adds $145.83. Total monthly payment: $2,795.47. Over the loan, total MIP is $36,999.74 and total interest $438,320.57. Paying the UFMIP in cash would cut principal and interest to $2,134.81, saving $37.36 a month.",
+    },
+    faqs: [
+      {
+        question: "How long do I pay FHA mortgage insurance?",
+        answer:
+          "It depends on your down payment. With less than 10% down, annual MIP runs for the life of the loan on loans with case numbers assigned on or after June 3, 2013 — it never cancels on its own. With 10% or more down, it ends after 11 years. The upfront premium is a one-time charge at closing, so only the annual premium has a duration to worry about.",
+      },
+      {
+        question: "What is the difference between UFMIP and annual MIP?",
+        answer:
+          "UFMIP is a one-time charge of 1.75% of the base loan, paid at closing or — far more commonly — financed into the loan balance. Annual MIP is an ongoing charge, 0.15% to 0.75% a year depending on term, loan-to-value and loan size, paid monthly. On a $337,750 base loan the UFMIP is $5,911 once, and the annual MIP at 0.55% costs about $157 a month in year one.",
+      },
+      {
+        question: "Can I remove FHA MIP without refinancing?",
+        answer:
+          "Only if your down payment was 10% or more, in which case annual MIP ends automatically after 11 years. With less than 10% down, MIP runs for the life of the loan and the only way out is to refinance into a conventional loan — which needs enough equity (usually 20% to avoid PMI) and a credit profile a conventional lender accepts. An FHA streamline refinance keeps MIP in place; it never removes it.",
+      },
+      {
+        question: "What are the 2026 FHA loan limits?",
+        answer:
+          "For a one-unit home, the 2026 national floor is $541,287 in low-cost counties and the ceiling is $1,249,125 in high-cost counties, set by HUD Mortgagee Letter 2025-23. Your county's limit falls somewhere between the two and applies to the base loan, before any financed upfront MIP. Alaska, Hawaii, Guam and the U.S. Virgin Islands have a higher special-exception ceiling of $1,873,625.",
+      },
+    ],
+  },
 };

@@ -110,7 +110,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     "Monthly Savings Target": `${currency} ${Math.round(metrics.monthlySavingsTarget)}`
   }]
 
-  const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://dailyfinance.tools'
+  const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://www.dailyfinance.tools'
   const shareUrl = savedScenarioId 
     ? `${baseUrl}/freelance/freelance-emergency-fund-calculator?savedId=${savedScenarioId}`
     : `${baseUrl}/freelance/irregular-income-buffer-calculator`
