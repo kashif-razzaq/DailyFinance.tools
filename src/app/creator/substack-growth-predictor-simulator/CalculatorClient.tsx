@@ -42,7 +42,9 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       paid = paid * (1 - churnPct / 100) + Math.max(0, targetPaid - paid * (1 - churnPct / 100))
       if (paid > targetPaid) paid = targetPaid
       const mrrGross = paid * price
-      const fees = mrrGross * 0.10 + mrrGross * 0.029 + paid * 0.30
+      // Fees, verified November 2026: 10% Substack + Stripe 2.9% + $0.30 per payment + 0.7%
+      // Stripe Billing on recurring payments (the old 0.5% legacy rate expired 30 June 2025).
+      const fees = mrrGross * 0.10 + mrrGross * 0.029 + mrrGross * 0.007 + paid * 0.30
       const mrrNet = mrrGross - fees
       cumulativeGross += mrrGross
       cumulativeNet += mrrNet
@@ -50,7 +52,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     }
     const final = rows[rows.length - 1] || { free: freeSubs, paid: 0, mrrNet: 0 }
     const startPaid = freeSubs * (conversion / 100)
-    const startFees = startPaid * price * 0.129 + startPaid * 0.30
+    const startFees = startPaid * price * 0.136 + startPaid * 0.30
     return { endFree: final.free, endPaid: final.paid, endMrrNet: final.mrrNet, endArrNet: final.mrrNet * 12, cumulativeGross, cumulativeNet, startMrrNet: startPaid * price - startFees, rows }
   }, [freeSubs, growthPct, conversion, price, churnPct, months])
 
@@ -91,7 +93,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           </div>
         </div>
         <div className="bg-[#FAFAFA] border border-neutral-200 rounded-2xl p-6 text-sm text-neutral-600">
-          <strong className="text-[#1F2937]">Formula (per month):</strong> <span className="font-mono">Paid = Free × Conversion % (after churn) · Net MRR = Paid × Price − 10% Substack − (2.9% + $0.30) Stripe</span>. Churn is the silent killer — at 5% monthly churn you must replace a twentieth of your paid base every month just to stand still.
+          <strong className="text-[#1F2937]">Formula (per month):</strong> <span className="font-mono">Paid = Free × Conversion % (after churn) · Net MRR = Paid × Price − 10% Substack − (2.9% + $0.30) Stripe − 0.7% Stripe Billing</span>. Fees verified November 2026. Churn is the silent killer — at 5% monthly churn you must replace a twentieth of your paid base every month just to stand still.
         </div>
       <ToolActionsBar slug="substack-growth-predictor-simulator" isPro={isPro} inputs={{ freeSubs, growthPct, conversion, price, churnPct, months }} />
     </div>

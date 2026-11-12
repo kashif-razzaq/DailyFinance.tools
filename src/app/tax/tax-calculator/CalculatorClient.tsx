@@ -20,16 +20,16 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
   return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
 }
 
-// 2026 federal ordinary brackets (projected thresholds). Each bracket taxes only the slice of income inside it.
+// 2026 federal ordinary brackets (IRS Rev. Proc. 2025-32, section 4.01). Each bracket taxes only the slice of income inside it.
 type Bracket = { upTo: number; rate: number }
 const BRACKETS: Record<string, Bracket[]> = {
   single: [
-    { upTo: 11925, rate: 0.10 }, { upTo: 48475, rate: 0.12 }, { upTo: 103350, rate: 0.22 },
-    { upTo: 197300, rate: 0.24 }, { upTo: 250525, rate: 0.32 }, { upTo: 626350, rate: 0.35 }, { upTo: Infinity, rate: 0.37 },
+    { upTo: 12400, rate: 0.10 }, { upTo: 50400, rate: 0.12 }, { upTo: 105700, rate: 0.22 },
+    { upTo: 201775, rate: 0.24 }, { upTo: 256225, rate: 0.32 }, { upTo: 640600, rate: 0.35 }, { upTo: Infinity, rate: 0.37 },
   ],
   mfj: [
-    { upTo: 23850, rate: 0.10 }, { upTo: 96950, rate: 0.12 }, { upTo: 206700, rate: 0.22 },
-    { upTo: 394600, rate: 0.24 }, { upTo: 501050, rate: 0.32 }, { upTo: 751600, rate: 0.35 }, { upTo: Infinity, rate: 0.37 },
+    { upTo: 24800, rate: 0.10 }, { upTo: 100800, rate: 0.12 }, { upTo: 211400, rate: 0.22 },
+    { upTo: 403550, rate: 0.24 }, { upTo: 512450, rate: 0.32 }, { upTo: 768700, rate: 0.35 }, { upTo: Infinity, rate: 0.37 },
   ],
 }
 const STD_DED: Record<string, number> = { single: 16100, mfj: 32200 }
@@ -104,7 +104,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <MoneyInput label="Tax Credits" value={credits} onChange={setCredits} hint="Child tax credit, education credits etc. Credits cut tax dollar-for-dollar." />
         <MoneyInput label="Federal Tax Already Withheld" value={withheld} onChange={setWithheld} hint="From your pay slips / W-2 box 2 — used to estimate refund or amount owed." />
       </div>
-      <p className="text-xs text-muted-foreground">Estimate only, using projected 2026 federal brackets — verify with the IRS before filing.</p>
+      <p className="text-xs text-muted-foreground">Estimate only, using 2026 federal brackets — verify with the IRS before filing.</p>
     </div>
     <div className="lg:col-span-5 space-y-6">
       <ResultCard title="Estimated Federal Tax">

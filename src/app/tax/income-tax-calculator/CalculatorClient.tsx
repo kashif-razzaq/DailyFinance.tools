@@ -21,8 +21,8 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
 
 type Bracket = { upTo: number; rate: number }
 const BRACKETS: Record<string, Bracket[]> = {
-  single: [{ upTo: 11925, rate: 0.10 }, { upTo: 48475, rate: 0.12 }, { upTo: 103350, rate: 0.22 }, { upTo: 197300, rate: 0.24 }, { upTo: 250525, rate: 0.32 }, { upTo: 626350, rate: 0.35 }, { upTo: Infinity, rate: 0.37 }],
-  mfj: [{ upTo: 23850, rate: 0.10 }, { upTo: 96950, rate: 0.12 }, { upTo: 206700, rate: 0.22 }, { upTo: 394600, rate: 0.24 }, { upTo: 501050, rate: 0.32 }, { upTo: 751600, rate: 0.35 }, { upTo: Infinity, rate: 0.37 }],
+  single: [{ upTo: 12400, rate: 0.10 }, { upTo: 50400, rate: 0.12 }, { upTo: 105700, rate: 0.22 }, { upTo: 201775, rate: 0.24 }, { upTo: 256225, rate: 0.32 }, { upTo: 640600, rate: 0.35 }, { upTo: Infinity, rate: 0.37 }],
+  mfj: [{ upTo: 24800, rate: 0.10 }, { upTo: 100800, rate: 0.12 }, { upTo: 211400, rate: 0.22 }, { upTo: 403550, rate: 0.24 }, { upTo: 512450, rate: 0.32 }, { upTo: 768700, rate: 0.35 }, { upTo: Infinity, rate: 0.37 }],
 }
 const STD_DED: Record<string, number> = { single: 16100, mfj: 32200 }
 function bracketTax(taxable: number, brackets: Bracket[]) { let tax = 0, prev = 0; for (const b of brackets) { if (taxable <= prev) break; const amt = Math.min(taxable, b.upTo) - prev; if (amt > 0) tax += amt * b.rate; prev = b.upTo } return tax }
@@ -83,7 +83,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       </div>
       {customState && (<div className="space-y-2"><label className="text-sm font-semibold">Custom State Rate (%)</label>
         <Input type="number" step="0.1" value={customPct === 0 ? '' : customPct} onChange={(e) => setCustomPct(num(e.target.value))} className="font-mono" /></div>)}
-      <p className="text-xs text-muted-foreground">State figures use typical effective rates for planning. Estimate only, using projected 2026 federal brackets — verify with the IRS and your state revenue department.</p>
+      <p className="text-xs text-muted-foreground">State figures use typical effective rates for planning. Estimate only, using 2026 federal brackets — verify with the IRS and your state revenue department.</p>
     </div>
     <div className="lg:col-span-5 space-y-6">
       <ResultCard title="Total Tax Burden">

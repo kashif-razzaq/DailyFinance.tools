@@ -23,15 +23,16 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
   return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
 }
 
-// eBay final value fee: most categories 13.25% of the total amount of the sale (price + shipping + tax basis)
-// plus a per-order fee ($0.30 on orders up to $10, $0.40 above). Some categories differ — the % is editable.
+// eBay final value fee, verified November 2026: most categories 13.6% of the total amount of the sale
+// (price + shipping + tax basis) up to $7,500, then 2.35% on the portion above, plus a per-order fee
+// ($0.30 on orders up to $10, $0.40 above). Some categories differ — the % is editable.
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const sym = useCurrencySymbol()
   const [price, setPrice] = useState(120)
   const [shippingCharged, setShippingCharged] = useState(0)
   const [itemCost, setItemCost] = useState(55)
   const [shippingCost, setShippingCost] = useState(9)
-  const [fvfPct, setFvfPct] = useState(13.25)
+  const [fvfPct, setFvfPct] = useState(13.6)
   const [perOrder, setPerOrder] = useState(0.40)
   const [promotedPct, setPromotedPct] = useState(0)
 
@@ -73,13 +74,13 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <MoneyInput label="Item Cost" value={itemCost} onChange={setItemCost} />
         <MoneyInput label="Your Shipping Cost" value={shippingCost} onChange={setShippingCost} />
       </div>
-      <PctSlider label="Final Value Fee %" value={fvfPct} onChange={setFvfPct} max={15} hint="13.25% covers most categories for sellers without a store discount. Books/media and some categories are lower; guitars and a few others differ." />
+      <PctSlider label="Final Value Fee %" value={fvfPct} onChange={setFvfPct} max={16} hint="13.6% covers most categories for sellers without a store discount (2.35% on the portion above $7,500). Exceptions: Books/Movies/Music 15.3%, trading cards 13.25%, guitars & basses 6.7%, athletic shoes $150+ 8% with no per-order fee." />
       <div className="space-y-2"><label className="text-sm font-semibold">Per-Order Fee</label>
         <select value={perOrder} onChange={(e) => setPerOrder(Number(e.target.value))} className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm font-medium">
           <option value={0.3}>$0.30 (orders of $10 or less)</option><option value={0.4}>$0.40 (orders over $10)</option>
         </select></div>
       <PctSlider label="Promoted Listings Ad Rate" value={promotedPct} onChange={setPromotedPct} max={20} step={0.1} hint="Only charged when the sale is attributed to your promoted listing. Watch how fast it eats margin." />
-      <p className="text-xs text-muted-foreground">Rates per eBay's published fee schedule for most categories — verify your category's exact rate in Seller Hub.</p>
+      <p className="text-xs text-muted-foreground">Rates per eBay's published fee schedule for most categories, verified November 2026 — verify your category's exact rate in Seller Hub.</p>
     </div>
     <div className="lg:col-span-5 space-y-6">
       <ResultCard title="Net Profit per Sale">

@@ -31,19 +31,19 @@ import { curSym, useCurrencySymbol } from '@/lib/currency'
 import { ToolActionsBar } from '@/components/calculator/ToolActionsBar'
 import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 
-// Formula (simplified PIA estimate, 2024 bend points):
+// Formula (simplified PIA estimate, 2026 bend points):
 //  Effective average earnings adjust for short careers: if yearsWorked < 35, the missing years count as $0,
 //    so effectiveAnnual = annualEarnings * min(yearsWorked, 35) / 35.
 //  AIME = effectiveAnnual / 12.
-//  PIA = 90% x first $1,174 of AIME + 32% x AIME between $1,174 and $7,078 + 15% x AIME above $7,078.
+//  PIA = 90% x first $1,286 of AIME + 32% x AIME between $1,286 and $7,749 + 15% x AIME above $7,749.
 //  Claiming adjustments (full retirement age 67): age 62 -> x0.70, age 67 -> x1.00, age 70 -> x1.24.
 //  Lifetime total to age 85 = monthly benefit x 12 x (85 - claiming age).
 //  Break-even age between an early factor fE starting at age aE and a later factor fL starting at aL:
 //    solve fE*(X - aE) = fL*(X - aL)  =>  X = (fL*aL - fE*aE) / (fL - fE).
 function piaFromAime(aime: number) {
-  const first = Math.min(aime, 1174) * 0.90
-  const second = Math.max(0, Math.min(aime, 7078) - 1174) * 0.32
-  const third = Math.max(0, aime - 7078) * 0.15
+  const first = Math.min(aime, 1286) * 0.90
+  const second = Math.max(0, Math.min(aime, 7749) - 1286) * 0.32
+  const third = Math.max(0, aime - 7749) * 0.15
   return first + second + third
 }
 function breakEven(fE: number, aE: number, fL: number, aL: number) {
@@ -99,10 +99,10 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       {yearsWorked < 35 && <p className="text-sm text-amber-700 font-semibold">With {calc.cappedYears} years worked, {35 - calc.cappedYears} zero years are averaged in, so the effective average falls to {fmt(calc.effectiveAnnual)}/year. Each additional working year replaces a zero and raises the benefit.</p>}
       {earnings === 0 && <p className="text-sm text-red-600 font-semibold">Enter your average earnings to see a benefit estimate.</p>}
       <div className="bg-muted/50 rounded-xl p-4 text-sm text-muted-foreground leading-relaxed">
-        <strong className="text-foreground">Simplified estimate — please read:</strong> this calculator uses a simplified estimate using 2024 bend points; it is not affiliated with the SSA — verify at ssa.gov. It ignores wage indexing detail, cost-of-living adjustments after claiming, spousal and survivor benefits, taxation of benefits, and the earnings test. Your official estimate is on your Social Security statement at ssa.gov.
+        <strong className="text-foreground">Simplified estimate — please read:</strong> this calculator uses a simplified estimate using 2026 bend points; it is not affiliated with the SSA — verify at ssa.gov. It ignores wage indexing detail, cost-of-living adjustments after claiming, spousal and survivor benefits, taxation of benefits, and the earnings test. Your official estimate is on your Social Security statement at ssa.gov.
       </div>
       <div className="text-sm text-muted-foreground leading-relaxed">
-        <p><strong className="text-foreground">How the estimate works:</strong> 90% of the first {fmt(1174)} of AIME, plus 32% of AIME between {fmt(1174)} and {fmt(7078)}, plus 15% of any AIME above {fmt(7078)} gives your Primary Insurance Amount (PIA) of <span className="font-mono font-bold text-foreground">{fmt(calc.pia)}/month</span> at full retirement age. Claiming early or late scales it by the factors shown.</p>
+        <p><strong className="text-foreground">How the estimate works:</strong> 90% of the first {fmt(1286)} of AIME, plus 32% of AIME between {fmt(1286)} and {fmt(7749)}, plus 15% of any AIME above {fmt(7749)} gives your Primary Insurance Amount (PIA) of <span className="font-mono font-bold text-foreground">{fmt(calc.pia)}/month</span> at full retirement age. Claiming early or late scales it by the factors shown.</p>
       </div>
     </div>
     <div className="lg:col-span-5 space-y-6">

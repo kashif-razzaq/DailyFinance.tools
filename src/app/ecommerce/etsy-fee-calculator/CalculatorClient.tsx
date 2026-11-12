@@ -19,9 +19,11 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
   return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
 }
 
-// Published Etsy fee schedule (US shop): listing $0.20/item; transaction 6.5% of (price + shipping charged);
-// Etsy Payments processing 3% + $0.25; regulatory operating fee varies by country (1.1% shown for the US);
-// Offsite Ads 12% (15% for shops over $10k/yr) only when a sale is attributed to an ad.
+// Published Etsy fee schedule (US shop), verified November 2026: listing $0.20/item; transaction 6.5%
+// of (price + shipping charged); Etsy Payments processing 3% + $0.25; regulatory operating fee varies by
+// seller country — 0% for US sellers; UK 0.48%, France 1.14%, Canada 0.50%, Italy 0.80%, Spain 0.88%,
+// India 0.05% (June 2026 rates). Offsite Ads 12% (15% for shops over $10k/yr) only when a sale is
+// attributed to an ad.
 const LISTING = 0.20, TRANSACTION = 0.065, PROCESSING_PCT = 0.03, PROCESSING_FLAT = 0.25
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
@@ -30,7 +32,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const [shippingCharged, setShippingCharged] = useState(5)
   const [itemCost, setItemCost] = useState(14)
   const [shippingCost, setShippingCost] = useState(6.5)
-  const [regPct, setRegPct] = useState(1.1)
+  const [regPct, setRegPct] = useState(0)
   const [offsiteAds, setOffsiteAds] = useState(false)
   const [targetMargin, setTargetMargin] = useState(30)
 
@@ -81,7 +83,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       </div>
       <div className="space-y-3"><div className="flex justify-between"><label className="text-sm font-semibold">Regulatory Operating Fee</label><span className="font-mono font-bold">{regPct}%</span></div>
         <Slider value={[regPct]} min={0} max={2.5} step={0.05} onValueChange={(v: any) => setRegPct(Array.isArray(v) ? v[0] : v)} />
-        <p className="text-xs text-muted-foreground">Varies by seller country — adjust to your statement. Fees per Etsy's published schedule; check your Etsy payment account for your exact rates.</p></div>
+        <p className="text-xs text-muted-foreground">US sellers pay 0% — the fee applies only in some countries (UK 0.48%, France 1.14%, Canada 0.50%, Italy 0.80%, Spain 0.88%, India 0.05%; rates verified November 2026). Adjust to your statement.</p></div>
       <label className="flex items-center gap-3 cursor-pointer"><input type="checkbox" checked={offsiteAds} onChange={(e) => setOffsiteAds(e.target.checked)} className="h-4 w-4 accent-[#064E3B]" />
         <span className="text-sm font-semibold">Sale came through Offsite Ads (12%)</span></label>
       <div className="space-y-3"><div className="flex justify-between"><label className="text-sm font-semibold">Target Margin for Price Solver</label><span className="font-mono font-bold">{targetMargin}%</span></div>

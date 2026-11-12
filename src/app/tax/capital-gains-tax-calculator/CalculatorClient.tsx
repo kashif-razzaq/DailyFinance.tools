@@ -21,8 +21,8 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
 
 type Bracket = { upTo: number; rate: number }
 const BRACKETS: Record<string, Bracket[]> = {
-  single: [{ upTo: 11925, rate: 0.10 }, { upTo: 48475, rate: 0.12 }, { upTo: 103350, rate: 0.22 }, { upTo: 197300, rate: 0.24 }, { upTo: 250525, rate: 0.32 }, { upTo: 626350, rate: 0.35 }, { upTo: Infinity, rate: 0.37 }],
-  mfj: [{ upTo: 23850, rate: 0.10 }, { upTo: 96950, rate: 0.12 }, { upTo: 206700, rate: 0.22 }, { upTo: 394600, rate: 0.24 }, { upTo: 501050, rate: 0.32 }, { upTo: 751600, rate: 0.35 }, { upTo: Infinity, rate: 0.37 }],
+  single: [{ upTo: 12400, rate: 0.10 }, { upTo: 50400, rate: 0.12 }, { upTo: 105700, rate: 0.22 }, { upTo: 201775, rate: 0.24 }, { upTo: 256225, rate: 0.32 }, { upTo: 640600, rate: 0.35 }, { upTo: Infinity, rate: 0.37 }],
+  mfj: [{ upTo: 24800, rate: 0.10 }, { upTo: 100800, rate: 0.12 }, { upTo: 211400, rate: 0.22 }, { upTo: 403550, rate: 0.24 }, { upTo: 512450, rate: 0.32 }, { upTo: 768700, rate: 0.35 }, { upTo: Infinity, rate: 0.37 }],
 }
 const STD_DED: Record<string, number> = { single: 16100, mfj: 32200 }
 // 2026 long-term capital gains thresholds (taxable income): 0% rate up to T0, 20% above T20, 15% between.
@@ -89,7 +89,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <select value={status} onChange={(e) => setStatus(e.target.value as 'single' | 'mfj')} className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm font-medium">
           <option value="single">Single</option><option value="mfj">Married Filing Jointly</option>
         </select></div>
-      <p className="text-xs text-muted-foreground">Federal estimate using projected 2026 thresholds; state tax extra where it applies — verify with the IRS.</p>
+      <p className="text-xs text-muted-foreground">Federal estimate using 2026 thresholds; state tax extra where it applies — verify with the IRS.</p>
     </div>
     <div className="lg:col-span-5 space-y-6">
       <ResultCard title={`Federal Capital Gains Tax (${r.isLong ? 'Long-Term' : 'Short-Term'})`}>

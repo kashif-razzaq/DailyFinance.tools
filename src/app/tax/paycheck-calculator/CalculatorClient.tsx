@@ -27,11 +27,11 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
 
 type Bracket = { upTo: number; rate: number }
 const BRACKETS: Record<string, Bracket[]> = {
-  single: [{ upTo: 11925, rate: 0.10 }, { upTo: 48475, rate: 0.12 }, { upTo: 103350, rate: 0.22 }, { upTo: 197300, rate: 0.24 }, { upTo: 250525, rate: 0.32 }, { upTo: 626350, rate: 0.35 }, { upTo: Infinity, rate: 0.37 }],
-  mfj: [{ upTo: 23850, rate: 0.10 }, { upTo: 96950, rate: 0.12 }, { upTo: 206700, rate: 0.22 }, { upTo: 394600, rate: 0.24 }, { upTo: 501050, rate: 0.32 }, { upTo: 751600, rate: 0.35 }, { upTo: Infinity, rate: 0.37 }],
+  single: [{ upTo: 12400, rate: 0.10 }, { upTo: 50400, rate: 0.12 }, { upTo: 105700, rate: 0.22 }, { upTo: 201775, rate: 0.24 }, { upTo: 256225, rate: 0.32 }, { upTo: 640600, rate: 0.35 }, { upTo: Infinity, rate: 0.37 }],
+  mfj: [{ upTo: 24800, rate: 0.10 }, { upTo: 100800, rate: 0.12 }, { upTo: 211400, rate: 0.22 }, { upTo: 403550, rate: 0.24 }, { upTo: 512450, rate: 0.32 }, { upTo: 768700, rate: 0.35 }, { upTo: Infinity, rate: 0.37 }],
 }
 const STD_DED: Record<string, number> = { single: 16100, mfj: 32200 }
-const SS_WAGE_BASE = 184500 // 2026 Social Security wage base (projected)
+const SS_WAGE_BASE = 184500 // 2026 Social Security wage base
 function bracketTax(taxable: number, brackets: Bracket[]) {
   let tax = 0, prev = 0
   for (const b of brackets) { if (taxable <= prev) break; const amt = Math.min(taxable, b.upTo) - prev; if (amt > 0) tax += amt * b.rate; prev = b.upTo }
@@ -109,7 +109,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       </div>
       <PctSlider label="State Income Tax (flat estimate)" value={statePct} onChange={setStatePct} min={0} max={13} step={0.1} />
       <MoneyInput label="Pre-Tax Deductions per Year (401k, HSA…)" value={retirement} onChange={setRetirement} hint="Pre-tax deductions lower your federal taxable wages before tax is worked out." />
-      <p className="text-xs text-muted-foreground">Estimate only, using projected 2026 federal brackets and FICA rates — verify with the IRS / your payroll provider.</p>
+      <p className="text-xs text-muted-foreground">Estimate only, using 2026 federal brackets and FICA rates — verify with the IRS / your payroll provider.</p>
     </div>
     <div className="lg:col-span-5 space-y-6">
       <ResultCard title={`Net Paycheck (${FREQ[freq].label})`}>

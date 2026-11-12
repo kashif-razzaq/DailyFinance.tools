@@ -27,8 +27,8 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
 
 type Bracket = { upTo: number; rate: number }
 const BRACKETS: Record<string, Bracket[]> = {
-  single: [{ upTo: 11925, rate: 0.10 }, { upTo: 48475, rate: 0.12 }, { upTo: 103350, rate: 0.22 }, { upTo: 197300, rate: 0.24 }, { upTo: 250525, rate: 0.32 }, { upTo: 626350, rate: 0.35 }, { upTo: Infinity, rate: 0.37 }],
-  mfj: [{ upTo: 23850, rate: 0.10 }, { upTo: 96950, rate: 0.12 }, { upTo: 206700, rate: 0.22 }, { upTo: 394600, rate: 0.24 }, { upTo: 501050, rate: 0.32 }, { upTo: 751600, rate: 0.35 }, { upTo: Infinity, rate: 0.37 }],
+  single: [{ upTo: 12400, rate: 0.10 }, { upTo: 50400, rate: 0.12 }, { upTo: 105700, rate: 0.22 }, { upTo: 201775, rate: 0.24 }, { upTo: 256225, rate: 0.32 }, { upTo: 640600, rate: 0.35 }, { upTo: Infinity, rate: 0.37 }],
+  mfj: [{ upTo: 24800, rate: 0.10 }, { upTo: 100800, rate: 0.12 }, { upTo: 211400, rate: 0.22 }, { upTo: 403550, rate: 0.24 }, { upTo: 512450, rate: 0.32 }, { upTo: 768700, rate: 0.35 }, { upTo: Infinity, rate: 0.37 }],
 }
 const STD_DED: Record<string, number> = { single: 16100, mfj: 32200 }
 function bracketTax(taxable: number, brackets: Bracket[]) { let tax = 0, prev = 0; for (const b of brackets) { if (taxable <= prev) break; const amt = Math.min(taxable, b.upTo) - prev; if (amt > 0) tax += amt * b.rate; prev = b.upTo } return tax }
@@ -60,11 +60,14 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     const periods = PERIODS[freq]
     const k401 = gross * (k401Pct / 100)
     const health = healthPerCheck * periods
-    // Waterfall: gross − pre-tax deductions = taxable wages; taxes then come out of taxable wages.
+    // Waterfall: gross − pre-tax deductions = taxable wages for income tax.
+    // FICA is different: 401(k) deferrals reduce income tax but stay subject to Social Security
+    // and Medicare tax — only HSA and health premiums (Section 125) reduce FICA wages.
     const taxableWages = Math.max(0, gross - k401 - hsa - health)
+    const ficaWages = Math.max(0, gross - hsa - health)
     const federal = bracketTax(Math.max(0, taxableWages - STD_DED[status]), BRACKETS[status])
-    const ss = Math.min(taxableWages, 184500) * 0.062
-    const medicare = taxableWages * 0.0145 + Math.max(0, taxableWages - (status === 'mfj' ? 250000 : 200000)) * 0.009
+    const ss = Math.min(ficaWages, 184500) * 0.062
+    const medicare = ficaWages * 0.0145 + Math.max(0, ficaWages - (status === 'mfj' ? 250000 : 200000)) * 0.009
     const state = taxableWages * (statePct / 100)
     const totalTax = federal + ss + medicare + state
     const net = gross - k401 - hsa - health - totalTax
@@ -101,13 +104,13 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <select value={status} onChange={(e) => setStatus(e.target.value as 'single' | 'mfj')} className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm font-medium">
           <option value="single">Single</option><option value="mfj">Married Filing Jointly</option>
         </select></div>
-      <PctSlider label="401(k) Contribution" value={k401Pct} onChange={setK401Pct} hint="Pre-tax: every 1% contributed also cuts your federal tax and FICA bill." />
+      <PctSlider label="401(k) Contribution" value={k401Pct} onChange={setK401Pct} hint="Pre-tax for income tax: it cuts your federal tax bill, but 401(k) deferrals still count for Social Security and Medicare tax." />
       <div className="grid grid-cols-2 gap-6">
         <MoneyInput label="HSA Contributions / Year" value={hsa} onChange={setHsa} />
         <MoneyInput label="Health Premium / Paycheck" value={healthPerCheck} onChange={setHealthPerCheck} />
       </div>
       <PctSlider label="State Tax (flat estimate)" value={statePct} onChange={setStatePct} max={13} step={0.1} />
-      <p className="text-xs text-muted-foreground">Estimate only, using projected 2026 federal brackets — verify with the IRS.</p>
+      <p className="text-xs text-muted-foreground">Estimate only, using 2026 federal brackets — verify with the IRS.</p>
     </div>
     <div className="lg:col-span-5 space-y-6">
       <ResultCard title="Net Take-Home Pay">

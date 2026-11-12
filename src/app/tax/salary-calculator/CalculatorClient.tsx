@@ -24,7 +24,7 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
 }
 
 type Bracket = { upTo: number; rate: number }
-const BRACKETS_SINGLE: Bracket[] = [{ upTo: 11925, rate: 0.10 }, { upTo: 48475, rate: 0.12 }, { upTo: 103350, rate: 0.22 }, { upTo: 197300, rate: 0.24 }, { upTo: 250525, rate: 0.32 }, { upTo: 626350, rate: 0.35 }, { upTo: Infinity, rate: 0.37 }]
+const BRACKETS_SINGLE: Bracket[] = [{ upTo: 12400, rate: 0.10 }, { upTo: 50400, rate: 0.12 }, { upTo: 105700, rate: 0.22 }, { upTo: 201775, rate: 0.24 }, { upTo: 256225, rate: 0.32 }, { upTo: 640600, rate: 0.35 }, { upTo: Infinity, rate: 0.37 }]
 function bracketTax(taxable: number) { let tax = 0, prev = 0; for (const b of BRACKETS_SINGLE) { if (taxable <= prev) break; const amt = Math.min(taxable, b.upTo) - prev; if (amt > 0) tax += amt * b.rate; prev = b.upTo } return tax }
 
 type Period = 'hourly' | 'weekly' | 'monthly' | 'annual'
@@ -78,7 +78,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       </div>
       <NumSlider label="Hours Worked per Week" value={hoursPerWeek} onChange={setHoursPerWeek} min={1} max={80} suffix=" hrs" />
       <NumSlider label="Weeks Worked per Year" value={weeksPerYear} onChange={setWeeksPerYear} min={1} max={52} suffix=" wks" />
-      <p className="text-xs text-muted-foreground">Differentiator: enter pay in ANY period and get the full conversion matrix — including estimated after-tax figures using projected 2026 federal brackets + FICA for a single filer. Estimate only — verify with the IRS.</p>
+      <p className="text-xs text-muted-foreground">Differentiator: enter pay in ANY period and get the full conversion matrix — including estimated after-tax figures using 2026 federal brackets + FICA for a single filer. Estimate only — verify with the IRS.</p>
     </div>
     <div className="lg:col-span-5 space-y-6">
       <ResultCard title="Annual Salary">
