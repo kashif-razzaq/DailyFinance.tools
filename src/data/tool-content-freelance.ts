@@ -250,40 +250,40 @@ export const TOOL_CONTENT_FREELANCE: Record<string, ToolContentEntry> = {
 
   "freelance/self-employment-tax-calculator": {
     quickAnswer:
-      "A renter with a 150 sq ft office in a 1,500 sq ft home saves $828 a year with the actual-expenses method, against $225 with the simplified method. The deduction cuts net business income, so it lowers both income tax and the 15.3% self-employment tax.",
+      "On $100,000 of net self-employment earnings in 2026, self-employment tax is $14,129.55: $11,451.40 of Social Security tax and $2,678.15 of Medicare tax, an effective rate of 14.13%. Half of that tax — $7,064.78 — is deductible from your income tax, saving about $1,554 at a 22% marginal rate.",
     howItWorks: [
-      "This calculator compares the two IRS methods for the home office deduction side by side. Enter your office size and total home size, your monthly rent or mortgage payment, annual utilities and insurance, any direct repairs to the office, your net business income and your combined tax bracket. It shows both deductions, the tax each one saves, and which method wins.",
-      "The simplified method multiplies your office square footage by $5, capped at 300 sq ft, for a maximum deduction of $1,500 a year. It needs no expense records and no Form 8829, and because it claims no depreciation there is nothing to recapture when you sell. It cannot exceed your net business income, and any unused amount is lost rather than carried forward.",
-      "The actual-expenses method deducts your business-use percentage of real housing costs. Business-use percentage is office square feet ÷ total home square feet — a 150 sq ft office in a 1,500 sq ft home is 10%. That percentage applies to rent or mortgage interest, utilities and insurance, plus 100% of repairs made directly to the office. Homeowners also add depreciation: 80% of the home's value (excluding land) ÷ 39 years × business-use percentage.",
-      "Either method requires the space to be used regularly and exclusively for business — a spare room that doubles as a guest room fails the test. W-2 employees cannot claim a federal home office deduction; the deduction is for self-employed people reporting on Schedule C. You choose the method each year when you file, so you can switch as your housing costs change.",
-      "The calculator recommends the actual-expenses method whenever its deduction is larger — except for homeowners, where it only switches when the actual method beats the simplified method by more than $200. That buffer accounts for the depreciation recapture and extra paperwork the actual method creates for owners. For renters there is no such buffer, so the larger deduction always wins.",
+      "Enter your net earnings from self-employment — your Schedule C net profit, revenue minus deductible business expenses — and your filing status. The calculator follows Schedule SE: it first reduces net earnings by any home-office deduction you enter, then multiplies by 92.35% to find the SE-tax base. That 92.35% step exists because employees never pay payroll tax on the employer's share; the self-employed get the same treatment through the multiplier.",
+      "Social Security tax is 12.4% of the base, but only up to the 2026 wage base of $184,500. On the $100,000 example the base is $92,350, so the full base is taxed and Social Security takes $11,451.40. The cap starts to matter once net earnings pass about $199,800 — above that, the Social Security line stops growing while Medicare keeps rising.",
+      "Medicare tax is 2.9% of the full base with no cap — $2,678.15 on the example. High earners pay an additional 0.9% Medicare tax on the base above $200,000 for single filers or $250,000 for married couples filing jointly. The threshold is set by your filing status, which is why the calculator asks for it.",
+      "The home-office deduction is an optional input that reduces net earnings before the calculation starts. A $2,760 deduction on the example cuts the base to $89,801 and the total tax to $13,740, saving about $390 of SE tax. Enter whatever home-office deduction you claim — the simplified $5-per-square-foot method or actual expenses — or leave it at zero.",
+      "The deduction for one-half of SE tax softens the bill on the income-tax side. You deduct half the SE tax — $7,064.78 on the example — from your income when figuring federal income tax, which at a 22% marginal rate saves about $1,554. It does not reduce the SE tax itself, and it is not the same as the 20% QBI deduction, which lowers income tax further. The calculator shows the effective rate too: 14.13% on the example, because the 92.35% step means the 15.3% rate applies to less than your full earnings.",
     ],
     formula:
-      "Simplified deduction = office sq ft (max 300) × $5. Actual deduction = direct repairs + (annual housing costs × business-use %) + depreciation, where business-use % = office sq ft ÷ total home sq ft. Tax saved = deduction × combined tax bracket.",
+      "SE-tax base = (net earnings − home-office deduction) × 92.35%. Social Security tax = 12.4% of the base up to $184,500. Medicare tax = 2.9% of the base, plus 0.9% above $200,000 single or $250,000 joint. Total SE tax = Social Security + Medicare. One-half of SE tax is deductible for income tax.",
     example: {
-      title: "Worked example: renter, 150 sq ft office, 30% bracket",
-      body: "A renter has a 150 sq ft office in a 1,500 sq ft home, pays $2,000 a month in rent and $3,600 a year in utilities and insurance, and faces a 30% combined tax bracket. Business-use percentage is 150 ÷ 1,500 = 10%. The simplified method gives 150 × $5 = $750, saving $225 of tax. The actual method gives ($24,000 rent + $3,600 utilities and insurance) × 10% = $2,760, saving $828 — $603 more. Both deductions sit well below the $50,000 net business income cap, so the full amounts are usable this year.",
+      title: "Worked example: $100,000 net earnings, single filer, 2026",
+      body: "Net earnings are $100,000 with no home-office deduction. The SE-tax base is $100,000 × 92.35% = $92,350. Social Security tax is 12.4% of the base, $11,451.40, and Medicare tax is 2.9%, $2,678.15. Total SE tax is $14,129.55, an effective rate of 14.13% on net earnings, leaving $85,870.45 after SE tax. The one-half deduction is $7,064.78, worth about $1,554 of income-tax saving at a 22% marginal rate. The base is well below the $200,000 additional-Medicare threshold, so no 0.9% tax applies. Claiming a $2,760 home-office deduction would cut the base to $89,801 and the tax to $13,740.",
     },
     faqs: [
       {
-        question: "How do freelance tax deductions work?",
+        question: "What is the self-employment tax rate?",
         answer:
-          "A deduction lowers your taxable income; it does not cut your tax bill dollar-for-dollar. If you earn $100,000 and deduct $10,000, you pay tax on $90,000 — at a 30% combined rate that saves $3,000. A home office deduction on Schedule C also lowers the income your 15.3% self-employment tax is calculated on.",
+          "15.3% on 92.35% of net earnings: 12.4% for Social Security up to the $184,500 wage base for 2026, plus 2.9% for Medicare on all earnings. Because the 92.35% step shrinks the base first, the effective rate on net earnings is 14.13% below the wage base. Above $200,000 of earnings ($250,000 married filing jointly), an additional 0.9% Medicare tax applies.",
       },
       {
-        question: "What is the home office simplified method?",
+        question: "Why is the SE-tax base 92.35% of net earnings?",
         answer:
-          "The IRS simplified method lets you deduct $5 per square foot of home office, up to 300 sq ft, for a maximum of $1,500 a year. You claim it directly on Schedule C with no Form 8829 and no expense records. It suits small offices and modest housing costs; a 150 sq ft office gives a $750 deduction.",
+          "Employees pay payroll tax only on their wages, never on the employer's matching share. The self-employed are both employer and employee, so Schedule SE multiplies net earnings by 92.35% — roughly 100% minus the 7.65% employer share — before applying the 15.3% rate. It is the same treatment, applied through the multiplier instead of a separate employer payment.",
       },
       {
-        question: "What is the home office actual expenses method?",
+        question: "What is the deduction for one-half of SE tax?",
         answer:
-          "The actual method deducts your business-use percentage of real housing costs — rent or mortgage interest, utilities, insurance — plus direct office repairs and, for homeowners, depreciation. A 150 sq ft office in a 1,500 sq ft home is 10%, so 10% of $27,600 of annual housing costs is a $2,760 deduction, reported on Form 8829.",
+          "You may deduct half of your self-employment tax from your income when figuring federal income tax. On $100,000 of net earnings the deduction is $7,064.78, worth about $1,554 at a 22% marginal rate. It lowers income tax only — it does not reduce the SE tax itself — and it is separate from the 20% QBI deduction.",
       },
       {
-        question: "Which mileage deduction method is better: standard or actual?",
+        question: "Does a home-office deduction lower self-employment tax?",
         answer:
-          "The standard mileage rate — 72.5 cents a mile for January to June 2026 and 76 cents from July 1 — is usually better and far simpler if you drive an economical car, since it needs only a mileage log. The actual-expenses method can win for an expensive vehicle with high insurance, lease and repair costs, because it deducts your real spending instead.",
+          "Yes. A home-office deduction claimed on Schedule C reduces your net earnings before the SE-tax calculation, so it lowers both income tax and SE tax. A $2,760 deduction on $100,000 of net earnings cuts SE tax by about $390. Enter your deduction in the calculator, or leave it at zero if you do not claim one.",
       },
     ],
   },
@@ -410,10 +410,10 @@ export const TOOL_CONTENT_FREELANCE: Record<string, ToolContentEntry> = {
 
   "freelance/business-vehicle-tax-deduction-calculator": {
     quickAnswer:
-      "Driving 12,000 business miles of 15,000 total in a leased car, the actual-expenses method deducts $9,520 — $1,480 more than the $8,040 standard-mileage figure — and saves $2,285 at a 24% tax rate. The winner depends on your car's running costs, not on a rule of thumb.",
+      "Driving 12,000 business miles of 15,000 total in a leased car, the actual-expenses method deducts $9,520 — $400 more than the $9,120 standard-mileage figure at the 76¢ rate — and saves $2,285 at a 24% tax rate. The winner depends on your car's running costs, not on a rule of thumb.",
     howItWorks: [
       "Enter your monthly lease payment, down payment and lease term, your business and personal miles, annual gas, insurance and repair costs, and your tax bracket. The calculator runs both IRS methods on the same numbers and shows which one deducts more — the standard mileage rate and the actual-expenses method rarely agree, and the gap is usually hundreds of dollars.",
-      "The standard mileage method multiplies your business miles by the standard mileage rate the calculator applies — simple, and it needs nothing beyond a mileage log. The rate is designed to cover the full cost of running a car, including depreciation, so it suits economical cars with low running costs. The IRS sets the rate each year.",
+      "The standard mileage method multiplies your business miles by the IRS standard mileage rate — 76 cents a mile for July to December 2026 (72.5 cents for January to June). It is simple, and it needs nothing beyond a mileage log. The rate is designed to cover the full cost of running a car, including depreciation, so it suits economical cars with low running costs.",
       "The actual-expenses method adds up your real costs — annual lease payments, the down payment spread over the lease term, gas, insurance and repairs — then multiplies the total by your business-use percentage. A $3,600 down payment on a 36-month lease adds $100 a month, or $1,200 a year, to the deductible base. Business-use percentage is business miles ÷ total miles.",
       "Which method wins depends on the car. Actual expenses usually win for expensive vehicles, high lease payments or heavy running costs; the standard rate usually wins for cheap, economical cars driven a long way. The calculator picks the larger deduction and multiplies it by your tax bracket to show the saving — the deduction itself is not the saving, the bracket turns it into one.",
       "Either method needs a mileage log: the date, destination, business purpose and miles of each trip, plus your total miles for the year. Only the business-use share of any cost is deductible. One thing the calculator does not model: leased luxury vehicles face an IRS inclusion amount that reduces the deduction — check it with a CPA before relying on the figure for an expensive car.",
@@ -422,13 +422,13 @@ export const TOOL_CONTENT_FREELANCE: Record<string, ToolContentEntry> = {
       "Standard mileage deduction = business miles × standard mileage rate. Actual expenses deduction = (annual lease + amortized down payment + gas + insurance + repairs) × business-use %, where business-use % = business miles ÷ total miles.",
     example: {
       title: "Worked example: leased car, 12,000 business miles",
-      body: "A leased car is driven 12,000 business miles and 3,000 personal miles, so business use is 12,000 ÷ 15,000 = 80%. The lease is $600 a month with a $3,600 down payment on a 36-month term; gas is $1,800, insurance $1,200 and repairs $500 a year. The standard mileage method gives 12,000 × $0.67 = $8,040. The actual method gives ($7,200 lease + $1,200 amortized down payment + $1,800 gas + $1,200 insurance + $500 repairs) × 80% = $11,900 × 80% = $9,520. Actual expenses win by $1,480, and at a 24% tax bracket the deduction saves $2,284.80.",
+      body: "A leased car is driven 12,000 business miles and 3,000 personal miles, so business use is 12,000 ÷ 15,000 = 80%. The lease is $600 a month with a $3,600 down payment on a 36-month term; gas is $1,800, insurance $1,200 and repairs $500 a year. The standard mileage method gives 12,000 × $0.76 = $9,120. The actual method gives ($7,200 lease + $1,200 amortized down payment + $1,800 gas + $1,200 insurance + $500 repairs) × 80% = $11,900 × 80% = $9,520. Actual expenses win by $400, and at a 24% tax bracket the deduction saves $2,284.80.",
     },
     faqs: [
       {
         question: "Can I write off a leased car as a 1099 contractor?",
         answer:
-          "Yes. A 1099 contractor can deduct the business-use portion of a leased vehicle using either the standard mileage rate or the actual-expenses method — the business share of lease payments, gas and insurance. At the defaults, 80% business use makes the actual method worth $9,520 against $8,040 for standard mileage.",
+          "Yes. A 1099 contractor can deduct the business-use portion of a leased vehicle using either the standard mileage rate or the actual-expenses method — the business share of lease payments, gas and insurance. At the defaults, 80% business use makes the actual method worth $9,520 against $9,120 for standard mileage.",
       },
       {
         question: "Is it better to lease or buy a car for tax write-offs?",

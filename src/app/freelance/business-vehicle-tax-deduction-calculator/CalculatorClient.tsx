@@ -89,8 +89,9 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     const totalMiles = safeBusinessMiles + safePersonalMiles
     const businessUsePercent = totalMiles > 0 ? (safeBusinessMiles / totalMiles) : 0
 
-    const IRS_RATE_2024 = 0.67
-    const standardMileageDeduction = safeBusinessMiles * IRS_RATE_2024
+    // 2026 IRS standard mileage rate: 76¢/mile for Jul–Dec (72.5¢ Jan–Jun, per IRS Announcement 2026-11).
+    const IRS_RATE_2026 = 0.76
+    const standardMileageDeduction = safeBusinessMiles * IRS_RATE_2026
 
     const annualLeaseCost = safeMonthlyLease * 12
     const amortizedDownPayment = safeLeaseTermMonths > 0 ? safeDownPayment / (safeLeaseTermMonths / 12) : 0
@@ -389,8 +390,12 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
                     <span>{(businessMiles||0).toLocaleString()} miles</span>
                   </div>
                   <div className="flex justify-between items-center py-1 text-muted-foreground">
-                    <span>IRS Standard Rate (2024)</span>
-                    <span>$0.67 / mile</span>
+                    <span>IRS Standard Rate (2026, Jul–Dec)</span>
+                    <span>$0.76 / mile</span>
+                  </div>
+                  <div className="flex justify-between items-center py-1 text-muted-foreground">
+                    <span>Jan–Jun 2026 rate</span>
+                    <span>$0.725 / mile</span>
                   </div>
                 </div>
                 <div className={`flex justify-between items-center py-3 px-4 rounded-lg font-bold ${results.bestMethod === 'Standard Mileage Method' ? 'bg-primary/10 text-primary' : 'bg-muted text-muted-foreground'}`}>
