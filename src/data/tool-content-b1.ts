@@ -179,19 +179,19 @@ export const TOOL_CONTENT_B1: Record<string, ToolContentEntry> = {
 
   "tax/take-home-pay-calculator": {
     quickAnswer:
-      "On a $90,000 salary in 2026, a single filer contributing 6% to a 401(k) with $1,200 to an HSA takes home about $61,888 a year, or $2,380 per biweekly check, after federal, payroll and 5% state tax. The pre-tax deductions save about $3,053 of tax.",
+      "On a $90,000 salary in 2026, a single filer contributing 6% to a 401(k) with $1,200 to an HSA takes home about $61,475 a year, or $2,364 per biweekly check, after federal, payroll and 5% state tax. The pre-tax deductions save about $2,199 of federal and payroll tax.",
     howItWorks: [
-      "Enter your gross salary, filing status and pay frequency, then add your pre-tax deductions: a 401(k) percentage, annual HSA contributions and health insurance per check. The calculator subtracts all three from your gross pay first, because pre-tax money is never taxed as wages. That order matters: deductions taken before tax are worth more than the same dollars taken after.",
+      "Enter your gross salary, filing status and pay frequency, then add your pre-tax deductions: a 401(k) percentage, annual HSA contributions and health insurance per check. The calculator subtracts all three from your gross pay before working out federal income tax, because pre-tax money is never taxed as wages. Deductions taken before tax are worth more than the same dollars taken after.",
       "The 401(k) slider is a percentage of gross pay. At 6% on a $90,000 salary that is $5,400 a year. For 2026 the employee deferral limit is $24,500, or $32,500 from age 50, so a high earner can defer far more than the default. The calculator does not cap your entry, so check the limit yourself if you contribute heavily.",
-      "HSA contributions made through payroll escape federal income tax and payroll tax alike, which makes them the most tax-efficient line on the page. For 2026 the HSA limit is $4,400 for self-only coverage and $8,750 for family coverage, plus $1,000 from age 55. The calculator subtracts all three deduction lines before any tax is figured, so each one lowers the federal, payroll and state lines together.",
-      "Taxes are then figured on the reduced wages: federal brackets after the $16,100 single or $32,200 joint standard deduction, Social Security at 6.2% up to the $184,500 wage base, Medicare at 1.45% on all wages, and state tax at the flat percentage you set. The result shows each line separately, plus net pay per check and per year.",
-      "The tax-saved line compares your result with the same salary and no deductions at all. On the $90,000 example the deductions save about $3,053 a year, which is the real return on contributing: the money still belongs to you, in retirement or health savings, and the tax bill falls as well. Raising the 401(k) percentage shows the trade-off between today's paycheck and tomorrow's balance.",
+      "HSA contributions made through payroll escape federal income tax and payroll tax alike, which makes them the most tax-efficient line on the page. For 2026 the HSA limit is $4,400 for self-only coverage and $8,750 for family coverage, plus $1,000 from age 55. Health premiums through payroll do the same. A 401(k) deferral is different: it lowers federal and state tax but stays subject to payroll tax, so it does not lower that line.",
+      "Taxes are then figured on the reduced wages: federal brackets after the $16,100 single or $32,200 joint standard deduction, and state tax at the flat percentage you set. Payroll tax uses a wider base — gross pay minus only the HSA and health lines: Social Security at 6.2% up to the $184,500 wage base and Medicare at 1.45% on all of it. The result shows each line separately, plus net pay per check and per year.",
+      "The tax-saved line compares your federal and payroll tax against the same salary with no deductions. On the $90,000 example the deductions save about $2,199 a year, which is the real return on contributing: the money still belongs to you, in retirement or health savings, and the tax bill falls as well. Raising the 401(k) percentage shows the trade-off between today's paycheck and tomorrow's balance.",
     ],
     formula:
-      "Taxable wages = gross salary minus 401(k) contributions, HSA contributions and health premiums. Federal tax = bracket tax on (taxable wages minus the standard deduction). Payroll tax = 6.2% of taxable wages up to $184,500 plus 1.45% of all taxable wages. Net pay = gross salary minus deductions minus all taxes.",
+      "Taxable wages = gross salary minus 401(k) contributions, HSA contributions and health premiums. Federal tax = bracket tax on (taxable wages minus the standard deduction). Payroll tax = 6.2% of FICA wages up to $184,500 plus 1.45% of all FICA wages, where FICA wages = gross minus HSA and health premiums only. Net pay = gross salary minus deductions minus all taxes.",
     example: {
       title: "Worked example: $90,000 salary with 401(k), HSA and health cover",
-      body: "A single filer earns $90,000, contributes 6% ($5,400) to a 401(k), puts $1,200 into an HSA, and pays $85 per biweekly check ($2,210 a year) for health insurance. Taxable wages fall to $81,190. Federal tax is $9,032, Social Security is $5,034, Medicare is $1,177 and state tax at 5% is $4,060, for a total of $19,302. Net pay is $61,888 a year, or $2,380.29 per check. With no deductions at all the tax bill would be $22,355, so the deductions save $3,053 a year. Doubling the 401(k) to 12% would cut net pay by about $3,529 a year while adding $5,400 to retirement, because the extra deferral saves about $1,871 of tax.",
+      body: "A single filer earns $90,000, contributes 6% ($5,400) to a 401(k), puts $1,200 into an HSA, and pays $85 per biweekly check ($2,210 a year) for health insurance. Taxable wages fall to $81,190, but FICA wages fall only to $86,590, because the 401(k) deferral stays subject to payroll tax. Federal tax is $9,032, Social Security is $5,369, Medicare is $1,256 and state tax at 5% is $4,060, for a total of $19,715. Net pay is $61,475 a year, or $2,364.41 per check. With no deductions at all, federal and payroll tax would total $17,855, so the deductions save $2,199 a year; state tax falls by $441. Doubling the 401(k) to 12% would cut net pay by about $3,942 a year while adding $5,400 to retirement, because the extra deferral saves about $1,458 of tax — federal and state tax only.",
     },
     faqs: [
       {
@@ -202,7 +202,7 @@ export const TOOL_CONTENT_B1: Record<string, ToolContentEntry> = {
       {
         question: "Does a bigger 401(k) contribution always raise my take-home pay?",
         answer:
-          "No. It lowers your tax bill but also lowers your paycheck, because the contribution itself comes out of your pay. On a $90,000 salary, doubling a 6% contribution to 12% saves about $1,871 of tax but cuts net pay by about $3,529 a year. The $5,400 still belongs to you, inside the retirement account.",
+          "No. It lowers your tax bill but also lowers your paycheck, because the contribution itself comes out of your pay. On a $90,000 salary, doubling a 6% contribution to 12% saves about $1,458 of tax but cuts net pay by about $3,942 a year. The $5,400 still belongs to you, inside the retirement account.",
       },
       {
         question: "Why is my take-home pay lower than the salary calculator shows?",
@@ -503,7 +503,7 @@ export const TOOL_CONTENT_B1: Record<string, ToolContentEntry> = {
     howItWorks: [
       "Enter your item price and the shipping you charge the buyer. Etsy charges its percentage fees on the price plus shipping combined, not on the price alone, so free shipping is not free: the fee base is the same $50 whether the buyer pays $45 plus $5 shipping or $50 with shipping included. Gift wrap is in the fee base too, when the buyer pays for it.",
       "Three fees apply to every US sale. The listing fee is $0.20 per item, charged when you publish and again each time a multi-quantity listing sells. The transaction fee is 6.5% of the order total. Payment processing through Etsy Payments is 3% plus $0.25. Together they take roughly 9.5% to 10% of a typical sale before any advertising.",
-      "The regulatory operating fee applies only in certain non-US countries, where Etsy passes through digital services taxes. US sellers do not pay it, so set the slider to 0% for a US shop. Sellers elsewhere should use their own rate: the UK rate rose to 0.48% in June 2026, and other countries range up to about 2.2%. Etsy changes these rates with notice, so check the fee page in your Shop Manager before repricing.",
+      "The regulatory operating fee applies only in certain non-US countries, where Etsy passes through digital services taxes. US sellers do not pay it, so set the slider to 0% for a US shop. Sellers elsewhere should use their own rate: as of June 2026 the UK pays 0.48%, France 1.14%, Spain 0.88%, Italy 0.80%, Canada 0.50% and India 0.05%. Etsy changes these rates with notice, so check the fee page in your Shop Manager before repricing.",
       "Offsite Ads is the fee that surprises sellers. Etsy promotes your listings on Google and social media, and if a buyer clicks an ad and buys within 30 days, Etsy takes 15% of the order if your shop made under $10,000 in the past year, or 12% if it made $10,000 or more. Above $10,000 the program is mandatory and you cannot opt out. The fee is capped at $100 per order.",
       "The reverse solver prices for the margin you want instead of the price you guessed. Enter a target margin and it works out the listing price that leaves that margin after every fee and your costs. A 30% target on the example below needs a $29.63 price with $5 shipping: anything below that, and the fees eat the margin you planned.",
     ],
@@ -532,7 +532,7 @@ export const TOOL_CONTENT_B1: Record<string, ToolContentEntry> = {
       {
         question: "Do US sellers pay the regulatory operating fee?",
         answer:
-          "No. Etsy applies the regulatory operating fee only in certain non-US countries to cover digital services taxes. US sellers should set the regulatory slider to 0%. Sellers in the UK pay 0.48% as of June 2026, and rates in other countries run up to about 2.2%.",
+          "No. Etsy applies the regulatory operating fee only in certain non-US countries to cover digital services taxes. US sellers should set the regulatory slider to 0%. As of June 2026, sellers in the UK pay 0.48%, France 1.14%, Spain 0.88%, Italy 0.80%, Canada 0.50% and India 0.05%.",
       },
     ],
   },
@@ -542,7 +542,7 @@ export const TOOL_CONTENT_B1: Record<string, ToolContentEntry> = {
       "A $120 sale on eBay nets $39.28 after a 13.6% final value fee of $16.32, a $0.40 per-order fee, a $55 item cost and $9 shipping. That is a 32.7% margin. The fee is charged on the total the buyer pays, including shipping and sales tax, so the real rate is higher than the headline percentage suggests.",
     howItWorks: [
       "Enter your item price and the shipping you charge the buyer. eBay's final value fee is calculated on the total amount of the sale, which means price plus shipping plus any sales tax eBay collects, not on the item price alone. Free shipping does not escape the fee: the buyer still pays the item price, and the fee follows the total.",
-      "For most categories the final value fee is 13.6% of the total up to $7,500 per item, then 2.35% on the portion above $7,500. Some categories differ: coins and paper money and select trading cards pay 13.25%, while books, movies and music pay 15.3%. The percentage field is editable, so set it to your category's rate from Seller Hub.",
+      "For most categories the final value fee is 13.6% of the total up to $7,500 per item, then 2.35% on the portion above $7,500. Some categories differ: coins and paper money and select trading cards pay 13.25%, books, movies and music pay 15.3%, guitars and basses pay 6.7%, and athletic shoes over $150 pay 8% with no per-order fee. The percentage field is editable, so set it to your category's rate from Seller Hub.",
       "On top of the percentage, every order carries a per-order fee: $0.30 on orders of $10 or less, $0.40 above $10. On a $120 sale that is a small line, but on a $5 sale the $0.30 is 6% on its own, which is why low-priced items feel the fee structure hardest. The first 250 listings a month are free; after that, insertion fees are $0.35 per listing.",
       "Promoted Listings is eBay's pay-per-sale advertising: you set an ad rate as a percentage of the sale, and eBay charges it only when the sale is attributed to your promoted listing. A 5% ad rate on a $120 sale adds $6.00 of fees, cutting the profit in the example below from $39.28 to $33.28. The slider shows the cost before you commit to a rate.",
       "The break-even line is the lowest price that covers fees and costs. Below $74.54 on the example below, the listing loses money after fees. eBay Store subscribers pay lower final value fees in many categories, which moves the break-even price down, but the subscription itself is a fixed monthly cost, so it only pays once volume covers it.",
@@ -557,7 +557,7 @@ export const TOOL_CONTENT_B1: Record<string, ToolContentEntry> = {
       {
         question: "What is eBay's final value fee in 2026?",
         answer:
-          "For most categories it is 13.6% of the total amount of the sale up to $7,500 per item, then 2.35% on the portion above $7,500, plus a $0.30 or $0.40 per-order fee. Coins and select trading cards pay 13.25%, and books, movies and music pay 15.3%. The rate field in the calculator is editable for your category.",
+          "For most categories it is 13.6% of the total amount of the sale up to $7,500 per item, then 2.35% on the portion above $7,500, plus a $0.30 or $0.40 per-order fee. Coins and select trading cards pay 13.25%, books, movies and music pay 15.3%, guitars and basses pay 6.7%, and athletic shoes over $150 pay 8% with no per-order fee. The rate field in the calculator is editable for your category.",
       },
       {
         question: "Does eBay charge fees on shipping and tax?",
