@@ -14,9 +14,9 @@ const PLATFORMS: Platform[] = [
   { name: 'YouTube (long-form)', note: '45% of ad revenue to YouTube; you keep 55%', fee: (g) => g * 0.45 },
   { name: 'YouTube Shorts', note: '45% creator pool share — modelled as 55% total deductions on pool revenue', fee: (g) => g * 0.55 },
   { name: 'Patreon Pro', note: '8% platform + 2.9% + $0.30 per pledge', fee: (g, t) => g * 0.08 + g * 0.029 + t * 0.30 },
-  { name: 'Substack', note: '10% + Stripe 2.9% + $0.30 per paid subscription', fee: (g, t) => g * 0.10 + g * 0.029 + t * 0.30 },
+  { name: 'Substack', note: '10% + Stripe 2.9% + $0.30 + 0.7% Billing per paid subscription', fee: (g, t) => g * 0.10 + g * 0.029 + g * 0.007 + t * 0.30 },
   { name: 'Twitch (Partner, 50/50 sub)', note: '50% of subscription revenue to Twitch', fee: (g) => g * 0.50 },
-  { name: 'Gumroad', note: '10% flat per sale', fee: (g) => g * 0.10 },
+  { name: 'Gumroad', note: '10% + $0.50 per sale, plus 2.9% + $0.30 card processing (Discover sales: 30% flat)', fee: (g, t) => g * 0.10 + t * 0.50 + g * 0.029 + t * 0.30 },
   { name: 'Etsy (sale + shipping)', note: '6.5% transaction + 3% + $0.25 payment + $0.20 listing (approx.)', fee: (g, t) => g * 0.065 + g * 0.03 + t * 0.45 },
   { name: 'Only Stripe (your own site)', note: '2.9% + $0.30 per charge — the benchmark every platform must beat on value', fee: (g, t) => g * 0.029 + t * 0.30 },
 ]
@@ -67,7 +67,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
             </div>
           ))}
         </div>
-        <p className="text-xs text-neutral-500 mt-6">Models are simplified headline-fee comparisons for planning. Marketplaces bundle discovery, hosting and trust into their cut; your own site keeps the most but you pay for traffic, support and chargebacks yourself. Always confirm current fee schedules before a platform decision.</p>
+        <p className="text-xs text-neutral-500 mt-6">Models are simplified headline-fee comparisons for planning, using rates verified November 2026. Marketplaces bundle discovery, hosting and trust into their cut; your own site keeps the most but you pay for traffic, support and chargebacks yourself. Always confirm current fee schedules before a platform decision.</p>
       </div>
     </div>
   <ToolActionsBar slug="platform-fee-visualizer" isPro={isPro} inputs={{ gross, txns }} /></>)

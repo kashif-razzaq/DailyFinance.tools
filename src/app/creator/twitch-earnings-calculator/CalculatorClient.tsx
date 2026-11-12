@@ -19,10 +19,11 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
   return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
 }
 
-// Twitch sub prices (US): Tier 1 $4.99, Tier 2 $9.99, Tier 3 $24.99. Standard split is 50/50;
+// Twitch sub prices (US, web checkout, verified November 2026): Tier 1 $5.99 (raised from
+// $4.99 in July 2024), Tier 2 $9.99, Tier 3 $24.99. Standard split is 50/50;
 // Plus Programme partners earn 70/30 on net sub revenue — hence the share slider.
 // Bits pay the streamer exactly $0.01 per bit cheered.
-const TIER_PRICE = { t1: 4.99, t2: 9.99, t3: 24.99 }
+const TIER_PRICE = { t1: 5.99, t2: 9.99, t3: 24.99 }
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const sym = useCurrencySymbol()
@@ -62,7 +63,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   return (<><div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
     <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-6">
       <div className="grid grid-cols-3 gap-4">
-        <NumInput label="Tier 1 Subs ($4.99)" value={t1} onChange={setT1} />
+        <NumInput label="Tier 1 Subs ($5.99)" value={t1} onChange={setT1} />
         <NumInput label="Tier 2 Subs ($9.99)" value={t2} onChange={setT2} />
         <NumInput label="Tier 3 Subs ($24.99)" value={t3} onChange={setT3} />
       </div>
@@ -74,7 +75,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <NumInput label="Ad Revenue / Month" value={ads} onChange={setAds} hint="From your Twitch dashboard." />
         <NumInput label="Donations & Sponsorships" value={donations} onChange={setDonations} hint="Tips are 100% yours minus payment fees." />
       </div>
-      <p className="text-xs text-muted-foreground">Estimates before income tax. Prime subs count as Tier 1. Regional pricing means some Tier 1 subs pay out less than the US price implies.</p>
+      <p className="text-xs text-muted-foreground">Estimates before income tax. Tier prices are the US web rates, verified November 2026 — regional pricing means some Tier 1 subs pay out less, and Prime subs pay a fixed rate (about $2.25 in the US) rather than the Tier 1 price, so this model slightly overstates earnings if many of your subs are Prime.</p>
     </div>
     <div className="lg:col-span-5 space-y-6">
       <ResultCard title="Estimated Monthly Earnings">
@@ -93,7 +94,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         {row('Bits', `${bits.toLocaleString()} bits × $0.01`, r.bitsIncome)}
         {row('Ads', 'your dashboard figure', ads)}
         {row('Donations & sponsors', 'paid to you directly', donations)}
-        <p className="text-xs text-muted-foreground mt-3">Differentiator: models the real tier mix and your actual revenue share — one Tier 3 sub is worth five Tier 1s gross, and the 50% vs 70% split is the single biggest lever on this page.</p>
+        <p className="text-xs text-muted-foreground mt-3">Differentiator: models the real tier mix and your actual revenue share — one Tier 3 sub is worth about four Tier 1s gross, and the 50% vs 70% split is the single biggest lever on this page.</p>
       </div>
     <ToolActionsBar slug="twitch-earnings-calculator" isPro={isPro} inputs={{ t1, t2, t3, sharePct, bits, ads, donations }} />
     </div>

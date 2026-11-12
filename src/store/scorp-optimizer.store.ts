@@ -36,8 +36,8 @@ export const useSCorpOptimizerStore = create<SCorpOptimizerState>()(
         
         // 1. Sole Prop Baseline (LLC Default)
         // 15.3% on 92.35% of net income
-        // Note: Social Security cap for 2024 is $168,600. For simplicity, we apply standard logic up to cap.
-        const ssCap = 168600
+        // Note: Social Security cap for 2026 is $184,500. For simplicity, we apply standard logic up to cap.
+        const ssCap = 184500
         const taxableEarnings = s.netBusinessIncome * 0.9235
         const ssTaxable = Math.min(taxableEarnings, ssCap)
         const medTaxable = taxableEarnings

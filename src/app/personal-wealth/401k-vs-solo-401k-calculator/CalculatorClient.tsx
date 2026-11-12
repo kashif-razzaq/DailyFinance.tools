@@ -44,7 +44,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     if (s.ret !== undefined) setRet(s.ret as any)
   })
 
-  const EMP_LIMIT = 24500, COMBINED_LIMIT = 72000, CATCHUP = 7500
+  const EMP_LIMIT = 24500, COMBINED_LIMIT = 72000, CATCHUP = 8000
   const empCapped = Math.min(employee, EMP_LIMIT + (age >= 50 ? CATCHUP : 0))
   const r = useMemo(() => {
     const years = Math.max(0, retireAge - age), rate = ret / 100
@@ -58,7 +58,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   return (<><div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
     <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-6">
       <div className="grid grid-cols-2 gap-6"><MoneyInput label="Current 401(k) Balance" value={balance} onChange={setBalance} /><MoneyInput label="Annual Salary / Self-Employment Compensation" value={comp} onChange={setComp} /></div>
-      <MoneyInput label="Your Annual Employee Contribution" value={employee} onChange={setEmployee} hint={`2026 employee limit: $24,500${age >= 50 ? ' + $7,500 catch-up (age 50+) = $32,000' : ''}. Combined employee + employer limit: $72,000 (2026 figures — check IRS.gov for current limits).`} />
+      <MoneyInput label="Your Annual Employee Contribution" value={employee} onChange={setEmployee} hint={`2026 employee limit: $24,500${age >= 50 ? ' + $8,000 catch-up = $32,500' : ''}. Combined employee + employer limit: $72,000 (2026 figures — check IRS.gov for current limits).`} />
       <PctSlider label="Employer Match (% of salary, W-2 scenario)" value={matchPct} onChange={setMatchPct} min={0} max={10} step={0.5} />
       <MoneyInput label="Solo 401(k) Employer Profit-Sharing Contribution" value={profitShare} onChange={setProfitShare} hint="As your own employer you can add profit-sharing on top of the employee contribution, up to the combined limit." />
       <div className="grid grid-cols-2 gap-6">

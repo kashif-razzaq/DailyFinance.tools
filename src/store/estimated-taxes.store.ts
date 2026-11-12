@@ -61,15 +61,15 @@ export const useEstimatedTaxesStore = create<EstimatedTaxesState>((set, get) => 
     const income = federalTaxableIncome
     
     if (income > 640600) {
-      federalIncomeTax += (income - 640600) * 0.37 + 195204.75
+      federalIncomeTax += (income - 640600) * 0.37 + 192979.25
     } else if (income > 256225) {
-      federalIncomeTax += (income - 256225) * 0.35 + 60673.50
+      federalIncomeTax += (income - 256225) * 0.35 + 58448
     } else if (income > 201775) {
-      federalIncomeTax += (income - 201775) * 0.32 + 43249.50
+      federalIncomeTax += (income - 201775) * 0.32 + 41024
     } else if (income > 105700) {
-      federalIncomeTax += (income - 105700) * 0.24 + 20191.50
+      federalIncomeTax += (income - 105700) * 0.24 + 17966
     } else if (income > 50400) {
-      federalIncomeTax += (income - 50400) * 0.22 + 8025.50
+      federalIncomeTax += (income - 50400) * 0.22 + 5800
     } else if (income > 12400) {
       federalIncomeTax += (income - 12400) * 0.12 + 1240.00
     } else if (income > 0) {
