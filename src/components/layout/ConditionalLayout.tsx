@@ -20,7 +20,7 @@ export function ConditionalLayout({
   const pathname = usePathname()
   
   // Hide global nav/footer on auth pages, dashboard workspace, and embeds
-  const isAuthPage = pathname?.startsWith('/login') || pathname?.startsWith('/register')
+  const isAuthPage = pathname?.startsWith('/login') || pathname?.startsWith('/register') || pathname?.startsWith('/auth')
   const isDashboard = pathname?.startsWith('/dashboard')
   const isEmbed = pathname !== '/embed' && pathname?.startsWith('/embed/')
   const shouldHide = isAuthPage || isDashboard || isEmbed

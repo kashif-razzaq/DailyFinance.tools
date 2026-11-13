@@ -8,6 +8,7 @@ import { Loader2, CheckCircle2, Mail, AlertCircle, Lock } from 'lucide-react'
 import { Logo } from '@/components/layout/Logo'
 import { createClient } from '@/utils/supabase/client'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { cn } from '@/lib/utils'
 
 export type AuthMode = 'magic' | 'login' | 'signup'
@@ -187,6 +188,16 @@ export function AuthForm({
                 minLength={6}
               />
             </div>
+            {mode === 'login' && (
+              <div className="text-right">
+                <Link
+                  href="/auth/forgot-password"
+                  className="text-sm text-muted-foreground hover:text-foreground underline underline-offset-4"
+                >
+                  Forgot your password?
+                </Link>
+              </div>
+            )}
           </div>
         )}
 

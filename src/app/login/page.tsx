@@ -1,6 +1,19 @@
 import { AuthForm } from "@/components/auth/AuthForm"
-import { Quote, ArrowLeft } from "lucide-react"
+import { Logo } from "@/components/layout/Logo"
+import { ArrowLeft, Banknote, Calculator, Home, TrendingUp } from "lucide-react"
 import Link from "next/link"
+
+/**
+ * Right-panel tool tiles: real tools with their real names and categories,
+ * styled like the homepage popular-tools cards. Name + category only —
+ * no invented figures.
+ */
+const PANEL_TOOLS = [
+  { icon: Home, name: "Mortgage Payment Calculator", category: "Real Estate", chip: "bg-emerald-100 text-[#064E3B]" },
+  { icon: Banknote, name: "Take-Home Pay Calculator", category: "Tax & Salary", chip: "bg-amber-100 text-[#92400E]" },
+  { icon: TrendingUp, name: "Compound Interest Calculator", category: "Personal Wealth", chip: "bg-teal-100 text-teal-800" },
+  { icon: Calculator, name: "Paycheck Calculator", category: "Tax & Salary", chip: "bg-emerald-100 text-[#064E3B]" },
+]
 
 export default function LoginPage() {
   return (
@@ -21,59 +34,55 @@ export default function LoginPage() {
         </div>
       </div>
 
-      {/* Right Column: Crafted Visual/Quote (Hidden on mobile) */}
-      <div className="hidden lg:flex flex-1 relative items-center justify-center overflow-hidden bg-primary">
-        
-        {/* Deep Green Base with Sovereign Gold Glows */}
-        <div className="absolute inset-0">
-          <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-b from-[#d97706]/30 to-transparent rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3"></div>
-          <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gradient-to-t from-emerald-400/10 to-transparent rounded-full blur-[100px] translate-y-1/3 -translate-x-1/4"></div>
+      {/*
+        Right Column (hidden on mobile): the site's own look and feel —
+        the real logo lockup, the homepage hero's soft glows, and mini
+        tool cards in the homepage popular-tools style. Light theme,
+        matching the rest of the site.
+      */}
+      <div className="hidden lg:flex flex-1 relative items-center justify-center overflow-hidden bg-[#F7F9F8]">
+        {/* Soft hero-style glows, same treatment as the desktop homepage hero */}
+        <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+          <div className="absolute -top-24 right-0 h-80 w-80 rounded-full bg-emerald-500/[0.08] blur-3xl" />
+          <div className="absolute -bottom-16 -left-24 h-72 w-72 rounded-full bg-amber-500/[0.08] blur-3xl" />
         </div>
 
-        {/* Abstract Financial Pattern (Grid, Candlesticks & Trendline) */}
-        <div className="absolute inset-0 opacity-[0.15]">
-          <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="0.5" className="text-emerald-100" />
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#grid)" />
-            
-            {/* Subtle upward trending line */}
-            <path d="M-100,900 Q300,700 500,600 T1000,400 T1500,100" fill="none" stroke="#d97706" strokeWidth="3" opacity="0.7" />
-            
-            {/* Abstract Candlesticks */}
-            <g opacity="0.6">
-              {/* Bullish */}
-              <rect x="200" y="680" width="12" height="60" rx="4" fill="#10b981" />
-              <line x1="206" y1="650" x2="206" y2="770" stroke="#10b981" strokeWidth="2" />
+        <div className="relative z-10 w-full max-w-md px-12 xl:px-8">
+          {/* Logo lockup, as on the site header — mark + wordmark */}
+          <div className="flex items-center gap-3">
+            <Logo className="h-12 w-12" />
+            <span className="text-3xl font-extrabold tracking-tight text-foreground">
+              DailyFinance<span className="text-[#D97706]">.tools</span>
+            </span>
+          </div>
 
-              {/* Bullish */}
-              <rect x="450" y="580" width="12" height="80" rx="4" fill="#10b981" />
-              <line x1="456" y1="530" x2="456" y2="690" stroke="#10b981" strokeWidth="2" />
+          <h2 className="mt-10 text-4xl font-extrabold leading-[1.1] tracking-tight text-foreground">
+            Know your <span className="text-[#064E3B]">numbers.</span>
+          </h2>
+          <p className="mt-4 text-lg font-light leading-relaxed text-muted-foreground">
+            Every calculator on this site answers one question: what does
+            this cost me, really?
+          </p>
 
-              {/* Bearish (Orange Accent) */}
-              <rect x="750" y="450" width="12" height="50" rx="4" fill="#d97706" />
-              <line x1="756" y1="420" x2="756" y2="530" stroke="#d97706" strokeWidth="2" />
+          {/* Mini tool cards, like the homepage popular tools */}
+          <div className="mt-10 grid grid-cols-2 gap-3">
+            {PANEL_TOOLS.map((tool) => {
+              const Icon = tool.icon
+              return (
+                <div key={tool.name} className="rounded-2xl border border-border bg-card p-4 shadow-sm">
+                  <span className={`flex h-10 w-10 items-center justify-center rounded-xl ${tool.chip}`}>
+                    <Icon className="h-5 w-5" />
+                  </span>
+                  <p className="mt-3 text-[15px] font-bold leading-tight text-foreground">{tool.name}</p>
+                  <p className="mt-1 text-[13px] font-light text-muted-foreground">{tool.category}</p>
+                </div>
+              )
+            })}
+          </div>
 
-              {/* Bullish */}
-              <rect x="1100" y="320" width="12" height="90" rx="4" fill="#10b981" />
-              <line x1="1106" y1="280" x2="1106" y2="450" stroke="#10b981" strokeWidth="2" />
-            </g>
-          </svg>
-        </div>
-        
-        <div className="relative z-10 max-w-lg px-12">
-          <Quote className="h-12 w-12 text-[#d97706] mb-6 opacity-90" />
-          <blockquote className="space-y-6">
-            <p className="text-3xl font-medium text-white leading-tight font-sans">
-              "Understanding your numbers is the difference between working for a living and building true wealth. DailyFinance brings clarity to the chaos."
-            </p>
-            <footer className="text-[#d97706] font-mono text-sm uppercase tracking-widest">
-              &mdash; The DailyFinance Team
-            </footer>
-          </blockquote>
+          <p className="mt-10 border-t border-border pt-6 text-sm font-medium text-muted-foreground">
+            116 calculators &middot; 51 state guides &middot; No sign-up to calculate
+          </p>
         </div>
       </div>
     </div>

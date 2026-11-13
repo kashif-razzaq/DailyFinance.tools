@@ -2,10 +2,44 @@ import { NextResponse } from 'next/server'
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 
+/**
+ * Only same-site relative paths may be used as the post-auth destination.
+ * Anything else — absolute URLs, protocol-relative URLs, schemes,
+ * backslashes — falls back to /dashboard, so a crafted `next` param can
+ * never turn this route into an open redirect. Query strings on relative
+ * paths are allowed (e.g. /dashboard/settings?email-changed=1).
+ */
+function getSafeNext(raw: string | null): string {
+  if (!raw) return '/dashboard'
+  if (!raw.startsWith('/') || raw.startsWith('//')) return '/dashboard'
+  if (raw.includes('://') || raw.includes('\\')) return '/dashboard'
+  if (/^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(raw)) return '/dashboard'
+  return raw
+}
+
+/**
+ * Map GoTrue's error params to the friendly reason the /auth/error page
+ * understands. Expired or already-used links are the common case
+ * (access_denied / otp_expired); anything else is a generic failure.
+ */
+function mapSupabaseError(error: string | null, errorCode: string | null): string {
+  if (errorCode === 'otp_expired' || error === 'access_denied') return 'expired'
+  return 'failed'
+}
+
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url)
   const code = searchParams.get('code')
-  const next = searchParams.get('next') ?? '/dashboard'
+  const next = getSafeNext(searchParams.get('next'))
+
+  // GoTrue sends error params (not a code) when a link is expired,
+  // invalid, or already used — send the user to the error page with a
+  // mapped reason instead of failing silently.
+  const supabaseError = searchParams.get('error')
+  if (supabaseError) {
+    const reason = mapSupabaseError(supabaseError, searchParams.get('error_code'))
+    return NextResponse.redirect(`${origin}/auth/error?reason=${reason}`)
+  }
 
   if (code) {
     const cookieStore = await cookies()
@@ -39,6 +73,7 @@ export async function GET(request: Request) {
     }
   }
 
-  // return the user to an error page with some instructions
-  return NextResponse.redirect(`${origin}/?error=auth-code-error`)
+  // No code, or the exchange failed (expired or already-used link):
+  // send the user to the error page with something actionable.
+  return NextResponse.redirect(`${origin}/auth/error?reason=expired`)
 }

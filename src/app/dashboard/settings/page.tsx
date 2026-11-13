@@ -125,7 +125,7 @@ export default async function SettingsPage() {
       </section>
 
       {/* Preferences + account actions (client island) */}
-      <SettingsClient />
+      <SettingsClient email={email} />
     </div>
   )
 }
