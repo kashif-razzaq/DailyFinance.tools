@@ -1,5 +1,6 @@
 'use client'
 import { CalculatorActions } from "@/components/calculator/CalculatorActions"
+import { useLiveShareLink } from '@/components/calculator/useLiveShareLink'
 import { SaveToast } from "@/components/shared/SaveToast"
 
 import React, { useState, useEffect } from 'react'
@@ -43,6 +44,23 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     }
   }, [])
 
+  // Shared by Save and live sharing: the current inputs and the
+  // scenario name, so both save paths store the same scenario.
+  const inputs = {
+    currentMonthlyExpenses: store.currentMonthlyExpenses,
+    targetColReductionPct: store.targetColReductionPct,
+    relocationCost: store.relocationCost,
+    currentSavings: store.currentSavings,
+    monthlyIncome: store.monthlyIncome
+  }
+  const savedName = `Runway Ext: +${metrics.runwayExtension.toFixed(1)} mos`
+  const handleGenerateLiveLink = useLiveShareLink({
+    slug: 'nomad-cost-of-living-calculator',
+    category: 'Freelance & Business',
+    savedName,
+    inputs,
+  })
+
   const handleSave = async () => {
     
     setIsSaving(true)
@@ -50,14 +68,8 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       const savedResult = unwrapSaveResult(await saveCalculatorAction({
         calculator_slug: 'nomad-cost-of-living-calculator',
         category: 'Freelance & Business',
-        saved_name: `Runway Ext: +${metrics.runwayExtension.toFixed(1)} mos`,
-        input_state: {
-          currentMonthlyExpenses: store.currentMonthlyExpenses,
-          targetColReductionPct: store.targetColReductionPct,
-          relocationCost: store.relocationCost,
-          currentSavings: store.currentSavings,
-          monthlyIncome: store.monthlyIncome
-        },
+        saved_name: savedName,
+        input_state: inputs,
         core_metric: Math.round(metrics.runwayExtension) // Storing extension months as core metric
       }))
       if (savedResult?.id) {
@@ -284,6 +296,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
               exportFilename="NomadGeoArbitrage"
               onRequirePro={() => setShowProModal(true)}
               shareUrl={shareUrl}
+              onGenerateLiveLink={handleGenerateLiveLink}
             />
       </div>
 

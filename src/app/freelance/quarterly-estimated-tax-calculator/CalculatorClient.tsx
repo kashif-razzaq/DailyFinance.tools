@@ -1,5 +1,6 @@
 'use client'
 import { CalculatorActions } from "@/components/calculator/CalculatorActions"
+import { useLiveShareLink } from '@/components/calculator/useLiveShareLink'
 import { SaveToast } from "@/components/shared/SaveToast"
 
 import React, { useState, useEffect } from 'react'
@@ -87,6 +88,21 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     }
   }, [])
 
+    // Shared by Save and live sharing: the current inputs and the
+    // scenario name, so both save paths store the same scenario.
+    const inputs = {
+      netIncome: store.netIncome,
+      stateTaxRate: store.stateTaxRate,
+      claimsQBI: store.claimsQBI
+    }
+    const savedName = `Q-Taxes on ${currencySymbol}${store.netIncome.toLocaleString()}`
+    const handleGenerateLiveLink = useLiveShareLink({
+      slug: 'quarterly-estimated-taxes-calculator',
+      category: 'Freelance & Business',
+      savedName,
+      inputs,
+    })
+
     const handleSave = async () => {
     
     setIsSaving(true)
@@ -94,12 +110,8 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       const savedResult = unwrapSaveResult(await saveCalculatorAction({
         calculator_slug: 'quarterly-estimated-taxes-calculator',
         category: 'Freelance & Business',
-        saved_name: `Q-Taxes on ${currencySymbol}${store.netIncome.toLocaleString()}`,
-        input_state: {
-          netIncome: store.netIncome,
-          stateTaxRate: store.stateTaxRate,
-          claimsQBI: store.claimsQBI
-        },
+        saved_name: savedName,
+        input_state: inputs,
         core_metric: Math.round(metrics.quarterlyPayment)
       }))
       if (savedResult?.id) {
@@ -278,6 +290,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
               exportFilename="QuarterlyTaxes"
               onRequirePro={() => setShowProModal(true)}
               shareUrl={shareUrl}
+              onGenerateLiveLink={handleGenerateLiveLink}
               pdfDocument={<TaxReportPDF data={{...store, ...metrics}} currencySymbol={currencySymbol} />}
             />
       </div>

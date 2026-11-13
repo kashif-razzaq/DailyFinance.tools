@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { Banknote, Building, Briefcase, Calculator } from "lucide-react"
 import { CalculatorActions } from "@/components/calculator/CalculatorActions"
+import { useLiveShareLink } from '@/components/calculator/useLiveShareLink'
 import { saveCalculatorAction, getSharedCalculatorAction } from '@/actions/calculator.actions'
 import { unwrapSaveResult } from '@/lib/save-result'
 import { openLoginModal } from '@/lib/auth-modal'
@@ -124,6 +125,25 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     setter(isNaN(val) ? 0 : val)
   }
 
+  // Shared by Save and live sharing: the current inputs and the
+  // scenario name, so both save paths store the same scenario.
+  const inputs = {
+    w2Salary,
+    w2Benefits,
+    contractorHourly,
+    hoursPerWeek,
+    weeksPerYear,
+    businessExpenses,
+    effectiveTaxRate
+  }
+  const savedName = `Comparison: 1099 Net ${formatCurrency(results.cNetTakeHome)}`
+  const handleGenerateLiveLink = useLiveShareLink({
+    slug: 'w2-vs-1099-paycheck-calculator',
+    category: 'Freelance',
+    savedName,
+    inputs,
+  })
+
   const handleSave = async () => {
     
     setIsSaving(true)
@@ -131,16 +151,8 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       const savedResult = unwrapSaveResult(await saveCalculatorAction({
         calculator_slug: 'w2-vs-1099-paycheck-calculator',
         category: 'Freelance',
-        saved_name: `Comparison: 1099 Net ${formatCurrency(results.cNetTakeHome)}`,
-        input_state: {
-          w2Salary,
-          w2Benefits,
-          contractorHourly,
-          hoursPerWeek,
-          weeksPerYear,
-          businessExpenses,
-          effectiveTaxRate
-        },
+        saved_name: savedName,
+        input_state: inputs,
         core_metric: results.cNetTakeHome
       }))
       if (savedResult?.id) {
@@ -391,6 +403,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
             exportFilename="w2-vs-1099.csv"
             onRequirePro={() => setShowProModal(true)}
             shareUrl={shareUrl}
+            onGenerateLiveLink={handleGenerateLiveLink}
           />
         </div>
       </div>

@@ -20,8 +20,8 @@ export interface CalculatorActionsProps {
   /**
    * Pro-only live sharing: auto-saves the current inputs as a public
    * scenario and returns its live link. Passed through to the share modal.
-   * Optional — tools that render CalculatorActions directly (the freelance
-   * tools) do not supply it, and their share modal shows the plain link.
+   * Every tool supplies it (via useLiveShareLink); without it the share
+   * modal shows the plain link only.
    */
   onGenerateLiveLink?: () => Promise<string | null>;
 }

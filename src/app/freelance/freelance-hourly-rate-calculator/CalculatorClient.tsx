@@ -2,6 +2,7 @@
 /* eslint-disable @next/next/no-location-assign-relative-destination */
 'use client'
 import { CalculatorActions } from "@/components/calculator/CalculatorActions"
+import { useLiveShareLink } from '@/components/calculator/useLiveShareLink'
 import { SaveToast } from "@/components/shared/SaveToast"
 
 import React, { useState, useEffect } from 'react'
@@ -90,6 +91,25 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   }, [])
 
     // Handlers for exporting and saving
+  // Shared by Save and live sharing: the current inputs and the
+  // scenario name, so both save paths store the same scenario.
+  const inputs = {
+    targetAnnualIncome: store.targetAnnualIncome,
+    annualBusinessExpenses: store.annualBusinessExpenses,
+    taxRate: store.taxRate,
+    weeksOff: store.weeksOff,
+    weeklyHours: store.weeklyHours,
+    billableUtilization: store.billableUtilization,
+    profitBuffer: store.profitBuffer
+  }
+  const savedName = `Rate Plan: ${currencySymbol}${Math.round(metrics.hourlyRateMAR)}/hr`
+  const handleGenerateLiveLink = useLiveShareLink({
+    slug: 'hourly-rate-reverse-engineer-calculator',
+    category: 'Freelance & Business',
+    savedName,
+    inputs,
+  })
+
   const handleSave = async () => {
     
     setIsSaving(true)
@@ -97,16 +117,8 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       const savedResult = unwrapSaveResult(await saveCalculatorAction({
         calculator_slug: 'hourly-rate-reverse-engineer-calculator',
         category: 'Freelance & Business',
-        saved_name: `Rate Plan: ${currencySymbol}${Math.round(metrics.hourlyRateMAR)}/hr`,
-        input_state: {
-          targetAnnualIncome: store.targetAnnualIncome,
-          annualBusinessExpenses: store.annualBusinessExpenses,
-          taxRate: store.taxRate,
-          weeksOff: store.weeksOff,
-          weeklyHours: store.weeklyHours,
-          billableUtilization: store.billableUtilization,
-          profitBuffer: store.profitBuffer
-        },
+        saved_name: savedName,
+        input_state: inputs,
         core_metric: Math.round(metrics.hourlyRateMAR)
       }))
       if (savedResult?.id) {
@@ -366,6 +378,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
               exportFilename="HourlyRate"
               onRequirePro={() => setShowProModal(true)}
               shareUrl={shareUrl}
+              onGenerateLiveLink={handleGenerateLiveLink}
               pdfDocument={<RateReportPDF data={{...store, ...metrics}} currencySymbol={currencySymbol} />}
             />
       </div>

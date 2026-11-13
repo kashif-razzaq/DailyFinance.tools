@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { Car, Calculator, FileText, Banknote, ShieldCheck } from "lucide-react"
 import { CalculatorActions } from "@/components/calculator/CalculatorActions"
+import { useLiveShareLink } from '@/components/calculator/useLiveShareLink'
 import { saveCalculatorAction, getSharedCalculatorAction } from '@/actions/calculator.actions'
 import { unwrapSaveResult } from '@/lib/save-result'
 import { openLoginModal } from '@/lib/auth-modal'
@@ -128,6 +129,27 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     setter(isNaN(val) ? 0 : val)
   }
 
+  // Shared by Save and live sharing: the current inputs and the
+  // scenario name, so both save paths store the same scenario.
+  const inputs = {
+    monthlyLease,
+    downPayment,
+    leaseTermMonths,
+    businessMiles,
+    personalMiles,
+    annualGas,
+    annualInsurance,
+    annualRepairs,
+    taxBracket
+  }
+  const savedName = `Lease Deduct: ${formatCurrency(results.bestDeduction)}`
+  const handleGenerateLiveLink = useLiveShareLink({
+    slug: 'auto-lease-write-off-calculator',
+    category: 'Freelance',
+    savedName,
+    inputs,
+  })
+
   const handleSave = async () => {
     
     setIsSaving(true)
@@ -135,18 +157,8 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       const savedResult = unwrapSaveResult(await saveCalculatorAction({
         calculator_slug: 'auto-lease-write-off-calculator',
         category: 'Freelance',
-        saved_name: `Lease Deduct: ${formatCurrency(results.bestDeduction)}`,
-        input_state: {
-          monthlyLease,
-          downPayment,
-          leaseTermMonths,
-          businessMiles,
-          personalMiles,
-          annualGas,
-          annualInsurance,
-          annualRepairs,
-          taxBracket
-        },
+        saved_name: savedName,
+        input_state: inputs,
         core_metric: results.bestDeduction
       }))
       if (savedResult?.id) {
@@ -425,6 +437,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
             exportFilename="auto-lease-write-off.csv"
             onRequirePro={() => setShowProModal(true)}
             shareUrl={shareUrl}
+            onGenerateLiveLink={handleGenerateLiveLink}
           />
         </div>
       </div>

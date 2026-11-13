@@ -1,5 +1,6 @@
 'use client'
 import { CalculatorActions } from "@/components/calculator/CalculatorActions"
+import { useLiveShareLink } from '@/components/calculator/useLiveShareLink'
 import { SaveToast } from "@/components/shared/SaveToast"
 
 import React, { useState, useEffect } from 'react'
@@ -46,6 +47,24 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     }
   }, [])
 
+  // Shared by Save and live sharing: the current inputs and the
+  // scenario name, so both save paths store the same scenario.
+  const inputs = {
+    estimatedHours: store.estimatedHours,
+    targetHourlyRate: store.targetHourlyRate,
+    commBufferPct: store.commBufferPct,
+    riskLevel: store.riskLevel,
+    clientROI: store.clientROI,
+    roiSharePct: store.roiSharePct
+  }
+  const savedName = `Quote: ${currencySymbol}${Math.round(metrics.flatFeeQuote)}`
+  const handleGenerateLiveLink = useLiveShareLink({
+    slug: 'project-flat-fee-quoter',
+    category: 'Freelance & Business',
+    savedName,
+    inputs,
+  })
+
   const handleSave = async () => {
     
     setIsSaving(true)
@@ -53,15 +72,8 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       const savedResult = unwrapSaveResult(await saveCalculatorAction({
         calculator_slug: 'project-flat-fee-quoter',
         category: 'Freelance & Business',
-        saved_name: `Quote: ${currencySymbol}${Math.round(metrics.flatFeeQuote)}`,
-        input_state: {
-          estimatedHours: store.estimatedHours,
-          targetHourlyRate: store.targetHourlyRate,
-          commBufferPct: store.commBufferPct,
-          riskLevel: store.riskLevel,
-          clientROI: store.clientROI,
-          roiSharePct: store.roiSharePct
-        },
+        saved_name: savedName,
+        input_state: inputs,
         core_metric: Math.round(metrics.flatFeeQuote)
       }))
       if (savedResult?.id) {
@@ -319,6 +331,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
               exportFilename="FlatFeeQuote"
               onRequirePro={() => setShowProModal(true)}
               shareUrl={shareUrl}
+              onGenerateLiveLink={handleGenerateLiveLink}
             />
       </div>
 

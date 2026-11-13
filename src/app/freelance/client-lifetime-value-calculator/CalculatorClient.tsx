@@ -1,5 +1,6 @@
 'use client'
 import { CalculatorActions } from "@/components/calculator/CalculatorActions"
+import { useLiveShareLink } from '@/components/calculator/useLiveShareLink'
 import { SaveToast } from "@/components/shared/SaveToast"
 
 import React, { useState, useEffect } from 'react'
@@ -44,6 +45,23 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     }
   }, [])
 
+  // Shared by Save and live sharing: the current inputs and the
+  // scenario name, so both save paths store the same scenario.
+  const inputs = {
+    monthlyRetainer: store.monthlyRetainer,
+    monthlyChurnPct: store.monthlyChurnPct,
+    grossMarginPct: store.grossMarginPct,
+    expansionPct: store.expansionPct,
+    targetLtvCacRatio: store.targetLtvCacRatio
+  }
+  const savedName = `Target CAC: ${currencySymbol}${Math.round(metrics.targetMaxCAC)}`
+  const handleGenerateLiveLink = useLiveShareLink({
+    slug: 'client-ltv-calculator',
+    category: 'Freelance & Business',
+    savedName,
+    inputs,
+  })
+
   const handleSave = async () => {
     
     setIsSaving(true)
@@ -51,14 +69,8 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       const savedResult = unwrapSaveResult(await saveCalculatorAction({
         calculator_slug: 'client-ltv-calculator',
         category: 'Freelance & Business',
-        saved_name: `Target CAC: ${currencySymbol}${Math.round(metrics.targetMaxCAC)}`,
-        input_state: {
-          monthlyRetainer: store.monthlyRetainer,
-          monthlyChurnPct: store.monthlyChurnPct,
-          grossMarginPct: store.grossMarginPct,
-          expansionPct: store.expansionPct,
-          targetLtvCacRatio: store.targetLtvCacRatio
-        },
+        saved_name: savedName,
+        input_state: inputs,
         core_metric: Math.round(metrics.targetMaxCAC)
       }))
       if (savedResult?.id) {
@@ -271,6 +283,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
               exportFilename="ClientLTV"
               onRequirePro={() => setShowProModal(true)}
               shareUrl={shareUrl}
+              onGenerateLiveLink={handleGenerateLiveLink}
             />
       </div>
 

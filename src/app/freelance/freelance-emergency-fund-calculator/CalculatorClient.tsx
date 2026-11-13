@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 import { CalculatorActions } from "@/components/calculator/CalculatorActions"
+import { useLiveShareLink } from '@/components/calculator/useLiveShareLink'
 import { SaveToast } from "@/components/shared/SaveToast"
 
 import React, { useState, useEffect } from 'react'
@@ -62,6 +63,25 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     }
   }
 
+  // Shared by Save and live sharing: the current inputs and the
+  // scenario name, so both save paths store the same scenario.
+  const inputs = {
+    essentialLiving: store.essentialLiving,
+    bizOverhead: store.bizOverhead,
+    incomeHistory: store.incomeHistory,
+    topClientShare: store.topClientShare,
+    avgDSO: store.avgDSO,
+    currentBuffer: store.currentBuffer,
+    targetMonthsToBuild: store.targetMonthsToBuild
+  }
+  const savedName = `Buffer Target: ${currencySymbol}${Math.round(metrics.finalRecommendedBuffer)}`
+  const handleGenerateLiveLink = useLiveShareLink({
+    slug: 'irregular-income-buffer-calculator',
+    category: 'Freelance & Business',
+    savedName,
+    inputs,
+  })
+
   const handleSave = async () => {
     
     setIsSaving(true)
@@ -69,16 +89,8 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       const savedResult = unwrapSaveResult(await saveCalculatorAction({
         calculator_slug: 'irregular-income-buffer-calculator',
         category: 'Freelance & Business',
-        saved_name: `Buffer Target: ${currencySymbol}${Math.round(metrics.finalRecommendedBuffer)}`,
-        input_state: {
-          essentialLiving: store.essentialLiving,
-          bizOverhead: store.bizOverhead,
-          incomeHistory: store.incomeHistory,
-          topClientShare: store.topClientShare,
-          avgDSO: store.avgDSO,
-          currentBuffer: store.currentBuffer,
-          targetMonthsToBuild: store.targetMonthsToBuild
-        },
+        saved_name: savedName,
+        input_state: inputs,
         core_metric: Math.round(metrics.finalRecommendedBuffer)
       }))
       if (savedResult?.id) {
@@ -317,6 +329,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
               exportFilename="IncomeBuffer"
               onRequirePro={() => setShowProModal(true)}
               shareUrl={shareUrl}
+              onGenerateLiveLink={handleGenerateLiveLink}
             />
       </div>
 

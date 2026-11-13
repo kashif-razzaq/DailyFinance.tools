@@ -1,5 +1,6 @@
 'use client'
 import { CalculatorActions } from "@/components/calculator/CalculatorActions"
+import { useLiveShareLink } from '@/components/calculator/useLiveShareLink'
 import { SaveToast } from "@/components/shared/SaveToast"
 
 import React, { useState, useEffect } from 'react'
@@ -43,6 +44,22 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     }
   }, [])
 
+  // Shared by Save and live sharing: the current inputs and the
+  // scenario name, so both save paths store the same scenario.
+  const inputs = {
+    weeklyUnbilledScopeCreep: store.weeklyUnbilledScopeCreep,
+    weeklyAdminTimeTracking: store.weeklyAdminTimeTracking,
+    hourlyRate: store.hourlyRate,
+    softwareCostPerMonth: store.softwareCostPerMonth
+  }
+  const savedName = `Time Tracking ROI: ${Math.round(metrics.roiMultiplier)}x`
+  const handleGenerateLiveLink = useLiveShareLink({
+    slug: 'time-tracking-roi-calculator',
+    category: 'Freelance & Business',
+    savedName,
+    inputs,
+  })
+
   const handleSave = async () => {
     
     setIsSaving(true)
@@ -50,13 +67,8 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       const savedResult = unwrapSaveResult(await saveCalculatorAction({
         calculator_slug: 'time-tracking-roi-calculator',
         category: 'Freelance & Business',
-        saved_name: `Time Tracking ROI: ${Math.round(metrics.roiMultiplier)}x`,
-        input_state: {
-          weeklyUnbilledScopeCreep: store.weeklyUnbilledScopeCreep,
-          weeklyAdminTimeTracking: store.weeklyAdminTimeTracking,
-          hourlyRate: store.hourlyRate,
-          softwareCostPerMonth: store.softwareCostPerMonth
-        },
+        saved_name: savedName,
+        input_state: inputs,
         core_metric: Math.round(metrics.netROI)
       }))
       if (savedResult?.id) {
@@ -240,6 +252,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
               exportFilename="TimeTrackingROI"
               onRequirePro={() => setShowProModal(true)}
               shareUrl={shareUrl}
+              onGenerateLiveLink={handleGenerateLiveLink}
             />
       </div>
 

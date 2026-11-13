@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 import { CalculatorActions } from "@/components/calculator/CalculatorActions"
+import { useLiveShareLink } from '@/components/calculator/useLiveShareLink'
 import { SaveToast } from "@/components/shared/SaveToast"
 
 import React, { useState, useEffect } from 'react'
@@ -77,6 +78,22 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const netAfterSeTaxCents = netEarningsCents - totalSeTaxCents
   const ssCapped = seBaseCents > SS_WAGE_BASE_CENTS
 
+  // Shared by Save and live sharing: the current inputs and the
+  // scenario name, so both save paths store the same scenario.
+  const inputs = {
+    netEarnings,
+    filingStatus,
+    homeOfficeDeduction,
+    marginalRate
+  }
+  const savedName = `SE Tax: ${currencySymbol}${Math.round(totalSeTaxCents / 100).toLocaleString()}`
+  const handleGenerateLiveLink = useLiveShareLink({
+    slug: 'self-employment-tax-calculator',
+    category: 'Freelance & Business',
+    savedName,
+    inputs,
+  })
+
   const handleSave = async () => {
     
     setIsSaving(true)
@@ -84,13 +101,8 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       const savedResult = unwrapSaveResult(await saveCalculatorAction({
         calculator_slug: 'self-employment-tax-calculator',
         category: 'Freelance & Business',
-        saved_name: `SE Tax: ${currencySymbol}${Math.round(totalSeTaxCents / 100).toLocaleString()}`,
-        input_state: {
-          netEarnings,
-          filingStatus,
-          homeOfficeDeduction,
-          marginalRate
-        },
+        saved_name: savedName,
+        input_state: inputs,
         core_metric: Math.round(totalSeTaxCents / 100)
       }))
       if (savedResult?.id) {
@@ -336,6 +348,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
               exportFilename="SelfEmploymentTax"
               onRequirePro={() => setShowProModal(true)}
               shareUrl={shareUrl}
+              onGenerateLiveLink={handleGenerateLiveLink}
             />
       </div>
 

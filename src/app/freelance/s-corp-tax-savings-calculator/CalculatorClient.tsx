@@ -1,5 +1,6 @@
 'use client'
 import { CalculatorActions } from "@/components/calculator/CalculatorActions"
+import { useLiveShareLink } from '@/components/calculator/useLiveShareLink'
 import { SaveToast } from "@/components/shared/SaveToast"
 
 import React, { useState, useEffect } from 'react'
@@ -41,6 +42,20 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     }
   }, [])
 
+  // Shared by Save and live sharing: the current inputs and the
+  // scenario name, so both save paths store the same scenario.
+  const inputs = {
+    netBusinessIncome: store.netBusinessIncome,
+    salaryRatio: store.salaryRatio
+  }
+  const savedName = `S-Corp Savings: ${currencySymbol}${Math.round(metrics.annualTaxSavings)}`
+  const handleGenerateLiveLink = useLiveShareLink({
+    slug: 's-corp-salary-dividend-calculator',
+    category: 'Freelance & Business',
+    savedName,
+    inputs,
+  })
+
   const handleSave = async () => {
     
     setIsSaving(true)
@@ -48,11 +63,8 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       const savedResult = unwrapSaveResult(await saveCalculatorAction({
         calculator_slug: 's-corp-salary-dividend-calculator',
         category: 'Freelance & Business',
-        saved_name: `S-Corp Savings: ${currencySymbol}${Math.round(metrics.annualTaxSavings)}`,
-        input_state: {
-          netBusinessIncome: store.netBusinessIncome,
-          salaryRatio: store.salaryRatio
-        },
+        saved_name: savedName,
+        input_state: inputs,
         core_metric: Math.round(metrics.annualTaxSavings)
       }))
       if (savedResult?.id) {
@@ -246,6 +258,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
               exportFilename="SCorpOptimizer"
               onRequirePro={() => setShowProModal(true)}
               shareUrl={shareUrl}
+              onGenerateLiveLink={handleGenerateLiveLink}
             />
       </div>
 
