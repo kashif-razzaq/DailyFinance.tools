@@ -9,6 +9,7 @@ import { User } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { createSupabaseContext } from '@/utils/supabase/server'
 import { CurrencySelector } from '@/components/layout/CurrencySelector'
+import { HeaderSearch } from '@/components/layout/HeaderSearch'
 
 export async function Navbar() {
   const { data } = await createSupabaseContext()
@@ -67,6 +68,7 @@ export async function Navbar() {
               <CurrencySelector />
             </div>
           )}
+          <HeaderSearch />
           {user ? (
             <UserBadge user={user} isPremium={isPremium} />
           ) : (
