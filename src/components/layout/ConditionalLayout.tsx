@@ -1,5 +1,6 @@
 'use client'
 
+import { Suspense } from 'react'
 import { usePathname } from 'next/navigation'
 import { navigationCategories } from '@/config/navigation'
 import { MobileBottomNav } from './MobileBottomNav'
@@ -7,6 +8,7 @@ import { NavigationLoader } from './NavigationLoader'
 import { LoginModalHost } from '@/components/auth/LoginModalHost'
 import { AppSplash } from './AppSplash'
 import { CookieConsent } from '@/components/shared/CookieConsent'
+import { ParamToast } from '@/components/shared/ParamToast'
 
 export function ConditionalLayout({
   header,
@@ -45,6 +47,11 @@ export function ConditionalLayout({
       {!shouldHide && <AppSplash />}
       {!shouldHide && <LoginModalHost />}
       {!shouldHide && <CookieConsent />}
+      {/* Param-driven toasts (?toast=…) — mounted once, on every page
+          including auth and dashboard pages, where most of them land. */}
+      <Suspense fallback={null}>
+        <ParamToast />
+      </Suspense>
     </>
   )
 }

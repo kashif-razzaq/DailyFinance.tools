@@ -70,7 +70,7 @@ export function UserBadge({ user, isPremium }: { user: any; isPremium?: boolean 
     const supabase = createClient()
     await supabase.auth.signOut()
     setIsOpen(false)
-    router.push('/')
+    router.push('/?toast=signed-out')
     router.refresh()
   }
 

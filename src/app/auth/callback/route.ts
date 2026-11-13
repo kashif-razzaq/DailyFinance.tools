@@ -18,8 +18,8 @@ function getSafeNext(raw: string | null): string {
 }
 
 /**
- * Map GoTrue's error params to the friendly reason the /auth/error page
- * understands. Expired or already-used links are the common case
+ * Map GoTrue's error params to the friendly reason the /auth/confirm
+ * page understands. Expired or already-used links are the common case
  * (access_denied / otp_expired); anything else is a generic failure.
  */
 function mapSupabaseError(error: string | null, errorCode: string | null): string {
@@ -33,12 +33,12 @@ export async function GET(request: Request) {
   const next = getSafeNext(searchParams.get('next'))
 
   // GoTrue sends error params (not a code) when a link is expired,
-  // invalid, or already used — send the user to the error page with a
-  // mapped reason instead of failing silently.
+  // invalid, or already used — send the user to the confirm screen's
+  // error state with a mapped reason instead of failing silently.
   const supabaseError = searchParams.get('error')
   if (supabaseError) {
     const reason = mapSupabaseError(supabaseError, searchParams.get('error_code'))
-    return NextResponse.redirect(`${origin}/auth/error?reason=${reason}`)
+    return NextResponse.redirect(`${origin}/auth/confirm?error=${reason}`)
   }
 
   if (code) {
@@ -74,6 +74,7 @@ export async function GET(request: Request) {
   }
 
   // No code, or the exchange failed (expired or already-used link):
-  // send the user to the error page with something actionable.
-  return NextResponse.redirect(`${origin}/auth/error?reason=expired`)
+  // send the user to the confirm screen's error state with something
+  // actionable.
+  return NextResponse.redirect(`${origin}/auth/confirm?error=expired`)
 }

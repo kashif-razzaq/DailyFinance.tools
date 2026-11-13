@@ -1,28 +1,12 @@
 'use client'
 
-import { Suspense, useState } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { LogOut, Globe2, CheckCircle2, AlertCircle, Loader2, Mail, Lock } from 'lucide-react'
 import { createClient } from '@/utils/supabase/client'
 import { CurrencySelector } from '@/components/layout/CurrencySelector'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-
-/**
- * Reads the ?email-changed=1 landing param the callback route sets after
- * an email change is confirmed. Kept in its own component behind a
- * Suspense boundary, as useSearchParams requires.
- */
-function EmailChangedBanner() {
-  const searchParams = useSearchParams()
-  if (searchParams.get('email-changed') !== '1') return null
-  return (
-    <div className="mt-6 flex items-start gap-2 rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-900">
-      <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0" />
-      <span>Your email address has been changed.</span>
-    </div>
-  )
-}
 
 /**
  * SettingsClient — the interactive half of /dashboard/settings:
@@ -49,7 +33,7 @@ export function SettingsClient({ email }: { email: string }) {
   const handleLogout = async () => {
     const supabase = createClient()
     await supabase.auth.signOut()
-    router.push('/')
+    router.push('/?toast=signed-out')
     router.refresh()
   }
 
@@ -105,10 +89,6 @@ export function SettingsClient({ email }: { email: string }) {
 
   return (
     <>
-      <Suspense>
-        <EmailChangedBanner />
-      </Suspense>
-
       <section className="mt-6 rounded-3xl border bg-card p-6 shadow-sm md:p-8">
         <h2 className="flex items-center gap-2 text-base font-bold text-foreground">
           <Globe2 className="h-4.5 w-4.5 text-[#064E3B]" /> Preferences

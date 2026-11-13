@@ -4,22 +4,31 @@ import Link from "next/link"
 import { AlertCircle, CheckCircle2, X } from "lucide-react"
 
 /**
- * The one save-feedback toast used across the whole site — same design,
- * same words everywhere (ToolActionsBar tools and the freelance tools).
- * Success: deep-emerald card, "Saved to your Vault", a tappable
- * "View Vault" pill that opens the dashboard, and a dismiss button.
- * Error: red card with the message, no Vault link.
+ * The one toast used across the whole site — same design, same words
+ * everywhere (ToolActionsBar tools, the freelance tools, and the
+ * param-driven auth toasts via ParamToast). Success: deep-emerald card
+ * with a message, a tappable action pill, and a dismiss button. Error:
+ * red card with the message, no action link.
  * Auto-dismiss timing stays with the caller (5s, long enough to tap).
+ *
+ * The action pill defaults to "View Vault" → /dashboard, which is what
+ * every existing save caller relies on; ParamToast passes its own
+ * label/href per toast. The message defaults to the save copy for the
+ * same reason — existing callers pass no message at all.
  */
 export function SaveToast({
   show,
   variant = "success",
   message,
+  actionLabel = "View Vault",
+  actionHref = "/dashboard",
   onClose,
 }: {
   show: boolean
   variant?: "success" | "error"
   message?: string
+  actionLabel?: string
+  actionHref?: string
   onClose: () => void
 }) {
   if (!show) return null
@@ -41,10 +50,10 @@ export function SaveToast({
       </span>
       {!isError && (
         <Link
-          href="/dashboard"
+          href={actionHref}
           className="shrink-0 rounded-full bg-white/15 px-3 py-1.5 text-xs font-bold text-white transition hover:bg-white/25"
         >
-          View Vault
+          {actionLabel}
         </Link>
       )}
       <button

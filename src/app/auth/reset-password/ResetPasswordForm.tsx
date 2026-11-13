@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Loader2, CheckCircle2, Lock, AlertCircle } from 'lucide-react'
+import { Loader2, Lock, AlertCircle } from 'lucide-react'
 import { Logo } from '@/components/layout/Logo'
 import { createClient } from '@/utils/supabase/client'
 import Link from 'next/link'
@@ -12,18 +12,28 @@ import { useRouter } from 'next/navigation'
 
 /**
  * ResetPasswordForm — reached from the reset link in the email, via
- * /auth/callback, which exchanges the code for a session before landing
- * here. If there is no session (link expired, already used, or the page
- * was opened directly), the form is replaced with an expired-link message.
- * Minimum password length is 6, matching the project's password_min_length.
+ * /auth/confirm, which verifies the token and signs the user in before
+ * landing here. If there is no session (link expired, already used, or
+ * the page was opened directly), the form is replaced with an expired-
+ * link message. Minimum password length is 6, matching the project's
+ * password_min_length.
+ *
+ * Invite mode (?mode=invite, set by /auth/confirm after an invite link
+ * is verified): same form and same session check, with invite wording —
+ * "Set your password" instead of "Choose a new password".
+ *
+ * On success the form redirects to the dashboard — the ParamToast there
+ * carries the confirmation (?toast=password-changed, or
+ * ?toast=password-set for invites). There is no inline success screen.
  */
-export function ResetPasswordForm() {
+export function ResetPasswordForm({ mode = 'reset' }: { mode?: 'reset' | 'invite' }) {
+  const isInvite = mode === 'invite'
   const router = useRouter()
   const [sessionChecked, setSessionChecked] = useState(false)
   const [hasSession, setHasSession] = useState(false)
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const [status, setStatus] = useState<'idle' | 'loading' | 'error'>('idle')
   const [errorMessage, setErrorMessage] = useState('')
 
   useEffect(() => {
@@ -54,7 +64,9 @@ export function ResetPasswordForm() {
       setStatus('error')
       setErrorMessage(error.message)
     } else {
-      setStatus('success')
+      // Success is confirmed by the dashboard toast, not an inline
+      // screen — redirect straight there.
+      router.push(isInvite ? '/dashboard?toast=password-set' : '/dashboard?toast=password-changed')
     }
   }
 
@@ -71,33 +83,19 @@ export function ResetPasswordForm() {
     return (
       <div className="py-12 flex flex-col items-center justify-center space-y-4 animate-in fade-in zoom-in-95 duration-300">
         <AlertCircle className="h-12 w-12 text-destructive" />
-        <h3 className="text-2xl font-bold tracking-tight text-foreground mt-4">This link has expired</h3>
+        <h3 className="text-2xl font-bold tracking-tight text-foreground mt-4">
+          {isInvite ? 'This invite link has expired' : 'This link has expired'}
+        </h3>
         <p className="text-base text-muted-foreground text-center max-w-[300px]">
-          Reset links work once and last 1 hour. Request a new one to choose a new password.
+          {isInvite
+            ? 'Invite links work once and last 1 hour. Ask for a new invite to set up your account.'
+            : 'Reset links work once and last 1 hour. Request a new one to choose a new password.'}
         </p>
         <Button
-          onClick={() => router.push('/auth/forgot-password')}
+          onClick={() => router.push(isInvite ? '/login' : '/auth/forgot-password')}
           className="mt-2 h-12 rounded-xl text-base font-semibold bg-primary hover:bg-primary/90 transition-all active:scale-[0.98]"
         >
-          Request a new reset link
-        </Button>
-      </div>
-    )
-  }
-
-  if (status === 'success') {
-    return (
-      <div className="py-12 flex flex-col items-center justify-center space-y-4 animate-in fade-in zoom-in-95 duration-300">
-        <CheckCircle2 className="h-16 w-16 text-emerald-500" />
-        <h3 className="text-2xl font-bold tracking-tight text-foreground mt-4">Password changed</h3>
-        <p className="text-base text-muted-foreground text-center max-w-[300px]">
-          Your new password is set. You are signed in.
-        </p>
-        <Button
-          onClick={() => router.push('/dashboard')}
-          className="mt-2 h-12 rounded-xl text-base font-semibold bg-primary hover:bg-primary/90 transition-all active:scale-[0.98]"
-        >
-          Go to your dashboard
+          {isInvite ? 'Back to sign in' : 'Request a new reset link'}
         </Button>
       </div>
     )
@@ -110,10 +108,12 @@ export function ResetPasswordForm() {
           <Logo className="h-8 w-8 text-primary" />
         </div>
         <h2 className="text-2xl text-center font-bold tracking-tight text-foreground">
-          Choose a new password
+          {isInvite ? 'Set your password' : 'Choose a new password'}
         </h2>
         <p className="text-center text-sm text-muted-foreground mt-2">
-          At least 6 characters.
+          {isInvite
+            ? 'You accepted your invite — set a password to finish setting up your account.'
+            : 'At least 6 characters.'}
         </p>
       </div>
 
@@ -169,7 +169,7 @@ export function ResetPasswordForm() {
               <Loader2 className="h-5 w-5 animate-spin" /> Saving...
             </>
           ) : (
-            'Set new password'
+            isInvite ? 'Set password' : 'Set new password'
           )}
         </Button>
       </form>
