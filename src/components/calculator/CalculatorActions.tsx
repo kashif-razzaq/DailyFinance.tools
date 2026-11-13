@@ -17,6 +17,13 @@ export interface CalculatorActionsProps {
   onRequirePro: () => void;
   pdfDocument?: React.ReactElement;
   shareUrl: string;
+  /**
+   * Pro-only live sharing: auto-saves the current inputs as a public
+   * scenario and returns its live link. Passed through to the share modal.
+   * Optional — tools that render CalculatorActions directly (the freelance
+   * tools) do not supply it, and their share modal shows the plain link.
+   */
+  onGenerateLiveLink?: () => Promise<string | null>;
 }
 
 export function CalculatorActions({
@@ -28,7 +35,8 @@ export function CalculatorActions({
   exportFilename,
   onRequirePro,
   pdfDocument,
-  shareUrl
+  shareUrl,
+  onGenerateLiveLink
 }: CalculatorActionsProps) {
   const [activeTab, setActiveTab] = useState<'export' | 'help' | null>(null)
 
@@ -53,7 +61,7 @@ export function CalculatorActions({
             />
           </div>
           <div className="flex-1">
-            <ShareCalculatorModal url={shareUrl} slug={slug} isPro={isPro}>
+            <ShareCalculatorModal url={shareUrl} slug={slug} isPro={isPro} onGenerateLiveLink={onGenerateLiveLink}>
               <Button variant="outline" className="w-full flex gap-2 justify-center">
                 <Share2 className="h-4 w-4" /> Share
               </Button>
@@ -120,7 +128,7 @@ export function CalculatorActions({
         </button>
 
         {/* Share */}
-        <ShareCalculatorModal url={shareUrl} slug={slug} isPro={isPro}>
+        <ShareCalculatorModal url={shareUrl} slug={slug} isPro={isPro} onGenerateLiveLink={onGenerateLiveLink}>
           <button className="flex flex-col items-center justify-center w-full h-full text-muted-foreground hover:text-accent focus:outline-none transition-colors">
             <Share2 className="h-5 w-5 mb-1" />
             <span className="text-[10px] font-medium">Share</span>

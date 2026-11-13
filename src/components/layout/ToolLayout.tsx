@@ -64,11 +64,12 @@ export async function ToolLayout({
         isPro = true
       }
 
-      // Fetch total vault count
+      // Fetch total vault count (share-link rows are not Vault saves)
       const { count } = await supabase
         .from('saved_calculators')
         .select('*', { count: 'exact', head: true })
         .eq('user_id', user.id)
+        .eq('is_share_link', false)
 
       vaultCount = count || 0
     } catch {

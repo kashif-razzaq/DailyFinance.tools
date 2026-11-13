@@ -47,6 +47,7 @@ export default async function SettingsPage() {
         .from('saved_calculators')
         .select('*', { count: 'exact', head: true })
         .eq('user_id', user.id)
+        .eq('is_share_link', false) // Share-link rows are not Vault scenarios
     : { count: 0 }
 
   const email = user?.email ?? ''

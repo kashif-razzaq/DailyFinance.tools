@@ -59,10 +59,14 @@ async function vaultLimitMessage(supabase: Awaited<ReturnType<typeof getSupabase
     .eq('id', userId)
     .single()
   if (profile?.subscription_status === 'active') return null
+  // Share-link rows are not Vault scenarios: they never count towards
+  // the free limit (a downgraded Pro user's old share links must not
+  // block their manual saves).
   const { count } = await supabase
     .from('saved_calculators')
     .select('*', { count: 'exact', head: true })
     .eq('user_id', userId)
+    .eq('is_share_link', false)
   if ((count ?? 0) >= FREE_VAULT_LIMIT) {
     return `Free accounts can save up to ${FREE_VAULT_LIMIT} scenarios. Upgrade to Pro for unlimited Vault storage.`
   }
@@ -80,7 +84,7 @@ async function assertVaultCapacity(supabase: Awaited<ReturnType<typeof getSupaba
  *  result back into local errors with unwrapSaveResult (lib/save-result). */
 export type SaveCalculatorResult =
   | { ok: true; data: SavedCalculator }
-  | { ok: false; reason: 'unauthorized' | 'limit' | 'error'; message: string }
+  | { ok: false; reason: 'unauthorized' | 'limit' | 'forbidden' | 'error'; message: string }
 
 /**
  * Saves or updates a calculator scenario state for the logged-in user.
@@ -92,7 +96,8 @@ export async function saveCalculatorAction({
   saved_name,
   input_state,
   core_metric,
-  is_public = false
+  is_public = false,
+  is_share_link = false
 }: {
   id?: string;
   calculator_slug: string;
@@ -101,6 +106,7 @@ export async function saveCalculatorAction({
   input_state: Record<string, unknown>;
   core_metric?: number;
   is_public?: boolean;
+  is_share_link?: boolean;
 }): Promise<SaveCalculatorResult> {
   const supabase = await getSupabase()
 
@@ -111,6 +117,21 @@ export async function saveCalculatorAction({
     return { ok: false, reason: 'unauthorized' as const, message: 'Unauthorized' }
   }
 
+  // Live sharing is Pro-only: a public scenario is readable by anyone
+  // with its link, so only Pro accounts may create or update one as
+  // public. Checked here, server-side — the share modal's Pro gating
+  // is display only and cannot be trusted.
+  if (is_public) {
+    const { data: profile } = await supabase
+      .from('users')
+      .select('subscription_status')
+      .eq('id', user.id)
+      .single()
+    if (profile?.subscription_status !== 'active') {
+      return { ok: false, reason: 'forbidden' as const, message: 'Live sharing is a Pro feature. Upgrade to Pro to share scenarios.' }
+    }
+  }
+
   const payload = {
     user_id: user.id,
     calculator_slug,
@@ -119,6 +140,7 @@ export async function saveCalculatorAction({
     input_state,
     core_metric,
     is_public,
+    is_share_link,
   }
 
   let result;
@@ -206,6 +228,7 @@ export async function getSavedCalculatorsAction() {
     .from('saved_calculators')
     .select('*')
     .eq('user_id', user.id)
+    .eq('is_share_link', false) // Share-link rows are not Vault scenarios
     .order('last_updated', { ascending: false })
 
   if (error) throw new Error(error.message)
@@ -232,66 +255,6 @@ export async function deleteCalculatorAction(id: string) {
   
   revalidatePath('/dashboard')
   return true
-}
-
-export type SetCalculatorPublicResult =
-  | { ok: true; isPublic: boolean }
-  | { ok: false; reason: 'unauthorized' | 'forbidden' | 'not-found' | 'error'; message: string }
-
-/**
- * Turns live sharing on or off for one saved scenario (Pro only).
- *
- * The caller must own the scenario AND hold an active Pro subscription —
- * both checks run server-side; the Vault card's Pro gating is display
- * only. Sharing makes the scenario readable by anyone with its link
- * (see the "Public can view shared calculators" RLS policy); turning
- * sharing off makes the link open the tool with its defaults.
- */
-export async function setCalculatorPublicAction(
-  id: string,
-  isPublic: boolean
-): Promise<SetCalculatorPublicResult> {
-  const supabase = await getSupabase()
-
-  const { session, error: authError } = await getSessionSafe(supabase)
-  const user = session?.user
-  if (authError || !user) {
-    return { ok: false, reason: 'unauthorized', message: 'Unauthorized' }
-  }
-
-  // Ownership: the scenario must belong to the caller.
-  const { data: existing, error: fetchError } = await supabase
-    .from('saved_calculators')
-    .select('id')
-    .eq('id', id)
-    .eq('user_id', user.id)
-    .single()
-  if (fetchError || !existing) {
-    return { ok: false, reason: 'not-found', message: 'Scenario not found.' }
-  }
-
-  // Pro only: live sharing is a Pro feature (/pricing).
-  const { data: profile } = await supabase
-    .from('users')
-    .select('subscription_status')
-    .eq('id', user.id)
-    .single()
-  if (profile?.subscription_status !== 'active') {
-    return { ok: false, reason: 'forbidden', message: 'Live sharing is a Pro feature. Upgrade to Pro to share scenarios.' }
-  }
-
-  const { error } = await supabase
-    .from('saved_calculators')
-    .update({ is_public: isPublic })
-    .eq('id', id)
-    .eq('user_id', user.id)
-
-  if (error) {
-    return { ok: false, reason: 'error', message: error.message }
-  }
-
-  revalidatePath('/dashboard')
-  return { ok: true, isPublic }
 }
 
 /**

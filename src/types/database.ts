@@ -17,6 +17,7 @@ export interface SavedCalculator {
   input_state: Record<string, unknown>;
   core_metric?: number;
   is_public: boolean; // For embed/share logic
+  is_share_link: boolean; // Auto-saved by Pro live sharing — never shown in the Vault
   created_at: string;
   last_updated: string;
 }

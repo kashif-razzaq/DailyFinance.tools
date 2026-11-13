@@ -1,31 +1,96 @@
 /* eslint-disable react/no-unescaped-entities */
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogTrigger } from "@/components/ui/dialog"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { LinkIcon, Code2, Check, Sparkles, ArrowRight, Globe } from "lucide-react"
+import { LinkIcon, Code2, Check, Sparkles, ArrowRight, CheckCircle2 } from "lucide-react"
 import { Logo } from "@/components/layout/Logo"
+import { SaveToast } from "@/components/shared/SaveToast"
 
 interface ShareCalculatorModalProps {
   children: React.ReactNode
   url: string
   slug: string
   isPro?: boolean
+  /**
+   * Pro-only: auto-saves the current calculation as a public scenario and
+   * returns its live link (`?savedId=…`), or null when it could not be
+   * created. The caller owns the input state, so the modal cannot do this
+   * itself. Absent on tools that do not thread their input state here —
+   * those show the plain link even for Pro users.
+   */
+  onGenerateLiveLink?: () => Promise<string | null>
 }
 
-export function ShareCalculatorModal({ children, url, slug, isPro = false }: ShareCalculatorModalProps) {
+export function ShareCalculatorModal({ children, url, slug, isPro = false, onGenerateLiveLink }: ShareCalculatorModalProps) {
+  const [open, setOpen] = useState(false)
   const [copiedLink, setCopiedLink] = useState(false)
   const [copiedEmbed, setCopiedEmbed] = useState(false)
+  const [liveLink, setLiveLink] = useState<string | null>(null)
+  const [generating, setGenerating] = useState(false)
+  const [linkError, setLinkError] = useState<string | null>(null)
+  const [showCopyToast, setShowCopyToast] = useState(false)
+  // In-flight generation, so a quick close + reopen never saves twice.
+  const generationRef = useRef<Promise<string | null> | null>(null)
 
   const embedCode = `<script src="https://www.dailyfinance.tools/embed.js" data-calculator="${slug}" data-theme="light"></script>`
 
+  // The toast dismisses itself after 5s, like every other toast on the site.
+  useEffect(() => {
+    if (!showCopyToast) return
+    const t = setTimeout(() => setShowCopyToast(false), 5000)
+    return () => clearTimeout(t)
+  }, [showCopyToast])
+
+  const generateLiveLink = () => {
+    if (!isPro || !onGenerateLiveLink || generationRef.current) return
+    setGenerating(true)
+    setLinkError(null)
+    const pending = onGenerateLiveLink()
+    generationRef.current = pending
+    pending
+      .then((link) => {
+        if (link) {
+          setLiveLink(link)
+        } else {
+          setLinkError('Could not create a live link — the plain link is shown instead.')
+        }
+      })
+      .catch(() => {
+        setLinkError('Could not create a live link — the plain link is shown instead.')
+      })
+      .finally(() => {
+        generationRef.current = null
+        setGenerating(false)
+      })
+  }
+
+  const handleOpenChange = (next: boolean) => {
+    setOpen(next)
+    // The live link is generated on open, so the input renders the
+    // savedId link the moment the user sees it — no manual saving.
+    // Reopening regenerates (the caller reuses the saved link when the
+    // inputs have not changed, so no duplicate scenario is created).
+    if (next) generateLiveLink()
+  }
+
+  // Pro users with a live link see it in the input; everyone else sees
+  // the plain tool URL. While the link is being created, the input says so.
+  const displayedLink = liveLink ?? (generating ? 'Generating your live link…' : url)
+
   const handleCopyLink = () => {
-    navigator.clipboard.writeText(url)
-    setCopiedLink(true)
-    setTimeout(() => setCopiedLink(false), 2000)
+    // Copy the real link, never the "Generating…" placeholder text.
+    navigator.clipboard.writeText(liveLink ?? url)
+    if (liveLink) {
+      // Live link: the toast carries the Visit link action.
+      setShowCopyToast(true)
+    } else {
+      setCopiedLink(true)
+      setTimeout(() => setCopiedLink(false), 2000)
+    }
   }
 
   const handleCopyEmbed = () => {
@@ -35,7 +100,7 @@ export function ShareCalculatorModal({ children, url, slug, isPro = false }: Sha
   }
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger render={children as React.ReactElement} />
       <DialogContent className="w-[95vw] max-w-md sm:max-w-2xl p-6 sm:p-8 sm:rounded-[1rem] border-border/40 shadow-2xl overflow-hidden gap-0 animate-in fade-in zoom-in-95 duration-300 ease-out">
         <DialogHeader className="mb-6">
@@ -62,16 +127,19 @@ export function ShareCalculatorModal({ children, url, slug, isPro = false }: Sha
               </h4>
               <div className="flex items-center gap-2">
                 <div className="relative flex-1">
-                  <Input 
-                    readOnly 
-                    value={url} 
-                    className="bg-muted/50 border-emerald-400 focus-visible:ring-emerald-400 pr-10 truncate font-mono text-xs" 
+                  <Input
+                    readOnly
+                    value={displayedLink}
+                    className="bg-muted/50 border-emerald-400 focus-visible:ring-emerald-400 pr-10 truncate font-mono text-xs"
                   />
                 </div>
-                <Button onClick={handleCopyLink} variant="secondary" className="px-6 font-semibold bg-muted hover:bg-muted/80">
+                <Button onClick={handleCopyLink} disabled={generating} variant="secondary" className="px-6 font-semibold bg-muted hover:bg-muted/80">
                   {copiedLink ? <Check className="h-4 w-4 text-emerald-600" /> : "Copy"}
                 </Button>
               </div>
+              {linkError && (
+                <p className="text-xs font-medium text-destructive">{linkError}</p>
+              )}
             </div>
 
             {/* Premium Conversion Banner */}
@@ -114,16 +182,12 @@ export function ShareCalculatorModal({ children, url, slug, isPro = false }: Sha
               </>
             )}
 
-            {/* Pro users: live sharing lives on saved scenarios in the Vault */}
-            {isPro && (
+            {/* Pro users: the link above is live — it opens this calculation pre-filled. */}
+            {isPro && onGenerateLiveLink && (
               <div className="flex items-center gap-2 rounded-lg bg-muted/50 px-3 py-2.5 text-xs text-muted-foreground">
-                <Globe className="h-4 w-4 shrink-0 text-[#064E3B]" />
+                <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-600" />
                 <span>
-                  Live sharing is on — share any saved scenario from your{' '}
-                  <a href="/dashboard" className="font-bold text-[#064E3B] hover:underline">
-                    Vault
-                  </a>
-                  .
+                  <span className="font-bold text-foreground">Pro active</span> · Live sharing enabled — the link opens this calculation pre-filled.
                 </span>
               </div>
             )}
@@ -156,6 +220,17 @@ export function ShareCalculatorModal({ children, url, slug, isPro = false }: Sha
           </TabsContent>
         </Tabs>
       </DialogContent>
+
+      {/* Copy toast — outside the dialog content so it is never clipped by
+          it and stays visible if the modal is closed after copying. */}
+      <SaveToast
+        show={showCopyToast}
+        variant="success"
+        message="Link copied to clipboard"
+        actionLabel="Visit link"
+        actionHref={liveLink ?? url}
+        onClose={() => setShowCopyToast(false)}
+      />
     </Dialog>
   )
 }

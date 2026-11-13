@@ -291,7 +291,6 @@ export function VaultBrowser({
                   <ScenarioCard
                     key={calc.id}
                     calc={calc}
-                    isPro={isPro}
                     selectable
                     selected={compareIds.includes(calc.id)}
                     onToggleSelect={() => toggleCompare(calc)}
