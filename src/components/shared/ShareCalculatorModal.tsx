@@ -6,7 +6,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Di
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { LinkIcon, Code2, Check, Sparkles, ArrowRight } from "lucide-react"
+import { LinkIcon, Code2, Check, Sparkles, ArrowRight, Globe } from "lucide-react"
 import { Logo } from "@/components/layout/Logo"
 
 interface ShareCalculatorModalProps {
@@ -112,6 +112,20 @@ export function ShareCalculatorModal({ children, url, slug, isPro = false }: Sha
                   </a>
                 </div>
               </>
+            )}
+
+            {/* Pro users: live sharing lives on saved scenarios in the Vault */}
+            {isPro && (
+              <div className="flex items-center gap-2 rounded-lg bg-muted/50 px-3 py-2.5 text-xs text-muted-foreground">
+                <Globe className="h-4 w-4 shrink-0 text-[#064E3B]" />
+                <span>
+                  Live sharing is on — share any saved scenario from your{' '}
+                  <a href="/dashboard" className="font-bold text-[#064E3B] hover:underline">
+                    Vault
+                  </a>
+                  .
+                </span>
+              </div>
             )}
 
             {/* Embed Section */}

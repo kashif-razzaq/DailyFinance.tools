@@ -234,16 +234,75 @@ export async function deleteCalculatorAction(id: string) {
   return true
 }
 
+export type SetCalculatorPublicResult =
+  | { ok: true; isPublic: boolean }
+  | { ok: false; reason: 'unauthorized' | 'forbidden' | 'not-found' | 'error'; message: string }
+
+/**
+ * Turns live sharing on or off for one saved scenario (Pro only).
+ *
+ * The caller must own the scenario AND hold an active Pro subscription —
+ * both checks run server-side; the Vault card's Pro gating is display
+ * only. Sharing makes the scenario readable by anyone with its link
+ * (see the "Public can view shared calculators" RLS policy); turning
+ * sharing off makes the link open the tool with its defaults.
+ */
+export async function setCalculatorPublicAction(
+  id: string,
+  isPublic: boolean
+): Promise<SetCalculatorPublicResult> {
+  const supabase = await getSupabase()
+
+  const { session, error: authError } = await getSessionSafe(supabase)
+  const user = session?.user
+  if (authError || !user) {
+    return { ok: false, reason: 'unauthorized', message: 'Unauthorized' }
+  }
+
+  // Ownership: the scenario must belong to the caller.
+  const { data: existing, error: fetchError } = await supabase
+    .from('saved_calculators')
+    .select('id')
+    .eq('id', id)
+    .eq('user_id', user.id)
+    .single()
+  if (fetchError || !existing) {
+    return { ok: false, reason: 'not-found', message: 'Scenario not found.' }
+  }
+
+  // Pro only: live sharing is a Pro feature (/pricing).
+  const { data: profile } = await supabase
+    .from('users')
+    .select('subscription_status')
+    .eq('id', user.id)
+    .single()
+  if (profile?.subscription_status !== 'active') {
+    return { ok: false, reason: 'forbidden', message: 'Live sharing is a Pro feature. Upgrade to Pro to share scenarios.' }
+  }
+
+  const { error } = await supabase
+    .from('saved_calculators')
+    .update({ is_public: isPublic })
+    .eq('id', id)
+    .eq('user_id', user.id)
+
+  if (error) {
+    return { ok: false, reason: 'error', message: error.message }
+  }
+
+  revalidatePath('/dashboard')
+  return { ok: true, isPublic }
+}
+
 /**
  * Fetches a specific calculator by ID for embedding or sharing.
- * Bypass RLS if is_public is true by using a service role key OR ensuring RLS allows public reads on is_public=true.
+ * Public scenarios (is_public = true) are readable by anyone through the
+ * "Public can view shared calculators" RLS policy; private ones stay
+ * owner-only, enforced here as well as by RLS.
  */
 export async function getSharedCalculatorAction(id: string) {
   const supabase = await getSupabase()
-  
-  // Note: For true public sharing, the RLS policy must be updated to:
-  // CREATE POLICY "Public can view shared calculators" ON public.saved_calculators FOR SELECT USING (is_public = true);
-  
+
   const { data, error } = await supabase
     .from('saved_calculators')
     .select('*')
