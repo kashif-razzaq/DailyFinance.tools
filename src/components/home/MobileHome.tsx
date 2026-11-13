@@ -10,6 +10,7 @@ import {
   Calculator,
   ChevronRight,
   Clock,
+  Code2,
   Crown,
   MapPin,
   Search,
@@ -388,6 +389,27 @@ export function MobileHome() {
             className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-white px-5 py-2.5 text-sm font-bold text-[#064E3B] shadow transition-transform active:scale-95"
           >
             See what Pro includes <ChevronRight className="h-4 w-4" />
+          </Link>
+        </div>
+      </section>
+
+      {/* ── 5b · Embed band (with Pro) ─────────────────────────── */}
+      <section className="px-5 pt-8">
+        <div className="rounded-3xl border border-primary/20 bg-primary/5 p-6">
+          <div className="mb-3 flex items-center gap-2">
+            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#064E3B] text-white">
+              <Code2 className="h-5 w-5" />
+            </span>
+            <h2 className="text-lg font-extrabold tracking-tight text-foreground">Put our calculators on your site</h2>
+          </div>
+          <p className="text-sm font-light leading-relaxed text-muted-foreground">
+            Embed any of the 116 calculators on your own website — free. One line of code, auto-sizing to fit, with DailyFinance branding and a link back.
+          </p>
+          <Link
+            href="/embed"
+            className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-[#064E3B] px-5 py-2.5 text-sm font-bold text-white shadow transition-transform active:scale-95"
+          >
+            See how embeds work <ChevronRight className="h-4 w-4" />
           </Link>
         </div>
       </section>

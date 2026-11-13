@@ -10,6 +10,7 @@ import {
   Calculator,
   ChevronRight,
   Clock,
+  Code2,
   Crown,
   Globe2,
   Lock,
@@ -30,7 +31,7 @@ import { useMyTools, type ToolWithCategory } from '@/components/home/useMyTools'
  * the mobile app-style homepage: search-first hero with the animated
  * "calculators" word, Your Tools retention (shared localStorage state with
  * mobile via useMyTools), popular tools with pin-to-favourite, category
- * cards, Pro banner, hubs, guides and the trust row. All counts and links
+ * cards, Pro banner, embed band, hubs, guides and the trust row. All counts and links
  * come from the live navigation/guide data — nothing is hard-coded.
  */
 export function DesktopHome() {
@@ -392,6 +393,40 @@ export function DesktopHome() {
                 >
                   See what Pro includes <ChevronRight className="h-4 w-4" />
                 </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 6 · Embed band (with Pro) ──────────────────────────── */}
+      <section className="bg-card pb-20">
+        <div className="container mx-auto px-8">
+          <div className="overflow-hidden rounded-[2rem] border border-primary/20 bg-primary/5">
+            <div className="grid items-center gap-10 p-10 lg:grid-cols-[1.4fr_1fr] lg:p-14">
+              <div>
+                <div className="mb-4 flex items-center gap-2.5">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#064E3B] text-white">
+                    <Code2 className="h-5 w-5" />
+                  </span>
+                  <h2 className="text-2xl font-extrabold tracking-tight text-foreground">Put our calculators on your site</h2>
+                </div>
+                <p className="max-w-xl font-light leading-relaxed text-muted-foreground">
+                  Embed any of the 116 calculators on your own website — free. One line of code,
+                  auto-sizing to fit, with DailyFinance branding and a link back. No account needed.
+                </p>
+                <Link
+                  href="/embed"
+                  className="mt-6 inline-flex items-center gap-1.5 rounded-full bg-[#064E3B] px-6 py-3 text-sm font-bold text-white shadow transition-transform hover:scale-[1.02]"
+                >
+                  See how embeds work <ChevronRight className="h-4 w-4" />
+                </Link>
+              </div>
+              <div className="rounded-2xl bg-[#0B1F17] p-5 shadow-inner">
+                <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.14em] text-emerald-300/70">One line of code</p>
+                <code className="block break-all font-mono text-[13px] leading-relaxed text-emerald-100">
+                  &lt;script src=&quot;https://www.dailyfinance.tools/embed.js&quot; data-calculator=&quot;mortgage-payment-calculator&quot;&gt;&lt;/script&gt;
+                </code>
               </div>
             </div>
           </div>

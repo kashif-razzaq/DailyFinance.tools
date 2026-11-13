@@ -124,7 +124,7 @@ export function Footer() {
                   <span aria-hidden="true" className="mt-2 block h-0.5 w-6 rounded bg-[#D97706]" />
                 </div>
                 <ul className="flex flex-col gap-2.5">
-                  {[["About", "/about"], ["Contact", "/contact"], ["Pricing", "/pricing"], ["Methodology", "/methodology"], ["Editorial Policy", "/editorial-policy"], ["Sitemap", "/sitemap"]].map(([label, href]) => (
+                  {[["About", "/about"], ["Contact", "/contact"], ["Pricing", "/pricing"], ["Embed calculators", "/embed"], ["Methodology", "/methodology"], ["Editorial Policy", "/editorial-policy"], ["Sitemap", "/sitemap"]].map(([label, href]) => (
                     <li key={href}>
                       <Link href={href} className="text-[13px] text-muted-foreground hover:text-foreground transition-colors leading-tight">
                         {label}
