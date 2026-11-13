@@ -2,6 +2,7 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
+import { searchEntries } from '@/lib/tool-search'
 import {
   navigationCategories,
   getToolUrl,
@@ -133,18 +134,22 @@ export function useMyTools() {
   const recentTools = recents.map((slug) => toolBySlug.get(slug)).filter(Boolean) as ToolWithCategory[]
   const hasYourTools = favouriteTools.length > 0 || recentTools.length > 0
 
-  const searchTools = (query: string, limit = 8): ToolWithCategory[] => {
-    const q = query.trim().toLowerCase()
-    if (!q) return []
-    return allTools
-      .filter(
-        ({ tool, category }) =>
-          tool.title.toLowerCase().includes(q) ||
-          tool.description.toLowerCase().includes(q) ||
-          category.name.toLowerCase().includes(q)
-      )
-      .slice(0, limit)
-  }
+  // Live search — delegates to the shared matcher in src/lib/tool-search
+  // (same rules as the /tools?q= route). CalculatorItem has no keywords
+  // field, so the slug's words act as aliases: "mortgage-amortization-
+  // calculator" matches "amortization" even where the title does not say it.
+  const searchTools = (query: string, limit = 8): ToolWithCategory[] =>
+    searchEntries(
+      query,
+      allTools,
+      ({ tool, category }) => ({
+        title: tool.title,
+        keywords: tool.slug.split('-'),
+        categoryName: category.name,
+        description: tool.description,
+      }),
+      limit
+    )
 
   return {
     mounted,

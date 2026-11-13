@@ -25,7 +25,7 @@ export function CurrencySelector({ variant = 'header' }: { variant?: 'header' | 
     // SSR placeholder — dimensions MUST match the hydrated trigger exactly
     // (fixed widths + min-h-44), or the header cluster shifts on hydration.
     return (
-      <div className={variant === 'menu' ? "w-full h-10 bg-muted/50 rounded-lg animate-pulse" : "w-[92px] md:w-[104px] min-h-[44px] bg-muted/50 rounded-md animate-pulse"}></div>
+      <div className={variant === 'menu' ? "w-full min-h-10 bg-muted/50 rounded-lg animate-pulse" : "w-[92px] md:w-[104px] min-h-[44px] bg-muted/50 rounded-md animate-pulse"}></div>
     )
   }
 
@@ -35,8 +35,10 @@ export function CurrencySelector({ variant = 'header' }: { variant?: 'header' | 
         }}>
       {/* Header trigger: fixed width (content is always a 3-letter code) and
           min-h-44 touch target. min-h is used deliberately — the base
-          SelectTrigger's data-[size=default]:h-8 outranks a plain h-9. */}
-      <SelectTrigger className={variant === 'menu' ? "w-full h-10 justify-between gap-2 px-3 rounded-lg border bg-background hover:bg-muted/50 transition-colors" : "w-[92px] md:w-[104px] min-h-[44px] gap-1 md:gap-1.5 px-2 md:px-3 border-transparent bg-transparent focus:ring-0 focus:ring-offset-0 hover:bg-muted/50 transition-colors"}>
+          SelectTrigger's data-[size=default]:h-8 outranks a plain h-9.
+          The menu variant uses min-h-10 for the same reason, matching its
+          placeholder exactly. */}
+      <SelectTrigger className={variant === 'menu' ? "w-full min-h-10 justify-between gap-2 px-3 rounded-lg border bg-background hover:bg-muted/50 transition-colors" : "w-[92px] md:w-[104px] min-h-[44px] gap-1 md:gap-1.5 px-2 md:px-3 border-transparent bg-transparent focus:ring-0 focus:ring-offset-0 hover:bg-muted/50 transition-colors"}>
         <Globe className="h-4 w-4 text-muted-foreground shrink-0" />
         <SelectValue placeholder="USD" />
       </SelectTrigger>

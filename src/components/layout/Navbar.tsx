@@ -62,7 +62,11 @@ export async function Navbar() {
 
         {/* Right Side: CTA & Auth */}
         <div className="flex items-center gap-3">
-          {!user && <CurrencySelector />}
+          {!user && (
+            <div className="hidden md:block">
+              <CurrencySelector />
+            </div>
+          )}
           {user ? (
             <UserBadge user={user} isPremium={isPremium} />
           ) : (
@@ -74,11 +78,13 @@ export async function Navbar() {
               </AuthModal>
               <AuthModal>
                 <div 
-                  className="flex sm:hidden items-center justify-center bg-primary/10 rounded-lg min-w-[48px] min-h-[44px] text-primary hover:bg-primary/20 transition-colors cursor-pointer"
+                  className="group flex sm:hidden items-center justify-center p-[6px] cursor-pointer"
                   aria-label="Sign In"
                   role="button"
                 >
-                  <User className="h-4 w-4" />
+                  <div className="flex items-center justify-center bg-primary/10 rounded-lg w-9 h-9 text-primary group-hover:bg-primary/20 transition-colors">
+                    <User className="h-4 w-4" />
+                  </div>
                 </div>
               </AuthModal>
             </>

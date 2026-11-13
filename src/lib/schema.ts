@@ -14,8 +14,9 @@
  * matches the "data reviewed Nov 2026" line shown on location pages.
  *
  * Deliberately NOT emitted anywhere: aggregateRating/review (no real
- * ratings exist), SearchAction (the site has no search results route),
- * VideoObject (no videos).
+ * ratings exist), VideoObject (no videos). SearchAction IS emitted by
+ * webSite(): /tools consumes ?q= and returns matching tools, so the
+ * sitelinks search box target is a real search route.
  */
 
 export const SITE_URL = "https://www.dailyfinance.tools"
@@ -83,9 +84,9 @@ export function organization() {
 }
 
 export function webSite() {
-  // No SearchAction: the site has no search results route (the /tools
-  // directory does not consume a query parameter), so claiming one would
-  // point search engines at a URL that does not perform a search.
+  // SearchAction: /tools consumes ?q= and returns matching tools, so the
+  // sitelinks search box target is a real search route (this claim is
+  // honest only because the route exists — see src/app/tools/page.tsx).
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -93,6 +94,14 @@ export function webSite() {
     name: "DailyFinance.tools",
     url: SITE_URL,
     publisher: publisherRef(),
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: "https://www.dailyfinance.tools/tools?q={search_term_string}",
+      },
+      "query-input": "required name=search_term_string",
+    },
   }
 }
 

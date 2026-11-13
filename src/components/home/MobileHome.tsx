@@ -3,8 +3,9 @@
 
 import { CalcWord } from '@/components/home/CalcWord'
 import { GuideImage } from "@/components/shared/GuideImage"
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import {
   Calculator,
   ChevronRight,
@@ -33,8 +34,11 @@ import { GUIDES } from '@/data/guides'
 const A2HS_KEY = 'df-a2hs-dismissed'
 
 export function MobileHome() {
+  const router = useRouter()
   const [query, setQuery] = useState('')
   const [searchFocused, setSearchFocused] = useState(false)
+  const [highlighted, setHighlighted] = useState(-1)
+  const searchInputRef = useRef<HTMLInputElement>(null)
   const [showA2hs, setShowA2hs] = useState(false)
   const {
     mounted,
@@ -50,6 +54,35 @@ export function MobileHome() {
   } = useMyTools()
 
   const searchResults = searchTools(query)
+  const trimmedQuery = query.trim()
+  const showDropdown = trimmedQuery.length > 0 && searchFocused
+  const resultsHref = `/tools?q=${encodeURIComponent(trimmedQuery)}`
+  // Full count for the "See all results" row (the dropdown shows the top 8).
+  const totalResults = showDropdown ? searchTools(query, Number.MAX_SAFE_INTEGER).length : 0
+
+  const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      e.preventDefault()
+      if (searchResults.length === 0) return
+      setHighlighted((h) =>
+        e.key === 'ArrowDown'
+          ? (h + 1) % searchResults.length
+          : (h - 1 + searchResults.length) % searchResults.length
+      )
+    } else if (e.key === 'Enter') {
+      const hit = highlighted >= 0 ? searchResults[highlighted] : undefined
+      if (hit) {
+        recordRecent(hit.tool.slug)
+        router.push(getToolUrl(hit.tool.slug))
+      } else if (trimmedQuery) {
+        router.push(resultsHref)
+      }
+    } else if (e.key === 'Escape') {
+      setSearchFocused(false)
+      setHighlighted(-1)
+      searchInputRef.current?.blur()
+    }
+  }
 
   useEffect(() => {
     const standalone =
@@ -135,43 +168,76 @@ export function MobileHome() {
               <Search className={`h-5 w-5 ${searchFocused ? 'text-[#064E3B]' : 'text-muted-foreground'}`} />
             </span>
             <input
+              ref={searchInputRef}
               type="text"
               inputMode="search"
-              placeholder="Search calculators — try “mortgage”"
+              placeholder="Search calculators…"
               className="w-full bg-transparent py-3.5 pr-4 text-base font-medium text-foreground outline-none placeholder:text-muted-foreground"
               value={query}
-              onChange={(e) => setQuery(e.target.value)}
+              onChange={(e) => {
+                setQuery(e.target.value)
+                setHighlighted(-1)
+              }}
+              onKeyDown={handleSearchKeyDown}
               onFocus={() => setSearchFocused(true)}
               onBlur={() => setTimeout(() => setSearchFocused(false), 200)}
               aria-label="Search calculators"
+              aria-expanded={showDropdown}
+              aria-activedescendant={
+                highlighted >= 0 && searchResults[highlighted]
+                  ? `mobile-search-result-${searchResults[highlighted].tool.slug}`
+                  : undefined
+              }
             />
           </div>
 
-          {query.trim().length > 0 && searchFocused && (
-            <div className="absolute inset-x-0 top-full mt-2 overflow-hidden rounded-2xl border border-border bg-card shadow-[0_24px_50px_-12px_rgba(0,0,0,0.25)]">
+          {showDropdown && (
+            <div
+              role="listbox"
+              aria-label="Search results"
+              className="absolute inset-x-0 top-full mt-2 overflow-hidden rounded-2xl border border-border bg-card shadow-[0_24px_50px_-12px_rgba(0,0,0,0.25)]"
+            >
               {searchResults.length > 0 ? (
-                <div className="max-h-[60vh] overflow-y-auto py-1.5">
-                  {searchResults.map(({ tool, category }) => {
-                    const Icon = tool.icon || Calculator
-                    return (
-                      <Link
-                        key={tool.slug}
-                        href={getToolUrl(tool.slug)}
-                        onClick={() => recordRecent(tool.slug)}
-                        className="flex items-center gap-3 px-4 py-3 transition-colors active:bg-muted"
-                      >
-                        <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${category.colorClass}`}>
-                          <Icon className="h-5 w-5" />
-                        </span>
-                        <span className="min-w-0 flex-1">
-                          <span className="block truncate text-[15px] font-bold text-foreground">{tool.title}</span>
-                          <span className="block truncate text-[13px] font-light text-muted-foreground">{category.name}</span>
-                        </span>
-                        <ChevronRight className="h-5 w-5 shrink-0 text-muted-foreground/60" />
-                      </Link>
-                    )
-                  })}
-                </div>
+                <>
+                  <div className="max-h-[60vh] overflow-y-auto py-1.5">
+                    {searchResults.map(({ tool, category }, i) => {
+                      const Icon = tool.icon || Calculator
+                      return (
+                        <Link
+                          key={tool.slug}
+                          id={`mobile-search-result-${tool.slug}`}
+                          role="option"
+                          aria-selected={i === highlighted}
+                          href={getToolUrl(tool.slug)}
+                          onClick={() => recordRecent(tool.slug)}
+                          onMouseEnter={() => setHighlighted(i)}
+                          className={`flex items-center gap-3 px-4 py-3 transition-colors active:bg-muted ${i === highlighted ? 'bg-muted' : ''}`}
+                        >
+                          <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${category.colorClass}`}>
+                            <Icon className="h-5 w-5" />
+                          </span>
+                          <span className="min-w-0 flex-1">
+                            <span className="block truncate text-[15px] font-bold text-foreground">{tool.title}</span>
+                            <span className="block truncate text-[13px] font-light text-muted-foreground">{category.name}</span>
+                          </span>
+                          <ChevronRight className="h-5 w-5 shrink-0 text-muted-foreground/60" />
+                        </Link>
+                      )
+                    })}
+                  </div>
+                  <Link
+                    href={resultsHref}
+                    className="flex items-center gap-3 border-t border-border px-4 py-3.5 transition-colors active:bg-muted"
+                  >
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#064E3B]/[0.06] text-[#064E3B]">
+                      <Search className="h-5 w-5" />
+                    </span>
+                    <span className="min-w-0 flex-1 text-[15px] font-bold text-foreground">
+                      See all {totalResults} result{totalResults === 1 ? '' : 's'} for “{trimmedQuery}”
+                    </span>
+                    <ChevronRight className="h-5 w-5 shrink-0 text-muted-foreground/60" />
+                  </Link>
+                </>
               ) : (
                 <p className="px-4 py-5 text-center text-sm font-light text-muted-foreground">
                   No calculators match “{query.trim()}”. Try “tax”, “loan” or “ROI”.

@@ -98,9 +98,10 @@ export function UserBadge({ user, isPremium }: { user: any; isPremium?: boolean 
         <ChevronDown className={`h-4 w-4 text-muted-foreground transition-transform ${isOpen ? 'rotate-180' : ''}`} />
       </button>
 
-      {/* Mobile button */}
+      {/* Mobile button — same 48×48 footprint as the hamburger (p-[6px]
+          around the 36×36 avatar), so size and edge spacing match. */}
       <button
-        className="flex items-center justify-center transition-opacity hover:opacity-80 focus:outline-none sm:hidden"
+        className="flex items-center justify-center p-[6px] transition-opacity hover:opacity-80 focus:outline-none sm:hidden"
         onClick={() => setIsOpen(!isOpen)}
         aria-haspopup="menu"
         aria-expanded={isOpen}

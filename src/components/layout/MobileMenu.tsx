@@ -4,8 +4,9 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { navigationCategories, getToolUrl } from '@/config/navigation'
-import { X, ChevronRight, ArrowRight, User } from 'lucide-react'
+import { X, ChevronRight, ArrowRight, User, Globe } from 'lucide-react'
 import { ThemeToggle } from '@/components/layout/ThemeToggle'
+import { CurrencySelector } from '@/components/layout/CurrencySelector'
 import { Button, buttonVariants } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
@@ -131,9 +132,20 @@ export function MobileMenu({ user }: { user?: any }) {
         </div>
       </div>
 
-      {/* Appearance */}
+      {/* Settings */}
       <div className="border-t px-4 py-2">
         <ThemeToggle variant="row" />
+        {!user && (
+          <div className="flex items-center justify-between gap-3 px-2 py-3">
+            <span className="flex items-center gap-2.5 text-base font-medium shrink-0">
+              <Globe className="h-5 w-5 text-muted-foreground" />
+              Currency
+            </span>
+            <div className="w-[140px] shrink-0">
+              <CurrencySelector variant="menu" />
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Sticky Auth Footer */}

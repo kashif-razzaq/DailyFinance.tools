@@ -1,8 +1,9 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { GuideImage } from "@/components/shared/GuideImage"
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import {
   ArrowRight,
   ArrowUpRight,
@@ -33,8 +34,11 @@ import { useMyTools, type ToolWithCategory } from '@/components/home/useMyTools'
  * come from the live navigation/guide data — nothing is hard-coded.
  */
 export function DesktopHome() {
+  const router = useRouter()
   const [query, setQuery] = useState('')
   const [searchFocused, setSearchFocused] = useState(false)
+  const [highlighted, setHighlighted] = useState(-1)
+  const searchInputRef = useRef<HTMLInputElement>(null)
   const {
     mounted,
     favourites,
@@ -50,6 +54,35 @@ export function DesktopHome() {
   } = useMyTools()
 
   const searchResults = searchTools(query, 7)
+  const trimmedQuery = query.trim()
+  const showDropdown = trimmedQuery.length > 0 && searchFocused
+  const resultsHref = `/tools?q=${encodeURIComponent(trimmedQuery)}`
+  // Full count for the "See all results" row (the dropdown shows the top 7).
+  const totalResults = showDropdown ? searchTools(query, Number.MAX_SAFE_INTEGER).length : 0
+
+  const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      e.preventDefault()
+      if (searchResults.length === 0) return
+      setHighlighted((h) =>
+        e.key === 'ArrowDown'
+          ? (h + 1) % searchResults.length
+          : (h - 1 + searchResults.length) % searchResults.length
+      )
+    } else if (e.key === 'Enter') {
+      const hit = highlighted >= 0 ? searchResults[highlighted] : undefined
+      if (hit) {
+        recordRecent(hit.tool.slug)
+        router.push(getToolUrl(hit.tool.slug))
+      } else if (trimmedQuery) {
+        router.push(resultsHref)
+      }
+    } else if (e.key === 'Escape') {
+      setSearchFocused(false)
+      setHighlighted(-1)
+      searchInputRef.current?.blur()
+    }
+  }
 
   const renderToolCard = (entry: ToolWithCategory) => {
     const { tool, category } = entry
@@ -127,45 +160,78 @@ export function DesktopHome() {
                 <Search className={`h-6 w-6 ${searchFocused ? 'text-[#064E3B]' : 'text-muted-foreground'}`} />
               </span>
               <input
+                ref={searchInputRef}
                 type="text"
                 placeholder="Search calculators — try “mortgage”, “paycheck”, “ROI”…"
                 className="w-full bg-transparent py-[18px] pr-4 text-lg font-medium text-foreground outline-none placeholder:text-muted-foreground"
                 value={query}
-                onChange={(e) => setQuery(e.target.value)}
+                onChange={(e) => {
+                  setQuery(e.target.value)
+                  setHighlighted(-1)
+                }}
+                onKeyDown={handleSearchKeyDown}
                 onFocus={() => setSearchFocused(true)}
                 onBlur={() => setTimeout(() => setSearchFocused(false), 200)}
                 aria-label="Search calculators"
+                aria-expanded={showDropdown}
+                aria-activedescendant={
+                  highlighted >= 0 && searchResults[highlighted]
+                    ? `desktop-search-result-${searchResults[highlighted].tool.slug}`
+                    : undefined
+                }
               />
               <span className="mr-4 hidden items-center gap-1 rounded-md border border-border bg-muted px-2 py-1 text-[11px] font-semibold text-muted-foreground lg:flex">
                 {allTools.length} tools
               </span>
             </div>
 
-            {query.trim().length > 0 && searchFocused && (
-              <div className="absolute inset-x-0 top-full mt-2 overflow-hidden rounded-2xl border border-border bg-card text-left shadow-[0_24px_50px_-12px_rgba(0,0,0,0.25)]">
+            {showDropdown && (
+              <div
+                role="listbox"
+                aria-label="Search results"
+                className="absolute inset-x-0 top-full mt-2 overflow-hidden rounded-2xl border border-border bg-card text-left shadow-[0_24px_50px_-12px_rgba(0,0,0,0.25)]"
+              >
                 {searchResults.length > 0 ? (
-                  <div className="max-h-[55vh] overflow-y-auto py-1.5">
-                    {searchResults.map(({ tool, category }) => {
-                      const Icon = tool.icon || Calculator
-                      return (
-                        <Link
-                          key={tool.slug}
-                          href={getToolUrl(tool.slug)}
-                          onClick={() => recordRecent(tool.slug)}
-                          className="flex items-center gap-4 px-5 py-3 transition-colors hover:bg-muted"
-                        >
-                          <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${category.colorClass}`}>
-                            <Icon className="h-5 w-5" />
-                          </span>
-                          <span className="min-w-0 flex-1">
-                            <span className="block truncate text-[15px] font-bold text-foreground">{tool.title}</span>
-                            <span className="block truncate text-[13px] font-light text-muted-foreground">{category.name}</span>
-                          </span>
-                          <ChevronRight className="h-5 w-5 shrink-0 text-muted-foreground/60" />
-                        </Link>
-                      )
-                    })}
-                  </div>
+                  <>
+                    <div className="max-h-[55vh] overflow-y-auto py-1.5">
+                      {searchResults.map(({ tool, category }, i) => {
+                        const Icon = tool.icon || Calculator
+                        return (
+                          <Link
+                            key={tool.slug}
+                            id={`desktop-search-result-${tool.slug}`}
+                            role="option"
+                            aria-selected={i === highlighted}
+                            href={getToolUrl(tool.slug)}
+                            onClick={() => recordRecent(tool.slug)}
+                            onMouseEnter={() => setHighlighted(i)}
+                            className={`flex items-center gap-4 px-5 py-3 transition-colors hover:bg-muted ${i === highlighted ? 'bg-muted' : ''}`}
+                          >
+                            <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${category.colorClass}`}>
+                              <Icon className="h-5 w-5" />
+                            </span>
+                            <span className="min-w-0 flex-1">
+                              <span className="block truncate text-[15px] font-bold text-foreground">{tool.title}</span>
+                              <span className="block truncate text-[13px] font-light text-muted-foreground">{category.name}</span>
+                            </span>
+                            <ChevronRight className="h-5 w-5 shrink-0 text-muted-foreground/60" />
+                          </Link>
+                        )
+                      })}
+                    </div>
+                    <Link
+                      href={resultsHref}
+                      className="flex items-center gap-4 border-t border-border px-5 py-3.5 transition-colors hover:bg-muted"
+                    >
+                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#064E3B]/[0.06] text-[#064E3B]">
+                        <Search className="h-5 w-5" />
+                      </span>
+                      <span className="min-w-0 flex-1 text-[15px] font-bold text-foreground">
+                        See all {totalResults} result{totalResults === 1 ? '' : 's'} for “{trimmedQuery}”
+                      </span>
+                      <ChevronRight className="h-5 w-5 shrink-0 text-muted-foreground/60" />
+                    </Link>
+                  </>
                 ) : (
                   <p className="px-5 py-6 text-center text-sm font-light text-muted-foreground">
                     No calculators match “{query.trim()}”. Try “tax”, “loan” or “ROI”.
