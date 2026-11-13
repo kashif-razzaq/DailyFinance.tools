@@ -1,52 +1,31 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
-import { CheckCircle2, Loader2, AlertCircle } from 'lucide-react'
+import { useCallback, useEffect, useState } from 'react'
+import { CheckCircle2, Loader2, AlertCircle, RefreshCw } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
 import {
   submitContactAction,
+  generateMathCaptchaAction,
+  type ContactSubmitResult,
+  type MathCaptchaChallenge,
 } from '@/actions/contact.actions'
 import { CONTACT_TYPES, type ContactInquiryType } from '@/lib/contact'
 
 /**
  * ContactForm — the /contact form: name, email, inquiry type, message,
- * plus a Cloudflare Turnstile check and a honeypot field.
+ * plus a math-question check and a honeypot field.
  *
- * The Turnstile widget loads from Cloudflare and renders explicitly into
- * the container below. When NEXT_PUBLIC_TURNSTILE_SITE_KEY is not set
- * (keys not configured yet), no widget renders and the server action
- * skips verification — the form still works, but it is unprotected until
- * the keys are added to Vercel.
+ * The math question is issued by the server as an HMAC-signed challenge
+ * (see contact.actions.ts) and verified server-side on submit — the
+ * client never sees the answer. A wrong answer shows an inline error and
+ * loads a fresh question.
  *
  * The inquiry type can be preselected with ?type= on the URL (validated
  * server-side in page.tsx and passed in as initialType).
  */
-
-type TurnstileApi = {
-  render: (
-    container: HTMLElement,
-    options: {
-      sitekey: string
-      theme?: 'light' | 'dark' | 'auto'
-      callback?: (token: string) => void
-      'expired-callback'?: () => void
-      'error-callback'?: () => void
-    }
-  ) => string
-  remove: (widgetId: string) => void
-}
-
-declare global {
-  interface Window {
-    turnstile?: TurnstileApi
-  }
-}
-
-const SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
-const TURNSTILE_SCRIPT = 'https://challenges.cloudflare.com/turnstile/v0/api.js'
 
 export function ContactForm({ initialType = 'other' }: { initialType?: ContactInquiryType }) {
   const [name, setName] = useState('')
@@ -54,56 +33,30 @@ export function ContactForm({ initialType = 'other' }: { initialType?: ContactIn
   const [type, setType] = useState<ContactInquiryType>(initialType)
   const [message, setMessage] = useState('')
   const [honeypot, setHoneypot] = useState('')
-  const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
+  const [challenge, setChallenge] = useState<MathCaptchaChallenge | null>(null)
+  const [challengeLoading, setChallengeLoading] = useState(true)
+  const [captchaAnswer, setCaptchaAnswer] = useState('')
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [errorMessage, setErrorMessage] = useState('')
-  const widgetRef = useRef<HTMLDivElement>(null)
-  const widgetIdRef = useRef<string | null>(null)
 
-  // Load the Turnstile script once and render the widget explicitly.
-  useEffect(() => {
-    if (!SITE_KEY || !widgetRef.current) return
-    let cancelled = false
-
-    const renderWidget = () => {
-      if (cancelled || !widgetRef.current || !window.turnstile || widgetIdRef.current) return
-      widgetIdRef.current = window.turnstile.render(widgetRef.current, {
-        sitekey: SITE_KEY,
-        theme: 'auto',
-        callback: (token: string) => setTurnstileToken(token),
-        'expired-callback': () => setTurnstileToken(null),
-        'error-callback': () => setTurnstileToken(null),
-      })
-    }
-
-    if (window.turnstile) {
-      renderWidget()
-    } else {
-      const existing = document.querySelector(`script[src="${TURNSTILE_SCRIPT}"]`)
-      if (existing) {
-        existing.addEventListener('load', renderWidget)
-      } else {
-        const script = document.createElement('script')
-        script.src = TURNSTILE_SCRIPT
-        script.async = true
-        script.defer = true
-        script.addEventListener('load', renderWidget)
-        document.head.appendChild(script)
-      }
-    }
-
-    return () => {
-      cancelled = true
-      if (widgetIdRef.current && window.turnstile) {
-        try {
-          window.turnstile.remove(widgetIdRef.current)
-        } catch {
-          // Widget already gone — nothing to clean up.
-        }
-        widgetIdRef.current = null
-      }
+  const loadChallenge = useCallback(async () => {
+    setChallengeLoading(true)
+    setCaptchaAnswer('')
+    try {
+      setChallenge(await generateMathCaptchaAction())
+    } catch {
+      // Challenge failed to load — the form shows a retry, and a submit
+      // without a challenge surfaces as a verification error.
+      setChallenge(null)
+    } finally {
+      setChallengeLoading(false)
     }
   }, [])
+
+  // Load the first question when the form mounts.
+  useEffect(() => {
+    loadChallenge()
+  }, [loadChallenge])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -111,20 +64,35 @@ export function ContactForm({ initialType = 'other' }: { initialType?: ContactIn
     setStatus('loading')
     setErrorMessage('')
 
-    const result = await submitContactAction({
-      name,
-      email,
-      type,
-      message,
-      turnstileToken,
-      honeypot,
-    })
+    let result: ContactSubmitResult
+    try {
+      result = await submitContactAction({
+        name,
+        email,
+        type,
+        message,
+        captcha: challenge ? { ...challenge, answer: captchaAnswer } : null,
+        honeypot,
+      })
+    } catch {
+      // The action itself threw (network or server failure) instead of
+      // returning an error — surface the form's error state rather than
+      // leaving the button stuck on "Sending…".
+      setStatus('error')
+      setErrorMessage('Something went wrong sending your message. Please try again.')
+      return
+    }
 
     if (result.ok) {
       setStatus('success')
     } else {
       setStatus('error')
       setErrorMessage(result.error)
+      // A failed verification gets a fresh question, so the old answer
+      // cannot simply be retried.
+      if (result.refreshCaptcha) {
+        await loadChallenge()
+      }
     }
   }
 
@@ -139,6 +107,14 @@ export function ContactForm({ initialType = 'other' }: { initialType?: ContactIn
       </div>
     )
   }
+
+  const opWord = challenge
+    ? challenge.op === '×'
+      ? 'times'
+      : challenge.op === '-'
+        ? 'minus'
+        : 'plus'
+    : ''
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
@@ -220,7 +196,56 @@ export function ContactForm({ initialType = 'other' }: { initialType?: ContactIn
         />
       </div>
 
-      {SITE_KEY && <div ref={widgetRef} className="min-h-[65px]" />}
+      {/* Math question — issued by the server as a signed challenge, so the
+          answer is verified server-side and cannot be forged. */}
+      <div className="space-y-2">
+        <Label htmlFor="contact-captcha">Verification</Label>
+        {challenge ? (
+          <div className="flex items-center gap-3">
+            <span aria-hidden="true" className="text-base font-semibold text-foreground tabular-nums">
+              {challenge.a} {challenge.op} {challenge.b} =
+            </span>
+            <Input
+              id="contact-captcha"
+              type="text"
+              inputMode="numeric"
+              autoComplete="off"
+              placeholder="Answer"
+              aria-label={`What is ${challenge.a} ${opWord} ${challenge.b}?`}
+              value={captchaAnswer}
+              onChange={(e) => setCaptchaAnswer(e.target.value)}
+              required
+              maxLength={4}
+              className="h-12 w-28 rounded-xl"
+            />
+            <button
+              type="button"
+              onClick={loadChallenge}
+              aria-label="Get a new question"
+              title="New question"
+              className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-input bg-background text-muted-foreground transition-colors hover:text-foreground"
+            >
+              <RefreshCw className="h-4 w-4" />
+            </button>
+          </div>
+        ) : (
+          <div className="flex items-center gap-3">
+            <span className="text-sm text-muted-foreground">
+              {challengeLoading ? 'Loading verification…' : 'Verification could not load.'}
+            </span>
+            {!challengeLoading && (
+              <button
+                type="button"
+                onClick={loadChallenge}
+                className="text-sm font-semibold text-primary hover:underline"
+              >
+                Retry
+              </button>
+            )}
+          </div>
+        )}
+        <p className="text-xs text-muted-foreground">A quick check that you are human.</p>
+      </div>
 
       {status === 'error' && (
         <div className="flex items-start gap-2 rounded-xl border border-destructive/30 bg-destructive/5 px-4 py-3 text-sm font-medium text-destructive">
@@ -231,7 +256,7 @@ export function ContactForm({ initialType = 'other' }: { initialType?: ContactIn
 
       <Button
         type="submit"
-        disabled={status === 'loading'}
+        disabled={status === 'loading' || !challenge}
         className="w-full h-12 rounded-xl text-base font-semibold bg-primary hover:bg-primary/90 transition-all active:scale-[0.98]"
       >
         {status === 'loading' ? (
