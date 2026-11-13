@@ -77,7 +77,7 @@ export function organization() {
       "100+ free financial calculators for personal finance, mortgages, loans, taxes, retirement, freelancers, creators and e-commerce sellers.",
     contactPoint: {
       "@type": "ContactPoint",
-      email: "momintechltd@gmail.com",
+      email: "info@dailyfinance.tools",
       contactType: "customer support",
     },
   }

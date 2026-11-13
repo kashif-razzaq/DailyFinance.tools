@@ -161,9 +161,9 @@ export default function EmbedLandingPage() {
         <div className="bg-primary/5 border border-primary/20 rounded-3xl p-8">
           <h2 className="font-bold text-xl mb-2">Need a branded or white-label embed?</h2>
           <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-            The free embed carries DailyFinance.tools branding. If you want a version styled for your own site, <Link href="/contact" className="text-primary font-semibold hover:underline">contact us</Link> and tell us what you need.
+            The free embed carries DailyFinance.tools branding. If you want a version styled for your own site, <Link href="/contact?type=white-label" className="text-primary font-semibold hover:underline">contact us</Link> and tell us what you need.
           </p>
-          <Link href="/contact" className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-xl font-semibold text-sm hover:bg-primary/90 transition-colors">Contact us</Link>
+          <Link href="/contact?type=white-label" className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-xl font-semibold text-sm hover:bg-primary/90 transition-colors">Contact us</Link>
         </div>
       </div>
     </main>

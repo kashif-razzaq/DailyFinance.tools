@@ -83,8 +83,8 @@ export default async function BillingPage() {
           <p className="mt-6 border-t pt-5 text-sm font-light leading-relaxed text-muted-foreground">
             Your Pro plan is active and every feature above is unlocked. If you need to change anything about
             your subscription, write to{' '}
-            <a href="mailto:momintechltd@gmail.com" className="font-semibold text-[#064E3B] underline underline-offset-2">
-              momintechltd@gmail.com
+            <a href="mailto:info@dailyfinance.tools" className="font-semibold text-[#064E3B] underline underline-offset-2">
+              info@dailyfinance.tools
             </a>{' '}
             and we will sort it the same day.
           </p>

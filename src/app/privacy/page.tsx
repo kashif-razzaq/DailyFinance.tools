@@ -76,7 +76,7 @@ export default function Page() {
       {
             "heading": "Your rights",
             "paragraphs": [
-                  "Depending on where you live, you may have rights to access, correct, export or delete your personal data, and to object to certain processing. Account holders can delete saved scenarios inside the dashboard; to delete an account or exercise other rights, email us at momintechltd@gmail.com or use the Contact page and we will respond within a reasonable period."
+                  "Depending on where you live, you may have rights to access, correct, export or delete your personal data, and to object to certain processing. Account holders can delete saved scenarios inside the dashboard; to delete an account or exercise other rights, email us at info@dailyfinance.tools or use the Contact page and we will respond within a reasonable period."
             ]
       },
       {
@@ -94,7 +94,7 @@ export default function Page() {
       {
             "heading": "Contact",
             "paragraphs": [
-                  "Questions about this policy can be sent to momintechltd@gmail.com or through our Contact page."
+                  "Questions about this policy can be sent to info@dailyfinance.tools or through our Contact page."
             ]
       }
 ]}
