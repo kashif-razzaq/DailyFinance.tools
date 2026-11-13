@@ -248,11 +248,16 @@ export function CalculatorClient({ isPro = false, isLoggedIn = false }: { isPro?
       >
         {calculator}
       </ProGuard>
-      <ToolActionsBar
-        slug="monte-carlo-retirement-simulator"
-        isPro={isPro}
-        inputs={{ currentSavings, monthlyContribution, yearsToRetirement, expectedReturn, volatility, inflation, retirementYears, annualSpending }}
-      />
+      {/* No actions on a locked tool: the calculator sits behind the
+          ProGuard overlay, so Save/Export/Share would act on a tool the
+          visitor cannot use. Pro members get the full bar. */}
+      {isPro && (
+        <ToolActionsBar
+          slug="monte-carlo-retirement-simulator"
+          isPro={isPro}
+          inputs={{ currentSavings, monthlyContribution, yearsToRetirement, expectedReturn, volatility, inflation, retirementYears, annualSpending }}
+        />
+      )}
     </>
   )
 }

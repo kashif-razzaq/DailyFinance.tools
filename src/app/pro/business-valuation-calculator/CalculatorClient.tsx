@@ -167,11 +167,16 @@ export function CalculatorClient({ isPro = false, isLoggedIn = false }: { isPro?
       >
         {calculator}
       </ProGuard>
-      <ToolActionsBar
-        slug="business-valuation-calculator"
-        isPro={isPro}
-        inputs={{ revenue, sde, industry, multipleLow, multipleHigh, growth, discount, terminalGrowth, years }}
-      />
+      {/* No actions on a locked tool: the calculator sits behind the
+          ProGuard overlay, so Save/Export/Share would act on a tool the
+          visitor cannot use. Pro members get the full bar. */}
+      {isPro && (
+        <ToolActionsBar
+          slug="business-valuation-calculator"
+          isPro={isPro}
+          inputs={{ revenue, sde, industry, multipleLow, multipleHigh, growth, discount, terminalGrowth, years }}
+        />
+      )}
     </>
   )
 }

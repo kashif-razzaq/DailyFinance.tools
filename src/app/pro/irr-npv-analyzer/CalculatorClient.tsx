@@ -180,7 +180,12 @@ export function CalculatorClient({ isPro = false, isLoggedIn = false }: { isPro?
       >
         {calculator}
       </ProGuard>
-      <ToolActionsBar slug="irr-npv-analyzer" isPro={isPro} inputs={{ initial, discount, flows: flows.join(', ') }} />
+      {/* No actions on a locked tool: the calculator sits behind the
+          ProGuard overlay, so Save/Export/Share would act on a tool the
+          visitor cannot use. Pro members get the full bar. */}
+      {isPro && (
+        <ToolActionsBar slug="irr-npv-analyzer" isPro={isPro} inputs={{ initial, discount, flows: flows.join(', ') }} />
+      )}
     </>
   )
 }
