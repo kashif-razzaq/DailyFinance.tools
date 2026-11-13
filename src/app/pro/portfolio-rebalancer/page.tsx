@@ -10,7 +10,7 @@ export const metadata: Metadata = generateCalculatorMetadata({ title: "Portfolio
 
 export default function Page() {
   return (
-    <ToolLayout title="Portfolio Rebalancer" description="Rebalance to your target allocation with the exact trade list: enter holdings and targets, get the buys and sells. A DailyFinance Pro tool." slug="portfolio-rebalancer" faqs={TOOL_CONTENT["pro/portfolio-rebalancer"]?.faqs ?? []} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
+    <ToolLayout title="Portfolio Rebalancer" description="Rebalance to your target allocation with the exact trade list: enter holdings and targets, get the buys and sells. A DailyFinance Pro tool." slug="portfolio-rebalancer" faqs={TOOL_CONTENT["pro/portfolio-rebalancer"]?.faqs ?? []} calculator={(isPro, isLoggedIn) => <CalculatorClient isPro={isPro} isLoggedIn={isLoggedIn} />}>
       {() => <ToolContent contentKey="pro/portfolio-rebalancer" />}
     </ToolLayout>
   )

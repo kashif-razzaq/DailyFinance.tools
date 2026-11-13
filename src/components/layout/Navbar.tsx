@@ -33,7 +33,7 @@ export async function Navbar() {
         
         {/* Left Side: Logo & Mega Menu */}
         <div className="flex items-center gap-4 md:gap-8">
-          <MobileMenu user={user} />
+          <MobileMenu user={user} isPremium={isPremium} />
           <Link href="/" className="flex items-center space-x-2 group">
               <Logo className="h-6 w-6 text-primary" />
             <span className="font-bold text-xl tracking-tight">

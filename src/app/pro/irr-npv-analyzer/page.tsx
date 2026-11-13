@@ -10,7 +10,7 @@ export const metadata: Metadata = generateCalculatorMetadata({ title: "IRR & NPV
 
 export default function Page() {
   return (
-    <ToolLayout title="IRR & NPV Analyzer" description="Enter any cash-flow series and get NPV, IRR, payback period and profitability index together, with a verdict vs your hurdle rate. A Pro tool." slug="irr-npv-analyzer" faqs={TOOL_CONTENT["pro/irr-npv-analyzer"]?.faqs ?? []} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
+    <ToolLayout title="IRR & NPV Analyzer" description="Enter any cash-flow series and get NPV, IRR, payback period and profitability index together, with a verdict vs your hurdle rate. A Pro tool." slug="irr-npv-analyzer" faqs={TOOL_CONTENT["pro/irr-npv-analyzer"]?.faqs ?? []} calculator={(isPro, isLoggedIn) => <CalculatorClient isPro={isPro} isLoggedIn={isLoggedIn} />}>
       {() => <ToolContent contentKey="pro/irr-npv-analyzer" />}
     </ToolLayout>
   )

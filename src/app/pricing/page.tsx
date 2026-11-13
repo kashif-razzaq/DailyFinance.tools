@@ -4,6 +4,9 @@ import Link from "next/link"
 import { breadcrumb, faq, offer, product, stringifyJsonLd } from "@/lib/schema"
 import { Button } from "@/components/ui/button"
 import { Check, X } from "lucide-react"
+import { createServerClient } from "@supabase/ssr"
+import { cookies } from "next/headers"
+import { safeGetUser } from "@/utils/supabase/safe-user"
 
 export const metadata: Metadata = {
   title: "Pricing — Free Calculators Forever, Pro for $2.99/mo | DailyFinance",
@@ -77,7 +80,27 @@ const tiers = [
   },
 ]
 
-export default function PricingPage() {
+export default async function PricingPage() {
+  // The CTAs respect login: a signed-in user never lands on the login
+  // page from here. Logged out, both tiers start at /login (an account
+  // comes first). Logged in, Pro goes to the billing page — where the
+  // subscription lives — and Free goes to the dashboard.
+  const cookieStore = await cookies()
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
+  const supabase =
+    supabaseUrl && supabaseKey
+      ? createServerClient(supabaseUrl, supabaseKey, {
+          cookies: {
+            getAll() {
+              return cookieStore.getAll()
+            },
+          },
+        })
+      : null
+  const user = supabase ? await safeGetUser(supabase) : null
+  const isLoggedIn = !!user
+
   const pricingFaqs = [
     { question: "Are the calculators really free?", answer: "Yes. Every calculator is free with no sign-up. A free account adds URL sharing and a Scenario Vault with up to 3 saved scenarios." },
     { question: "What does Pro add?", answer: "Pro ($2.99/mo) removes ads and unlocks unlimited Vault storage with cloning, scenario comparison, 5 exclusive Pro tools, premium PDF reports, an analytics CSV export and full Cross-Data Analytics across personal and business saves." },
@@ -108,7 +131,18 @@ export default function PricingPage() {
         </p>
         
         <div className="isolate mx-auto mt-16 grid max-w-md grid-cols-1 gap-y-8 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:gap-x-8 xl:gap-x-12">
-          {tiers.map((tier) => (
+          {tiers.map((tier) => {
+            const ctaHref = !isLoggedIn
+              ? "/login"
+              : tier.mostPopular
+                ? "/dashboard/billing"
+                : "/dashboard"
+            const ctaLabel = !isLoggedIn
+              ? tier.cta
+              : tier.mostPopular
+                ? tier.cta
+                : "Go to your dashboard"
+            return (
             <div
               key={tier.id}
               className={`rounded-3xl p-8 xl:p-10 ${
@@ -131,13 +165,17 @@ export default function PricingPage() {
                 {tier.billingCycle && <span className="text-sm font-semibold leading-6 text-muted-foreground">{tier.billingCycle}</span>}
               </p>
               <Link
-                href="/login"
+                href={ctaHref}
                 className={`mt-6 flex w-full items-center justify-center rounded-xl px-4 py-2.5 text-sm font-semibold transition-colors ${tier.mostPopular ? "bg-primary text-primary-foreground shadow-sm shadow-primary/20 hover:bg-primary/90" : "border border-input bg-background hover:bg-accent hover:text-accent-foreground"}`}
               >
-                {tier.cta}
+                {ctaLabel}
               </Link>
               {tier.mostPopular && (
-                <p className="mt-3 text-center text-xs text-muted-foreground">Start with a free account — upgrade from your dashboard in one click.</p>
+                <p className="mt-3 text-center text-xs text-muted-foreground">
+                  {isLoggedIn
+                    ? "Upgrade from your dashboard in one click."
+                    : "Start with a free account — upgrade from your dashboard in one click."}
+                </p>
               )}
               <ul role="list" className="mt-8 space-y-3 text-sm leading-6 text-muted-foreground xl:mt-10">
                 {tier.features.map((feature) => (
@@ -154,7 +192,8 @@ export default function PricingPage() {
                 ))}
               </ul>
             </div>
-          ))}
+            )
+          })}
         </div>
         {/* Pricing FAQ — also emitted as FAQPage schema */}
         <div className="mx-auto mt-24 max-w-3xl">

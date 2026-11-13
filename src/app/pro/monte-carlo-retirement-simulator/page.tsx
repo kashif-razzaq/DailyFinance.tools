@@ -10,7 +10,7 @@ export const metadata: Metadata = generateCalculatorMetadata({ title: "Monte Car
 
 export default function Page() {
   return (
-    <ToolLayout title="Monte Carlo Retirement Simulator" description="1,000 simulated market futures for your retirement plan: success rate, percentile outcomes and sequence risk in today's dollars. A Pro tool." slug="monte-carlo-retirement-simulator" faqs={TOOL_CONTENT["pro/monte-carlo-retirement-simulator"]?.faqs ?? []} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
+    <ToolLayout title="Monte Carlo Retirement Simulator" description="1,000 simulated market futures for your retirement plan: success rate, percentile outcomes and sequence risk in today's dollars. A Pro tool." slug="monte-carlo-retirement-simulator" faqs={TOOL_CONTENT["pro/monte-carlo-retirement-simulator"]?.faqs ?? []} calculator={(isPro, isLoggedIn) => <CalculatorClient isPro={isPro} isLoggedIn={isLoggedIn} />}>
       {() => <ToolContent contentKey="pro/monte-carlo-retirement-simulator" />}
     </ToolLayout>
   )

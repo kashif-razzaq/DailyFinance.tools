@@ -41,7 +41,7 @@ function irrOf(flows: number[]): number | null {
   return ((lo + hi) / 2) * 100
 }
 
-export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+export function CalculatorClient({ isPro = false, isLoggedIn = false }: { isPro?: boolean; isLoggedIn?: boolean }) {
   useCurrencySymbol()
   const [initial, setInitial] = useState(50000)
   const [discount, setDiscount] = useState(10)
@@ -169,6 +169,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     <>
       <ProGuard
         isPro={isPro}
+        isLoggedIn={isLoggedIn}
         toolTitle="IRR & NPV Analyzer"
         features={[
           'NPV, IRR, payback and profitability index together',

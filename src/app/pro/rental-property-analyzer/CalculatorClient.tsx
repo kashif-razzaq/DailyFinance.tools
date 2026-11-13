@@ -22,7 +22,7 @@ function monthlyPayment(principal: number, ratePct: number, months: number) {
   return (principal * r * f) / (f - 1)
 }
 
-export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+export function CalculatorClient({ isPro = false, isLoggedIn = false }: { isPro?: boolean; isLoggedIn?: boolean }) {
   useCurrencySymbol()
   const [price, setPrice] = useState(320000)
   const [downPct, setDownPct] = useState(25)
@@ -167,6 +167,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     <>
       <ProGuard
         isPro={isPro}
+        isLoggedIn={isLoggedIn}
         toolTitle="Rental Property Analyzer"
         features={[
           'Cash flow, cap rate, cash-on-cash, DSCR and GRM in one pass',

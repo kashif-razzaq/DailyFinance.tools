@@ -26,7 +26,7 @@ interface ToolLayoutProps {
   description: string;
   slug: string;
   faqs: FAQ[];
-  calculator: (isPro: boolean) => React.ReactNode;
+  calculator: (isPro: boolean, isLoggedIn?: boolean) => React.ReactNode;
   children: (isPro: boolean) => React.ReactNode;
 }
 
@@ -147,7 +147,7 @@ export async function ToolLayout({
           </div>
         </header>
 
-        {calculator(isPro)}
+        {calculator(isPro, !!user)}
       </section>
 
       {/* SEO Content & Article */}

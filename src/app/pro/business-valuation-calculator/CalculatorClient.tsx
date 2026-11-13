@@ -25,7 +25,7 @@ const INDUSTRIES: { name: string; low: number; high: number }[] = [
   { name: 'Construction & trades', low: 2.0, high: 3.0 },
 ]
 
-export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+export function CalculatorClient({ isPro = false, isLoggedIn = false }: { isPro?: boolean; isLoggedIn?: boolean }) {
   useCurrencySymbol()
   const [revenue, setRevenue] = useState(850000)
   const [sde, setSde] = useState(210000)
@@ -156,6 +156,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     <>
       <ProGuard
         isPro={isPro}
+        isLoggedIn={isLoggedIn}
         toolTitle="Business Valuation Calculator"
         features={[
           'Market method: SDE multiples for seven industries',

@@ -11,17 +11,21 @@ import { openLoginModal } from '@/lib/auth-modal'
  * Pro members (isPro, resolved server-side from the Supabase subscription)
  * see the calculator untouched. Everyone else sees the real calculator
  * behind a soft blur with a lock panel: what the tool does, what it
- * computes, and the two ways in — upgrade, or log in if already Pro.
- * The editorial content below the calculator stays fully readable, so the
- * page still teaches (and ranks) while the interactive tool stays Pro.
+ * computes, and the way in — upgrade. Logged-out visitors also get a
+ * log-in button (they may already be Pro); logged-in users never see it,
+ * since there is nothing left to log in to. The editorial content below
+ * the calculator stays fully readable, so the page still teaches (and
+ * ranks) while the interactive tool stays Pro.
  */
 export function ProGuard({
   isPro,
+  isLoggedIn = false,
   toolTitle,
   features,
   children,
 }: {
   isPro: boolean
+  isLoggedIn?: boolean
   toolTitle: string
   features: string[]
   children: React.ReactNode
@@ -65,13 +69,15 @@ export function ProGuard({
           >
             <Crown className="h-4 w-4" /> Unlock with Pro — $2.99/mo
           </Link>
-          <button
-            type="button"
-            onClick={() => openLoginModal()}
-            className="mt-3 w-full rounded-full border border-neutral-200 bg-white px-6 py-3 text-sm font-bold text-[#1F2937] transition-colors hover:border-[#064E3B] hover:text-[#064E3B]"
-          >
-            Already Pro? Log in
-          </button>
+          {!isLoggedIn && (
+            <button
+              type="button"
+              onClick={() => openLoginModal()}
+              className="mt-3 w-full rounded-full border border-neutral-200 bg-white px-6 py-3 text-sm font-bold text-[#1F2937] transition-colors hover:border-[#064E3B] hover:text-[#064E3B]"
+            >
+              Already Pro? Log in
+            </button>
+          )}
           <p className="mt-4 text-xs font-light text-neutral-400">
             Every free calculator stays free. Pro adds the advanced simulators, unlimited Vault, exports and
             analytics.

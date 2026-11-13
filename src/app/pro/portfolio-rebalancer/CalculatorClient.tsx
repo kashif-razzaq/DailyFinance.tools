@@ -22,7 +22,7 @@ type Holding = { name: string; value: number; target: number }
 
 const COLORS = ['#064E3B', '#D97706', '#3B82F6', '#10B981', '#6366F1', '#F59E0B']
 
-export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+export function CalculatorClient({ isPro = false, isLoggedIn = false }: { isPro?: boolean; isLoggedIn?: boolean }) {
   useCurrencySymbol()
   const [holdings, setHoldings] = useState<Holding[]>([
     { name: 'US stocks', value: 48000, target: 60 },
@@ -193,6 +193,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     <>
       <ProGuard
         isPro={isPro}
+        isLoggedIn={isLoggedIn}
         toolTitle="Portfolio Rebalancer"
         features={[
           'The exact buy/sell trade list, not just percentages',

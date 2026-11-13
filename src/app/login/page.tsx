@@ -2,6 +2,23 @@ import { AuthForm } from "@/components/auth/AuthForm"
 import { Logo } from "@/components/layout/Logo"
 import { ArrowLeft, Banknote, Calculator, Home, TrendingUp } from "lucide-react"
 import Link from "next/link"
+import { redirect } from "next/navigation"
+import { createServerClient } from "@supabase/ssr"
+import { cookies } from "next/headers"
+import { safeGetUser } from "@/utils/supabase/safe-user"
+
+/**
+ * Only same-site relative paths may be used as the post-login destination.
+ * Mirrors getSafeNext in src/app/auth/callback/route.ts — a crafted `next`
+ * param must never turn this page into an open redirect.
+ */
+function getSafeNext(raw: string | null | undefined): string {
+  if (!raw) return "/dashboard"
+  if (!raw.startsWith("/") || raw.startsWith("//")) return "/dashboard"
+  if (raw.includes("://") || raw.includes("\\")) return "/dashboard"
+  if (/^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(raw)) return "/dashboard"
+  return raw
+}
 
 /**
  * Right-panel tool tiles: real tools with their real names and categories,
@@ -15,7 +32,30 @@ const PANEL_TOOLS = [
   { icon: Calculator, name: "Paycheck Calculator", category: "Tax & Salary", chip: "bg-emerald-100 text-[#064E3B]" },
 ]
 
-export default function LoginPage() {
+export default async function LoginPage({
+  searchParams,
+}: {
+  searchParams?: Promise<{ next?: string }>
+}) {
+  // Already signed in? There is nothing to log in to — send them to their
+  // destination (or the dashboard), never the login form.
+  const resolved = (await searchParams) ?? {}
+  const cookieStore = await cookies()
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
+  const supabase =
+    supabaseUrl && supabaseKey
+      ? createServerClient(supabaseUrl, supabaseKey, {
+          cookies: {
+            getAll() {
+              return cookieStore.getAll()
+            },
+          },
+        })
+      : null
+  const user = supabase ? await safeGetUser(supabase) : null
+  if (user) redirect(getSafeNext(resolved.next))
+
   return (
     <div className="min-h-screen w-full flex">
       {/* Back to Home Link */}

@@ -13,7 +13,7 @@ import { cn } from '@/lib/utils'
 import { createClient } from '@/utils/supabase/client'
 import { useRouter } from 'next/navigation'
 
-export function MobileMenu({ user }: { user?: any }) {
+export function MobileMenu({ user, isPremium }: { user?: any; isPremium?: boolean }) {
   const [isOpen, setIsOpen] = useState(false)
   const [isRendered, setIsRendered] = useState(false)
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null)
@@ -158,7 +158,11 @@ export function MobileMenu({ user }: { user?: any }) {
               </div>
               <div>
                 <div className="text-sm font-semibold">{user.email?.split('@')[0]}</div>
-                <div className="text-xs text-accent font-bold">Premium</div>
+                {isPremium ? (
+                  <div className="text-xs text-accent font-bold">Premium</div>
+                ) : (
+                  <div className="text-xs text-muted-foreground font-bold">Free</div>
+                )}
               </div>
             </div>
             <Button variant="outline" size="sm" onClick={handleLogout}>Sign Out</Button>

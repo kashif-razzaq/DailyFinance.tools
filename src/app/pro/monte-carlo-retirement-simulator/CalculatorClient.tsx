@@ -128,7 +128,7 @@ function simulate(
   }
 }
 
-export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
+export function CalculatorClient({ isPro = false, isLoggedIn = false }: { isPro?: boolean; isLoggedIn?: boolean }) {
   useCurrencySymbol()
   const [currentSavings, setCurrentSavings] = useState(150000)
   const [monthlyContribution, setMonthlyContribution] = useState(1500)
@@ -237,6 +237,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     <>
       <ProGuard
         isPro={isPro}
+        isLoggedIn={isLoggedIn}
         toolTitle="Monte Carlo Retirement Simulator"
         features={[
           '1,000 simulated market futures for your exact plan',

@@ -10,7 +10,7 @@ export const metadata: Metadata = generateCalculatorMetadata({ title: "Business 
 
 export default function Page() {
   return (
-    <ToolLayout title="Business Valuation Calculator" description="Value a small business two ways: SDE multiples for seven industries and a full DCF with terminal value, side by side. A DailyFinance Pro tool." slug="business-valuation-calculator" faqs={TOOL_CONTENT["pro/business-valuation-calculator"]?.faqs ?? []} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
+    <ToolLayout title="Business Valuation Calculator" description="Value a small business two ways: SDE multiples for seven industries and a full DCF with terminal value, side by side. A DailyFinance Pro tool." slug="business-valuation-calculator" faqs={TOOL_CONTENT["pro/business-valuation-calculator"]?.faqs ?? []} calculator={(isPro, isLoggedIn) => <CalculatorClient isPro={isPro} isLoggedIn={isLoggedIn} />}>
       {() => <ToolContent contentKey="pro/business-valuation-calculator" />}
     </ToolLayout>
   )

@@ -10,7 +10,7 @@ export const metadata: Metadata = generateCalculatorMetadata({ title: "Rental Pr
 
 export default function Page() {
   return (
-    <ToolLayout title="Rental Property Analyzer" description="Any rental deal in one pass: monthly cash flow, cap rate, cash-on-cash return, DSCR and GRM, every expense line modelled. A Pro tool." slug="rental-property-analyzer" faqs={TOOL_CONTENT["pro/rental-property-analyzer"]?.faqs ?? []} calculator={(isPro) => <CalculatorClient isPro={isPro} />}>
+    <ToolLayout title="Rental Property Analyzer" description="Any rental deal in one pass: monthly cash flow, cap rate, cash-on-cash return, DSCR and GRM, every expense line modelled. A Pro tool." slug="rental-property-analyzer" faqs={TOOL_CONTENT["pro/rental-property-analyzer"]?.faqs ?? []} calculator={(isPro, isLoggedIn) => <CalculatorClient isPro={isPro} isLoggedIn={isLoggedIn} />}>
       {() => <ToolContent contentKey="pro/rental-property-analyzer" />}
     </ToolLayout>
   )
