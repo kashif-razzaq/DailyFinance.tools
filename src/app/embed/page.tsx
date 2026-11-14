@@ -47,7 +47,7 @@ const FAQS = [
   },
   {
     q: "Will it slow my site down?",
-    a: "The loader is a small script that inserts a single iframe, loaded lazily so it does not block your page. The calculator itself runs on our servers, not yours.",
+    a: "The loader is a small script that inserts a single iframe, loaded lazily so it does not block your page. The widget is served from our servers, so there is nothing to install — the maths itself runs in your visitor's browser.",
   },
   {
     q: "Can I change the colours or theme?",
@@ -141,7 +141,7 @@ export default function EmbedLandingPage() {
           <div className="bg-card border rounded-3xl p-6">
             <Wrench className="h-6 w-6 text-primary mb-3" />
             <h3 className="font-bold text-lg mb-2">No maintenance</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">The calculator runs on our servers. You never host code, patch dependencies or fix a broken widget.</p>
+            <p className="text-sm text-muted-foreground leading-relaxed">The widget is hosted on our servers. You never host code, patch dependencies or fix a broken widget.</p>
           </div>
         </div>
 

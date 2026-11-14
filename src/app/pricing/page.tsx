@@ -70,6 +70,7 @@ const tiers = [
       "Analytics CSV export — your whole financial picture",
       "Premium PDF report generation",
       "Scenario comparison — saved plans side by side",
+      "Live sharing — send clients pre-filled calculations",
       "5 exclusive Pro tools (Monte Carlo, Rental Analyzer, Business Valuation, IRR & NPV, Portfolio Rebalancer)",
       "Full Cross-Data Analytics (personal + business — balance sheet, debt costs, cash flow, charts & exports)",
       "Priority feature requests",
@@ -103,7 +104,7 @@ export default async function PricingPage() {
 
   const pricingFaqs = [
     { question: "Are the calculators really free?", answer: "Yes. Every calculator is free with no sign-up. A free account adds URL sharing and a Scenario Vault with up to 3 saved scenarios." },
-    { question: "What does Pro add?", answer: "Pro ($2.99/mo) removes ads and unlocks unlimited Vault storage with cloning, scenario comparison, 5 exclusive Pro tools, premium PDF reports, an analytics CSV export and full Cross-Data Analytics across personal and business saves." },
+    { question: "What does Pro add?", answer: "Pro ($2.99/mo) removes ads and unlocks unlimited Vault storage with cloning, scenario comparison, live sharing of pre-filled calculations, 5 exclusive Pro tools, premium PDF reports, an analytics CSV export and full Cross-Data Analytics across personal and business saves." },
     { question: "Can I cancel anytime?", answer: "Yes — no lock-in. Cancelling returns the account to Free at the end of the billing period and saved data is kept." },
   ]
   const pricingFaqSchema = faq(pricingFaqs)
@@ -202,7 +203,7 @@ export default async function PricingPage() {
             className="text-left"
             items={[
               { question: "Are the calculators really free?", answer: "Yes. Every calculator on DailyFinance is free to use with no sign-up, including real-time charts. A free account adds basic URL sharing and a Scenario Vault with up to 3 saved scenarios." },
-              { question: "What does Pro add?", answer: "Pro removes all advertising and unlocks the power features: unlimited Scenario Vault storage with cloning, scenario comparison side by side, 5 exclusive Pro tools, premium PDF report generation, an analytics-wide CSV export, and the full Cross-Data Analytics that combine your saved scenarios into a balance sheet, debt costs and cash flow." },
+              { question: "What does Pro add?", answer: "Pro removes all advertising and unlocks the power features: unlimited Scenario Vault storage with cloning, scenario comparison side by side, live sharing of pre-filled calculations, 5 exclusive Pro tools, premium PDF report generation, an analytics-wide CSV export, and the full Cross-Data Analytics that combine your saved scenarios into a balance sheet, debt costs and cash flow." },
               { question: "How do I upgrade?", answer: "Create a free account first, then choose Upgrade from your dashboard or this page. Your saved scenarios and data carry over — nothing is lost when you upgrade or if you later return to Free." },
               { question: "Can I cancel anytime?", answer: "Yes. Pro is a simple monthly subscription with no lock-in. Cancelling returns your account to Free at the end of the billing period; your saved data stays in your account." },
             ]}

@@ -403,7 +403,7 @@ export function MobileHome() {
             <h2 className="text-lg font-extrabold tracking-tight text-foreground">Put our calculators on your site</h2>
           </div>
           <p className="text-sm font-light leading-relaxed text-muted-foreground">
-            Embed any of the 116 calculators on your own website — free. One line of code, auto-sizing to fit, with DailyFinance branding and a link back.
+            Embed any of the 111 free calculators on your own website — free. One line of code, auto-sizing to fit, with DailyFinance branding and a link back.
           </p>
           <Link
             href="/embed"

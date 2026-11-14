@@ -174,7 +174,7 @@ export default async function ToolsDirectoryPage({
           <>
             <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4">The Top 100 Financial Calculators</h1>
             <p className="text-lg text-muted-foreground max-w-3xl leading-relaxed mb-6">
-              This is the complete, researched DailyFinance roadmap — the 100 highest-value financial calculators, selected from keyword demand data and organised into six hubs. Every tool is free and ready to use — each one shows its formula, a worked example with real numbers, and answers to the questions people actually ask about it.
+              This is the complete, researched DailyFinance roadmap — the 100 highest-value financial calculators, selected from keyword demand data and organised into six hubs. Each one shows its formula, a worked example with real numbers, and answers to the questions people actually ask about it. 111 tools are free to use; 5 advanced simulators are Pro-only.
             </p>
             <div className="flex flex-wrap gap-3 mb-14">
               <span className="inline-flex items-center gap-2 bg-primary/5 border border-primary/20 rounded-full px-4 py-2 text-sm font-semibold"><CheckCircle2 className="h-4 w-4 text-primary" /> {LIVE_TOOLS.length} of the Top 100 live</span>

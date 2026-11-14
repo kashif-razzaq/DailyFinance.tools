@@ -35,7 +35,7 @@ export default function AboutPage() {
           DailyFinance exists because most financial decisions are made with guessed numbers. A freelancer guesses a rate. A seller guesses a margin. A home buyer guesses a payment. We build free, precision-engineered calculators that replace the guess with a model — the formula shown, the assumptions visible, and a worked example you can check yourself.
         </p>
         <p className="text-base text-muted-foreground leading-relaxed mb-12">
-          The site serves five communities that mainstream finance tools ignore: freelancers and the self-employed, creators, e-commerce sellers, real estate investors, and people building long-term wealth through FIRE and retirement planning. Every tool is free, works instantly in your browser with no sign-up, and can optionally be saved to a free account if you want to revisit your scenarios.
+          The site serves five communities that mainstream finance tools ignore: freelancers and the self-employed, creators, e-commerce sellers, real estate investors, and people building long-term wealth through FIRE and retirement planning. 111 of the 116 tools are free, work instantly in your browser with no sign-up, and can optionally be saved to a free account if you want to revisit your scenarios. Five advanced simulators are Pro-only.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-14">
@@ -67,7 +67,7 @@ export default function AboutPage() {
             <Link key={cat.slug} href={`/${cat.slug}`} className="flex items-center justify-between bg-card border rounded-2xl px-6 py-4 hover:border-primary/40 transition-colors group">
               <span>
                 <span className="font-semibold group-hover:text-primary transition-colors">{cat.name} Calculators</span>
-                <span className="block text-sm text-muted-foreground">{cat.description} {cat.calculators.length} free tools.</span>
+                <span className="block text-sm text-muted-foreground">{cat.description} {cat.calculators.length} {cat.slug === "pro" ? "Pro-only tools." : "free tools."}</span>
               </span>
               <span className="text-sm font-semibold text-primary">View hub →</span>
             </Link>

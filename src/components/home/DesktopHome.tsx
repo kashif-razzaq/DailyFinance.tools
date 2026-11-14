@@ -369,7 +369,7 @@ export function DesktopHome() {
                   <h2 className="text-2xl font-extrabold tracking-tight">DailyFinance Pro</h2>
                 </div>
                 <p className="max-w-xl font-light leading-relaxed text-white/85">
-                  Every calculator stays free. Pro turns DailyFinance into your personal financial drive:
+                  111 calculators stay free forever. Pro turns DailyFinance into your personal financial drive:
                   unlimited Scenario Vault, CSV and Excel exports, premium PDF reports and cross-data
                   analytics — with zero ads.
                 </p>
@@ -412,7 +412,7 @@ export function DesktopHome() {
                   <h2 className="text-2xl font-extrabold tracking-tight text-foreground">Put our calculators on your site</h2>
                 </div>
                 <p className="max-w-xl font-light leading-relaxed text-muted-foreground">
-                  Embed any of the 116 calculators on your own website — free. One line of code,
+                  Embed any of the 111 free calculators on your own website — free. One line of code,
                   auto-sizing to fit, with DailyFinance branding and a link back. No account needed.
                 </p>
                 <Link
@@ -479,7 +479,7 @@ export function DesktopHome() {
             {[
               { icon: Zap, title: 'Zero latency', text: 'Calculations run instantly in your browser. No server round-trips, no loading spinners, no waiting.' },
               { icon: Globe2, title: 'Built for global', text: 'Six currencies from the header switcher, nomad cost of living, and localized scenarios for the borderless professional.' },
-              { icon: Lock, title: 'Absolute privacy', text: 'Your financial data never touches a server. Everything executes locally on your device for complete peace of mind.' },
+              { icon: Lock, title: 'Absolute privacy', text: 'Calculations run locally in your browser. Only scenarios you choose to save ever leave your device.' },
               { icon: Crown, title: 'Pro when you need it', text: 'Unlock the Scenario Vault and advanced modelling. Build complex projections and save your progress.' },
             ].map((item) => {
               const Icon = item.icon
