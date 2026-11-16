@@ -2,12 +2,17 @@ import type { MetadataRoute } from 'next';
 
 const PRIVATE_PATHS = ['/dashboard/', '/login', '/auth/', '/api/', '/embed/'];
 
+// OG/social images are served from /api/og — they must stay fetchable even
+// though the rest of /api/ is private (most-specific rule wins, so this Allow
+// beats the /api/ Disallow for OG URLs only).
+const OG_ALLOW = '/api/og';
+
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
       {
         userAgent: '*',
-        allow: '/',
+        allow: ['/', OG_ALLOW],
         disallow: PRIVATE_PATHS,
       },
       {
@@ -29,7 +34,7 @@ export default function robots(): MetadataRoute.Robots {
           'Meta-ExternalAgent',
           'cohere-ai',
         ],
-        allow: '/',
+        allow: ['/', OG_ALLOW],
         disallow: PRIVATE_PATHS,
       },
     ],
