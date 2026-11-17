@@ -884,4 +884,7 @@ GUIDES.push(
 
 export const GUIDE_HUBS = [...new Set(GUIDES.map((g) => g.hub))]
 export const getGuide = (slug: string) => GUIDES.find((g) => g.slug === slug)
+/** Reverse lookup: guides that link to a given tool page — powers the tool → guide card in ToolLayout. */
+export const getGuidesForTool = (toolUrl: string) =>
+  GUIDES.filter((g) => g.relatedTools.some((t) => t.url === toolUrl))
 export const guidesByHub = (hub: string) => GUIDES.filter((g) => g.hub === hub)

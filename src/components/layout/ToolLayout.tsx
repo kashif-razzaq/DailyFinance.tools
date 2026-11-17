@@ -15,6 +15,7 @@ import { getCategoryForTool } from "@/config/navigation"
 import { safeGetUser } from "@/utils/supabase/safe-user"
 import { webApp, faq, article, breadcrumb, howTo, stringifyJsonLd, CONTENT_REVIEWED } from "@/lib/schema"
 import { TOOL_CONTENT } from "@/data/tool-content"
+import { getGuidesForTool } from "@/data/guides"
 
 export interface FAQ {
   question: string;
@@ -79,6 +80,8 @@ export async function ToolLayout({
   }
 
   const toolUrl = `https://www.dailyfinance.tools/${category ? category.slug + "/" : ""}${slug}`
+  const toolPath = `/${category ? category.slug + "/" : ""}${slug}`
+  const relatedGuides = getGuidesForTool(toolPath)
   const steps = category ? TOOL_CONTENT[`${category.slug}/${slug}`]?.howItWorks : undefined
 
   return (
@@ -168,6 +171,26 @@ export async function ToolLayout({
             <section className="bg-primary/5 border border-primary/20 rounded-3xl p-8 md:p-12 mt-16">
               <h2 id="faq" className="text-2xl md:text-3xl font-extrabold mb-8 mt-0 text-foreground scroll-mt-24">Frequently Asked Questions</h2>
               <FaqAccordion items={faqs} variant="bare" />
+            </section>
+          )}
+
+          {/* Learn more — guides that explain this tool's topic in depth */}
+          {relatedGuides.length > 0 && (
+            <section className="mt-10 md:mt-16 bg-card border border-border/50 rounded-2xl p-5 md:p-8 shadow-sm">
+              <h2 className="text-xl md:text-2xl font-bold m-0 mb-2 text-foreground tracking-tight">Learn more</h2>
+              <p className="text-sm text-muted-foreground m-0 mb-5 leading-relaxed">
+                In-depth guides that explain the ideas behind this calculator.
+              </p>
+              <ul className="m-0 p-0 list-none flex flex-col gap-4">
+                {relatedGuides.map((guide) => (
+                  <li key={guide.slug}>
+                    <Link href={`/guides/${guide.slug}`} className="font-semibold text-primary hover:underline text-base">
+                      {guide.title}
+                    </Link>
+                    <p className="text-sm text-muted-foreground m-0 mt-1 leading-relaxed">{guide.description}</p>
+                  </li>
+                ))}
+              </ul>
             </section>
           )}
 
