@@ -325,7 +325,7 @@ GUIDES.push(
     image: "/images/how-federal-income-tax-brackets-work.jpg",
     imageAlt: "Illustration of tax brackets as ascending emerald steps with a gold coin on each",
     hub: "Salary, Tax, Retirement & Investing",
-    updated: "2026-11-06",
+    updated: "2026-11-17",
     readMinutes: 5,
     relatedTools: [
       { name: "Income Tax Calculator", url: "/tax/income-tax-calculator" },
@@ -337,7 +337,7 @@ GUIDES.push(
       {
         heading: "A worked example (2026, single filer)",
         paragraphs: [
-          "The standard deduction comes off first: $16,100 for a single filer in 2026. On an $85,000 salary, taxable income is $68,900. Tax is then built in slices: 10% on the first $11,925 ($1,193), 12% on the next slice up to $48,475 ($4,386), and 22% on the remainder up to $68,900 ($4,494). Total federal income tax: about $10,072 — an effective rate of 11.8% of gross pay, even though the marginal bracket is 22%.",
+          "The standard deduction comes off first: $16,100 for a single filer in 2026. On an $85,000 salary, taxable income is $68,900. Tax is then built in slices: 10% on the first $12,400 ($1,240), 12% on the next slice up to $50,400 ($4,560), and 22% on the remainder up to $68,900 ($4,070). Total federal income tax: about $9,870 — an effective rate of 11.6% of gross pay, even though the marginal bracket is 22%.",
           "Now add a $5,000 raise. Only the new $5,000 is taxed at 22% ($1,100); the rest of the income is taxed exactly as before. You keep $3,900 of the raise before FICA and state tax. The marginal rate is the price of the next dollar; the effective rate is what you actually pay on average. Confusing the two leads people to refuse overtime, fear bonuses and misjudge job offers.",
         ],
         bullets: [
@@ -800,6 +800,83 @@ GUIDES.push(
         answer:
           "HUD's minimum is 580 for the 3.5% down payment, or 500 to 579 with 10% down. In practice most lenders add their own overlays — a 620 minimum is common — so a score between 500 and 620 may qualify on paper but find few lenders willing to write the loan. A higher score does not change the MIP rate, which is set by term, loan-to-value and loan size, but it usually earns a lower interest rate.",
       },
+    ],
+  },
+  {
+    slug: "what-is-debt-to-income-ratio",
+    title: "What Is Debt-to-Income Ratio (DTI)? How Lenders Use It in 2026",
+    seoTitle: "What Is Debt-to-Income Ratio (DTI)? Lender Limits 2026",
+    description: "What debt-to-income ratio means, how lenders calculate front-end and back-end DTI, the 2026 limits by loan type, and how to lower yours before applying.",
+    image: "/images/what-is-debt-to-income-ratio.jpg",
+    imageAlt: "Illustration of debt-to-income ratio: a balance scale weighing monthly debt payments against gross income",
+    hub: "Loans & Debt",
+    updated: "2026-11-17",
+    readMinutes: 6,
+    relatedTools: [
+      { name: "Debt-to-Income Ratio Calculator", url: "/loans/debt-to-income-ratio-calculator" },
+      { name: "Home Affordability Calculator", url: "/real-estate/home-affordability-calculator" },
+      { name: "Mortgage Payment Calculator", url: "/real-estate/mortgage-payment-calculator" },
+    ],
+    intro: "Your debt-to-income ratio, or DTI, is your total monthly debt payments divided by your gross monthly income. Lenders check it before anything else on a mortgage application, because it measures whether your income can carry another payment. A DTI of 36% or less is comfortable; most loan programmes accept up to 43–50%.",
+    sections: [
+      {
+        heading: "The two ratios lenders actually check",
+        paragraphs: [
+          "Lenders calculate two versions. The front-end ratio counts housing only — mortgage payment, property tax, homeowners insurance and any HOA dues — divided by gross monthly income. The back-end ratio adds every other recurring debt: car loans, student loans, minimum card payments, personal loans and court-ordered payments. The back-end ratio decides most applications.",
+          "Both ratios use gross income, before tax — that is the underwriting convention, and tax is not a debt. On a $7,200 monthly salary with $1,850 of housing and $880 of other debts, the front-end ratio is 25.7% and the back-end ratio is 37.9%. Against take-home pay the same debts look far worse: 37.9% of gross is roughly half of a typical pay cheque after tax.",
+          "Only debts on your credit report and your application count. Utilities, groceries, subscriptions, insurance premiums outside the housing payment and childcare do not — which is why a $160 card minimum can matter more to your approval than a $400 grocery bill. Lenders verify debts from the credit report, so a paid-off loan still counts until the next statement cycle updates it.",
+        ],
+      },
+      {
+        heading: "Worked example: $86,400 salary, applying for a mortgage",
+        paragraphs: [
+          "Take a $86,400 salary — $7,200 a month before tax. Monthly debts: housing $1,850, car loan $430, student loan $290, card minimums $160. Total: $2,730. Back-end DTI is $2,730 ÷ $7,200 = 37.9%; front-end is $1,850 ÷ $7,200 = 25.7%. The calculator bands 37.9% as acceptable but above the 36% comfort line — $138 a month over it, with $366 of headroom before the 43% planning line.",
+          "Now pay off the car before applying. Removing $430 of monthly payments drops the back-end ratio to 31.9% — comfortably inside the zone most lenders prefer — and raises the loan amount the ratio allows, because every dollar of debt removed frees a dollar of income against the cap. The same cash added to the down payment would shrink the loan but leave the ratio untouched.",
+        ],
+      },
+      {
+        heading: "DTI limits by loan type in 2026",
+        paragraphs: [
+          "Limits vary by programme, and they are published. Two things are worth noticing. First, the familiar 28/36 figures are guidelines, not law — a lender can approve above them when the rest of the file is strong. Second, every programme has a manual number and an automated number, and the automated number is the one most borrowers actually meet.",
+          "A 50% DTI approval is real, but it usually needs excellent credit, large cash reserves or a big down payment. The table shows back-end (total) limits unless stated otherwise.",
+        ],
+        table: {
+          head: ["Loan type", "Front-end (housing)", "Back-end (total)", "Notes"],
+          rows: [
+            ["Conventional (Fannie Mae)", "28% guideline", "36% manual; up to 45% with strong credit and reserves; up to 50% via Desktop Underwriter", "Most common route"],
+            ["FHA", "31%", "43% manual underwriting", "Up to 40% / 50% with compensating factors; higher with an automated approval"],
+            ["VA", "No fixed limit", "41% benchmark", "Residual income is the real test"],
+            ["USDA", "29%", "41%", "Income limits also apply"],
+          ],
+        },
+      },
+      {
+        heading: "The 43% rule is gone — what replaced it",
+        paragraphs: [
+          "For years, 43% was quoted as a legal ceiling under the original Qualified Mortgage rule. The Consumer Financial Protection Bureau removed that cap in a final rule issued in December 2020, replacing it with a price-based test: a loan generally qualifies if its APR sits within 2.25 percentage points of the average prime offer rate. Lenders have had to use the new definition since October 1, 2022.",
+          "The change did not make DTI irrelevant. Lenders must still consider your DTI or residual income, verify your income and debts, and make a reasonable determination that you can repay. The programme limits above still apply in practice. What changed is that no single federal number now blocks a mortgage: 43% survives as a planning line — the line this site's calculator uses — but it is a guideline, not a law.",
+        ],
+      },
+      {
+        heading: "How to lower your DTI before you apply",
+        paragraphs: [
+          "Timing matters: debts leave the ratio only when the credit report updates, usually after the next statement cycle, so pay a loan off at least a month before you apply. And run the ratio on take-home pay as well as gross — lenders use gross, your household lives on net. The worked example's 37.9% of gross is about 50.6% of a typical take-home figure.",
+        ],
+        bullets: [
+          "Pay off small installment loans outright — removing a whole payment beats shrinking a balance whose minimum barely moves.",
+          "Pay card balances down, then keep the accounts open; the minimum payment, not the balance, enters the ratio.",
+          "Do not open new credit or take on a car loan in the months before applying; every new payment counts, and the inquiry can cost points.",
+          "Document every income a lender can count — a second job held two years, rental income, bonuses with a two-year history.",
+          "Ask the lender to exclude an installment debt with fewer than 10 payments left; many will.",
+        ],
+      },
+    ],
+    faqs: [
+      { question: "What DTI do I need to qualify for a mortgage?", answer: "It depends on the programme. Fannie Mae allows up to 50% back-end DTI through Desktop Underwriter, 36% on manual underwriting and up to 45% with strong credit and reserves. FHA's standard is 31% housing and 43% total for manual underwriting; VA and USDA use 41% as a benchmark. Lenders may add their own caps." },
+      { question: "Is 43% still the legal DTI limit for a qualified mortgage?", answer: "No. The CFPB removed the 43% cap from the Qualified Mortgage rule in December 2020 and replaced it with a price-based test, with mandatory compliance from October 1, 2022. The 43% figure survives as a lender guideline and as a planning line, but it is no longer a federal limit." },
+      { question: "Does DTI affect my credit score?", answer: "Not directly. Income is not part of a credit report, so the ratio never appears in scoring. But the ingredients overlap: high card balances raise utilisation (lowering your score) and raise minimum payments (raising your DTI). Paying balances down improves both numbers at once." },
+      { question: "What counts as debt in my DTI?", answer: "Recurring monthly obligations: housing, car and student loans, card minimums, personal loans, child support and alimony. Utilities, groceries, subscriptions, insurance premiums outside the housing payment and childcare do not count — lenders use the debts on your credit report, not your full cost of living." },
+      { question: "Can I get a mortgage with a 50% DTI?", answer: "Yes, through some programmes: Fannie Mae's automated system accepts up to 50% back-end DTI, and FHA approvals can reach 50% with compensating factors. But approval at that level usually needs excellent credit, substantial cash reserves or a large down payment — and the payment will consume half your gross income, so check it against take-home pay first." },
     ],
   },
 
