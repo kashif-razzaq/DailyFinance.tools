@@ -3,7 +3,7 @@ import { GuideImage } from "@/components/shared/GuideImage"
 import { breadcrumb, itemList, stringifyJsonLd } from "@/lib/schema"
 import type { Metadata } from "next"
 import { ArrowRight, BookOpen, MapPin } from "lucide-react"
-import { GUIDES, GUIDE_HUBS, guidesByHub } from "@/data/guides"
+import { GUIDES, GUIDE_HUBS, guidesByHub, hubAnchor } from "@/data/guides"
 
 export const metadata: Metadata = {
   title: "Personal Finance Guides: Clear Answers With Real Numbers",
@@ -60,7 +60,7 @@ export default function GuidesIndexPage() {
         </p>
 
         {GUIDE_HUBS.map((hub) => (
-          <section key={hub} className="mb-12">
+          <section key={hub} id={hubAnchor(hub)} className="mb-12 scroll-mt-24">
             <h2 className="text-2xl font-extrabold tracking-tight mb-5">{hub}</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
               {guidesByHub(hub).map((g) => (

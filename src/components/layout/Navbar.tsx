@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { buttonVariants } from '@/components/ui/button'
 import { Logo } from '@/components/layout/Logo'
 import { MegaMenu } from '@/components/layout/MegaMenu'
+import { GuidesMenu } from '@/components/layout/GuidesMenu'
 import { MobileMenu } from '@/components/layout/MobileMenu'
 import { AuthModal } from '@/components/auth/AuthModal'
 import { UserBadge } from '@/components/layout/UserBadge'
@@ -46,9 +47,7 @@ export async function Navbar() {
               Home
             </Link>
             <MegaMenu />
-            <Link href="/guides" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-              Guides
-            </Link>
+            <GuidesMenu />
             <Link href="/pricing" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
               Pricing
             </Link>

@@ -4,7 +4,8 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { navigationCategories, getToolUrl } from '@/config/navigation'
-import { X, ChevronRight, ArrowRight, User, Globe } from 'lucide-react'
+import { GUIDE_HUBS, guidesByHub, hubAnchor } from '@/data/guides'
+import { X, ChevronRight, ArrowRight, User, Globe, BookOpen, MapPin } from 'lucide-react'
 import { ThemeToggle } from '@/components/layout/ThemeToggle'
 import { CurrencySelector } from '@/components/layout/CurrencySelector'
 import { Button, buttonVariants } from '@/components/ui/button'
@@ -17,6 +18,7 @@ export function MobileMenu({ user, isPremium }: { user?: any; isPremium?: boolea
   const [isOpen, setIsOpen] = useState(false)
   const [isRendered, setIsRendered] = useState(false)
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null)
+  const [guidesExpanded, setGuidesExpanded] = useState(false)
   const [mounted, setMounted] = useState(false)
   const router = useRouter()
 
@@ -113,6 +115,59 @@ export function MobileMenu({ user, isPremium }: { user?: any; isPremium?: boolea
                 </div>
               )
             })}
+          </div>
+        </div>
+
+        <div className="space-y-4">
+          <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider px-2">Guides</h3>
+
+          <div className="bg-muted/30 rounded-2xl overflow-hidden border">
+            <button
+              onClick={() => setGuidesExpanded(!guidesExpanded)}
+              className="flex items-center justify-between w-full p-4 text-left transition-colors hover:bg-muted/50"
+            >
+              <div className="flex items-center gap-3">
+                <div className="p-2 rounded-lg bg-primary/10 text-primary">
+                  <BookOpen className="h-5 w-5" />
+                </div>
+                <span className="font-semibold">Blog &amp; Guides</span>
+              </div>
+              <ChevronRight className={cn("h-5 w-5 text-muted-foreground transition-transform", guidesExpanded && "rotate-90")} />
+            </button>
+
+            {/* Expanded state */}
+            {guidesExpanded && (
+              <div className="px-4 pb-4 pt-2 flex flex-col gap-3 animate-in slide-in-from-top-2 duration-200">
+                <Link
+                  href="/guides"
+                  onClick={() => setIsOpen(false)}
+                  className="group flex items-center justify-between p-3 rounded-xl bg-background border hover:border-primary/50 transition-colors"
+                >
+                  <span className="font-medium text-sm group-hover:text-primary transition-colors">All guides</span>
+                  <ArrowRight className="h-4 w-4 text-muted-foreground" />
+                </Link>
+                <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider px-1 pt-1">Categories</p>
+                {GUIDE_HUBS.map((hub) => (
+                  <Link
+                    key={hub}
+                    href={`/guides#${hubAnchor(hub)}`}
+                    onClick={() => setIsOpen(false)}
+                    className="group flex items-center justify-between p-3 rounded-xl bg-background border hover:border-primary/50 transition-colors"
+                  >
+                    <span className="font-medium text-sm group-hover:text-primary transition-colors">{hub}</span>
+                    <span className="text-xs text-muted-foreground shrink-0 ml-3">{guidesByHub(hub).length} guides</span>
+                  </Link>
+                ))}
+                <Link
+                  href="/guides/states"
+                  onClick={() => setIsOpen(false)}
+                  className="group flex items-center gap-3 p-3 rounded-xl bg-background border hover:border-primary/50 transition-colors"
+                >
+                  <MapPin className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors shrink-0" />
+                  <span className="font-medium text-sm group-hover:text-primary transition-colors">State tax guides</span>
+                </Link>
+              </div>
+            )}
           </div>
         </div>
 

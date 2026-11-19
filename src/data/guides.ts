@@ -70,6 +70,9 @@ export const GUIDES: Guide[] = [
 ]
 
 export const GUIDE_HUBS = [...new Set(GUIDES.map((g) => g.hub))]
+/** Anchor id for a hub's section on /guides — powers the Guides submenu category links. */
+export const hubAnchor = (hub: string) =>
+  hub.toLowerCase().replace(/[^a-z0-9 ]/g, "").replace(/\s+/g, "-")
 export const getGuide = (slug: string) => GUIDES.find((g) => g.slug === slug)
 /** Reverse lookup: guides that link to a given tool page — powers the tool → guide card in ToolLayout. */
 export const getGuidesForTool = (toolUrl: string) =>
