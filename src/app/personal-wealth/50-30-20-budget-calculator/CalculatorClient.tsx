@@ -85,7 +85,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <div key={b.name} className="space-y-2">
             <div className="flex justify-between text-sm"><span className="font-semibold">{b.name} — target {b.targetPct}% ({fmt(b.target)})</span><span className="font-mono">{fmt(b.actual)} · {b.actualPct.toFixed(1)}%</span></div>
             <div className="relative h-4 bg-neutral-100 rounded-full overflow-hidden"><div className="absolute inset-y-0 left-0 rounded-full" style={{ width: `${Math.min(100, b.targetPct)}%`, backgroundColor: '#D1D5DB' }} /><div className="absolute inset-y-0 left-0 rounded-full opacity-90" style={{ width: `${Math.min(100, b.actualPct)}%`, backgroundColor: b.color }} /></div>
-            <p className="text-xs text-muted-foreground">Grey bar = target share, coloured bar = your actual share.</p>
+            <p className="text-xs text-muted-foreground">Gray bar = target share, coloured bar = your actual share.</p>
           </div>
         ))}
       </div>

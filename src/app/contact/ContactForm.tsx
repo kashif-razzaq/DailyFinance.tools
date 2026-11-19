@@ -171,7 +171,7 @@ export function ContactForm({ initialType = 'other' }: { initialType?: ContactIn
         <Label htmlFor="contact-message">Message</Label>
         <Textarea
           id="contact-message"
-          placeholder="Tell us what you need — for business enquiries, include your website and audience."
+          placeholder="Tell us what you need — for business inquiries, include your website and audience."
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           required

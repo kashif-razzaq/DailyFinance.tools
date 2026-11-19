@@ -17,7 +17,7 @@ import { SCENARIO_SLUG_ALIASES, getScenarioUrl } from '@/config/navigation'
  * - Income comes from ONE source (the most direct one saved), never a
  *   sum across tools — the same salary appears in many calculators.
  * - Payments marked as estimates use the standard amortization formula
- *   on the saved inputs, the same maths the tools themselves run.
+ *   on the saved inputs, the same math the tools themselves run.
  */
 
 export interface MoneyLine {

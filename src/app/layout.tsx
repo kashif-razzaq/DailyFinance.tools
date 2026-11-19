@@ -14,7 +14,7 @@ const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono" });
 const SITE_DESCRIPTION =
   '100+ free financial calculators: mortgages, loans, taxes, retirement, freelance rates, creator earnings and e-commerce margins. No signup required.';
 
-// Browser chrome colour, matched to the site's own backgrounds in both modes.
+// Browser chrome color, matched to the site's own backgrounds in both modes.
 export const viewport: Viewport = {
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: '#fafafa' },

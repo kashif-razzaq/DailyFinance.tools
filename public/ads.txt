@@ -1,0 +1,4 @@
+# ads.txt — DailyFinance.tools
+# No advertising relationships yet. This file is a placeholder only.
+# Entries will be added here when an ad network (e.g. Google AdSense) is approved.
+# Last updated: 2026-11-19

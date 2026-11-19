@@ -3,7 +3,7 @@
  * Anchor source: Tax Foundation "Sales Tax Rates by City" (2024, rates as of
  * 1 July 2024), cross-checked Nov 2026 against Avalara / state DOR tables.
  * Combined rates are approximations for a typical in-city-limits address and
- * are labelled as such on every page. See /methodology.
+ * are labeled as such on every page. See /methodology.
  */
 
 export interface USCity {

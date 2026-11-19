@@ -15,7 +15,7 @@ const PRO_FEATURES = [
   'CSV & Excel (XLSX) exports',
   'Premium PDF reports',
   'Cross-data analytics',
-  'Zero ads',
+  'Live sharing',
 ]
 
 const FREE_FEATURES = [

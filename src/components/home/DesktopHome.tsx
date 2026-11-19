@@ -30,7 +30,7 @@ import { useMyTools, type ToolWithCategory } from '@/components/home/useMyTools'
  * DesktopHome — the desktop homepage (md+), rebuilt to the same standard as
  * the mobile app-style homepage: search-first hero with the animated
  * "calculators" word, Your Tools retention (shared localStorage state with
- * mobile via useMyTools), popular tools with pin-to-favourite, category
+ * mobile via useMyTools), popular tools with pin-to-favorite, category
  * cards, Pro banner, embed band, hubs, guides and the trust row. All counts and links
  * come from the live navigation/guide data — nothing is hard-coded.
  */
@@ -107,7 +107,7 @@ export function DesktopHome() {
           <button
             type="button"
             onClick={() => toggleFavourite(tool.slug)}
-            aria-label={isFav ? `Remove ${tool.title} from favourites` : `Save ${tool.title} to favourites`}
+            aria-label={isFav ? `Remove ${tool.title} from favorites` : `Save ${tool.title} to favorites`}
             aria-pressed={isFav}
             className="relative z-20 flex h-9 w-9 items-center justify-center rounded-full transition-transform hover:scale-110"
           >
@@ -315,7 +315,7 @@ export function DesktopHome() {
       <section className="bg-background py-20">
         <div className="container mx-auto px-8">
           <h2 className="mb-2 text-3xl font-extrabold tracking-tight text-foreground">Browse by category</h2>
-          <p className="mb-8 font-light text-muted-foreground">{navigationCategories.length} families of tools, organised by the decision you are making.</p>
+          <p className="mb-8 font-light text-muted-foreground">{navigationCategories.length} families of tools, organized by the decision you are making.</p>
           <div className="grid grid-cols-2 gap-4 xl:grid-cols-3">
             {navigationCategories.map((category) => {
               const Icon = category.icon || Calculator
@@ -371,10 +371,10 @@ export function DesktopHome() {
                 <p className="max-w-xl font-light leading-relaxed text-white/85">
                   111 calculators stay free forever. Pro turns DailyFinance into your personal financial drive:
                   unlimited Scenario Vault, CSV and Excel exports, premium PDF reports and cross-data
-                  analytics — with zero ads.
+                  analytics.
                 </p>
                 <ul className="mt-6 grid max-w-xl grid-cols-2 gap-x-6 gap-y-2.5 text-sm font-medium text-white/90">
-                  {['Unlimited Vault saves', 'CSV & Excel exports', 'Premium PDF reports', 'Cross-data analytics', 'Zero ads, ever', 'Priority support'].map((f) => (
+                  {['Unlimited Vault saves', 'CSV & Excel exports', 'Premium PDF reports', 'Cross-data analytics', 'Live sharing', 'Priority support'].map((f) => (
                     <li key={f} className="flex items-center gap-2">
                       <ShieldCheck className="h-4 w-4 shrink-0 text-amber-300" /> {f}
                     </li>
@@ -440,7 +440,7 @@ export function DesktopHome() {
             <div className="max-w-2xl">
               <h2 className="mb-3 text-3xl font-extrabold tracking-tight text-foreground">Guides with the numbers left in</h2>
               <p className="font-light leading-relaxed text-muted-foreground">
-                Plain-language explanations of how the money maths works — plus a tax guide for every state
+                Plain-language explanations of how the money math works — plus a tax guide for every state
                 and the 30 largest cities.
               </p>
             </div>
@@ -480,7 +480,7 @@ export function DesktopHome() {
               { icon: Zap, title: 'Zero latency', text: 'Calculations run instantly in your browser. No server round-trips, no loading spinners, no waiting.' },
               { icon: Globe2, title: 'Built for global', text: 'Six currencies from the header switcher, nomad cost of living, and localized scenarios for the borderless professional.' },
               { icon: Lock, title: 'Absolute privacy', text: 'Calculations run locally in your browser. Only scenarios you choose to save ever leave your device.' },
-              { icon: Crown, title: 'Pro when you need it', text: 'Unlock the Scenario Vault and advanced modelling. Build complex projections and save your progress.' },
+              { icon: Crown, title: 'Pro when you need it', text: 'Unlock the Scenario Vault and advanced modeling. Build complex projections and save your progress.' },
             ].map((item) => {
               const Icon = item.icon
               return (

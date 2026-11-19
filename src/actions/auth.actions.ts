@@ -53,7 +53,7 @@ export async function verifyEmailTokenAction(
   tokenHash: string,
   type: string
 ): Promise<VerifyEmailTokenResult> {
-  // Defence in depth: the client validates first, but the action never
+  // Defense in depth: the client validates first, but the action never
   // trusts its input — unknown types are rejected before any verifyOtp
   // call, and an empty hash is rejected outright.
   if (!tokenHash || !VALID_TYPES.includes(type as VerifyEmailTokenType)) {

@@ -4,7 +4,7 @@ import { ArrowUpRight } from 'lucide-react'
  * PreferredSourceButton — Google's "Preferred Sources" ask, using the
  * official deeplink format from Google Search Central:
  * https://www.google.com/preferences/source?q=<domain>
- * Readers who add DailyFinance see its pages prioritised in their Top
+ * Readers who add DailyFinance see its pages prioritized in their Top
  * Stories, Discover and AI results. Rendered on tool pages directly under
  * the title, description and Reviewed-by trust block.
  */

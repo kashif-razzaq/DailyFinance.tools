@@ -6,7 +6,7 @@ import { Slider } from "@/components/ui/slider"
 
 const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
-// Integer-cents maths: round to cents at each money step, display whole dollars
+// Integer-cents math: round to cents at each money step, display whole dollars
 const cents = (n: number) => Math.round(n * 100) / 100
 function MoneyInput({ label, value, onChange, hint }: { label: string; value: number; onChange: (n: number) => void; hint?: string }) {
   return (<div className="space-y-2"><label className="text-sm font-semibold">{label}</label>

@@ -47,10 +47,10 @@ const FAQS = [
   },
   {
     q: "Will it slow my site down?",
-    a: "The loader is a small script that inserts a single iframe, loaded lazily so it does not block your page. The widget is served from our servers, so there is nothing to install — the maths itself runs in your visitor's browser.",
+    a: "The loader is a small script that inserts a single iframe, loaded lazily so it does not block your page. The widget is served from our servers, so there is nothing to install — the math itself runs in your visitor's browser.",
   },
   {
-    q: "Can I change the colours or theme?",
+    q: "Can I change the colors or theme?",
     a: "Yes. Set data-theme to \"light\" or \"dark\" on the script tag. The widget follows that theme; there are no other style options on the free embed.",
   },
   {

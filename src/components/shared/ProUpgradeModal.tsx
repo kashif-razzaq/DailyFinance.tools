@@ -37,7 +37,7 @@ export function ProUpgradeModal({ isOpen, onClose }: ProUpgradeModalProps) {
           <div className="bg-muted/30 p-5 rounded-2xl mb-8 text-left space-y-3.5 border border-border/50 text-sm">
             <div className="flex items-center gap-3">
               <ShieldCheck className="h-4 w-4 text-muted-foreground shrink-0" />
-              <span className="font-medium text-foreground">Zero display ads</span>
+              <span className="font-medium text-foreground">Live sharing — send clients pre-filled calculations</span>
             </div>
             <div className="flex items-center gap-3">
               <ShieldCheck className="h-4 w-4 text-muted-foreground shrink-0" />

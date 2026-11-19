@@ -133,7 +133,7 @@ export function MobileHome() {
           <button
             type="button"
             onClick={() => toggleFavourite(tool.slug)}
-            aria-label={isFav ? `Remove ${tool.title} from favourites` : `Save ${tool.title} to favourites`}
+            aria-label={isFav ? `Remove ${tool.title} from favorites` : `Save ${tool.title} to favorites`}
             aria-pressed={isFav}
             className="relative z-20 flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-transform active:scale-90"
           >
@@ -292,7 +292,7 @@ export function MobileHome() {
                 <button
                   type="button"
                   onClick={() => toggleFavourite(tool.slug)}
-                  aria-label={isFav ? `Remove ${tool.title} from favourites` : `Save ${tool.title} to favourites`}
+                  aria-label={isFav ? `Remove ${tool.title} from favorites` : `Save ${tool.title} to favorites`}
                   aria-pressed={isFav}
                   className="absolute right-2.5 top-2.5 z-20 flex h-9 w-9 items-center justify-center rounded-full transition-transform active:scale-90"
                 >
@@ -382,7 +382,7 @@ export function MobileHome() {
             <span className="ml-auto rounded-full bg-[#D97706] px-2.5 py-1 text-[12px] font-extrabold">$2.99/mo</span>
           </div>
           <p className="text-sm font-light leading-relaxed text-white/85">
-            Save unlimited calculations in the Scenario Vault, unlock cross-data analytics, CSV and PDF exports — with zero ads.
+            Save unlimited calculations in the Scenario Vault, unlock cross-data analytics, CSV and PDF exports.
           </p>
           <Link
             href="/pricing"

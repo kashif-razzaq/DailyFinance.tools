@@ -27,12 +27,12 @@ function normalizeCategory(stored: string): string {
   const name = stored.split(' (')[0]
   return Object.keys(REFERRAL).find((k) => k.split(' (')[0] === name) ?? 'Home & Kitchen (15%)'
 }
-// 2026 US FBA fulfilment fees, verified November 2026 (non-peak base rates effective 15 Jan 2026, before
+// 2026 US FBA fulfillment fees, verified November 2026 (non-peak base rates effective 15 Jan 2026, before
 // the surcharge). Each tier is [under $10, $10–$50, over $50] by selling price; bulky tiers have only two
 // bands (under $10 / $10 and up), so the over-$50 figure repeats the middle band. Small standard 12–16 oz
 // uses the 14–16 oz row (top of the span); bulky fees add $0.38/lb above 1 lb to the tier base.
 const FBA_FEE: Record<string, [number, number, number]> = { 'Small standard (≤4 oz) — $2.49–$3.68': [2.49, 3.42, 3.68], 'Small standard (12–16 oz) — $2.95–$4.22': [2.95, 3.96, 4.22], 'Large standard (≤1 lb) — $3.78–$4.86': [3.78, 4.60, 4.86], 'Large standard (2 lb) — $5.00–$6.08': [5.00, 5.82, 6.08], 'Large standard (3 lb) — $5.85–$6.93': [5.85, 6.67, 6.93], 'Large bulky (5 lb) — $10.10–$10.87': [10.10, 10.87, 10.87], 'Large bulky (10 lb) — $12.00–$12.77': [12.00, 12.77, 12.77] }
-// 3.5% fuel & logistics surcharge on every FBA fulfilment fee since 17 April 2026.
+// 3.5% fuel & logistics surcharge on every FBA fulfillment fee since 17 April 2026.
 const FUEL_SURCHARGE = 0.035
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
@@ -79,7 +79,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
             <select value={category} onChange={(e) => setCategory(e.target.value)} className="h-9 w-full rounded-lg border border-input bg-transparent px-2.5 text-sm">
               {Object.keys(REFERRAL).map((k) => <option key={k} value={k}>{k}</option>)}
             </select></div>
-          <div className="space-y-2"><label className="text-sm font-semibold">Size Tier (FBA fulfilment fee by price band)</label>
+          <div className="space-y-2"><label className="text-sm font-semibold">Size Tier (FBA fulfillment fee by price band)</label>
             <select value={tier} onChange={(e) => setTier(e.target.value)} className="h-9 w-full rounded-lg border border-input bg-transparent px-2.5 text-sm">
               {Object.keys(FBA_FEE).map((k) => <option key={k} value={k}>{k}</option>)}
             </select></div>
@@ -87,7 +87,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <div className="space-y-2"><label className="text-sm font-semibold">Inbound Shipping per Unit</label><Input type="number" step="0.01" value={inbound === 0 ? '' : inbound} onChange={(e) => setInbound(e.target.value === '' ? 0 : Number(e.target.value))} className="font-mono" /></div>
           <div className="space-y-2"><label className="text-sm font-semibold">Units Sold per Month</label><Input type="number" value={units === 0 ? '' : units} onChange={(e) => setUnits(e.target.value === '' ? 0 : Number(e.target.value))} className="font-mono" /></div>
         </div>
-        <p className="text-xs text-muted-foreground">Fulfilment fees are 2026 US non-peak rates, verified November 2026: the fee depends on your selling price (under $10 / $10–$50 / over $50 — the tier label shows the range) and the figure shown includes the 3.5% fuel &amp; logistics surcharge. Holiday peak rates (15 Oct 2026 – 14 Jan 2027) run higher. Always confirm your exact fees in Seller Central — size tier is set by Amazon from your package dimensions and weight.</p>
+        <p className="text-xs text-muted-foreground">Fulfillment fees are 2026 US non-peak rates, verified November 2026: the fee depends on your selling price (under $10 / $10–$50 / over $50 — the tier label shows the range) and the figure shown includes the 3.5% fuel &amp; logistics surcharge. Holiday peak rates (15 Oct 2026 – 14 Jan 2027) run higher. Always confirm your exact fees in Seller Central — size tier is set by Amazon from your package dimensions and weight.</p>
       </div>
       <div className="lg:col-span-5 space-y-6 lg:sticky lg:top-8">
         <div className="bg-[#064E3B] text-primary-foreground rounded-2xl p-8 shadow-2xl relative overflow-hidden">
@@ -96,7 +96,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <div className="text-5xl font-black tracking-tight font-mono relative z-10">{fmt(profit, sym)}</div>
           <div className="grid grid-cols-2 gap-6 mt-8 pt-6 border-t border-primary-foreground/20 relative z-10">
             <div><p className="text-[10px] text-primary-foreground/70 uppercase font-bold tracking-wider mb-1">Referral Fee</p><p className="text-xl font-bold font-mono">{fmt(referralFee, sym)}</p></div>
-            <div><p className="text-[10px] text-primary-foreground/70 uppercase font-bold tracking-wider mb-1">FBA Fulfilment Fee (incl. 3.5% surcharge)</p><p className="text-xl font-bold font-mono">{fmt(fbaFee, sym)}</p></div>
+            <div><p className="text-[10px] text-primary-foreground/70 uppercase font-bold tracking-wider mb-1">FBA Fulfillment Fee (incl. 3.5% surcharge)</p><p className="text-xl font-bold font-mono">{fmt(fbaFee, sym)}</p></div>
             <div><p className="text-[10px] text-primary-foreground/70 uppercase font-bold tracking-wider mb-1">Total Amazon Fees / Unit</p><p className="text-xl font-bold font-mono">{fmt(totalFees, sym)}</p></div>
             <div><p className="text-[10px] text-primary-foreground/70 uppercase font-bold tracking-wider mb-1">Net Margin</p><p className="text-xl font-bold font-mono">{(margin * 100).toFixed(1)}%</p></div>
             <div><p className="text-[10px] text-primary-foreground/70 uppercase font-bold tracking-wider mb-1">Monthly Profit</p><p className="text-xl font-bold font-mono">{fmt0(monthly, sym)}</p></div>

@@ -18,7 +18,7 @@ export default function Page() {
       intro={[
       "Freelancing replaces a predictable salary with variable income, self-employment tax and unpaid admin time. The calculators in this hub are built around that reality. They use the same models a finance manager would: a Minimum Acceptable Rate for pricing, IRS self-employment tax mechanics (15.3% on 92.35% of net earnings) for tax tools, and volatility-based buffers instead of the generic 'save 3\u20136 months' rule for cash-flow tools.",
       "Work through them in order if you are starting out: set your rate first, because every other number depends on it. Then check what a W-2 offer is really worth against your 1099 income, price your next project as a flat fee, and estimate your quarterly tax before the IRS deadline \u2014 not after. If one client provides most of your income, the client lifetime value and emergency fund tools show you the risk in numbers.",
-      "Each tool is free, works instantly in your browser, and shows its full formula with worked examples, so you can verify the maths yourself or share the reasoning with a client or accountant."
+      "Each tool is free, works instantly in your browser, and shows its full formula with worked examples, so you can verify the math yourself or share the reasoning with a client or accountant."
 ]}
       decisions={[
       {

@@ -8,7 +8,7 @@ import { curSym } from '@/lib/currency'
 
 /**
  * Shared input/result primitives for the Pro tools, in the same visual
- * language as the free calculators (labelled money fields with the live
+ * language as the free calculators (labeled money fields with the live
  * currency symbol, percentage sliders, deep-emerald result cards).
  */
 export const fmt = (n: number) =>

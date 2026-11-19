@@ -29,7 +29,7 @@ export default function Page() {
       {
             "need": "Selling on Amazon",
             "toolSlug": "amazon-fba-fee-calculator",
-            "why": "deducts referral, fulfilment and storage fees by size tier."
+            "why": "deducts referral, fulfillment and storage fees by size tier."
       },
       {
             "need": "Setting an ad budget",
@@ -58,7 +58,7 @@ export default function Page() {
       },
       {
             "question": "Are Amazon's fees included accurately?",
-            "answer": "The FBA calculator uses Amazon's published referral percentages by category and fulfilment fees by size tier. Fees change periodically \u2014 check Seller Central for the latest schedule before listing."
+            "answer": "The FBA calculator uses Amazon's published referral percentages by category and fulfillment fees by size tier. Fees change periodically \u2014 check Seller Central for the latest schedule before listing."
       },
       {
             "question": "Are these tools free for commercial use?",

@@ -27,11 +27,11 @@ export default function Page() {
         { need: "A salary, raise or job offer", toolSlug: "paycheck-calculator", why: "turns gross pay into the actual deposit for your pay schedule." },
         { need: "The full annual tax picture", toolSlug: "income-tax-calculator", why: "combines federal, state and FICA into one burden breakdown." },
         { need: "Understanding your bracket", toolSlug: "tax-calculator", why: "shows each bracket slice and your effective vs marginal rate." },
-        { need: "Modelling 401(k) and HSA effects", toolSlug: "take-home-pay-calculator", why: "runs the pre-tax deduction waterfall line by line." },
+        { need: "Modeling 401(k) and HSA effects", toolSlug: "take-home-pay-calculator", why: "runs the pre-tax deduction waterfall line by line." },
         { need: "Selling an investment", toolSlug: "capital-gains-tax-calculator", why: "separates short-term from long-term treatment and adds NIIT where it applies." },
       ]}
       faqs={[
-        { question: "Are these calculators exact?", answer: "They are estimates built on published 2026 federal brackets and the standard deduction, labelled as estimates on every page. Individual situations — credits, itemised deductions, local taxes — move the final figure; use the result for planning and a tax professional for filing." },
+        { question: "Are these calculators exact?", answer: "They are estimates built on published 2026 federal brackets and the standard deduction, labeled as estimates on every page. Individual situations — credits, itemised deductions, local taxes — move the final figure; use the result for planning and a tax professional for filing." },
         { question: "Why is my first paycheck at a new job taxed oddly?", answer: "Payroll annualises each check: a mid-period start, a signing bonus or a short first period can make withholding look high or low. It settles across the year and at filing." },
         { question: "What is the difference between marginal and effective rate?", answer: "Marginal is the rate on your next dollar; effective is total tax divided by total income. Effective is always lower in a bracket system, and it is the rate to use when comparing overall tax burdens." },
       ]}

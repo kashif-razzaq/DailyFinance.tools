@@ -50,7 +50,7 @@ export default function GuidesIndexPage() {
         <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-5 max-w-3xl">Finance, explained with the numbers left in</h1>
         <p className="text-lg text-muted-foreground leading-relaxed max-w-3xl mb-4">
           Most money content either sells something or pads a word count. These guides do neither: each one states the
-          rule, works a real example with real figures, and links to the calculator that runs the same maths on your
+          rule, works a real example with real figures, and links to the calculator that runs the same math on your
           own numbers.
         </p>
         <p className="text-muted-foreground max-w-3xl mb-12">

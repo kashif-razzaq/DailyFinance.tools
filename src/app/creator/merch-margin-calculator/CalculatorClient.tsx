@@ -58,7 +58,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
             <Input type="number" step="0.5" value={price === 0 ? '' : price} onChange={(e) => setPrice(e.target.value === '' ? 0 : Number(e.target.value))} className="font-mono text-lg" /></div>
           <div className="space-y-3"><label className="text-sm font-semibold">Base product cost ($)</label>
             <Input type="number" step="0.5" value={baseCost === 0 ? '' : baseCost} onChange={(e) => setBaseCost(e.target.value === '' ? 0 : Number(e.target.value))} className="font-mono" />
-            <p className="text-xs text-neutral-500">Blank + fulfilment base from your print-on-demand provider.</p></div>
+            <p className="text-xs text-neutral-500">Blank + fulfillment base from your print-on-demand provider.</p></div>
           <div className="space-y-3"><label className="text-sm font-semibold">Print / embroidery cost ($)</label>
             <Input type="number" step="0.5" value={printCost === 0 ? '' : printCost} onChange={(e) => setPrintCost(e.target.value === '' ? 0 : Number(e.target.value))} className="font-mono" /></div>
         </div>

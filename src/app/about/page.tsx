@@ -1,8 +1,9 @@
 import type { Metadata } from "next"
+import Image from "next/image"
 import Link from "next/link"
 import { navigationCategories, getToolUrl } from "@/config/navigation"
 import { breadcrumb, stringifyJsonLd } from "@/lib/schema"
-import { Calculator, Eye, ShieldCheck, RefreshCw } from "lucide-react"
+import { Calculator, Eye, RefreshCw } from "lucide-react"
 
 export const metadata: Metadata = {
   title: "About DailyFinance — Free Calculators, Professionally Reviewed",
@@ -42,11 +43,18 @@ export default function AboutPage() {
           <div className="bg-card border rounded-3xl p-6">
             <Eye className="h-6 w-6 text-primary mb-3" />
             <h2 className="font-bold text-lg mb-2">Transparent by default</h2>
-            <p className="text-sm text-muted-foreground leading-relaxed">No black boxes. Every calculator displays its formula, defines every variable, and works through real-number scenarios, so you can verify the maths or take the reasoning to your accountant, lender or client.</p>
+            <p className="text-sm text-muted-foreground leading-relaxed">No black boxes. Every calculator displays its formula, defines every variable, and works through real-number scenarios, so you can verify the math or take the reasoning to your accountant, lender or client.</p>
           </div>
           <div className="bg-card border rounded-3xl p-6">
-            <ShieldCheck className="h-6 w-6 text-primary mb-3" />
-            <h2 className="font-bold text-lg mb-2">Reviewed by a professional</h2>
+            <div className="flex items-center gap-3 mb-3">
+              <div className="relative w-11 h-11 rounded-full overflow-hidden shrink-0 border border-border/50">
+                <Image src="/team/tahir-shehzad.jpg" alt="Tahir Shehzad, ACMA" fill sizes="44px" className="object-cover" />
+              </div>
+              <div>
+                <h2 className="font-bold text-lg mb-0 leading-tight">Reviewed by a professional</h2>
+                <p className="text-xs font-bold text-primary m-0">Tahir Shehzad, ACMA</p>
+              </div>
+            </div>
             <p className="text-sm text-muted-foreground leading-relaxed">Our calculators are reviewed by Tahir Shehzad, ACMA — an Assistant Manager, Accounts &amp; Finance running finance for a multi-entity group across IFRS reporting, payroll, taxation and compliance. His models keep the tools grounded in how finance actually works. How we research, write and correct content is set out in our <Link href="/editorial-policy" className="font-semibold text-primary hover:underline">Editorial Policy</Link> and <Link href="/methodology" className="font-semibold text-primary hover:underline">Methodology</Link>.</p>
           </div>
           <div className="bg-card border rounded-3xl p-6">

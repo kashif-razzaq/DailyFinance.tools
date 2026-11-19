@@ -5,21 +5,21 @@ import { isValidContactType, type ContactInquiryType } from "@/lib/contact"
 import { ContactForm } from "./ContactForm"
 
 export const metadata: Metadata = {
-  title: "Contact DailyFinance — Corrections, Tool Requests & Enquiries",
+  title: "Contact DailyFinance — Corrections, Tool Requests & Inquiries",
   description: "Contact the DailyFinance team: report a calculator error, request a new tool, or ask about partnerships and embeds. We read every message.",
   alternates: { canonical: "https://www.dailyfinance.tools/contact" },
   openGraph: {
-    title: "Contact DailyFinance — Corrections, Tool Requests & Enquiries",
+    title: "Contact DailyFinance — Corrections, Tool Requests & Inquiries",
     description: "Contact the DailyFinance team: report a calculator error, request a new tool, or ask about partnerships and embeds. We read every message.",
     url: "https://www.dailyfinance.tools/contact",
     siteName: "DailyFinance.tools",
     locale: "en_US",
     type: "website",
-    images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Contact DailyFinance — Corrections, Tool Requests & Enquiries" }],
+    images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Contact DailyFinance — Corrections, Tool Requests & Inquiries" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Contact DailyFinance — Corrections, Tool Requests & Enquiries",
+    title: "Contact DailyFinance — Corrections, Tool Requests & Inquiries",
     description: "Contact the DailyFinance team: report a calculator error, request a new tool, or ask about partnerships and embeds. We read every message.",
     images: ["https://www.dailyfinance.tools/images/og-base.jpg"],
   },
@@ -63,7 +63,7 @@ export default async function ContactPage({
         <div className="bg-primary/5 border border-primary/20 rounded-3xl p-6 mb-10 flex flex-col sm:flex-row sm:items-center gap-4 justify-between">
           <div>
             <h2 className="font-bold text-lg">Email us directly</h2>
-            <p className="text-sm text-muted-foreground">For corrections, tool requests, privacy requests and business enquiries:</p>
+            <p className="text-sm text-muted-foreground">For corrections, tool requests, privacy requests and business inquiries:</p>
           </div>
           <a href="mailto:info@dailyfinance.tools" className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-xl font-semibold text-sm hover:bg-primary/90 transition-colors shrink-0">info@dailyfinance.tools</a>
         </div>
@@ -71,7 +71,7 @@ export default async function ContactPage({
         <div className="bg-card border rounded-3xl p-6 md:p-8 mb-14">
           <h2 className="font-bold text-xl mb-2">Send us a message</h2>
           <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-            Corrections, tool requests, privacy requests — or business enquiries: paid promotion, guest posting and white-label embeds. Choose the matching type so we can answer properly.
+            Corrections, tool requests, privacy requests — or business inquiries: paid promotion, guest posting and white-label embeds. Choose the matching type so we can answer properly.
           </p>
           <ContactForm initialType={initialType} />
         </div>

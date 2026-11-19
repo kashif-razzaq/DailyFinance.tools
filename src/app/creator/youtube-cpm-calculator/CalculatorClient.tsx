@@ -21,7 +21,7 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
 }
 
 // Typical advertiser CPM ranges by niche (US-heavy audiences). Creators receive 55% of ad revenue,
-// so RPM ≈ CPM x 0.55 before accounting for non-monetised views, Premium and memberships.
+// so RPM ≈ CPM x 0.55 before accounting for non-monetized views, Premium and memberships.
 const NICHES: { name: string; cpm: number }[] = [
   { name: 'Finance & Investing', cpm: 42 }, { name: 'Business & SaaS', cpm: 36 }, { name: 'Tech Reviews', cpm: 26 },
   { name: 'Education', cpm: 20 }, { name: 'Health & Fitness', cpm: 18 }, { name: 'Gaming', cpm: 11 },
@@ -45,7 +45,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
 
 
   const r = useMemo(() => {
-    // CPM mode: advertiser pays CPM per 1,000 monetised views; creator share is 55% → RPM = CPM x 0.55 (approx).
+    // CPM mode: advertiser pays CPM per 1,000 monetized views; creator share is 55% → RPM = CPM x 0.55 (approx).
     // RPM mode: revenue = views/1000 x RPM directly; implied CPM = RPM / 0.55.
     const rpm = mode === 'cpm' ? rate * 0.55 : rate
     const cpm = mode === 'cpm' ? rate : rate / 0.55

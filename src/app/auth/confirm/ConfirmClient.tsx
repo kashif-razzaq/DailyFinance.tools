@@ -167,9 +167,9 @@ export function ConfirmClient() {
 
   useEffect(() => {
     // Single attempt: the ref stops React StrictMode's double-invocation
-    // from firing verifyOtp twice for one page load. (No `cancelled`
+    // from firing verifyOtp twice for one page load. (No `canceled`
     // flag: the StrictMode remount runs cleanup before the async work
-    // finishes, and a cancelled flag would strand the page on
+    // finishes, and a canceled flag would strand the page on
     // "Verifying" in dev. Setting state after unmount is a harmless
     // no-op in React 18+.)
     if (attemptedRef.current) return

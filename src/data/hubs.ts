@@ -28,7 +28,7 @@ export const HUBS: HubContent[] = [
     decide: {
       heading: "Which calculation do you need?",
       paragraphs: [
-        "Start from the question, not the product. \"What will this become?\" is a compounding question. \"What must I save each month?\" is a goal question — the same maths run backwards. \"Where does the money go?\" is a budget question, and it should be answered before the other two, because the savings rate it reveals is the input every projection depends on.",
+        "Start from the question, not the product. \"What will this become?\" is a compounding question. \"What must I save each month?\" is a goal question — the same math run backwards. \"Where does the money go?\" is a budget question, and it should be answered before the other two, because the savings rate it reveals is the input every projection depends on.",
       ],
       bullets: [
         "Growing money you have: compound interest, interest and future value calculators.",

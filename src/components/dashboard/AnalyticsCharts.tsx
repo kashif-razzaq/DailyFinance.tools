@@ -636,7 +636,7 @@ export function CrossDataAnalytics({ calculators, isPro = false }: { calculators
         <Info className="mt-0.5 h-3.5 w-3.5 shrink-0" />
         Built from your latest scenario in each of {pic.toolsUsed} tool{pic.toolsUsed === 1 ? '' : 's'}.
         Where a payment is not saved directly it is estimated with the standard amortization formula on your
-        saved balance, rate and term — the same maths the calculators run. Reopen and re-save a scenario to
+        saved balance, rate and term — the same math the calculators run. Reopen and re-save a scenario to
         refresh its numbers here.
       </p>
     </div>

@@ -45,7 +45,7 @@ export default function Page() {
       {
             "heading": "How we use information",
             "paragraphs": [
-                  "We use information to provide and maintain the calculators, operate accounts and saved scenarios, respond to enquiries, and keep the site secure. Anonymous feedback votes help us see which calculators visitors found helpful. We do not sell your personal information."
+                  "We use information to provide and maintain the calculators, operate accounts and saved scenarios, respond to inquiries, and keep the site secure. Anonymous feedback votes help us see which calculators visitors found helpful. We do not sell your personal information."
             ]
       },
       {

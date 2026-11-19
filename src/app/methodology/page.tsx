@@ -35,7 +35,7 @@ export default function MethodologyPage() {
       sections={[
         { heading: "Formula sources", paragraphs: [
           "Tax calculators implement the published mechanics of the relevant authority: IRS publications and revenue procedures for federal tax, self-employment tax (15.3% on 92.35% of net earnings), estimated-tax safe harbours and retirement contribution limits; Social Security Administration figures for wage bases; and state Departments of Revenue for state rates.",
-          "Platform tools implement the platforms' own published schedules: YouTube's revenue-share and typical RPM ranges by niche, TikTok's Creator Rewards Program rules (the Creator Fund closed in December 2023), Amazon's referral and FBA fee tables by category and size tier, Shopify/Stripe/PayPal/Etsy/Patreon fee schedules, and lender-standard amortization maths (PMT = P·r(1+r)ⁿ/((1+r)ⁿ−1)) for loan tools.",
+          "Platform tools implement the platforms' own published schedules: YouTube's revenue-share and typical RPM ranges by niche, TikTok's Creator Rewards Program rules (the Creator Fund closed in December 2023), Amazon's referral and FBA fee tables by category and size tier, Shopify/Stripe/PayPal/Etsy/Patreon fee schedules, and lender-standard amortization math (PMT = P·r(1+r)ⁿ/((1+r)ⁿ−1)) for loan tools.",
           "Where a number is a market estimate rather than a rule — RPM bands, cap-rate norms, average combined sales-tax rates — the page says so and shows a range or labels the figure an approximation.",
         ]},
         { heading: "Professional review", paragraphs: [
@@ -44,7 +44,7 @@ export default function MethodologyPage() {
         ]},
         { heading: "Location (state) data", paragraphs: [
           "State pages (for example our sales-tax-by-state guides) are generated from a single dataset so a correction lands everywhere at once. State base sales-tax rates are the statutory statewide rates. 'Average combined' rates are Tax Foundation-style averages across county, city and district layers — they are approximations for orientation and examples, and every location page states that your exact rate depends on your specific address and directs you to your state Department of Revenue.",
-          "Average effective property-tax rates are Census/Tax Foundation-style state averages for owner-occupied homes; individual bills depend on county assessment, exemptions and millage. Income-tax descriptions summarise structure (none / flat / progressive) and headline rates; they are not filing guidance.",
+          "Average effective property-tax rates are Census/Tax Foundation-style state averages for owner-occupied homes; individual bills depend on county assessment, exemptions and millage. Income-tax descriptions summarize structure (none / flat / progressive) and headline rates; they are not filing guidance.",
         ]},
         { heading: "Update cadence", paragraphs: [
           "Tax-year figures (brackets, limits, wage bases) are refreshed when the IRS publishes the new year. Platform fees and program rules are re-checked at least quarterly and whenever a platform announces a change. Location data is reviewed at least twice a year and after any state announces a rate change. Pages affected by a known change are corrected as soon as the change is verified against the primary source.",

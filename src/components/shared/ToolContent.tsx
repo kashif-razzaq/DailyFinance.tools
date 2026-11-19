@@ -58,8 +58,9 @@ export function ToolContent({ contentKey }: { contentKey: string }) {
   return (
     <div>
       <section
+        id="quick-answer"
         aria-label="Quick answer"
-        className="not-prose rounded-3xl bg-gradient-to-br from-[#064E3B]/10 via-[#064E3B]/5 to-transparent dark:from-emerald-400/15 dark:via-emerald-400/5 border border-[#064E3B]/15 dark:border-emerald-400/20 px-6 py-6 md:px-8 md:py-7 mb-12"
+        className="not-prose rounded-3xl bg-gradient-to-br from-[#064E3B]/10 via-[#064E3B]/5 to-transparent dark:from-emerald-400/15 dark:via-emerald-400/5 border border-[#064E3B]/15 dark:border-emerald-400/20 px-6 py-6 md:px-8 md:py-7 mb-12 scroll-mt-24"
       >
         <p className={eyebrow}>
           <Zap className="h-4 w-4" /> Quick answer
@@ -69,7 +70,7 @@ export function ToolContent({ contentKey }: { contentKey: string }) {
         </p>
       </section>
 
-      <section aria-label="How it works">
+      <section id="how-it-works" aria-label="How it works" className="scroll-mt-24">
         <div className="content-prose">
           <h2>How the {toolName} works, step by step</h2>
         </div>
@@ -94,7 +95,7 @@ export function ToolContent({ contentKey }: { contentKey: string }) {
       </section>
 
       {entry.formula && (
-        <section aria-label="Formula" className="not-prose my-10">
+        <section id="formula" aria-label="Formula" className="not-prose my-10 scroll-mt-24">
           <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 mb-2">
             <Sigma className="h-4 w-4" /> The formula
           </p>
@@ -105,8 +106,9 @@ export function ToolContent({ contentKey }: { contentKey: string }) {
       )}
 
       <section
+        id="worked-example"
         aria-label="Worked example"
-        className="not-prose mt-12 border-2 border-dashed border-[#064E3B]/30 dark:border-emerald-400/30 rounded-2xl bg-white dark:bg-neutral-950 overflow-hidden"
+        className="not-prose mt-12 border-2 border-dashed border-[#064E3B]/30 dark:border-emerald-400/30 rounded-2xl bg-white dark:bg-neutral-950 overflow-hidden scroll-mt-24"
       >
         <p className="flex items-center gap-2 bg-[#064E3B]/5 dark:bg-emerald-400/10 px-6 py-3 text-xs font-bold uppercase tracking-[0.15em] text-[#064E3B] dark:text-emerald-400 m-0">
           <Calculator className="h-4 w-4" /> Worked example — try it on the

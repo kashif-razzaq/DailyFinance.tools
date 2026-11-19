@@ -177,6 +177,29 @@ export function article(opts: {
   }
 }
 
+/** BlogPosting — the framework's article type for editorial guides. */
+export function blogPosting(opts: {
+  headline: string
+  description?: string
+  url: string
+  image?: string
+  dateModified: string
+  datePublished?: string
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: opts.headline,
+    ...(opts.description ? { description: opts.description } : {}),
+    ...(opts.image ? { image: opts.image } : {}),
+    author: { "@type": "Person", name: "Tahir Shehzad", jobTitle: "ACMA", url: "https://www.dailyfinance.tools/about" },
+    publisher: publisherObject(),
+    ...(opts.datePublished ? { datePublished: opts.datePublished } : {}),
+    dateModified: opts.dateModified,
+    mainEntityOfPage: opts.url,
+  }
+}
+
 export function howTo(opts: { name: string; steps: HowToStepInput[] }) {
   return {
     "@context": "https://schema.org",
@@ -221,6 +244,7 @@ export function itemList(opts: { name: string; items: { name: string; url: strin
 export function webPage(opts: {
   name: string
   url: string
+  description?: string
   datePublished?: string
   dateModified?: string
 }) {
@@ -229,6 +253,7 @@ export function webPage(opts: {
     "@type": "WebPage",
     name: opts.name,
     url: opts.url,
+    ...(opts.description ? { description: opts.description } : {}),
     ...(opts.datePublished ? { datePublished: opts.datePublished } : {}),
     ...(opts.dateModified ? { dateModified: opts.dateModified } : {}),
     publisher: publisherRef(),

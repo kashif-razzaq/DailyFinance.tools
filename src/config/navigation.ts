@@ -168,7 +168,7 @@ export const navigationCategories: Category[] = [
       { title: "Future Value Calculator", slug: "future-value-calculator", description: "Future value of deposits plus a payment series.", icon: TrendingUp },
       { title: "Budget Calculator", slug: "budget-calculator", description: "Income vs spending categories and savings rate.", icon: PieChart },
       { title: "50/30/20 Budget Calculator", slug: "50-30-20-budget-calculator", description: "Needs, wants and savings against the rule.", icon: PieChart },
-      { title: "Rule of 72 Calculator", slug: "rule-of-72-calculator", description: "How fast money doubles — rule vs exact maths.", icon: Zap },
+      { title: "Rule of 72 Calculator", slug: "rule-of-72-calculator", description: "How fast money doubles — rule vs exact math.", icon: Zap },
       { title: "Retirement Calculator", slug: "retirement-calculator", description: "Project your nest egg to retirement age.", icon: Shield },
       { title: "Roth IRA Calculator", slug: "roth-ira-calculator", description: "Tax-free growth vs a taxable account.", icon: Star },
       { title: "IRA Calculator", slug: "ira-calculator", description: "Traditional vs Roth, side by side.", icon: Bookmark },

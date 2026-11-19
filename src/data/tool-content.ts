@@ -13,6 +13,8 @@ export interface ToolContentEntry {
   formula?: string;
   example: { title: string; body: string };
   faqs: { question: string; answer: string }[];
+  /** 1–2 verified primary-source URLs (framework: every page cites sources). */
+  sources?: { label: string; url: string }[];
 }
 
 export const TOOL_CONTENT: Record<string, ToolContentEntry> = {

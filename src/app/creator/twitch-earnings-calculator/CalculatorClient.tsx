@@ -21,7 +21,7 @@ function ResultCard({ title, children }: { title: string; children: React.ReactN
 
 // Twitch sub prices (US, web checkout, verified November 2026): Tier 1 $5.99 (raised from
 // $4.99 in July 2024), Tier 2 $9.99, Tier 3 $24.99. Standard split is 50/50;
-// Plus Programme partners earn 70/30 on net sub revenue — hence the share slider.
+// Plus Program partners earn 70/30 on net sub revenue — hence the share slider.
 // Bits pay the streamer exactly $0.01 per bit cheered.
 const TIER_PRICE = { t1: 5.99, t2: 9.99, t3: 24.99 }
 
@@ -69,7 +69,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       </div>
       <div className="space-y-3"><div className="flex justify-between"><label className="text-sm font-semibold">Your Sub Revenue Share</label><span className="font-mono font-bold">{sharePct}%</span></div>
         <Slider value={[sharePct]} min={50} max={70} step={5} onValueChange={(v: any) => setSharePct(Array.isArray(v) ? v[0] : v)} />
-        <p className="text-xs text-muted-foreground">50% is the standard Affiliate/Partner split. Plus Programme streamers earn 60–70% once they qualify.</p></div>
+        <p className="text-xs text-muted-foreground">50% is the standard Affiliate/Partner split. Plus Program streamers earn 60–70% once they qualify.</p></div>
       <div className="grid grid-cols-3 gap-4">
         <NumInput label="Bits Cheered / Month" value={bits} onChange={setBits} hint="1 bit = $0.01 to you." />
         <NumInput label="Ad Revenue / Month" value={ads} onChange={setAds} hint="From your Twitch dashboard." />

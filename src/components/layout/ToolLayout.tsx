@@ -1,10 +1,11 @@
 import { createServerClient } from "@supabase/ssr"
 import { cookies } from "next/headers"
 import Link from "next/link"
-import { CheckCircle2 } from "lucide-react"
+import { CheckCircle2, ExternalLink, ListOrdered } from "lucide-react"
 import Image from "next/image"
 import React from "react"
 import { TahirLeadGenCTA } from "@/components/shared/TahirLeadGenCTA"
+import { AuthorCard } from "@/components/shared/AuthorCard"
 import { RelatedToolsWidget } from "@/components/shared/RelatedToolsWidget"
 import { SidebarAdSpace } from "@/components/shared/SidebarAdSpace"
 import { ProDashboardWidget } from "@/components/shared/ProDashboardWidget"
@@ -13,7 +14,7 @@ import { PreferredSourceButton } from "@/components/shared/PreferredSourceButton
 import { FaqAccordion } from "@/components/shared/FaqAccordion"
 import { getCategoryForTool } from "@/config/navigation"
 import { safeGetUser } from "@/utils/supabase/safe-user"
-import { webApp, faq, article, breadcrumb, howTo, stringifyJsonLd, CONTENT_REVIEWED } from "@/lib/schema"
+import { webApp, faq, article, breadcrumb, howTo, webPage, stringifyJsonLd, CONTENT_REVIEWED } from "@/lib/schema"
 import { TOOL_CONTENT } from "@/data/tool-content"
 import { getGuidesForTool } from "@/data/guides"
 
@@ -82,7 +83,8 @@ export async function ToolLayout({
   const toolUrl = `https://www.dailyfinance.tools/${category ? category.slug + "/" : ""}${slug}`
   const toolPath = `/${category ? category.slug + "/" : ""}${slug}`
   const relatedGuides = getGuidesForTool(toolPath)
-  const steps = category ? TOOL_CONTENT[`${category.slug}/${slug}`]?.howItWorks : undefined
+  const entry = category ? TOOL_CONTENT[`${category.slug}/${slug}`] : undefined
+  const steps = entry?.howItWorks
 
   return (
     <main className="w-full bg-background min-h-screen">
@@ -91,6 +93,7 @@ export async function ToolLayout({
         <script id="schema-faq" type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(faq(faqs)) }} />
       )}
       <script id="schema-article" type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(article({ headline: title, description, url: toolUrl, dateModified: CONTENT_REVIEWED, datePublished: CONTENT_REVIEWED })) }} />
+      <script id="schema-webpage" type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(webPage({ name: title, url: toolUrl, description })) }} />
       <script id="schema-breadcrumb" type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(breadcrumb([
         { name: "Home", url: "https://www.dailyfinance.tools/" },
         ...(category ? [{ name: category.name, url: `https://www.dailyfinance.tools/${category.slug}` }] : []),
@@ -164,6 +167,31 @@ export async function ToolLayout({
         )}
 
         <div>
+          {entry && (
+            <nav aria-label="On this page" className="mb-10 rounded-2xl border border-border/60 bg-card p-5 md:p-6">
+              <p className="flex items-center gap-2 text-sm font-bold text-foreground mb-3">
+                <ListOrdered className="h-4 w-4 text-[#064E3B] dark:text-emerald-400" /> On this page
+              </p>
+              <ol className="m-0 list-none space-y-2 p-0">
+                <li className="text-sm"><a href="#quick-answer" className="text-muted-foreground hover:text-primary hover:underline underline-offset-2"><span className="mr-2 font-mono text-xs text-muted-foreground/70">01</span>Quick answer</a></li>
+                <li className="text-sm"><a href="#how-it-works" className="text-muted-foreground hover:text-primary hover:underline underline-offset-2"><span className="mr-2 font-mono text-xs text-muted-foreground/70">02</span>How the {title} works, step by step</a></li>
+                {entry.formula && (
+                  <li className="text-sm"><a href="#formula" className="text-muted-foreground hover:text-primary hover:underline underline-offset-2"><span className="mr-2 font-mono text-xs text-muted-foreground/70">03</span>The formula</a></li>
+                )}
+                <li className="text-sm"><a href="#worked-example" className="text-muted-foreground hover:text-primary hover:underline underline-offset-2"><span className="mr-2 font-mono text-xs text-muted-foreground/70">{entry.formula ? "04" : "03"}</span>Worked example</a></li>
+                {faqs.length > 0 && (
+                  <li className="text-sm"><a href="#faq" className="text-muted-foreground hover:text-primary hover:underline underline-offset-2"><span className="mr-2 font-mono text-xs text-muted-foreground/70">{entry.formula ? "05" : "04"}</span>Frequently asked questions</a></li>
+                )}
+                {entry.sources && entry.sources.length > 0 && (
+                  <li className="text-sm"><a href="#sources" className="text-muted-foreground hover:text-primary hover:underline underline-offset-2"><span className="mr-2 font-mono text-xs text-muted-foreground/70">{entry.formula ? "06" : "05"}</span>Sources</a></li>
+                )}
+                {relatedGuides.length > 0 && (
+                  <li className="text-sm"><a href="#learn-more" className="text-muted-foreground hover:text-primary hover:underline underline-offset-2"><span className="mr-2 font-mono text-xs text-muted-foreground/70">{entry.formula ? "07" : "06"}</span>Learn more</a></li>
+                )}
+              </ol>
+            </nav>
+          )}
+
           {children(isPro)}
 
           {/* Dynamic FAQ Section */}
@@ -174,9 +202,25 @@ export async function ToolLayout({
             </section>
           )}
 
+          {/* Sources — the primary sources behind the figures on this page */}
+          {entry?.sources && entry.sources.length > 0 && (
+            <section id="sources" className="mt-10 md:mt-16 scroll-mt-24">
+              <h2 className="text-xl md:text-2xl font-bold m-0 mb-4 text-foreground tracking-tight">Sources</h2>
+              <ul className="m-0 list-none space-y-2 p-0">
+                {entry.sources.map((s) => (
+                  <li key={s.url} className="text-sm">
+                    <a href={s.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-primary hover:underline underline-offset-2">
+                      {s.label} <ExternalLink className="h-3.5 w-3.5 shrink-0" />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
           {/* Learn more — guides that explain this tool's topic in depth */}
           {relatedGuides.length > 0 && (
-            <section className="mt-10 md:mt-16 bg-card border border-border/50 rounded-2xl p-5 md:p-8 shadow-sm">
+            <section id="learn-more" className="mt-10 md:mt-16 bg-card border border-border/50 rounded-2xl p-5 md:p-8 shadow-sm scroll-mt-24">
               <h2 className="text-xl md:text-2xl font-bold m-0 mb-2 text-foreground tracking-tight">Learn more</h2>
               <p className="text-sm text-muted-foreground m-0 mb-5 leading-relaxed">
                 In-depth guides that explain the ideas behind this calculator.
@@ -194,29 +238,7 @@ export async function ToolLayout({
             </section>
           )}
 
-          {/* EEAT Author Bio - Elevated Card Style */}
-          <section className="mt-10 md:mt-16 bg-card border border-border/50 rounded-2xl p-5 md:p-8 flex flex-col sm:flex-row gap-5 md:gap-8 items-start shadow-sm">
-            <div className="relative w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden shrink-0 border border-border/50 shadow-sm">
-              <Image src="/team/tahir-shehzad.jpg" alt="Tahir Shehzad - ACMA" fill sizes="(max-width: 768px) 64px, 80px" className="object-cover" />
-            </div>
-            <div>
-              <div className="flex flex-wrap items-center gap-2 md:gap-3 mb-1 md:mb-2">
-                <h3 className="text-lg md:text-2xl font-bold m-0 text-foreground tracking-tight">Tahir Shehzad</h3>
-                <a href="https://www.linkedin.com/in/tahir-shehzad-acma1993/" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-[#0a66c2] transition-colors" aria-label="Tahir Shehzad on LinkedIn">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 md:w-5 md:h-5">
-                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z" />
-                  </svg>
-                </a>
-                <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground border border-border/50 px-2 py-0.5 rounded-full md:ml-1">ACMA Qualified</span>
-              </div>
-              <p className="text-[11px] md:text-xs font-bold uppercase tracking-wider text-primary mb-3 mt-0">
-                Assistant Manager, Accounts & Finance 
-              </p>
-              <p className="text-sm text-muted-foreground m-0 leading-relaxed max-w-2xl">
-                Running finance for a multi-entity group — IFRS reporting, Odoo & QuickBooks, payroll, taxation and SECP compliance. His models ensure that independent professionals price their services for sustainable, long-term profitability.
-              </p>
-            </div>
-          </section>
+          <AuthorCard />
 
           {/* Estimates disclaimer (YMYL) */}
           <p className="mt-6 rounded-2xl border border-border/60 bg-muted/30 px-5 py-4 text-xs leading-relaxed text-muted-foreground">

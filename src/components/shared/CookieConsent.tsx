@@ -8,12 +8,14 @@ import { Button } from '@/components/ui/button'
 const STORAGE_KEY = 'df-cookie-consent'
 
 /**
- * Cookie consent banner (Google/AdSense requirement). Slim, non-blocking:
- * the page stays fully usable behind it. The choice is stored in
- * localStorage ("df-cookie-consent" = "accepted" | "declined") and the
- * banner never shows again once a choice exists. On mobile it sits above
- * the MobileBottomNav (bottom-20) so the two never overlap; on desktop it
- * is a compact card in the bottom-right corner.
+ * Cookie consent banner (framework line 15). Slim, non-blocking: the page
+ * stays fully usable behind it. The choice is stored in localStorage
+ * ("df-cookie-consent" = "accepted" | "declined") and the banner never shows
+ * again once a choice exists. On mobile it sits above the MobileBottomNav
+ * (bottom-20) so the two never overlap; on desktop it is a compact card in
+ * the bottom-right corner. Copy is honest: no analytics, no advertising
+ * cookies run today — when optional cookies are ever added, they must gate
+ * on this consent.
  */
 export function CookieConsent() {
   const [visible, setVisible] = useState(false)
@@ -44,8 +46,9 @@ export function CookieConsent() {
             <Cookie className="h-4 w-4 text-primary" aria-hidden="true" />
           </span>
           <p className="text-xs leading-relaxed text-muted-foreground">
-            We use cookies for analytics and to serve ads that keep these
-            calculators free. Read the{' '}
+            One cookie keeps you signed in; your preferences (currency, theme)
+            stay on your device. We run no analytics and no advertising
+            cookies. Read the{' '}
             <Link href="/cookies" className="font-medium text-foreground underline underline-offset-2 hover:text-primary">
               Cookie Policy
             </Link>
