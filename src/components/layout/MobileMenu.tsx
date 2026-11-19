@@ -59,9 +59,12 @@ export function MobileMenu({ user, isPremium }: { user?: any; isPremium?: boolea
       {/* Header */}
       <div className="flex items-center justify-between p-4 border-b">
         <span className="font-bold text-lg">Menu</span>
-        <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)} className="rounded-full bg-muted/50">
-          <X className="h-5 w-5" />
-        </Button>
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+          <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)} className="rounded-full bg-muted/50">
+            <X className="h-5 w-5" />
+          </Button>
+        </div>
       </div>
 
       {/* Scrollable Content */}
@@ -187,10 +190,9 @@ export function MobileMenu({ user, isPremium }: { user?: any; isPremium?: boolea
         </div>
       </div>
 
-      {/* Settings */}
-      <div className="border-t px-4 py-2">
-        <ThemeToggle variant="row" />
-        {!user && (
+      {/* Settings — currency only (logged-out); the theme toggle lives in the top bar */}
+      {!user && (
+        <div className="border-t px-4 py-2">
           <div className="flex items-center justify-between gap-3 px-2 py-3">
             <span className="flex items-center gap-2.5 text-base font-medium shrink-0">
               <Globe className="h-5 w-5 text-muted-foreground" />
@@ -200,8 +202,8 @@ export function MobileMenu({ user, isPremium }: { user?: any; isPremium?: boolea
               <CurrencySelector variant="menu" />
             </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
 
       {/* Sticky Auth Footer */}
       <div className="border-t p-4 bg-muted/20">
