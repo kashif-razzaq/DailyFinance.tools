@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     title: "Disclaimer | DailyFinance",
     description: "DailyFinance calculators provide educational estimates, not financial, tax or investment advice. Read the limits before relying on any result.",
     url: "https://www.dailyfinance.tools/disclaimer",
-    siteName: "DailyFinance.tools",
+    siteName: "Daily Finance Tools",
     locale: "en_US",
     type: "website",
     images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Disclaimer | DailyFinance" }],

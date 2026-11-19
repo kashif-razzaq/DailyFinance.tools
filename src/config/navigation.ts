@@ -237,6 +237,24 @@ export function getCategoryForTool(toolSlug: string): Category | undefined {
 }
 
 /**
+ * Tool counts, computed from the registry above — the single source of truth
+ * for every tool number shown anywhere on the site (titles, descriptions,
+ * hero, embed band, pricing, login, schema, llms.txt). Add a tool to a
+ * category and every count updates automatically on the next build.
+ * Never hardcode a tool count anywhere else.
+ */
+const _totalTools = navigationCategories.reduce((n, c) => n + c.calculators.length, 0)
+const _proTools = navigationCategories.find((c) => c.slug === "pro")?.calculators.length ?? 0
+export const TOOL_COUNTS = {
+  /** Every calculator on the site, free + Pro. */
+  total: _totalTools,
+  /** Free calculators (also the embeddable set). */
+  free: _totalTools - _proTools,
+  /** Pro-exclusive tools. */
+  pro: _proTools,
+} as const
+
+/**
  * Legacy save-slugs: the original freelance tools save scenarios under
  * older internal slugs that are not page URLs. Map them to the real page
  * slug so a saved scenario always resolves to a working tool page.

@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     title: "Sitemap — DailyFinance.tools",
     description: "Every calculator, guide and state page on DailyFinance.tools, in one clickable hierarchy.",
     url: "https://www.dailyfinance.tools/sitemap",
-    siteName: "DailyFinance.tools",
+    siteName: "Daily Finance Tools",
     locale: "en_US",
     type: "website",
     images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Sitemap — DailyFinance.tools" }],

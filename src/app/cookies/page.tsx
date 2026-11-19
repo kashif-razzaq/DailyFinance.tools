@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     title: "Cookie Policy | DailyFinance",
     description: "What cookies DailyFinance uses and how to control them — one essential sign-in cookie, preferences in local storage, and no analytics or advertising cookies.",
     url: "https://www.dailyfinance.tools/cookies",
-    siteName: "DailyFinance.tools",
+    siteName: "Daily Finance Tools",
     locale: "en_US",
     type: "website",
     images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Cookie Policy | DailyFinance" }],

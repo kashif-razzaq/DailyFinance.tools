@@ -7,16 +7,20 @@ import { Check, X } from "lucide-react"
 import { createServerClient } from "@supabase/ssr"
 import { cookies } from "next/headers"
 import { safeGetUser } from "@/utils/supabase/safe-user"
+import { TOOL_COUNTS } from "@/config/navigation"
+
+const PRICING_DESCRIPTION = `Free: ${TOOL_COUNTS.free} calculators and a 3-scenario Vault. Pro ($2.99/mo): unlimited saves, scenario comparison, ${TOOL_COUNTS.pro} Pro tools, full analytics, premium PDFs, live sharing.`
+const PRICING_DESCRIPTION_SOCIAL = `Free: ${TOOL_COUNTS.free} calculators and a 3-scenario Vault. Pro ($2.99/mo): unlimited saves, scenario comparison, ${TOOL_COUNTS.pro} Pro tools, full analytics, exports, live sharing.`
 
 export const metadata: Metadata = {
   title: "Pricing — Free Calculators Forever, Pro for $2.99/mo | DailyFinance",
-  description: "Free: 100+ calculators and a 3-scenario Vault. Pro ($2.99/mo): unlimited saves, scenario comparison, 5 Pro tools, full analytics, premium PDFs, live sharing.",
+  description: PRICING_DESCRIPTION,
   alternates: { canonical: "https://www.dailyfinance.tools/pricing" },
   openGraph: {
     title: "Pricing — Free Calculators Forever, Pro for $2.99/mo | DailyFinance",
-    description: "Free: 100+ calculators and a 3-scenario Vault. Pro ($2.99/mo): unlimited saves, scenario comparison, 5 Pro tools, full analytics, exports, live sharing.",
+    description: PRICING_DESCRIPTION_SOCIAL,
     url: "https://www.dailyfinance.tools/pricing",
-    siteName: "DailyFinance.tools",
+    siteName: "Daily Finance Tools",
     locale: "en_US",
     type: "website",
     images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Pricing — Free Calculators Forever, Pro for $2.99/mo | DailyFinance" }],
@@ -24,7 +28,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Pricing — Free Calculators Forever, Pro for $2.99/mo | DailyFinance",
-    description: "Free: 100+ calculators and a 3-scenario Vault. Pro ($2.99/mo): unlimited saves, scenario comparison, 5 Pro tools, full analytics, exports, live sharing.",
+    description: PRICING_DESCRIPTION_SOCIAL,
     images: ["https://www.dailyfinance.tools/images/og-base.jpg"],
   },
   keywords: ["dailyfinance pro", "financial calculator subscription", "scenario vault pricing"],
@@ -37,7 +41,7 @@ const tiers = [
     price: "$0",
     description: "Essential access to the core calculator engine.",
     features: [
-      "All 100+ free calculators, with previews of the 5 Pro tools",
+      `All ${TOOL_COUNTS.free} free calculators, with previews of the ${TOOL_COUNTS.pro} Pro tools`,
       "Real-time visual charts & graphs",
       "Responsive mobile experience",
       "Basic URL sharing",
@@ -69,7 +73,7 @@ const tiers = [
       "Premium PDF report generation",
       "Scenario comparison — saved plans side by side",
       "Live sharing — send clients pre-filled calculations",
-      "5 exclusive Pro tools (Monte Carlo, Rental Analyzer, Business Valuation, IRR & NPV, Portfolio Rebalancer)",
+      `${TOOL_COUNTS.pro} exclusive Pro tools (Monte Carlo, Rental Analyzer, Business Valuation, IRR & NPV, Portfolio Rebalancer)`,
       "Full Cross-Data Analytics (personal + business — balance sheet, debt costs, cash flow, charts & exports)",
       "Priority feature requests",
     ],
@@ -102,7 +106,7 @@ export default async function PricingPage() {
 
   const pricingFaqs = [
     { question: "Are the calculators really free?", answer: "Yes. Every calculator is free with no sign-up. A free account adds URL sharing and a Scenario Vault with up to 3 saved scenarios." },
-    { question: "What does Pro add?", answer: "Pro ($2.99/mo) removes ads and unlocks unlimited Vault storage with cloning, scenario comparison, live sharing of pre-filled calculations, 5 exclusive Pro tools, premium PDF reports, an analytics CSV export and full Cross-Data Analytics across personal and business saves." },
+    { question: "What does Pro add?", answer: `Pro ($2.99/mo) unlocks unlimited Vault storage with cloning, scenario comparison, live sharing of pre-filled calculations, ${TOOL_COUNTS.pro} exclusive Pro tools, premium PDF reports, an analytics CSV export and full Cross-Data Analytics across personal and business saves.` },
     { question: "Can I cancel anytime?", answer: "Yes — no lock-in. Canceling returns the account to Free at the end of the billing period and saved data is kept." },
   ]
   const pricingFaqSchema = faq(pricingFaqs)
@@ -201,7 +205,7 @@ export default async function PricingPage() {
             className="text-left"
             items={[
               { question: "Are the calculators really free?", answer: "Yes. Every calculator on DailyFinance is free to use with no sign-up, including real-time charts. A free account adds basic URL sharing and a Scenario Vault with up to 3 saved scenarios." },
-              { question: "What does Pro add?", answer: "Pro unlocks the power features: unlimited Scenario Vault storage with cloning, scenario comparison side by side, live sharing of pre-filled calculations, 5 exclusive Pro tools, premium PDF report generation, an analytics-wide CSV export, and the full Cross-Data Analytics that combine your saved scenarios into a balance sheet, debt costs and cash flow." },
+              { question: "What does Pro add?", answer: `Pro unlocks the power features: unlimited Scenario Vault storage with cloning, scenario comparison side by side, live sharing of pre-filled calculations, ${TOOL_COUNTS.pro} exclusive Pro tools, premium PDF report generation, an analytics-wide CSV export, and the full Cross-Data Analytics that combine your saved scenarios into a balance sheet, debt costs and cash flow.` },
               { question: "How do I upgrade?", answer: "Create a free account first, then choose Upgrade from your dashboard or this page. Your saved scenarios and data carry over — nothing is lost when you upgrade or if you later return to Free." },
               { question: "Can I cancel anytime?", answer: "Yes. Pro is a simple monthly subscription with no lock-in. Canceling returns your account to Free at the end of the billing period; your saved data stays in your account." },
             ]}

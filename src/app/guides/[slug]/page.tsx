@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       title: guide.seoTitle,
       description: guide.description,
       url,
-      siteName: "DailyFinance.tools",
+      siteName: "Daily Finance Tools",
       locale: "en_US",
       type: "article",
       images: [

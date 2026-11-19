@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     title: "Terms of Service | DailyFinance",
     description: "The terms that govern your use of DailyFinance calculators and content: educational estimates, acceptable use, and liability limits.",
     url: "https://www.dailyfinance.tools/terms",
-    siteName: "DailyFinance.tools",
+    siteName: "Daily Finance Tools",
     locale: "en_US",
     type: "website",
     images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Terms of Service | DailyFinance" }],

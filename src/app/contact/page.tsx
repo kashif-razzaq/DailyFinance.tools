@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     title: "Contact DailyFinance — Corrections, Tool Requests & Inquiries",
     description: "Contact the DailyFinance team: report a calculator error, request a new tool, or ask about partnerships and embeds. We read every message.",
     url: "https://www.dailyfinance.tools/contact",
-    siteName: "DailyFinance.tools",
+    siteName: "Daily Finance Tools",
     locale: "en_US",
     type: "website",
     images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Contact DailyFinance — Corrections, Tool Requests & Inquiries" }],

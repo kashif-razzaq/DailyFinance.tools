@@ -1,7 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Figtree, JetBrains_Mono } from "next/font/google";
 import { Navbar } from "@/components/layout/Navbar";
-import { organization, webSite, siteNavigation, stringifyJsonLd } from "@/lib/schema";
+import { organization, webSite, siteNavigation, stringifyJsonLd, SITE_NAME } from "@/lib/schema";
+import { TOOL_COUNTS } from "@/config/navigation";
 import { Footer } from "@/components/layout/Footer";
 import { ConditionalLayout } from "@/components/layout/ConditionalLayout";
 import { FloatingConsultationBubble } from "@/components/shared/FloatingConsultationBubble";
@@ -12,7 +13,9 @@ const sans = Figtree({ subsets: ["latin"], variable: "--font-sans" });
 const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono" });
 
 const SITE_DESCRIPTION =
-  '100+ free financial calculators: mortgages, loans, taxes, retirement, freelance rates, creator earnings and e-commerce margins. No signup required.';
+  `${TOOL_COUNTS.free} free financial calculators: mortgages, loans, taxes, retirement, freelance rates, creator earnings and e-commerce margins. No signup required.`;
+
+const HOME_TITLE = `${SITE_NAME} | ${TOOL_COUNTS.free} Free Financial Calculators`;
 
 // Browser chrome color, matched to the site's own backgrounds in both modes.
 export const viewport: Viewport = {
@@ -25,7 +28,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.dailyfinance.tools'),
   title: {
-    default: 'DailyFinance.tools | 100+ Free Financial Calculators',
+    default: HOME_TITLE,
     template: '%s',
   },
   description: SITE_DESCRIPTION,
@@ -56,10 +59,10 @@ export const metadata: Metadata = {
     'max-video-preview': -1,
   },
   openGraph: {
-    title: 'DailyFinance.tools | 100+ Free Financial Calculators',
+    title: HOME_TITLE,
     description: SITE_DESCRIPTION,
     url: 'https://www.dailyfinance.tools',
-    siteName: 'DailyFinance.tools',
+    siteName: 'Daily Finance Tools',
     locale: 'en_US',
     type: 'website',
     images: [
@@ -67,13 +70,13 @@ export const metadata: Metadata = {
         url: 'https://www.dailyfinance.tools/images/og-base.jpg',
         width: 1376,
         height: 768,
-        alt: 'DailyFinance.tools — free financial calculators',
+        alt: 'Daily Finance Tools — free financial calculators',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'DailyFinance.tools | 100+ Free Financial Calculators',
+    title: HOME_TITLE,
     description: SITE_DESCRIPTION,
     images: ['https://www.dailyfinance.tools/images/og-base.jpg'],
   },

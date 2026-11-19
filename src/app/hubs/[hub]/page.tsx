@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: { params: Promise<{ hub: stri
       title: h.title,
       description: h.description,
       url,
-      siteName: "DailyFinance.tools",
+      siteName: "Daily Finance Tools",
       locale: "en_US",
       type: "website",
       images: [

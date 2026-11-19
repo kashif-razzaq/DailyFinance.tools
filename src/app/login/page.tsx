@@ -6,6 +6,7 @@ import { redirect } from "next/navigation"
 import { createServerClient } from "@supabase/ssr"
 import { cookies } from "next/headers"
 import { safeGetUser } from "@/utils/supabase/safe-user"
+import { TOOL_COUNTS } from "@/config/navigation"
 
 /**
  * Only same-site relative paths may be used as the post-login destination.
@@ -121,7 +122,7 @@ export default async function LoginPage({
           </div>
 
           <p className="mt-10 border-t border-border pt-6 text-sm font-medium text-muted-foreground">
-            116 calculators &middot; 51 state guides &middot; No sign-up to calculate
+            {TOOL_COUNTS.total} calculators &middot; 51 state guides &middot; No sign-up to calculate
           </p>
         </div>
       </div>

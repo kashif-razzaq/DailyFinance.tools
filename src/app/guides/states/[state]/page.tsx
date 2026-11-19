@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: { params: Promise<{ state: st
       title: `${s.name} Tax Guide 2026: Sales, Income & Property Tax`,
       description: `${s.name} tax rates with real numbers: ${s.salesTaxBase}% sales tax (${s.salesTaxAvgCombined}% combined), ${s.incomeTax === "none" ? "no income tax" : s.incomeTax === "flat" ? "flat income tax" : "income tax brackets"}, ${s.propertyTaxAvg}% property tax — worked examples.`,
       url: `https://www.dailyfinance.tools/guides/states/${s.slug}`,
-      siteName: "DailyFinance.tools",
+      siteName: "Daily Finance Tools",
       locale: "en_US",
       type: "website",
       images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: `${s.name} Tax Guide 2026: Sales, Income & Property Tax` }],

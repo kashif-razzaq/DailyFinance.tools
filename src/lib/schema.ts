@@ -25,6 +25,11 @@ export const WEBSITE_ID = "https://www.dailyfinance.tools/#website"
 export const LOGO_URL = "https://www.dailyfinance.tools/logo.svg"
 export const CONTENT_REVIEWED = "2026-11-12"
 
+/** The site's display name, as Google shows it in search results. */
+export const SITE_NAME = "Daily Finance Tools"
+
+import { TOOL_COUNTS } from "@/config/navigation"
+
 export interface FaqItem {
   question: string
   answer: string
@@ -54,7 +59,8 @@ export function publisherObject() {
   return {
     "@type": "Organization",
     "@id": ORG_ID,
-    name: "DailyFinance.tools",
+    name: SITE_NAME,
+    alternateName: "DailyFinance.tools",
     url: SITE_URL,
     logo: LOGO_URL,
   }
@@ -70,11 +76,12 @@ export function organization() {
     "@context": "https://schema.org",
     "@type": "Organization",
     "@id": ORG_ID,
-    name: "DailyFinance.tools",
+    name: SITE_NAME,
+    alternateName: "DailyFinance.tools",
     url: SITE_URL,
     logo: LOGO_URL,
     description:
-      "100+ free financial calculators for personal finance, mortgages, loans, taxes, retirement, freelancers, creators and e-commerce sellers.",
+      `${TOOL_COUNTS.free} free financial calculators for personal finance, mortgages, loans, taxes, retirement, freelancers, creators and e-commerce sellers.`,
     contactPoint: {
       "@type": "ContactPoint",
       email: "info@dailyfinance.tools",
@@ -91,7 +98,8 @@ export function webSite() {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "@id": WEBSITE_ID,
-    name: "DailyFinance.tools",
+    name: SITE_NAME,
+    alternateName: "DailyFinance.tools",
     url: SITE_URL,
     publisher: publisherRef(),
     potentialAction: {

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     title: "Privacy Policy | DailyFinance",
     description: "How DailyFinance collects, uses and protects your information. No analytics, no advertising yet, and calculator inputs stay in your browser unless you choose to save them.",
     url: "https://www.dailyfinance.tools/privacy",
-    siteName: "DailyFinance.tools",
+    siteName: "Daily Finance Tools",
     locale: "en_US",
     type: "website",
     images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Privacy Policy | DailyFinance" }],

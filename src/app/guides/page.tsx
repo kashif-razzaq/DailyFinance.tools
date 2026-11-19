@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     title: "Personal Finance Guides: Clear Answers With Real Numbers",
     description: "Personal finance guides with real numbers: compound interest, mortgages, debt payoff, taxes and Social Security — each one links to a free calculator.",
     url: "https://www.dailyfinance.tools/guides",
-    siteName: "DailyFinance.tools",
+    siteName: "Daily Finance Tools",
     locale: "en_US",
     type: "website",
     images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Personal Finance Guides: Clear Answers With Real Numbers" }],

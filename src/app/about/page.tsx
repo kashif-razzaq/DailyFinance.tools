@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     title: "About DailyFinance — Free Calculators, Professionally Reviewed",
     description: "Free, transparent financial calculators for freelancers, creators, sellers and investors — every formula shown, reviewed by Tahir Shehzad, ACMA.",
     url: "https://www.dailyfinance.tools/about",
-    siteName: "DailyFinance.tools",
+    siteName: "Daily Finance Tools",
     locale: "en_US",
     type: "website",
     images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "About DailyFinance — Free Calculators, Professionally Reviewed" }],

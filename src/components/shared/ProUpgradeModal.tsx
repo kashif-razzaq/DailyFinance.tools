@@ -5,6 +5,7 @@ import React from 'react'
 import { Button } from "@/components/ui/button"
 import { Lock, ShieldCheck, ArrowRight } from "lucide-react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
+import { TOOL_COUNTS } from "@/config/navigation"
 
 interface ProUpgradeModalProps {
   isOpen: boolean
@@ -31,7 +32,7 @@ export function ProUpgradeModal({ isOpen, onClose }: ProUpgradeModalProps) {
             Unlock Pro Features
           </h2>
           <p className="text-muted-foreground mb-8 leading-relaxed text-sm">
-            Join our Pro tier to instantly unlock unlimited saving, scenario comparison, 5 exclusive Pro tools and the full analytics across all 100+ calculators.
+            Join our Pro tier to instantly unlock unlimited saving, scenario comparison, {TOOL_COUNTS.pro} exclusive Pro tools and the full analytics across all {TOOL_COUNTS.total} calculators.
           </p>
           
           <div className="bg-muted/30 p-5 rounded-2xl mb-8 text-left space-y-3.5 border border-border/50 text-sm">
@@ -45,7 +46,7 @@ export function ProUpgradeModal({ isOpen, onClose }: ProUpgradeModalProps) {
             </div>
             <div className="flex items-center gap-3">
               <ShieldCheck className="h-4 w-4 text-muted-foreground shrink-0" />
-              <span className="font-medium text-foreground">5 exclusive Pro tools — Monte Carlo, Rental Analyzer & more</span>
+              <span className="font-medium text-foreground">{TOOL_COUNTS.pro} exclusive Pro tools — Monte Carlo, Rental Analyzer & more</span>
             </div>
             <div className="flex items-center gap-3">
               <ShieldCheck className="h-4 w-4 text-muted-foreground shrink-0" />

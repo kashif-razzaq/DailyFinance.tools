@@ -2,7 +2,7 @@ import { Card, CardDescription, CardHeader, CardTitle, CardFooter } from "@/comp
 import { Button } from "@/components/ui/button"
 import { Calculator, ArrowRight, Crown, Sparkles } from "lucide-react"
 import Link from "next/link"
-import { getToolUrl, navigationCategories } from "@/config/navigation"
+import { getToolUrl, navigationCategories, TOOL_COUNTS } from "@/config/navigation"
 import { createServerClient } from "@supabase/ssr"
 import { cookies } from "next/headers"
 import { safeGetUser } from "@/utils/supabase/safe-user"
@@ -57,7 +57,7 @@ export default async function ProToolsLibrary() {
         <div>
           <h1 className="text-2xl font-extrabold tracking-tight text-foreground md:text-3xl">Pro Tools Library</h1>
           <p className="text-muted-foreground mt-1">
-            The five Pro-exclusive simulators, plus the most advanced free calculators in the suite.
+            The {TOOL_COUNTS.pro} Pro-exclusive simulators, plus the most advanced free calculators in the suite.
           </p>
         </div>
       </div>

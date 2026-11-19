@@ -20,7 +20,7 @@ import {
   X,
   Zap,
 } from 'lucide-react'
-import { navigationCategories, getToolUrl } from '@/config/navigation'
+import { navigationCategories, getToolUrl, TOOL_COUNTS } from '@/config/navigation'
 import { useMyTools, type ToolWithCategory } from '@/components/home/useMyTools'
 import { GUIDES } from '@/data/guides'
 
@@ -152,7 +152,7 @@ export function MobileHome() {
       {/* ── 1 · Hero ─────────────────────────────────────────── */}
       <header className="bg-card px-5 pb-6 pt-5">
         <h1 className="text-[28px] font-extrabold leading-[1.15] tracking-tight text-foreground">
-          100+ free <span className="text-[#064E3B]">financial</span> <CalcWord />
+          {TOOL_COUNTS.free} free <span className="text-[#064E3B]">financial</span> <CalcWord />
         </h1>
         <p className="mt-2.5 text-[15px] font-light leading-relaxed text-muted-foreground">
           Mortgages, paychecks, taxes, loans and savings — worked out in seconds. No sign-up to calculate.
@@ -403,7 +403,7 @@ export function MobileHome() {
             <h2 className="text-lg font-extrabold tracking-tight text-foreground">Put our calculators on your site</h2>
           </div>
           <p className="text-sm font-light leading-relaxed text-muted-foreground">
-            Embed any of the 111 free calculators on your own website — free. One line of code, auto-sizing to fit, with DailyFinance branding and a link back.
+            Embed any of the {TOOL_COUNTS.free} free calculators on your own website — free. One line of code, auto-sizing to fit, with DailyFinance branding and a link back.
           </p>
           <Link
             href="/embed"
@@ -456,7 +456,7 @@ export function MobileHome() {
       <section className="px-5 pt-8">
         <div className="grid grid-cols-3 gap-2.5">
           {[
-            { icon: Calculator, label: '100+ free tools' },
+            { icon: Calculator, label: `${TOOL_COUNTS.free} free tools` },
             { icon: Zap, label: 'No sign-up to calculate' },
             { icon: ShieldCheck, label: 'Your data stays private' },
           ].map((item) => {

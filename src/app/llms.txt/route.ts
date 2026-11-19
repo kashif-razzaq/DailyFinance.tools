@@ -1,4 +1,4 @@
-import { navigationCategories, getToolUrl } from "@/config/navigation"
+import { navigationCategories, getToolUrl, TOOL_COUNTS } from "@/config/navigation"
 import { US_STATES } from "@/data/locations/us-states"
 import { US_CITIES } from "@/data/locations/us-cities"
 import { GUIDES } from "@/data/guides"
@@ -15,9 +15,9 @@ const BASE = "https://www.dailyfinance.tools"
  */
 export async function GET() {
   const lines: string[] = []
-  lines.push("# DailyFinance.tools")
+  lines.push("# Daily Finance Tools")
   lines.push("")
-  lines.push("> 100+ free financial calculators and plain-language finance guides for personal finance, mortgages, loans, taxes, retirement, freelancers, creators and e-commerce sellers. Calculators return instant estimates from the numbers you enter. Guides explain the underlying rules with worked examples. Reviewed by Tahir Shehzad, ACMA. Educational estimates, not financial advice.")
+  lines.push(`> ${TOOL_COUNTS.free} free financial calculators and plain-language finance guides for personal finance, mortgages, loans, taxes, retirement, freelancers, creators and e-commerce sellers. Calculators return instant estimates from the numbers you enter. Guides explain the underlying rules with worked examples. Reviewed by Tahir Shehzad, ACMA. Educational estimates, not financial advice.`)
   lines.push("")
   lines.push("## Key pages")
   lines.push(`- [All tools directory](${BASE}/tools): every calculator on the site, grouped by topic`)

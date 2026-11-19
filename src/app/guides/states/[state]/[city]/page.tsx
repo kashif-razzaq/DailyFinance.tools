@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: { params: Promise<{ state: st
       title: `${c.name} Sales Tax Rate 2026: ${c.combinedRate}% Combined Rate Explained`,
       description: `${c.name}'s combined sales tax rate is ${c.combinedRate}%. See how the rate is built, what it adds to real purchases, vs the ${s.name} average.`,
       url: `https://www.dailyfinance.tools/guides/states/${state}/${city}`,
-      siteName: "DailyFinance.tools",
+      siteName: "Daily Finance Tools",
       locale: "en_US",
       type: "website",
       images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: `${c.name} Sales Tax Rate 2026: ${c.combinedRate}% Combined Rate Explained` }],

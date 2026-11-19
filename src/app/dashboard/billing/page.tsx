@@ -4,6 +4,7 @@ import { cookies } from 'next/headers'
 import { Crown, Check } from 'lucide-react'
 import Link from 'next/link'
 import { safeGetUser } from '@/utils/supabase/safe-user'
+import { TOOL_COUNTS } from '@/config/navigation'
 
 export const metadata: Metadata = {
   title: 'Subscription — DailyFinance',
@@ -19,7 +20,7 @@ const PRO_FEATURES = [
 ]
 
 const FREE_FEATURES = [
-  'All 100+ calculators, free forever',
+  `All ${TOOL_COUNTS.free} free calculators, free forever`,
   'Scenario Vault — up to 3 saved scenarios',
   'Basic URL sharing',
 ]
@@ -91,7 +92,7 @@ export default async function BillingPage() {
         ) : (
           <div className="mt-6 border-t pt-5">
             <p className="max-w-lg text-sm font-light leading-relaxed text-muted-foreground">
-              Pro removes ads and unlocks the Vault, exports and analytics for less than a coffee a month.
+              Pro unlocks the Vault, exports and analytics for less than a coffee a month.
               Your saved scenarios carry over — nothing is lost when you upgrade.
             </p>
             <Link

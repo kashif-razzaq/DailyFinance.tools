@@ -35,7 +35,7 @@ export function generateCalculatorMetadata({
       title,
       description,
       url,
-      siteName: 'DailyFinance.tools',
+      siteName: 'Daily Finance Tools',
       locale: 'en_US',
       type: 'website',
       images: [

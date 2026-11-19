@@ -1,18 +1,20 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { getToolUrl } from "@/config/navigation"
+import { getToolUrl, TOOL_COUNTS } from "@/config/navigation"
 import { Calculator, ClipboardPaste, Code2, MousePointerClick, RefreshCw, Globe, Wrench, BadgeCheck } from "lucide-react"
 import { CopySnippet } from "./CopySnippet"
 
+const EMBED_DESCRIPTION = `Add a free finance calculator to your website with one paste. ${TOOL_COUNTS.free} calculators, no signup or API key — the widget sizes itself and updates automatically.`
+
 export const metadata: Metadata = {
   title: "Free Calculators for Your Website | DailyFinance.tools",
-  description: "Add a free finance calculator to your website with one paste. 111 calculators, no signup or API key — the widget sizes itself and updates automatically.",
+  description: EMBED_DESCRIPTION,
   alternates: { canonical: "https://www.dailyfinance.tools/embed" },
   openGraph: {
     title: "Free Calculators for Your Website | DailyFinance.tools",
-    description: "Add a free finance calculator to your website with one paste. 111 calculators, no signup or API key — the widget sizes itself and updates automatically.",
+    description: EMBED_DESCRIPTION,
     url: "https://www.dailyfinance.tools/embed",
-    siteName: "DailyFinance.tools",
+    siteName: "Daily Finance Tools",
     locale: "en_US",
     type: "website",
     images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Free Calculators for Your Website | DailyFinance.tools" }],
@@ -20,7 +22,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Free Calculators for Your Website | DailyFinance.tools",
-    description: "Add a free finance calculator to your website with one paste. 111 calculators, no signup or API key — the widget sizes itself and updates automatically.",
+    description: EMBED_DESCRIPTION,
     images: ["https://www.dailyfinance.tools/images/og-base.jpg"],
   },
 }
@@ -76,7 +78,7 @@ export default function EmbedLandingPage() {
           <div className="bg-card border rounded-3xl p-6">
             <MousePointerClick className="h-6 w-6 text-primary mb-3" />
             <h3 className="font-bold text-lg mb-2">1. Pick a calculator</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">Choose from 111 free calculators — mortgage, tax, retirement, budgeting and more. Each one has an embed slug, shown on its card below.</p>
+            <p className="text-sm text-muted-foreground leading-relaxed">Choose from {TOOL_COUNTS.free} free calculators — mortgage, tax, retirement, budgeting and more. Each one has an embed slug, shown on its card below.</p>
           </div>
           <div className="bg-card border rounded-3xl p-6">
             <Code2 className="h-6 w-6 text-primary mb-3" />

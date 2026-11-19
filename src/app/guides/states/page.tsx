@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     title: "State Tax Guides: Sales, Income & Property Tax by State",
     description: "Taxes in every US state and DC: sales tax rates and grocery rules, income tax structure and average property tax — plus guides for 30 major cities.",
     url: "https://www.dailyfinance.tools/guides/states",
-    siteName: "DailyFinance.tools",
+    siteName: "Daily Finance Tools",
     locale: "en_US",
     type: "website",
     images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "State Tax Guides: Sales, Income & Property Tax by State" }],

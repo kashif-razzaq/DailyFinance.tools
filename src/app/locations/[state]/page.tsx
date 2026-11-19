@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: { params: Promise<{ state: st
       title: `${s.name} Tax Guide: Sales Tax ${s.salesTaxBase}%, Property & Income Tax`,
       description: `${s.name} finance guide: ${s.salesTaxBase}% state sales tax (~${s.salesTaxAvgCombined}% combined), ${s.propertyTaxAvg}% average property tax, ${s.incomeTax === "none" ? "no tax on wage income" : s.incomeTax + " income tax"} — with calculators.`,
       url: `https://www.dailyfinance.tools/locations/${s.slug}`,
-      siteName: "DailyFinance.tools",
+      siteName: "Daily Finance Tools",
       locale: "en_US",
       type: "website",
       images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: `${s.name} Tax Guide: Sales Tax ${s.salesTaxBase}%, Property & Income Tax` }],

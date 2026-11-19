@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: { params: Promise<{ state: st
       title: `${s.name} Sales Tax Calculator & 2026 Rates (${s.salesTaxBase}%)`,
       description: `Sales tax in ${s.name}: ${s.salesTaxBase}% state rate, ~${s.salesTaxAvgCombined}% combined with local taxes. Grocery rules, examples and a free calculator.`,
       url: `https://www.dailyfinance.tools/sales-tax/${s.slug}`,
-      siteName: "DailyFinance.tools",
+      siteName: "Daily Finance Tools",
       locale: "en_US",
       type: "website",
       images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: `${s.name} Sales Tax Calculator & 2026 Rates (${s.salesTaxBase}%)` }],

@@ -3,24 +3,27 @@ import Link from "next/link"
 import { itemList, stringifyJsonLd } from "@/lib/schema"
 import { searchEntries } from "@/lib/tool-search"
 import { TOOL_REGISTRY, EXTRA_LIVE_TOOLS, REGISTRY_HUBS, LIVE_TOOLS, PLANNED_TOOLS, type RegistryTool } from "@/config/tool-registry"
+import { TOOL_COUNTS } from "@/config/navigation"
 import { ArrowRight, CheckCircle2, SearchX } from "lucide-react"
 
+const DIRECTORY_TITLE = `All ${TOOL_COUNTS.free} Free Financial Calculators — Complete Directory`
+
 export const metadata: Metadata = {
-  title: "All 100+ Free Financial Calculators — Complete Directory",
+  title: DIRECTORY_TITLE,
   description: "The complete DailyFinance directory: the Top 100 financial calculators across personal finance, mortgages, loans, tax, retirement and freelance.",
   alternates: { canonical: "https://www.dailyfinance.tools/tools" },
   openGraph: {
-    title: "All 100+ Free Financial Calculators — Complete Directory",
+    title: DIRECTORY_TITLE,
     description: "The complete DailyFinance directory: the Top 100 financial calculators across personal finance, mortgages, loans, tax, retirement and freelance.",
     url: "https://www.dailyfinance.tools/tools",
-    siteName: "DailyFinance.tools",
+    siteName: "Daily Finance Tools",
     locale: "en_US",
     type: "website",
-    images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "All 100+ Free Financial Calculators — Complete Directory" }],
+    images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: DIRECTORY_TITLE }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "All 100+ Free Financial Calculators — Complete Directory",
+    title: DIRECTORY_TITLE,
     description: "The complete DailyFinance directory: the Top 100 financial calculators across personal finance, mortgages, loans, tax, retirement and freelance.",
     images: ["https://www.dailyfinance.tools/images/og-base.jpg"],
   },

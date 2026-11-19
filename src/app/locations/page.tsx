@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     title: "Financial Calculators by State — Sales, Property & Income Tax",
     description: "State-by-state finance guides: sales tax, average combined and property tax rates and income tax structure for all 50 states and DC, with calculators.",
     url: "https://www.dailyfinance.tools/locations",
-    siteName: "DailyFinance.tools",
+    siteName: "Daily Finance Tools",
     locale: "en_US",
     type: "website",
     images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Financial Calculators by State — Sales, Property & Income Tax" }],

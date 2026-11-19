@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: "Methodology — How DailyFinance Calculates, Sources & Reviews Numbers",
     description: "How DailyFinance builds its calculators: formula sources (IRS, SSA, platform fee schedules), ACMA review, update cadence and accuracy limits.",
     url: "https://www.dailyfinance.tools/methodology",
-    siteName: "DailyFinance.tools",
+    siteName: "Daily Finance Tools",
     locale: "en_US",
     type: "website",
     images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Methodology — How DailyFinance Calculates, Sources & Reviews Numbers" }],

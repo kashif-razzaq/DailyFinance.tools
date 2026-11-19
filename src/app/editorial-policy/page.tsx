@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     title: "Editorial Policy — How DailyFinance Researches, Writes & Reviews",
     description: "How DailyFinance chooses topics, researches primary sources, drafts with human-led AI assistance, verifies every figure and corrects errors.",
     url: "https://www.dailyfinance.tools/editorial-policy",
-    siteName: "DailyFinance.tools",
+    siteName: "Daily Finance Tools",
     locale: "en_US",
     type: "website",
     images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Editorial Policy — DailyFinance.tools" }],

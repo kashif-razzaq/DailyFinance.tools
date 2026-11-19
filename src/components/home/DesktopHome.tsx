@@ -21,7 +21,7 @@ import {
   TrendingUp,
   Zap,
 } from 'lucide-react'
-import { navigationCategories, getToolUrl } from '@/config/navigation'
+import { navigationCategories, getToolUrl, TOOL_COUNTS } from '@/config/navigation'
 import { GUIDES } from '@/data/guides'
 import { CalcWord } from '@/components/home/CalcWord'
 import { useMyTools, type ToolWithCategory } from '@/components/home/useMyTools'
@@ -137,11 +137,11 @@ export function DesktopHome() {
         <div className="container relative mx-auto flex max-w-4xl flex-col items-center px-8 pb-20 pt-24 text-center">
           <span className="mb-7 inline-flex items-center gap-2 rounded-full bg-[#064E3B]/[0.06] px-4 py-2 text-sm font-semibold text-[#064E3B]">
             <span className="h-2 w-2 rounded-full bg-[#D97706]" />
-            {allTools.length} free calculators — no sign-up to calculate
+            {TOOL_COUNTS.free} free calculators — no sign-up to calculate
           </span>
           {/* div, not h1: MobileHome carries the page's single H1 (mobile-first indexing); this desktop hero is the visual twin. */}
           <div className="text-6xl font-extrabold leading-[1.04] tracking-tight text-foreground lg:text-7xl">
-            100+ free <span className="text-[#064E3B]">financial</span> <CalcWord />
+            {TOOL_COUNTS.free} free <span className="text-[#064E3B]">financial</span> <CalcWord />
           </div>
           <p className="mt-6 max-w-2xl text-xl font-light leading-relaxed text-muted-foreground">
             Mortgages, paychecks, taxes, loans and savings — worked out in seconds, with the formula and a
@@ -369,7 +369,7 @@ export function DesktopHome() {
                   <h2 className="text-2xl font-extrabold tracking-tight">DailyFinance Pro</h2>
                 </div>
                 <p className="max-w-xl font-light leading-relaxed text-white/85">
-                  111 calculators stay free forever. Pro turns DailyFinance into your personal financial drive:
+                  {TOOL_COUNTS.free} calculators stay free forever. Pro turns DailyFinance into your personal financial drive:
                   unlimited Scenario Vault, CSV and Excel exports, premium PDF reports and cross-data
                   analytics.
                 </p>
@@ -412,7 +412,7 @@ export function DesktopHome() {
                   <h2 className="text-2xl font-extrabold tracking-tight text-foreground">Put our calculators on your site</h2>
                 </div>
                 <p className="max-w-xl font-light leading-relaxed text-muted-foreground">
-                  Embed any of the 111 free calculators on your own website — free. One line of code,
+                  Embed any of the {TOOL_COUNTS.free} free calculators on your own website — free. One line of code,
                   auto-sizing to fit, with DailyFinance branding and a link back. No account needed.
                 </p>
                 <Link
