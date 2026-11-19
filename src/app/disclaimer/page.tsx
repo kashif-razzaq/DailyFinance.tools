@@ -29,7 +29,7 @@ export default function Page() {
       <script id="schema-crumb-disclaimer" type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(breadcrumb([{ name: "Home", url: "https://www.dailyfinance.tools/" }, { name: "Disclaimer", url: "https://www.dailyfinance.tools/disclaimer" }])) }} />
       <LegalPage
       title="Disclaimer"
-      updated="6 November 2026"
+      updated="19 November 2026"
       intro={"The information and calculators on dailyfinance.tools are provided for general education and planning only. Please read this disclaimer before relying on any result."}
       sections={[
       {
@@ -53,7 +53,7 @@ export default function Page() {
       {
             "heading": "Advertising and affiliate disclosure",
             "paragraphs": [
-                  "This site is supported by advertising (including Google AdSense). Advertising does not influence calculator formulas or editorial content. Where we link to products or services, we aim to do so on merit; assume links may be commercial in nature and check terms with the provider."
+                  "This site currently shows no advertising and uses no affiliate links. If advertising or affiliate links are added in the future, this page will be updated first. Advertising would never influence calculator formulas or editorial content."
             ]
       },
       {

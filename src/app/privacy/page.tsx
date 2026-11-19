@@ -4,11 +4,11 @@ import { breadcrumb, stringifyJsonLd } from "@/lib/schema"
 
 export const metadata: Metadata = {
   title: "Privacy Policy | DailyFinance",
-  description: "How DailyFinance collects, uses and protects your information, including advertising cookies from Google AdSense and your choices about them.",
+  description: "How DailyFinance collects, uses and protects your information. No analytics, no advertising yet, and calculator inputs stay in your browser unless you choose to save them.",
   alternates: { canonical: "https://www.dailyfinance.tools/privacy" },
   openGraph: {
     title: "Privacy Policy | DailyFinance",
-    description: "How DailyFinance collects, uses and protects your information, including advertising cookies from Google AdSense and your choices about them.",
+    description: "How DailyFinance collects, uses and protects your information. No analytics, no advertising yet, and calculator inputs stay in your browser unless you choose to save them.",
     url: "https://www.dailyfinance.tools/privacy",
     siteName: "DailyFinance.tools",
     locale: "en_US",
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Privacy Policy | DailyFinance",
-    description: "How DailyFinance collects, uses and protects your information, including advertising cookies from Google AdSense and your choices about them.",
+    description: "How DailyFinance collects, uses and protects your information. No analytics, no advertising yet, and calculator inputs stay in your browser unless you choose to save them.",
     images: ["https://www.dailyfinance.tools/images/og-base.jpg"],
   },
 }
@@ -29,48 +29,47 @@ export default function Page() {
       <script id="schema-crumb-privacy" type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(breadcrumb([{ name: "Home", url: "https://www.dailyfinance.tools/" }, { name: "Privacy Policy", url: "https://www.dailyfinance.tools/privacy" }])) }} />
       <LegalPage
       title="Privacy Policy"
-      updated="6 November 2026"
-      intro={"DailyFinance (dailyfinance.tools) provides free financial calculators. This policy explains what information we collect when you use the site, how we use it, the advertising and analytics cookies involved, and the choices you have. By using this website you agree to this policy."}
+      updated="19 November 2026"
+      intro={"DailyFinance (dailyfinance.tools) provides free financial calculators. This policy explains what information we collect when you use the site, how we use it, and the choices you have. In short: calculations run in your browser, we do not run analytics, and the site currently shows no advertising. By using this website you agree to this policy."}
       sections={[
       {
             "heading": "Information we collect",
             "paragraphs": [
                   "Calculator inputs: calculations run in your browser. If you use a tool without an account, your inputs are not sent to or stored on our servers.",
                   "Account information: if you create an account, we store your email address and account details through our authentication provider (Supabase) so you can sign in, and any calculator scenarios you choose to save are stored against your account.",
+                  "Contact messages: if you use the contact form, we store your name, email address and message so we can reply to you.",
                   "Feedback: if you vote on whether a calculator was helpful, we store an anonymous aggregate count for that calculator.",
-                  "Technical data: like most websites, our hosting and analytics providers automatically process technical data such as IP address, browser type, device information and pages visited, to operate, secure and improve the site."
+                  "Technical data: like most websites, our hosting provider (Vercel) automatically processes technical data such as IP address, browser type, device information and pages visited, to deliver pages and keep the site secure. We do not use analytics software and do not build profiles of visitors."
             ]
       },
       {
             "heading": "How we use information",
             "paragraphs": [
-                  "We use information to provide and maintain the calculators, operate accounts and saved scenarios, understand which tools are useful so we can improve them, respond to enquiries, and keep the site secure. We do not sell your personal information."
+                  "We use information to provide and maintain the calculators, operate accounts and saved scenarios, respond to enquiries, and keep the site secure. Anonymous feedback votes help us see which calculators visitors found helpful. We do not sell your personal information."
             ]
       },
       {
             "heading": "Cookies",
             "paragraphs": [
-                  "We and our partners use cookies and similar technologies. Essential cookies keep you signed in and remember basic preferences. Analytics cookies help us understand aggregate usage. Advertising cookies are described in the next section. You can control cookies in your browser settings; the site remains usable with non-essential cookies blocked. See our Cookie Policy for detail."
+                  "We use only essential cookies: a session cookie from our authentication provider (Supabase) that keeps you signed in. We do not set analytics cookies or advertising cookies, and no third party sets cookies on this site. Simple preferences \u2014 your currency, theme, and whether you have dismissed the consultation prompt \u2014 are stored in your browser's local storage, not in cookies, and never leave your device. You can control cookies in your browser settings; blocking the session cookie will stop sign-in from working. See our Cookie Policy for detail."
             ]
       },
       {
-            "heading": "Advertising \u2014 Google AdSense",
+            "heading": "Advertising",
             "paragraphs": [
-                  "We display advertising through Google AdSense. Third-party vendors, including Google, use cookies to serve ads based on your prior visits to this website or other websites. Google's use of advertising cookies enables it and its partners to serve ads to you based on your visits to this site and/or other sites on the Internet.",
-                  "You may opt out of personalised advertising by visiting Google Ads Settings (adssettings.google.com). You can also opt out of some third-party vendors' use of cookies for personalised advertising at aboutads.info. Where required by law (for example in the EEA, UK and Switzerland), ads are served in line with the consent choices presented to you.",
-                  "Google may collect and process data as described in Google's Privacy & Terms (policies.google.com/technologies/partner-sites explains how Google uses information from sites that use its services)."
+                  "This site currently shows no advertising. We plan to apply for Google AdSense in the future. If advertising is added, this policy and the Cookie Policy will be updated before any ad code loads, and \u2014 where the law requires it \u2014 a consent choice will be presented first."
             ]
       },
       {
             "heading": "Analytics",
             "paragraphs": [
-                  "We may use privacy-respecting analytics to count visits and understand which calculators are used. Analytics data is aggregated and is not used to identify individual visitors for advertising by us."
+                  "We do not use analytics software. We do not count visits with tracking tools, and we do not collect data about your browsing for advertising or profiling."
             ]
       },
       {
             "heading": "Data sharing",
             "paragraphs": [
-                  "We share data only with the service providers needed to run the site (hosting, authentication/database, analytics and advertising partners such as Google), or where required by law. Providers process data under their own privacy terms."
+                  "We share data only with the service providers needed to run the site: Vercel (hosting), Supabase (authentication and database) and Zoho (email delivery for contact messages and account emails). We do not share data with advertising or analytics companies. We may also disclose data where required by law. Providers process data under their own privacy terms."
             ]
       },
       {

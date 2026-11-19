@@ -29,7 +29,7 @@ export default function Page() {
       <script id="schema-crumb-terms" type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(breadcrumb([{ name: "Home", url: "https://www.dailyfinance.tools/" }, { name: "Terms of Service", url: "https://www.dailyfinance.tools/terms" }])) }} />
       <LegalPage
       title="Terms of Service"
-      updated="6 November 2026"
+      updated="19 November 2026"
       intro={"These terms govern your use of dailyfinance.tools (the 'Site'), operated as DailyFinance. By using the Site you accept these terms. If you do not agree, please do not use the Site."}
       sections={[
       {
@@ -63,9 +63,9 @@ export default function Page() {
             ]
       },
       {
-            "heading": "Third-party services and advertising",
+            "heading": "Third-party services",
             "paragraphs": [
-                  "The Site uses third-party services (including Supabase for accounts and Google AdSense for advertising) and may link to third-party websites. We are not responsible for third-party content, policies or practices."
+                  "The Site uses third-party services (Supabase for accounts and data, Vercel for hosting, Zoho for email delivery) and may link to third-party websites. The Site currently shows no advertising. We are not responsible for third-party content, policies or practices."
             ]
       },
       {
