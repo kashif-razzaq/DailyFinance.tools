@@ -879,7 +879,85 @@ GUIDES.push(
       { question: "Can I get a mortgage with a 50% DTI?", answer: "Yes, through some programmes: Fannie Mae's automated system accepts up to 50% back-end DTI, and FHA approvals can reach 50% with compensating factors. But approval at that level usually needs excellent credit, substantial cash reserves or a large down payment — and the payment will consume half your gross income, so check it against take-home pay first." },
     ],
   },
-
+  {
+    slug: "how-biweekly-mortgage-payments-work",
+    title: "How Biweekly Mortgage Payments Work (and the Free Way to Copy Them)",
+    seoTitle: "How Biweekly Mortgage Payments Work: Savings, Fees & the Free DIY Version",
+    description: "Biweekly mortgage payments add one extra payment a year: $300,000 at 6.5% saves $88,122 and clears 5 years 10 months early. How it works, the servicer fees to avoid, and the free DIY version.",
+    image: "/images/guides/how-biweekly-mortgage-payments-work.jpg",
+    imageAlt: "Illustration of biweekly mortgage payments: a house, a calendar with two payments marked each month, and a shrinking loan balance",
+    hub: "Mortgage & Real Estate",
+    updated: "2026-11-19",
+    readMinutes: 6,
+    relatedTools: [
+      { name: "Biweekly Mortgage Calculator", url: "/real-estate/biweekly-mortgage-calculator" },
+      { name: "Mortgage Payoff Calculator", url: "/real-estate/mortgage-payoff-calculator" },
+      { name: "Mortgage Amortization Calculator", url: "/real-estate/mortgage-amortization-calculator" },
+    ],
+    intro: "Paying half your mortgage every two weeks adds up to 13 monthly payments a year instead of 12. On a $300,000 loan at 6.5% over 30 years, that one extra payment a year clears the loan in 24 years 2 months and saves $88,122 of interest — and you can copy the schedule free, without enrolling in a servicer's programme.",
+    sections: [
+      {
+        heading: "Where the thirteenth payment comes from",
+        paragraphs: [
+          "A month is not four weeks. A year has 52 weeks, so paying half your monthly payment every two weeks means 26 half-payments — and 26 halves equal 13 whole payments, one more than the 12 a monthly schedule makes. That is the whole trick: nothing about the rate changes, nothing about the loan changes, you simply pay one extra monthly payment a year. The Consumer Financial Protection Bureau describes the same mechanic in its guidance on biweekly plans: 26 half-payments a year, or one extra monthly payment.",
+          "The extra payment matters because it goes straight to principal. Your scheduled payment already covers the interest due, so the thirteenth payment buys down the balance directly — and because every future interest charge is calculated on that balance, the saving compounds. An extra dollar of principal in year one removes the interest that dollar would have generated for the next 29 years. That is why the same extra payment is worth far more early in the loan than late, when most of each payment is already principal.",
+        ],
+      },
+      {
+        heading: "Worked example: $300,000 at 6.5% over 30 years",
+        paragraphs: [
+          "Take the loan the calculator opens with: $300,000, 6.5% fixed, 30 years. The monthly principal-and-interest payment is $1,896.20. Pay half of it — $948.10 — every two weeks, and the loan takes 628 biweekly payments to clear. That is 24 years 2 months, not 30, and the last payment is only $51.71 because the balance runs out mid-payment.",
+          "The saving scales with the rate. At the same balance but 3%, biweekly saves $20,637 and about 3 years 6 months; at 8% it saves $138,895 and clears the loan in about 22 years 10 months. The pattern is the point: the more interest your loan generates, the more each extra payment removes.",
+        ],
+        table: {
+          head: ["", "Monthly", "Biweekly"],
+          rows: [
+            ["Payment", "$1,896.20 a month", "$948.10 every two weeks"],
+            ["Payments a year", "12", "26 half-payments (13 monthly)"],
+            ["Payoff", "30 years", "24 years 2 months"],
+            ["Total interest", "$382,633", "$294,512"],
+            ["Total paid", "$682,633", "$594,512"],
+            ["Interest saved", "—", "$88,122"],
+          ],
+        },
+      },
+      {
+        heading: "The fee trap: what the CFPB found",
+        paragraphs: [
+          "The saving is real. The programmes sold to deliver it often are not worth buying. Many servicers charge $200–$500 to enrol in a biweekly programme, and third-party companies have charged far more. In 2015 the Consumer Financial Protection Bureau sued two of the largest, Nationwide Biweekly Administration and Loan Payment Administration, alleging they misrepresented the savings, hid the costs, and falsely claimed affiliation with lenders. Between 2011 and 2014 the companies had collected about $49 million in setup fees — up to $995 per borrower — plus $84 to $101 a year in processing fees.",
+          "The worse detail was how the money moved. The companies collected half-payments every two weeks but held the funds and paid the lender on the original monthly schedule, so borrowers got the once-a-year extra payment minus the fees, not the biweekly compounding the marketing promised. The lesson is not that biweekly is a scam — the arithmetic is genuine — but that paying someone to run the schedule for you is usually paying for nothing. If a programme charges a setup fee, an annual fee, or a per-payment fee, walk away: the same result is free, as the next section shows.",
+          "Two checks before you enrol anywhere: first, does the servicer apply half-payments the day they arrive, or hold them until a full payment accumulates? Held payments wipe out the benefit entirely, because the extra principal never lands early. Second, does your loan note carry a prepayment penalty? Federal rules limit them tightly and most modern mortgages have none, but the note is the authority — check the prepayment section before you commit to extra payments of any kind.",
+        ],
+      },
+      {
+        heading: "The free DIY version",
+        paragraphs: [
+          "You do not need a programme to get 13 payments a year. The simplest copy: divide your monthly principal-and-interest payment by 12 and add that amount to every monthly payment, marked as extra principal. On the $300,000 example that is $158.02 a month. The loan clears in 290 months and saves $87,256 — within $866 of the true biweekly result, with no enrolment, no fee, and no third party holding your money.",
+          "The monthly version trails the true biweekly schedule by a few hundred dollars because the extra principal lands once a month instead of every two weeks. That gap is the entire price of doing it yourself — and it is negative, since the programme version costs fees. The only thing the DIY version cannot copy is the discipline of an automatic debit every payday; if that is what keeps you on schedule, automate the monthly extra instead.",
+        ],
+        bullets: [
+          "Divide your monthly principal-and-interest payment by 12 and add it to each payment as extra principal.",
+          "Or make one extra full monthly payment a year — the same total, if your budget prefers a lump sum.",
+          "Tell the servicer in writing that the extra is principal-only, and check the next statement to confirm it was applied that way.",
+          "Set it as an automatic transfer on payday so the habit survives the months when money is tight.",
+        ],
+      },
+      {
+        heading: "When biweekly does not pay",
+        paragraphs: [
+          "Biweekly is not always the best use of the money. With a rate below 4%, the saving is small — $20,637 on the $300,000 loan at 3% — and the same cash in retirement savings or an emergency fund may be worth more. If your servicer holds half-payments, the schedule does nothing at all. If you plan to sell or refinance within a few years, the extra principal still builds equity, but the big prize — decades of avoided interest — is one you will not stay to collect. And if the extra payment stretches your budget so thin that a single emergency lands on a credit card at 20%, the cheap mortgage is not the debt to attack first.",
+          "The rule of thumb: biweekly pays when your rate is high, your horizon is long, and the extra payment fits comfortably. Otherwise, keep the monthly schedule and put the same money where it earns or saves more. Run the numbers both ways in the calculator before you decide — the saving is specific to your loan, and a guess is not a plan.",
+        ],
+      },
+    ],
+    faqs: [
+      { question: "How much can biweekly payments save me?", answer: "On a $300,000 loan at 6.5% over 30 years, $88,122 of interest and 5 years 10 months. The saving rises with your rate and balance — $138,895 at 8%, $20,637 at 3% — and falls to almost nothing on a small or nearly paid-off loan. Enter your own balance, rate and term in the calculator for the exact figure." },
+      { question: "Do I have to enrol in a programme to pay biweekly?", answer: "No. No law requires a programme, and no servicer can require you to use a third-party company. If your servicer offers biweekly directly and free, that is fine. Otherwise, add one-twelfth of your payment to each monthly payment as extra principal — the same result, free." },
+      { question: "What happens if my servicer holds my half-payments?", answer: "Some servicers collect half-payments every two weeks but apply them only when a full monthly payment has accumulated. That delivers the once-a-year extra payment at best and no compounding benefit — the exact practice the CFPB sued over in 2015. Ask in writing how half-payments are applied, and switch to the monthly extra-principal method if the answer is anything but immediately." },
+      { question: "Is biweekly better than one extra payment a year?", answer: "Barely. On the $300,000 example, true biweekly saves $88,122 and one extra monthly payment a year saves $87,256, because the biweekly version applies the extra principal a few weeks earlier. Pick whichever you will keep doing for years — consistency matters far more than the $866 gap." },
+      { question: "Will biweekly payments affect my credit score?", answer: "Not directly: scoring models do not reward payment frequency. What helps is never missing a payment, and a debit timed to payday can make that easier. What can hurt is a programme that holds your money and pays late — another reason to confirm, in writing, exactly when each half-payment reaches your lender." },
+    ],
+  },
 )
 
 export const GUIDE_HUBS = [...new Set(GUIDES.map((g) => g.hub))]
