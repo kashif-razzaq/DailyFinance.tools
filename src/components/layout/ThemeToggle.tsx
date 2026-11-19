@@ -45,7 +45,7 @@ export function ThemeToggle() {
       type="button"
       onClick={() => applyTheme(!currentDark())}
       aria-label={dark ? 'Switch to light mode' : 'Switch to dark mode'}
-      className="flex h-9 w-9 items-center justify-center rounded-full bg-muted/50 text-foreground transition-colors hover:bg-muted"
+      className="flex h-8 w-8 items-center justify-center rounded-full bg-muted/50 text-foreground transition-colors hover:bg-muted"
     >
       {dark === null ? (
         <Sun className="h-5 w-5" />
