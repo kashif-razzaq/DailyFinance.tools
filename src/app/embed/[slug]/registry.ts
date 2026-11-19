@@ -19,6 +19,7 @@ export const EMBED_CALCULATORS = {
   'apy-calculator': dynamic(() => import('@/app/personal-wealth/apy-calculator/CalculatorClient').then((m) => m.CalculatorClient)),
   'auto-loan-calculator': dynamic(() => import('@/app/loans/auto-loan-calculator/CalculatorClient').then((m) => m.CalculatorClient)),
   'billable-hours-calculator': dynamic(() => import('@/app/freelance/billable-hours-calculator/CalculatorClient').then((m) => m.CalculatorClient)),
+  'biweekly-mortgage-calculator': dynamic(() => import('@/app/real-estate/biweekly-mortgage-calculator/CalculatorClient').then((m) => m.CalculatorClient)),
   'black-friday-discount-roi-calculator': dynamic(() => import('@/app/ecommerce/black-friday-discount-roi-calculator/CalculatorClient').then((m) => m.CalculatorClient)),
   'brrrr-strategy-analyzer': dynamic(() => import('@/app/real-estate/brrrr-strategy-analyzer/CalculatorClient').then((m) => m.CalculatorClient)),
   'budget-calculator': dynamic(() => import('@/app/personal-wealth/budget-calculator/CalculatorClient').then((m) => m.CalculatorClient)),

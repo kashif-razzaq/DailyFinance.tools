@@ -67,7 +67,7 @@ export const HUBS: HubContent[] = [
       ],
       bullets: [
         "Buying: affordability, down payment, closing cost, mortgage payment.",
-        "Owning: payoff, refinance, home equity.",
+        "Owning: payoff, biweekly payments, refinance, home equity.",
         "Investing: cap rate and rental returns — judge property like a business, on NOI, not appreciation hopes.",
       ],
     },
@@ -86,7 +86,7 @@ export const HUBS: HubContent[] = [
       { question: "How much down payment do I need?", answer: "20% avoids PMI and lowers the payment, but many loans allow 3–5% down. The right answer weighs PMI cost against years spent saving while prices and rents move." },
       { question: "Is a 15-year mortgage worth the higher payment?", answer: "It carries a lower rate and builds equity far faster, saving six figures of interest on typical loans. It is worth it if the payment still fits the budget with an emergency fund intact; otherwise, a 30-year loan with voluntary extra payments keeps the flexibility." },
     ],
-    guideSlugs: ["how-mortgage-amortization-works", "how-much-house-can-i-afford", "rent-vs-buy-guide"],
+    guideSlugs: ["how-mortgage-amortization-works", "how-much-house-can-i-afford", "rent-vs-buy-guide", "how-biweekly-mortgage-payments-work"],
   },
   {
     slug: "loans-and-debt",
