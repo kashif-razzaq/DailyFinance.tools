@@ -1988,7 +1988,7 @@ export const GUIDES_MORTGAGE_REAL_ESTATE: Guide[] = [
       {
         "heading": "Worked example: the same $300,000 loan both ways",
         "paragraphs": [
-          "The comparison below uses one loan, $300,000 over 30 years, priced two ways: a fixed rate of 7.00% and a 5/6 ARM starting at 6.00% with 2/1/5 caps. These are illustrative rates chosen to show the math, not current market rates. To see what rates lenders are actually quoting, check Freddie Mac's weekly Primary Mortgage Market Survey.",
+          "The comparison below uses one loan, $300,000 over 30 years, priced two ways: a fixed rate of 7.00% and a 5/6 ARM starting at 6.00% with 2/1/5 caps. These are illustrative rates chosen to show the math, not current market rates. To see what rates lenders are actually quoting, check Freddie Mac's weekly Primary Mortgage Market Survey: in the survey for the week ending November 19, 2026, the average 30-year fixed rate was 7.28% and the 15-year fixed rate was 6.66%, so the example's 7.00% fixed rate sits just below the current average. The 1-point gap to the ARM's 6.00% starting rate is illustrative too — the gap on live quotes moves with the market, so compare the actual quotes in front of you.",
           "The fixed loan costs $1,995.91 a month in principal and interest, and that payment never changes. Over 30 years it pays $418,527 in interest on top of the $300,000 borrowed, for a total of $718,527. Those numbers are fixed at closing: the only way they change is if you pay the loan off early or refinance.",
           "The ARM starts at $1,798.65 a month, $197.26 less than the fixed loan. Over the five-year fixed period that saves $11,835 in cash, and because more of each early payment goes to principal at the lower rate, the ARM also pays the balance down faster: after five years the ARM balance is $279,163 against $282,395 on the fixed loan. Interest paid in the first five years is $87,082 on the ARM and $102,149 on the fixed loan, a $15,067 difference.",
           "So far the ARM wins by $11,835 in cash and $3,232 in extra principal paid down. That head start is real money, and it is the entire case for the ARM. Everything after year five depends on where the index goes, and the next section runs the worst case."
@@ -2100,11 +2100,15 @@ export const GUIDES_MORTGAGE_REAL_ESTATE: Guide[] = [
       {
         "label": "Fannie Mae — Standard ARM Plan Matrix",
         "url": "https://singlefamily.fanniemae.com/media/document/pdf/standard-arm-plan-matrix"
+      },
+      {
+        "label": "Freddie Mac — Primary Mortgage Market Survey",
+        "url": "https://www.freddiemac.com/pmms"
       }
     ],
     "title": "Fixed vs Adjustable-Rate Mortgages",
     "type": "Comparison",
-    "updated": "2026-09-23"
+    "updated": "2026-11-20"
   },
   {
     "cornerstone": false,
