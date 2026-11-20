@@ -67,10 +67,10 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://www.dailyfinance.tools/images/og-base.jpg',
-        width: 1376,
-        height: 768,
-        alt: 'Daily Finance Tools — free financial calculators',
+        url: 'https://www.dailyfinance.tools/images/og-home.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Daily Finance Tools — free financial calculators, plain-language guides',
       },
     ],
   },
@@ -78,7 +78,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: HOME_TITLE,
     description: SITE_DESCRIPTION,
-    images: ['https://www.dailyfinance.tools/images/og-base.jpg'],
+    images: ['https://www.dailyfinance.tools/images/og-home.jpg'],
   },
 };
 
