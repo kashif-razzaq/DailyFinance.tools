@@ -67,7 +67,7 @@ export default function EmbedLandingPage() {
       <div className="mx-auto w-full max-w-7xl px-6 py-14 lg:px-8">
         <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-5">Free calculators for your website</h1>
         <p className="text-lg text-muted-foreground leading-relaxed mb-6 max-w-3xl">
-          Add any of our 111 free finance calculators to your website with one copy-paste. No signup, no API key, no code to maintain — the widget sizes itself to fit and updates automatically when we improve the calculator.
+          Add any of our {TOOL_COUNTS.free} free finance calculators to your website with one copy-paste. No signup, no API key, no code to maintain — the widget sizes itself to fit and updates automatically when we improve the calculator.
         </p>
         <Link href="/tools" className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-xl font-semibold text-sm hover:bg-primary/90 transition-colors mb-16">
           Browse all calculators

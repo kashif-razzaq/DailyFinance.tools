@@ -131,10 +131,24 @@ export function DesktopHome() {
   return (
     <div className="flex min-h-screen flex-col bg-background">
       {/* ── 1 · Hero ─────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-card">
+      {/* overflow-x-clip (not overflow-hidden): the search dropdown is
+          absolutely positioned inside this section and must be allowed to
+          extend below it — overflow-hidden clipped the results on desktop. */}
+      <section className="relative overflow-x-clip bg-card">
+        {/* Lightly blended artistic finance background (Kashif, 2026-11-21):
+            flat-vector motifs at the edges, empty centre, faded out toward
+            the bottom so it melts into the section below. Light mode only —
+            dark mode keeps the glow blobs. */}
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 dark:hidden">
+          <img
+            src="/images/hero-bg.jpg"
+            alt=""
+            className="h-full w-full object-cover opacity-40 [mask-image:linear-gradient(to_bottom,black_45%,transparent_96%)]"
+          />
+        </div>
         <div aria-hidden="true" className="pointer-events-none absolute -top-32 left-1/2 h-80 w-[52rem] -translate-x-1/2 rounded-full bg-emerald-500/[0.07] blur-3xl" />
         <div aria-hidden="true" className="pointer-events-none absolute -right-40 top-24 h-72 w-72 rounded-full bg-amber-500/[0.08] blur-3xl" />
-        <div className="container relative mx-auto flex max-w-4xl flex-col items-center px-8 pb-20 pt-24 text-center">
+        <div className="relative mx-auto flex w-full max-w-4xl flex-col items-center px-6 pb-20 pt-24 text-center lg:px-8">
           <span className="mb-7 inline-flex items-center gap-2 rounded-full bg-[#064E3B]/[0.06] px-4 py-2 text-sm font-semibold text-[#064E3B]">
             <span className="h-2 w-2 rounded-full bg-[#D97706]" />
             {TOOL_COUNTS.free} free calculators — no sign-up to calculate
@@ -264,7 +278,7 @@ export function DesktopHome() {
       {/* ── 2 · Your tools ───────────────────────────────────── */}
       {mounted && hasYourTools && (
         <section className="bg-background pt-16">
-          <div className="container mx-auto px-8">
+          <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
             <h2 className="mb-6 text-2xl font-extrabold tracking-tight text-foreground">Your tools</h2>
             {favouriteTools.length > 0 && (
               <div className="mb-8">
@@ -292,7 +306,7 @@ export function DesktopHome() {
 
       {/* ── 3 · Popular tools ────────────────────────────────── */}
       <section className="bg-background pt-16">
-        <div className="container mx-auto px-8">
+        <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
           <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
             <div>
               <h2 className="text-3xl font-extrabold tracking-tight text-foreground">Popular tools</h2>
@@ -313,7 +327,7 @@ export function DesktopHome() {
 
       {/* ── 4 · Categories ───────────────────────────────────── */}
       <section className="bg-background py-20">
-        <div className="container mx-auto px-8">
+        <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
           <h2 className="mb-2 text-3xl font-extrabold tracking-tight text-foreground">Browse by category</h2>
           <p className="mb-8 font-light text-muted-foreground">{navigationCategories.length} families of tools, organized by the decision you are making.</p>
           <div className="grid grid-cols-2 gap-4 xl:grid-cols-3">
@@ -358,7 +372,7 @@ export function DesktopHome() {
 
       {/* ── 5 · Pro banner ───────────────────────────────────── */}
       <section className="bg-card py-20">
-        <div className="container mx-auto px-8">
+        <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
           <div className="overflow-hidden rounded-[2rem] bg-gradient-to-br from-[#064E3B] via-[#065F46] to-[#0B7A5C] text-white shadow-xl">
             <div className="grid items-center gap-10 p-10 lg:grid-cols-[1.4fr_1fr] lg:p-14">
               <div>
@@ -401,7 +415,7 @@ export function DesktopHome() {
 
       {/* ── 6 · Embed band (with Pro) ──────────────────────────── */}
       <section className="bg-card pb-20">
-        <div className="container mx-auto px-8">
+        <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
           <div className="overflow-hidden rounded-[2rem] border border-primary/20 bg-primary/5">
             <div className="grid items-center gap-10 p-10 lg:grid-cols-[1.4fr_1fr] lg:p-14">
               <div>
@@ -435,7 +449,7 @@ export function DesktopHome() {
 
       {/* ── 7 · Guides ───────────────────────────────────────── */}
       <section className="bg-card py-20">
-        <div className="container mx-auto px-8">
+        <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
           <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
             <div className="max-w-2xl">
               <h2 className="mb-3 text-3xl font-extrabold tracking-tight text-foreground">Guides with the numbers left in</h2>
@@ -472,27 +486,40 @@ export function DesktopHome() {
         </div>
       </section>
 
-      {/* ── 8 · Trust / philosophy ───────────────────────────── */}
-      <section className="bg-background py-20">
-        <div className="container mx-auto px-8">
-          <div className="grid grid-cols-2 gap-10 xl:grid-cols-4">
-            {[
-              { icon: Zap, title: 'Zero latency', text: 'Calculations run instantly in your browser. No server round-trips, no loading spinners, no waiting.' },
-              { icon: Globe2, title: 'Built for global', text: 'Six currencies from the header switcher, nomad cost of living, and localized scenarios for the borderless professional.' },
-              { icon: Lock, title: 'Absolute privacy', text: 'Calculations run locally in your browser. Only scenarios you choose to save ever leave your device.' },
-              { icon: Crown, title: 'Pro when you need it', text: 'Unlock the Scenario Vault and advanced modeling. Build complex projections and save your progress.' },
-            ].map((item) => {
-              const Icon = item.icon
-              return (
-                <div key={item.title} className="flex flex-col items-start">
-                  <span className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl border border-border bg-card text-foreground shadow-sm">
-                    <Icon className="h-5 w-5" />
-                  </span>
-                  <h3 className="mb-2.5 text-lg font-bold tracking-tight text-foreground">{item.title}</h3>
-                  <p className="font-light leading-relaxed text-muted-foreground">{item.text}</p>
-                </div>
-              )
-            })}
+      {/* ── 8 · Trust / philosophy ─────────────────────────────
+          Compact crafted band (Kashif, 2026-11-21): a deep-emerald panel,
+          deliberately a different colour from the footer below it. */}
+      <section className="bg-background py-12">
+        <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
+          <div className="overflow-hidden rounded-[2rem] bg-[#064E3B] px-6 py-8 text-white md:px-10 md:py-10">
+            <div className="mb-7 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+              <div>
+                <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#D97706]">The way we build</p>
+                <h2 className="mt-2 text-2xl font-extrabold tracking-tight md:text-[28px]">Every formula shown. Every figure sourced.</h2>
+              </div>
+              <p className="max-w-sm text-sm font-light leading-relaxed text-white/70">
+                No black boxes. Open any calculator and the maths is on the page, reviewed by Tahir Shehzad, ACMA.
+              </p>
+            </div>
+            <div className="grid grid-cols-2 gap-x-8 gap-y-6 border-t border-white/15 pt-7 xl:grid-cols-4">
+              {[
+                { icon: Zap, title: 'Instant in your browser', text: 'Every calculation runs on your device. No server round-trips, no loading spinners.' },
+                { icon: Globe2, title: 'Six currencies', text: 'Switch currency in the header. Nomad costs and localized scenarios included.' },
+                { icon: Lock, title: 'Private by design', text: 'Only scenarios you choose to save ever leave your device.' },
+                { icon: Crown, title: 'Pro when you need it', text: 'Unlock the Vault, comparisons and PDF reports at $2.99 a month.' },
+              ].map((item) => {
+                const Icon = item.icon
+                return (
+                  <div key={item.title} className="flex flex-col items-start">
+                    <span className="mb-3.5 flex h-10 w-10 items-center justify-center rounded-xl bg-[#D97706]/15 text-[#D97706]">
+                      <Icon className="h-5 w-5" />
+                    </span>
+                    <h3 className="mb-1.5 text-[15px] font-bold tracking-tight text-white">{item.title}</h3>
+                    <p className="text-sm font-light leading-relaxed text-white/70">{item.text}</p>
+                  </div>
+                )
+              })}
+            </div>
           </div>
         </div>
       </section>

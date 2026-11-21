@@ -236,3 +236,20 @@
 .dark .df-loader-word { color: #f9fafb; }
 .dark .df-loader-caption { color: #9ca3af; }
 .dark .df-loader-track { background: rgba(16, 185, 129, 0.18); }
+
+/* Print — the analytics PDF (and any printed page) shows the content only:
+   header, footer, sidebar, navs, buttons and toasts are hidden with the
+   print: variant on those components. The branded print header keeps its
+   colours in the PDF via print-color-adjust. */
+@media print {
+  @page {
+    margin: 14mm;
+  }
+  body {
+    background: #fff !important;
+  }
+  .print-keep-color {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+}

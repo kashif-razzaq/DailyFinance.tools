@@ -49,7 +49,7 @@ export default async function DashboardLayout({
 
   return (
     <div className="flex min-h-screen w-full bg-muted/20 pb-16 md:pb-0">
-      <DashboardSidebar isPro={isPro} />
+      <DashboardSidebar isPro={isPro} user={user} />
 
 
       {/* Main Content Area */}

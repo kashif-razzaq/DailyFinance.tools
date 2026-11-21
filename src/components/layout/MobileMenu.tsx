@@ -7,6 +7,7 @@ import { navigationCategories, getToolUrl } from '@/config/navigation'
 import { GUIDE_HUBS, guidesByHub, hubAnchor } from '@/data/guides'
 import { X, ChevronRight, ArrowRight, User, Globe, BookOpen, MapPin } from 'lucide-react'
 import { ThemeToggle } from '@/components/layout/ThemeToggle'
+import { ActiveLink } from '@/components/layout/ActiveLink'
 import { CurrencySelector } from '@/components/layout/CurrencySelector'
 import { Button, buttonVariants } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
@@ -175,18 +176,18 @@ export function MobileMenu({ user, isPremium }: { user?: any; isPremium?: boolea
         </div>
 
         <div className="pt-4 border-t space-y-2">
-          <Link href="/" onClick={() => setIsOpen(false)} className="flex items-center justify-between text-base font-medium py-3 px-2 hover:bg-muted rounded-xl">
+          <ActiveLink href="/" onClick={() => setIsOpen(false)} className="flex items-center justify-between text-base font-medium py-3 px-2 hover:bg-muted rounded-xl">
             Home <ArrowRight className="h-4 w-4" />
-          </Link>
-          <Link href="/pricing" onClick={() => setIsOpen(false)} className="flex items-center justify-between text-base font-medium py-3 px-2 hover:bg-muted rounded-xl">
+          </ActiveLink>
+          <ActiveLink href="/pricing" onClick={() => setIsOpen(false)} className="flex items-center justify-between text-base font-medium py-3 px-2 hover:bg-muted rounded-xl">
             Pricing <ArrowRight className="h-4 w-4" />
-          </Link>
-          <Link href="/about" onClick={() => setIsOpen(false)} className="flex items-center justify-between text-base font-medium py-3 px-2 hover:bg-muted rounded-xl">
+          </ActiveLink>
+          <ActiveLink href="/about" onClick={() => setIsOpen(false)} className="flex items-center justify-between text-base font-medium py-3 px-2 hover:bg-muted rounded-xl">
             About Us <ArrowRight className="h-4 w-4" />
-          </Link>
-          <Link href="/contact" onClick={() => setIsOpen(false)} className="flex items-center justify-between text-base font-medium py-3 px-2 hover:bg-muted rounded-xl">
+          </ActiveLink>
+          <ActiveLink href="/contact" onClick={() => setIsOpen(false)} className="flex items-center justify-between text-base font-medium py-3 px-2 hover:bg-muted rounded-xl">
             Contact Us <ArrowRight className="h-4 w-4" />
-          </Link>
+          </ActiveLink>
         </div>
       </div>
 

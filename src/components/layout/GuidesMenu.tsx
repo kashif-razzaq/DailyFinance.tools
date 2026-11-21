@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { GUIDE_HUBS, guidesByHub, hubAnchor } from '@/data/guides'
 import { ChevronDown, BookOpen, MapPin, ArrowRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -11,6 +12,8 @@ export function GuidesMenu() {
   const [isOpen, setIsOpen] = useState(false)
   const [isRendered, setIsRendered] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
+  const pathname = usePathname()
+  const isActive = pathname === '/guides' || pathname.startsWith('/guides/')
 
   // Handle entry/exit animations
   useEffect(() => {
@@ -50,7 +53,8 @@ export function GuidesMenu() {
         aria-haspopup="true"
         className={cn(
           "flex items-center gap-1 text-sm font-medium transition-colors",
-          isOpen ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+          isOpen ? "text-foreground" : "text-muted-foreground hover:text-foreground",
+          isActive && "text-foreground underline underline-offset-4 decoration-2"
         )}
       >
         Guides
@@ -59,7 +63,7 @@ export function GuidesMenu() {
 
       {isRendered && (
         <div className={cn(
-          "absolute left-0 top-full mt-3 w-80 bg-background border border-border/60 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.15)] rounded-2xl overflow-hidden duration-100 z-50 origin-top",
+          "absolute left-0 top-full mt-3 w-96 bg-background border border-border/60 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.15)] rounded-2xl overflow-hidden duration-100 z-50 origin-top",
           isOpen
             ? "animate-in fade-in-0 zoom-in-95"
             : "animate-out fade-out-0 zoom-out-95 fill-mode-forwards"

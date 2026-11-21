@@ -36,7 +36,7 @@ export function SaveToast({
   return (
     <div
       role="status"
-      className={`fixed bottom-24 right-4 z-[100] flex max-w-[calc(100vw-2rem)] items-center gap-3 rounded-2xl py-3 pl-4 pr-3 text-white shadow-xl animate-in slide-in-from-right-4 fade-in duration-300 sm:bottom-6 ${
+      className={`fixed bottom-24 right-4 z-[100] flex max-w-[calc(100vw-2rem)] items-center gap-3 rounded-2xl py-3 pl-4 pr-3 text-white shadow-xl animate-in slide-in-from-right-4 fade-in duration-300 sm:bottom-6 print:hidden ${
         isError ? "bg-red-600" : "bg-[#064E3B]"
       }`}
     >

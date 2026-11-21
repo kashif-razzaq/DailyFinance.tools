@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { navigationCategories, Category, getToolUrl } from '@/config/navigation'
 import { plannedForCategory } from '@/config/tool-registry'
 import { ChevronDown, ArrowRight } from 'lucide-react'
@@ -12,6 +13,11 @@ export function MegaMenu() {
   const [isRendered, setIsRendered] = useState(false)
   const [activeCategory, setActiveCategory] = useState<Category>(navigationCategories[0])
   const menuRef = useRef<HTMLDivElement>(null)
+  const pathname = usePathname()
+  // Active on any tool category, hub or directory page — the pill's label
+  // underlines in the pill's own (primary) colour, matching the hover colour.
+  const toolPrefixes = [...navigationCategories.map((c) => `/${c.slug}`), '/tools', '/hubs']
+  const isActive = toolPrefixes.some((p) => pathname === p || pathname.startsWith(p + '/'))
 
   // Handle entry/exit animations
   useEffect(() => {
@@ -42,7 +48,8 @@ export function MegaMenu() {
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
           "flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 ease-out",
-          isOpen ? "bg-primary text-primary-foreground shadow-md" : "bg-primary/5 text-primary hover:bg-primary/10"
+          isOpen ? "bg-primary text-primary-foreground shadow-md" : "bg-primary/5 text-primary hover:bg-primary/10",
+          isActive && "underline underline-offset-4 decoration-2"
         )}
       >
         Tools & Calculators

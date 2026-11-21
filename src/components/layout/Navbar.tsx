@@ -11,6 +11,7 @@ import { cn } from '@/lib/utils'
 import { createSupabaseContext } from '@/utils/supabase/server'
 import { CurrencySelector } from '@/components/layout/CurrencySelector'
 import { HeaderSearch } from '@/components/layout/HeaderSearch'
+import { ActiveLink } from '@/components/layout/ActiveLink'
 
 export async function Navbar() {
   const { data } = await createSupabaseContext()
@@ -29,8 +30,8 @@ export async function Navbar() {
   }
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60">
-      <div className="container relative flex h-16 items-center justify-between px-4 md:px-8 mx-auto">
+    <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60 print:hidden">
+      <div className="relative mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-6 lg:px-8">
         
         {/* Left Side: Logo & Mega Menu */}
         <div className="flex items-center gap-4 md:gap-8">
@@ -43,20 +44,20 @@ export async function Navbar() {
           </Link>
           <div className="hidden lg:block border-l h-6 mx-2 border-muted" />
           <div className="hidden lg:flex items-center gap-6">
-            <Link href="/" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+            <ActiveLink href="/" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
               Home
-            </Link>
+            </ActiveLink>
             <MegaMenu />
             <GuidesMenu />
-            <Link href="/pricing" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+            <ActiveLink href="/pricing" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
               Pricing
-            </Link>
-            <Link href="/about" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+            </ActiveLink>
+            <ActiveLink href="/about" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
               About Us
-            </Link>
-            <Link href="/contact" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+            </ActiveLink>
+            <ActiveLink href="/contact" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
               Contact Us
-            </Link>
+            </ActiveLink>
           </div>
         </div>
 

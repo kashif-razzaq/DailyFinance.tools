@@ -27,6 +27,7 @@ export async function GET() {
   lines.push(`- [About](${BASE}/about)`)
   lines.push(`- [Methodology — sources & review process](${BASE}/methodology)`)
   lines.push(`- [Disclaimer](${BASE}/disclaimer)`)
+  lines.push(`- [Corrections Policy](${BASE}/corrections-policy)`)
   lines.push("")
   for (const cat of navigationCategories) {
     lines.push(`## ${cat.name} calculators`)

@@ -37,6 +37,7 @@ const MAIN_PAGES: { href: string; label: string }[] = [
   { href: "/terms", label: "Terms of Service" },
   { href: "/cookies", label: "Cookie Policy" },
   { href: "/disclaimer", label: "Disclaimer" },
+  { href: "/corrections-policy", label: "Corrections Policy" },
 ]
 
 function SectionTitle({ children, count }: { children: React.ReactNode; count: number }) {

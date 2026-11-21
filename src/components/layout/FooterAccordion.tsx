@@ -1,8 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import Link from 'next/link'
 import { ChevronDown, ArrowRight } from 'lucide-react'
+import { ActiveLink } from '@/components/layout/ActiveLink'
 import { navigationCategories, getToolUrl } from '@/config/navigation'
 
 /**
@@ -61,24 +61,25 @@ export function FooterAccordion() {
                 <ul className="grid grid-cols-2 gap-x-4 gap-y-2.5 pb-5 pt-1">
                   {category.calculators.map((calc) => (
                     <li key={calc.slug}>
-                      <Link
+                      <ActiveLink
                         href={getToolUrl(calc.slug)}
                         tabIndex={open ? undefined : -1}
                         className="text-xs text-muted-foreground hover:text-foreground transition-colors leading-tight line-clamp-2"
                       >
                         {calc.title}
-                      </Link>
+                      </ActiveLink>
                     </li>
                   ))}
                 </ul>
-                <Link
+                <ActiveLink
                   href={`/${category.slug}`}
                   tabIndex={open ? undefined : -1}
+                  activeClassName="underline underline-offset-2"
                   className="inline-flex items-center gap-1.5 pb-5 text-xs font-semibold text-primary hover:underline underline-offset-2"
                 >
                   All {category.name} tools
                   <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
-                </Link>
+                </ActiveLink>
               </div>
             </div>
           </div>

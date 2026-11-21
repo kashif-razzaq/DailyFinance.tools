@@ -104,7 +104,7 @@ export async function ToolLayout({
       )}
 
       {/* Main Interactive Tool Area */}
-      <section className="container mx-auto px-4 md:px-8 pt-12 pb-2 md:pb-8" aria-label={`${title} Tool`}>
+      <section className="mx-auto w-full max-w-7xl px-6 pt-12 pb-2 md:pb-8 lg:px-8" aria-label={`${title} Tool`}>
         <header className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start border-b border-border/40 pb-2 md:pb-8 mb-8">
           <div className="lg:col-span-7">
             {/* Dynamic Breadcrumbs */}
@@ -158,7 +158,7 @@ export async function ToolLayout({
       </section>
 
       {/* SEO Content & Article */}
-      <div className="container mx-auto px-4 md:px-8 py-12 md:py-24">
+      <div className="mx-auto w-full max-w-7xl px-6 py-12 md:py-24 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           <article className="lg:col-span-8 w-full min-w-0" aria-label="Educational Content">
         {/* Pre-Article Ad Space */}

@@ -18,7 +18,7 @@ export function DashboardMobileNav() {
   ]
 
   return (
-    <div className="md:hidden fixed bottom-0 left-0 w-full bg-background/90 backdrop-blur-xl border-t z-50 pb-safe">
+    <div className="md:hidden fixed bottom-0 left-0 w-full bg-background/90 backdrop-blur-xl border-t z-50 pb-safe print:hidden">
       <nav className="flex justify-around items-center h-16 px-2">
         {navItems.map((item, idx) => {
           const isActive = item.matchExact 

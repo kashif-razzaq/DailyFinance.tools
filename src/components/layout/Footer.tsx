@@ -2,6 +2,9 @@ import Link from 'next/link'
 import { GUIDES } from '@/data/guides'
 import { navigationCategories } from '@/config/navigation'
 import { FooterAccordion } from '@/components/layout/FooterAccordion'
+import { ActiveLink } from '@/components/layout/ActiveLink'
+import { UserBadge } from '@/components/layout/UserBadge'
+import { createSupabaseContext } from '@/utils/supabase/server'
 import { Logo } from '@/components/layout/Logo'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
@@ -26,11 +29,25 @@ const GitHubIcon = ({ className }: { className?: string }) => (
   </svg>
 )
 
-export function Footer() {
+export async function Footer() {
   const currentYear = new Date().getFullYear()
 
+  // Signed-in footer: logo + user avatar + account menu (Kashif, 2026-11-21).
+  const { data } = await createSupabaseContext()
+  const user = data?.userClaims
+  let isPremium = false
+  if (user && data?.supabase) {
+    const userId = (user as any).sub || (user as any).id
+    const { data: profile } = await data.supabase
+      .from('users')
+      .select('subscription_status')
+      .eq('id', userId)
+      .single()
+    isPremium = (profile as any)?.subscription_status === 'active'
+  }
+
   return (
-    <footer className="border-t bg-background pt-16 pb-28 md:pb-8 relative overflow-hidden">
+    <footer className="border-t bg-background pt-16 pb-28 md:pb-8 relative overflow-x-clip print:hidden">
       
       {/* Giant Background Watermark */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none select-none flex items-center justify-center opacity-[0.02] dark:opacity-[0.03]">
@@ -39,7 +56,7 @@ export function Footer() {
         </span>
       </div>
 
-      <div className="container mx-auto px-4 md:px-6 relative z-10">
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-6 lg:px-8">
         
         {/* Top Tier: Brand & Newsletter */}
         <div className="flex flex-col lg:flex-row justify-between items-start gap-12 mb-16">
@@ -68,6 +85,11 @@ export function Footer() {
                 <GitHubIcon className="h-5 w-5" />
               </a>
             </div>
+            {user && (
+              <div className="mt-6">
+                <UserBadge user={user} isPremium={isPremium} dropUp />
+              </div>
+            )}
           </div>
 
           {/* Newsletter Subscribe */}
@@ -110,9 +132,9 @@ export function Footer() {
                 <ul className="flex flex-col gap-2.5">
                   {navigationCategories.map((category) => (
                     <li key={category.slug}>
-                      <Link href={`/${category.slug}`} className="text-[13px] text-muted-foreground hover:text-foreground transition-colors leading-tight">
+                      <ActiveLink href={`/${category.slug}`} className="text-[13px] text-muted-foreground hover:text-foreground transition-colors leading-tight">
                         {category.name}
-                      </Link>
+                      </ActiveLink>
                     </li>
                   ))}
                 </ul>
@@ -126,9 +148,9 @@ export function Footer() {
                 <ul className="flex flex-col gap-2.5">
                   {[["About", "/about"], ["Contact", "/contact"], ["Pricing", "/pricing"], ["Embed calculators", "/embed"], ["Methodology", "/methodology"], ["Editorial Policy", "/editorial-policy"], ["Sitemap", "/sitemap"]].map(([label, href]) => (
                     <li key={href}>
-                      <Link href={href} className="text-[13px] text-muted-foreground hover:text-foreground transition-colors leading-tight">
+                      <ActiveLink href={href} className="text-[13px] text-muted-foreground hover:text-foreground transition-colors leading-tight">
                         {label}
-                      </Link>
+                      </ActiveLink>
                     </li>
                   ))}
                 </ul>
@@ -140,11 +162,11 @@ export function Footer() {
                   <span aria-hidden="true" className="mt-2 block h-0.5 w-6 rounded bg-[#D97706]" />
                 </div>
                 <ul className="flex flex-col gap-2.5">
-                  {[["Privacy Policy", "/privacy"], ["Terms of Service", "/terms"], ["Cookie Policy", "/cookies"], ["Disclaimer", "/disclaimer"]].map(([label, href]) => (
+                  {[["Privacy Policy", "/privacy"], ["Terms of Service", "/terms"], ["Cookie Policy", "/cookies"], ["Disclaimer", "/disclaimer"], ["Corrections Policy", "/corrections-policy"]].map(([label, href]) => (
                     <li key={href}>
-                      <Link href={href} className="text-[13px] text-muted-foreground hover:text-foreground transition-colors leading-tight">
+                      <ActiveLink href={href} className="text-[13px] text-muted-foreground hover:text-foreground transition-colors leading-tight">
                         {label}
-                      </Link>
+                      </ActiveLink>
                     </li>
                   ))}
                 </ul>
@@ -160,19 +182,19 @@ export function Footer() {
             <ul className="mb-5 flex flex-col gap-3">
               {GUIDES.slice(0, 4).map((guide) => (
                 <li key={guide.slug}>
-                  <Link href={`/guides/${guide.slug}`} className="text-[14px] font-medium leading-snug text-foreground/90 transition-colors hover:text-[#064E3B] dark:hover:text-emerald-400">
+                  <ActiveLink href={`/guides/${guide.slug}`} activeClassName="text-[#064E3B] underline underline-offset-4 decoration-2 dark:text-emerald-400" className="text-[14px] font-medium leading-snug text-foreground/90 transition-colors hover:text-[#064E3B] dark:hover:text-emerald-400">
                     {guide.title}
-                  </Link>
+                  </ActiveLink>
                 </li>
               ))}
             </ul>
             <div className="flex flex-col gap-2">
-              <Link href="/guides" className="text-xs font-semibold text-primary hover:underline underline-offset-2">
+              <ActiveLink href="/guides" activeClassName="underline underline-offset-2" className="text-xs font-semibold text-primary hover:underline underline-offset-2">
                 All guides &rarr;
-              </Link>
-              <Link href="/guides/states" className="text-xs font-semibold text-primary hover:underline underline-offset-2">
+              </ActiveLink>
+              <ActiveLink href="/guides/states" activeClassName="underline underline-offset-2" className="text-xs font-semibold text-primary hover:underline underline-offset-2">
                 State tax guides &rarr;
-              </Link>
+              </ActiveLink>
             </div>
           </div>
         </div>
@@ -182,9 +204,9 @@ export function Footer() {
           <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground md:order-3 md:w-full md:justify-between md:border-t md:border-border/50 md:pt-6">
             <span>&copy; {currentYear} DailyFinance.</span>
             <span className="hidden sm:inline">&bull;</span>
-            <span>    <Link href="/about" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
+            <span>    <ActiveLink href="/about" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
               Design & Developed by <span className="font-semibold text-foreground">wpkashif</span>
-            </Link></span>
+            </ActiveLink></span>
           </div>
 
           <p className="mx-auto max-w-2xl text-center text-xs leading-relaxed text-muted-foreground md:hidden">
@@ -198,50 +220,53 @@ export function Footer() {
             <p className="text-[13px] leading-relaxed text-muted-foreground">
               <strong className="font-semibold text-foreground">Estimates, not advice.</strong>{" "}
               DailyFinance.tools offers free educational calculators and guides — every result is an estimate based on the inputs and assumptions shown, not financial, tax or investment advice. For decisions about your own money, verify the figures with official sources or a qualified professional. Read the full{" "}
-              <Link href="/disclaimer" className="font-semibold text-[#064E3B] hover:underline dark:text-emerald-400">Disclaimer</Link>.
+              <ActiveLink href="/disclaimer" activeClassName="underline" className="font-semibold text-[#064E3B] hover:underline dark:text-emerald-400">Disclaimer</ActiveLink>.
             </p>
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 md:hidden">
-            <Link href="/about" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
+            <ActiveLink href="/about" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
               About
-            </Link>
-            <Link href="/contact" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
+            </ActiveLink>
+            <ActiveLink href="/contact" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
               Contact
-            </Link>
-            <Link href="/methodology" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
+            </ActiveLink>
+            <ActiveLink href="/methodology" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
               Methodology
-            </Link>
-            <Link href="/editorial-policy" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
+            </ActiveLink>
+            <ActiveLink href="/editorial-policy" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
               Editorial Policy
-            </Link>
-            <Link href="/sitemap" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
+            </ActiveLink>
+            <ActiveLink href="/sitemap" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
               Sitemap
-            </Link>
-            <Link href="/guides" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
+            </ActiveLink>
+            <ActiveLink href="/guides" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
               Guides
-            </Link>
-            <Link href="/guides/states" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
+            </ActiveLink>
+            <ActiveLink href="/guides/states" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
               State Tax Guides
-            </Link>
-            <Link href="/tools" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
+            </ActiveLink>
+            <ActiveLink href="/tools" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
               All 100 Tools
-            </Link>
-            <Link href="/locations" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
+            </ActiveLink>
+            <ActiveLink href="/locations" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
               Calculators by State
-            </Link>
-            <Link href="/privacy" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
+            </ActiveLink>
+            <ActiveLink href="/privacy" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
               Privacy Policy
-            </Link>
-            <Link href="/terms" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
+            </ActiveLink>
+            <ActiveLink href="/terms" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
               Terms of Service
-            </Link>
-            <Link href="/cookies" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
+            </ActiveLink>
+            <ActiveLink href="/cookies" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
               Cookie Policy
-            </Link>
-            <Link href="/disclaimer" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
+            </ActiveLink>
+            <ActiveLink href="/disclaimer" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
               Disclaimer
-            </Link>
+            </ActiveLink>
+            <ActiveLink href="/corrections-policy" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
+              Corrections Policy
+            </ActiveLink>
           </div>
         </div>
 

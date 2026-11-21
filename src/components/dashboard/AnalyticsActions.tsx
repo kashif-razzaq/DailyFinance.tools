@@ -73,7 +73,7 @@ export function AnalyticsActions({ pic, isPro }: { pic: FinancialPicture; isPro:
   }
 
   return (
-    <div className="flex shrink-0 items-center gap-2">
+    <div className="flex shrink-0 items-center gap-2 print:hidden">
       <button
         onClick={exportCsv}
         className="inline-flex items-center gap-2 rounded-full border border-input bg-background px-4 py-2 text-sm font-semibold transition-colors hover:bg-accent"

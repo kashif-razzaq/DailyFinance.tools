@@ -1,7 +1,7 @@
 import React from "react"
 import { ReviewLine } from "@/components/locations/ReviewLine"
 import Link from "next/link"
-import { navigationCategories, getToolUrl } from "@/config/navigation"
+import { navigationCategories, getToolUrl, TOOL_COUNTS } from "@/config/navigation"
 import { itemList, faq, breadcrumb, stringifyJsonLd, SITE_URL } from "@/lib/schema"
 import { FaqAccordion } from "@/components/shared/FaqAccordion"
 import { ArrowRight, CheckCircle2, ChevronDown, Crown, Zap } from "lucide-react"
@@ -20,6 +20,13 @@ export function CategoryHub({ categorySlug, quickAnswer, intro, decisions, faqs 
   const category = navigationCategories.find((c) => c.slug === categorySlug)
   if (!category) return null
   const Icon = category.icon
+  // The Pro hub is the one category whose tools are NOT free: the "no
+  // sign-up" chip and the no-sign-up sentence must not appear here, and the
+  // page carries a Become a Pro CTA instead (Kashif, 2026-11-21).
+  const isProHub = categorySlug === 'pro'
+  const trustChips = isProHub
+    ? ["Pro members only — $2.99/mo", "Formula shown for every result", "Reviewed by a qualified finance professional"]
+    : ["Free, no sign-up required", "Formula shown for every result", "Reviewed by a qualified finance professional"]
 
   return (
     <main className="w-full bg-background min-h-screen">
@@ -77,6 +84,27 @@ export function CategoryHub({ categorySlug, quickAnswer, intro, decisions, faqs 
         </div>
       </section>
 
+      {isProHub && (
+        <section className="mx-auto w-full max-w-7xl px-6 pb-2 lg:px-8">
+          <div className="flex flex-col items-start gap-5 rounded-3xl bg-[#064E3B] p-6 text-white sm:flex-row sm:items-center sm:justify-between md:p-8">
+            <div>
+              <h2 className="flex items-center gap-2 text-xl font-extrabold tracking-tight md:text-2xl">
+                <Crown className="h-5 w-5 text-[#D97706]" /> Become a Pro
+              </h2>
+              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-white/80 md:text-base">
+                Unlock all five Pro tools, unlimited Vault saves, PDF reports and cross-data analytics — $2.99 a month. The {TOOL_COUNTS.free} free calculators stay free.
+              </p>
+            </div>
+            <Link
+              href="/pricing"
+              className="inline-flex shrink-0 items-center gap-2 rounded-full bg-[#D97706] px-6 py-3 text-sm font-bold text-white shadow-sm transition-all hover:brightness-110 active:scale-95"
+            >
+              Become a Pro — $2.99/mo <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+        </section>
+      )}
+
       <section className="mx-auto w-full max-w-7xl px-6 py-10 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           <article className="lg:col-span-8 min-w-0 space-y-14">
@@ -107,10 +135,14 @@ export function CategoryHub({ categorySlug, quickAnswer, intro, decisions, faqs 
             <section>
               <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-foreground mb-4">Why use DailyFinance for {category.name.toLowerCase()} calculations?</h2>
               <div className="content-prose">
-                <p>Every calculator on this page shows its formula, works through real-number examples, and explains what your result actually means — including the mistakes that make most online estimates wrong. Your inputs are calculated in your browser; if you create a free account you can save scenarios and come back to them, but no tool on this site requires sign-up. All tools are reviewed by Tahir Shehzad, ACMA, and updated for the current tax year and current platform fees where those apply.</p>
+                {isProHub ? (
+                  <p>Every calculator on this page shows its formula, works through real-number examples, and explains what your result actually means — including the mistakes that make most online estimates wrong. Your inputs are calculated in your browser. The five tools on this page unlock with Pro at $2.99 a month; their guides stay free to read, and every free calculator on the site stays free. All tools are reviewed by Tahir Shehzad, ACMA, and updated for the current tax year and current platform fees where those apply.</p>
+                ) : (
+                  <p>Every calculator on this page shows its formula, works through real-number examples, and explains what your result actually means — including the mistakes that make most online estimates wrong. Your inputs are calculated in your browser; if you create a free account you can save scenarios and come back to them, but no tool on this site requires sign-up. All tools are reviewed by Tahir Shehzad, ACMA, and updated for the current tax year and current platform fees where those apply.</p>
+                )}
               </div>
               <ul className="flex flex-wrap gap-2.5 mt-6">
-                {["Free, no sign-up required", "Formula shown for every result", "Reviewed by a qualified finance professional"].map((label) => (
+                {trustChips.map((label) => (
                   <li key={label} className="inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/5 px-4 py-2 text-sm font-semibold text-foreground">
                     <CheckCircle2 className="h-4 w-4 shrink-0 text-primary" /> {label}
                   </li>

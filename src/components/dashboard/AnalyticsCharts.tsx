@@ -161,7 +161,7 @@ function BasicSnapshot({ pic }: { pic: FinancialPicture }) {
 
       <BalanceSheetCard pic={pic} />
 
-      <Card className="border-2 border-dashed border-primary/40 bg-primary/5 shadow-sm">
+      <Card className="border-2 border-dashed border-primary/40 bg-primary/5 shadow-sm print:hidden">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Lock className="h-5 w-5 text-[#064E3B]" /> The full picture is Pro

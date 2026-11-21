@@ -38,7 +38,7 @@ export function CookieConsent() {
     <div
       role="region"
       aria-label="Cookie consent"
-      className="fixed z-[90] inset-x-3 bottom-20 md:inset-x-auto md:right-4 md:bottom-4 md:w-[380px] animate-in fade-in slide-in-from-bottom-4 duration-300"
+      className="fixed z-[90] inset-x-3 bottom-20 md:inset-x-auto md:right-4 md:bottom-4 md:w-[380px] animate-in fade-in slide-in-from-bottom-4 duration-300 print:hidden"
     >
       <div className="rounded-2xl border bg-card text-card-foreground shadow-xl p-4">
         <div className="flex items-start gap-3">
