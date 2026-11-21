@@ -1,60 +1,87 @@
 /**
  * /robots.txt — served by a route handler (not MetadataRoute.Robots) because
- * the framework build spec requires Content-Signal directives, which Next's
- * robots() type cannot emit. Keep in sync with llms.txt and the sitemap.
+ * the build spec requires Content-Signal directives, which Next's robots()
+ * type cannot emit. Keep in sync with llms.txt and the sitemap.
  *
- * Crawler stance (honest, deliberate):
- * - Search engines + AI answer engines: welcome everywhere public (AEO/GEO).
- * - Mediapartners-Google (AdSense crawler): explicitly allowed — required
- *   for a future AdSense review even though no ad code runs today.
- * - Private/app paths stay disallowed for every agent.
- * - Content-Signal: search + AI citation yes; AI model training no.
+ * Structure matches plantedshelf.blog/robots.txt (Kashif, 2026-11-21): one
+ * group per crawler family, each carrying its own Content-Signal line.
+ * DF keeps its own exclusions in EVERY group — a crawler matching a named
+ * group ignores the default "*" group, so repeating the private disallows
+ * is what keeps /dashboard, /login, /auth, /api and /embed off-limits to
+ * every agent. /api/og stays explicitly allowed (share-card rendering).
+ *
+ * Crawler stance: search engines + AI answer engines welcome everywhere
+ * public (AEO/GEO). Content-Signal is search=yes, ai-input=yes,
+ * ai-train=no — AI citation welcome, AI model training not consented,
+ * matching the ai_training policy in .well-known/ai-catalog.json.
+ * (The Planted Shelf file this structure was modelled on says ai-train=yes;
+ * Kashif asked to drop the training consent for DF on 2026-11-21.)
  */
 const PRIVATE_PATHS = ["/dashboard/", "/login", "/auth/", "/api/", "/embed/"]
 
-const AI_CRAWLERS = [
-  "GPTBot",
-  "ChatGPT-User",
-  "OAI-SearchBot",
-  "ClaudeBot",
-  "Claude-User",
-  "Claude-SearchBot",
-  "PerplexityBot",
-  "Perplexity-User",
-  "Google-Extended",
-  "CCBot",
-  "Applebot-Extended",
-  "Meta-ExternalAgent",
-  "cohere-ai",
-]
+const CONTENT_SIGNAL = "Content-Signal: search=yes, ai-input=yes, ai-train=no"
 
-function group(userAgents: string[], extraAllow: string[] = []): string {
-  const lines = userAgents.map((ua) => `User-agent: ${ua}`)
-  lines.push("Allow: /", "Allow: /api/og", ...extraAllow)
-  for (const p of PRIVATE_PATHS) lines.push(`Disallow: ${p}`)
-  return lines.join("\n")
+function group(userAgent: string): string {
+  return [
+    `User-agent: ${userAgent}`,
+    CONTENT_SIGNAL,
+    "Allow: /",
+    "Allow: /api/og",
+    ...PRIVATE_PATHS.map((p) => `Disallow: ${p}`),
+  ].join("\n")
+}
+
+function section(comment: string, userAgents: string[]): string {
+  return `# ${comment}\n\n${userAgents.map((ua) => group(ua)).join("\n\n")}`
 }
 
 export async function GET() {
   const body = [
-    "# robots.txt — DailyFinance.tools",
+    "# DailyFinance.tools (www.dailyfinance.tools) robots.txt",
     "",
-    group(["*"]),
+    "# Optimized for Google, Bing, Claude, ChatGPT, Perplexity & Gemini",
+    "# Specification: RFC 9309 + Cloudflare/IETF Content Signals Policy",
     "",
-    "# AdSense crawler — explicitly allowed (no ad code runs today; this is",
-    "# for a future AdSense review). Private paths stay off-limits.",
-    "User-agent: Mediapartners-Google",
-    "Allow: /",
-    ...PRIVATE_PATHS.map((p) => `Disallow: ${p}`),
+    "# Default crawler policy",
     "",
-    "# AI answer-engine crawlers are explicitly welcome: the site publishes",
-    "# llms.txt and structured data so its calculators and guides can be cited.",
-    group(AI_CRAWLERS),
+    group("*"),
     "",
-    "# Content-Signal: search indexing and AI citation welcome; using this",
-    "# site's content to train AI models is not consented.",
-    "Content-Signal: search=yes, ai-input=yes, ai-train=no",
+    section("Google Search & Generative AI crawlers", [
+      "Googlebot",
+      "Google-Extended",
+      "Mediapartners-Google",
+      "AdsBot-Google",
+    ]),
     "",
+    section("Microsoft Bing & Copilot crawlers", ["Bingbot"]),
+    "",
+    section("OpenAI ChatGPT Search & Browsing crawlers", [
+      "OAI-SearchBot",
+      "ChatGPT-User",
+      "GPTBot",
+    ]),
+    "",
+    section("Anthropic Claude Search & User crawlers", [
+      "Claude-SearchBot",
+      "Claude-User",
+      "ClaudeBot",
+    ]),
+    "",
+    section("Perplexity AI Search crawler", ["PerplexityBot"]),
+    "",
+    section("Apple Intelligence & Safari Search", ["Applebot", "Applebot-Extended"]),
+    "",
+    section("Additional AI crawlers (kept from the previous DF file)", [
+      "Perplexity-User",
+      "CCBot",
+      "Meta-ExternalAgent",
+      "cohere-ai",
+    ]),
+    "",
+    "# Agent Resource Discovery & llms.txt declarations",
+    "# Agentmap: https://www.dailyfinance.tools/.well-known/ai-catalog.json",
+    "",
+    "# Sitemap",
     "Sitemap: https://www.dailyfinance.tools/sitemap.xml",
     "",
   ].join("\n")
