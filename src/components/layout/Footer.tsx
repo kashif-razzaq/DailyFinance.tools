@@ -3,8 +3,6 @@ import { GUIDES } from '@/data/guides'
 import { navigationCategories } from '@/config/navigation'
 import { FooterAccordion } from '@/components/layout/FooterAccordion'
 import { ActiveLink } from '@/components/layout/ActiveLink'
-import { UserBadge } from '@/components/layout/UserBadge'
-import { createSupabaseContext } from '@/utils/supabase/server'
 import { Logo } from '@/components/layout/Logo'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
@@ -29,25 +27,11 @@ const GitHubIcon = ({ className }: { className?: string }) => (
   </svg>
 )
 
-export async function Footer() {
+export function Footer() {
   const currentYear = new Date().getFullYear()
 
-  // Signed-in footer: logo + user avatar + account menu (Kashif, 2026-11-21).
-  const { data } = await createSupabaseContext()
-  const user = data?.userClaims
-  let isPremium = false
-  if (user && data?.supabase) {
-    const userId = (user as any).sub || (user as any).id
-    const { data: profile } = await data.supabase
-      .from('users')
-      .select('subscription_status')
-      .eq('id', userId)
-      .single()
-    isPremium = (profile as any)?.subscription_status === 'active'
-  }
-
   return (
-    <footer className="border-t bg-background pt-16 pb-28 md:pb-8 relative overflow-x-clip print:hidden">
+    <footer className="border-t bg-background pt-16 pb-28 md:pb-8 relative overflow-hidden print:hidden">
       
       {/* Giant Background Watermark */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none select-none flex items-center justify-center opacity-[0.02] dark:opacity-[0.03]">
@@ -85,11 +69,6 @@ export async function Footer() {
                 <GitHubIcon className="h-5 w-5" />
               </a>
             </div>
-            {user && (
-              <div className="mt-6">
-                <UserBadge user={user} isPremium={isPremium} dropUp />
-              </div>
-            )}
           </div>
 
           {/* Newsletter Subscribe */}

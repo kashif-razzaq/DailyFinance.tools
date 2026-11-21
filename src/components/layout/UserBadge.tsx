@@ -54,7 +54,7 @@ export function UserAvatar({
   )
 }
 
-export function UserBadge({ user, isPremium, dropUp = false }: { user: any; isPremium?: boolean; dropUp?: boolean }) {
+export function UserBadge({ user, isPremium }: { user: any; isPremium?: boolean }) {
   const router = useRouter()
   const [isOpen, setIsOpen] = useState(false)
 
@@ -116,7 +116,7 @@ export function UserBadge({ user, isPremium, dropUp = false }: { user: any; isPr
       </button>
 
       {isOpen && (
-        <div className={`animate-in fade-in absolute z-50 w-72 overflow-hidden rounded-2xl border bg-background shadow-xl ${dropUp ? 'left-0 bottom-full mb-2 slide-in-from-bottom-2' : 'right-0 top-full mt-2 slide-in-from-top-2'}`}>
+        <div className="animate-in fade-in slide-in-from-top-2 absolute right-0 top-full z-50 mt-2 w-72 overflow-hidden rounded-2xl border bg-background shadow-xl">
           <div className="flex items-center gap-3 border-b bg-muted/30 p-4">
             <UserAvatar avatarUrl={avatarUrl} initials={initials} isPremium={isPremium} size="lg" />
             <div className="min-w-0">

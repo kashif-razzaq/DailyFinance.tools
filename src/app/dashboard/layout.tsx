@@ -2,6 +2,7 @@ import { redirect } from "next/navigation"
 import { createServerClient } from "@supabase/ssr"
 import { cookies } from "next/headers"
 import { DashboardSidebar } from "@/components/layout/DashboardSidebar"
+import { DashboardTopBar } from "@/components/layout/DashboardTopBar"
 import { safeGetUser } from "@/utils/supabase/safe-user"
 import { DashboardMobileNav } from "@/components/layout/DashboardMobileNav"
 
@@ -49,11 +50,12 @@ export default async function DashboardLayout({
 
   return (
     <div className="flex min-h-screen w-full bg-muted/20 pb-16 md:pb-0">
-      <DashboardSidebar isPro={isPro} user={user} />
+      <DashboardSidebar isPro={isPro} />
 
 
       {/* Main Content Area */}
       <main className="flex-1 flex flex-col min-w-0">
+        <DashboardTopBar user={user} isPro={isPro} />
         <div className="flex-1 p-4 md:p-8">
           {children}
         </div>

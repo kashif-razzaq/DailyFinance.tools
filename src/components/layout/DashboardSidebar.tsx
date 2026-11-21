@@ -2,42 +2,18 @@
 
 import React, { useState } from 'react'
 import Link from "next/link"
-import { usePathname, useRouter } from "next/navigation"
-import { FolderGit2, BarChart3, Settings, Crown, Sparkles, ArrowLeft, CreditCard, ChevronLeft, ChevronRight, LogOut } from "lucide-react"
+import { usePathname } from "next/navigation"
+import { FolderGit2, BarChart3, Settings, Crown, Sparkles, CreditCard, ChevronLeft, ChevronRight } from "lucide-react"
 import { Logo } from "@/components/layout/Logo"
-import { UserAvatar } from "@/components/layout/UserBadge"
-import { createClient } from '@/utils/supabase/client'
 import { cn } from "@/lib/utils"
 
 interface DashboardSidebarProps {
   isPro: boolean
-  user?: { email?: string; user_metadata?: Record<string, unknown> } | null
 }
 
-export function DashboardSidebar({ isPro, user }: DashboardSidebarProps) {
+export function DashboardSidebar({ isPro }: DashboardSidebarProps) {
   const [isCollapsed, setIsCollapsed] = useState(false)
   const pathname = usePathname()
-  const router = useRouter()
-
-  const email: string = user?.email ?? ''
-  const displayName: string =
-    (user?.user_metadata?.full_name as string) || (user?.user_metadata?.name as string) || email.split('@')[0] || 'Account'
-  const avatarUrl: string | undefined = (user?.user_metadata?.avatar_url as string) || (user?.user_metadata?.picture as string)
-  const initials =
-    displayName
-      .replace(/[^a-zA-Z ]/g, ' ')
-      .split(' ')
-      .filter(Boolean)
-      .slice(0, 2)
-      .map((part: string) => part[0]?.toUpperCase())
-      .join('') || 'U'
-
-  const handleLogout = async () => {
-    const supabase = createClient()
-    await supabase.auth.signOut()
-    router.push('/?toast=signed-out')
-    router.refresh()
-  }
 
   const navItems = [
     { section: "Workspace" },
@@ -52,9 +28,9 @@ export function DashboardSidebar({ isPro, user }: DashboardSidebarProps) {
 
   return (
     <aside className={cn(
-      // Sticky under the 64px header: the sidebar stays fixed while the
-      // dashboard content scrolls (Kashif, 2026-11-21).
-      "border-r bg-background hidden md:flex flex-col transition-all duration-300 ease-in-out sticky top-16 h-[calc(100vh-4rem)] shrink-0 print:hidden",
+      // Sticky at the very top: the dashboard has no global header, so
+      // top-16 left a gap above the sidebar (Kashif, 2026-11-21).
+      "border-r bg-background hidden md:flex flex-col transition-all duration-300 ease-in-out sticky top-0 h-screen shrink-0 print:hidden",
       isCollapsed ? "w-20" : "w-64"
     )}>
       
@@ -153,47 +129,6 @@ export function DashboardSidebar({ isPro, user }: DashboardSidebarProps) {
               )}
             </div>
           )}
-
-          {!isCollapsed && !isPro && <hr className="border-border mx-2 my-1" />}
-
-          <Link href="/" className={cn(
-            "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors",
-            isCollapsed && "justify-center px-0"
-          )} title="Back to Home">
-            <ArrowLeft className="h-[18px] w-[18px] shrink-0" />
-            {!isCollapsed && <span className="whitespace-nowrap">Back to Home</span>}
-          </Link>
-
-          {/* User card — the signed-in account menu (Kashif, 2026-11-21) */}
-          <div className="border-t pt-3">
-            {isCollapsed ? (
-              <Link href="/dashboard/settings" title={displayName} className="flex justify-center py-1">
-                <UserAvatar avatarUrl={avatarUrl} initials={initials} isPremium={isPro} size="sm" />
-              </Link>
-            ) : (
-              <>
-                <div className="flex items-center gap-3 px-3 py-2">
-                  <UserAvatar avatarUrl={avatarUrl} initials={initials} isPremium={isPro} size="sm" />
-                  <div className="min-w-0">
-                    <p className="truncate text-sm font-bold text-foreground">{displayName}</p>
-                    <p className="truncate text-xs text-muted-foreground">{email}</p>
-                  </div>
-                </div>
-                <Link
-                  href="/dashboard/settings"
-                  className="flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
-                >
-                  <Settings className="h-4 w-4 shrink-0" /> Profile &amp; settings
-                </Link>
-                <button
-                  onClick={handleLogout}
-                  className="flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-destructive transition-colors hover:bg-destructive/10"
-                >
-                  <LogOut className="h-4 w-4 shrink-0" /> Sign out
-                </button>
-              </>
-            )}
-          </div>
         </div>
       </div>
     </aside>
