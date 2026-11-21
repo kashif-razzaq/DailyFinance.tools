@@ -1,7 +1,7 @@
 import { navigationCategories, getToolUrl, TOOL_COUNTS } from "@/config/navigation"
 import { US_STATES } from "@/data/locations/us-states"
 import { US_CITIES } from "@/data/locations/us-cities"
-import { GUIDES } from "@/data/guides"
+import { GUIDES, GUIDE_HUBS, HUB_DESCRIPTIONS, hubAnchor } from "@/data/guides"
 import { HUBS } from "@/data/hubs"
 
 const BASE = "https://www.dailyfinance.tools"
@@ -22,6 +22,9 @@ export async function GET() {
   lines.push("## Key pages")
   lines.push(`- [All tools directory](${BASE}/tools): every calculator on the site, grouped by topic`)
   lines.push(`- [Guides](${BASE}/guides): plain-language explainers on interest, mortgages, debt, taxes, retirement and pricing`)
+  for (const hub of GUIDE_HUBS) {
+    lines.push(`- [${hub} guides](${BASE}/guides/category/${hubAnchor(hub)}): ${HUB_DESCRIPTIONS[hub]}`)
+  }
   lines.push(`- [State tax guides](${BASE}/guides/states): how sales tax, income tax and property tax work in each US state`)
   lines.push(`- [Locations](${BASE}/locations): state-by-state tax rates and the calculators that use them`)
   lines.push(`- [About](${BASE}/about)`)

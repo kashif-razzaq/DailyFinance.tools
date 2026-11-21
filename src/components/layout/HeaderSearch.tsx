@@ -1,12 +1,12 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { Calculator, ChevronRight, Search, X } from 'lucide-react'
+import { BookOpen, Calculator, ChevronRight, Search, X } from 'lucide-react'
 import { getToolUrl } from '@/config/navigation'
-import { useMyTools } from '@/components/home/useMyTools'
+import { useMyTools, type SearchHit } from '@/components/home/useMyTools'
 
 /**
  * HeaderSearch — the header search button + command-palette overlay.
@@ -16,7 +16,8 @@ import { useMyTools } from '@/components/home/useMyTools'
  *
  * The overlay reuses the home search dropdown's design (icon tile, title,
  * category, ChevronRight) and the shared matcher via useMyTools'
- * searchTools, so header results can never disagree with /tools?q=.
+ * searchTools/searchGuides, so header results can never disagree with
+ * /search?q=. Search covers calculators AND guides.
  */
 export function HeaderSearch() {
   const router = useRouter()
@@ -31,18 +32,25 @@ export function HeaderSearch() {
   const [highlighted, setHighlighted] = useState(-1)
   const triggerRef = useRef<HTMLButtonElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
-  const { popularTools, recordRecent, searchTools } = useMyTools()
+  const { popularTools, recordRecent, searchTools, searchGuides, ensureGuideIndex } = useMyTools()
 
   const trimmedQuery = query.trim()
-  // One matcher call per query: slice 8 for display, keep the true total
-  // for the "See all N results" row.
-  const allMatches = trimmedQuery ? searchTools(query, 1000) : []
-  const totalResults = allMatches.length
-  const displayedResults = allMatches.slice(0, 8)
+  // One matcher call per query per type: slice for display, keep the true
+  // totals for the "See all N results" row.
+  const toolMatches = trimmedQuery ? searchTools(query, 1000) : []
+  const guideMatches = trimmedQuery ? searchGuides(query, 1000) : []
+  const totalResults = toolMatches.length + guideMatches.length
+  const displayedTools = toolMatches.slice(0, 5)
+  const displayedGuides = guideMatches.slice(0, 3)
   // Empty query shows popular tools; keyboard nav works over whichever
   // list is currently shown.
-  const items = trimmedQuery ? displayedResults : popularTools.slice(0, 6)
-  const resultsHref = `/tools?q=${encodeURIComponent(trimmedQuery)}`
+  const items: SearchHit[] = trimmedQuery
+    ? [
+        ...displayedTools.map((t): SearchHit => ({ kind: 'tool', ...t })),
+        ...displayedGuides.map((g): SearchHit => ({ kind: 'guide', guide: g })),
+      ]
+    : popularTools.slice(0, 6).map((t): SearchHit => ({ kind: 'tool', ...t }))
+  const resultsHref = `/search?q=${encodeURIComponent(trimmedQuery)}`
 
   const close = () => {
     setOpen(false)
@@ -117,11 +125,18 @@ export function HeaderSearch() {
     } else if (e.key === 'Enter') {
       const hit = highlighted >= 0 && highlighted < items.length ? items[highlighted] : undefined
       if (hit) {
-        recordRecent(hit.tool.slug)
-        setOpen(false)
-        setQuery('')
-        setHighlighted(-1)
-        router.push(getToolUrl(hit.tool.slug))
+        if (hit.kind === 'tool') {
+          recordRecent(hit.tool.slug)
+          setOpen(false)
+          setQuery('')
+          setHighlighted(-1)
+          router.push(getToolUrl(hit.tool.slug))
+        } else {
+          setOpen(false)
+          setQuery('')
+          setHighlighted(-1)
+          router.push(`/guides/${hit.guide.slug}`)
+        }
       } else if (trimmedQuery) {
         setOpen(false)
         setQuery('')
@@ -135,7 +150,9 @@ export function HeaderSearch() {
 
   const activeId =
     highlighted >= 0 && highlighted < items.length
-      ? `header-search-result-${items[highlighted].tool.slug}`
+      ? items[highlighted].kind === 'tool'
+        ? `header-search-result-${items[highlighted].tool.slug}`
+        : `header-search-result-guide-${items[highlighted].guide.slug}`
       : undefined
 
   return (
@@ -165,7 +182,7 @@ export function HeaderSearch() {
           <div
             role="dialog"
             aria-modal="true"
-            aria-label="Search calculators"
+            aria-label="Search calculators and guides"
             className="relative flex h-full w-full flex-col overflow-hidden bg-card shadow-2xl sm:h-auto sm:max-h-[70vh] sm:max-w-xl sm:rounded-2xl sm:border sm:border-border"
           >
             {/* Input row */}
@@ -178,10 +195,11 @@ export function HeaderSearch() {
                 onChange={(e) => {
                   setQuery(e.target.value)
                   setHighlighted(-1)
+                  ensureGuideIndex()
                 }}
                 onKeyDown={handleInputKeyDown}
-                placeholder="Search calculators — try “mortgage”, “paycheck”, “ROI”…"
-                aria-label="Search calculators"
+                placeholder="Search calculators and guides — try “mortgage”, “paycheck”, “ROI”…"
+                aria-label="Search calculators and guides"
                 aria-expanded={items.length > 0}
                 aria-controls="header-search-listbox"
                 aria-activedescendant={activeId}
@@ -200,7 +218,7 @@ export function HeaderSearch() {
             {/* Results */}
             {trimmedQuery && totalResults === 0 ? (
               <p className="px-5 py-6 text-center text-sm font-light text-muted-foreground">
-                No calculators match “{trimmedQuery}”. Try “tax”, “loan” or “ROI”.
+                Nothing matches “{trimmedQuery}”. Try “tax”, “loan” or “ROI”.
               </p>
             ) : (
               <>
@@ -215,7 +233,47 @@ export function HeaderSearch() {
                   aria-label={trimmedQuery ? 'Search results' : 'Popular tools'}
                   className="min-h-0 flex-1 overflow-y-auto py-1.5"
                 >
-                  {items.map(({ tool, category }, i) => {
+                  {trimmedQuery && displayedTools.length > 0 && (
+                    <p className="px-5 pb-1 pt-2 text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                      Calculators
+                    </p>
+                  )}
+                  {items.map((hit, i) => {
+                    if (hit.kind === 'guide') {
+                      const g = hit.guide
+                      return (
+                        <Fragment key={g.slug}>
+                          {i === displayedTools.length && (
+                            <p className="px-5 pb-1 pt-3 text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                              Guides
+                            </p>
+                          )}
+                          <Link
+                            id={`header-search-result-guide-${g.slug}`}
+                            role="option"
+                            aria-selected={i === highlighted}
+                            href={`/guides/${g.slug}`}
+                            onClick={() => {
+                              setOpen(false)
+                              setQuery('')
+                              setHighlighted(-1)
+                            }}
+                            onMouseEnter={() => setHighlighted(i)}
+                            className={`flex items-center gap-4 px-5 py-3 transition-colors hover:bg-muted ${i === highlighted ? 'bg-muted' : ''}`}
+                          >
+                            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#064E3B]/[0.06] text-[#064E3B] dark:text-emerald-400">
+                              <BookOpen className="h-5 w-5" />
+                            </span>
+                            <span className="min-w-0 flex-1">
+                              <span className="block truncate text-[15px] font-bold text-foreground">{g.title}</span>
+                              <span className="block truncate text-[13px] font-light text-muted-foreground">{g.hub} · {g.readMinutes} min read</span>
+                            </span>
+                            <ChevronRight className="h-5 w-5 shrink-0 text-muted-foreground/60" />
+                          </Link>
+                        </Fragment>
+                      )
+                    }
+                    const { tool, category } = hit
                     const Icon = tool.icon || Calculator
                     return (
                       <Link

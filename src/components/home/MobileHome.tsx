@@ -7,6 +7,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import {
+  BookOpen,
   Calculator,
   ChevronRight,
   Clock,
@@ -21,7 +22,7 @@ import {
   Zap,
 } from 'lucide-react'
 import { navigationCategories, getToolUrl, TOOL_COUNTS } from '@/config/navigation'
-import { useMyTools, type ToolWithCategory } from '@/components/home/useMyTools'
+import { useMyTools, type SearchHit, type ToolWithCategory } from '@/components/home/useMyTools'
 import { GUIDES } from '@/data/guides'
 
 /**
@@ -52,14 +53,25 @@ export function MobileHome() {
     recentTools,
     hasYourTools,
     searchTools,
+    searchGuides,
+    ensureGuideIndex,
   } = useMyTools()
 
-  const searchResults = searchTools(query)
+  // Search covers calculators AND guides (Kashif, 2026-11-21): up to 5
+  // tools, then up to 3 guides, in one keyboard-navigable list.
+  const toolResults = searchTools(query, 5)
+  const guideResults = searchGuides(query, 3)
+  const searchResults: SearchHit[] = [
+    ...toolResults.map((t): SearchHit => ({ kind: 'tool', ...t })),
+    ...guideResults.map((g): SearchHit => ({ kind: 'guide', guide: g })),
+  ]
   const trimmedQuery = query.trim()
   const showDropdown = trimmedQuery.length > 0 && searchFocused
-  const resultsHref = `/tools?q=${encodeURIComponent(trimmedQuery)}`
+  const resultsHref = `/search?q=${encodeURIComponent(trimmedQuery)}`
   // Full count for the "See all results" row (the dropdown shows the top 8).
-  const totalResults = showDropdown ? searchTools(query, Number.MAX_SAFE_INTEGER).length : 0
+  const totalResults = showDropdown
+    ? searchTools(query, Number.MAX_SAFE_INTEGER).length + searchGuides(query, Number.MAX_SAFE_INTEGER).length
+    : 0
 
   const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
@@ -73,8 +85,12 @@ export function MobileHome() {
     } else if (e.key === 'Enter') {
       const hit = highlighted >= 0 ? searchResults[highlighted] : undefined
       if (hit) {
-        recordRecent(hit.tool.slug)
-        router.push(getToolUrl(hit.tool.slug))
+        if (hit.kind === 'tool') {
+          recordRecent(hit.tool.slug)
+          router.push(getToolUrl(hit.tool.slug))
+        } else {
+          router.push(`/guides/${hit.guide.slug}`)
+        }
       } else if (trimmedQuery) {
         router.push(resultsHref)
       }
@@ -84,6 +100,14 @@ export function MobileHome() {
       searchInputRef.current?.blur()
     }
   }
+
+  // The id of the currently highlighted result, for aria-activedescendant.
+  const activeHitId =
+    highlighted >= 0 && searchResults[highlighted]
+      ? searchResults[highlighted].kind === 'tool'
+        ? `mobile-search-result-${searchResults[highlighted].tool.slug}`
+        : `mobile-search-result-guide-${searchResults[highlighted].guide.slug}`
+      : undefined
 
   useEffect(() => {
     const standalone =
@@ -172,23 +196,23 @@ export function MobileHome() {
               ref={searchInputRef}
               type="text"
               inputMode="search"
-              placeholder="Search calculators…"
+              placeholder="Search calculators and guides…"
               className="w-full bg-transparent py-3.5 pr-4 text-base font-medium text-foreground outline-none placeholder:text-muted-foreground"
               value={query}
               onChange={(e) => {
                 setQuery(e.target.value)
                 setHighlighted(-1)
+                ensureGuideIndex()
               }}
               onKeyDown={handleSearchKeyDown}
-              onFocus={() => setSearchFocused(true)}
+              onFocus={() => {
+                setSearchFocused(true)
+                ensureGuideIndex()
+              }}
               onBlur={() => setTimeout(() => setSearchFocused(false), 200)}
-              aria-label="Search calculators"
+              aria-label="Search calculators and guides"
               aria-expanded={showDropdown}
-              aria-activedescendant={
-                highlighted >= 0 && searchResults[highlighted]
-                  ? `mobile-search-result-${searchResults[highlighted].tool.slug}`
-                  : undefined
-              }
+              aria-activedescendant={activeHitId}
             />
           </div>
 
@@ -201,7 +225,12 @@ export function MobileHome() {
               {searchResults.length > 0 ? (
                 <>
                   <div className="max-h-[60vh] overflow-y-auto py-1.5">
-                    {searchResults.map(({ tool, category }, i) => {
+                    {toolResults.length > 0 && (
+                      <p className="px-4 pb-1 pt-2 text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                        Calculators
+                      </p>
+                    )}
+                    {toolResults.map(({ tool, category }, i) => {
                       const Icon = tool.icon || Calculator
                       return (
                         <Link
@@ -225,6 +254,34 @@ export function MobileHome() {
                         </Link>
                       )
                     })}
+                    {guideResults.length > 0 && (
+                      <p className="px-4 pb-1 pt-3 text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                        Guides
+                      </p>
+                    )}
+                    {guideResults.map((g, j) => {
+                      const i = toolResults.length + j
+                      return (
+                        <Link
+                          key={g.slug}
+                          id={`mobile-search-result-guide-${g.slug}`}
+                          role="option"
+                          aria-selected={i === highlighted}
+                          href={`/guides/${g.slug}`}
+                          onMouseEnter={() => setHighlighted(i)}
+                          className={`flex items-center gap-3 px-4 py-3 transition-colors active:bg-muted ${i === highlighted ? 'bg-muted' : ''}`}
+                        >
+                          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#064E3B]/[0.06] text-[#064E3B] dark:text-emerald-400">
+                            <BookOpen className="h-5 w-5" />
+                          </span>
+                          <span className="min-w-0 flex-1">
+                            <span className="block truncate text-[15px] font-bold text-foreground">{g.title}</span>
+                            <span className="block truncate text-[13px] font-light text-muted-foreground">{g.hub} · {g.readMinutes} min read</span>
+                          </span>
+                          <ChevronRight className="h-5 w-5 shrink-0 text-muted-foreground/60" />
+                        </Link>
+                      )
+                    })}
                   </div>
                   <Link
                     href={resultsHref}
@@ -241,7 +298,7 @@ export function MobileHome() {
                 </>
               ) : (
                 <p className="px-4 py-5 text-center text-sm font-light text-muted-foreground">
-                  No calculators match “{query.trim()}”. Try “tax”, “loan” or “ROI”.
+                  Nothing matches “{query.trim()}”. Try “tax”, “loan” or “ROI”.
                 </p>
               )}
             </div>

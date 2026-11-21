@@ -4,7 +4,7 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { navigationCategories, getToolUrl } from '@/config/navigation'
-import { GUIDE_HUBS, guidesByHub, hubAnchor } from '@/data/guides'
+import { GUIDE_HUBS, HUB_DESCRIPTIONS, hubAnchor } from '@/data/guides'
 import { X, ChevronRight, ArrowRight, User, Globe, BookOpen, MapPin } from 'lucide-react'
 import { ThemeToggle } from '@/components/layout/ThemeToggle'
 import { ActiveLink } from '@/components/layout/ActiveLink'
@@ -154,12 +154,12 @@ export function MobileMenu({ user, isPremium }: { user?: any; isPremium?: boolea
                 {GUIDE_HUBS.map((hub) => (
                   <Link
                     key={hub}
-                    href={`/guides#${hubAnchor(hub)}`}
+                    href={`/guides/category/${hubAnchor(hub)}`}
                     onClick={() => setIsOpen(false)}
-                    className="group flex items-center justify-between p-3 rounded-xl bg-background border hover:border-primary/50 transition-colors"
+                    className="group flex flex-col gap-0.5 p-3 rounded-xl bg-background border hover:border-primary/50 transition-colors"
                   >
                     <span className="font-medium text-sm group-hover:text-primary transition-colors">{hub}</span>
-                    <span className="text-xs text-muted-foreground shrink-0 ml-3">{guidesByHub(hub).length} guides</span>
+                    <span className="text-xs text-muted-foreground">{HUB_DESCRIPTIONS[hub]}</span>
                   </Link>
                 ))}
                 <Link

@@ -1,9 +1,9 @@
 import Link from "next/link"
-import { GuideImage } from "@/components/shared/GuideImage"
+import { GuideCard } from "@/components/shared/GuideCard"
 import { breadcrumb, itemList, stringifyJsonLd } from "@/lib/schema"
 import type { Metadata } from "next"
 import { ArrowRight, BookOpen, MapPin } from "lucide-react"
-import { GUIDES, GUIDE_HUBS, guidesByHub, hubAnchor } from "@/data/guides"
+import { GUIDES, GUIDE_HUBS, HUB_DESCRIPTIONS, guidesByHub, hubAnchor } from "@/data/guides"
 
 export const metadata: Metadata = {
   title: "Personal Finance Guides: Clear Answers With Real Numbers",
@@ -53,27 +53,37 @@ export default function GuidesIndexPage() {
           rule, works a real example with real figures, and links to the calculator that runs the same math on your
           own numbers.
         </p>
-        <p className="text-muted-foreground max-w-3xl mb-12">
+        <p className="text-muted-foreground max-w-3xl mb-8">
           Looking for tax and cost rules where you live? The{" "}
           <Link href="/guides/states" className="text-[#064E3B] dark:text-emerald-400 font-medium underline underline-offset-2">state-by-state guides</Link>{" "}
           cover sales tax, income tax and property tax for all 50 states and DC, plus the largest cities.
         </p>
 
+        {/* Category nav — each hub has its own indexable page. */}
+        <nav aria-label="Guide categories" className="flex flex-wrap gap-2.5 mb-12">
+          {GUIDE_HUBS.map((hub) => (
+            <Link
+              key={hub}
+              href={`/guides/category/${hubAnchor(hub)}`}
+              title={HUB_DESCRIPTIONS[hub]}
+              className="rounded-full border border-border bg-card px-4 py-2 text-sm font-semibold text-foreground shadow-sm transition-all hover:-translate-y-0.5 hover:border-[#064E3B]/50 hover:text-[#064E3B]"
+            >
+              {hub}
+            </Link>
+          ))}
+        </nav>
+
         {GUIDE_HUBS.map((hub) => (
           <section key={hub} id={hubAnchor(hub)} className="mb-12 scroll-mt-24">
-            <h2 className="text-2xl font-extrabold tracking-tight mb-5">{hub}</h2>
+            <div className="flex flex-wrap items-baseline justify-between gap-3 mb-5">
+              <h2 className="text-2xl font-extrabold tracking-tight">{hub}</h2>
+              <Link href={`/guides/category/${hubAnchor(hub)}`} className="text-sm font-semibold text-[#064E3B] dark:text-emerald-400 inline-flex items-center gap-1 hover:underline underline-offset-2">
+                View all <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
               {guidesByHub(hub).map((g) => (
-                <Link key={g.slug} href={`/guides/${g.slug}`} className="border rounded-3xl overflow-hidden hover:border-[#064E3B] hover:shadow-md transition-all group bg-card flex flex-col">
-                  <GuideImage src={g.image} alt={g.imageAlt} imgClassName="aspect-video w-full object-cover" />
-                  <span className="flex flex-col p-6">
-                    <h3 className="font-bold text-lg leading-snug mb-2 group-hover:text-[#064E3B] dark:group-hover:text-emerald-400">{g.title}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed mb-4">{g.description}</p>
-                    <span className="text-sm font-semibold text-[#064E3B] dark:text-emerald-400 inline-flex items-center gap-1.5">
-                      Read the guide <ArrowRight className="h-4 w-4" />
-                    </span>
-                  </span>
-                </Link>
+                <GuideCard key={g.slug} guide={g} />
               ))}
             </div>
           </section>

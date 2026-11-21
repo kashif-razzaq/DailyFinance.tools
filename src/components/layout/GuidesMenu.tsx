@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { GUIDE_HUBS, guidesByHub, hubAnchor } from '@/data/guides'
+import { GUIDE_HUBS, HUB_DESCRIPTIONS, hubAnchor } from '@/data/guides'
 import { ChevronDown, BookOpen, MapPin, ArrowRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -89,12 +89,12 @@ export function GuidesMenu() {
               {GUIDE_HUBS.map((hub) => (
                 <Link
                   key={hub}
-                  href={`/guides#${hubAnchor(hub)}`}
+                  href={`/guides/category/${hubAnchor(hub)}`}
                   onClick={() => setIsOpen(false)}
-                  className="group flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-muted/50 transition-colors"
+                  className="group flex flex-col px-3 py-2.5 rounded-xl hover:bg-muted/50 transition-colors"
                 >
                   <span className="text-sm font-medium group-hover:text-primary transition-colors">{hub}</span>
-                  <span className="text-xs text-muted-foreground shrink-0 ml-3">{guidesByHub(hub).length} guides</span>
+                  <span className="text-xs text-muted-foreground">{HUB_DESCRIPTIONS[hub]}</span>
                 </Link>
               ))}
             </div>

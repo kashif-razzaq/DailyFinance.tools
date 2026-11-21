@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation'
 import {
   ArrowRight,
   ArrowUpRight,
+  BookOpen,
   Calculator,
   ChevronRight,
   Clock,
@@ -24,7 +25,7 @@ import {
 import { navigationCategories, getToolUrl, TOOL_COUNTS } from '@/config/navigation'
 import { GUIDES } from '@/data/guides'
 import { CalcWord } from '@/components/home/CalcWord'
-import { useMyTools, type ToolWithCategory } from '@/components/home/useMyTools'
+import { useMyTools, type SearchHit, type ToolWithCategory } from '@/components/home/useMyTools'
 
 /**
  * DesktopHome — the desktop homepage (md+), rebuilt to the same standard as
@@ -52,14 +53,25 @@ export function DesktopHome() {
     recentTools,
     hasYourTools,
     searchTools,
+    searchGuides,
+    ensureGuideIndex,
   } = useMyTools()
 
-  const searchResults = searchTools(query, 7)
+  // Search covers calculators AND guides (Kashif, 2026-11-21): up to 5
+  // tools, then up to 3 guides, in one keyboard-navigable list.
+  const toolResults = searchTools(query, 5)
+  const guideResults = searchGuides(query, 3)
+  const searchResults: SearchHit[] = [
+    ...toolResults.map((t): SearchHit => ({ kind: 'tool', ...t })),
+    ...guideResults.map((g): SearchHit => ({ kind: 'guide', guide: g })),
+  ]
   const trimmedQuery = query.trim()
   const showDropdown = trimmedQuery.length > 0 && searchFocused
-  const resultsHref = `/tools?q=${encodeURIComponent(trimmedQuery)}`
-  // Full count for the "See all results" row (the dropdown shows the top 7).
-  const totalResults = showDropdown ? searchTools(query, Number.MAX_SAFE_INTEGER).length : 0
+  const resultsHref = `/search?q=${encodeURIComponent(trimmedQuery)}`
+  // Full count for the "See all results" row (the dropdown shows the top 8).
+  const totalResults = showDropdown
+    ? searchTools(query, Number.MAX_SAFE_INTEGER).length + searchGuides(query, Number.MAX_SAFE_INTEGER).length
+    : 0
 
   const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
@@ -73,8 +85,12 @@ export function DesktopHome() {
     } else if (e.key === 'Enter') {
       const hit = highlighted >= 0 ? searchResults[highlighted] : undefined
       if (hit) {
-        recordRecent(hit.tool.slug)
-        router.push(getToolUrl(hit.tool.slug))
+        if (hit.kind === 'tool') {
+          recordRecent(hit.tool.slug)
+          router.push(getToolUrl(hit.tool.slug))
+        } else {
+          router.push(`/guides/${hit.guide.slug}`)
+        }
       } else if (trimmedQuery) {
         router.push(resultsHref)
       }
@@ -84,6 +100,14 @@ export function DesktopHome() {
       searchInputRef.current?.blur()
     }
   }
+
+  // The id of the currently highlighted result, for aria-activedescendant.
+  const activeHitId =
+    highlighted >= 0 && searchResults[highlighted]
+      ? searchResults[highlighted].kind === 'tool'
+        ? `desktop-search-result-${searchResults[highlighted].tool.slug}`
+        : `desktop-search-result-guide-${searchResults[highlighted].guide.slug}`
+      : undefined
 
   const renderToolCard = (entry: ToolWithCategory) => {
     const { tool, category } = entry
@@ -177,23 +201,23 @@ export function DesktopHome() {
               <input
                 ref={searchInputRef}
                 type="text"
-                placeholder="Search calculators — try “mortgage”, “paycheck”, “ROI”…"
+                placeholder="Search calculators and guides — try “mortgage”, “paycheck”, “ROI”…"
                 className="w-full bg-transparent py-[18px] pr-4 text-lg font-medium text-foreground outline-none placeholder:text-muted-foreground"
                 value={query}
                 onChange={(e) => {
                   setQuery(e.target.value)
                   setHighlighted(-1)
+                  ensureGuideIndex()
                 }}
                 onKeyDown={handleSearchKeyDown}
-                onFocus={() => setSearchFocused(true)}
+                onFocus={() => {
+                  setSearchFocused(true)
+                  ensureGuideIndex()
+                }}
                 onBlur={() => setTimeout(() => setSearchFocused(false), 200)}
-                aria-label="Search calculators"
+                aria-label="Search calculators and guides"
                 aria-expanded={showDropdown}
-                aria-activedescendant={
-                  highlighted >= 0 && searchResults[highlighted]
-                    ? `desktop-search-result-${searchResults[highlighted].tool.slug}`
-                    : undefined
-                }
+                aria-activedescendant={activeHitId}
               />
               <span className="mr-4 hidden items-center gap-1 rounded-md border border-border bg-muted px-2 py-1 text-[11px] font-semibold text-muted-foreground lg:flex">
                 {allTools.length} tools
@@ -209,7 +233,12 @@ export function DesktopHome() {
                 {searchResults.length > 0 ? (
                   <>
                     <div className="max-h-[55vh] overflow-y-auto py-1.5">
-                      {searchResults.map(({ tool, category }, i) => {
+                      {toolResults.length > 0 && (
+                        <p className="px-5 pb-1 pt-2 text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                          Calculators
+                        </p>
+                      )}
+                      {toolResults.map(({ tool, category }, i) => {
                         const Icon = tool.icon || Calculator
                         return (
                           <Link
@@ -233,6 +262,34 @@ export function DesktopHome() {
                           </Link>
                         )
                       })}
+                      {guideResults.length > 0 && (
+                        <p className="px-5 pb-1 pt-3 text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                          Guides
+                        </p>
+                      )}
+                      {guideResults.map((g, j) => {
+                        const i = toolResults.length + j
+                        return (
+                          <Link
+                            key={g.slug}
+                            id={`desktop-search-result-guide-${g.slug}`}
+                            role="option"
+                            aria-selected={i === highlighted}
+                            href={`/guides/${g.slug}`}
+                            onMouseEnter={() => setHighlighted(i)}
+                            className={`flex items-center gap-4 px-5 py-3 transition-colors hover:bg-muted ${i === highlighted ? 'bg-muted' : ''}`}
+                          >
+                            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#064E3B]/[0.06] text-[#064E3B] dark:text-emerald-400">
+                              <BookOpen className="h-5 w-5" />
+                            </span>
+                            <span className="min-w-0 flex-1">
+                              <span className="block truncate text-[15px] font-bold text-foreground">{g.title}</span>
+                              <span className="block truncate text-[13px] font-light text-muted-foreground">{g.hub} · {g.readMinutes} min read</span>
+                            </span>
+                            <ChevronRight className="h-5 w-5 shrink-0 text-muted-foreground/60" />
+                          </Link>
+                        )
+                      })}
                     </div>
                     <Link
                       href={resultsHref}
@@ -249,7 +306,7 @@ export function DesktopHome() {
                   </>
                 ) : (
                   <p className="px-5 py-6 text-center text-sm font-light text-muted-foreground">
-                    No calculators match “{query.trim()}”. Try “tax”, “loan” or “ROI”.
+                    Nothing matches “{query.trim()}”. Try “tax”, “loan” or “ROI”.
                   </p>
                 )}
               </div>
