@@ -159,7 +159,7 @@ export function MobileHome() {
             onClick={() => toggleFavourite(tool.slug)}
             aria-label={isFav ? `Remove ${tool.title} from favorites` : `Save ${tool.title} to favorites`}
             aria-pressed={isFav}
-            className="relative z-20 flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-transform active:scale-90"
+            className="relative z-20 flex h-12 w-12 shrink-0 items-center justify-center rounded-full transition-transform active:scale-90"
           >
             <Star
               className={`h-5 w-5 ${isFav ? 'fill-[#D97706] text-[#D97706]' : 'text-muted-foreground/60'}`}
@@ -313,7 +313,7 @@ export function MobileHome() {
                 key={chip.slug + chip.label}
                 href={chip.href}
                 onClick={() => recordRecent(chip.slug)}
-                className="rounded-full border border-border bg-card px-4 py-2 text-sm font-semibold text-foreground shadow-sm transition-transform active:scale-95"
+                className="inline-flex min-h-12 items-center rounded-full border border-border bg-card px-4 py-2 text-sm font-semibold text-foreground shadow-sm transition-transform active:scale-95"
               >
                 {chip.label}
               </Link>
@@ -346,12 +346,14 @@ export function MobileHome() {
                 <p className="relative z-10 mt-3 pr-6 text-[14px] font-bold leading-snug text-foreground pointer-events-none">
                   {tool.title}
                 </p>
+                {/* UX13: 48×48 hit area (was 36×36); offset moved from 2.5 to 1
+                    so the star icon itself stays pixel-identical. */}
                 <button
                   type="button"
                   onClick={() => toggleFavourite(tool.slug)}
                   aria-label={isFav ? `Remove ${tool.title} from favorites` : `Save ${tool.title} to favorites`}
                   aria-pressed={isFav}
-                  className="absolute right-2.5 top-2.5 z-20 flex h-9 w-9 items-center justify-center rounded-full transition-transform active:scale-90"
+                  className="absolute right-1 top-1 z-20 flex h-12 w-12 items-center justify-center rounded-full transition-transform active:scale-90"
                 >
                   <Star className={`h-5 w-5 ${isFav ? 'fill-[#D97706] text-[#D97706]' : 'text-muted-foreground/60'}`} />
                 </button>

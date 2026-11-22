@@ -6,7 +6,7 @@ import { ToolContent } from "@/components/shared/ToolContent"
 import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
-export const metadata: Metadata = generateCalculatorMetadata({ title: 'Salary to Hourly Calculator: Convert Pay Both Ways', description: 'Convert any salary to its hourly rate and back: weekly, fortnightly, monthly and yearly equivalents on one screen.', keywords: ['salary to hourly calculator', 'hourly to salary calculator', 'salary converter', 'annual salary to hourly'], slug: "freelance/salary-to-hourly-calculator", category: "Freelance" });
+export const metadata: Metadata = generateCalculatorMetadata({ title: 'Salary to Hourly Calculator: Convert Pay Both Ways', description: 'Convert any salary to its hourly rate and back: weekly, fortnightly, monthly and yearly equivalents on one screen, at your real hours.', keywords: ['salary to hourly calculator', 'hourly to salary calculator', 'salary converter', 'annual salary to hourly'], slug: "freelance/salary-to-hourly-calculator", category: "Freelance" });
 
 export default function Page() {
   return (

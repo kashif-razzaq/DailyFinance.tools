@@ -19,7 +19,7 @@ function PctSlider({ label, value, onChange, min = 0, max = 20, step = 0.1 }: { 
     <Slider value={[value]} min={min} max={max} step={step} onValueChange={(v: any) => onChange(Array.isArray(v) ? v[0] : v)} /></div>)
 }
 function ResultCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
+  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</p>{children}</div>)
 }
 function ToggleRow({ label, options, value, onChange, hint }: { label: string; options: { label: string; value: boolean }[]; value: boolean; onChange: (v: boolean) => void; hint?: string }) {
   return (<div className="space-y-2"><label className="text-sm font-semibold">{label}</label>
@@ -120,7 +120,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <div><p className="text-white/60 text-xs uppercase font-bold">Total Interest</p><p className="font-mono text-xl font-bold">{fmt(c.totalInterest)}</p></div>
           <div><p className="text-white/60 text-xs uppercase font-bold">Loan Paid Off</p><p className="font-mono text-xl font-bold">{c.payoff}</p></div>
         </div></ResultCard>
-      <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Funding Fee Breakdown</h4>
+      <div className="bg-card border rounded-2xl p-6"><p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Funding Fee Breakdown</p>
         <div className="space-y-1 text-sm">
           <div className="flex justify-between py-1 border-b border-neutral-100"><span className="text-neutral-500">Base loan (price minus down payment)</span><span className="font-mono font-semibold">{fmt(c.baseLoan)}</span></div>
           <div className="flex justify-between py-1 border-b border-neutral-100"><span className="text-neutral-500">Funding fee rate ({c.tierLabel}, {firstUse ? 'first use' : 'subsequent use'})</span><span className="font-mono font-semibold">{c.ratePct}%</span></div>
@@ -131,7 +131,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         {c.fee > 0 && !financeFee && <p className="text-sm mt-4 pt-4 border-t border-neutral-100">Paying the fee in cash keeps it out of the loan. Financing it instead would cost <span className="font-mono font-semibold">{fmt(c.financeCost)}</span> extra in interest over {term} years.</p>}
         {c.fee === 0 && <p className="text-sm mt-4 pt-4 border-t border-neutral-100">No funding fee on this loan — the exemption saves the full fee, and there is nothing to finance.</p>}
       </div>
-      <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Payment Breakdown</h4>
+      <div className="bg-card border rounded-2xl p-6"><p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Payment Breakdown</p>
         <ResponsiveContainer width="100%" height={230}><PieChart><Pie data={c.parts} dataKey="value" nameKey="name" innerRadius={55} outerRadius={85} paddingAngle={2}>{c.parts.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}</Pie><Tooltip formatter={(v: any) => fmt(Number(v)) + '/mo'} /><Legend /></PieChart></ResponsiveContainer>
         <div className="mt-2 space-y-1">{c.parts.map(p => (<div key={p.name} className="flex justify-between text-sm py-1 border-b border-neutral-100 last:border-0"><span className="text-neutral-500">{p.name}</span><span className="font-mono font-semibold">{fmt(p.value)}/mo</span></div>))}</div>
         <p className="text-sm mt-4 pt-4 border-t border-neutral-100">No PMI — VA loans never charge private mortgage insurance. The one-time funding fee replaces it.</p>

@@ -22,7 +22,7 @@ function HourSlider({ label, value, onChange, max = 60 }: { label: string; value
     <Slider value={[value]} min={0} max={max} step={0.5} onValueChange={(v: any) => onChange(Array.isArray(v) ? v[0] : v)} /></div>)
 }
 function ResultCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
+  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</p>{children}</div>)
 }
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
@@ -74,7 +74,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <div><p className="text-white/60 text-xs uppercase font-bold">OT + DT Pay</p><p className="font-mono text-xl font-bold">{fmtC(r.otPay + r.dtPay)}</p></div>
         </div>
       </ResultCard>
-      <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">What Makes Up the Week</h4>
+      <div className="bg-card border rounded-2xl p-6"><p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">What Makes Up the Week</p>
         <ResponsiveContainer width="100%" height={120}><BarChart data={chart} layout="vertical"><CartesianGrid strokeDasharray="3 3" /><XAxis type="number" tickFormatter={(v: number) => sym + v} /><YAxis type="category" dataKey="name" width={75} /><Tooltip formatter={(v: any) => fmtC(Number(v))} /><Legend />
           <Bar dataKey="Regular" stackId="a" fill="#1F2937" /><Bar dataKey="Overtime (1.5x)" stackId="a" fill="#D97706" /><Bar dataKey="Double time (2x)" stackId="a" fill="#064E3B" /></BarChart></ResponsiveContainer>
         <p className="text-xs text-muted-foreground mt-3">Differentiator: overtime is {r.otShare.toFixed(0)}% of this paycheck, and {fmt(r.premium * 52)}/year of it is pure premium — the extra half/double above straight time.</p>

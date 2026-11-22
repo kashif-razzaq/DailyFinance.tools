@@ -16,7 +16,7 @@ function MoneyInput({ label, value, onChange, hint }: { label: string; value: nu
     {hint && <p className="text-xs text-muted-foreground">{hint}</p>}</div>)
 }
 function ResultCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
+  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</p>{children}</div>)
 }
 
 // Published Etsy fee schedule (US shop), verified November 2026: listing $0.20/item; transaction 6.5%
@@ -99,7 +99,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
       </ResultCard>
       <div className="bg-card border rounded-2xl p-6">
-        <h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-2">Every Fee, Itemised</h4>
+        <p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-2">Every Fee, Itemised</p>
         {feeRow('Listing fee', 'flat per item', r.listing)}
         {feeRow('Transaction fee', '6.5%', r.transaction)}
         {feeRow('Payment processing', '3% + $0.25', r.processing)}
@@ -109,7 +109,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         {feeRow('Shipping cost', 'your cost', shippingCost)}
       </div>
       <div className="bg-[#064E3B]/5 border border-[#064E3B]/20 rounded-2xl p-6">
-        <h4 className="font-semibold text-sm uppercase tracking-wider text-[#064E3B] dark:text-emerald-400 mb-2">Price Solver</h4>
+        <p className="font-semibold text-sm uppercase tracking-wider text-[#064E3B] dark:text-emerald-400 mb-2">Price Solver</p>
         <p className="text-sm text-muted-foreground">To keep a <strong className="text-foreground">{targetMargin}% margin</strong> after all Etsy fees and your costs, price this item at <strong className="text-foreground font-mono text-base">{fmt(Math.max(0, r.needed))}</strong> (with {fmt(shippingCharged)} shipping).</p>
         <p className="text-xs text-muted-foreground mt-2">Differentiator: a reverse price solver — enter the margin you want and get the listing price that survives Etsy's full fee stack.</p>
       </div>

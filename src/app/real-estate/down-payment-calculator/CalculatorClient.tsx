@@ -17,7 +17,7 @@ function PctSlider({ label, value, onChange, min = 0, max = 20, step = 0.1 }: { 
     <Slider value={[value]} min={min} max={max} step={step} onValueChange={(v: any) => onChange(Array.isArray(v) ? v[0] : v)} /></div>)
 }
 function ResultCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
+  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</p>{children}</div>)
 }
 
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts'
@@ -57,7 +57,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       {pct < 20 && <p className="text-sm text-amber-700 bg-amber-50 border border-amber-200 rounded-xl px-4 py-3"><strong>PMI note:</strong> under 20% down, lenders add private mortgage insurance — roughly 0.3–1.5% of the loan per year ({fmt((price - c.goal) * 0.005 / 12)}/mo at a typical 0.5%) — until you reach 20% equity. Reaching 20% avoids it entirely.</p>}
       <div className="grid grid-cols-2 gap-6"><MoneyInput label="Already Saved" value={saved} onChange={setSaved} /><MoneyInput label="Monthly Contribution" value={monthly} onChange={setMonthly} /></div>
       <PctSlider label="Savings Return (per year)" value={ret} onChange={setRet} min={0} max={8} step={0.25} />
-      <div className="bg-card border rounded-2xl p-5"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-3">Down Payment at Common Levels</h4>
+      <div className="bg-card border rounded-2xl p-5"><p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-3">Down Payment at Common Levels</p>
         <div className="grid grid-cols-4 gap-3 text-center">{tiers.map(t => (<button key={t.p} onClick={() => setPct(t.p)} className={`rounded-xl border py-3 ${Math.abs(pct - t.p) < 0.01 ? 'border-[#064E3B] bg-[#064E3B]/5' : 'border-neutral-200 hover:border-[#064E3B]'}`}><div className="text-xs font-bold text-muted-foreground">{t.p}%</div><div className="font-mono font-bold text-sm">{fmt(t.amt)}</div></button>))}</div></div>
     </div>
     <div className="lg:col-span-5 space-y-6">
@@ -70,7 +70,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <div><p className="text-white/60 text-xs uppercase font-bold">You Contribute</p><p className="font-mono text-xl font-bold">{fmt(c.contributed)}</p></div>
           <div><p className="text-white/60 text-xs uppercase font-bold">Growth Adds</p><p className="font-mono text-xl font-bold">{fmt(c.growth)}</p></div>
         </div></ResultCard>
-      <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Savings Growth to Goal</h4>
+      <div className="bg-card border rounded-2xl p-6"><p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Savings Growth to Goal</p>
         <ResponsiveContainer width="100%" height={200}><AreaChart data={c.series}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="month" /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Area type="monotone" dataKey="balance" stroke="#064E3B" fill="#064E3B" fillOpacity={0.15} strokeWidth={2} name="Savings balance" /></AreaChart></ResponsiveContainer></div>
     <ToolActionsBar slug="down-payment-calculator" isPro={isPro} inputs={{ price, pct, saved, monthly, ret }} />
     </div></div></>)

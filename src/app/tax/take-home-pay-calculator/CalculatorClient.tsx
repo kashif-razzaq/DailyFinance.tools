@@ -22,7 +22,7 @@ function PctSlider({ label, value, onChange, min = 0, max = 30, step = 0.5, hint
     <Slider value={[value]} min={min} max={max} step={step} onValueChange={(v: any) => onChange(Array.isArray(v) ? v[0] : v)} />{hint && <p className="text-xs text-muted-foreground">{hint}</p>}</div>)
 }
 function ResultCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
+  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</p>{children}</div>)
 }
 
 type Bracket = { upTo: number; rate: number }
@@ -122,7 +122,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
       </ResultCard>
       <div className="bg-card border rounded-2xl p-6">
-        <h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-2">Deduction Detail (annual)</h4>
+        <p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-2">Deduction Detail (annual)</p>
         {line('401(k) contribution', r.k401)}
         {line('HSA', hsa)}
         {line('Health premiums', r.health)}
@@ -130,7 +130,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         {line('Social Security + Medicare', r.ss + r.medicare)}
         {line('State tax', r.state)}
       </div>
-      <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">The Waterfall: Gross to Net</h4>
+      <div className="bg-card border rounded-2xl p-6"><p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">The Waterfall: Gross to Net</p>
         <ResponsiveContainer width="100%" height={230}><BarChart data={waterfall}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="step" tick={{ fontSize: 10 }} interval={0} angle={-20} textAnchor="end" height={50} /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} />
           <Bar dataKey="amount" name="Remaining pay">{waterfall.map((w) => <Cell key={w.step} fill={w.color} />)}</Bar></BarChart></ResponsiveContainer>
         <p className="text-xs text-muted-foreground mt-2">Differentiator: watch each deduction shrink your pay step by step — and see exactly how much tax your pre-tax contributions save you.</p>

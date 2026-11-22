@@ -47,7 +47,7 @@ function toolNameFor(contentKey: string): string {
 }
 
 const eyebrow =
-  "flex items-center gap-2 text-xs font-bold uppercase tracking-[0.15em] text-[#064E3B] dark:text-emerald-400 mb-2"
+  "flex items-center gap-2 text-xs uppercase tracking-[0.15em] text-[#064E3B] dark:text-emerald-400 mb-2"
 
 export function ToolContent({ contentKey }: { contentKey: string }) {
   const entry = TOOL_CONTENT[contentKey]
@@ -63,7 +63,7 @@ export function ToolContent({ contentKey }: { contentKey: string }) {
         className="not-prose rounded-3xl bg-gradient-to-br from-[#064E3B]/10 via-[#064E3B]/5 to-transparent dark:from-emerald-400/15 dark:via-emerald-400/5 border border-[#064E3B]/15 dark:border-emerald-400/20 px-6 py-6 md:px-8 md:py-7 mb-12 scroll-mt-24"
       >
         <p className={eyebrow}>
-          <Zap className="h-4 w-4" /> Quick answer
+          <Zap className="h-4 w-4" /> <strong className="font-bold">Quick answer</strong>
         </p>
         <p className="text-lg md:text-xl leading-relaxed font-medium text-neutral-900 dark:text-white m-0">
           {entry.quickAnswer}
@@ -96,8 +96,8 @@ export function ToolContent({ contentKey }: { contentKey: string }) {
 
       {entry.formula && (
         <section id="formula" aria-label="Formula" className="not-prose my-10 scroll-mt-24">
-          <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 mb-2">
-            <Sigma className="h-4 w-4" /> The formula
+          <p className="flex items-center gap-2 text-xs uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 mb-2">
+            <Sigma className="h-4 w-4" /> <strong className="font-bold">The formula</strong>
           </p>
           <p className="font-mono text-sm md:text-base bg-[#064E3B] text-emerald-50 rounded-2xl px-6 py-5 leading-relaxed shadow-sm">
             {entry.formula}
@@ -110,9 +110,9 @@ export function ToolContent({ contentKey }: { contentKey: string }) {
         aria-label="Worked example"
         className="not-prose mt-12 border-2 border-dashed border-[#064E3B]/30 dark:border-emerald-400/30 rounded-2xl bg-white dark:bg-neutral-950 overflow-hidden scroll-mt-24"
       >
-        <p className="flex items-center gap-2 bg-[#064E3B]/5 dark:bg-emerald-400/10 px-6 py-3 text-xs font-bold uppercase tracking-[0.15em] text-[#064E3B] dark:text-emerald-400 m-0">
-          <Calculator className="h-4 w-4" /> Worked example — try it on the
-          calculator above
+        <p className="flex items-center gap-2 bg-[#064E3B]/5 dark:bg-emerald-400/10 px-6 py-3 text-xs uppercase tracking-[0.15em] text-[#064E3B] dark:text-emerald-400 m-0">
+          <Calculator className="h-4 w-4" /> <strong className="font-bold">Worked example — try it on the
+          calculator above</strong>
         </p>
         <div className="px-6 py-6 md:px-8">
           <h2 className="text-lg md:text-xl font-bold tracking-tight mb-3 text-neutral-900 dark:text-white">

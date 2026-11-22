@@ -21,7 +21,7 @@ function PctSlider({ label, value, onChange, min = 0, max = 20, step = 0.1 }: { 
     <Slider value={[value]} min={min} max={max} step={step} onValueChange={(v: any) => onChange(Array.isArray(v) ? v[0] : v)} /></div>)
 }
 function ResultCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
+  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</p>{children}</div>)
 }
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
@@ -51,7 +51,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     <div className="lg:col-span-5 space-y-6">
       {[{ label: 'Lean FIRE', target: leanTarget, yrs: yearsTo(leanTarget), monthly: lean, color: 'bg-slate-800' }, { label: 'Fat FIRE', target: fatTarget, yrs: yearsTo(fatTarget), monthly: fat, color: 'bg-[#064E3B]' }].map(x => (
         <div key={x.label} className={`${x.color} text-white rounded-2xl p-6 md:p-8 shadow-xl`}>
-          <h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-3">{x.label} — {fmt(x.monthly)}/month</h3>
+          <p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-3">{x.label} — {fmt(x.monthly)}/month</p>
           <div className="text-4xl font-black font-mono">{fmt(x.target)}</div>
           <p className="text-white/80 text-sm mt-2">Your FIRE number for this lifestyle. At {fmt(monthlySave)}/month of saving you reach it in about <strong className="font-mono">{x.yrs >= 100 ? '100+' : x.yrs.toFixed(1)} years</strong>.</p>
         </div>))}

@@ -16,7 +16,7 @@ function NumInput({ label, value, onChange, hint }: { label: string; value: numb
     {hint && <p className="text-xs text-muted-foreground">{hint}</p>}</div>)
 }
 function ResultCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
+  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</p>{children}</div>)
 }
 
 // Twitch sub prices (US, web checkout, verified November 2026): Tier 1 $5.99 (raised from
@@ -89,7 +89,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
       </ResultCard>
       <div className="bg-card border rounded-2xl p-6">
-        <h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-2">Income by Stream</h4>
+        <p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-2">Income by Stream</p>
         {row('Subscriptions', `${r.subs.toLocaleString()} subs, ${sharePct}% of ${fmt(r.grossSubs)} gross`, r.subIncome)}
         {row('Bits', `${bits.toLocaleString()} bits × $0.01`, r.bitsIncome)}
         {row('Ads', 'your dashboard figure', ads)}

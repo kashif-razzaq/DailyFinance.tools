@@ -15,7 +15,7 @@ function MoneyInput({ label, value, onChange, hint }: { label: string; value: nu
     {hint && <p className="text-xs text-muted-foreground">{hint}</p>}</div>)
 }
 function ResultCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
+  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</p>{children}</div>)
 }
 
 // Equity = home value − all mortgage balances. Borrowable equity at a CLTV cap = value × cap − balances.
@@ -43,7 +43,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-6">
       <MoneyInput label="Current Home Value" value={value} onChange={setValue} hint="Use a recent appraisal, agent estimate or a cautious online valuation." />
       <div className="grid grid-cols-2 gap-6"><MoneyInput label="First Mortgage Balance" value={first} onChange={setFirst} /><MoneyInput label="Second Mortgage / HELOC Balance" value={second} onChange={setSecond} hint="Leave at $0 if you only have one loan." /></div>
-      <div className="bg-card border rounded-2xl p-5"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-3">Your Equity, Visualised</h4>
+      <div className="bg-card border rounded-2xl p-5"><p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-3">Your Equity, Visualised</p>
         <div className="flex h-10 rounded-xl overflow-hidden w-full">
           <div className="bg-[#064E3B] flex items-center justify-center text-white text-xs font-bold" style={{ width: Math.max(0, 100 - debtPct) + '%' }}>{c.equityPct > 12 ? 'Equity ' + c.equityPct.toFixed(0) + '%' : ''}</div>
           <div className="bg-amber-500 flex items-center justify-center text-white text-xs font-bold" style={{ width: debtPct + '%' }}>{debtPct > 12 ? 'Debt ' + debtPct.toFixed(0) + '%' : ''}</div>
@@ -61,7 +61,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <div><p className="text-white/60 text-xs uppercase font-bold">Total Mortgage Debt</p><p className="font-mono text-xl font-bold">{fmt(c.debt)}</p></div>
           <div><p className="text-white/60 text-xs uppercase font-bold">Home Value</p><p className="font-mono text-xl font-bold">{fmt(value)}</p></div>
         </div></ResultCard>
-      <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-3">Available Equity by Lender Cap (CLTV)</h4>
+      <div className="bg-card border rounded-2xl p-6"><p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-3">Available Equity by Lender Cap (CLTV)</p>
         {c.caps.map(x => (<div key={x.cap} className="flex justify-between py-2 border-b border-neutral-100 last:border-0 text-sm"><span className="text-neutral-500">{x.cap}% combined loan-to-value{x.cap === 80 ? ' (most common HELOC cap)' : x.cap === 85 ? ' (common for strong credit)' : ' (select lenders)'}</span><span className="font-mono font-semibold">{fmt(x.available)}</span></div>))}
         <p className="text-xs text-muted-foreground mt-3">Lenders cap total borrowing — first mortgage plus any new loan or HELOC — at a combined loan-to-value ratio. The amount above is the room left under each cap.</p></div>
     <ToolActionsBar slug="home-equity-calculator" isPro={isPro} inputs={{ value, first, second }} />

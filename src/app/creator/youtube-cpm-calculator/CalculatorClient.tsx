@@ -17,7 +17,7 @@ function NumInput({ label, value, onChange, hint }: { label: string; value: numb
     {hint && <p className="text-xs text-muted-foreground">{hint}</p>}</div>)
 }
 function ResultCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
+  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</p>{children}</div>)
 }
 
 // Typical advertiser CPM ranges by niche (US-heavy audiences). Creators receive 55% of ad revenue,
@@ -82,7 +82,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <div><p className="text-white/60 text-xs uppercase font-bold">Creator Share</p><p className="font-mono text-xl font-bold">55%</p></div>
         </div>
       </ResultCard>
-      <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">CPM by Niche (Advertiser Rate)</h4>
+      <div className="bg-card border rounded-2xl p-6"><p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">CPM by Niche (Advertiser Rate)</p>
         <ResponsiveContainer width="100%" height={230}><BarChart data={nicheChart} layout="vertical"><CartesianGrid strokeDasharray="3 3" /><XAxis type="number" tickFormatter={(v: number) => sym + v} /><YAxis type="category" dataKey="name" width={110} tick={{ fontSize: 11 }} /><Tooltip formatter={(v: any) => sym + Number(v) + ' CPM'} />
           <Bar dataKey="cpm" name="CPM">{nicheChart.map((n) => <Cell key={n.name} fill={n.active ? '#064E3B' : '#9CA3AF'} />)}</Bar></BarChart></ResponsiveContainer>
         <p className="text-xs text-muted-foreground mt-2">Differentiator: converts CPM ↔ RPM properly through the 55% revenue share instead of treating them as the same number — the mistake most CPM calculators make.</p>

@@ -25,7 +25,7 @@ function NumSlider({ label, value, onChange, min, max, suffix = '' }: { label: s
     <Slider value={[value]} min={min} max={max} step={1} onValueChange={(v: any) => onChange(Array.isArray(v) ? v[0] : v)} /></div>)
 }
 function ResultCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
+  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</p>{children}</div>)
 }
 // Amortizing payment: M = P * r(1+r)^n / ((1+r)^n - 1).
 function monthlyPayment(principal: number, ratePct: number, months: number) {
@@ -91,7 +91,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         ? <NumSlider label="Repayment Term (years)" value={termYears} onChange={setTermYears} min={1} max={30} suffix=" yrs" />
         : <MoneyInput label="Monthly Payment" value={paymentInput} onChange={setPaymentInput} hint="We calculate how long payoff takes at this payment." />}
       {tooLow && <p className="text-sm text-red-600 font-semibold">Warning: this payment does not cover monthly interest ({fmt(firstInterest)}/mo), so the balance grows instead of shrinking.</p>}
-      <div className="bg-card border rounded-2xl p-5"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Standard (10 yr) vs Extended (20 yr) Balance</h4>
+      <div className="bg-card border rounded-2xl p-5"><p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Standard (10 yr) vs Extended (20 yr) Balance</p>
         <ResponsiveContainer width="100%" height={200}><LineChart data={merged}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="month" /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Legend /><Line type="monotone" dataKey="Standard" stroke="#064E3B" strokeWidth={2} dot={false} /><Line type="monotone" dataKey="Extended" stroke="#D97706" strokeWidth={2} dot={false} /></LineChart></ResponsiveContainer></div>
     </div>
     <div className="lg:col-span-5 space-y-6">
@@ -105,7 +105,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <div><p className="text-white/60 text-xs uppercase font-bold">Payoff Date</p><p className="font-mono text-xl font-bold">{plan.cleared ? dateStr(plan.months) : '—'}</p></div>
         </div>
       </ResultCard>
-      <div className="bg-card border rounded-2xl p-6 overflow-x-auto"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Standard vs Extended Repayment</h4>
+      <div className="bg-card border rounded-2xl p-6 overflow-x-auto"><p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Standard vs Extended Repayment</p>
         <table className="w-full text-sm"><thead><tr className="text-left text-muted-foreground border-b"><th className="py-2 pr-3 font-semibold">Plan</th><th className="py-2 pr-3 font-semibold text-right">Payment</th><th className="py-2 font-semibold text-right">Interest</th></tr></thead>
           <tbody>
             <tr className="border-b"><td className="py-2 pr-3">Standard — 10 years</td><td className="py-2 pr-3 font-mono text-right">{fmt(standard.payment)}</td><td className="py-2 font-mono text-right">{fmt(standard.interest)}</td></tr>

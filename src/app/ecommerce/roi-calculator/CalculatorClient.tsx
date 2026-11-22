@@ -17,7 +17,7 @@ function MoneyInput({ label, value, onChange, hint }: { label: string; value: nu
     {hint && <p className="text-xs text-muted-foreground">{hint}</p>}</div>)
 }
 function ResultCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
+  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</p>{children}</div>)
 }
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
@@ -67,7 +67,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <div><p className="text-white/60 text-xs uppercase font-bold">Net Profit</p><p className="font-mono text-xl font-bold">{fmt(r.profit)}</p></div>
         </div>
       </ResultCard>
-      <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Growth Path at the Annualised Rate</h4>
+      <div className="bg-card border rounded-2xl p-6"><p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Growth Path at the Annualised Rate</p>
         <ResponsiveContainer width="100%" height={200}><LineChart data={r.series}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="year" tickFormatter={(v: number) => 'Yr ' + v} /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Line type="monotone" dataKey="value" stroke="#064E3B" strokeWidth={2} dot={false} name="Value" /></LineChart></ResponsiveContainer>
         <p className="text-xs text-muted-foreground mt-2">Differentiator: annualised ROI + doubling time, so a 3-month campaign and a 5-year property deal can finally be compared like-for-like.</p>
       </div>

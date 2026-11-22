@@ -17,7 +17,7 @@ function PctSlider({ label, value, onChange, min = 0, max = 20, step = 0.1 }: { 
     <Slider value={[value]} min={min} max={max} step={step} onValueChange={(v: any) => onChange(Array.isArray(v) ? v[0] : v)} /></div>)
 }
 function ResultCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
+  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</p>{children}</div>)
 }
 
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, Legend } from 'recharts'
@@ -92,7 +92,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <div><p className="text-white/60 text-xs uppercase font-bold">Interest (monthly)</p><p className="font-mono text-xl font-bold">{fmt(base.interest)}</p></div>
           <div><p className="text-white/60 text-xs uppercase font-bold">Interest (biweekly)</p><p className="font-mono text-xl font-bold">{fmt(fast.interest)}</p></div>
         </div></ResultCard>
-      <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Balance: Monthly vs Biweekly</h4>
+      <div className="bg-card border rounded-2xl p-6"><p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Balance: Monthly vs Biweekly</p>
         <ResponsiveContainer width="100%" height={220}><LineChart data={chart}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="year" /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Legend /><Line type="monotone" dataKey="Monthly" stroke="#9CA3AF" strokeWidth={2} dot={false} /><Line type="monotone" dataKey="Biweekly" stroke="#064E3B" strokeWidth={2} dot={false} /></LineChart></ResponsiveContainer></div>
       <div className="bg-card border rounded-2xl p-6 text-sm text-muted-foreground leading-relaxed">Before you enroll in a servicer&apos;s biweekly program, ask whether half-payments are applied the day they arrive. Some servicers hold them until a full payment accumulates, which wipes out the benefit — and third-party programs charge fees for the same schedule you can copy free by adding one-twelfth of your payment to each monthly payment as extra principal.</div>
     <ToolActionsBar slug="biweekly-mortgage-calculator" isPro={isPro} inputs={{ loan, rate, term, extra }} />

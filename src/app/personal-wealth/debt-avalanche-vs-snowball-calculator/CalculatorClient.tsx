@@ -21,7 +21,7 @@ function PctSlider({ label, value, onChange, min = 0, max = 20, step = 0.1 }: { 
     <Slider value={[value]} min={min} max={max} step={step} onValueChange={(v: any) => onChange(Array.isArray(v) ? v[0] : v)} /></div>)
 }
 function ResultCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
+  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</p>{children}</div>)
 }
 
 type Debt = { name: string; balance: number; apr: number; min: number }
@@ -72,7 +72,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     <div className="grid md:grid-cols-2 gap-6">
       {[{ label: 'Debt Avalanche (highest APR first)', r: av, color: 'bg-[#064E3B]' }, { label: 'Debt Snowball (smallest balance first)', r: sn, color: 'bg-slate-800' }].map(({ label, r, color }) => (
         <div key={label} className={`${color} text-white rounded-2xl p-6 md:p-8 shadow-xl`}>
-          <h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{label}</h3>
+          <p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{label}</p>
           <div className="text-4xl font-black font-mono">{fmt(r.totalInterest)}</div><p className="text-white/70 text-sm">total interest paid</p>
           <div className="grid grid-cols-2 gap-4 mt-6 pt-6 border-t border-white/20 text-sm">
             <div><p className="text-white/60 text-xs uppercase font-bold">Debt-Free Date</p><p className="font-bold text-lg">{r.cleared ? dateStr(r.months) : 'Not within 50 yrs'}</p><p className="text-white/70 font-mono">{r.months} months</p></div>

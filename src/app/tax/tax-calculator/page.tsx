@@ -6,7 +6,7 @@ import { ToolContent } from "@/components/shared/ToolContent"
 import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
-export const metadata: Metadata = generateCalculatorMetadata({ title: 'Tax Calculator: Estimate Your Refund or Amount Owed', description: 'Estimate your federal tax, refund or amount owed: income, filing status and deductions through the real bracket math.', keywords: ['tax calculator', 'federal tax calculator', 'income tax estimator', 'tax refund calculator'], slug: "tax/tax-calculator", category: "Tax" });
+export const metadata: Metadata = generateCalculatorMetadata({ title: 'Tax Calculator: Estimate Your Refund or Amount Owed', description: 'Estimate your federal tax, refund or amount owed: income, filing status and deductions run through the real 2026 bracket math, step by step.', keywords: ['tax calculator', 'federal tax calculator', 'income tax estimator', 'tax refund calculator'], slug: "tax/tax-calculator", category: "Tax" });
 
 export default function Page() {
   return (

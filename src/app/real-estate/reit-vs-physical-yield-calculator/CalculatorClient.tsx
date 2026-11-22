@@ -20,13 +20,13 @@ export function Shell({ inputs, children }: { inputs: React.ReactNode; children:
   return (<div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start"><div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-8">{inputs}</div><div className="lg:col-span-5 space-y-6 lg:sticky lg:top-8">{children}</div></div>)
 }
 export function Result({ label, value, sub }: { label: string; value: string; sub?: string }) {
-  return (<div className="bg-[#064E3B] text-white rounded-2xl p-8 shadow-xl relative overflow-hidden"><div className="absolute right-0 top-0 w-64 h-64 bg-white/10 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/3" /><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-2 relative">{label}</h3><div className="text-5xl font-black font-mono tracking-tight relative">{value}</div>{sub && <p className="mt-3 text-white/80 text-sm relative">{sub}</p>}</div>)
+  return (<div className="bg-[#064E3B] text-white rounded-2xl p-8 shadow-xl relative overflow-hidden"><div className="absolute right-0 top-0 w-64 h-64 bg-white/10 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/3" /><p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-2 relative">{label}</p><div className="text-5xl font-black font-mono tracking-tight relative">{value}</div>{sub && <p className="mt-3 text-white/80 text-sm relative">{sub}</p>}</div>)
 }
 export function Row({ label, value, bold=false }: { label: string; value: string; bold?: boolean }) {
   return (<div className="flex justify-between py-2 border-b border-neutral-100 last:border-0"><span className="text-sm text-neutral-500">{label}</span><span className={`font-mono text-sm ${bold?'font-bold text-[#064E3B]':'font-semibold'}`}>{value}</span></div>)
 }
 export function Breakdown({ title, children }: { title: string; children: React.ReactNode }) {
-  return (<div className="bg-card border shadow-sm rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-3">{title}</h4>{children}</div>)
+  return (<div className="bg-card border shadow-sm rounded-2xl p-6"><p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-3">{title}</p>{children}</div>)
 }
 
 
@@ -53,8 +53,8 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     const valueEnd = price * Math.pow(1 + propAppr/100, years); const equity = valueEnd - Math.max(bal, 0); const physFinal = equity + cumCF; return { reitFinal, price, loan, pi, equity, cumCF, physFinal, bal } }, [capital, years, divYield, reitAppr, downPct, rentMo, propAppr, mortRate, expPct])
   return (<><Shell inputs={<>
     <div className="grid grid-cols-2 gap-4"><Num label="Capital to Invest" value={capital} set={setCapital} /><Num label="Time Horizon (years)" value={years} set={setYears} prefix="" /></div>
-    <h3 className="font-bold">REIT Assumptions</h3><Slide label="Dividend Yield (reinvested)" value={divYield} set={setDivYield} min={0} max={10} step={0.1} /><Slide label="REIT Appreciation / yr" value={reitAppr} set={setReitAppr} min={0} max={12} step={0.1} />
-    <h3 className="font-bold">Physical Rental Assumptions</h3><Slide label="Down Payment (your capital = this % of price)" value={downPct} set={setDownPct} min={10} max={100} step={1} /><div className="grid grid-cols-2 gap-4"><Num label="Monthly Rent" value={rentMo} set={setRentMo} /><Num label="Mortgage Rate %" value={mortRate} set={setMortRate} prefix="" step={0.05} /></div>
+    <p className="font-bold">REIT Assumptions</p><Slide label="Dividend Yield (reinvested)" value={divYield} set={setDivYield} min={0} max={10} step={0.1} /><Slide label="REIT Appreciation / yr" value={reitAppr} set={setReitAppr} min={0} max={12} step={0.1} />
+    <p className="font-bold">Physical Rental Assumptions</p><Slide label="Down Payment (your capital = this % of price)" value={downPct} set={setDownPct} min={10} max={100} step={1} /><div className="grid grid-cols-2 gap-4"><Num label="Monthly Rent" value={rentMo} set={setRentMo} /><Num label="Mortgage Rate %" value={mortRate} set={setMortRate} prefix="" step={0.05} /></div>
     <Slide label="Property Appreciation / yr" value={propAppr} set={setPropAppr} min={0} max={10} step={0.1} /><Slide label="Operating Expenses (% of rent, excl. tax/insurance)" value={expPct} set={setExpPct} min={10} max={60} step={1} />
     <p className="text-sm text-muted-foreground">Physical model: your capital is the down payment, rent grows 2%/yr, tax + insurance estimated at 1.5% of price/yr, cash flow is accumulated (not reinvested). REIT dividends are reinvested and taxed annually in a taxable account — ignored here; note it in your own planning.</p>
   </>}>

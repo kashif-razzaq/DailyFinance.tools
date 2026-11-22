@@ -21,7 +21,7 @@ function PctSlider({ label, value, onChange, min = 0, max = 20, step = 0.1 }: { 
     <Slider value={[value]} min={min} max={max} step={step} onValueChange={(v: any) => onChange(Array.isArray(v) ? v[0] : v)} /></div>)
 }
 function ResultCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
+  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</p>{children}</div>)
 }
 
 const FREQS = [
@@ -96,7 +96,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
         <p className="text-white/80 mt-4 text-sm">Compounding adds {fmt(Math.max(0, r.earned - r.simpleEarned))} beyond simple interest on the same deposit over {years} years.</p>
       </ResultCard>
-      <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-2">Same Rate, Every Frequency</h4>
+      <div className="bg-card border rounded-2xl p-6"><p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-2">Same Rate, Every Frequency</p>
         <p className="text-xs text-muted-foreground mb-4">The same {(r.apr * 100).toFixed(2)}% nominal rate — what banks don&apos;t show you side by side. Highlighted row = your selected frequency.</p>
         <div className="overflow-x-auto"><table className="w-full text-sm"><thead><tr className="border-b text-left text-muted-foreground"><th className="py-2 pr-2 font-semibold">Frequency</th><th className="py-2 pr-2 font-semibold text-right">APY</th><th className="py-2 font-semibold text-right">Value ({years} yrs)</th></tr></thead>
         <tbody className="font-mono">{r.table.map(row => (<tr key={row.key} className={`border-b last:border-0 ${row.isCurrent ? 'bg-emerald-50 dark:bg-emerald-950/30 font-bold' : ''}`}><td className="py-2 pr-2">{row.label} <span className="text-muted-foreground">×{row.n}</span></td><td className="py-2 pr-2 text-right">{pct(row.apy)}</td><td className="py-2 text-right">{fmt(row.value)}</td></tr>))}</tbody></table></div>

@@ -19,7 +19,7 @@ function NumSlider({ label, value, onChange, min, max, step = 1, display }: { la
     <Slider value={[value]} min={min} max={max} step={step} onValueChange={(v: any) => onChange(Array.isArray(v) ? v[0] : v)} /></div>)
 }
 function ResultCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
+  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</p>{children}</div>)
 }
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
@@ -76,7 +76,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
       </ResultCard>
       <div className="bg-card border rounded-2xl p-6">
-        <h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Same Salary, Different Work Weeks</h4>
+        <p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Same Salary, Different Work Weeks</p>
         <table className="w-full text-sm">
           <thead><tr className="text-left text-muted-foreground border-b"><th className="py-2 font-semibold">Schedule</th><th className="py-2 font-semibold text-right">Hourly Equivalent</th></tr></thead>
           <tbody>{compare.map((c) => (<tr key={c.h} className={`border-b last:border-0 ${c.h === hoursPerWeek ? 'font-bold text-[#064E3B] dark:text-emerald-400' : ''}`}><td className="py-2.5">{c.h} hrs/week</td><td className="py-2.5 text-right font-mono">{fmtC(c.hourly)}</td></tr>))}</tbody>

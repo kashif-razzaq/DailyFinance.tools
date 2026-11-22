@@ -17,7 +17,7 @@ function PctSlider({ label, value, onChange, min = 0, max = 20, step = 0.1 }: { 
     <Slider value={[value]} min={min} max={max} step={step} onValueChange={(v: any) => onChange(Array.isArray(v) ? v[0] : v)} /></div>)
 }
 function ResultCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
+  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</p>{children}</div>)
 }
 
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, ReferenceLine } from 'recharts'
@@ -70,10 +70,10 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   const verdict = c.saving <= 0 ? 'The new loan has a higher monthly payment — refinancing only makes sense to shorten the term or drop PMI.' : c.lifetimeSaving > 0 ? `Refinancing pays off: you break even in month ${c.breakEven} and save over the life of the loan.` : 'The monthly saving is real, but the restarted term costs more interest overall than it saves — check a shorter new term.'
   return (<><div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
     <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-6">
-      <h3 className="font-bold text-lg">Your current loan</h3>
+      <p className="font-bold text-lg">Your current loan</p>
       <div className="grid grid-cols-2 gap-6"><MoneyInput label="Remaining Balance" value={balance} onChange={setBalance} /><MoneyInput label="Years Remaining" value={yearsLeft} onChange={(n) => setYearsLeft(Math.min(40, Math.max(1, n)))} /></div>
       <PctSlider label="Current Interest Rate" value={curRate} onChange={setCurRate} min={0} max={15} step={0.125} />
-      <h3 className="font-bold text-lg pt-2">The refinance offer</h3>
+      <p className="font-bold text-lg pt-2">The refinance offer</p>
       <PctSlider label="New Interest Rate" value={newRate} onChange={setNewRate} min={0} max={15} step={0.125} />
       <div className="grid grid-cols-2 gap-6"><div className="space-y-2"><label className="text-sm font-semibold">New Loan Term</label>
         <div className="flex gap-2">{[30, 20, 15].map(y => (<button key={y} onClick={() => setNewTerm(y)} className={`px-4 py-2 rounded-full text-sm font-semibold border ${newTerm === y ? 'bg-[#064E3B] text-white border-[#064E3B]' : 'border-neutral-300 hover:border-[#064E3B]'}`}>{y} yr</button>))}</div></div>
@@ -89,7 +89,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <div><p className="text-white/60 text-xs uppercase font-bold">Interest Left (current)</p><p className="font-mono text-xl font-bold">{fmt(c.curInterest)}</p></div>
           <div><p className="text-white/60 text-xs uppercase font-bold">Interest (new + costs)</p><p className="font-mono text-xl font-bold">{fmt(c.newInterest + costs)}</p></div>
         </div></ResultCard>
-      <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Cumulative Net Saving — Where It Crosses Zero Is Break-Even</h4>
+      <div className="bg-card border rounded-2xl p-6"><p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Cumulative Net Saving — Where It Crosses Zero Is Break-Even</p>
         <ResponsiveContainer width="100%" height={200}><LineChart data={c.series}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="month" /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><ReferenceLine y={0} stroke="#9CA3AF" /><Line type="monotone" dataKey="net" stroke="#064E3B" strokeWidth={2} dot={false} name="Net saving" /></LineChart></ResponsiveContainer>
         <p className="text-sm text-muted-foreground mt-3">{verdict}</p></div>
     <ToolActionsBar slug="refinance-calculator" isPro={isPro} inputs={{ balance, curRate, yearsLeft, newRate, newTerm, costs }} />

@@ -15,7 +15,7 @@ function NumInput({ label, value, onChange, hint }: { label: string; value: numb
     {hint && <p className="text-xs text-muted-foreground">{hint}</p>}</div>)
 }
 function ResultCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
+  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</p>{children}</div>)
 }
 
 // Estimated sponsored-post rate per 1,000 followers, by niche (US/UK brand deals, mid-range).
@@ -96,7 +96,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
       </ResultCard>
       <div className="bg-card border rounded-2xl p-6">
-        <h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-2">Monthly Mix</h4>
+        <p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-2">Monthly Mix</p>
         {monthRow('Feed posts', posts, r.perPost)}
         {monthRow('Reels', reels, r.perReel)}
         {monthRow('Story sets', stories, r.perStory)}

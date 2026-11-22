@@ -11,7 +11,7 @@ import { useSavedScenarioRestore } from '@/lib/use-saved-scenario'
 const fmt = (n: number) => curSym() + Math.round(n).toLocaleString('en-US')
 const num = (v: string) => (v === '' ? 0 : Number(v) || 0)
 function ResultCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
+  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</p>{children}</div>)
 }
 interface Debt { name: string; balance: number; apr: number; min: number }
 interface SimResult { months: number; interest: number; cleared: boolean; order: { name: string; month: number }[]; series: { month: number; balance: number }[] }
@@ -81,7 +81,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   return (<><div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
     <div className="lg:col-span-7 space-y-6">
       <div className="bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-4">
-        <div className="flex items-center justify-between"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground">Your Debts</h4>
+        <div className="flex items-center justify-between"><p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground">Your Debts</p>
           <button onClick={() => setDebts((ds) => [...ds, { name: 'New Debt', balance: 1000, apr: 15, min: 35 }])} className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#064E3B] border border-[#064E3B]/40 rounded-full px-3 py-1.5 hover:bg-[#064E3B] hover:text-white transition-colors"><Plus className="h-4 w-4" /> Add debt</button></div>
         {debts.map((d, i) => (
           <div key={i} className="grid grid-cols-12 gap-2 items-end border border-neutral-200 rounded-xl p-3">
@@ -97,7 +97,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <p className="text-xs text-muted-foreground">Your minimums total {fmt(totalMin)}/mo. Any budget above that becomes extra payments aimed at one debt at a time.{budget < totalMin && <span className="text-red-600 font-semibold"> Budget is below your minimums — the plan uses minimums only.</span>}</p></div>
         {stuck && <p className="text-sm text-red-600 font-semibold">Warning: at least one debt's minimum does not cover its monthly interest, so it never clears on minimums alone — raise the budget so extra payments reach it.</p>}
       </div>
-      <div className="bg-card border shadow-sm rounded-2xl p-6 md:p-8"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Total Balance: Avalanche vs Snowball</h4>
+      <div className="bg-card border shadow-sm rounded-2xl p-6 md:p-8"><p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Total Balance: Avalanche vs Snowball</p>
         <ResponsiveContainer width="100%" height={210}><LineChart data={merged}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="month" /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Legend /><Line type="monotone" dataKey="Avalanche" stroke="#064E3B" strokeWidth={2} dot={false} /><Line type="monotone" dataKey="Snowball" stroke="#D97706" strokeWidth={2} dot={false} /></LineChart></ResponsiveContainer></div>
     </div>
     <div className="lg:col-span-5 space-y-6">
@@ -109,7 +109,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <p className="text-white/85 text-sm mt-5 pt-5 border-t border-white/20">The <strong>{winner}</strong> method saves <strong>{fmt(saving)}</strong> in interest on {fmt(totalBalance)} of debt. Avalanche wins on math; snowball wins on early motivation — the best plan is the one you finish.</p>
       </ResultCard>
       <div className="bg-card border rounded-2xl p-6">
-        <div className="flex items-center justify-between mb-4"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground">Payoff Order</h4>
+        <div className="flex items-center justify-between mb-4"><p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground">Payoff Order</p>
           <div className="flex gap-1.5">
             <button onClick={() => setView('avalanche')} className={`px-3 py-1.5 rounded-full text-xs font-semibold border ${view === 'avalanche' ? 'bg-[#064E3B] text-white border-[#064E3B]' : 'border-neutral-300'}`}>Avalanche</button>
             <button onClick={() => setView('snowball')} className={`px-3 py-1.5 rounded-full text-xs font-semibold border ${view === 'snowball' ? 'bg-[#064E3B] text-white border-[#064E3B]' : 'border-neutral-300'}`}>Snowball</button>

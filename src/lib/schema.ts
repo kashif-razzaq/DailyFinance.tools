@@ -63,6 +63,7 @@ export function publisherObject() {
     alternateName: "DailyFinance.tools",
     url: SITE_URL,
     logo: LOGO_URL,
+    sameAs: ["https://www.facebook.com/dailyfinancetools"],
   }
 }
 
@@ -80,6 +81,7 @@ export function organization() {
     alternateName: "DailyFinance.tools",
     url: SITE_URL,
     logo: LOGO_URL,
+    sameAs: ["https://www.facebook.com/dailyfinancetools"],
     description:
       `${TOOL_COUNTS.free} free financial calculators for personal finance, mortgages, loans, taxes, retirement, freelancers, creators and e-commerce sellers.`,
     contactPoint: {

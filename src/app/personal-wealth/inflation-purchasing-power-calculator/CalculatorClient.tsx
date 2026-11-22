@@ -18,7 +18,7 @@ function PctSlider({ label, value, onChange, min = 0, max = 20, step = 0.1 }: { 
     <Slider value={[value]} min={min} max={max} step={step} onValueChange={(v: any) => onChange(Array.isArray(v) ? v[0] : v)} /></div>)
 }
 function ResultCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
+  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</p>{children}</div>)
 }
 
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts'
@@ -55,7 +55,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <p className="text-white/80 mt-3 text-sm">Cash of {fmt(amount)} kept under the mattress buys only this much in today's terms. It silently loses <span className="font-mono font-bold">{fmt(r.lost)}</span> ({amount > 0 ? Math.round(r.lost / amount * 100) : 0}%) of its power.</p>
         <div className="mt-6 pt-6 border-t border-white/20 text-sm"><p className="text-white/60 text-xs uppercase font-bold">Something Costing {fmt(amount)} Today Will Cost</p><p className="font-mono text-2xl font-bold">{fmt(r.futureCost)}</p></div>
       </ResultCard>
-      <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Purchasing Power at 2%, Your Rate, and 5%</h4>
+      <div className="bg-card border rounded-2xl p-6"><p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Purchasing Power at 2%, Your Rate, and 5%</p>
         <ResponsiveContainer width="100%" height={210}><LineChart data={r.chart}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="year" /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Line type="monotone" dataKey="power" stroke="#064E3B" strokeWidth={2} name="Your rate" dot={false} /><Line type="monotone" dataKey="at2" stroke="#94a3b8" name="2%" dot={false} /><Line type="monotone" dataKey="at5" stroke="#dc2626" name="5%" dot={false} /></LineChart></ResponsiveContainer></div>
     <ToolActionsBar slug="inflation-purchasing-power-calculator" isPro={isPro} inputs={{ amount, rate, years }} />
     </div></div></>)

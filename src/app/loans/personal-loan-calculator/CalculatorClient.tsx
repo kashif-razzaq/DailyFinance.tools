@@ -25,7 +25,7 @@ function NumSlider({ label, value, onChange, min, max, suffix = '' }: { label: s
     <Slider value={[value]} min={min} max={max} step={1} onValueChange={(v: any) => onChange(Array.isArray(v) ? v[0] : v)} /></div>)
 }
 function ResultCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
+  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</p>{children}</div>)
 }
 // Amortizing payment: M = P * r(1+r)^n / ((1+r)^n - 1).
 function monthlyPayment(principal: number, ratePct: number, months: number) {
@@ -91,7 +91,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       <div className="rounded-xl bg-amber-50 border border-amber-200 p-4 text-sm text-amber-900">
         <strong>Fee impact:</strong> the lender keeps {fmt(fee)} up front, so you receive <strong>{fmt(netProceeds)}</strong> but repay interest on the full {fmt(amount)}. That lifts your true APR from {rate.toFixed(1)}% to about <strong>{apr.toFixed(2)}%</strong>.
       </div>
-      <div className="bg-card border rounded-2xl p-5"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Balance Over Time</h4>
+      <div className="bg-card border rounded-2xl p-5"><p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Balance Over Time</p>
         <ResponsiveContainer width="100%" height={180}><LineChart data={series}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="month" /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Line type="monotone" dataKey="balance" stroke="#064E3B" strokeWidth={2} dot={false} name="Balance" /></LineChart></ResponsiveContainer></div>
     </div>
     <div className="lg:col-span-5 space-y-6">
@@ -107,7 +107,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <div><p className="text-white/60 text-xs uppercase font-bold">Total Repaid</p><p className="font-mono text-xl font-bold">{fmt(totalPaid)}</p></div>
         </div>
       </ResultCard>
-      <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">What the Fee Really Costs</h4>
+      <div className="bg-card border rounded-2xl p-6"><p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">What the Fee Really Costs</p>
         <div className="space-y-3 text-sm">
           <div className="flex justify-between"><span>Interest without any fee</span><span className="font-mono font-bold">{fmt(noFeeInterest)}</span></div>
           <div className="flex justify-between"><span>Interest + this fee</span><span className="font-mono font-bold">{fmt(trueCost)}</span></div>

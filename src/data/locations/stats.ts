@@ -78,13 +78,18 @@ export function pointsDiff(a: number, b: number): number {
 }
 
 /**
- * Two short paragraphs on what a state's sales tax means in practice.
+ * Three short paragraphs on what a state's sales tax means in practice.
  * Rule-based on the dataset values; every figure is computed.
+ * Paragraphs vary by rank tier and by the size of the local layer, so
+ * states in different positions read differently, not just with
+ * different numbers in the same sentences.
  */
 export function salesTaxMeaning(s: USState): string[] {
   const tax10k = taxOn(10000, s.salesTaxAvgCombined)
   const avgTax10k = taxOn(10000, AVG_COMBINED)
   const gap10k = Math.abs(tax10k - avgTax10k)
+  const rank = combinedRank(s)
+  const localGap = round2(s.salesTaxAvgCombined - s.salesTaxBase)
   const paras: string[] = []
 
   if (s.salesTaxAvgCombined === 0) {
@@ -97,31 +102,65 @@ export function salesTaxMeaning(s: USState): string[] {
     )
   } else if (s.salesTaxAvgCombined >= AVG_COMBINED + 1) {
     paras.push(
-      `At ${s.salesTaxAvgCombined}% average combined, ${s.name} sits near the top of the national table — rank ${combinedRank(s)} of 51, ${pointsDiff(s.salesTaxAvgCombined, AVG_COMBINED)} points above the all-state average of ${AVG_COMBINED}%. On a $10,000 purchase the tax is about ${money(tax10k)}, roughly ${money(gap10k)} more than the same purchase at the average state's rate. For big-ticket items, confirming the exact local rate before you buy is worth real money.`,
+      `At ${s.salesTaxAvgCombined}% average combined, ${s.name} sits near the top of the national table — rank ${rank} of 51, ${pointsDiff(s.salesTaxAvgCombined, AVG_COMBINED)} points above the all-state average of ${AVG_COMBINED}%. On a $10,000 purchase the tax is about ${money(tax10k)}, roughly ${money(gap10k)} more than the same purchase at the average state's rate. ${rank <= 10 ? `At a top-ten rate, a single point of local tax is $100 on a $10,000 purchase — confirming the exact local rate before you buy is worth real money.` : `For big-ticket items, confirming the exact local rate before you buy is worth real money.`}`,
     )
   } else if (s.salesTaxAvgCombined <= AVG_COMBINED - 1) {
     paras.push(
-      `At ${s.salesTaxAvgCombined}% average combined, ${s.name} is a low-sales-tax state — rank ${combinedRank(s)} of 51, ${Math.abs(pointsDiff(s.salesTaxAvgCombined, AVG_COMBINED))} points below the all-state average of ${AVG_COMBINED}%. On a $10,000 purchase the tax is about ${money(tax10k)}, roughly ${money(gap10k)} less than at the average state's rate. The saving is modest on weekly shopping and material on vehicles, appliances and building materials.`,
+      `At ${s.salesTaxAvgCombined}% average combined, ${s.name} is a low-sales-tax state — rank ${rank} of 51, ${Math.abs(pointsDiff(s.salesTaxAvgCombined, AVG_COMBINED))} points below the all-state average of ${AVG_COMBINED}%. On a $10,000 purchase the tax is about ${money(tax10k)}, roughly ${money(gap10k)} less than at the average state's rate. ${rank >= 42 ? `The saving is modest on weekly shopping and material on vehicles, appliances and building materials — and at one of the lowest rates in the country, the gap to the average state is widest exactly on the biggest purchases.` : `The saving is modest on weekly shopping and material on vehicles, appliances and building materials.`}`,
     )
   } else {
     paras.push(
-      `${s.name}'s average combined rate of ${s.salesTaxAvgCombined}% sits close to the all-state average of ${AVG_COMBINED}% (rank ${combinedRank(s)} of 51). Sales tax here is neither a reason to cross a border nor a penalty for staying — on a $10,000 purchase the tax is about ${money(tax10k)}, within ${money(gap10k)} of what the average state would charge. Local variation inside ${s.name} matters more than the state figure: city and district layers move the rate more than the state ranking does.`,
+      `${s.name}'s average combined rate of ${s.salesTaxAvgCombined}% sits close to the all-state average of ${AVG_COMBINED}% (rank ${rank} of 51). Sales tax here is neither a reason to cross a border nor a penalty for staying — on a $10,000 purchase the tax is about ${money(tax10k)}, within ${money(gap10k)} of what the average state would charge. ${localGap >= 1.5 ? `Local variation inside ${s.name} matters more than the state figure: with about ${localGap} points of local tax on average, city and district layers move the rate more than the state ranking does.` : `Local variation inside ${s.name} matters more than the state figure: city and district layers move the rate more than the state ranking does.`}`,
     )
   }
 
   const weeklyBasket = 150
   const yearlyIfTaxed = taxOn(weeklyBasket * 52, s.salesTaxAvgCombined)
   if (s.groceries === "exempt") {
-    paras.push(
-      `Groceries for home consumption are exempt, so the weekly food shop is largely outside this tax. A state that taxed a $150 weekly basket at ${s.name}'s combined rate would collect about ${money(yearlyIfTaxed)} a year from it; in ${s.name} that charge falls only on non-food items and prepared food. Sellers should still check category rules — the exemption covers food, not everything in a supermarket.`,
-    )
+    if (rank <= 10) {
+      paras.push(
+        `Groceries for home consumption are exempt, so the weekly food shop is largely outside this tax. At one of the highest combined rates in the country, that exemption is worth about ${money(yearlyIfTaxed)} a year on a $150 weekly basket — the saving is largest exactly where the rate is highest. Sellers should still check category rules — the exemption covers food, not everything in a supermarket.`,
+      )
+    } else if (rank <= 20) {
+      paras.push(
+        `The weekly food shop is largely outside this tax: groceries for home consumption are exempt in ${s.name}. A state that taxed a $150 weekly basket at ${s.name}'s combined rate would collect about ${money(yearlyIfTaxed)} a year from it; in ${s.name} that charge falls only on non-food items and prepared food. At a combined rate above the national average, the exemption is worth more here than in most states. Sellers should still check category rules — the exemption covers food, not everything in a supermarket.`,
+      )
+    } else {
+      paras.push(
+        `Groceries for home consumption are exempt in ${s.name}, so the weekly food shop is largely outside this tax. A state that taxed a $150 weekly basket at ${s.name}'s combined rate would collect about ${money(yearlyIfTaxed)} a year from it; in ${s.name} that charge falls only on non-food items and prepared food. Sellers should still check category rules — the exemption covers food, not everything in a supermarket.`,
+      )
+    }
   } else if (s.groceries === "full") {
     paras.push(
-      `${s.name} taxes groceries at the full rate — one of the few states that do. A $150 weekly food shop at the average combined rate of ${s.salesTaxAvgCombined}% carries about ${money(taxOn(weeklyBasket, s.salesTaxAvgCombined))} of tax a week, roughly ${money(yearlyIfTaxed)} a year, before any credits the state offers residents on their income tax return. Households comparing states on cost of living should count this: it is a recurring charge, not a one-off.`,
+      `${s.name} taxes groceries at the full rate — one of the few states that do. A $150 weekly food shop at the average combined rate of ${s.salesTaxAvgCombined}% carries about ${money(taxOn(weeklyBasket, s.salesTaxAvgCombined))} of tax a week, roughly ${money(yearlyIfTaxed)} a year, before any credits the state offers residents on their income tax return. ${rank <= 10 ? `Households comparing states on cost of living should count this: at one of the highest rates in the country, the food-shop tax is a recurring charge, not a one-off.` : rank >= 42 ? `Households comparing states on cost of living should count this: the rate is near the bottom nationally, but the charge still recurs every week.` : `Households comparing states on cost of living should count this: it is a recurring charge, not a one-off.`}`,
     )
   } else {
     paras.push(
-      `Groceries are taxed at a reduced rate in ${s.name}, so the food shop carries some tax but less than the full ${s.salesTaxAvgCombined}% combined rate applied to other goods. The reduced rate and any local add-ons are set out in the groceries note above; the exact figure varies by locality, so check it before treating a food budget as tax-free.`,
+      `Groceries are taxed at a reduced rate in ${s.name}, so the food shop carries some tax but less than the full ${s.salesTaxAvgCombined}% combined rate applied to other goods. ${rank <= 10 ? `The reduced rate and any local add-ons are set out in the groceries note above; at a combined rate near the top of the table, even the reduced food rate adds up over a year.` : `The reduced rate and any local add-ons are set out in the groceries note above; the exact figure varies by locality, so check it before treating a food budget as tax-free.`}`,
+    )
+  }
+
+  // Third paragraph: the local layer — how much of the combined rate is
+  // set below the state, which is the part shoppers most often miss.
+  if (s.salesTaxAvgCombined === 0) {
+    paras.push(
+      `There is no sales tax to layer in ${s.name}: none is levied at state or local level, so the shelf price is the till price everywhere in the state. The comparison that matters for shoppers here is with neighboring states, not between towns inside ${s.name}.`,
+    )
+  } else if (s.salesTaxBase === 0) {
+    paras.push(
+      `Every point of the ${s.salesTaxAvgCombined}% average combined rate in ${s.name} is local — there is no state sales tax at all. Some areas charge nothing; others stack city and local taxes. The address decides everything here, so a statewide average is only a starting point.`,
+    )
+  } else if (localGap === 0) {
+    paras.push(
+      `There is no local layer in ${s.name}: the ${s.salesTaxBase}% state rate is the rate everywhere in the state, so pricing is the same in every town. ${rank <= 20 ? `That uniformity is the exception nationally — most states add county and city layers on top of the base, so shoppers there face a different rate in every town.` : `That uniformity is the exception nationally — most states add county and city layers on top of the base.`}`,
+    )
+  } else if (localGap >= 2) {
+    paras.push(
+      `Local layers do heavy lifting in ${s.name}: on top of the ${s.salesTaxBase}% state base, county, city and district taxes add about ${localGap} points on average, taking the average combined rate to ${s.salesTaxAvgCombined}%. Two addresses in the same state can therefore sit a point or more apart — the rate that matters is the one at the delivery address, not the state headline${rank <= 10 ? `, and at a top-ten rate the difference is worth real money` : ``}.`,
+    )
+  } else {
+    paras.push(
+      `The local layer in ${s.name} adds about ${localGap} points on average to the ${s.salesTaxBase}% state base, taking the average combined rate to ${s.salesTaxAvgCombined}%. ${rank <= 10 ? `At a top-ten combined rate, the state rate alone understates what you pay — check the rate for the exact address on a large purchase.` : rank <= 20 ? `The state rate is therefore a reasonable first guess at what you will pay, but city and district taxes still move the total — check the rate for the exact address on a large purchase.` : `The state rate is a reasonable first guess at what you will pay here — the local add-on is modest — though city and district taxes still move the total.`}`,
     )
   }
   return paras
@@ -158,14 +197,36 @@ export function overallMeaning(s: USState): string[] {
     )
   }
 
+  const cRank = combinedRank(s)
+  const pRank = propertyRank(s)
   const incomeLine =
     s.incomeTax === "none"
       ? "no state tax on wages"
       : s.incomeTax === "flat"
         ? "a flat state income tax"
         : "progressive income tax brackets"
-  paras.push(
-    `Read together: ${s.name} combines an average combined sales tax of ${s.salesTaxAvgCombined}% (rank ${combinedRank(s)} of 51), an average effective property tax of ${s.propertyTaxAvg}% (rank ${propertyRank(s)} of 51) and ${incomeLine}. A household comparing states should compare all three against its own pattern — a high earner who rents weighs the income tax most; a homeowner on a fixed income weighs the property tax most.`,
-  )
+  // Second paragraph varies by the state's profile, so the read-together
+  // summary is framed around the tax that actually dominates here.
+  if (s.incomeTax === "none" && s.propertyTaxAvg >= 1.5) {
+    paras.push(
+      `With no state income tax, ${s.name} has to be judged on the other two taxes — and the property tax carries much of the weight: an average effective rate of ${s.propertyTaxAvg}% (rank ${pRank} of 51) against an average combined sales tax of ${s.salesTaxAvgCombined}% (rank ${cRank} of 51). The no-income-tax headline flatters high earners most; a homeowner here can easily pay more in property tax than a wage-earner saves on income tax.`,
+    )
+  } else if (s.incomeTax === "none") {
+    paras.push(
+      `With no state income tax, ${s.name} has to be judged on the other two taxes: an average combined sales tax of ${s.salesTaxAvgCombined}% (rank ${cRank} of 51) and an average effective property tax of ${s.propertyTaxAvg}% (rank ${pRank} of 51). The no-income-tax headline flatters high earners most; a household that spends heavily or owns an expensive home can still pay more here than in a state that taxes wages but charges less at the register and on property.`,
+    )
+  } else if (s.propertyTaxAvg >= 1.5) {
+    paras.push(
+      `The property tax is what sets ${s.name} apart: ${s.propertyTaxAvg}% on average (rank ${pRank} of 51), against an average combined sales tax of ${s.salesTaxAvgCombined}% (rank ${cRank} of 51) and ${incomeLine}. For a homeowner the property line is the one to price first — it is fixed, annual and hard to avoid, while the other two move with spending and earnings.`,
+    )
+  } else if (cRank <= 10) {
+    paras.push(
+      `The register is where ${s.name} costs most: its average combined sales tax of ${s.salesTaxAvgCombined}% ranks ${cRank} of 51, well above the ${AVG_COMBINED}% all-state average, while property tax is ${s.propertyTaxAvg}% (rank ${pRank} of 51) and the state has ${incomeLine}. The gap shows up most on big-ticket purchases — vehicles, appliances, building materials — where a point or two of rate is real money.`,
+    )
+  } else {
+    paras.push(
+      `Read together: ${s.name} combines an average combined sales tax of ${s.salesTaxAvgCombined}% (rank ${cRank} of 51), an average effective property tax of ${s.propertyTaxAvg}% (rank ${pRank} of 51) and ${incomeLine}. No single levy dominates, so the right comparison is personal: weigh the tax that falls on what you actually do most — earn, spend or own — rather than the headline rate.`,
+    )
+  }
   return paras
 }

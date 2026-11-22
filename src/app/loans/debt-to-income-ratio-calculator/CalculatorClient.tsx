@@ -15,7 +15,7 @@ function MoneyInput({ label, value, onChange, hint }: { label: string; value: nu
     {hint && <p className="text-xs text-muted-foreground">{hint}</p>}</div>)
 }
 function ResultCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
+  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</p>{children}</div>)
 }
 // Lender bands used across US mortgage/loan underwriting:
 // <=36% comfortable · 37-43% acceptable for most programs · 44-50% needs strong compensating factors · >50% high risk.
@@ -72,11 +72,11 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-6">
       <MoneyInput label="Gross Monthly Income" value={income} onChange={setIncome} hint="Before taxes — salary plus any regular income, divided by 12 if you know the annual figure." />
       <div className="border-t pt-6 space-y-6">
-        <h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground">Monthly Housing (Front-End)</h4>
+        <p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground">Monthly Housing (Front-End)</p>
         <MoneyInput label="Rent or Mortgage Payment" value={housing} onChange={setHousing} hint="For mortgages, include taxes, insurance and HOA if your lender escrows them." />
       </div>
       <div className="border-t pt-6 space-y-6">
-        <h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground">Other Monthly Debts (Back-End)</h4>
+        <p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground">Other Monthly Debts (Back-End)</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <MoneyInput label="Auto Loan / Lease" value={auto} onChange={setAuto} />
           <MoneyInput label="Student Loans" value={student} onChange={setStudent} />
@@ -98,7 +98,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <div><p className="text-white/60 text-xs uppercase font-bold">Income After Debts</p><p className="font-mono text-xl font-bold">{fmt(Math.max(0, income - totalDebts))}</p></div>
         </div>
       </ResultCard>
-      <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Where You Stand vs Lender Thresholds</h4>
+      <div className="bg-card border rounded-2xl p-6"><p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Where You Stand vs Lender Thresholds</p>
         <div className="space-y-3 text-sm">
           <div className="flex justify-between items-center"><span>36% — comfortable zone</span><span className={`font-mono font-bold ${back <= 36 ? 'text-[#059669]' : 'text-neutral-400'}`}>{back <= 36 ? 'Inside' : fmt(totalDebts - income * 0.36) + ' over'}</span></div>
           <div className="flex justify-between items-center"><span>43% — qualified-mortgage line</span><span className={`font-mono font-bold ${back <= 43 ? 'text-[#059669]' : 'text-[#DC2626]'}`}>{back <= 43 ? 'Inside' : fmt(cutTo43) + ' over'}</span></div>

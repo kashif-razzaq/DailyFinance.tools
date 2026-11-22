@@ -18,7 +18,7 @@ function PctSlider({ label, value, onChange, min = 0, max = 20, step = 0.1 }: { 
     <Slider value={[value]} min={min} max={max} step={step} onValueChange={(v: any) => onChange(Array.isArray(v) ? v[0] : v)} /></div>)
 }
 function ResultCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
+  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</p>{children}</div>)
 }
 function NumInput({ label, value, onChange, hint, min, max }: { label: string; value: number; onChange: (n: number) => void; hint?: string; min?: number; max?: number }) {
   return (<div className="space-y-2"><label className="text-sm font-semibold">{label}</label>
@@ -118,7 +118,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       </ResultCard>
 
       <div className="bg-card border rounded-2xl p-6">
-        <h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">62 vs 67 vs 70 — Monthly &amp; Lifetime to Age 85</h4>
+        <p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">62 vs 67 vs 70 — Monthly &amp; Lifetime to Age 85</p>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead><tr className="border-b text-left"><th className="py-2 pr-2 font-semibold">Claim</th><th className="py-2 pr-2 font-semibold text-right">Monthly</th><th className="py-2 pr-2 font-semibold text-right">Annual</th><th className="py-2 font-semibold text-right">Lifetime to 85</th></tr></thead>
@@ -136,7 +136,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
       </div>
 
-      <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Monthly Benefit by Claiming Age</h4>
+      <div className="bg-card border rounded-2xl p-6"><p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Monthly Benefit by Claiming Age</p>
         <ResponsiveContainer width="100%" height={200}><BarChart data={chartData}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="name" /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Bar dataKey="monthly" name="Monthly benefit" radius={[6, 6, 0, 0]}>{chartData.map((_, i) => (<Cell key={i} fill={i === 1 ? '#064E3B' : i === 2 ? '#059669' : '#D97706'} />))}</Bar></BarChart></ResponsiveContainer></div>
     <ToolActionsBar slug="social-security-calculator" isPro={isPro} inputs={{ earnings, yearsWorked }} />
     </div></div></>)

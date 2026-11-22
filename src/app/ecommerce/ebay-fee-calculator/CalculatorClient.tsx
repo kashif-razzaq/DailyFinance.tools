@@ -20,7 +20,7 @@ function PctSlider({ label, value, onChange, max, step = 0.05, hint }: { label: 
     <Slider value={[value]} min={0} max={max} step={step} onValueChange={(v: any) => onChange(Array.isArray(v) ? v[0] : v)} />{hint && <p className="text-xs text-muted-foreground">{hint}</p>}</div>)
 }
 function ResultCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
+  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</p>{children}</div>)
 }
 
 // eBay final value fee, verified November 2026: most categories 13.6% of the total amount of the sale
@@ -92,7 +92,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
       </ResultCard>
       <div className="bg-[#064E3B]/5 border border-[#064E3B]/20 rounded-2xl p-6">
-        <h4 className="font-semibold text-sm uppercase tracking-wider text-[#064E3B] dark:text-emerald-400 mb-2">Break-Even Price</h4>
+        <p className="font-semibold text-sm uppercase tracking-wider text-[#064E3B] dark:text-emerald-400 mb-2">Break-Even Price</p>
         <p className="text-sm text-muted-foreground">Below <strong className="text-foreground font-mono text-base">{fmt(Math.max(0, r.breakeven))}</strong> this listing loses money after fees and costs{promotedPct > 0 ? ` — including the ${promotedPct}% promoted rate` : ''}. Every $1 of promoted rate adds roughly {fmt(r.total * 0.01)} per sale in fees at the current price.</p>
         <p className="text-xs text-muted-foreground mt-2">Differentiator: a live break-even solver that includes the promoted-listings rate, so you can see the exact ad rate at which a listing stops being worth promoting.</p>
       </div>

@@ -18,7 +18,7 @@ function PctSlider({ label, value, onChange, min = 0, max = 20, step = 0.1 }: { 
     <Slider value={[value]} min={min} max={max} step={step} onValueChange={(v: any) => onChange(Array.isArray(v) ? v[0] : v)} /></div>)
 }
 function ResultCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
+  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</p>{children}</div>)
 }
 
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip, Legend } from 'recharts'
@@ -155,7 +155,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <div><p className="text-white/60 text-xs uppercase font-bold">Total Interest</p><p className="font-mono text-xl font-bold">{fmt(c.totalInterest)}</p></div>
           <div><p className="text-white/60 text-xs uppercase font-bold">Loan Paid Off</p><p className="font-mono text-xl font-bold">{c.payoff}</p></div>
         </div></ResultCard>
-      <div className="bg-card border rounded-2xl p-6 space-y-4"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground">Mortgage insurance (MIP)</h4>
+      <div className="bg-card border rounded-2xl p-6 space-y-4"><p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground">Mortgage insurance (MIP)</p>
         <div className="space-y-1 text-sm">
           <div className="flex justify-between py-1 border-b border-neutral-100"><span className="text-neutral-500">Base loan</span><span className="font-mono font-semibold">{fmt(c.baseLoan)}</span></div>
           <div className="flex justify-between py-1 border-b border-neutral-100"><span className="text-neutral-500">Upfront MIP (1.75% of base loan)</span><span className="font-mono font-semibold">{fmt(c.ufmip)}{financeUfmip ? ' — financed' : ' — cash at closing'}</span></div>
@@ -167,7 +167,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <p className="text-xs text-muted-foreground">Rate from HUD Mortgagee Letter 2023-05: {term > 15 ? 'term over 15 years' : 'term of 15 years or less'}, LTV {c.ltv.toFixed(1)}%, base loan {c.baseLoan > CONFORMING_2026 ? 'above' : 'at or below'} the 2026 conforming limit of {fmt(CONFORMING_2026)}. {c.mipLife ? 'Annual MIP runs for the life of the loan because the down payment is under 10% — it only ends after 11 years with 10% or more down.' : 'Annual MIP ends after 11 years because the down payment is 10% or more.'} Monthly MIP is the year-1 figure, recalculated each year on the average outstanding balance, so it falls as the balance drops.</p>
       </div>
       <div className={`rounded-2xl border p-6 ${c.overCeiling ? 'bg-red-50 border-red-200' : c.aboveFloor ? 'bg-amber-50 border-amber-200' : 'bg-emerald-50 border-emerald-200'}`}>
-        <h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-2">2026 FHA loan-limit check</h4>
+        <p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-2">2026 FHA loan-limit check</p>
         {c.overCeiling
           ? <p className="text-sm font-semibold text-red-800">Above the 2026 FHA ceiling — FHA will not insure a base loan over {fmt(FHA_CEILING_2026)} on a one-unit home, even in the highest-cost counties.</p>
           : c.aboveFloor
@@ -175,7 +175,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
             : <p className="text-sm font-semibold text-emerald-800">Within the {fmt(FHA_FLOOR_2026)} floor — this base loan is insurable in every county in the country.</p>}
         <p className="text-xs text-muted-foreground mt-2">The limit applies to the base loan (before financed upfront MIP), not the home price. County limits for 2026 run from the {fmt(FHA_FLOOR_2026)} floor to the {fmt(FHA_CEILING_2026)} ceiling.</p>
       </div>
-      <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Payment Breakdown</h4>
+      <div className="bg-card border rounded-2xl p-6"><p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Payment Breakdown</p>
         <ResponsiveContainer width="100%" height={230}><PieChart><Pie data={c.parts} dataKey="value" nameKey="name" innerRadius={55} outerRadius={85} paddingAngle={2}>{c.parts.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}</Pie><Tooltip formatter={(v: any) => fmt(Number(v)) + '/mo'} /><Legend /></PieChart></ResponsiveContainer>
         <div className="mt-2 space-y-1">{c.parts.map(p => (<div key={p.name} className="flex justify-between text-sm py-1 border-b border-neutral-100 last:border-0"><span className="text-neutral-500">{p.name}</span><span className="font-mono font-semibold">{fmt(p.value)}/mo</span></div>))}</div>
       </div>

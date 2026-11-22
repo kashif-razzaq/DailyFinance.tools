@@ -208,7 +208,8 @@ export function GuideArticle({ guide }: { guide: Guide }) {
           <AuthorCard />
 
           <p className="mt-10 text-sm text-muted-foreground">
-            Figures are checked against the sources listed above and our{" "}
+            <strong className="font-semibold text-foreground">How this guide was checked:</strong>{" "}
+            every figure was checked against the sources listed above, and the guide was reviewed by Tahir Shehzad, ACMA — see our{" "}
             <Link href="/methodology" className="underline underline-offset-2">methodology page</Link>. This guide is education, not personal financial advice.
           </p>
           </div>

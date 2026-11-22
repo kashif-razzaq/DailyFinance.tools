@@ -18,7 +18,7 @@ function PctSlider({ label, value, onChange, min = 0, max = 20, step = 0.1 }: { 
     <Slider value={[value]} min={min} max={max} step={step} onValueChange={(v: any) => onChange(Array.isArray(v) ? v[0] : v)} /></div>)
 }
 function ResultCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
+  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</p>{children}</div>)
 }
 
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts'
@@ -79,10 +79,10 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
         <p className="text-white/80 mt-4 text-sm">Interest is {r.fv > 0 ? Math.round((r.totalInterest / r.fv) * 100) : 0}% of the final balance — free growth on top of your deposits.</p>
       </ResultCard>
-      <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Contributions vs Interest (stacked)</h4>
+      <div className="bg-card border rounded-2xl p-6"><p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Contributions vs Interest (stacked)</p>
         <ResponsiveContainer width="100%" height={210}><AreaChart data={r.rows}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="year" /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Area type="monotone" dataKey="contributions" stackId="1" stroke="#064E3B" fill="#064E3B" fillOpacity={0.85} name="Contributions" /><Area type="monotone" dataKey="interestCum" stackId="1" stroke="#D97706" fill="#D97706" fillOpacity={0.7} name="Interest" /></AreaChart></ResponsiveContainer>
       </div>
-      <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Year-by-Year Breakdown</h4>
+      <div className="bg-card border rounded-2xl p-6"><p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Year-by-Year Breakdown</p>
         <div className="overflow-x-auto"><table className="w-full text-sm"><thead><tr className="border-b text-left text-muted-foreground"><th className="py-2 pr-2 font-semibold">Year</th><th className="py-2 pr-2 font-semibold text-right">Deposits</th><th className="py-2 pr-2 font-semibold text-right">Interest</th><th className="py-2 font-semibold text-right">Balance</th></tr></thead>
         <tbody className="font-mono">{r.rows.filter(row => row.year > 0).map(row => (<tr key={row.year} className="border-b last:border-0"><td className="py-2 pr-2">{row.year}</td><td className="py-2 pr-2 text-right">{fmt(row.deposits)}</td><td className="py-2 pr-2 text-right">{fmt(row.interest)}</td><td className="py-2 text-right font-bold">{fmt(row.balance)}</td></tr>))}</tbody></table></div>
         <p className="text-xs text-muted-foreground mt-3">Deposits = starting balance + all monthly contributions to date. Interest = cumulative interest earned.</p>

@@ -125,7 +125,7 @@ export function ExportEngine({ data, filename, pdfDocument, isPro = true, onRequ
     <div className="relative w-full" ref={dropdownRef}>
       <Button 
         variant="outline" 
-        className="w-full justify-between bg-card hover:bg-muted"
+        className="w-full justify-between bg-card hover:bg-muted h-12"
         onClick={() => setIsOpen(!isOpen)}
       >
         <div className="flex items-center gap-2">

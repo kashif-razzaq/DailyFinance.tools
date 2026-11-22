@@ -163,7 +163,7 @@ export function ShareCalculatorModal({ children, url, slug, isPro = false, onGen
                       href="/pricing"
                       className="group inline-flex h-9 shrink-0 items-center justify-center rounded-lg bg-accent px-4 text-sm font-bold text-white shadow-sm transition-all hover:bg-accent/90"
                     >
-                      Upgrade to Pro
+                      See Pro — launching soon
                       <ArrowRight className="ml-1.5 h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
                     </a>
                   </div>
@@ -176,7 +176,7 @@ export function ShareCalculatorModal({ children, url, slug, isPro = false, onGen
                     <span className="text-xs font-semibold text-[#D97706]">Share live calculators with clients</span>
                   </div>
                   <a href="/pricing" className="text-xs font-bold text-[#D97706] hover:underline whitespace-nowrap ml-2">
-                    Upgrade <ArrowRight className="inline-block h-3 w-3 ml-0.5" />
+                    See Pro <ArrowRight className="inline-block h-3 w-3 ml-0.5" />
                   </a>
                 </div>
               </>
@@ -200,7 +200,7 @@ export function ShareCalculatorModal({ children, url, slug, isPro = false, onGen
               <div className="relative border rounded-lg bg-muted/30 p-1">
                 <textarea 
                   readOnly 
-                  className="w-full h-24 p-3 text-xs font-mono bg-transparent resize-none focus:outline-none" 
+                  className="w-full h-24 p-3 text-xs font-mono bg-transparent resize-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[#064E3B] focus-visible:ring-offset-1" 
                   value={embedCode} 
                 />
               </div>

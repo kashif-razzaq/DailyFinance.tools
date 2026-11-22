@@ -22,7 +22,7 @@ function PctSlider({ label, value, onChange, min = 0, max = 15, step = 0.1 }: { 
     <Slider value={[value]} min={min} max={max} step={step} onValueChange={(v: any) => onChange(Array.isArray(v) ? v[0] : v)} /></div>)
 }
 function ResultCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
+  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</p>{children}</div>)
 }
 
 type Bracket = { upTo: number; rate: number }
@@ -134,7 +134,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
       </ResultCard>
       <div className="bg-card border rounded-2xl p-6">
-        <h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-2">Pay Stub Breakdown <span className="normal-case font-normal">(per check / per year)</span></h4>
+        <p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-2">Pay Stub Breakdown <span className="normal-case font-normal">(per check / per year)</span></p>
         {stubRow('Gross pay', r.grossP, salary, false)}
         {stubRow('Federal income tax', r.fedP, r.federal)}
         {stubRow('Social Security (6.2%)', r.ssP, r.ss)}
@@ -144,7 +144,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         {hsaHealth > 0 && stubRow('HSA / health premiums', r.hsaP, hsaHealth)}
         <div className="flex justify-between text-sm pt-3 font-bold"><span>Net pay</span><span className="font-mono">{fmtC(r.netP)} / {fmt(r.netAnnual)}</span></div>
       </div>
-      <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-2">Where Each Paycheck Goes</h4>
+      <div className="bg-card border rounded-2xl p-6"><p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-2">Where Each Paycheck Goes</p>
         <ResponsiveContainer width="100%" height={190}><PieChart><Pie data={pie} dataKey="value" nameKey="name" innerRadius={45} outerRadius={75} paddingAngle={2}>{pie.map((d) => <Cell key={d.name} fill={d.color} />)}</Pie><Tooltip formatter={(v: any) => fmt(Number(v))} /></PieChart></ResponsiveContainer>
         <div className="flex flex-wrap gap-x-4 gap-y-1 justify-center">{pie.map((d) => <span key={d.name} className="text-xs flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-sm" style={{ background: d.color }} />{d.name}</span>)}</div>
       </div>

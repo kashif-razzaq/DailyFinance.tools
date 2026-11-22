@@ -81,15 +81,18 @@ export function GuideShare({
     { label: 'Share on WhatsApp', href: `https://wa.me/?text=${encodedTitle}%20${encodedUrl}`, hover: 'hover:text-[#25D366] hover:border-[#25D366]/40', Icon: WhatsAppIcon },
   ]
 
+  // UX13: 48×48 hit area (was 40×40); icons stay 18px so the look is unchanged.
+  // shrink-0: without it the row flex container squeezes the buttons below
+  // 48px wide on narrow screens (measured 39×48 at 375px before this).
   const buttonClass =
-    'flex h-10 w-10 items-center justify-center rounded-full border border-border/60 bg-card text-muted-foreground transition-colors'
+    'flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-border/60 bg-card text-muted-foreground transition-colors'
 
   return (
     <div
       className={
         layout === 'rail'
           ? `flex flex-col items-center gap-2 ${className}`
-          : `flex items-center gap-2 ${className}`
+          : `flex flex-wrap items-center gap-2 ${className}`
       }
       role="group"
       aria-label="Share this guide"

@@ -6,7 +6,7 @@ import { ToolContent } from "@/components/shared/ToolContent"
 import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
-export const metadata: Metadata = generateCalculatorMetadata({ title: '50/30/20 Budget Calculator: Needs, Wants & Savings', description: 'Split your income into needs, wants and savings the 50/30/20 way — your target amounts at your actual take-home pay.', keywords: ['50/30/20 calculator','50 30 20 budget rule','needs wants savings calculator','budget rule calculator'], slug: "personal-wealth/50-30-20-budget-calculator", category: "Personal Wealth" });
+export const metadata: Metadata = generateCalculatorMetadata({ title: '50/30/20 Budget Calculator: Needs, Wants & Savings', description: 'Split your income into needs, wants and savings the 50/30/20 way — your target amounts at your actual take-home pay, with room to adjust.', keywords: ['50/30/20 calculator','50 30 20 budget rule','needs wants savings calculator','budget rule calculator'], slug: "personal-wealth/50-30-20-budget-calculator", category: "Personal Wealth" });
 
 export default function Page() {
   return (

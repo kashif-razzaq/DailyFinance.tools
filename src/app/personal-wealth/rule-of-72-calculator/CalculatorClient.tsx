@@ -21,7 +21,7 @@ function PctSlider({ label, value, onChange, min = 0, max = 20, step = 0.1 }: { 
     <Slider value={[value]} min={min} max={max} step={step} onValueChange={(v: any) => onChange(Array.isArray(v) ? v[0] : v)} /></div>)
 }
 function ResultCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
+  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</p>{children}</div>)
 }
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
@@ -71,7 +71,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         {targetYears <= 0 && <p className="text-sm text-red-600 font-semibold">Enter a target above 0 years.</p>}
       </>)}
       <div className="bg-card border rounded-2xl p-4 overflow-x-auto">
-        <h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Doubling Table — Common Rates</h4>
+        <p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Doubling Table — Common Rates</p>
         <table className="w-full text-sm"><thead><tr className="text-left border-b"><th className="py-2">Return</th><th>Rule of 72</th><th>Exact</th></tr></thead>
           <tbody>{r.table.map((t) => (<tr key={t.rate} className={`border-b last:border-0 ${t.rate === Math.round(rate) ? 'font-bold' : ''}`}><td className="py-2 font-mono">{t.rate}%</td><td className="font-mono">{t.rule.toFixed(2)} yrs</td><td className="font-mono">{t.exact.toFixed(2)} yrs</td></tr>))}</tbody></table>
       </div>

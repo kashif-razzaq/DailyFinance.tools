@@ -133,7 +133,7 @@ export function DesktopHome() {
             onClick={() => toggleFavourite(tool.slug)}
             aria-label={isFav ? `Remove ${tool.title} from favorites` : `Save ${tool.title} to favorites`}
             aria-pressed={isFav}
-            className="relative z-20 flex h-9 w-9 items-center justify-center rounded-full transition-transform hover:scale-110"
+            className="relative z-20 flex h-12 w-12 items-center justify-center rounded-full transition-transform hover:scale-110"
           >
             <Star className={`h-5 w-5 ${isFav ? 'fill-[#D97706] text-[#D97706]' : 'text-muted-foreground/60'}`} />
           </button>
@@ -323,7 +323,7 @@ export function DesktopHome() {
                 key={chip.slug + chip.label}
                 href={chip.href}
                 onClick={() => recordRecent(chip.slug)}
-                className="rounded-full border border-border bg-card px-4 py-2 text-sm font-semibold text-foreground shadow-sm transition-all hover:-translate-y-0.5 hover:border-[#064E3B]/50 hover:text-[#064E3B]"
+                className="inline-flex min-h-12 items-center rounded-full border border-border bg-card px-4 py-2 text-sm font-semibold text-foreground shadow-sm transition-all hover:-translate-y-0.5 hover:border-[#064E3B]/50 hover:text-[#064E3B]"
               >
                 {chip.label}
               </Link>

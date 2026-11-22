@@ -227,7 +227,7 @@ export const GUIDES_FREELANCE_CREATOR_BUSINESS: Guide[] = [
         ]
       }
     ],
-    "seoTitle": "Self-Employment Tax 2026: Rate, Deductions & How It Works",
+    "seoTitle": "Self-Employment Tax 2026: Rate, Deductions and How It Works",
     "slug": "self-employment-tax-explained",
     "sources": [
       {
@@ -435,7 +435,7 @@ export const GUIDES_FREELANCE_CREATOR_BUSINESS: Guide[] = [
         ]
       }
     ],
-    "seoTitle": "How YouTube Pays Creators: CPM, RPM & Payout Rules Explained",
+    "seoTitle": "How YouTube Pays Creators: CPM, RPM, Payout Rules Explained",
     "slug": "how-youtube-pays-creators",
     "sources": [
       {
@@ -638,7 +638,7 @@ export const GUIDES_FREELANCE_CREATOR_BUSINESS: Guide[] = [
         ]
       }
     ],
-    "seoTitle": "How to Price Freelance Work: Rates, Formulas & Real Examples",
+    "seoTitle": "How to Price Freelance Work: Rates, Formulas, Real Examples",
     "slug": "how-to-price-freelance-work",
     "sources": [
       {
@@ -1097,7 +1097,7 @@ export const GUIDES_FREELANCE_CREATOR_BUSINESS: Guide[] = [
         ]
       }
     ],
-    "seoTitle": "How to Start Freelancing: The Complete Guide",
+    "seoTitle": "How to Start Freelancing: The Complete Guide for 2026",
     "slug": "how-to-start-freelancing",
     "sources": [
       {
@@ -1362,7 +1362,7 @@ export const GUIDES_FREELANCE_CREATOR_BUSINESS: Guide[] = [
         ]
       }
     ],
-    "seoTitle": "How to Set Your Freelance Rate",
+    "seoTitle": "How to Set Your Freelance Rate: A Formula That Works",
     "slug": "how-to-set-your-freelance-rate",
     "sources": [
       {
@@ -1603,7 +1603,7 @@ export const GUIDES_FREELANCE_CREATOR_BUSINESS: Guide[] = [
         ]
       }
     ],
-    "seoTitle": "LLC vs Sole Proprietorship",
+    "seoTitle": "LLC vs Sole Proprietorship: Which Is Better in 2026?",
     "slug": "llc-vs-sole-proprietorship",
     "sources": [
       {
@@ -1862,7 +1862,7 @@ export const GUIDES_FREELANCE_CREATOR_BUSINESS: Guide[] = [
     "slug": "quarterly-estimated-taxes-explained",
     "title": "Quarterly Estimated Taxes Explained",
     "seoTitle": "Quarterly Estimated Taxes Explained: 2026 Dates & Rules",
-    "description": "Quarterly estimated taxes are how freelancers pay tax during the year. Learn the 2026 deadlines, safe harbors, penalty rules, and how to calculate each payment.",
+    "description": "Quarterly estimated taxes are how freelancers pay tax. Learn the 2026 deadlines, safe harbors, penalty rules, and how to calculate each payment.",
     "image": "/images/quarterly-estimated-taxes-explained.jpg",
     "imageAlt": "Flat-vector illustration of a desk calendar showing four quarterly markers, with coins and an envelope beside it",
     "inlineImage": "/images/quarterly-estimated-taxes-explained-inline.jpg",
@@ -2359,7 +2359,7 @@ export const GUIDES_FREELANCE_CREATOR_BUSINESS: Guide[] = [
         ]
       }
     ],
-    "seoTitle": "The Best Side Hustles in 2026: Ranked & Compared",
+    "seoTitle": "The Best Side Hustles in 2026: Ranked and Compared",
     "slug": "best-side-hustles-2026",
     "sources": [
       {
@@ -2614,7 +2614,7 @@ export const GUIDES_FREELANCE_CREATOR_BUSINESS: Guide[] = [
         ]
       }
     ],
-    "seoTitle": "How Much Do YouTubers Make? Ad Revenue Explained",
+    "seoTitle": "How Much Do YouTubers Make? Ad Revenue Explained (2026)",
     "slug": "how-much-do-youtubers-make",
     "sources": [
       {
@@ -2869,8 +2869,8 @@ export const GUIDES_FREELANCE_CREATOR_BUSINESS: Guide[] = [
   {
     "slug": "how-to-price-products-on-etsy",
     "title": "How to Price Products on Etsy",
-    "seoTitle": "How to Price Products on Etsy: Fees & Formula",
-    "description": "Price Etsy products from real costs: materials, labor, overhead, and every Etsy fee. Worked $40 example, margin vs markup math, and a reusable pricing formula.",
+    "seoTitle": "How to Price Products on Etsy: Fees, Formula and Profit",
+    "description": "Price Etsy products from real costs: materials, labor, overhead, and every Etsy fee. Worked $40 example, margin vs markup math, and a pricing formula.",
     "image": "/images/how-to-price-products-on-etsy.jpg",
     "imageAlt": "Flat vector illustration of handmade goods on a craft market stall — ceramic mugs, folded knitted scarves, wooden boxes and a woven basket under a striped awning, on a cream background",
     "inlineImage": "/images/how-to-price-products-on-etsy-inline.jpg",
@@ -3676,7 +3676,7 @@ export const GUIDES_FREELANCE_CREATOR_BUSINESS: Guide[] = [
   },
   {
     "cornerstone": false,
-    "description": "Learn how to invoice clients: what every invoice must include, payment terms that get you paid on time, processing fees, and a follow-up system for late payers.",
+    "description": "Learn how to invoice clients: what every invoice must include, payment terms that get you paid on time, processing fees, and chasing late payers.",
     "faqs": [
       {
         "answer": "No. As a sole proprietor you can invoice under your own legal name using your Social Security number, and many freelancers start that way. Registering a business name or forming an LLC becomes worth it when you want liability protection, a business bank account, or a more formal presence with larger clients. Either way, the invoice itself works the same — the client pays the name on it.",
@@ -3826,7 +3826,7 @@ export const GUIDES_FREELANCE_CREATOR_BUSINESS: Guide[] = [
         ]
       }
     ],
-    "seoTitle": "How to Invoice Clients and Get Paid on Time",
+    "seoTitle": "How to Invoice Clients and Get Paid on Time in 2026",
     "slug": "how-to-invoice-clients",
     "sources": [
       {
@@ -4315,7 +4315,7 @@ export const GUIDES_FREELANCE_CREATOR_BUSINESS: Guide[] = [
         ]
       }
     ],
-    "seoTitle": "How to Track Business Expenses (2026 Guide)",
+    "seoTitle": "How to Track Business Expenses: A 2026 Guide That Works",
     "slug": "how-to-track-business-expenses",
     "sources": [
       {

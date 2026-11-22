@@ -1304,7 +1304,7 @@ export const GUIDES_PERSONAL_FINANCE: Guide[] = [
         ]
       }
     ],
-    "seoTitle": "How to Build a Budget That Actually Works",
+    "seoTitle": "How to Build a Budget That Actually Works: A 2026 Guide",
     "slug": "how-to-build-a-budget-that-works",
     "sources": [
       {
@@ -1601,7 +1601,7 @@ export const GUIDES_PERSONAL_FINANCE: Guide[] = [
         ]
       }
     ],
-    "seoTitle": "What Is Net Worth and How to Calculate It",
+    "seoTitle": "What Is Net Worth and How to Calculate Yours in 2026",
     "slug": "what-is-net-worth",
     "sources": [
       {
@@ -2155,7 +2155,7 @@ export const GUIDES_PERSONAL_FINANCE: Guide[] = [
   {
     "slug": "best-budgeting-methods-compared",
     "title": "The Best Budgeting Methods Compared",
-    "seoTitle": "The Best Budgeting Methods Compared, With Numbers",
+    "seoTitle": "The Best Budgeting Methods Compared, With Real Numbers",
     "description": "Five budgeting methods — 50/30/20, zero-based, envelopes, pay-yourself-first, and 80/20 — run on one $5,000 household so you can compare real outcomes.",
     "image": "/images/best-budgeting-methods-compared.jpg",
     "imageAlt": "Flat vector illustration of a large pie chart split into three segments above three glass jars of different sizes with coins dropping into them, on a cream background",
@@ -2396,7 +2396,7 @@ export const GUIDES_PERSONAL_FINANCE: Guide[] = [
   },
   {
     "cornerstone": false,
-    "description": "Seven money mistakes cost thousands a year: minimum card payments, no emergency fund, a missed 401(k) match. See what each costs in real dollars — and the fix.",
+    "description": "Seven money mistakes cost thousands a year: minimum card payments, no emergency fund, a missed 401(k) match. See what each costs — and the fix.",
     "faqs": [
       {
         "answer": "Paying only the minimum on a credit card balance. On a $5,000 balance at 22.36% APR, minimum-only payments take 19 years and 3 months and cost $8,241 in interest — more than the original balance. A fixed payment of $191.89 clears the same debt in 3 years for $1,908 of interest. No other everyday mistake charges that much for doing nothing.",
@@ -3146,7 +3146,7 @@ export const GUIDES_PERSONAL_FINANCE: Guide[] = [
         ]
       }
     ],
-    "seoTitle": "What Is the FIRE Movement? The 4% Rule Explained",
+    "seoTitle": "What Is the FIRE Movement? The 4% Rule Explained (2026)",
     "slug": "what-is-fire-movement",
     "sources": [
       {
@@ -3669,7 +3669,7 @@ export const GUIDES_PERSONAL_FINANCE: Guide[] = [
         ]
       }
     ],
-    "seoTitle": "What to Do With a Windfall: A Step-by-Step Plan",
+    "seoTitle": "What to Do With a Windfall: A Step-by-Step Money Plan",
     "slug": "what-to-do-with-a-windfall",
     "sources": [
       {
@@ -3901,7 +3901,7 @@ export const GUIDES_PERSONAL_FINANCE: Guide[] = [
         ]
       }
     ],
-    "seoTitle": "How to Build Wealth on a Low Income: A 2026 Guide",
+    "seoTitle": "How to Build Wealth on a Low Income: A 2026 Money Guide",
     "slug": "how-to-build-wealth-on-a-low-income",
     "sources": [
       {
@@ -4270,7 +4270,7 @@ export const GUIDES_PERSONAL_FINANCE: Guide[] = [
         ]
       }
     ],
-    "seoTitle": "The 52-Week Savings Challenge (and Why It Fails)",
+    "seoTitle": "The 52-Week Savings Challenge (and Why It Often Fails)",
     "slug": "52-week-savings-challenge",
     "sources": [
       {
@@ -4446,7 +4446,7 @@ export const GUIDES_PERSONAL_FINANCE: Guide[] = [
         ]
       }
     ],
-    "seoTitle": "How to Teach Your Kids About Money (Ages 3-18)",
+    "seoTitle": "How to Teach Your Kids About Money (Ages 3-18) in 2026",
     "slug": "how-to-teach-kids-about-money",
     "sources": [
       {
@@ -4801,7 +4801,7 @@ export const GUIDES_PERSONAL_FINANCE: Guide[] = [
         ]
       }
     ],
-    "seoTitle": "Why Your Savings Account Pays Almost Nothing",
+    "seoTitle": "Why Your Savings Account Pays Almost Nothing in 2026",
     "slug": "why-your-savings-account-pays-nothing",
     "sources": [
       {

@@ -22,7 +22,7 @@ export function CategoryHub({ categorySlug, quickAnswer, intro, decisions, faqs 
   const Icon = category.icon
   // The Pro hub is the one category whose tools are NOT free: the "no
   // sign-up" chip and the no-sign-up sentence must not appear here, and the
-  // page carries a Become a Pro CTA instead (Kashif, 2026-11-21).
+  // page carries a Pro — Launching Soon CTA instead (Kashif, 2026-11-21).
   const isProHub = categorySlug === 'pro'
   const trustChips = isProHub
     ? ["Pro members only — $2.99/mo", "Formula shown for every result", "Reviewed by a qualified finance professional"]
@@ -89,17 +89,17 @@ export function CategoryHub({ categorySlug, quickAnswer, intro, decisions, faqs 
           <div className="flex flex-col items-start gap-5 rounded-3xl bg-[#064E3B] p-6 text-white sm:flex-row sm:items-center sm:justify-between md:p-8">
             <div>
               <h2 className="flex items-center gap-2 text-xl font-extrabold tracking-tight md:text-2xl">
-                <Crown className="h-5 w-5 text-[#D97706]" /> Become a Pro
+                <Crown className="h-5 w-5 text-[#D97706]" /> Pro — Launching Soon
               </h2>
               <p className="mt-2 max-w-2xl text-sm leading-relaxed text-white/80 md:text-base">
-                Unlock all five Pro tools, unlimited Vault saves, PDF reports and cross-data analytics — $2.99 a month. The {TOOL_COUNTS.free} free calculators stay free.
+                Pro is launching soon — planned at $2.99 a month, it will unlock all five Pro tools, unlimited Vault saves, PDF reports and cross-data analytics. The {TOOL_COUNTS.free} free calculators stay free.
               </p>
             </div>
             <Link
               href="/pricing"
               className="inline-flex shrink-0 items-center gap-2 rounded-full bg-[#D97706] px-6 py-3 text-sm font-bold text-white shadow-sm transition-all hover:brightness-110 active:scale-95"
             >
-              Become a Pro — $2.99/mo <ArrowRight className="h-4 w-4" />
+              See what's coming in Pro <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
         </section>

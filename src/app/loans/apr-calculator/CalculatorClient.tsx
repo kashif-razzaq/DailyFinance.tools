@@ -25,7 +25,7 @@ function NumSlider({ label, value, onChange, min, max, suffix = '' }: { label: s
     <Slider value={[value]} min={min} max={max} step={1} onValueChange={(v: any) => onChange(Array.isArray(v) ? v[0] : v)} /></div>)
 }
 function ResultCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
+  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</p>{children}</div>)
 }
 // Amortizing payment at the NOMINAL rate: M = P * r(1+r)^n / ((1+r)^n - 1).
 function monthlyPayment(principal: number, ratePct: number, months: number) {
@@ -89,7 +89,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       <div className="rounded-xl bg-neutral-50 border p-4 text-sm text-neutral-600">
         The nominal rate prices the payments, but the fees shrink what you actually receive to <strong className="text-[#1F2937]">{fmt(netReceived)}</strong>. APR re-prices those same payments against the smaller amount received — which is why APR is always higher than the rate when fees exist, and why US lenders must disclose it.
       </div>
-      <div className="bg-card border rounded-2xl p-5"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Nominal Rate vs True APR</h4>
+      <div className="bg-card border rounded-2xl p-5"><p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Nominal Rate vs True APR</p>
         <ResponsiveContainer width="100%" height={180}><BarChart data={chartData} layout="vertical"><CartesianGrid strokeDasharray="3 3" /><XAxis type="number" tickFormatter={(v: number) => v + '%'} /><YAxis type="category" dataKey="name" width={95} /><Tooltip formatter={(v: any) => Number(v).toFixed(2) + '%'} /><Bar dataKey="value" radius={[0, 6, 6, 0]}>{chartData.map((_, i) => (<Cell key={i} fill={i === 0 ? '#9CA3AF' : '#064E3B'} />))}</Bar></BarChart></ResponsiveContainer></div>
     </div>
     <div className="lg:col-span-5 space-y-6">
@@ -103,7 +103,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <div><p className="text-white/60 text-xs uppercase font-bold">Total Cost (int. + fees)</p><p className="font-mono text-xl font-bold">{fmt(totalCost)}</p></div>
         </div>
       </ResultCard>
-      <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">How to Use This When Comparing Loans</h4>
+      <div className="bg-card border rounded-2xl p-6"><p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">How to Use This When Comparing Loans</p>
         <ul className="space-y-3 text-sm text-neutral-600 list-disc pl-5">
           <li>Two loans with the same rate can have very different APRs — the one with lower fees is cheaper.</li>
           <li>Fees hurt most on short terms: the same {fmt(fees)} fee spread over {months} months adds {gap.toFixed(2)} points here; on a 12-month loan it would add several times more.</li>

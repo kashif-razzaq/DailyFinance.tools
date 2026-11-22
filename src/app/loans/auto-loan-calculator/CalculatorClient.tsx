@@ -21,7 +21,7 @@ function PctSlider({ label, value, onChange, min = 0, max = 20, step = 0.1 }: { 
     <Slider value={[value]} min={min} max={max} step={step} onValueChange={(v: any) => onChange(Array.isArray(v) ? v[0] : v)} /></div>)
 }
 function ResultCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
+  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</p>{children}</div>)
 }
 // Amortizing payment: M = P * r(1+r)^n / ((1+r)^n - 1).
 function monthlyPayment(principal: number, ratePct: number, months: number) {
@@ -79,7 +79,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <div className="flex flex-wrap gap-2">{TERMS.map((t) => (<button key={t} onClick={() => setTerm(t)} className={`px-4 py-2 rounded-full text-sm font-semibold border transition-colors ${term === t ? 'bg-[#064E3B] text-white border-[#064E3B]' : 'border-neutral-300 hover:border-[#064E3B]'}`}>{t} months</button>))}
           <button onClick={() => setTerm(84)} className={`px-4 py-2 rounded-full text-sm font-semibold border transition-colors ${term === 84 ? 'bg-[#064E3B] text-white border-[#064E3B]' : 'border-neutral-300 hover:border-[#064E3B]'}`}>84 months</button></div>
         <p className="text-xs text-muted-foreground">Longer terms cut the payment but add thousands in interest — compare below.</p></div>
-      <div className="bg-card border rounded-2xl p-5"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Principal vs Interest by Term</h4>
+      <div className="bg-card border rounded-2xl p-5"><p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Principal vs Interest by Term</p>
         <ResponsiveContainer width="100%" height={190}><BarChart data={chartData}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="name" /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Bar dataKey="Principal" stackId="a" fill="#064E3B" /><Bar dataKey="Interest" stackId="a" fill="#D97706">{chartData.map((_, i) => (<Cell key={i} fill={termCompare[i].term === term ? '#B45309' : '#D97706'} />))}</Bar></BarChart></ResponsiveContainer></div>
     </div>
     <div className="lg:col-span-5 space-y-6">
@@ -94,7 +94,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
         <p className="text-white/60 text-xs mt-4">Total cost = down payment + trade-in + every monthly payment. It excludes insurance, fuel and maintenance.</p>
       </ResultCard>
-      <div className="bg-card border rounded-2xl p-6 overflow-x-auto"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Term Comparison</h4>
+      <div className="bg-card border rounded-2xl p-6 overflow-x-auto"><p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Term Comparison</p>
         <table className="w-full text-sm"><thead><tr className="text-left text-muted-foreground border-b"><th className="py-2 pr-3 font-semibold">Term</th><th className="py-2 pr-3 font-semibold text-right">Payment</th><th className="py-2 font-semibold text-right">Interest</th></tr></thead>
           <tbody>{termCompare.map((t) => (<tr key={t.term} className={`border-b last:border-0 ${t.term === term ? 'font-bold text-[#064E3B]' : ''}`}><td className="py-2 pr-3 font-mono">{t.term} mo</td><td className="py-2 pr-3 font-mono text-right">{fmt(t.payment)}</td><td className="py-2 font-mono text-right">{fmt(t.interest)}</td></tr>))}</tbody></table></div>
     <ToolActionsBar slug="auto-loan-calculator" isPro={isPro} inputs={{ price, tradeIn, taxPct, down, rate, term }} />

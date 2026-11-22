@@ -17,7 +17,7 @@ function MoneyInput({ label, value, onChange, hint }: { label: string; value: nu
     {hint && <p className="text-xs text-muted-foreground">{hint}</p>}</div>)
 }
 function ResultCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
+  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</p>{children}</div>)
 }
 
 // 2026 federal ordinary brackets (IRS Rev. Proc. 2025-32, section 4.01). Each bracket taxes only the slice of income inside it.
@@ -118,7 +118,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
       </ResultCard>
       <div className="bg-card border rounded-2xl p-6">
-        <h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Bracket-by-Bracket Breakdown</h4>
+        <p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Bracket-by-Bracket Breakdown</p>
         {r.rows.length === 0 && <p className="text-sm text-muted-foreground">No taxable income — no federal income tax.</p>}
         <div className="space-y-2">
           {r.rows.map((row) => (

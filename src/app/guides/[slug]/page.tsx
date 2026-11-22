@@ -7,6 +7,13 @@ export function generateStaticParams() {
   return GUIDES.map((g) => ({ slug: g.slug }))
 }
 
+// Closed param set: every valid slug is in generateStaticParams, so an
+// unknown slug must 404 at the routing level. Without this, Next renders
+// unknown slugs dynamically and notFound() resolves inside the streamed
+// shell — the browser gets HTTP 200 with the home title/canonical (a
+// soft-404) instead of a real 404.
+export const dynamicParams = false
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
   const guide = getGuide(slug)

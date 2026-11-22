@@ -14,17 +14,28 @@ export function generateStaticParams() {
   return US_STATES.map((s) => ({ state: s.slug }))
 }
 
+// Closed param set: every valid state is in generateStaticParams, so an
+// unknown state must 404 at the routing level. Without this, Next renders
+// unknown states dynamically and notFound() resolves inside the streamed
+// shell — the browser gets HTTP 200 with the home canonical (a soft-404)
+// instead of a real 404.
+export const dynamicParams = false
+
 export async function generateMetadata({ params }: { params: Promise<{ state: string }> }): Promise<Metadata> {
   const { state } = await params
   const s = getStateBySlug(state)
   if (!s) return { title: "State Not Found" }
+  // Meta description (shared by description, og and twitter so the three can
+  // never drift): 132–146 chars across all 51 states, inside the 120–158
+  // band. Figures identical to the page; only wording was added.
+  const description = `Sales tax in ${s.name}: ${s.salesTaxBase}% state rate, ~${s.salesTaxAvgCombined}% combined with local taxes. Grocery rules, worked examples, city rates and a free calculator.`
   return {
     title: `${s.name} Sales Tax Calculator & 2026 Rates (${s.salesTaxBase}%)`,
-    description: `Sales tax in ${s.name}: ${s.salesTaxBase}% state rate, ~${s.salesTaxAvgCombined}% combined with local taxes. Grocery rules, examples and a free calculator.`,
+    description,
     alternates: { canonical: `https://www.dailyfinance.tools/sales-tax/${s.slug}` },
     openGraph: {
       title: `${s.name} Sales Tax Calculator & 2026 Rates (${s.salesTaxBase}%)`,
-      description: `Sales tax in ${s.name}: ${s.salesTaxBase}% state rate, ~${s.salesTaxAvgCombined}% combined with local taxes. Grocery rules, examples and a free calculator.`,
+      description,
       url: `https://www.dailyfinance.tools/sales-tax/${s.slug}`,
       siteName: "Daily Finance Tools",
       locale: "en_US",
@@ -34,7 +45,7 @@ export async function generateMetadata({ params }: { params: Promise<{ state: st
     twitter: {
       card: "summary_large_image",
       title: `${s.name} Sales Tax Calculator & 2026 Rates (${s.salesTaxBase}%)`,
-      description: `Sales tax in ${s.name}: ${s.salesTaxBase}% state rate, ~${s.salesTaxAvgCombined}% combined with local taxes. Grocery rules, examples and a free calculator.`,
+      description,
       images: ["https://www.dailyfinance.tools/images/og-base.jpg"],
     },
     keywords: [`${s.name.toLowerCase()} sales tax rate`, `${s.name.toLowerCase()} sales tax calculator`, `sales tax in ${s.name.toLowerCase()}`, `how much is sales tax in ${s.name.toLowerCase()}`],
@@ -49,20 +60,23 @@ export default async function StateSalesTaxPage({ params }: { params: Promise<{ 
   const baskets = [25, 100, 500, 1000, 10000]
   const rank = combinedRank(s)
   const vsAvg = pointsDiff(s.salesTaxAvgCombined, AVG_COMBINED)
+  // Local add-on: how much county/city/district layers add on top of the
+  // state base rate. Drives the per-state prose variants below (ARB SI02).
+  const localGap = pointsDiff(s.salesTaxAvgCombined, s.salesTaxBase)
   const peers = closestByCombined(s)
   const faqs = [
     { question: `How do I calculate sales tax in ${s.name}?`, answer: `Multiply the price by the combined rate where you buy. At ${s.name}'s average combined rate of ${s.salesTaxAvgCombined}%, tax = price × ${(s.salesTaxAvgCombined / 100).toFixed(4)} — so a $100 purchase carries about $${taxOn(100, s.salesTaxAvgCombined).toFixed(2)} tax, $${(100 + taxOn(100, s.salesTaxAvgCombined)).toFixed(2)} total. Use the calculator for your exact city/county rate.` },
-    { question: `What is the combined sales tax rate in ${s.name}?`, answer: `The state rate is ${s.salesTaxBase}%, and with county, city and district taxes the average combined rate is about ${s.salesTaxAvgCombined}%. Rates vary inside ${s.name} — ${s.majorCities.slice(0, 3).join(", ")} can each differ — so confirm your local rate before pricing a large purchase.` },
+    { question: `What is the combined sales tax rate in ${s.name}?`, answer: localGap === 0 ? `The state rate is ${s.salesTaxBase}%, and with no county, city or district layers the combined rate is the same ${s.salesTaxAvgCombined}% statewide — ${s.majorCities.slice(0, 3).join(", ")} all charge the same state rate, so there is no local rate to confirm.` : `The state rate is ${s.salesTaxBase}%, and with county, city and district taxes the average combined rate is about ${s.salesTaxAvgCombined}%. Rates vary inside ${s.name} — ${s.majorCities.slice(0, 3).join(", ")} can each differ — so confirm your local rate before pricing a large purchase.` },
     { question: `Are groceries taxed in ${s.name}?`, answer: s.groceriesNote },
     { question: `Do online purchases get taxed in ${s.name}?`, answer: s.salesTaxBase === 0 ? `${s.name} has no statewide sales tax to collect on online orders shipped there, though sellers follow the rules of the delivery state.` : `Yes — since the Wayfair decision, remote sellers with economic nexus in ${s.name} (commonly $100,000+ of sales) must collect ${s.name} sales tax at the rate for the delivery address.` },
-    { question: `How does ${s.name}'s sales tax compare with other states?`, answer: `${s.name}'s average combined rate of ${s.salesTaxAvgCombined}% ranks ${rank} of 51 states and DC (1 = highest), ${vsAvg > 0 ? `${vsAvg} points above` : vsAvg < 0 ? `${Math.abs(vsAvg)} points below` : "equal to"} the all-state average of ${AVG_COMBINED}%. The highest average combined rate in the dataset is ${highestCombined(1)[0].name} at ${highestCombined(1)[0].salesTaxAvgCombined}%; the lowest is ${lowestCombined(1)[0].name} at ${lowestCombined(1)[0].salesTaxAvgCombined}%.` },
-    { question: `Where can I verify the exact sales tax rate for a ${s.name} address?`, answer: `Rates on this page are reviewed averages; the combined rate at a specific address can differ because of county, city and district layers. Confirm the exact rate with the ${s.name} Department of Revenue's rate lookup before a major purchase or a filing. This page's worked examples use the ${s.salesTaxAvgCombined}% average combined rate.` },
+    { question: `How does ${s.name}'s sales tax compare with other states?`, answer: `${s.name}'s average combined rate of ${s.salesTaxAvgCombined}% ranks ${rank} of 51 states and DC (1 = highest), ${vsAvg > 0 ? `${vsAvg} points above` : vsAvg < 0 ? `${Math.abs(vsAvg)} points below` : "equal to"} the all-state average of ${AVG_COMBINED}%. The highest average combined rate in the dataset is ${highestCombined(1)[0].name} at ${highestCombined(1)[0].salesTaxAvgCombined}%; the lowest is ${lowestCombined(1)[0].name} at ${lowestCombined(1)[0].salesTaxAvgCombined}%. That puts ${s.name} ${rank <= 10 ? "near the top of the national range" : rank >= 42 ? "near the bottom of the national range" : "in the middle of the national range"}.` },
+    { question: `Where can I verify the exact sales tax rate for a ${s.name} address?`, answer: localGap === 0 ? `Rates on this page are reviewed averages; ${s.name} charges a uniform statewide rate, so the combined rate is the same at every address in the state. Confirm the exact rate with the ${s.name} Department of Revenue's rate lookup before a major purchase or a filing. This page's worked examples use the ${s.salesTaxAvgCombined}% rate.` : `Rates on this page are reviewed averages; the combined rate at a specific address can differ${localGap >= 2 ? " by a point or more" : ""} because of county, city and district layers. Confirm the exact rate with the ${s.name} Department of Revenue's rate lookup before a major purchase or a filing. This page's worked examples use the ${s.salesTaxAvgCombined}% average combined rate.` },
   ]
   const faqSchema = faq(faqs)
   const howToSchema = howTo({
     name: `How to Calculate Sales Tax in ${s.name}`,
     steps: [
-      { name: "Find your combined rate", text: `Add the ${s.salesTaxBase}% state rate to your county, city and district rates (state average combined ≈ ${s.salesTaxAvgCombined}%).` },
+      { name: "Find your combined rate", text: localGap === 0 ? `Use the ${s.salesTaxBase}% state rate — ${s.name} adds no county, city or district layers, so the combined rate is the same statewide (≈ ${s.salesTaxAvgCombined}%).` : `Add the ${s.salesTaxBase}% state rate to your county, city and district rates${localGap >= 2 ? ` — together they add about ${localGap} points on average` : ""} (state average combined ≈ ${s.salesTaxAvgCombined}%).` },
       { name: "Multiply price by the rate", text: "Tax = taxable price × (combined rate ÷ 100)." },
       { name: "Add tax to the price", text: "Total = price + tax. To extract tax from a tax-inclusive total, divide the total by (1 + rate ÷ 100)." },
     ],
@@ -130,7 +144,7 @@ export default async function StateSalesTaxPage({ params }: { params: Promise<{ 
               ]} />
             </div>
             <h2>How {s.name} compares with other states</h2>
-            <p>The states closest to {s.name} on average combined rate, plus the national extremes — all rates are average combined (state + local):</p>
+            <p>{rank <= 10 ? <>{s.name} sits near the top of the national range, so the states closest below it are the useful comparison — plus the national extremes. All rates are average combined (state + local):</> : rank >= 42 ? <>{s.name} sits near the bottom of the national range, so the states closest above it are the useful comparison — plus the national extremes. All rates are average combined (state + local):</> : <>The states closest to {s.name} on average combined rate, plus the national extremes — all rates are average combined (state + local):</>}</p>
             <div className="overflow-x-auto -mx-1 px-1"><table>
               <thead><tr><th>State</th><th>Average combined rate</th><th>Tax on $1,000</th></tr></thead>
               <tbody>
@@ -152,12 +166,12 @@ export default async function StateSalesTaxPage({ params }: { params: Promise<{ 
             ))}
             <h2>How to calculate {s.name} sales tax (3 steps)</h2>
             <ol>
-              <li><strong>Find your combined rate.</strong> Start with the {s.salesTaxBase}% state rate, then add your county, city and any special-district rates for the exact purchase location.</li>
-              <li><strong>Multiply.</strong> Tax = taxable price × (combined rate ÷ 100). Shipping and discounts change the taxable base in some cases — discounts usually reduce it, delivery charges vary.</li>
+              <li><strong>Find your combined rate.</strong> {localGap === 0 ? <>Use the {s.salesTaxBase}% state rate — {s.name} adds no county, city or district layers, so the rate is the same at every purchase location.</> : <>Start with the {s.salesTaxBase}% state rate, then add your county, city and any special-district rates for the exact purchase location{localGap >= 2 ? <> — together they add about {localGap} points on average, so the combined rate is what matters</> : <>.</>}</>}</li>
+              <li><strong>Multiply.</strong> Tax = taxable price × (combined rate ÷ 100).{s.groceries === "full" ? <> Groceries count toward the taxable base here.</> : null} Shipping and discounts change the taxable base in some cases — discounts usually reduce it, delivery charges vary.</li>
               <li><strong>Add (or extract).</strong> Total = price + tax. Working backwards from a tax-inclusive price: pre-tax price = total ÷ (1 + rate ÷ 100). Our calculator does both directions instantly.</li>
             </ol>
             <h2>Groceries and exemptions in {s.name}</h2>
-            <p>{s.groceriesNote} Prescription medicines are exempt in almost every state; clothing, services and digital goods follow state-specific rules, so check the {s.name} Department of Revenue for category detail before assuming an item is tax-free.</p>
+            <p>{s.groceriesNote} Prescription medicines are exempt in almost every state; {s.groceries === "exempt" ? <>groceries are one of the clearer exemptions here — but clothing, services and digital goods follow state-specific rules, so check the {s.name} Department of Revenue for category detail before assuming an item is tax-free.</> : s.groceries === "reduced" ? <>groceries get a reduced rate rather than a full exemption — and clothing, services and digital goods follow state-specific rules, so check the {s.name} Department of Revenue for category detail before assuming an item is tax-free.</> : <>groceries are taxed at the full rate here, unlike in many states — and clothing, services and digital goods follow state-specific rules, so check the {s.name} Department of Revenue for category detail before assuming an item is tax-free.</>}</p>
             {getCitiesByState(s.slug).length > 0 && (
               <>
                 <h2>Sales tax in major {s.name} cities</h2>
@@ -170,7 +184,7 @@ export default async function StateSalesTaxPage({ params }: { params: Promise<{ 
               </>
             )}
             <h2>Selling into {s.name}? Read this</h2>
-            <p>If you sell online and ship to {s.name}, economic nexus rules generally require you to collect tax once your {s.name} sales pass the state&apos;s threshold (commonly $100,000). You collect at the rate for the buyer&apos;s delivery address — which is why combined-rate accuracy matters more than the state base rate. The full calculator lets you test any rate, extract tax from totals, and model VAT for international sales.</p>
+            <p>{s.salesTaxBase === 0 ? <>{s.salesTaxAvgCombined === 0 ? <>There is no sales tax to collect in {s.name} — no state rate and no general local rate, so sellers shipping there collect nothing on the sale itself.</> : <>{s.name} has no statewide sales tax to collect, but local jurisdictions still levy their own, averaging about {s.salesTaxAvgCombined}% combined — sellers follow the rules of the delivery locality.</>} The full calculator lets you test any rate, extract tax from totals, and model VAT for international sales.</> : <>If you sell online and ship to {s.name}, economic nexus rules generally require you to collect tax once your {s.name} sales pass the state&apos;s threshold (commonly $100,000). You collect at the rate for the buyer&apos;s delivery address{localGap >= 2 ? <> — and in {s.name} the local layers add about {localGap} points on top of the {s.salesTaxBase}% state rate, which is why combined-rate accuracy matters more than the state base rate</> : <> — which is why combined-rate accuracy matters more than the state base rate</>}. The full calculator lets you test any rate, extract tax from totals, and model VAT for international sales.</>}</p>
             <p>
               <Link href="/ecommerce/sales-tax-vat-calculator" className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-xl font-semibold text-sm no-underline hover:bg-primary/90">Open the Sales Tax Calculator <ArrowRight className="h-4 w-4" /></Link>
             </p>

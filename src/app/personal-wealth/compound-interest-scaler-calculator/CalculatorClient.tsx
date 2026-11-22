@@ -18,7 +18,7 @@ function PctSlider({ label, value, onChange, min = 0, max = 20, step = 0.1 }: { 
     <Slider value={[value]} min={min} max={max} step={step} onValueChange={(v: any) => onChange(Array.isArray(v) ? v[0] : v)} /></div>)
 }
 function ResultCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
+  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</p>{children}</div>)
 }
 
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts'
@@ -67,9 +67,9 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
         <p className="text-white/80 mt-4 text-sm">Interest is {r.contributed > 0 ? Math.round(r.interest / r.fv * 100) : 0}% of the final value — that share is compounding doing the heavy lifting.</p>
       </ResultCard>
-      <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Balance vs Money Paid In</h4>
+      <div className="bg-card border rounded-2xl p-6"><p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Balance vs Money Paid In</p>
         <ResponsiveContainer width="100%" height={210}><AreaChart data={r.chart}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="year" /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Area type="monotone" dataKey="balance" stroke="#064E3B" fill="#064E3B" fillOpacity={0.18} name="Balance" /><Area type="monotone" dataKey="paidIn" stroke="#D97706" fill="#D97706" fillOpacity={0.1} name="Paid in" /></AreaChart></ResponsiveContainer>
-        <div className="mt-4 space-y-1 font-mono text-sm">{r.table.map(t => (<div key={t.year} className="flex justify-between border-b last:border-0 py-1"><span>Year {t.year}</span><span>{fmt(t.balance)}</span></div>))}</div></div>
+        <table className="mt-4 w-full font-mono text-sm"><caption className="sr-only">Balance by year</caption><thead className="sr-only"><tr><th scope="col">Year</th><th scope="col">Balance</th></tr></thead><tbody>{r.table.map(t => (<tr key={t.year} className="border-b last:border-0"><td className="py-1">Year {t.year}</td><td className="py-1 text-right">{fmt(t.balance)}</td></tr>))}</tbody></table></div>
     <ToolActionsBar slug="compound-interest-scaler-calculator" isPro={isPro} inputs={{ principal, monthly, rate, years, freq }} />
     </div></div></>)
 }

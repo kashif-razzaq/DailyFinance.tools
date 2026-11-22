@@ -7,11 +7,35 @@ import { Button } from '@/components/ui/button'
 
 const STORAGE_KEY = 'df-cookie-consent'
 
+/** Dispatched by the footer's Cookie settings button to re-open the banner. */
+export const COOKIE_SETTINGS_EVENT = 'df:reopen-cookie-consent'
+
+/** Re-opens the consent banner so the visitor can change their choice. */
+export function openCookieSettings() {
+  window.dispatchEvent(new CustomEvent(COOKIE_SETTINGS_EVENT))
+}
+
+/**
+ * Footer "Cookie settings" control (TD04). A client component exported from
+ * here so the server-rendered Footer can use it without becoming a client
+ * component itself. Clicking re-opens the banner; choosing again overwrites
+ * the stored value, so no key-clearing or reload is needed.
+ */
+export function CookieSettingsButton({ className }: { className?: string }) {
+  return (
+    <button type="button" onClick={openCookieSettings} className={className}>
+      Cookie settings
+    </button>
+  )
+}
+
 /**
  * Cookie consent banner (framework line 15). Slim, non-blocking: the page
  * stays fully usable behind it. The choice is stored in localStorage
  * ("df-cookie-consent" = "accepted" | "declined") and the banner never shows
- * again once a choice exists. On mobile it sits above the MobileBottomNav
+ * again once a choice exists. The choice can be revisited any time from the
+ * footer's "Cookie settings" button, which dispatches COOKIE_SETTINGS_EVENT
+ * and re-opens the banner. On mobile it sits above the MobileBottomNav
  * (bottom-20) so the two never overlap; on desktop it is a compact card in
  * the bottom-right corner. Copy is honest: no analytics, no advertising
  * cookies run today — when optional cookies are ever added, they must gate
@@ -25,6 +49,14 @@ export function CookieConsent() {
     // Small delay so the banner never competes with first paint / the splash.
     const t = setTimeout(() => setVisible(true), 1000)
     return () => clearTimeout(t)
+  }, [])
+
+  // Footer "Cookie settings" control: re-open the banner on demand, even
+  // when a choice is already stored. Choosing again overwrites the key.
+  useEffect(() => {
+    const reopen = () => setVisible(true)
+    window.addEventListener(COOKIE_SETTINGS_EVENT, reopen)
+    return () => window.removeEventListener(COOKIE_SETTINGS_EVENT, reopen)
   }, [])
 
   if (!visible) return null

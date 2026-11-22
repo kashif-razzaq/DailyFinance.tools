@@ -2,13 +2,16 @@ import type { Metadata } from "next"
 import { LegalPage } from "@/components/layout/LegalPage"
 import { breadcrumb, stringifyJsonLd } from "@/lib/schema"
 
+// 154 chars — keep within 120–158.
+const PRIVACY_DESCRIPTION = "How DailyFinance collects, uses and protects your information. No analytics, no advertising — calculator inputs stay in your browser unless you save them."
+
 export const metadata: Metadata = {
   title: "Privacy Policy | DailyFinance",
-  description: "How DailyFinance collects, uses and protects your information. No analytics, no advertising yet, and calculator inputs stay in your browser unless you choose to save them.",
+  description: PRIVACY_DESCRIPTION,
   alternates: { canonical: "https://www.dailyfinance.tools/privacy" },
   openGraph: {
     title: "Privacy Policy | DailyFinance",
-    description: "How DailyFinance collects, uses and protects your information. No analytics, no advertising yet, and calculator inputs stay in your browser unless you choose to save them.",
+    description: PRIVACY_DESCRIPTION,
     url: "https://www.dailyfinance.tools/privacy",
     siteName: "Daily Finance Tools",
     locale: "en_US",
@@ -18,7 +21,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Privacy Policy | DailyFinance",
-    description: "How DailyFinance collects, uses and protects your information. No analytics, no advertising yet, and calculator inputs stay in your browser unless you choose to save them.",
+    description: PRIVACY_DESCRIPTION,
     images: ["https://www.dailyfinance.tools/images/og-base.jpg"],
   },
 }
@@ -29,7 +32,7 @@ export default function Page() {
       <script id="schema-crumb-privacy" type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(breadcrumb([{ name: "Home", url: "https://www.dailyfinance.tools/" }, { name: "Privacy Policy", url: "https://www.dailyfinance.tools/privacy" }])) }} />
       <LegalPage
       title="Privacy Policy"
-      updated="19 November 2026"
+      updated="22 November 2026"
       intro={"DailyFinance (dailyfinance.tools) provides free financial calculators. This policy explains what information we collect when you use the site, how we use it, and the choices you have. In short: calculations run in your browser, we do not run analytics, and the site currently shows no advertising. By using this website you agree to this policy."}
       sections={[
       {
@@ -46,6 +49,12 @@ export default function Page() {
             "heading": "How we use information",
             "paragraphs": [
                   "We use information to provide and maintain the calculators, operate accounts and saved scenarios, respond to inquiries, and keep the site secure. Anonymous feedback votes help us see which calculators visitors found helpful. We do not sell your personal information."
+            ]
+      },
+      {
+            "heading": "Legal basis for processing",
+            "paragraphs": [
+                  "We process personal data on these legal bases: contract — running your account, your saved scenarios and the calculators you use; legitimate interests — keeping the site secure, operating it reliably and responding to enquiries; and consent — where you choose to give us information, such as a contact message, a feedback vote, or the cookie choice you make in the consent banner. You can withdraw consent at any time by contacting us."
             ]
       },
       {
@@ -73,9 +82,18 @@ export default function Page() {
             ]
       },
       {
+            "heading": "How long we keep data",
+            "paragraphs": [
+                  "Account email and saved scenarios: kept for as long as your account exists. You can delete saved scenarios at any time in the dashboard; to delete your account, email us (see Your rights below) and we will remove your account data.",
+                  "Contact messages: kept while we handle your enquiry. We do not delete them automatically, so if you want a message removed, email us at info@dailyfinance.tools and we will delete it.",
+                  "Anonymous feedback votes: stored only as aggregate counts per calculator, with no personal data attached, and kept for as long as the calculator page exists.",
+                  "Technical data: processed by our hosting provider (Vercel) to deliver pages and keep the site secure, under Vercel's own retention practices. We do not keep server logs ourselves."
+            ]
+      },
+      {
             "heading": "Your rights",
             "paragraphs": [
-                  "Depending on where you live, you may have rights to access, correct, export or delete your personal data, and to object to certain processing. Account holders can delete saved scenarios inside the dashboard; to delete an account or exercise other rights, email us at info@dailyfinance.tools or use the Contact page and we will respond within a reasonable period."
+                  "Depending on where you live, you may have rights to access, correct, export or delete your personal data, and to object to certain processing. Account holders can delete saved scenarios inside the dashboard; to delete an account or exercise other rights, email us at info@dailyfinance.tools or use the Contact page and we will respond within 30 days."
             ]
       },
       {
@@ -93,7 +111,7 @@ export default function Page() {
       {
             "heading": "Contact",
             "paragraphs": [
-                  "Questions about this policy can be sent to info@dailyfinance.tools or through our Contact page."
+                  "Questions about this policy, or about your personal data, can be sent to info@dailyfinance.tools or through our Contact page. DailyFinance is a solo project with no appointed data protection officer; data-protection enquiries go to the same address and are handled by the site owner."
             ]
       }
 ]}

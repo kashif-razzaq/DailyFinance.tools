@@ -106,7 +106,7 @@ export function NumSlider({
 export function ResultCard({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="rounded-2xl bg-[#064E3B] p-6 text-white shadow-xl md:p-8">
-      <h3 className="mb-4 text-xs font-bold uppercase tracking-widest text-white/70">{title}</h3>
+      <p className="mb-4 text-xs font-bold uppercase tracking-widest text-white/70">{title}</p>
       {children}
     </div>
   )

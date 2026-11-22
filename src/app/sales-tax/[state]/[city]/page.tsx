@@ -13,6 +13,13 @@ export function generateStaticParams() {
   return US_CITIES.map((c) => ({ state: c.stateSlug, city: c.slug }))
 }
 
+// Closed param set: every valid state/city is in generateStaticParams, so an
+// unknown state/city must 404 at the routing level. Without this, Next renders
+// unknown state/citys dynamically and notFound() can resolve inside a streamed
+// shell — the browser gets HTTP 200 with the home title/canonical (a
+// soft-404) instead of a real 404 (ARB TH14, 2026-11-22).
+export const dynamicParams = false
+
 export async function generateMetadata({ params }: { params: Promise<{ state: string; city: string }> }): Promise<Metadata> {
   const { state, city } = await params
   const c = getCity(state, city)

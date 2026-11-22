@@ -6,7 +6,7 @@ import { ToolContent } from "@/components/shared/ToolContent"
 import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
-export const metadata: Metadata = generateCalculatorMetadata({ title: 'Future Value Calculator: Lump Sums & Payment Series', description: 'The future value of a lump sum or a series of payments at any rate and term — with growth shown year by year.', keywords: ['future value calculator','future value of annuity','fv calculator','future value formula'], slug: "personal-wealth/future-value-calculator", category: "Personal Wealth" });
+export const metadata: Metadata = generateCalculatorMetadata({ title: 'Future Value Calculator: Lump Sums & Payment Series', description: 'The future value of a lump sum or a series of payments at any rate and term — with growth shown year by year, contributions included.', keywords: ['future value calculator','future value of annuity','fv calculator','future value formula'], slug: "personal-wealth/future-value-calculator", category: "Personal Wealth" });
 
 export default function Page() {
   return (

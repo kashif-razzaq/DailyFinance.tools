@@ -133,20 +133,24 @@ export function CalculatorClient({ isPro = false, isLoggedIn = false }: { isPro?
 
         <div className="rounded-2xl border bg-card p-5">
           <p className="mb-3 text-sm font-bold">DCF build-up, year by year</p>
-          <div className="divide-y">
-            {r.rows.map((row) => (
-              <div key={row.year} className="flex items-center justify-between py-2 text-sm">
-                <span className="font-light text-muted-foreground">Year {row.year} earnings</span>
-                <span className="font-mono font-semibold">{fmt(row.cf)}</span>
-                <span className="font-mono text-muted-foreground">worth {fmt(row.pv)} today</span>
-              </div>
-            ))}
-            <div className="flex items-center justify-between py-2 text-sm">
-              <span className="font-light text-muted-foreground">Terminal value (after year {years})</span>
-              <span className="font-mono font-semibold">{fmt(r.terminal)}</span>
-              <span className="font-mono text-muted-foreground">worth {fmt(r.pvTerminal)} today</span>
-            </div>
-          </div>
+          <table className="w-full">
+            <caption className="sr-only">DCF build-up, year by year</caption>
+            <thead className="sr-only"><tr><th scope="col">Year</th><th scope="col">Cash flow</th><th scope="col">Present value</th></tr></thead>
+            <tbody>
+              {r.rows.map((row) => (
+                <tr key={row.year} className="border-b last:border-0 text-sm">
+                  <td className="py-2 font-light text-muted-foreground">Year {row.year} earnings</td>
+                  <td className="py-2 text-right font-mono font-semibold">{fmt(row.cf)}</td>
+                  <td className="py-2 text-right font-mono text-muted-foreground">worth {fmt(row.pv)} today</td>
+                </tr>
+              ))}
+              <tr className="border-b last:border-0 text-sm">
+                <td className="py-2 font-light text-muted-foreground">Terminal value (after year {years})</td>
+                <td className="py-2 text-right font-mono font-semibold">{fmt(r.terminal)}</td>
+                <td className="py-2 text-right font-mono text-muted-foreground">worth {fmt(r.pvTerminal)} today</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

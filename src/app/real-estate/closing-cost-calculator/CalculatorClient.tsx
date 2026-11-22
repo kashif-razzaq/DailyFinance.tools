@@ -20,7 +20,7 @@ function PctSlider({ label, value, onChange, min = 0, max = 20, step = 0.1 }: { 
     <Slider value={[value]} min={min} max={max} step={step} onValueChange={(v: any) => onChange(Array.isArray(v) ? v[0] : v)} /></div>)
 }
 function ResultCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
+  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</p>{children}</div>)
 }
 
 // Typical buyer closing-cost estimates, itemised. Percentages are of the loan or price as noted;
@@ -70,7 +70,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       <div className="grid grid-cols-2 gap-6"><MoneyInput label="Home Price" value={price} onChange={setPrice} /><MoneyInput label="Home Insurance (per year)" value={insYear} onChange={setInsYear} /></div>
       <PctSlider label="Down Payment" value={downPct} onChange={setDownPct} min={0} max={50} step={1} />
       <div className="grid grid-cols-2 gap-6"><PctSlider label="Property Tax (% of price/yr)" value={taxPct} onChange={setTaxPct} min={0} max={3} step={0.05} /><PctSlider label="Mortgage Rate (prepaid interest)" value={rate} onChange={setRate} min={0} max={15} step={0.125} /></div>
-      <div><div className="flex items-center justify-between mb-3"><h3 className="font-bold">Itemised closing costs — tap any figure to edit</h3>
+      <div><div className="flex items-center justify-between mb-3"><p className="font-bold">Itemised closing costs — tap any figure to edit</p>
         <button onClick={() => setOverrides({})} className="text-xs font-semibold text-[#064E3B] underline">Reset estimates</button></div>
         <div className="divide-y divide-neutral-100 border rounded-xl overflow-hidden">{items.map((it, i) => (
           <div key={it.label} className="flex items-center justify-between gap-3 px-4 py-2.5">
@@ -90,7 +90,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <div><p className="text-white/60 text-xs uppercase font-bold">Loan Amount</p><p className="font-mono text-xl font-bold">{fmt(loan)}</p></div>
           <div><p className="text-white/60 text-xs uppercase font-bold">Down Payment</p><p className="font-mono text-xl font-bold">{fmt(down)}</p></div>
         </div></ResultCard>
-      <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">How You Compare — Typical Range 2–5% of Price</h4>
+      <div className="bg-card border rounded-2xl p-6"><p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">How You Compare — Typical Range 2–5% of Price</p>
         <div className="relative h-4 rounded-full bg-gradient-to-r from-emerald-200 via-amber-200 to-red-200"><div className="absolute -top-1 w-6 h-6 rounded-full bg-[#064E3B] border-4 border-white shadow" style={{ left: `calc(${rangePos}% - 12px)` }} /></div>
         <div className="flex justify-between text-xs text-muted-foreground mt-2"><span>1%</span><span>Your estimate: {pctOfPrice.toFixed(1)}%</span><span>6%+</span></div>
         <p className="text-sm text-muted-foreground mt-4">{pctOfPrice < 2 ? 'Below the typical range — double-check nothing is missing, especially prepaid taxes and insurance.' : pctOfPrice <= 5 ? 'Inside the typical 2–5% band for US buyers.' : 'Above the typical band — the biggest levers are origination and title insurance; both are negotiable or shoppable in many states.'}</p></div>

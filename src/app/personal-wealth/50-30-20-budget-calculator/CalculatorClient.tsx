@@ -18,7 +18,7 @@ function PctSlider({ label, value, onChange, min = 0, max = 20, step = 0.1 }: { 
     <Slider value={[value]} min={min} max={max} step={step} onValueChange={(v: any) => onChange(Array.isArray(v) ? v[0] : v)} /></div>)
 }
 function ResultCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
+  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</p>{children}</div>)
 }
 
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Legend } from 'recharts'
@@ -80,7 +80,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       </div>
       {income > 0 && r.totalActual > income && <p className="text-sm text-red-600 font-semibold">Your needs + wants + savings ({fmt(r.totalActual)}) exceed your income ({fmt(income)}) by {fmt(r.totalActual - income)}.</p>}
       <div className="space-y-5">
-        <h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground">Target vs Actual</h4>
+        <p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground">Target vs Actual</p>
         {r.buckets.map((b) => (
           <div key={b.name} className="space-y-2">
             <div className="flex justify-between text-sm"><span className="font-semibold">{b.name} — target {b.targetPct}% ({fmt(b.target)})</span><span className="font-mono">{fmt(b.actual)} · {b.actualPct.toFixed(1)}%</span></div>
@@ -99,7 +99,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
         <p className="mt-6 pt-4 border-t border-white/20 text-sm text-white/90 font-medium">{r.verdict} {isPro ? '' : ''}</p>
       </ResultCard>
-      <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Target vs Actual ($)</h4>
+      <div className="bg-card border rounded-2xl p-6"><p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Target vs Actual ($)</p>
         <ResponsiveContainer width="100%" height={220}><BarChart data={r.chart}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="name" /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt2(Number(v))} /><Legend /><Bar dataKey="Target" fill="#9CA3AF" radius={[4, 4, 0, 0]} /><Bar dataKey="Actual" fill="#064E3B" radius={[4, 4, 0, 0]} /></BarChart></ResponsiveContainer></div>
     <ToolActionsBar slug="50-30-20-budget-calculator" isPro={isPro} inputs={{ income, needs, wants, savings }} />
     </div></div></>)

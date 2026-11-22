@@ -120,7 +120,7 @@ export default async function SettingsPage() {
             href="/pricing"
             className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#064E3B] px-5 py-2.5 text-sm font-bold text-white transition-colors hover:bg-[#043327]"
           >
-            <Crown className="h-4 w-4" /> Upgrade to Pro — $2.99/mo
+            <Crown className="h-4 w-4" /> Pro — launching soon
           </Link>
         )}
       </section>

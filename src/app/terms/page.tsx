@@ -29,7 +29,7 @@ export default function Page() {
       <script id="schema-crumb-terms" type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(breadcrumb([{ name: "Home", url: "https://www.dailyfinance.tools/" }, { name: "Terms of Service", url: "https://www.dailyfinance.tools/terms" }])) }} />
       <LegalPage
       title="Terms of Service"
-      updated="19 November 2026"
+      updated="22 November 2026"
       intro={"These terms govern your use of dailyfinance.tools (the 'Site'), operated as DailyFinance. By using the Site you accept these terms. If you do not agree, please do not use the Site."}
       sections={[
       {
@@ -57,6 +57,12 @@ export default function Page() {
             ]
       },
       {
+            "heading": "Termination",
+            "paragraphs": [
+                  "We may suspend or terminate your account if you breach these terms or misuse the Site. You may close your account at any time by emailing info@dailyfinance.tools; we will delete your account and its saved scenarios. Termination does not affect any rights or obligations that arose before it."
+            ]
+      },
+      {
             "heading": "Intellectual property",
             "paragraphs": [
                   "The Site's content, design and code belong to DailyFinance or its licensors. You may use results produced by the calculators for your own personal or business purposes. Do not reproduce substantial parts of the Site's editorial content without permission."
@@ -72,6 +78,12 @@ export default function Page() {
             "heading": "Availability and liability",
             "paragraphs": [
                   "The Site is provided 'as is' without warranties of any kind. We work to keep calculations accurate and the Site available, but we do not warrant that results are error-free or that the Site will be uninterrupted. To the maximum extent permitted by law, DailyFinance is not liable for losses arising from reliance on calculator estimates or from use of the Site."
+            ]
+      },
+      {
+            "heading": "Governing law",
+            "paragraphs": [
+                  "These terms are governed by the laws of Pakistan. Any dispute arising from these terms or your use of the Site will be subject to the exclusive jurisdiction of the courts of Pakistan."
             ]
       },
       {

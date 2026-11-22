@@ -6,7 +6,7 @@ import { ToolContent } from "@/components/shared/ToolContent"
 import { TOOL_CONTENT } from "@/data/tool-content"
 import React from "react"
 
-export const metadata: Metadata = generateCalculatorMetadata({ title: 'Twitch Earnings Calculator: Subs, Bits & Ads Income', description: 'Estimate Twitch income from subs, bits and ad revenue — per stream, per month and per year, at every sub tier.', keywords: ['twitch earnings calculator', 'twitch money calculator', 'twitch sub calculator', 'how much do twitch streamers make'], slug: "creator/twitch-earnings-calculator", category: "Creator Economy" });
+export const metadata: Metadata = generateCalculatorMetadata({ title: 'Twitch Earnings Calculator: Subs, Bits & Ads Income', description: 'Estimate Twitch income from subs, bits and ad revenue — per stream, per month and per year, at every sub tier and payout split.', keywords: ['twitch earnings calculator', 'twitch money calculator', 'twitch sub calculator', 'how much do twitch streamers make'], slug: "creator/twitch-earnings-calculator", category: "Creator Economy" });
 
 export default function Page() {
   return (

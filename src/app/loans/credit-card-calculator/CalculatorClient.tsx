@@ -21,7 +21,7 @@ function PctSlider({ label, value, onChange, min = 0, max = 40, step = 0.1 }: { 
     <Slider value={[value]} min={min} max={max} step={step} onValueChange={(v: any) => onChange(Array.isArray(v) ? v[0] : v)} /></div>)
 }
 function ResultCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
+  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</p>{children}</div>)
 }
 type Mode = 'fixed' | 'percent' | 'minimum'
 // Month-by-month card simulation. Minimum payment uses the common issuer formula:
@@ -94,7 +94,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       {mode === 'percent' && <PctSlider label="Percent of Balance Paid Monthly" value={pct} onChange={setPct} min={1} max={20} step={0.5} />}
       {mode === 'minimum' && <p className="text-sm text-muted-foreground">Issuer minimums are typically interest + 1% of the balance (with a $25 floor). Because the payment shrinks with the balance, minimum-only payoff takes the longest and costs the most — see the comparison.</p>}
       {tooLow && <p className="text-sm text-red-600 font-semibold">Warning: {fmt(fixedPayment)} does not cover the first month's interest ({fmt(firstInterest)}), so the balance grows instead of shrinking.</p>}
-      <div className="bg-card border rounded-2xl p-5"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Balance Over Time — Selected Mode</h4>
+      <div className="bg-card border rounded-2xl p-5"><p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Balance Over Time — Selected Mode</p>
         <ResponsiveContainer width="100%" height={200}><LineChart data={current.series}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="month" /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Line type="monotone" dataKey="balance" stroke="#064E3B" strokeWidth={2} dot={false} name="Balance" /></LineChart></ResponsiveContainer></div>
     </div>
     <div className="lg:col-span-5 space-y-6">
@@ -108,7 +108,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <div><p className="text-white/60 text-xs uppercase font-bold">Interest vs Balance</p><p className="font-mono text-xl font-bold">{balance > 0 ? Math.round(current.interest / balance * 100) : 0}%</p></div>
         </div>
       </ResultCard>
-      <div className="bg-card border rounded-2xl p-6 overflow-x-auto"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">All Three Modes Compared</h4>
+      <div className="bg-card border rounded-2xl p-6 overflow-x-auto"><p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">All Three Modes Compared</p>
         <table className="w-full text-sm"><thead><tr className="text-left text-muted-foreground border-b"><th className="py-2 pr-3 font-semibold">Mode</th><th className="py-2 pr-3 font-semibold text-right">Time</th><th className="py-2 font-semibold text-right">Interest</th></tr></thead>
           <tbody>{rows.map((row) => (<tr key={row.key} className={`border-b last:border-0 ${mode === row.key ? 'font-bold text-[#064E3B]' : ''}`}><td className="py-2 pr-3">{row.label}</td><td className="py-2 pr-3 font-mono text-right">{row.r.cleared ? row.r.months + ' mo' : 'Never'}</td><td className="py-2 font-mono text-right">{fmt(row.r.interest)}</td></tr>))}</tbody></table>
         <p className="text-xs text-muted-foreground mt-3">For a full multi-card payoff plan with extra payments, use the Credit Card Payoff Calculator in Personal Wealth or the Debt Payoff Calculator.</p></div>

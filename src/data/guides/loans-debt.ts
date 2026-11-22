@@ -922,7 +922,7 @@ export const GUIDES_LOANS_DEBT: Guide[] = [
         ]
       }
     ],
-    "seoTitle": "How to Get Out of Debt: The Complete Guide",
+    "seoTitle": "How to Get Out of Debt: The Complete Guide for 2026",
     "slug": "how-to-get-out-of-debt",
     "sources": [
       {
@@ -1170,7 +1170,7 @@ export const GUIDES_LOANS_DEBT: Guide[] = [
         ]
       }
     ],
-    "seoTitle": "How Credit Scores Work",
+    "seoTitle": "How Credit Scores Work: What Builds and Hurts Yours",
     "slug": "how-credit-scores-work",
     "sources": [
       {
@@ -1435,7 +1435,7 @@ export const GUIDES_LOANS_DEBT: Guide[] = [
         ]
       }
     ],
-    "seoTitle": "What Is a Personal Loan?",
+    "seoTitle": "What Is a Personal Loan? Rates, Terms and How It Works",
     "slug": "what-is-a-personal-loan",
     "sources": [
       {
@@ -2194,7 +2194,7 @@ export const GUIDES_LOANS_DEBT: Guide[] = [
         ]
       }
     ],
-    "seoTitle": "Student Loan Repayment Plans Compared (2026)",
+    "seoTitle": "Student Loan Repayment Plans Compared (2026 Guide)",
     "slug": "student-loan-repayment-plans-compared",
     "sources": [
       {
@@ -2381,7 +2381,7 @@ export const GUIDES_LOANS_DEBT: Guide[] = [
         ]
       }
     ],
-    "seoTitle": "What Happens If You Default on a Loan?",
+    "seoTitle": "What Happens If You Default on a Loan? The Full Cost",
     "slug": "what-happens-if-you-default-on-a-loan",
     "sources": [
       {
@@ -2607,7 +2607,7 @@ export const GUIDES_LOANS_DEBT: Guide[] = [
         ]
       }
     ],
-    "seoTitle": "Auto Loans Explained: Rates, Terms and Traps",
+    "seoTitle": "Auto Loans Explained: Rates, Terms and Traps (2026 Guide)",
     "slug": "auto-loans-explained",
     "sources": [
       {
@@ -2633,7 +2633,7 @@ export const GUIDES_LOANS_DEBT: Guide[] = [
   },
   {
     "cornerstone": false,
-    "description": "Paying only the minimum on $5,000 at 22.36% APR takes 19 years and $8,241 in interest. These 8 payoff mistakes cost real money — here's the math and the fix.",
+    "description": "Paying only the minimum on $5,000 at 22.36% APR takes 19 years and $8,241 in interest. These 8 payoff mistakes cost money — here is the math and the fix.",
     "faqs": [
       {
         "answer": "On a $5,000 balance at 22.36% APR, minimum-only payments — the month's interest plus 1% of the balance — take 231 months, over 19 years, and cost $8,241.21 in interest, for a total of $13,241.21. A fixed $200 monthly payment clears the same balance in 34 months with $1,792.96 in interest. The difference is $6,448.25, and more than 16 years of your life.",
@@ -2832,7 +2832,7 @@ export const GUIDES_LOANS_DEBT: Guide[] = [
         ]
       }
     ],
-    "seoTitle": "8 Debt Payoff Mistakes to Avoid (With Real Costs)",
+    "seoTitle": "8 Debt Payoff Mistakes to Avoid, With Real Costs in 2026",
     "slug": "debt-payoff-mistakes-to-avoid",
     "sources": [
       {
@@ -3704,7 +3704,7 @@ export const GUIDES_LOANS_DEBT: Guide[] = [
         ]
       }
     ],
-    "seoTitle": "How to Pay Off $10,000 in Credit Card Debt",
+    "seoTitle": "How to Pay Off $10,000 in Credit Card Debt Fast in 2026",
     "slug": "how-to-pay-off-10000-credit-card-debt",
     "sources": [
       {
@@ -3933,7 +3933,7 @@ export const GUIDES_LOANS_DEBT: Guide[] = [
         ]
       }
     ],
-    "seoTitle": "Payday Loans: Why They're a Trap | DailyFinance",
+    "seoTitle": "Payday Loans: Why They Are a Trap and What to Do Instead",
     "slug": "payday-loans-why-theyre-a-trap",
     "sources": [
       {
@@ -4129,7 +4129,7 @@ export const GUIDES_LOANS_DEBT: Guide[] = [
   },
   {
     "cornerstone": false,
-    "description": "A debt management plan combines unsecured debts into one monthly payment through a credit counselor, often at lower rates. See how DMPs work and what they cost.",
+    "description": "A debt management plan combines unsecured debts into one monthly payment through a credit counselor, often at lower rates. See how DMPs work and their cost.",
     "faqs": [
       {
         "answer": "It can dip your score at first, because enrolled accounts are usually closed, which lowers your available credit. But a DMP replaces missed or minimum-only payments with one on-time payment each month, and payment history carries the most weight in credit scores. Over the life of a 48-month plan, that steady record usually rebuilds more than the closed accounts cost. The net effect depends on where you start.",
@@ -4334,7 +4334,7 @@ export const GUIDES_LOANS_DEBT: Guide[] = [
         ]
       }
     ],
-    "seoTitle": "What Is a Debt Management Plan? How DMPs Work",
+    "seoTitle": "What Is a Debt Management Plan? How DMPs Work in 2026",
     "slug": "what-is-a-debt-management-plan",
     "sources": [
       {

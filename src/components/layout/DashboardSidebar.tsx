@@ -109,7 +109,7 @@ export function DashboardSidebar({ isPro }: DashboardSidebarProps) {
             <div className={cn(
               "relative overflow-hidden bg-primary rounded-xl transition-all duration-300",
               isCollapsed ? "p-2 cursor-pointer group" : "p-4 shadow-sm border border-primary/20"
-            )} onClick={() => isCollapsed && (window.location.href='/pricing')} title="Upgrade to Pro">
+            )} onClick={() => isCollapsed && (window.location.href='/pricing')} title="Pro — launching soon">
               {isCollapsed ? (
                 <Crown className="h-5 w-5 text-accent mx-auto group-hover:scale-110 transition-transform" />
               ) : (
@@ -120,10 +120,10 @@ export function DashboardSidebar({ isPro }: DashboardSidebarProps) {
                     <span className="font-semibold text-sm text-primary-foreground whitespace-nowrap">Pro Tier</span>
                   </div>
                   <p className="relative z-10 text-[11px] text-primary-foreground/80 leading-relaxed mb-3">
-                    Unlock full Analytics, PDF Exports, and unlimited storage.
+                    Pro is launching soon: full Analytics, PDF Exports, and unlimited storage.
                   </p>
                   <Link href="/pricing" className="relative z-10 block text-center text-xs font-bold bg-accent text-accent-foreground py-2 rounded-lg shadow-sm hover:brightness-110 transition-all">
-                    Upgrade Now
+                    See Pro — soon
                   </Link>
                 </>
               )}

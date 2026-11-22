@@ -16,7 +16,7 @@ function MoneyInput({ label, value, onChange, hint }: { label: string; value: nu
     {hint && <p className="text-xs text-muted-foreground">{hint}</p>}</div>)
 }
 function ResultCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
+  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</p>{children}</div>)
 }
 
 type Bracket = { upTo: number; rate: number }
@@ -97,7 +97,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
         <p className="text-white/70 text-xs mt-5">Your federal marginal bracket is {r.marginal.toFixed(0)}% — that rate applies only to the top slice of your income, not to all of it.</p>
       </ResultCard>
-      <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Income Split: Tax vs Take-Home</h4>
+      <div className="bg-card border rounded-2xl p-6"><p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Income Split: Tax vs Take-Home</p>
         <ResponsiveContainer width="100%" height={130}><BarChart data={chart} layout="vertical"><CartesianGrid strokeDasharray="3 3" /><XAxis type="number" tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><YAxis type="category" dataKey="name" width={80} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Legend />
           <Bar dataKey="Take-home" stackId="a" fill="#064E3B" /><Bar dataKey="Federal" stackId="a" fill="#D97706" /><Bar dataKey="State" stackId="a" fill="#9333EA" /><Bar dataKey="FICA" stackId="a" fill="#2563EB" /></BarChart></ResponsiveContainer>
         <p className="text-xs text-muted-foreground mt-3">Differentiator: most calculators show federal tax only — this one stacks federal + state + FICA so you see the true all-in burden.</p>

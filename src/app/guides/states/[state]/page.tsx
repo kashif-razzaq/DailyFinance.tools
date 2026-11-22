@@ -14,6 +14,13 @@ export function generateStaticParams() {
   return US_STATES.map((s) => ({ state: s.slug }))
 }
 
+// Closed param set: every valid state is in generateStaticParams, so an
+// unknown state must 404 at the routing level. Without this, Next renders
+// unknown states dynamically and notFound() can resolve inside a streamed
+// shell — the browser gets HTTP 200 with the home title/canonical (a
+// soft-404) instead of a real 404 (ARB TH14, 2026-11-22).
+export const dynamicParams = false
+
 const getState = (slug: string) => US_STATES.find((s) => s.slug === slug)
 
 export async function generateMetadata({ params }: { params: Promise<{ state: string }> }): Promise<Metadata> {
@@ -22,11 +29,11 @@ export async function generateMetadata({ params }: { params: Promise<{ state: st
   if (!s) return {}
   return {
     title: `${s.name} Tax Guide 2026: Sales, Income & Property Tax`,
-    description: `${s.name} tax rates with real numbers: ${s.salesTaxBase}% sales tax (${s.salesTaxAvgCombined}% combined), ${s.incomeTax === "none" ? "no income tax" : s.incomeTax === "flat" ? "flat income tax" : "income tax brackets"}, ${s.propertyTaxAvg}% property tax — worked examples.`,
+    description: `${s.name} tax rates with real numbers: ${s.salesTaxBase}% sales tax (${s.salesTaxAvgCombined}% combined), ${s.incomeTax === "none" ? "no income tax" : s.incomeTax === "flat" ? "flat income tax" : "income tax brackets"}, ${s.propertyTaxAvg}% property tax — worked examples and calculators.`,
     alternates: { canonical: `https://www.dailyfinance.tools/guides/states/${s.slug}` },
     openGraph: {
       title: `${s.name} Tax Guide 2026: Sales, Income & Property Tax`,
-      description: `${s.name} tax rates with real numbers: ${s.salesTaxBase}% sales tax (${s.salesTaxAvgCombined}% combined), ${s.incomeTax === "none" ? "no income tax" : s.incomeTax === "flat" ? "flat income tax" : "income tax brackets"}, ${s.propertyTaxAvg}% property tax — worked examples.`,
+      description: `${s.name} tax rates with real numbers: ${s.salesTaxBase}% sales tax (${s.salesTaxAvgCombined}% combined), ${s.incomeTax === "none" ? "no income tax" : s.incomeTax === "flat" ? "flat income tax" : "income tax brackets"}, ${s.propertyTaxAvg}% property tax — worked examples and calculators.`,
       url: `https://www.dailyfinance.tools/guides/states/${s.slug}`,
       siteName: "Daily Finance Tools",
       locale: "en_US",
@@ -36,7 +43,7 @@ export async function generateMetadata({ params }: { params: Promise<{ state: st
     twitter: {
       card: "summary_large_image",
       title: `${s.name} Tax Guide 2026: Sales, Income & Property Tax`,
-      description: `${s.name} tax rates with real numbers: ${s.salesTaxBase}% sales tax (${s.salesTaxAvgCombined}% combined), ${s.incomeTax === "none" ? "no income tax" : s.incomeTax === "flat" ? "flat income tax" : "income tax brackets"}, ${s.propertyTaxAvg}% property tax — worked examples.`,
+      description: `${s.name} tax rates with real numbers: ${s.salesTaxBase}% sales tax (${s.salesTaxAvgCombined}% combined), ${s.incomeTax === "none" ? "no income tax" : s.incomeTax === "flat" ? "flat income tax" : "income tax brackets"}, ${s.propertyTaxAvg}% property tax — worked examples and calculators.`,
       images: ["https://www.dailyfinance.tools/images/og-base.jpg"],
     },
   }
@@ -45,11 +52,38 @@ export async function generateMetadata({ params }: { params: Promise<{ state: st
 const money = (n: number) => "$" + Math.round(n).toLocaleString("en-US")
 
 function incomeTaxParagraph(s: USState): string {
-  if (s.incomeTax === "none")
+  if (s.incomeTax === "none") {
+    if (s.propertyTaxAvg >= 1.5)
+      return `${s.name} levies no state income tax on wages, so take-home pay is higher than on an identical salary in a taxing state — but the revenue shows up elsewhere: in ${s.name} the property tax carries more than usual, at an average effective rate of ${s.propertyTaxAvg}% against a national average of ${AVG_PROPERTY}%. Read the three taxes on this page together before judging the overall burden.`
+    if (s.propertyTaxAvg <= 0.6)
+      return `${s.name} levies no state income tax on wages. That lifts take-home pay against an identical salary in a taxing state, but the revenue shows up elsewhere — in ${s.name} the property tax is not the lever, at an average effective rate of ${s.propertyTaxAvg}% against a national average of ${AVG_PROPERTY}%. Read the three taxes on this page together before judging the overall burden.`
     return `${s.name} levies no state income tax on wages. That raises take-home pay compared with an identical salary in a taxing state, but the revenue shows up elsewhere — in ${s.name} that usually means some mix of sales and property taxes, which is why the three taxes on this page should be read together.`
-  if (s.incomeTax === "flat")
+  }
+  if (s.incomeTax === "flat") {
+    if (s.propertyTaxAvg >= 1.5)
+      return `${s.name} taxes income at a single flat rate. ${s.incomeTaxNote} A flat structure makes take-home pay easy to estimate — the harder number to budget here is the property tax, at an average effective rate of ${s.propertyTaxAvg}%.`
+    if (s.propertyTaxAvg <= 0.6)
+      return `${s.name} taxes income at a single flat rate. ${s.incomeTaxNote} A flat structure makes take-home pay easy to estimate, and the property tax is light too, at an average effective rate of ${s.propertyTaxAvg}%.`
     return `${s.name} taxes income at a single flat rate. ${s.incomeTaxNote} A flat structure makes take-home pay easy to estimate: state tax is close to a fixed share of taxable income, after the state's own deductions and exemptions.`
+  }
+  if (s.propertyTaxAvg >= 1.5)
+    return `${s.name} taxes income progressively, in brackets, like the federal system. ${s.incomeTaxNote} Because brackets tax slices of income at rising rates, your effective state rate is always below your top (marginal) rate. The property tax is the heavier line here, at an average effective rate of ${s.propertyTaxAvg}%.`
+  if (s.propertyTaxAvg <= 0.6)
+    return `${s.name} taxes income progressively, in brackets, like the federal system. ${s.incomeTaxNote} Because brackets tax slices of income at rising rates, your effective state rate is always below your top (marginal) rate — and the property tax is light, at an average effective rate of ${s.propertyTaxAvg}%.`
   return `${s.name} taxes income progressively, in brackets, like the federal system. ${s.incomeTaxNote} Because brackets tax slices of income at rising rates, your effective state rate is always below your top (marginal) rate.`
+}
+
+function introParagraph(s: USState): string {
+  const base = `Three taxes decide most everyday money calculations in ${s.name}: what you pay at the register, what leaves your paycheck, and what your home costs each year.`
+  const verify = `Rates are reviewed against state sources; confirm a specific transaction with the ${s.name} Department of Revenue.`
+  if (s.incomeTax === "none") {
+    if (s.propertyTaxAvg >= 1.5)
+      return `Two taxes decide most everyday money calculations in ${s.name}: what you pay at the register and what your home costs each year — the paycheck line drops out, because there is no state income tax, and the property bill carries much of the comparison instead. Each one is set out below with the current figures, with links to the calculators that apply them. ${verify}`
+    return `Two taxes decide most everyday money calculations in ${s.name}: what you pay at the register and what your home costs each year — the paycheck line drops out, because there is no state income tax. Each one is set out below with the current figures, with links to the calculators that apply them. ${verify}`
+  }
+  if (s.incomeTax === "flat")
+    return `${base} A flat income tax makes the paycheck line easy to estimate; the register and the home still need their own figures. This guide sets out each one with the current figures, then links to the calculators that apply them. ${verify}`
+  return `${base} Progressive brackets mean the paycheck line depends on income — your effective rate sits below your top rate. This guide sets out each one with the current figures, then links to the calculators that apply them. ${verify}`
 }
 
 export default async function StateGuidePage({ params }: { params: Promise<{ state: string }> }) {
@@ -66,6 +100,12 @@ export default async function StateGuidePage({ params }: { params: Promise<{ sta
   const sRank = combinedRank(s)
   const pRank = propertyRank(s)
   const vsAvg = pointsDiff(s.salesTaxAvgCombined, AVG_COMBINED)
+  const localGap = pointsDiff(s.salesTaxAvgCombined, s.salesTaxBase)
+  const cityRates = cities.map((c) => c.combinedRate)
+  const minCityRate = cityRates.length ? Math.min(...cityRates) : null
+  const maxCityRate = cityRates.length ? Math.max(...cityRates) : null
+  const minCity = cities.find((c) => c.combinedRate === minCityRate)
+  const maxCity = cities.find((c) => c.combinedRate === maxCityRate)
   const peers = closestByCombined(s)
   const baskets = [25, 100, 500, 1000, 10000]
   const faqs = [
@@ -83,7 +123,7 @@ export default async function StateGuidePage({ params }: { params: Promise<{ sta
     },
     {
       question: `How does ${s.name} rank for sales tax nationally?`,
-      answer: `${s.name}'s average combined rate of ${s.salesTaxAvgCombined}% ranks ${sRank} of 51 states and DC (1 = highest) — ${vsAvg > 0 ? `${vsAvg} points above` : vsAvg < 0 ? `${Math.abs(vsAvg)} points below` : "equal to"} the all-state average of ${AVG_COMBINED}%. The highest average combined rate is ${highestCombined(1)[0].name} at ${highestCombined(1)[0].salesTaxAvgCombined}%; the lowest is ${lowestCombined(1)[0].name} at ${lowestCombined(1)[0].salesTaxAvgCombined}%.`,
+      answer: `${s.name}'s average combined rate of ${s.salesTaxAvgCombined}% ranks ${sRank} of 51 states and DC (1 = highest) — ${vsAvg > 0 ? `${vsAvg} points above` : vsAvg < 0 ? `${Math.abs(vsAvg)} points below` : "equal to"} the all-state average of ${AVG_COMBINED}%. ${sRank <= 10 ? `The national extremes are ${highestCombined(1)[0].name} at ${highestCombined(1)[0].salesTaxAvgCombined}% (highest) and ${lowestCombined(1)[0].name} at ${lowestCombined(1)[0].salesTaxAvgCombined}% (lowest) — ${s.name} sits near the top of that range.` : sRank >= 42 ? `The national extremes are ${highestCombined(1)[0].name} at ${highestCombined(1)[0].salesTaxAvgCombined}% (highest) and ${lowestCombined(1)[0].name} at ${lowestCombined(1)[0].salesTaxAvgCombined}% (lowest) — ${s.name} sits near the bottom of that range.` : `The highest average combined rate is ${highestCombined(1)[0].name} at ${highestCombined(1)[0].salesTaxAvgCombined}%; the lowest is ${lowestCombined(1)[0].name} at ${lowestCombined(1)[0].salesTaxAvgCombined}%.`}`,
     },
     {
       question: `How much property tax do you pay in ${s.name}?`,
@@ -91,7 +131,7 @@ export default async function StateGuidePage({ params }: { params: Promise<{ sta
     },
     {
       question: `Where can I verify ${s.name} tax rates?`,
-      answer: `The rates in this guide are reviewed averages for planning. For a filing or a specific address, confirm the current rate with the ${s.name} Department of Revenue (sales and income tax) or the county assessor (property tax).`,
+      answer: s.salesTaxBase === 0 ? `The rates in this guide are reviewed averages for planning. ${s.name} has no statewide sales tax; for a filing or a specific address, confirm local rates and property tax with the ${s.name} Department of Revenue or the county assessor.` : `The rates in this guide are reviewed averages for planning. For a filing or a specific address, confirm the current rate with the ${s.name} Department of Revenue (sales and income tax) or the county assessor (property tax).`,
     },
   ]
   const faqSchema = faq(faqs)
@@ -115,10 +155,7 @@ export default async function StateGuidePage({ params }: { params: Promise<{ sta
         </nav>
         <h1 className="text-3xl md:text-[2.6rem] font-extrabold tracking-tight leading-tight mb-5">{s.name} tax guide: sales, income and property tax</h1>
         <p className="text-lg text-muted-foreground leading-relaxed mb-10">
-          Three taxes decide most everyday money calculations in {s.name}: what you pay at the register, what leaves
-          your paycheck, and what your home costs each year. This guide sets out each one with the current figures,
-          then links to the calculators that apply them. Rates are reviewed against state sources; confirm a
-          specific transaction with the {s.name} Department of Revenue.
+          {introParagraph(s)}
         </p>
 
         <div className="bg-primary/5 border border-primary/20 rounded-2xl p-6 mb-10">
@@ -135,12 +172,9 @@ export default async function StateGuidePage({ params }: { params: Promise<{ sta
         <div className="content-prose">
           <h2>Sales tax in {s.name}</h2>
           <p>
-            The statewide base rate is <strong>{s.salesTaxBase}%</strong>. Counties, cities and special districts add
-            their own layers, bringing the average combined rate to about <strong>{s.salesTaxAvgCombined}%</strong> —
-            and the rate at a specific address can sit well above or below that average. On a {money(examplePrice)}{" "}
+            The statewide base rate is <strong>{s.salesTaxBase}%</strong>. {localGap === 0 ? <>No county, city or district layers sit on top of the state rate, so the average combined rate is the same <strong>{s.salesTaxAvgCombined}%</strong> — and the rate at a specific address is the state rate.</> : sRank <= 10 ? <>Counties, cities and special districts add about <strong>{localGap} points</strong> of their own, bringing the average combined rate to about <strong>{s.salesTaxAvgCombined}%</strong> — one of the highest in the country (rank {sRank} of 51).</> : localGap >= 1.5 ? <>Counties, cities and special districts add about <strong>{localGap} points</strong> of their own, bringing the average combined rate to about <strong>{s.salesTaxAvgCombined}%</strong> — though the rate at any given address can sit well above or below that average.</> : <>Counties, cities and special districts add their own layers, bringing the average combined rate to about <strong>{s.salesTaxAvgCombined}%</strong> — and the rate at a specific address can sit well above or below that average.</>} On a {money(examplePrice)}{" "}
             purchase, the tax is {money(taxAtBase)} at the base rate and roughly {money(taxAtCombined)} at the
-            average combined rate. The difference is local tax, which is why two towns in the same state can charge
-            noticeably different totals on the same item.
+            average combined rate. {localGap === 0 ? `There is no local tax on top of the state rate in ${s.name}, so the total is the same at every till in the state.` : sRank <= 10 ? `The difference is local tax — so the total on the same item can differ noticeably between two towns in the same state, and at a top-ten rate the exact address is worth checking before a big purchase.` : localGap >= 1.5 ? `The difference is local tax — about ${localGap} points of it on average — so the total on the same item can differ noticeably between two towns in the same state.` : `The difference is local tax, which is why two towns in the same state can charge noticeably different totals on the same item.`}
           </p>
           <p>{s.groceriesNote}</p>
           <h3>Worked examples at the average combined rate</h3>
@@ -156,36 +190,33 @@ export default async function StateGuidePage({ params }: { params: Promise<{ sta
             </tbody>
           </table></div>
           <p>
-            If you sell into {s.name} from another state, economic nexus rules can oblige you to collect its tax once
-            your sales pass the state&apos;s threshold — the exact threshold and what counts toward it are in the{" "}
-            <Link href={`/sales-tax/${s.slug}`}>{s.name} sales tax calculator and rate page</Link>, and the data hub
-            for the state is the <Link href={`/locations/${s.slug}`}>{s.name} locations page</Link>.
+            {s.salesTaxBase === 0 ? <>If you sell into {s.name} from another state, there is no statewide sales tax to collect — though some local jurisdictions levy their own, and the rules of the delivery state govern orders shipped elsewhere. The local picture is on the{" "}<Link href={`/sales-tax/${s.slug}`}>{s.name} sales tax calculator and rate page</Link>, and the data hub for the state is the <Link href={`/locations/${s.slug}`}>{s.name} locations page</Link>.</> : <>If you sell into {s.name} from another state, economic nexus rules can oblige you to collect its tax once your sales pass the state&apos;s threshold — the exact threshold and what counts toward it are in the{" "}<Link href={`/sales-tax/${s.slug}`}>{s.name} sales tax calculator and rate page</Link>, and the data hub for the state is the <Link href={`/locations/${s.slug}`}>{s.name} locations page</Link>.</>}
           </p>
 
           <h2>Income tax in {s.name}</h2>
           <p>{incomeTaxParagraph(s)}</p>
           <p>
-            Federal tax applies the same everywhere; the state layer is what changes a paycheck between two states.
-            Run the same salary through the{" "}
+            {s.incomeTax === "none" && s.propertyTaxAvg >= 1.5 ? <>Federal tax applies the same everywhere; what changes a paycheck between two states is the state layer — and {s.name} has none. That is the whole point of the comparison here, though the property tax takes back some of the saving. Run the same salary through the{" "}
             <Link href="/tax/paycheck-calculator">paycheck calculator</Link> and the{" "}
-            <Link href="/tax/take-home-pay-calculator">take-home pay calculator</Link> with and without a state rate
-            to see the size of the difference before negotiating a move or a remote-work arrangement.
+            <Link href="/tax/take-home-pay-calculator">take-home pay calculator</Link> with and without a state rate to see what the missing state layer is worth — then set it against the property tax before negotiating a move or a remote-work arrangement.</> : s.incomeTax === "none" ? <>Federal tax applies the same everywhere; the state layer is what changes a paycheck between two states — and {s.name} has no state layer at all, which is the whole point of the comparison. Run the same salary through the{" "}
+            <Link href="/tax/paycheck-calculator">paycheck calculator</Link> and the{" "}
+            <Link href="/tax/take-home-pay-calculator">take-home pay calculator</Link> with and without a state rate to see the size of the difference before negotiating a move or a remote-work arrangement.</> : s.incomeTax === "flat" ? <>Federal tax applies the same everywhere; the state layer is what changes a paycheck between two states — in {s.name} that layer is a single flat rate, so the comparison is a straight percentage of pay. Run the same salary through the{" "}
+            <Link href="/tax/paycheck-calculator">paycheck calculator</Link> and the{" "}
+            <Link href="/tax/take-home-pay-calculator">take-home pay calculator</Link> with {s.name}&apos;s flat rate and without one to see the size of the difference before negotiating a move or a remote-work arrangement.</> : <>Federal tax applies the same everywhere; the state layer is what changes a paycheck between two states. Run the same salary through the{" "}
+            <Link href="/tax/paycheck-calculator">paycheck calculator</Link> and the{" "}
+            <Link href="/tax/take-home-pay-calculator">take-home pay calculator</Link> with and without a state rate to see the size of the difference before negotiating a move or a remote-work arrangement.</>}
           </p>
 
           <h2>Property tax in {s.name}</h2>
           <p>
             The average effective property tax rate in {s.name} is about <strong>{s.propertyTaxAvg}%</strong> of a
-            home&apos;s value per year. On a {money(homeValue)} home that is roughly {money(propertyTaxYear)} a year, or{" "}
-            {money(propertyTaxYear / 12)} a month — a real line in the housing budget, collected through escrow in
-            most mortgages. Averages hide wide local variation: the county and school district set most of the rate,
-            and homestead exemptions can cut the taxable value for owner-occupiers.
+            home&apos;s value per year{s.propertyTaxAvg >= 1.5 ? <> — among the highest in the country (rank <strong>{pRank} of 51</strong>)</> : s.propertyTaxAvg <= 0.6 ? <> — among the lowest in the country (rank <strong>{pRank} of 51</strong>)</> : null}. On a {money(homeValue)} home that is roughly {money(propertyTaxYear)} a year, or{" "}
+            {money(propertyTaxYear / 12)} a month — {s.propertyTaxAvg >= 1.5 ? `a heavy line in the housing budget, collected through escrow in most mortgages. State averages hide wide local variation: the county and school district set most of the rate, so two homes in the same state can carry very different bills, and homestead exemptions can cut the taxable value for owner-occupiers.` : s.propertyTaxAvg <= 0.6 ? `a modest line in the housing budget next to the mortgage itself, collected through escrow in most mortgages. Local variation is wide even from a low base: the county and school district set most of the rate, and homestead exemptions can cut the taxable value for owner-occupiers.` : s.incomeTax === "none" ? `a real line in the housing budget, collected through escrow in most mortgages. Averages hide wide local variation: the county and school district set most of the rate, and homestead exemptions can cut the taxable value for owner-occupiers. With no state income tax, the property bill is one of the few state-level charges a homeowner in ${s.name} actually sees.` : `a real line in the housing budget, collected through escrow in most mortgages. Averages hide wide local variation: the county and school district set most of the rate, and homestead exemptions can cut the taxable value for owner-occupiers.`}
           </p>
 
           <h2>How {s.name} compares</h2>
           <p>
-            The states closest to {s.name} on average combined sales tax, with the national extremes for scale. The
-            all-state averages across the 51 entries are {AVG_COMBINED}% for combined sales tax and {AVG_PROPERTY}%
-            for property tax.
+            {sRank <= 10 ? `The states closest to ${s.name} on average combined sales tax, near the top of the national table, with the national extremes for scale. Across the 51 entries, the all-state averages are ${AVG_COMBINED}% for combined sales tax and ${AVG_PROPERTY}% for property tax.` : sRank <= 20 ? `The states closest to ${s.name} on average combined sales tax — in the upper half of the national table — with the national extremes for scale. Across the 51 entries, the all-state averages are ${AVG_COMBINED}% for combined sales tax and ${AVG_PROPERTY}% for property tax.` : sRank >= 42 ? `The states closest to ${s.name} on average combined sales tax, near the bottom of the national table, with the national extremes for scale. Across the 51 entries, the all-state averages are ${AVG_COMBINED}% for combined sales tax and ${AVG_PROPERTY}% for property tax.` : `The states closest to ${s.name} on average combined sales tax, with the national extremes for scale. The all-state averages across the 51 entries are ${AVG_COMBINED}% for combined sales tax and ${AVG_PROPERTY}% for property tax.`}
           </p>
           <div className="overflow-x-auto -mx-1 px-1"><table>
             <thead>
@@ -229,7 +260,7 @@ export default async function StateGuidePage({ params }: { params: Promise<{ sta
           {cities.length > 0 && (
             <>
               <h2>City guides in {s.name}</h2>
-              <p>Combined rates inside the largest cities, and how each is built:</p>
+              <p>{cities.length > 1 ? minCityRate === maxCityRate ? `Combined rates inside the largest cities are the same ${minCityRate}% in each — the local layers add up to the same total:` : `Combined rates inside the largest cities run from ${minCityRate}% in ${minCity?.name} to ${maxCityRate}% in ${maxCity?.name} — the spread is the local layer at work:` : `Combined rate inside ${cities[0].name}, and how it is built:`}</p>
               <ul>
                 {cities.map((c) => (
                   <li key={c.slug}>

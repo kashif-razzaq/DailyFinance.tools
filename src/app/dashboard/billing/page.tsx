@@ -92,14 +92,14 @@ export default async function BillingPage() {
         ) : (
           <div className="mt-6 border-t pt-5">
             <p className="max-w-lg text-sm font-light leading-relaxed text-muted-foreground">
-              Pro unlocks the Vault, exports and analytics for less than a coffee a month.
-              Your saved scenarios carry over — nothing is lost when you upgrade.
+              Pro is launching soon — planned at $2.99/mo, it will unlock the Vault, exports and analytics.
+              Your saved scenarios will carry over when it launches.
             </p>
             <Link
               href="/pricing"
               className="mt-4 inline-flex items-center gap-2 rounded-full bg-[#064E3B] px-5 py-2.5 text-sm font-bold text-white transition-colors hover:bg-[#043327]"
             >
-              <Crown className="h-4 w-4" /> See Pro — $2.99/mo
+              <Crown className="h-4 w-4" /> See what&apos;s coming in Pro
             </Link>
           </div>
         )}

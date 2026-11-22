@@ -25,7 +25,7 @@ export function TahirLeadGenCTA() {
         <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden mb-5 border border-border/50 shadow-sm bg-white mt-2 flex items-center justify-center p-3">
           <Image 
             src="/icon.svg" 
-            alt="DailyFinance Solutions" 
+            alt="DailyFinance" 
             fill 
             className="object-contain p-4 transition-all duration-700 group-hover:scale-105"
           />

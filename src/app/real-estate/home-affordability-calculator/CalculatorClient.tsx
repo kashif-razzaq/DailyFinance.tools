@@ -20,7 +20,7 @@ function PctSlider({ label, value, onChange, min = 0, max = 20, step = 0.1 }: { 
     <Slider value={[value]} min={min} max={max} step={step} onValueChange={(v: any) => onChange(Array.isArray(v) ? v[0] : v)} /></div>)
 }
 function ResultCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
+  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</p>{children}</div>)
 }
 
 // 28/36 rule: housing (PITI) <= 28% of gross monthly income; PITI + other debts <= 36%.
@@ -85,7 +85,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <div><p className="text-white/60 text-xs uppercase font-bold">28% Housing Cap</p><p className="font-mono text-xl font-bold">{fmt(c.frontCap)}/mo</p></div>
           <div><p className="text-white/60 text-xs uppercase font-bold">36% Cap After Debts</p><p className="font-mono text-xl font-bold">{fmt(Math.max(0, c.backCap))}/mo</p></div>
         </div></ResultCard>
-      <div className="bg-card border rounded-2xl p-6 space-y-5"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground">The Lender&apos;s View — Your Ratios at This Price</h4>
+      <div className="bg-card border rounded-2xl p-6 space-y-5"><p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground">The Lender&apos;s View — Your Ratios at This Price</p>
         {bar('Housing ratio (front-end)', c.mi > 0 ? c.piti / c.mi * 100 : 0, 28)}
         {bar('Total debt ratio (back-end)', c.dti, 36)}
         <div className="pt-2 space-y-1 text-sm">

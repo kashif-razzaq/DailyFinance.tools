@@ -240,6 +240,15 @@ export async function ToolLayout({
 
           <AuthorCard />
 
+          {/* How-this-was-checked note (ARB TD15): an honest restatement of
+              the documented review process (see /methodology and
+              /editorial-policy) — no invented testing narrative. */}
+          <p className="mt-6 text-sm text-muted-foreground">
+            <strong className="font-semibold text-foreground">How this calculator was checked:</strong>{" "}
+            its formula comes from a published source, the worked example&apos;s arithmetic was verified, and the model was reviewed by Tahir Shehzad, ACMA — see our{" "}
+            <Link href="/methodology" className="underline underline-offset-2">methodology page</Link>.
+          </p>
+
           {/* Estimates disclaimer (YMYL) */}
           <p className="mt-6 rounded-2xl border border-border/60 bg-muted/30 px-5 py-4 text-xs leading-relaxed text-muted-foreground">
             <strong className="font-semibold text-foreground">Estimates, not advice.</strong>{" "}

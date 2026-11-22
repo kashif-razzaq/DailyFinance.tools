@@ -18,7 +18,7 @@ function PctSlider({ label, value, onChange, min = 0, max = 20, step = 0.1 }: { 
     <Slider value={[value]} min={min} max={max} step={step} onValueChange={(v: any) => onChange(Array.isArray(v) ? v[0] : v)} /></div>)
 }
 function ResultCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
+  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</p>{children}</div>)
 }
 function NumInput({ label, value, onChange, hint, min, max }: { label: string; value: number; onChange: (n: number) => void; hint?: string; min?: number; max?: number }) {
   return (<div className="space-y-2"><label className="text-sm font-semibold">{label}</label>
@@ -120,7 +120,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       </ResultCard>
 
       <div className="bg-card border rounded-2xl p-6">
-        <h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">After-Tax Comparison</h4>
+        <p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">After-Tax Comparison</p>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead><tr className="border-b text-left"><th className="py-2 pr-2 font-semibold"></th><th className="py-2 pr-2 font-semibold text-right">Traditional</th><th className="py-2 font-semibold text-right">Roth</th></tr></thead>
@@ -134,7 +134,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         <p className="text-xs text-muted-foreground mt-4 leading-relaxed"><strong className="text-foreground">Break-even note:</strong> on an equal out-of-pocket basis the two accounts break even when your retirement tax rate equals today&apos;s rate ({taxNow}%). Roth wins when your retirement rate is <em>higher</em> than today&apos;s; Traditional wins when it is <em>lower</em>. At your inputs ({taxNow}% now vs {taxRet}% in retirement) the result above follows that rule exactly — try moving either rate to flip the winner.</p>
       </div>
 
-      <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">After-Tax Value by Age</h4>
+      <div className="bg-card border rounded-2xl p-6"><p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">After-Tax Value by Age</p>
         <ResponsiveContainer width="100%" height={220}><LineChart data={calc.series}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="age" /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt2(Number(v))} /><Legend /><Line type="monotone" dataKey="traditional" stroke="#D97706" strokeWidth={2} dot={false} name="Traditional (after tax)" /><Line type="monotone" dataKey="roth" stroke="#064E3B" strokeWidth={2} dot={false} name="Roth (after tax)" /></LineChart></ResponsiveContainer>
         <p className="text-xs text-muted-foreground mt-3">Both lines start from the same gross balance; the gap between them is purely the tax-rate difference. {fmt2(calc.rothAfterTax)} is the Roth line&apos;s endpoint.</p>
       </div>

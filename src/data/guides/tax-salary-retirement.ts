@@ -1237,7 +1237,7 @@ export const GUIDES_TAX_SALARY_RETIREMENT: Guide[] = [
         ]
       }
     ],
-    "seoTitle": "The Complete Guide to Retirement Planning",
+    "seoTitle": "The Complete Guide to Retirement Planning for 2026",
     "slug": "complete-guide-to-retirement-planning",
     "sources": [
       {
@@ -1492,7 +1492,7 @@ export const GUIDES_TAX_SALARY_RETIREMENT: Guide[] = [
         }
       }
     ],
-    "seoTitle": "How Does a 401(k) Work?",
+    "seoTitle": "How Does a 401(k) Work? Contributions, Match and Rules",
     "slug": "how-does-a-401k-work",
     "sources": [
       {
@@ -1721,7 +1721,7 @@ export const GUIDES_TAX_SALARY_RETIREMENT: Guide[] = [
         ]
       }
     ],
-    "seoTitle": "How to Do Your Own Taxes",
+    "seoTitle": "How to Do Your Own Taxes: A Step-by-Step 2026 Guide",
     "slug": "how-to-do-your-own-taxes",
     "sources": [
       {
@@ -1967,7 +1967,7 @@ export const GUIDES_TAX_SALARY_RETIREMENT: Guide[] = [
         ]
       }
     ],
-    "seoTitle": "How Capital Gains Tax Works: 2026 Rates & Rules",
+    "seoTitle": "How Capital Gains Tax Works: 2026 Rates, Rules, Brackets",
     "slug": "how-capital-gains-tax-works",
     "sources": [
       {
@@ -2250,7 +2250,7 @@ export const GUIDES_TAX_SALARY_RETIREMENT: Guide[] = [
         ]
       }
     ],
-    "seoTitle": "Roth IRA vs 401(k): Which Is Better in 2026?",
+    "seoTitle": "Roth IRA vs 401(k): Which Is Better for You in 2026?",
     "slug": "roth-ira-vs-401k",
     "sources": [
       {
@@ -2477,7 +2477,7 @@ export const GUIDES_TAX_SALARY_RETIREMENT: Guide[] = [
         }
       }
     ],
-    "seoTitle": "How Much Do I Need to Retire? Find Your Number",
+    "seoTitle": "How Much Do I Need to Retire? Find Your Number in 2026",
     "slug": "how-much-do-i-need-to-retire",
     "sources": [
       {
@@ -2743,7 +2743,7 @@ export const GUIDES_TAX_SALARY_RETIREMENT: Guide[] = [
         ]
       }
     ],
-    "seoTitle": "What Is Tax Withholding and How to Fix It",
+    "seoTitle": "What Is Tax Withholding and How to Fix Yours in 2026",
     "slug": "what-is-tax-withholding",
     "sources": [
       {
@@ -3007,7 +3007,7 @@ export const GUIDES_TAX_SALARY_RETIREMENT: Guide[] = [
         ]
       }
     ],
-    "seoTitle": "HSA vs FSA: Which Is Better in 2026?",
+    "seoTitle": "HSA vs FSA: Which Is Better in 2026? Compare the Two",
     "slug": "hsa-vs-fsa",
     "sources": [
       {
@@ -3200,7 +3200,7 @@ export const GUIDES_TAX_SALARY_RETIREMENT: Guide[] = [
         ]
       }
     ],
-    "seoTitle": "7 Tax Mistakes That Cost You Money in 2026",
+    "seoTitle": "7 Tax Mistakes That Cost You Money in 2026 (Avoid Them)",
     "slug": "tax-mistakes-that-cost-you-money",
     "sources": [
       {
@@ -3453,7 +3453,7 @@ export const GUIDES_TAX_SALARY_RETIREMENT: Guide[] = [
         ]
       }
     ],
-    "seoTitle": "How to Negotiate a Higher Salary (2026 Guide)",
+    "seoTitle": "How to Negotiate a Higher Salary (2026 Guide) That Works",
     "slug": "how-to-negotiate-a-higher-salary",
     "sources": [
       {
@@ -4125,7 +4125,7 @@ export const GUIDES_TAX_SALARY_RETIREMENT: Guide[] = [
         ]
       }
     ],
-    "seoTitle": "What Is the Standard Deduction? 2026 Amounts",
+    "seoTitle": "What Is the Standard Deduction? 2026 Amounts Explained",
     "slug": "what-is-the-standard-deduction",
     "sources": [
       {
@@ -4543,7 +4543,7 @@ export const GUIDES_TAX_SALARY_RETIREMENT: Guide[] = [
   },
   {
     "cornerstone": false,
-    "description": "A small refund means withholding matched your tax bill, or a credit shrank. The six most common causes, with real numbers, and how to fix next year's refund.",
+    "description": "A small refund means withholding matched your tax bill, or a credit shrank. The six most common causes, with real numbers, and how to fix it next year.",
     "faqs": [
       {
         "answer": "No. A refund is the IRS returning tax you overpaid during the year, and you earn no interest on that overpayment. A small refund usually means your withholding closely matched your tax bill, so you kept more of each paycheck instead of lending it to the government. What matters is your total tax on Form 1040, line 24 — not the size of the refund check.",
@@ -4690,7 +4690,7 @@ export const GUIDES_TAX_SALARY_RETIREMENT: Guide[] = [
         ]
       }
     ],
-    "seoTitle": "Why Is My Tax Refund So Small? Causes & Fixes",
+    "seoTitle": "Why Is My Tax Refund So Small? Causes and Fixes (2026)",
     "slug": "why-is-my-tax-refund-so-small",
     "sources": [
       {

@@ -18,7 +18,7 @@ function PctSlider({ label, value, onChange, min = 0, max = 20, step = 0.1 }: { 
     <Slider value={[value]} min={min} max={max} step={step} onValueChange={(v: any) => onChange(Array.isArray(v) ? v[0] : v)} /></div>)
 }
 function ResultCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
+  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</p>{children}</div>)
 }
 
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip, Legend } from 'recharts'
@@ -89,7 +89,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
     <div className="lg:col-span-7 bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-6">
       <MoneyInput label="Monthly Take-Home Income" value={income} onChange={setIncome} hint="After-tax pay that actually lands in your account." />
       <div className="border-t pt-6">
-        <h3 className="font-bold text-base mb-4">Monthly Expenses</h3>
+        <p className="font-bold text-base mb-4">Monthly Expenses</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <MoneyInput label="Housing (rent / mortgage)" value={housing} onChange={setHousing} />
           <MoneyInput label="Transport" value={transport} onChange={setTransport} />
@@ -121,7 +121,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
       </ResultCard>
       <div className="bg-card border rounded-2xl p-6">
-        <h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Where Your Money Goes</h4>
+        <p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Where Your Money Goes</p>
         {calc.pieData.length === 0 ? <p className="text-sm text-muted-foreground">Add expenses to see the breakdown.</p> : (
           <ResponsiveContainer width="100%" height={260}>
             <PieChart>
@@ -135,7 +135,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         )}
       </div>
       <div className="bg-card border rounded-2xl p-6">
-        <h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Per-Category % of Income</h4>
+        <p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Per-Category % of Income</p>
         <div className="space-y-3">
           {calc.withPct.map((c, idx) => (
             <div key={c.name}>

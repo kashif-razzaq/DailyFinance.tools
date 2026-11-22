@@ -130,6 +130,25 @@
     @apply font-sans;
   }
 }
+
+/* Visible keyboard focus (UX15). Several buttons carried `focus:outline-none`
+   with no replacement (Open Menu, the mobile Save / Export / Share /
+   Feedback bar, the consultation bubble), leaving keyboard users with no
+   focus indicator at all. This rule is deliberately UNLAYERED: unlayered
+   author styles beat the utilities layer regardless of specificity, so it
+   wins over any lingering `focus:outline-none` utility. It applies on
+   :focus-visible only, so mouse/touch interaction looks exactly as before.
+   The Button component is excluded — it already supplies its own
+   focus-visible ring, and a second outline would double up. */
+a:focus-visible,
+button:focus-visible:not([class~="group/button"]) {
+  outline: 2px solid #064e3b;
+  outline-offset: 2px;
+}
+.dark a:focus-visible,
+.dark button:focus-visible:not([class~="group/button"]) {
+  outline-color: #34d399;
+}
 /* Editorial content typography for hub pages, guides and location pages.
    Used via className="content-prose" — keeps long-form content readable and
    consistently formatted without a typography plugin dependency. */

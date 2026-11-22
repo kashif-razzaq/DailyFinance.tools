@@ -20,7 +20,7 @@ export function ProUpgradeModal({ isOpen, onClose }: ProUpgradeModalProps) {
         {/* Hidden title/desc for accessibility */}
         <DialogHeader className="sr-only">
           <DialogTitle>Unlock Pro Features</DialogTitle>
-          <DialogDescription>Upgrade to unlock premium calculator tools.</DialogDescription>
+          <DialogDescription>Pro is launching soon — premium calculator tools, planned at $2.99/mo.</DialogDescription>
         </DialogHeader>
 
         <div className="text-center relative z-10">
@@ -29,10 +29,10 @@ export function ProUpgradeModal({ isOpen, onClose }: ProUpgradeModalProps) {
           </div>
           
           <h2 className="text-2xl md:text-3xl font-black mb-3 tracking-tight text-foreground">
-            Unlock Pro Features
+            Pro Features — Launching Soon
           </h2>
           <p className="text-muted-foreground mb-8 leading-relaxed text-sm">
-            Join our Pro tier to instantly unlock unlimited saving, scenario comparison, {TOOL_COUNTS.pro} exclusive Pro tools and the full analytics across all {TOOL_COUNTS.total} calculators.
+            Pro is launching soon — planned at $2.99/mo, it will unlock unlimited saving, scenario comparison, {TOOL_COUNTS.pro} exclusive Pro tools and the full analytics across all {TOOL_COUNTS.total} calculators.
           </p>
           
           <div className="bg-muted/30 p-5 rounded-2xl mb-8 text-left space-y-3.5 border border-border/50 text-sm">
@@ -71,7 +71,7 @@ export function ProUpgradeModal({ isOpen, onClose }: ProUpgradeModalProps) {
           </div>
           
           <Button onClick={() => window.location.href = '/pricing'} className="w-full py-6 text-lg font-bold shadow-md group rounded-xl bg-accent hover:bg-accent/90 text-accent-foreground border-none transition-all">
-            Upgrade to Pro — $2.99/mo
+            See what's coming in Pro
             <ArrowRight className="ml-2 h-5 w-5 opacity-70 group-hover:translate-x-1 group-hover:opacity-100 transition-all" />
           </Button>
           

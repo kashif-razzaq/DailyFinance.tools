@@ -163,7 +163,7 @@ export function UserBadge({ user, isPremium }: { user: any; isPremium?: boolean 
                 onClick={() => go('/pricing')}
                 className="mt-1 flex w-full items-center gap-2.5 rounded-lg bg-[#064E3B] px-3 py-2.5 text-left text-sm font-bold text-white transition-colors hover:bg-[#043327]"
               >
-                <Crown className="h-4 w-4" /> Upgrade to Pro — $2.99/mo
+                <Crown className="h-4 w-4" /> Pro — launching soon
               </button>
             )}
 

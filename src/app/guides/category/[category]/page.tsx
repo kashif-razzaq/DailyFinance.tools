@@ -20,9 +20,32 @@ function hubFromSlug(slug: string) {
   return GUIDE_HUBS.find((hub) => hubAnchor(hub) === slug)
 }
 
+/**
+ * Hand-crafted title tags per hub (ARB CI12, 2026-11-22). One template
+ * suffix cannot land all five hubs in the 50–60 band — the hub names run
+ * 12–35 chars — so each hub gets its own title. Every title is 50–60
+ * chars as stored AND as served (ampersands escape to &amp;, +4 chars
+ * each, so &-titles stay at 56 or under). Each is distinct from the
+ * /guides index title and from every guide seoTitle.
+ */
+const HUB_TITLES: Record<string, string> = {
+  "Personal Finance": "Personal Finance Guides: Budgets, Savings, Credit & Debt",
+  "Mortgage & Real Estate": "Mortgage & Real Estate Guides: Buy, Sell and Pay Off",
+  "Loans & Debt": "Loans & Debt Guides: Payoff Plans, Rates, Real Costs",
+  "Salary, Tax, Retirement & Investing": "Salary, Tax, Retirement & Investing Guides: Real Numbers",
+  "Freelance, Creator & Business": "Freelance, Creator & Business Guides: Rates, Get Paid",
+}
+
 export function generateStaticParams() {
   return GUIDE_HUBS.map((hub) => ({ category: hubAnchor(hub) }))
 }
+
+// Closed param set: every valid category is in generateStaticParams, so an
+// unknown category must 404 at the routing level. Without this, Next renders
+// unknown categorys dynamically and notFound() can resolve inside a streamed
+// shell — the browser gets HTTP 200 with the home title/canonical (a
+// soft-404) instead of a real 404 (ARB TH14, 2026-11-22).
+export const dynamicParams = false
 
 export async function generateMetadata({
   params,
@@ -32,8 +55,11 @@ export async function generateMetadata({
   const { category } = await params
   const hub = hubFromSlug(category)
   if (!hub) return {}
-  const title = `${hub} Guides: Clear Answers With Real Numbers`
-  const description = `${HUB_DESCRIPTIONS[hub]} — ${guidesByHub(hub).length} guides, each with a worked example and a free calculator.`
+  const title = HUB_TITLES[hub] ?? `${hub} Guides: Clear Answers With Real Numbers`
+  // ARB CI11: the old description ran 99–106 chars (under the 120 floor).
+  // The cornerstone sentence is true for every hub — each has exactly one
+  // cornerstone guide, featured at the top of the page. New lengths 133–140.
+  const description = `${HUB_DESCRIPTIONS[hub]} — ${guidesByHub(hub).length} guides, each with a worked example and a free calculator. Start with the cornerstone guide.`
   const url = `https://www.dailyfinance.tools/guides/category/${category}`
   return {
     title,

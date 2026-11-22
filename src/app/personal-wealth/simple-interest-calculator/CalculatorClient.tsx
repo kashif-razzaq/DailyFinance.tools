@@ -21,7 +21,7 @@ function PctSlider({ label, value, onChange, min = 0, max = 20, step = 0.1 }: { 
     <Slider value={[value]} min={min} max={max} step={step} onValueChange={(v: any) => onChange(Array.isArray(v) ? v[0] : v)} /></div>)
 }
 function ResultCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
+  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</p>{children}</div>)
 }
 
 export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
@@ -81,15 +81,19 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
       </ResultCard>
       {showCompound && (<div className="bg-card border-2 border-[#D97706]/50 rounded-2xl p-6">
-        <h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Same Rate, Compounded Monthly</h4>
-        <div className="space-y-2 font-mono text-sm">
-          <div className="flex justify-between border-b py-2"><span>Compound total</span><span className="font-bold">{fmt(r.compoundTotal)}</span></div>
-          <div className="flex justify-between border-b py-2"><span>Compound interest</span><span>{fmt(r.compoundInterest)}</span></div>
-          <div className="flex justify-between py-2"><span>Simple interest</span><span>{fmt(r.interest)}</span></div>
-        </div>
+        <p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Same Rate, Compounded Monthly</p>
+        <table className="w-full font-mono text-sm">
+          <caption className="sr-only">Same rate, compounded monthly</caption>
+          <thead className="sr-only"><tr><th scope="col">Measure</th><th scope="col">Amount</th></tr></thead>
+          <tbody>
+            <tr className="border-b"><td className="py-2">Compound total</td><td className="py-2 text-right font-bold">{fmt(r.compoundTotal)}</td></tr>
+            <tr className="border-b"><td className="py-2">Compound interest</td><td className="py-2 text-right">{fmt(r.compoundInterest)}</td></tr>
+            <tr><td className="py-2">Simple interest</td><td className="py-2 text-right">{fmt(r.interest)}</td></tr>
+          </tbody>
+        </table>
         <div className="mt-4 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-xl px-4 py-3"><p className="text-sm font-semibold">The compounding gap: <span className="font-mono font-black">{fmt(r.gap)}</span> — simple interest pays the same amount every year; compound interest accelerates.</p></div>
       </div>)}
-      <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Per-Year Accrual</h4>
+      <div className="bg-card border rounded-2xl p-6"><p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Per-Year Accrual</p>
         <div className="overflow-x-auto"><table className="w-full text-sm"><thead><tr className="border-b text-left text-muted-foreground"><th className="py-2 pr-2 font-semibold">Year</th><th className="py-2 pr-2 font-semibold text-right">Interest Accrued</th><th className="py-2 font-semibold text-right">Balance</th></tr></thead>
         <tbody className="font-mono">{r.table.map(row => (<tr key={row.year} className="border-b last:border-0"><td className="py-2 pr-2">{row.label}</td><td className="py-2 pr-2 text-right">{fmt(row.accrued)}</td><td className="py-2 text-right font-bold">{fmt(row.balance)}</td></tr>))}</tbody></table></div>
         <p className="text-xs text-muted-foreground mt-3">Simple interest grows in a straight line — exactly {fmt(principal * rate / 100)} added every year, never more.</p>

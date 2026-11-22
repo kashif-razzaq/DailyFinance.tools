@@ -15,7 +15,7 @@ function MoneyInput({ label, value, onChange }: { label: string; value: number; 
     <Input type="number" step="0.01" value={value === 0 ? '' : value} onChange={(e) => onChange(num(e.target.value))} className="pl-7 font-mono" /></div></div>)
 }
 function ResultCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
+  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</p>{children}</div>)
 }
 
 // Conversion identities: margin = markup / (1 + markup); markup = margin / (1 − margin)
@@ -66,7 +66,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
       </ResultCard>
       <div className="bg-card border rounded-2xl p-6">
-        <h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Markup ↔ Margin Converter Table</h4>
+        <p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Markup ↔ Margin Converter Table</p>
         <table className="w-full text-sm">
           <thead><tr className="text-left text-muted-foreground border-b"><th className="py-2 font-semibold">If markup is…</th><th className="py-2 font-semibold text-right">Margin is…</th><th className="py-2 font-semibold text-right">$30 cost sells for</th></tr></thead>
           <tbody>{CONVERSIONS.map((c) => (<tr key={c.markup} className="border-b last:border-0"><td className="py-2 font-mono">{c.markup}%</td><td className="py-2 text-right font-mono font-semibold">{c.margin.toFixed(1)}%</td><td className="py-2 text-right font-mono">{fmt(30 * (1 + c.markup / 100))}</td></tr>))}</tbody>

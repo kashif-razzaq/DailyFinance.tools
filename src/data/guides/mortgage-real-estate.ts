@@ -256,7 +256,7 @@ export const GUIDES_MORTGAGE_REAL_ESTATE: Guide[] = [
   },
   {
     "cornerstone": false,
-    "description": "How much house can you afford? The 28/36 rule, DTI limits by loan type, the down payment's effect on your payment, and the hidden costs listings never show.",
+    "description": "How much house can you afford? The 28/36 rule, DTI limits by loan type, what a down payment changes, and the hidden costs listings never show.",
     "faqs": [
       {
         "answer": "Treat it as a ceiling set by the lender's risk model, not a target. The approval is based on your gross income and debts, not on your savings goals, your childcare costs, or your comfort with risk. Buy at the price where the total monthly cost — payment, tax, insurance, PMI, and HOA — still leaves room for a savings rate of at least 10% and a maintenance reserve.",
@@ -1212,7 +1212,7 @@ export const GUIDES_MORTGAGE_REAL_ESTATE: Guide[] = [
         ]
       }
     ],
-    "seoTitle": "How FHA Loans Work (MIP, Down Payment & Limits)",
+    "seoTitle": "How FHA Loans Work: MIP, Down Payment and Limits 2026",
     "slug": "how-fha-loans-work",
     "sources": [
       {
@@ -1809,7 +1809,7 @@ export const GUIDES_MORTGAGE_REAL_ESTATE: Guide[] = [
         ]
       }
     ],
-    "seoTitle": "How to Buy Your First Home, Step by Step",
+    "seoTitle": "How to Buy Your First Home, Step by Step (2026 Guide)",
     "slug": "how-to-buy-your-first-home",
     "sources": [
       {
@@ -1835,7 +1835,7 @@ export const GUIDES_MORTGAGE_REAL_ESTATE: Guide[] = [
   },
   {
     "cornerstone": false,
-    "description": "Fixed vs adjustable-rate mortgages compared with real numbers: how ARMs adjust, what the caps allow, and a $300,000 worked example of both options side by side.",
+    "description": "Fixed vs adjustable-rate mortgages compared with real numbers: how ARMs adjust, what the caps allow, and a $300,000 worked example of both.",
     "faqs": [
       {
         "answer": "The first number is the years the starting rate stays fixed: five. The second is how often the rate can change after that, in months: every six months. So a 5/6 ARM holds its rate for five years, then adjusts every six months for the rest of the term. Older ARMs used a second number in years, so a 5/1 ARM adjusted once a year, but conforming ARMs today use the six-month schedule.",
@@ -2082,7 +2082,7 @@ export const GUIDES_MORTGAGE_REAL_ESTATE: Guide[] = [
         ]
       }
     ],
-    "seoTitle": "Fixed vs Adjustable-Rate Mortgages",
+    "seoTitle": "Fixed vs Adjustable-Rate Mortgages: Which Is Better?",
     "slug": "fixed-vs-adjustable-rate-mortgages",
     "sources": [
       {
@@ -2322,7 +2322,7 @@ export const GUIDES_MORTGAGE_REAL_ESTATE: Guide[] = [
         ]
       }
     ],
-    "seoTitle": "What Is PMI and How to Get Rid of It",
+    "seoTitle": "What Is PMI and How to Get Rid of It: A 2026 Guide",
     "slug": "what-is-pmi",
     "sources": [
       {
@@ -2393,9 +2393,9 @@ export const GUIDES_MORTGAGE_REAL_ESTATE: Guide[] = [
       {
         "heading": "Shopping for homes before you know your budget",
         "paragraphs": [
-          "The first mistake happens before the first showing: touring homes with no clear budget. Listings are priced to attract, and without your own number you will fall for homes whose payments you cannot afford — or waste weeks on homes below what you could buy. Start with the monthly payment, not the listing price. Lenders size your loan from gross monthly income and existing debts, and the number they approve is a ceiling, not a recommendation.",
-          "Two rules of thumb frame the answer. The 28/36 rule says housing costs should stay under 28% of gross monthly income, and all debts including housing under 36%. Lenders also use the debt-to-income ratio (DTI): total monthly debt payments divided by gross monthly income. Fannie Mae looks for 36%, accepts up to 45%, and allows 50% with strong compensating factors; FHA uses 31% front-end and 43% back-end; VA uses 41%.",
-          "Take a household earning $90,000 a year, or $7,500 a month before tax. The 28% rule caps housing at $2,100 a month; the 36% rule caps all debts at $2,700. A $350,000 home with 10% down costs about $2,619 a month all-in at an example 6.5% rate — 34.9% of gross income, above the 28% guidepost. That is a warning sign, not a verdict, but it is the kind of arithmetic to do before you browse. The Home Affordability Calculator turns your income and debts into a price range."
+          "The first mistake happens before the first showing: touring homes with no clear budget. Listings are priced to attract, and without your own number you will fall for homes whose payments you cannot afford — or waste weeks on homes below what you could buy. Work out the monthly payment you can carry first, and let that set the price range. A lender will approve a maximum loan from your gross monthly income and existing debts, but that maximum is a ceiling, not a recommendation.",
+          "Two guideposts frame the answer, and both start from gross monthly income. The first is the 28/36 rule: keep housing costs under 28% of gross monthly income, and keep every debt including housing under 36%. The second is the debt-to-income ratio, DTI for short: total monthly debt payments divided by gross monthly income. Each loan program sets its own DTI limits: FHA caps housing at 31% and total debts at 43%; VA uses a single 41% limit; Fannie Mae targets 36%, accepts up to 45%, and stretches to 50% when strong compensating factors are present.",
+          "Run the numbers on a household earning $90,000 a year — $7,500 a month before tax. Housing capped at 28% means $2,100 a month; all debts capped at 36% means $2,700. Now price the example home: a $350,000 purchase with 10% down runs about $2,619 a month all-in at an example 6.5% rate, or 34.9% of that gross income — past the 28% guidepost. Treat that as a warning sign, not a verdict, and do this arithmetic before you browse. The Home Affordability Calculator converts your income and debts into a price range you can shop with."
         ]
       },
       {
@@ -2407,30 +2407,30 @@ export const GUIDES_MORTGAGE_REAL_ESTATE: Guide[] = [
         ],
         "table": {
           "head": [
-            "Loan type",
-            "Minimum down payment",
-            "Cash on a $350,000 home"
+            "Loan program",
+            "Lowest down payment",
+            "Cash needed on a $350,000 home"
           ],
           "rows": [
             [
-              "Conventional",
-              "3% for many first-time buyer programs",
-              "$10,500"
-            ],
-            [
-              "FHA",
-              "3.5% with a 580+ credit score; 10% at 500–579",
-              "$12,250"
-            ],
-            [
               "VA",
-              "0% for eligible veterans and servicemembers",
+              "No down payment for eligible veterans and servicemembers",
               "$0"
             ],
             [
               "USDA",
-              "0% in eligible rural areas, with income limits",
+              "No down payment in eligible rural areas, with income limits",
               "$0"
+            ],
+            [
+              "FHA",
+              "3.5% with a 580 credit score or higher; 10% with scores of 500–579",
+              "$12,250"
+            ],
+            [
+              "Conventional",
+              "3% through many first-time buyer programs",
+              "$10,500"
             ]
           ]
         }
@@ -2440,28 +2440,28 @@ export const GUIDES_MORTGAGE_REAL_ESTATE: Guide[] = [
         "paragraphs": [
           "Accepting the first lender's offer is the most expensive lazy mistake in home buying. Rates and fees vary between lenders on the same day for the same borrower, and the difference compounds for 30 years. Your bank, an online lender, and a local mortgage broker will rarely quote the same rate. Get Loan Estimates from at least three lenders and compare them side by side.",
           "The arithmetic is stark. On a $315,000 loan over 30 years, an example rate of 6.75% costs $2,043 a month in principal and interest; at 6.5% it costs $1,991. That 0.25-point difference is $52 a month — $18,745 over the life of the loan. A single afternoon of comparison shopping can be worth more than a year of careful budgeting.",
-          "Rate shopping does not damage your credit the way people fear. Scoring models treat multiple mortgage inquiries within a short window — typically 14 to 45 days — as a single inquiry. Keep the shopping inside one two-week stretch, compare the rate, the lender fees in Section A of the Loan Estimate, and the estimated cash to close, and ask the cheapest lender to match a better offer — many will. A lender who will not put the offer in a Loan Estimate is a lender to skip."
+          "Shopping around will not punish your credit score the way buyers fear. The scoring models group mortgage inquiries made within a short window — usually 14 to 45 days — and count the group as one inquiry. So compress the search into a single two-week stretch, line up the rate, the Section A lender fees on each Loan Estimate, and the estimated cash to close, then ask the cheapest lender to match a better offer — many will. A lender who will not put the offer in a Loan Estimate is a lender to skip."
         ]
       },
       {
         "heading": "Spending every dollar on the down payment",
         "paragraphs": [
-          "Buyers who pour every saved dollar into the down payment arrive at closing with nothing left — and closing still has a bill. The CFPB puts closing costs typically at 2% to 5% of the loan amount. On a $315,000 loan, that is $6,300 to $15,750; at a 3% midpoint the bill is $9,450, on top of the down payment.",
-          "Add the rest of the cash you need. Earnest money — typically 1% to 2% of the price, paid when your offer is accepted — is credited at closing, so it is not extra, but it leaves your account weeks before closing day. Moving, utility deposits, locks, and the first repairs all land in the same month. And some lenders want to see one or two months of payments left in the bank after closing; even when they don't, an empty account turns the first broken appliance into a credit card balance.",
+          "Buyers who pour every saved dollar into the down payment arrive at closing with nothing left — and closing still has a bill. The CFPB's typical range for closing costs is 2% to 5% of the loan amount, which works out to $6,300 to $15,750 on a $315,000 loan; at a 3% midpoint the bill is $9,450, on top of the down payment.",
+          "The cash needs do not stop there. Earnest money runs 1% to 2% of the price and leaves your account when your offer is accepted; it counts toward what you owe at closing, but you still have to have it weeks early. Moving, utility deposits, locks, and the first repairs all land in the same month. And lenders often want one or two months of payments still sitting in the bank after closing — even when they do not ask, an empty account turns the first broken appliance into a credit card balance.",
           "Set the cash target before you set the down payment. On our $350,000 example with 10% down: $35,000 down plus $9,450 in closing costs is $44,450, before moving costs and the first month of ownership. A realistic target is $45,000 to $55,000, with savings still left over after closing. If reaching that number means a smaller down payment and a few years of PMI, that trade usually beats arriving at closing broke. The Closing Cost Calculator itemizes the closing side for your price and loan."
         ]
       },
       {
         "bullets": [
-          "Roof, HVAC, and water heater ages — replacements run into the thousands.",
-          "Water pressure, drainage, and any signs of water damage or mold.",
+          "Roof, HVAC, and water heater ages — each replacement costs thousands.",
+          "How water runs and drains, and any stains or smells that suggest leaks or mold.",
           "The electrical panel and wiring — an outdated panel is a common expensive finding.",
           "Foundation cracks, grading, and whether water drains away from the house."
         ],
         "heading": "Waiving the inspection to win the bid",
         "paragraphs": [
-          "In a competitive market, waiving the inspection contingency makes an offer stronger — and removes the one protection that tells you what you are actually buying. A standard inspection typically costs a few hundred dollars and covers the roof, structure, plumbing, electrical, HVAC, and appliances. The problems it finds run into the thousands: a roof at the end of its life, a failing sewer line, an electrical panel that needs replacing. Attend it if you can: the inspector's running commentary tells you more than the written report.",
-          "No inspection comes back clean, and that is not the point. Every home has minor issues; what matters is the expensive kind, and the inspection gives you options: ask the seller to repair, ask for a credit at closing, or walk away under the contingency. Without it, you discover the problems after you own them — and pay for them yourself.",
+          "In a competitive market, waiving the inspection contingency makes an offer stronger — and removes the one protection that tells you what you are actually buying. An inspection usually costs a few hundred dollars and walks through the roof, structure, plumbing, electrical, HVAC, and appliances. The problems it turns up run into the thousands: a roof at the end of its life, a failing sewer line, an electrical panel that needs replacing. Go along if you can: what the inspector says as they walk through teaches you more than the report alone.",
+          "Expect a long list of minor issues — that is normal, and it is not the point. What matters is the expensive kind, and the inspection gives you leverage: ask the seller to fix it, ask for a closing credit, or walk away while the contingency holds. Skip the inspection and you find the problems after you own them — and pay for them yourself.",
           "If competition forces a choice, there are middle options: a pre-offer inspection, an inspection contingency with a repair cap, or an informational inspection that lets you walk away only for major defects. Never waive the inspection entirely on a home you have not had inspected. A house that photographs well can hide a 25-year-old roof and a basement that floods in spring."
         ]
       },
@@ -2476,44 +2476,44 @@ export const GUIDES_MORTGAGE_REAL_ESTATE: Guide[] = [
       {
         "heading": "Falling in love with a house and overpaying",
         "paragraphs": [
-          "The most expensive mistake first-time buyers make is falling in love with a house and chasing it past what the numbers support. An overpayment stays in your mortgage for 30 years; another house will come on the market. Price from comparable sales, not from the listing price: your agent should show you recent sales of similar homes nearby, adjusted for size, condition, and features. Days on market and price cuts are negotiating information — ask your agent for them at every showing.",
-          "In a multiple-offer situation, an escalation clause can win without overpaying blindly: you offer to beat the highest competing bid by a set amount up to a cap you chose in advance. Set your walk-away price before you offer, in writing, and hold it. The cap is decided when you are calm, not in the middle of a bidding war.",
-          "The appraisal is your backstop — if it comes in below the agreed price, the lender will not lend on the difference. Offer $360,000 on a home that appraises at $350,000 and you must bring the extra $10,000 in cash, renegotiate the price, or walk away under the appraisal contingency. Buyers who waived that contingency to win the bid face the gap with no exit. A low appraisal is unwelcome news, but it also stops you from borrowing more than the home is worth."
+          "The costliest error a first-time buyer makes is falling for a house and chasing it past what the numbers support. There will always be another house, but an overpayment stays in your mortgage for 30 years. Judge the price against comparable sales, not the asking price: ask your agent for nearby sales of comparable homes, adjusted for size, condition, and features. Days on market and price cuts are negotiating information — ask for them at every showing.",
+          "In a multiple-offer situation, an escalation clause lets you win without overpaying blindly: it raises your offer above the highest competing bid by a fixed step, up to a cap you set in advance. Put your walk-away price in writing before you offer, and hold it. The cap is decided when you are calm, not in the middle of a bidding war.",
+          "The appraisal is your backstop — if it comes in below the agreed price, the lender will not lend on the difference. Offer $360,000 on a home that appraises at $350,000 and you must bring the extra $10,000 in cash, renegotiate the price, or walk away under the appraisal contingency. Buyers who waived that contingency to win the bid face the gap with no exit. A low appraisal stings, but it also keeps you from borrowing more than the home is worth."
         ]
       },
       {
         "heading": "Forgetting the costs beyond principal and interest",
         "paragraphs": [
           "First-time buyers often budget for principal and interest and forget everything else in the payment. On a $350,000 home with 10% down at an example 6.5% rate, principal and interest is $1,991 a month — but the full payment is about $2,619. The $628 difference is taxes, insurance, and mortgage insurance, and it is due every month from day one.",
-          "Then come the costs outside the mortgage entirely. HOA dues are separate from the payment and count toward your DTI; $350 a month in dues is $4,200 a year. Maintenance is the other forgotten line: a common rule of thumb is 1% of the home's value per year — $3,500 a year, or about $292 a month, on a $350,000 home. Older homes and harsh climates run higher.",
-          "Add it all up before you offer. The table below shows the full monthly cost of the example home. If the total leaves no margin, a smaller home or a longer savings runway is a better answer than a stretched payment — a payment that leaves no room turns every repair into a crisis."
+          "Then come the costs outside the mortgage entirely. HOA dues sit outside the payment and count toward your DTI — $350 a month in dues is $4,200 a year. Maintenance is the other forgotten line: budget about 1% of the home's value each year, which is $3,500 a year on a $350,000 home — about $292 a month. Older homes and harsh climates run higher.",
+          "Add it all up before you offer — the table below shows the full monthly cost of the example home. If the total leaves no margin, buy smaller or save longer instead of stretching the payment. A payment with no room left turns every repair into a crisis."
         ],
         "table": {
           "head": [
             "Monthly cost",
-            "How it is figured",
+            "How the figure is worked out",
             "Amount"
           ],
           "rows": [
             [
               "Principal and interest",
-              "$315,000 loan at an example 6.5% fixed rate, 30 years",
+              "$315,000 borrowed at an example 6.5% fixed rate for 30 years",
               "$1,991"
             ],
             [
-              "Private mortgage insurance",
-              "Example 0.6% of the loan per year, because the down payment is under 20%",
-              "$158"
-            ],
-            [
               "Property taxes",
-              "Example 1.1% of the home value per year",
+              "Example 1.1% of the home's value each year",
               "$321"
             ],
             [
               "Homeowners insurance",
-              "Example $1,800 per year",
+              "Example $1,800 a year",
               "$150"
+            ],
+            [
+              "Private mortgage insurance",
+              "Example 0.6% of the loan each year, because the down payment is under 20%",
+              "$158"
             ],
             [
               "Mortgage payment",
@@ -2527,7 +2527,7 @@ export const GUIDES_MORTGAGE_REAL_ESTATE: Guide[] = [
             ],
             [
               "Maintenance reserve",
-              "1% of the home value per year",
+              "1% of the home's value each year",
               "$292"
             ],
             [
@@ -2541,9 +2541,9 @@ export const GUIDES_MORTGAGE_REAL_ESTATE: Guide[] = [
       {
         "heading": "Skimming the closing paperwork",
         "paragraphs": [
-          "At least three business days before closing, your lender must send the Closing Disclosure — the final, itemized statement of your loan terms and costs. Too many buyers skim it or skip it entirely. Compare it line by line with the Loan Estimate you received when you applied. Most fees cannot change; if a number moved, ask why before you sign anything. It also shows the exact cash due at closing — bring it as a cashier's check or a wire transfer, never as a personal check.",
+          "Your lender must send the Closing Disclosure at least three business days before closing — the final, itemized summary of your loan terms and costs. Too many buyers skim it or skip it entirely. Go through it line by line against the Loan Estimate you received when you applied. Most fees are locked by then; if a number moved, ask why before you sign anything. It also shows the exact cash due at closing — pay it by cashier's check or wire transfer, never by personal check.",
           "The three-day window exists for exactly this review, and it is your last cheap chance to catch an error: a wrong loan amount, a rate that is not what you locked, a fee that appeared from nowhere. Once you sign, fixing a mistake means a fight, not a phone call. Read the loan amount, rate, and monthly payment once more at the signing table before you pick up the pen. If the lender sends a revised disclosure with a higher APR or a different loan product, the three-day clock restarts.",
-          "Protect the wire, too. Real estate wire fraud starts with a spoofed email carrying fake wiring instructions. Call your title company at a number you already have — not one from an email — to confirm the instructions before you send money. A five-minute phone call is the entire defense, and a misdirected wire is rarely recovered."
+          "Guard the wire transfer as well. The fraud starts with a spoofed email carrying fake wiring instructions for your closing funds. Before you send a cent, call your title company on a number you already have — never one from an email — and read the instructions back to confirm them. That five-minute call is the whole defense; a wire sent to the wrong account is rarely recovered."
         ]
       },
       {
@@ -2555,13 +2555,13 @@ export const GUIDES_MORTGAGE_REAL_ESTATE: Guide[] = [
         ],
         "heading": "Buying at the top of your pre-approval",
         "paragraphs": [
-          "A pre-approval letter states a maximum loan amount, and it is usually good for 60 to 90 days. Too many buyers treat the maximum as a target. The lender does not know your childcare costs, your savings goals, or what a comfortable payment feels like — it knows your income and debts. The maximum is a ceiling, not a recommendation, and buying at the ceiling leaves no room for the life that happens after closing.",
+          "A pre-approval letter states a maximum loan amount and is usually good for 60 to 90 days. Too many buyers treat the maximum as a target. The lender cannot see what a comfortable payment feels like for you — it sees income and debts, not childcare costs or savings goals. The maximum is a ceiling, not a recommendation, and buying at the ceiling leaves no room for the life that happens after closing.",
           "The lender's math also misses costs that are real to you. A household that qualifies at 45% DTI has 55% of gross income left — before tax. After income tax, retirement saving, and the costs below, the margin is thin. Buyers who stretch to the maximum often discover the payment is technically affordable and practically miserable.",
           "Decide your own ceiling before you shop: the payment that leaves your savings plan intact and your emergency fund untouched. A home $25,000 cheaper saves about $158 a month in principal and interest at an example 6.5% rate — money that funds the rest of your life. The right house is the one whose payment you can live with for years, not the biggest one a lender will approve."
         ]
       }
     ],
-    "seoTitle": "10 First-Time Home Buyer Mistakes to Avoid",
+    "seoTitle": "10 First-Time Home Buyer Mistakes to Avoid in 2026",
     "slug": "first-time-home-buyer-mistakes",
     "sources": [
       {
@@ -2812,7 +2812,7 @@ export const GUIDES_MORTGAGE_REAL_ESTATE: Guide[] = [
         ]
       }
     ],
-    "seoTitle": "How to Refinance Your Mortgage: Break-Even Guide",
+    "seoTitle": "How to Refinance Your Mortgage: A Break-Even Guide",
     "slug": "how-to-refinance-your-mortgage",
     "sources": [
       {
@@ -3119,7 +3119,7 @@ export const GUIDES_MORTGAGE_REAL_ESTATE: Guide[] = [
         ]
       }
     ],
-    "seoTitle": "How Closing Costs Work: Fees, Examples & Savings",
+    "seoTitle": "How Closing Costs Work: Fees, Examples and Savings",
     "slug": "how-closing-costs-work",
     "sources": [
       {
@@ -3378,7 +3378,7 @@ export const GUIDES_MORTGAGE_REAL_ESTATE: Guide[] = [
         ]
       }
     ],
-    "seoTitle": "What Is a Home Equity Loan? How It Works & Costs",
+    "seoTitle": "What Is a Home Equity Loan? How It Works and Costs",
     "slug": "what-is-a-home-equity-loan",
     "sources": [
       {
@@ -3733,7 +3733,7 @@ export const GUIDES_MORTGAGE_REAL_ESTATE: Guide[] = [
         ]
       }
     ],
-    "seoTitle": "Why Was My Mortgage Application Denied? 7 Reasons",
+    "seoTitle": "Why Was My Mortgage Application Denied? 7 Reasons (2026)",
     "slug": "why-was-my-mortgage-application-denied",
     "sources": [
       {
@@ -3759,7 +3759,7 @@ export const GUIDES_MORTGAGE_REAL_ESTATE: Guide[] = [
   },
   {
     "cornerstone": false,
-    "description": "Compare FHA and conventional loans for 2026: down payments, credit scores, MIP vs PMI costs, loan limits, and a side-by-side payment example on a $350,000 home.",
+    "description": "Compare FHA and conventional loans for 2026: down payments, credit scores, MIP vs PMI costs, loan limits, and a payment example on a $350,000 home.",
     "faqs": [
       {
         "answer": "No. FHA is usually cheaper to get into, with a 3.5% minimum down payment at a 580 credit score, but more expensive to hold. Its 1.75% upfront premium is financed into the loan, and at less than 10% down the annual mortgage insurance lasts the life of the loan. A conventional loan with the same down payment has no upfront premium, and its PMI cancels at 80% loan-to-value on request or 78% automatically.",
@@ -4289,7 +4289,7 @@ export const GUIDES_MORTGAGE_REAL_ESTATE: Guide[] = [
         ]
       }
     ],
-    "seoTitle": "How Property Taxes Are Calculated (2026 Guide)",
+    "seoTitle": "How Property Taxes Are Calculated: 2026 Guide, Rates",
     "slug": "how-property-taxes-are-calculated",
     "sources": [
       {
@@ -4459,7 +4459,7 @@ export const GUIDES_MORTGAGE_REAL_ESTATE: Guide[] = [
         ]
       }
     ],
-    "seoTitle": "How Much Is My House Worth? 4 Ways to Find Out",
+    "seoTitle": "How Much Is My House Worth? 4 Ways to Find Out in 2026",
     "slug": "how-much-is-my-house-worth",
     "sources": [
       {

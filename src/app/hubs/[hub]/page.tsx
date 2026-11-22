@@ -13,6 +13,13 @@ export function generateStaticParams() {
   return HUBS.map((h) => ({ hub: h.slug }))
 }
 
+// Closed param set: every valid hub is in generateStaticParams, so an
+// unknown hub must 404 at the routing level. Without this, Next renders
+// unknown hubs dynamically and notFound() can resolve inside a streamed
+// shell — the browser gets HTTP 200 with the home title/canonical (a
+// soft-404) instead of a real 404 (ARB TH14, 2026-11-22).
+export const dynamicParams = false
+
 export async function generateMetadata({ params }: { params: Promise<{ hub: string }> }): Promise<Metadata> {
   const { hub } = await params
   const h = getHub(hub)

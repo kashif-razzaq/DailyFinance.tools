@@ -17,7 +17,7 @@ function PctSlider({ label, value, onChange, min = 0, max = 30, step = 0.1 }: { 
     <Slider value={[value]} min={min} max={max} step={step} onValueChange={(v: any) => onChange(Array.isArray(v) ? v[0] : v)} /></div>)
 }
 function ResultCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
+  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</p>{children}</div>)
 }
 
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip, Legend } from 'recharts'
@@ -90,7 +90,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
       <div className="grid grid-cols-2 gap-6"><MoneyInput label="Insurance (per year)" value={insYear} onChange={setInsYear} /><MoneyInput label="HOA (per month)" value={hoaMo} onChange={setHoaMo} /></div>
       <div className="grid grid-cols-2 gap-6"><PctSlider label="Maintenance (% of rent)" value={maintPct} onChange={setMaintPct} min={0} max={20} step={0.5} /><PctSlider label="Management (% of income)" value={mgmtPct} onChange={setMgmtPct} min={0} max={15} step={0.5} /></div>
       <MoneyInput label="Other Expenses (per year)" value={otherExp} onChange={setOtherExp} />
-      <h3 className="font-bold text-lg pt-2">Financing (for cash-on-cash)</h3>
+      <p className="font-bold text-lg pt-2">Financing (for cash-on-cash)</p>
       <PctSlider label="Down Payment" value={downPct} onChange={setDownPct} min={0} max={100} step={1} />
       <div className="grid grid-cols-2 gap-6"><PctSlider label="Loan Rate" value={finRate} onChange={setFinRate} min={0} max={15} step={0.125} /><MoneyInput label="Closing Costs" value={closing} onChange={setClosing} /></div>
     </div>
@@ -104,7 +104,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <div><p className="text-white/60 text-xs uppercase font-bold">Gross Rent Multiplier</p><p className="font-mono text-xl font-bold">{c.grm.toFixed(1)}x</p></div>
           <div><p className="text-white/60 text-xs uppercase font-bold">Annual Cash Flow</p><p className="font-mono text-xl font-bold">{fmt(c.cashFlow)}</p></div>
         </div></ResultCard>
-      <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-3">Income &amp; Expense Breakdown (per year)</h4>
+      <div className="bg-card border rounded-2xl p-6"><p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-3">Income &amp; Expense Breakdown (per year)</p>
         <div className="text-sm space-y-1">
           <div className="flex justify-between py-1 border-b border-neutral-100"><span className="text-neutral-500">Gross scheduled income</span><span className="font-mono font-semibold">{fmt(c.grossScheduled)}</span></div>
           <div className="flex justify-between py-1 border-b border-neutral-100"><span className="text-neutral-500">Vacancy loss</span><span className="font-mono font-semibold">−{fmt(c.vacancyLoss)}</span></div>

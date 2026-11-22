@@ -19,7 +19,7 @@ function PctSlider({ label, value, onChange, max = 13 }: { label: string; value:
     <Slider value={[value]} min={0} max={max} step={0.1} onValueChange={(v: any) => onChange(Array.isArray(v) ? v[0] : v)} /></div>)
 }
 function ResultCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
+  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</p>{children}</div>)
 }
 
 type Bracket = { upTo: number; rate: number }
@@ -98,7 +98,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
       </ResultCard>
       <div className="bg-card border rounded-2xl p-6">
-        <h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Quarterly Estimated Payments</h4>
+        <p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Quarterly Estimated Payments</p>
         <div className="grid grid-cols-2 gap-3">
           {QUARTERS.map((q) => (<div key={q.n} className="border rounded-xl p-4"><p className="text-xs font-bold text-muted-foreground uppercase">{q.n} · due {q.due}</p><p className="font-mono font-bold text-lg mt-1">{fmt(r.quarterly)}</p><p className="text-xs text-muted-foreground">{q.period}</p></div>))}
         </div>

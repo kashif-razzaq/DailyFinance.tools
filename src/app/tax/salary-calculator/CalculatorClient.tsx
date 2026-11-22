@@ -20,7 +20,7 @@ function NumSlider({ label, value, onChange, min, max, step = 1, suffix = '' }: 
     <Slider value={[value]} min={min} max={max} step={step} onValueChange={(v: any) => onChange(Array.isArray(v) ? v[0] : v)} /></div>)
 }
 function ResultCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
+  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</p>{children}</div>)
 }
 
 type Bracket = { upTo: number; rate: number }
@@ -90,7 +90,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
       </ResultCard>
       <div className="bg-card border rounded-2xl p-6">
-        <h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Full Conversion Matrix</h4>
+        <p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Full Conversion Matrix</p>
         <table className="w-full text-sm">
           <thead><tr className="text-left text-muted-foreground border-b"><th className="py-2 font-semibold">Period</th><th className="py-2 font-semibold text-right">Gross</th><th className="py-2 font-semibold text-right">After Tax (est.)</th></tr></thead>
           <tbody>{rows.map((row) => (<tr key={row.label} className="border-b last:border-0"><td className="py-2.5 font-medium">{row.label}</td><td className="py-2.5 text-right font-mono">{row.gross}</td><td className="py-2.5 text-right font-mono text-[#064E3B] dark:text-emerald-400 font-semibold">{row.net}</td></tr>))}</tbody>

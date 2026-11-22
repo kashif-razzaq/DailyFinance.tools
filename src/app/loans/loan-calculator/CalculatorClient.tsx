@@ -25,7 +25,7 @@ function NumSlider({ label, value, onChange, min, max, step = 1, suffix = '' }: 
     <Slider value={[value]} min={min} max={max} step={step} onValueChange={(v: any) => onChange(Array.isArray(v) ? v[0] : v)} /></div>)
 }
 function ResultCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
+  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</p>{children}</div>)
 }
 
 // Standard amortizing-loan payment: M = P * r(1+r)^n / ((1+r)^n - 1), r = monthly rate, n = months.
@@ -86,7 +86,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         {tooLow && <p className="text-sm text-red-600 font-semibold">Warning: the payment does not cover monthly interest, so this loan would never amortize.</p>}
       </div>
       <div className="bg-card border shadow-sm rounded-2xl p-6 md:p-8 overflow-x-auto">
-        <h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Yearly Amortization Summary</h4>
+        <p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Yearly Amortization Summary</p>
         <table className="w-full text-sm">
           <thead><tr className="text-left text-muted-foreground border-b"><th className="py-2 pr-3 font-semibold">Year</th><th className="py-2 pr-3 font-semibold text-right">Principal</th><th className="py-2 pr-3 font-semibold text-right">Interest</th><th className="py-2 font-semibold text-right">Ending Balance</th></tr></thead>
           <tbody>{yearly.map((r) => (<tr key={r.year} className="border-b last:border-0"><td className="py-2 pr-3 font-mono">{r.year}</td><td className="py-2 pr-3 font-mono text-right">{fmt(r.principal)}</td><td className="py-2 pr-3 font-mono text-right">{fmt(r.interest)}</td><td className="py-2 font-mono text-right">{fmt(r.balance)}</td></tr>))}</tbody>
@@ -104,7 +104,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <div><p className="text-white/60 text-xs uppercase font-bold">Interest Share</p><p className="font-mono text-xl font-bold">{amount + totalInterest > 0 ? Math.round(totalInterest / (amount + totalInterest) * 100) : 0}%</p></div>
         </div>
       </ResultCard>
-      <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Balance Over Time</h4>
+      <div className="bg-card border rounded-2xl p-6"><p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Balance Over Time</p>
         <ResponsiveContainer width="100%" height={200}><AreaChart data={series}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="year" tickFormatter={(v: number) => 'Yr ' + v} /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} labelFormatter={(v: any) => 'Year ' + v} /><Area type="monotone" dataKey="balance" stroke="#064E3B" fill="#064E3B" fillOpacity={0.15} strokeWidth={2} name="Balance" /></AreaChart></ResponsiveContainer></div>
     <ToolActionsBar slug="loan-calculator" isPro={isPro} inputs={{ amount, rate, years }} />
     </div></div></>)

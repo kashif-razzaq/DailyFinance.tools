@@ -13,7 +13,7 @@ function NumInput({ label, value, onChange, hint }: { label: string; value: numb
     {hint && <p className="text-xs text-muted-foreground">{hint}</p>}</div>)
 }
 function ResultCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
+  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</p>{children}</div>)
 }
 
 // Typical average engagement rates by account size (likes+comments basis, widely reported industry benchmarks).
@@ -92,7 +92,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <div><p className="text-white/60 text-xs uppercase font-bold">Grade</p><p className="font-mono text-xl font-bold">{r.g.label}</p></div>
         </div>
       </ResultCard>
-      <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">You vs Your Tier</h4>
+      <div className="bg-card border rounded-2xl p-6"><p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">You vs Your Tier</p>
         <ResponsiveContainer width="100%" height={170}><BarChart data={chart}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="name" tick={{ fontSize: 10 }} interval={0} angle={-15} textAnchor="end" height={55} /><YAxis tickFormatter={(v: number) => v + '%'} /><Tooltip formatter={(v: any) => Number(v).toFixed(2) + '%'} />
           <Bar dataKey="value" name="Engagement rate">{chart.map((c) => <Cell key={c.name} fill={c.color} />)}</Bar></BarChart></ResponsiveContainer>
         <p className="text-sm mt-3"><span className="font-bold" style={{ color: r.g.color }}>{r.g.label}.</span> <span className="text-muted-foreground">{r.g.note}</span></p>

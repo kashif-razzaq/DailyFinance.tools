@@ -235,7 +235,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
             </h2>
 
             <div className="space-y-4">
-              <h4 className="font-semibold text-muted-foreground text-sm uppercase tracking-wider">Annual Mileage</h4>
+              <p className="font-semibold text-muted-foreground text-sm uppercase tracking-wider">Annual Mileage</p>
               <div>
                 <label className="flex justify-between text-sm font-medium mb-2">
                   <span>Business Miles</span>
@@ -268,7 +268,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
             <div className="border-t border-border/60 my-6"></div>
 
             <div className="space-y-6">
-              <h4 className="font-semibold text-muted-foreground text-sm uppercase tracking-wider">Lease Financials</h4>
+              <p className="font-semibold text-muted-foreground text-sm uppercase tracking-wider">Lease Financials</p>
               
               <div>
                 <label className="flex justify-between text-sm font-medium mb-2">
@@ -310,7 +310,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
             <div className="border-t border-border/60 my-6"></div>
 
             <div className="space-y-6">
-              <h4 className="font-semibold text-muted-foreground text-sm uppercase tracking-wider">Annual Operating Costs</h4>
+              <p className="font-semibold text-muted-foreground text-sm uppercase tracking-wider">Annual Operating Costs</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="block text-sm font-medium">Gas / Charging</label>

@@ -27,6 +27,10 @@ export async function generateMetadata({
     description: query
       ? `Calculators and guides matching "${query}" on Daily Finance Tools.`
       : "Search Daily Finance Tools — calculators and guides.",
+    // Self-referencing canonical (bare /search, no query): without this the
+    // page inherits the root layout's homepage canonical, which is wrong
+    // for an indexed-by-nothing search page.
+    alternates: { canonical: "https://www.dailyfinance.tools/search" },
     robots: { index: false, follow: true },
   }
 }

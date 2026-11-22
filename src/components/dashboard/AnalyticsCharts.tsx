@@ -167,7 +167,7 @@ function BasicSnapshot({ pic }: { pic: FinancialPicture }) {
             <Lock className="h-5 w-5 text-[#064E3B]" /> The full picture is Pro
           </CardTitle>
           <CardDescription>
-            Your snapshot above is live and free forever. Pro turns the same saved scenarios into the full
+            Your snapshot above is live and free forever. Pro will turn the same saved scenarios into the full
             Cross-Data Analytics — plus unlimited Vault saves and scenario comparison.
           </CardDescription>
         </CardHeader>
@@ -182,7 +182,7 @@ function BasicSnapshot({ pic }: { pic: FinancialPicture }) {
             href="/pricing"
             className="inline-flex shrink-0 items-center justify-center rounded-full bg-[#064E3B] px-6 py-3 text-sm font-bold text-white shadow-sm transition hover:brightness-110"
           >
-            Upgrade to Pro — $2.99/mo
+            See what's coming in Pro
           </Link>
         </CardContent>
       </Card>

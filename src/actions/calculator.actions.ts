@@ -68,7 +68,7 @@ async function vaultLimitMessage(supabase: Awaited<ReturnType<typeof getSupabase
     .eq('user_id', userId)
     .eq('is_share_link', false)
   if ((count ?? 0) >= FREE_VAULT_LIMIT) {
-    return `Free accounts can save up to ${FREE_VAULT_LIMIT} scenarios. Upgrade to Pro for unlimited Vault storage.`
+    return `Free accounts can save up to ${FREE_VAULT_LIMIT} scenarios. Pro is launching soon and will unlock unlimited Vault storage.`
   }
   return null
 }
@@ -128,7 +128,7 @@ export async function saveCalculatorAction({
       .eq('id', user.id)
       .single()
     if (profile?.subscription_status !== 'active') {
-      return { ok: false, reason: 'forbidden' as const, message: 'Live sharing is a Pro feature. Upgrade to Pro to share scenarios.' }
+      return { ok: false, reason: 'forbidden' as const, message: 'Live sharing is a Pro feature. Pro is launching soon.' }
     }
   }
 

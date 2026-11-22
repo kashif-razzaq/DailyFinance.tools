@@ -25,7 +25,7 @@ function NumSlider({ label, value, onChange, min, max, suffix = '' }: { label: s
     <Slider value={[value]} min={min} max={max} step={1} onValueChange={(v: any) => onChange(Array.isArray(v) ? v[0] : v)} /></div>)
 }
 function ResultCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
+  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</p>{children}</div>)
 }
 // Amortizing payment: M = P * r(1+r)^n / ((1+r)^n - 1).
 function monthlyPayment(principal: number, ratePct: number, months: number) {
@@ -90,7 +90,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
   return (<><div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
     <div className="lg:col-span-7 space-y-6">
       <div className="bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-6">
-        <h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground">Your Current Debts (Combined)</h4>
+        <p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground">Your Current Debts (Combined)</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <MoneyInput label="Total Balance Owed" value={balance} onChange={setBalance} hint="All cards and loans you would roll into the new loan." />
           <MoneyInput label="Current Combined Monthly Payment" value={currentPayment} onChange={setCurrentPayment} hint="The sum of the payments you make today." />
@@ -99,14 +99,14 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         {tooLow && <p className="text-sm text-red-600 font-semibold">Warning: the current payment does not cover monthly interest ({fmt(balance * currentApr / 100 / 12)}/mo) — on the current path the debts never clear.</p>}
       </div>
       <div className="bg-card border shadow-sm rounded-2xl p-6 md:p-8 space-y-6">
-        <h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground">The Consolidation Loan Offer</h4>
+        <p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground">The Consolidation Loan Offer</p>
         <PctSlider label="New Loan Rate (APR)" value={newRate} onChange={setNewRate} min={0} max={36} step={0.1} />
         <NumSlider label="New Loan Term (months)" value={newTerm} onChange={setNewTerm} min={12} max={84} suffix=" mo" />
         <PctSlider label="Origination / Balance-Transfer Fee" value={feePct} onChange={setFeePct} min={0} max={10} step={0.25} />
         {termStretch && interestSaved < 0 && <p className="text-sm text-red-600 font-semibold">Interest warning: the new term ({newTerm} months) stretches well beyond your current payoff ({current.months} months). The payment falls, but you pay {fmt(-interestSaved)} MORE in interest and fees overall.</p>}
         {termStretch && interestSaved >= 0 && <p className="text-sm text-amber-600 font-semibold">Note: the new term is longer than your current payoff timeline — consolidating still saves interest here, but paying the new loan at your old payment would save far more.</p>}
       </div>
-      <div className="bg-card border shadow-sm rounded-2xl p-6 md:p-8"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Balance: Current Path vs Consolidated</h4>
+      <div className="bg-card border shadow-sm rounded-2xl p-6 md:p-8"><p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Balance: Current Path vs Consolidated</p>
         <ResponsiveContainer width="100%" height={210}><LineChart data={merged}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="month" /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Legend /><Line type="monotone" dataKey="Current" stroke="#D97706" strokeWidth={2} dot={false} /><Line type="monotone" dataKey="Consolidated" stroke="#064E3B" strokeWidth={2} dot={false} /></LineChart></ResponsiveContainer></div>
     </div>
     <div className="lg:col-span-5 space-y-6">
@@ -122,7 +122,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
           <div><p className="text-white/60 text-xs uppercase font-bold">New Payoff</p><p className="font-mono text-xl font-bold">{dateStr(newTerm)}</p></div>
         </div>
       </ResultCard>
-      <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Read This Before You Sign</h4>
+      <div className="bg-card border rounded-2xl p-6"><p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Read This Before You Sign</p>
         <ul className="space-y-3 text-sm text-neutral-600 list-disc pl-5">
           <li>A lower payment is not the same as a cheaper loan — total interest is the number that matters.</li>
           <li>Consolidating cards into an installment loan only works if the cards stay at zero; re-spending the freed limits doubles the problem.</li>

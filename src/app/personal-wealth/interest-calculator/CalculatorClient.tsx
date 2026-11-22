@@ -18,7 +18,7 @@ function PctSlider({ label, value, onChange, min = 0, max = 20, step = 0.1 }: { 
     <Slider value={[value]} min={min} max={max} step={step} onValueChange={(v: any) => onChange(Array.isArray(v) ? v[0] : v)} /></div>)
 }
 function ResultCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</h3>{children}</div>)
+  return (<div className="bg-[#064E3B] text-white rounded-2xl p-6 md:p-8 shadow-xl"><p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{title}</p>{children}</div>)
 }
 
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts'
@@ -87,7 +87,7 @@ export function CalculatorClient({ isPro = false }: { isPro?: boolean }) {
         </div>
         <div className="mt-6 bg-white/15 border border-white/25 rounded-xl px-4 py-3"><p className="text-sm font-semibold">Compounding advantage: <span className="font-mono font-black">{fmt(r.diff)}</span> extra — interest earning interest is the whole difference.</p></div>
       </ResultCard>
-      <div className="bg-card border rounded-2xl p-6"><h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Growth by Year — Compound vs Simple</h4>
+      <div className="bg-card border rounded-2xl p-6"><p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Growth by Year — Compound vs Simple</p>
         <ResponsiveContainer width="100%" height={210}><AreaChart data={r.chart}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="year" /><YAxis tickFormatter={(v: number) => sym + Math.round(v / 1000) + 'k'} /><Tooltip formatter={(v: any) => fmt(Number(v))} /><Area type="monotone" dataKey="compound" stroke="#064E3B" fill="#064E3B" fillOpacity={0.18} name="Compound" /><Area type="monotone" dataKey="simple" stroke="#D97706" fill="#D97706" fillOpacity={0.12} name="Simple" /></AreaChart></ResponsiveContainer>
         <p className="text-xs text-muted-foreground mt-3">The lines start together and diverge — slowly at first, then dramatically. Time is what makes compounding win.</p>
       </div>
