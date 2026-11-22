@@ -257,9 +257,7 @@ export async function ToolLayout({
           <p className="mt-6 rounded-2xl border border-border/60 bg-muted/30 px-5 py-4 text-xs leading-relaxed text-muted-foreground">
             <strong className="font-semibold text-foreground">Estimates, not advice.</strong>{" "}
             This calculator provides educational estimates based on the inputs you enter and the assumptions shown on this page. It is not financial, tax or investment advice, and it cannot see your full situation. Verify important figures against official sources, and consider a qualified professional for decisions about your own money. See our{" "}
-            <Link href="/disclaimer" className="font-semibold text-primary hover:underline">Disclaimer</Link>{" "}
-            and{" "}
-            <Link href="/methodology" className="font-semibold text-primary hover:underline">Methodology</Link>.
+            <Link href="/disclaimer" className="font-semibold text-primary hover:underline">Disclaimer</Link>.
           </p>
 
           {/* Bottom Article Ad Space */}

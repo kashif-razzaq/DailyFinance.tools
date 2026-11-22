@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import { GUIDES } from '@/data/guides'
-import { HUBS } from '@/data/hubs'
 import { navigationCategories } from '@/config/navigation'
 import { FooterAccordion } from '@/components/layout/FooterAccordion'
 import { ActiveLink } from '@/components/layout/ActiveLink'
@@ -167,20 +166,6 @@ export function Footer() {
               <ActiveLink href="/guides/states" activeClassName="underline underline-offset-2" className="text-xs font-semibold text-primary hover:underline underline-offset-2">
                 State tax guides &rarr;
               </ActiveLink>
-            </div>
-            {/* Calculator hubs — the six /hubs/ topic pages. Footer-linked so
-                every hub has inbound links from every page (ARB SI12). */}
-            <div className="mt-5 border-t border-[#064E3B]/10 pt-4">
-              <p className="mb-2 text-xs font-semibold text-foreground">Calculator hubs</p>
-              <ul className="grid grid-cols-2 gap-x-4 gap-y-1.5">
-                {HUBS.map((hub) => (
-                  <li key={hub.slug}>
-                    <ActiveLink href={`/hubs/${hub.slug}`} activeClassName="underline underline-offset-2" className="text-xs font-medium text-foreground/80 transition-colors hover:text-[#064E3B] hover:underline underline-offset-2 dark:hover:text-emerald-400">
-                      {hub.title.replace(' calculators', '')}
-                    </ActiveLink>
-                  </li>
-                ))}
-              </ul>
             </div>
           </div>
         </div>

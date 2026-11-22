@@ -31,9 +31,8 @@ export function TahirLeadGenCTA() {
           />
         </div>
         <h3 className="text-xl font-bold tracking-tight text-foreground mb-1 relative">DailyFinance Expert Consultation</h3>
-        <div className="flex items-center gap-2 mb-6 relative">
+        <div className="flex flex-col items-center gap-1 mb-6 relative">
           <span className="text-[10px] font-bold uppercase tracking-widest text-primary">Official Partner Network</span>
-          <span className="w-1 h-1 rounded-full bg-border"></span>
           <span className="text-[10px] font-bold uppercase tracking-widest text-primary">Business Solutions</span>
         </div>
 
