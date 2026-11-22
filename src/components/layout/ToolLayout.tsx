@@ -110,9 +110,10 @@ export async function ToolLayout({
             {/* Dynamic Breadcrumbs */}
             {category && (
               <nav className="flex items-center gap-1.5 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider flex-nowrap overflow-x-auto whitespace-nowrap [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden mb-6">
-                <Link href="/" className="shrink-0 hover:text-foreground transition-colors">Home</Link>
+                {/* ARB fix round 2 (#15): 48px breadcrumb tap targets. */}
+                <Link href="/" className="inline-flex min-h-12 shrink-0 items-center hover:text-foreground transition-colors">Home</Link>
                 <span aria-hidden="true" className="text-border shrink-0 select-none">›</span>
-                <Link href={`/${category.slug}`} className="shrink-0 hover:text-foreground transition-colors">{category.name}</Link>
+                <Link href={`/${category.slug}`} className="inline-flex min-h-12 shrink-0 items-center hover:text-foreground transition-colors">{category.name}</Link>
                 <span aria-hidden="true" className="text-border shrink-0 select-none">›</span>
                 <span className="text-foreground truncate max-w-[200px] md:max-w-none" title={title}>{title}</span>
               </nav>
@@ -173,20 +174,21 @@ export async function ToolLayout({
                 <ListOrdered className="h-4 w-4 text-[#064E3B] dark:text-emerald-400" /> On this page
               </p>
               <ol className="m-0 list-none space-y-2 p-0">
-                <li className="text-sm"><a href="#quick-answer" className="text-muted-foreground hover:text-primary hover:underline underline-offset-2"><span className="mr-2 font-mono text-xs text-muted-foreground/70">01</span>Quick answer</a></li>
-                <li className="text-sm"><a href="#how-it-works" className="text-muted-foreground hover:text-primary hover:underline underline-offset-2"><span className="mr-2 font-mono text-xs text-muted-foreground/70">02</span>How the {title} works, step by step</a></li>
+                {/* ARB fix round 2 (#15): 48px TOC tap rows — text size unchanged. */}
+                <li className="text-sm"><a href="#quick-answer" className="flex min-h-12 items-center text-muted-foreground hover:text-primary hover:underline underline-offset-2"><span className="mr-2 font-mono text-xs text-muted-foreground/70">01</span>Quick answer</a></li>
+                <li className="text-sm"><a href="#how-it-works" className="flex min-h-12 items-center text-muted-foreground hover:text-primary hover:underline underline-offset-2"><span className="mr-2 font-mono text-xs text-muted-foreground/70">02</span>How the {title} works, step by step</a></li>
                 {entry.formula && (
-                  <li className="text-sm"><a href="#formula" className="text-muted-foreground hover:text-primary hover:underline underline-offset-2"><span className="mr-2 font-mono text-xs text-muted-foreground/70">03</span>The formula</a></li>
+                  <li className="text-sm"><a href="#formula" className="flex min-h-12 items-center text-muted-foreground hover:text-primary hover:underline underline-offset-2"><span className="mr-2 font-mono text-xs text-muted-foreground/70">03</span>The formula</a></li>
                 )}
-                <li className="text-sm"><a href="#worked-example" className="text-muted-foreground hover:text-primary hover:underline underline-offset-2"><span className="mr-2 font-mono text-xs text-muted-foreground/70">{entry.formula ? "04" : "03"}</span>Worked example</a></li>
+                <li className="text-sm"><a href="#worked-example" className="flex min-h-12 items-center text-muted-foreground hover:text-primary hover:underline underline-offset-2"><span className="mr-2 font-mono text-xs text-muted-foreground/70">{entry.formula ? "04" : "03"}</span>Worked example</a></li>
                 {faqs.length > 0 && (
-                  <li className="text-sm"><a href="#faq" className="text-muted-foreground hover:text-primary hover:underline underline-offset-2"><span className="mr-2 font-mono text-xs text-muted-foreground/70">{entry.formula ? "05" : "04"}</span>Frequently asked questions</a></li>
+                  <li className="text-sm"><a href="#faq" className="flex min-h-12 items-center text-muted-foreground hover:text-primary hover:underline underline-offset-2"><span className="mr-2 font-mono text-xs text-muted-foreground/70">{entry.formula ? "05" : "04"}</span>Frequently asked questions</a></li>
                 )}
                 {entry.sources && entry.sources.length > 0 && (
-                  <li className="text-sm"><a href="#sources" className="text-muted-foreground hover:text-primary hover:underline underline-offset-2"><span className="mr-2 font-mono text-xs text-muted-foreground/70">{entry.formula ? "06" : "05"}</span>Sources</a></li>
+                  <li className="text-sm"><a href="#sources" className="flex min-h-12 items-center text-muted-foreground hover:text-primary hover:underline underline-offset-2"><span className="mr-2 font-mono text-xs text-muted-foreground/70">{entry.formula ? "06" : "05"}</span>Sources</a></li>
                 )}
                 {relatedGuides.length > 0 && (
-                  <li className="text-sm"><a href="#learn-more" className="text-muted-foreground hover:text-primary hover:underline underline-offset-2"><span className="mr-2 font-mono text-xs text-muted-foreground/70">{entry.formula ? "07" : "06"}</span>Learn more</a></li>
+                  <li className="text-sm"><a href="#learn-more" className="flex min-h-12 items-center text-muted-foreground hover:text-primary hover:underline underline-offset-2"><span className="mr-2 font-mono text-xs text-muted-foreground/70">{entry.formula ? "07" : "06"}</span>Learn more</a></li>
                 )}
               </ol>
             </nav>
@@ -198,7 +200,9 @@ export async function ToolLayout({
           {faqs.length > 0 && (
             <section className="bg-primary/5 border border-primary/20 rounded-3xl p-8 md:p-12 mt-16">
               <h2 id="faq" className="text-2xl md:text-3xl font-extrabold mb-8 mt-0 text-foreground scroll-mt-24">Frequently Asked Questions</h2>
-              <FaqAccordion items={faqs} variant="bare" />
+              {/* ARB fix round 2 (#15): 48px FAQ summary rows, via the
+                  accordion's className (FaqAccordion itself is shared). */}
+              <FaqAccordion items={faqs} variant="bare" className="[&>details>summary]:min-h-12 [&>details>summary]:items-center" />
             </section>
           )}
 

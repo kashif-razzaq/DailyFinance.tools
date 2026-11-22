@@ -13,6 +13,14 @@ export function generateStaticParams() {
   return US_CITIES.map((c) => ({ state: c.stateSlug, city: c.slug }))
 }
 
+// Page title: the full variant fits the 50–60 char band for 19 cities;
+// the 11 longest city names use the shorter variant, also in band.
+function cityTitle(c: { name: string; combinedRate: number }, s: { abbr: string }): string {
+  const long = `Sales Tax in ${c.name}, ${s.abbr}: ${c.combinedRate}% Combined Rate & Calculator`
+  if (long.length <= 60) return long
+  return `Sales Tax in ${c.name}, ${s.abbr}: ${c.combinedRate}% Combined Rate 2026`
+}
+
 // Closed param set: every valid state/city is in generateStaticParams, so an
 // unknown state/city must 404 at the routing level. Without this, Next renders
 // unknown state/citys dynamically and notFound() can resolve inside a streamed
@@ -25,22 +33,23 @@ export async function generateMetadata({ params }: { params: Promise<{ state: st
   const c = getCity(state, city)
   const s = getStateBySlug(state)
   if (!c || !s) return { title: "City Not Found" }
+  const title = cityTitle(c, s)
   return {
-    title: `Sales Tax in ${c.name}, ${s.abbr}: ${c.combinedRate}% Combined Rate & Calculator`,
+    title,
     description: `Combined sales tax in ${c.name}, ${s.name} is about ${c.combinedRate}% (state ${s.salesTaxBase}% + local). Tax on $50–$1,000 purchases, grocery rules and a free calculator.`,
     alternates: { canonical: `https://www.dailyfinance.tools/sales-tax/${s.slug}/${c.slug}` },
     openGraph: {
-      title: `Sales Tax in ${c.name}, ${s.abbr}: ${c.combinedRate}% Combined Rate & Calculator`,
+      title,
       description: `Combined sales tax in ${c.name}, ${s.name} is about ${c.combinedRate}% (state ${s.salesTaxBase}% + local). Tax on $50–$1,000 purchases, grocery rules and a free calculator.`,
       url: `https://www.dailyfinance.tools/sales-tax/${s.slug}/${c.slug}`,
       siteName: "Daily Finance Tools",
       locale: "en_US",
       type: "website",
-      images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: `Sales Tax in ${c.name}, ${s.abbr}: ${c.combinedRate}% Combined Rate & Calculator` }],
+      images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: title }],
     },
     twitter: {
       card: "summary_large_image",
-      title: `Sales Tax in ${c.name}, ${s.abbr}: ${c.combinedRate}% Combined Rate & Calculator`,
+      title,
       description: `Combined sales tax in ${c.name}, ${s.name} is about ${c.combinedRate}% (state ${s.salesTaxBase}% + local). Tax on $50–$1,000 purchases, grocery rules and a free calculator.`,
       images: ["https://www.dailyfinance.tools/images/og-base.jpg"],
     },
@@ -66,7 +75,7 @@ export default async function CitySalesTaxPage({ params }: { params: Promise<{ s
     { question: `Why is ${c.name}'s rate different from the ${s.name} average?`, answer: `The statewide average combined rate in ${s.name} is about ${s.salesTaxAvgCombined}%. ${c.name} is ${diff > 0 ? `about ${diff} points higher` : diff < 0 ? `about ${Math.abs(diff)} points lower` : "right at the average"} because of its local layers. ${c.fact}` },
     { question: `Are groceries taxed in ${c.name}?`, answer: s.groceriesNote },
     { question: `How does ${c.name} compare with other US cities?`, answer: `${c.name}'s ${c.combinedRate}% combined rate ranks ${rank} of the 30 major cities in our dataset (average ${AVG_CITY_COMBINED}%). The highest is ${highestCities(1)[0].name} at ${highestCities(1)[0].combinedRate}%; the lowest is ${lowestCities(1)[0].name} at ${lowestCities(1)[0].combinedRate}%. Against the all-state average combined rate of ${AVG_COMBINED}%, ${c.name} is ${vsNational > 0 ? `${vsNational} points higher` : vsNational < 0 ? `${Math.abs(vsNational)} points lower` : "exactly level"}.` },
-    { question: `Where can I verify the exact sales tax rate for a ${c.name} address?`, answer: `District taxes inside ${c.name} can shift the combined rate street by street, so ${c.combinedRate}% is the typical in-city figure, not a guarantee for every address. Confirm the rate for a specific address with the ${s.name} Department of Revenue before a major purchase or a filing.` },
+    { question: `Where can I verify the exact sales tax rate for a ${c.name} address?`, answer: `District taxes inside ${c.name} can shift the combined rate street by street, so ${c.combinedRate}% is the typical in-city figure, not a guarantee for every address. Confirm the rate for a specific address with the ${s.taxAgency} before a major purchase or a filing.` },
   ]
   const faqSchema = faq(faqs)
   const breadcrumbSchema = breadcrumb([
@@ -76,7 +85,7 @@ export default async function CitySalesTaxPage({ params }: { params: Promise<{ s
     { name: c.name, url: `https://www.dailyfinance.tools/sales-tax/${s.slug}/${c.slug}` },
   ])
   const pageSchema = webPage({
-    name: `Sales Tax in ${c.name}, ${s.abbr}: ${c.combinedRate}% Combined Rate & Calculator`,
+    name: cityTitle(c, s),
     url: `https://www.dailyfinance.tools/sales-tax/${s.slug}/${c.slug}`,
     datePublished: CONTENT_REVIEWED,
     dateModified: CONTENT_REVIEWED,
@@ -164,7 +173,7 @@ export default async function CitySalesTaxPage({ params }: { params: Promise<{ s
           <aside className="lg:col-span-4 bg-card border rounded-3xl p-6">
             <h3 className="font-bold text-lg mb-4">{c.name} Sales Tax FAQs</h3>
 <FaqAccordion items={faqs} variant="compact" />
-            <ReviewLine compact deptName={`${s.name} Department of Revenue`} />
+            <ReviewLine compact deptName={s.taxAgency} />
             <div className="mt-6 pt-5 border-t border-border/40 space-y-2">
               <Link href={`/sales-tax/${s.slug}`} className="block text-sm text-primary font-semibold">Full {s.name} sales tax guide →</Link>
               <Link href={`/locations/${s.slug}`} className="block text-sm text-primary font-semibold">{s.name} tax &amp; finance guide →</Link>

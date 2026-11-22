@@ -22,7 +22,7 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       },
       {
         "question": "Is the interest on savings taxed?",
-        "answer": "Yes. Interest earned in a regular savings account is taxed as ordinary income in the year it is credited, and your bank reports it on Form 1099-INT if it exceeds $10. The calculator shows pre-tax growth, so at a 22% marginal rate you would keep about 78% of the interest shown."
+        "answer": "Yes, as ordinary income in the year it is credited — and your bank reports it on Form 1099-INT once it passes $10. The calculator shows pre-tax growth, so at a 22% marginal rate you would keep about 78% of the interest shown. Roughly a fifth of the interest in the worked example goes to tax."
       },
       {
         "question": "How much faster does monthly compounding grow money than annual?",
@@ -38,15 +38,15 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       },
       {
         "question": "Does the interest share grow over time?",
-        "answer": "Yes, sharply. The account earns about $540 of interest in its first year, but roughly $2,600 in its tenth, because the balance doing the earning is far larger by then. Growth starts almost flat, then curves upward as interest earns interest on a larger base — the year-by-year chart shows the bend, and the interest share of the final balance grows with time."
+        "answer": "Yes, sharply — and the numbers show why. First-year interest is about $540; by the tenth year it is roughly $2,600, because the balance doing the earning is far larger by then. Growth starts nearly flat, then bends upward as interest earns interest on an ever-larger base — the year-by-year chart shows the curve. Early on, deposits do the work; later, the interest does."
       },
       {
         "question": "Should I raise my deposit or chase a higher rate?",
-        "answer": "Read the split between deposits and interest, not just the final balance. If deposits dominate, a higher rate matters less than a higher deposit; if interest is a large share, the rate is doing real work and shopping for a better APY pays off. In the worked example, interest is roughly a quarter of the final amount — enough that the rate choice is worth about $13,955."
+        "answer": "Read the split, not the headline. When deposits are most of the final balance, raising the deposit beats chasing the rate; when interest is a large share, the rate is doing real work and a better APY pays off. In the worked example, interest is roughly a quarter of the final amount — enough that the rate choice is worth about $13,955."
       },
       {
         "question": "What does the calculator assume that real life changes?",
-        "answer": "It holds your rate and deposit constant for the whole horizon and assumes no withdrawals — real savings plans change both. The rate you enter is a snapshot, not a promise: high-yield savings rates move with the federal funds rate, which the Federal Reserve held at 3.75% to 4.00% in October 2026 after raising it in September. Re-run the numbers when your rate changes."
+        "answer": "Three things: a constant rate, a constant deposit, and no withdrawals — real savings plans change all three. The rate is a snapshot, not a promise — savings rates track the Fed's target, which sat at 3.75% to 4.00% in October 2026. The figures are nominal dollars too: at 3% inflation, what the final balance buys is roughly three-quarters of the headline figure after 10 years."
       }
     ],
     "sources": [
@@ -77,7 +77,7 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
     "faqs": [
       {
         "question": "What return should I assume for investments?",
-        "answer": "Use a cautious planning figure, not a best case. US stocks have returned roughly 10% a year before inflation over very long periods, but with deep falls along the way. Many planners model 6% to 8% for a diversified portfolio. This calculator assumes a smooth return; real returns arrive unevenly."
+        "answer": "A cautious planning figure, not the long-run average. The long-run US stock average is roughly 10% a year before inflation, but with deep falls along the way — so many planners model 6% to 8% for a diversified portfolio. The calculator's return is smooth by assumption — real returns arrive unevenly, and a poor run early on leaves a smaller base for later growth."
       },
       {
         "question": "Why does the last decade add so much more than the first?",
@@ -93,19 +93,19 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       },
       {
         "question": "How much does starting earlier matter versus contributing more?",
-        "answer": "More than most people expect. Extending the example from 20 to 25 years adds about $80,720, taking the balance to roughly $231,145 — and the horizon is the one input you control completely. Raising the assumed return by a point looks similar on screen, but no investment guarantees the higher return. Test the horizon before you test the rate."
+        "answer": "More than most people expect — and it is the one lever you fully control. Five more years on the same plan adds about $80,720, taking the balance to roughly $231,145, with no extra contribution and no higher return. Bumping the assumed return a point looks similar on screen, but no investment promises the higher figure. Test the horizon before you test the rate."
       },
       {
         "question": "When does growth overtake my contributions?",
-        "answer": "In the second decade. In the worked example, the first 10 years build about $53,320 and the second 10 add about $97,105, even though the deposits in each decade are identical at $30,000. By year 17, growth of about $57,900 has passed total contributions of $56,000. After the crossover, the base — not the deposit — drives growth."
+        "answer": "In the second decade — year 17, in the worked example. By then, growth of about $57,900 has overtaken the $56,000 paid in. The decade split shows why: the first decade builds about $53,320 while the second adds about $97,105, on identical $30,000 of deposits per decade. After the crossover, the base — not the deposit — drives growth, which is why the early years feel slow and the late years feel fast."
       },
       {
         "question": "Does the calculator assume my return is smooth every year?",
-        "answer": "Yes. It assumes a steady return, but real returns arrive unevenly, and a bad sequence early on leaves a smaller base for later growth. US stocks have returned roughly 10% a year before inflation over very long periods, but with deep falls along the way — which is why many planners model 6% to 8% for a diversified portfolio rather than the long-run average."
+        "answer": "Yes — and that is the assumption to stress-test. The calculator compounds at a steady return, but real markets do not move in a straight line — a poor run early on leaves a smaller base for later growth. That is one reason planners model 6% to 8% for a diversified portfolio rather than the roughly 10% long-run average: the average comes with deep falls along the way."
       },
       {
         "question": "What is $250 a month actually worth over 20 years?",
-        "answer": "Invest $5,000, add $250 a month, and earn a steady 7% a year for 20 years. Total contributions are $65,000, and the final value is about $150,425 — compounding added $85,425, more than you put in. Stop after 10 years instead and the balance is only about $53,320, which is why the second decade matters so much."
+        "answer": "More than you put in — literally. Put in $5,000, add $250 a month at 7%, and 20 years later the balance is about $150,425 — $65,000 of it your money, $85,425 of it growth. Quit at 10 years and the balance is only about $53,320, which is why the second decade matters so much: it adds roughly $97,105 of growth on the same $30,000 paid in."
       }
     ],
     "sources": [
@@ -152,19 +152,19 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       },
       {
         "question": "How big is the simple-versus-compound gap over time?",
-        "answer": "On $20,000 at 6% for 5 years, simple interest pays $6,000 while compound interest, credited monthly, pays $6,977 — a $977 gap. Stretch the term to 20 years and simple interest pays $24,000 while monthly compounding pays about $46,204. The gap widens from under $1,000 to more than $22,000, which is why the method matters far more over decades than over months."
+        "answer": "It grows with the term, not the rate. On $20,000 at 6%, the methods differ by $977 after 5 years — simple pays $6,000, monthly compounding pays $6,977. Stretch the term to 20 years and the gap is more than $22,000: simple interest totals $24,000 while monthly compounding totals about $46,204. Over months the method is a footnote; over decades it is most of the return."
       },
       {
         "question": "What is the effective annual yield at different compounding frequencies?",
-        "answer": "At a 6% nominal rate, the effective annual yield is 6.00% compounded annually, 6.14% quarterly, 6.17% monthly and 6.18% daily. The whole frequency range is worth 18 basis points, while a single point of rate is worth far more — so chase the rate first and treat frequency as a tiebreaker when comparing deposit accounts."
+        "answer": "At a 6% nominal rate, annual compounding gives 6.00%, quarterly 6.14%, monthly 6.17% and daily 6.18%. The whole frequency range is worth 18 basis points — less than a fifth of a single point of rate. That is the practical lesson: chase the rate first, and treat frequency as a tiebreaker when two deposit accounts are otherwise equal."
       },
       {
         "question": "How are monthly contributions treated under simple interest?",
-        "answer": "In this tool the simple leg accrues on deposited principal only, never on past interest. Monthly contributions add to the base, but the interest they earn does not itself earn interest. That linearity is the method's signature: the interest column in the year-by-year table rises by the same dollar amount every year, while the compound column's yearly interest grows."
+        "answer": "They add to the base, not to the compounding. Under simple interest, each monthly contribution joins the deposited principal and earns interest — but the interest it earns never itself earns interest. That is why the simple column climbs by the same amount each year in the year-by-year table, while the compound column's yearly interest keeps growing: one method is a straight line, the other accelerates."
       },
       {
         "question": "Should I compare loans by interest rate or by APR?",
-        "answer": "By APR. Fees are captured by APR, not by the interest rate, so two loans at the same rate can cost very different amounts. A loan quote means little until you know the method and the fees — and the same applies on the deposit side, where banks quote APY so you can compare accounts directly without doing the frequency math yourself."
+        "answer": "By APR for loans, APY for deposits — each figure exists because the headline rate is not enough. APR folds the fees in, so two loans quoted at the same rate can cost very different amounts once fees are counted. And a loan quote means little until you know the method behind it: simple on the outstanding balance, or compounding like a credit card."
       }
     ],
     "sources": [
@@ -195,7 +195,7 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
     "faqs": [
       {
         "question": "Where is simple interest actually used?",
-        "answer": "Short-term loans, many auto loans, and some personal loans calculate interest on the outstanding balance without compounding. US Treasury bills and some short-term notes are also priced on a simple basis. Most savings products compound instead, which is why a savings projection needs a compound calculator."
+        "answer": "Where terms are short and interest never earns interest: short-term loans, many auto loans and some personal loans, charged on the outstanding balance. US Treasury bills and short-term notes are priced the same way. If the product's interest would itself earn interest, as most savings products do, it compounds — and this calculator is the wrong tool."
       },
       {
         "question": "How do I calculate simple interest for months instead of years?",
@@ -207,7 +207,7 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       },
       {
         "question": "Does a mortgage use simple interest?",
-        "answer": "Effectively yes, in a specific way: each month's interest is charged on the current balance only, and the payment is set so the balance reaches zero at the end of the term. That schedule is called amortization, and interest is never charged on past interest as long as you pay on time."
+        "answer": "In effect, yes. A mortgage charges each month's interest on the balance as it stands, and sets the payment so the balance hits zero at the end of the term — the amortization schedule. Past interest is never itself charged interest, provided payments arrive on time, which is why paying on time matters twice."
       },
       {
         "question": "How much less does simple interest pay than compound interest over 20 years?",
@@ -215,7 +215,7 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       },
       {
         "question": "How can I tell from a loan quote that it is simple interest?",
-        "answer": "If the interest charge is identical in year one and year five, the loan is simple. Because growth is linear, each year adds the same amount — $400 a year in the worked example — and doubling the term exactly doubles the interest. That makes simple interest easy to check by hand and easy to spot in a loan quote."
+        "answer": "Run two checks on the quote. First, the interest charge should be identical in year one and year five — $400 a year in the worked example, every year, because growth is linear. Second, doubling the term should exactly double the interest. Either check takes seconds by hand, and either one failing means the loan compounds or the quote is not what it seems."
       },
       {
         "question": "What happens if the product actually compounds?",
@@ -223,7 +223,7 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       },
       {
         "question": "What does the compound comparison switch show?",
-        "answer": "What monthly compounding at the same rate would give instead. On the worked example the difference is only $92 over 3 years — $9,292 compounded against $9,200 simple — which is why the two methods look similar over short terms. Over 20 years the same $8,000 at 5% earns $8,000 of simple interest but about $13,701 compounded monthly."
+        "answer": "What you give up — or save — by the method. Over 3 years the worked example differs by only $92: $9,292 compounded against $9,200 simple. Stretch to 20 years and the same $8,000 at 5% pays $8,000 simple against about $13,701 compounded monthly. The switch shows that time, not the rate, is what turns the gap from a footnote into the main event."
       }
     ],
     "sources": [
@@ -254,15 +254,15 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
     "faqs": [
       {
         "question": "What is the difference between APR and APY?",
-        "answer": "APY describes what a deposit earns, including compounding. APR describes what a loan costs, including most fees, but it does not compound. Comparing a loan's APR with a savings account's APY is a common and misleading shortcut — use this calculator's reverse mode to put both on a nominal footing first."
+        "answer": "The direction of the money. APY describes what a deposit earns, compounding included; APR describes what a loan costs, most fees included, without compounding. They answer different questions, so setting a loan's APR against a savings account's APY compares two different things. Compare APY with APY and APR with APR — or use this calculator's reverse mode to put both on a nominal footing first."
       },
       {
         "question": "Can APY change after I open the account?",
-        "answer": "On a variable-rate savings account, yes — the bank can change the rate at any time, and the APY follows. On a CD, the APY is fixed for the term. The APY quoted at opening is a snapshot, not a promise, for variable accounts, which is why high-yield rates moved with the Fed's September 2026 rate rise."
+        "answer": "On a variable-rate savings account, yes: the bank can move the rate whenever it likes, and the APY follows — which is why high-yield rates moved with the Fed's September 2026 rate rise. A CD locks the APY for the term, so the quoted figure is the figure you get. Treat any variable APY as a snapshot, not a promise, and check the rate rather than assuming the opening figure holds."
       },
       {
         "question": "Why is my interest payment lower than the APY suggests?",
-        "answer": "APY assumes the balance stays in the account for a full year and that all interest stays and compounds. Withdrawals, a balance that was present for only part of the period, or a tiered rate on part of the balance all reduce what you actually receive. Check the statement period before concluding the bank paid short."
+        "answer": "Because APY assumes the ideal case: the full balance stays put for a year and every cent of interest stays and compounds. Reality breaks that three ways — withdrawals, a balance present for only part of the period, or a tiered rate that pays less on part of the balance. Before concluding the bank paid short, check the statement period: a partial month pays partial interest."
       },
       {
         "question": "Do all banks have to disclose APY?",
@@ -274,15 +274,15 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       },
       {
         "question": "Why does daily compounding barely beat monthly compounding?",
-        "answer": "Because the compounding premium is nearly exhausted by monthly crediting. The same 4.8% nominal rate is a 4.80% APY compounded annually, 4.89% quarterly, 4.91% monthly and 4.92% daily. Moving from annual to monthly compounding is worth about 11 basis points; moving from monthly to daily is worth about 1. Frequency is a tiebreaker, not a reason to choose an account."
+        "answer": "Diminishing returns. Each extra crediting period adds less than the last: on a 4.8% nominal rate, going from annual to monthly crediting adds about 11 basis points, while going from monthly to daily adds about 1. By the time interest is credited monthly, the premium is nearly exhausted. The table shows the full run — 4.80% annually, 4.89% quarterly, 4.91% monthly, 4.92% daily — which is why frequency should only break ties between accounts, never choose one."
       },
       {
         "question": "When would I use the reverse mode?",
-        "answer": "When you want to compare a deposit against a loan quoted in APR. The reverse mode takes a quoted APY and backs out the nominal rate behind it, putting both products on the same footing. Run the reverse mode on a 4.91% APY and you get back an equivalent 4.80% nominal rate — the figure you can fairly set against a loan's APR."
+        "answer": "When the two products you are comparing are quoted in different languages. A deposit quotes APY; a loan quotes APR, and the two do not compare directly. Reverse mode takes the quoted APY and backs out the nominal rate behind it — a 4.91% APY becomes an equivalent 4.80% nominal rate — giving you the figure you can fairly set against a loan's APR."
       },
       {
         "question": "How much difference does a higher APY make in dollars?",
-        "answer": "On a $25,000 balance held a full year, a 4.91% APY pays about $1,227 of interest rather than the $1,200 the 4.8% nominal rate suggests. Hold the full $25,000 for 5 years at that APY and the balance reaches about $31,766, with monthly compounding adding roughly $766 beyond what simple interest at 4.8% would pay. Small on a small balance, real money on a large one held for years."
+        "answer": "In year one, modestly; over years, seriously. On $25,000, a 4.91% APY pays about $1,227 of interest in a full year, $27 more than the $1,200 the 4.8% nominal rate suggests. Hold the full balance for 5 years and it reaches about $31,766, with monthly compounding contributing roughly $766 more than simple interest at 4.8% would. The APY gap is small on a small balance and real money on a large one held for years."
       }
     ],
     "sources": [
@@ -329,11 +329,11 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       },
       {
         "question": "How much more does the CD actually pay in the worked example?",
-        "answer": "On $25,000 over 3 years, a 5.0% CD grows to $29,037 and a 4.6% high-yield savings account to $28,692 — the CD pays about $345 more, in exchange for locking the money up. At a 22% marginal tax rate, the CD's $4,037 of interest keeps $3,149 after tax and the savings account's $3,692 keeps $2,880, so the ranking does not change."
+        "answer": "$345 over 3 years — and the smallness of the number is the story. The CD reaches $29,037 on $25,000 over 3 years; the savings account reaches $28,692. Tax does not change the ranking: after tax at a 22% marginal rate, the CD keeps $3,149 of its $4,037 interest and the savings account keeps $2,880 of its $3,692. The real prize is moving from a 0.5% account at all — worth an extra $3,659."
       },
       {
         "question": "Does tax change which product wins?",
-        "answer": "No. Interest on both products is taxed as ordinary income in the year it is credited, including inside a CD you cannot touch yet, so the same marginal rate applies to both and the ranking holds. One simplification: the calculator applies tax as a flat reduction on total interest, while in reality tax is due year by year, which slightly reduces compounding — so the after-tax figures are close estimates rather than exact."
+        "answer": "No — the same marginal rate applies to both, so the ranking holds. Both products are taxed the same way — ordinary income rates, in the year the interest is credited, even inside a CD you cannot touch yet, which is the one tax quirk worth knowing: you pay tax on money still locked away. One simplification to note: the calculator applies tax as a flat reduction on total interest, while in reality tax is due year by year, which slightly reduces compounding."
       },
       {
         "question": "What does the regular 0.5% savings bar show?",
@@ -372,7 +372,7 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
     "faqs": [
       {
         "question": "Why can online banks pay higher APYs?",
-        "answer": "They have no branch network to fund, and they compete nationally for deposits. The accounts carry the same FDIC insurance (up to $250,000 per depositor, per bank) as a branch account. The trade-offs are usually no cash deposits and transfers that take 1 to 3 business days."
+        "answer": "With no branches to fund, an online bank spends that saving bidding for deposits nationwide — the APY is how it wins customers it never meets in person. Your money keeps the same FDIC insurance, up to $250,000 per depositor, per bank. What you give up is cash deposits and instant transfers, which take 1 to 3 business days."
       },
       {
         "question": "Is interest from a high-yield savings account taxed?",
@@ -388,19 +388,19 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       },
       {
         "question": "How much more does a high-yield account actually earn?",
-        "answer": "$15,000 held 3 years grows to $17,164 at 4.5% APY but only $15,457 at 1.0% — a $1,707 difference for the same money and the same federal insurance. Against the 0.38% national average, the balance would reach only about $15,172. The comparison that matters is against your current account's actual rate, not against 1.0%."
+        "answer": "On $15,000 over 3 years, the high-yield account pays $2,164 of interest against $457 at 1.0% — nearly five times as much interest on the same deposit, a $1,707 gap. But 1.0% may flatter your current account: at the 0.38% national average the balance reaches only about $15,172. Enter your own account's rate in the regular-APY field to see your real gap."
       },
       {
         "question": "Does adding a monthly contribution change the comparison?",
-        "answer": "It widens the gap, because every deposit earns the higher rate too. With a $10,000 deposit plus $300 a month over 5 years, a 4.5% account reaches $32,662 while a 0.4% account reaches $28,380 — a $4,281 difference on $28,000 paid in. The contribution does not change the rate story; it scales it."
+        "answer": "It raises the stakes without changing the winner. The rate advantage applies to every dollar you add, so a saver depositing $300 a month sees the gap grow: $10,000 plus $300 a month over 5 years reaches $32,662 at 4.5% against $28,380 at 0.4%, a $4,281 difference on $28,000 paid in. The bigger your monthly habit, the more the APY gap is worth to you."
       },
       {
         "question": "What happens to my rate if the Fed cuts rates?",
-        "answer": "The APY follows the federal funds rate with a lag, because the rate is variable. The Fed held its target at 3.75% to 4.00% in October 2026 after raising it in September, and top online accounts paid about 4.2% to 4.4% APY in November 2026 against a 0.38% national average. Re-run the calculator when rates move rather than treating the first projection as a forecast."
+        "answer": "Your APY follows the federal funds rate down, but with a lag, so a cut does not hit your balance the next morning. What matters is the spread, not the headline rate: top online accounts paid about 4.2% to 4.4% in November 2026 against a 0.38% national average. When your bank's rate changes, re-run the numbers with the new APY rather than trusting the old projection."
       },
       {
         "question": "Is a high-yield savings account right for long-term wealth building?",
-        "answer": "It suits an emergency fund rather than long-term wealth building. The rate is variable, interest is taxed as ordinary income in the year it is paid, and the account's job is liquid, insured money earning a market rate — not decades of growth. Keep one month of expenses in your everyday account for instant access and the rest here, since transfers out can take a few days."
+        "answer": "Judge it by its job. Its strengths are liquidity, FDIC insurance and a market rate — exactly what an emergency fund needs, and exactly why it is not a growth engine. The rate is variable, so the return can fall, and interest is taxed as ordinary income in the year it is paid. For money you will not touch for decades, that safety is the wrong trade; for money you might need next month, it is the point."
       }
     ],
     "sources": [
@@ -435,7 +435,7 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       },
       {
         "question": "Should I include inflation in my target?",
-        "answer": "For goals priced in today's money — a house deposit, a car, a wedding — yes, if the price is likely to rise. Either raise the target by roughly 3% per year of waiting, or use a return net of inflation in the calculator. House deposits are the classic case: the target moves while you save."
+        "answer": "Yes, for anything priced in today's money — a house deposit, a car, a wedding — if the price is likely to rise while you save. Either raise the target by roughly 3% per year of waiting, or enter a return net of inflation. A house deposit is the classic example: the house price — and with it the deposit you need — keeps rising while you save."
       },
       {
         "question": "What return should I use for a goal 10 or more years away?",
@@ -447,19 +447,19 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       },
       {
         "question": "How does the calculator work out the monthly deposit?",
-        "answer": "It grows your existing savings forward, subtracts that from the target, and solves for the deposit that covers the rest with interest. If your savings already cover the goal, the required deposit is zero. The tool also shows your progress as a percentage of the goal, so a $5,000 start on a $30,000 target reads as 16.7% funded before the first new deposit lands."
+        "answer": "In three steps. First it grows your existing savings forward to the deadline; then it subtracts that from the target, leaving the amount deposits must cover; then it solves for the monthly deposit that covers the rest with interest. If your savings already cover the goal, the required deposit is zero. The progress percentage is the same arithmetic in miniature: $5,000 saved toward $30,000 reads as 16.7% funded before the first new deposit lands."
       },
       {
         "question": "What is time mode, and when would I use it?",
-        "answer": "Time mode works the other way round: enter the monthly amount you can actually afford and it simulates month by month until the balance reaches the goal, or warns you if it never does. With $500 a month instead of the required $360, the $30,000 goal is reached in just 45 months — a year and a quarter early. Use it when the deposit is fixed and the date is flexible."
+        "answer": "Time mode is for when the deposit is fixed and the date is flexible. Put in the monthly amount you can actually afford, and it steps forward month by month until the balance hits the goal — or tells you if it never gets there. At $500 a month rather than the required $360, the $30,000 target arrives in just 45 months — a year and a quarter ahead of schedule."
       },
       {
         "question": "What return should I use for a goal under 3 years away?",
-        "answer": "A savings account rate — top high-yield accounts paid about 4.2% to 4.4% APY in November 2026. Investing a short-term goal in stocks can leave you short exactly when the money is due, because a market fall near the deadline has no time to recover. The return assumption should match where the money will actually sit."
+        "answer": "The rate of wherever the money will actually sit. For a goal less than 3 years out, use a savings account rate rather than a stock market return — top high-yield accounts paid about 4.2% to 4.4% APY in November 2026. The reason is the deadline: a market fall near the due date has no time to recover, and stocks can leave you short exactly when the money is needed."
       },
       {
         "question": "What if the monthly deposit does not fit my budget?",
-        "answer": "The honest levers are a later deadline, a smaller target, or a lump sum added now. Each month of delay raises the required deposit because there is less time for both deposits and growth. Read the output as a budget line, not a wish: if the figure does not fit, change the plan rather than trusting a deposit you will not actually make."
+        "answer": "Change the plan, not the deposit — a figure you will not actually make is not a plan. You have three honest levers: push the deadline later, shrink the target, or add a lump sum now. Delay is the expensive option: each month of waiting raises the required deposit, because there is less time for deposits and growth. Adjust the goal until the deposit fits your budget."
       }
     ],
     "sources": [
@@ -510,15 +510,15 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       },
       {
         "question": "What is the difference between ordinary payments and annuity due?",
-        "answer": "Ordinary payments arrive at the end of each period; annuity-due payments arrive at the start and earn one extra period of growth each. On the $500-a-month example that timing difference is worth about $1,153 over 15 years — small, but it is the difference between a contribution made on payday and one made a month later."
+        "answer": "It is a timing question, not a size question. If your $500 goes in on payday, it earns a full extra month of growth every time — that is the annuity-due setting, worth about $1,153 over 15 years. If it goes in at month-end, use ordinary. The gap is small next to the rate or the horizon, so pick the setting that matches when your money moves."
       },
       {
         "question": "How sensitive is the result to the growth rate?",
-        "answer": "Very. At 15 years, the difference between 6% and 8% on $12,000 is about $9,307 — a third more growth from two extra points. The assumed rate moves the answer more than most other inputs, and no saver can guarantee it, which is why the rate is the whole story in a future-value projection. Treat it as the assumption to stress-test first."
+        "answer": "Treat the rate as a range, not a promise. Run the same inputs at 6% and 8%: on $12,000 over 15 years that is $28,759 against $38,066, a $9,307 spread from two points. Plan to the lower figure and treat the higher one as upside. Fees count here too — a 1% annual fee on an 8% return compounds at about 7%, cutting the result to roughly $33,108."
       },
       {
         "question": "How much do monthly payments add to the future value?",
-        "answer": "A great deal over a long horizon. $500 a month at 8% grows to about $173,019 on its own over 15 years, because each payment compounds for the time it is invested. Add that stream to the $12,000 lump sum and the 15-year total reaches about $212,702. The tool splits the result into growth on the lump sum and growth on the payments, so you can see which input is doing the work."
+        "answer": "In the example they are the main event, not the top-up. The $12,000 lump sum grows by about $26,000 over 15 years; $500 a month on its own grows to about $173,019, because every payment compounds for the time it is invested. Together they reach about $212,702. The tool's split shows which input is doing the work — over long horizons, the deposit stream usually wins."
       }
     ],
     "sources": [
@@ -561,7 +561,7 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       },
       {
         "question": "Which spending categories should I cut first?",
-        "answer": "The largest ones. Housing and transport are usually 40% to 55% of spending between them, so a 10% cut there beats eliminating small subscriptions many times over. In the worked example, housing alone is $1,850 — 29.8% of take-home pay — so a $185 housing saving is worth more than every subscription combined. Work through the output in order, largest category first."
+        "answer": "Start where the money is. Housing and transport usually run 40% to 55% of spending between them, so a 10% cut there is worth many times what cancelling small subscriptions saves. The worked example shows why: housing alone is $1,850, or 29.8% of take-home pay, so a $185 housing saving beats every subscription combined. Rank the categories by size and work down the list."
       },
       {
         "question": "What does a negative leftover mean?",
@@ -569,11 +569,11 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       },
       {
         "question": "Why should savings be a line item instead of what is left over?",
-        "answer": "Because the leftover is spent by default and saved only by design. Enter the amount you intend to save and let the leftover absorb the pressure, then set that amount to move automatically on payday. A $600 transfer that happens on payday beats an $800 intention that depends on willpower at month-end — automating the transfer matters more than the amount."
+        "answer": "Because willpower loses to the calendar. Money left over at month-end gets spent by default; money that moves on payday never gets the chance. That is why the amount matters less than the automation: a $600 automatic transfer on payday beats an $800 month-end intention that relies on willpower. Enter the amount you intend to save, let the leftover absorb the pressure, and set the transfer to run automatically."
       },
       {
         "question": "How accurate do my spending numbers need to be?",
-        "answer": "Use bank and card statements for a real month rather than estimating. Most people underestimate food and discretionary spending by a wide margin, and a budget built on guesses fails in the first week. The calculator's nine categories — housing, transport, food, utilities, insurance, entertainment, dining, subscriptions and other — only work if the figures going into them are real."
+        "answer": "Accurate enough that the plan survives contact with a real month. Food and discretionary spending are the usual blind spots — people lowball them badly — and a budget built on guesses falls apart in the first week, usually because the figures were wishes, not records. Use bank and card statements for a real month instead of estimating. The nine categories only work if the figures going into them are real."
       }
     ],
     "sources": [
@@ -612,11 +612,11 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       },
       {
         "question": "Is 50/30/20 right for high earners?",
-        "answer": "It is a floor, not an optimum. Needs rarely scale with income, so a high earner following the rule loosely can often save 30% to 50%. Conversely, at low incomes needs can consume 70% or more no matter how carefully money is managed, and the rule offers little guidance beyond prioritising essentials."
+        "answer": "It is a floor, not an optimum — and for high earners it is a low floor. Needs do not grow with pay, so a high earner can often save 30% to 50% while following the rule loosely, far above the 20% line. At the other end it is least useful: at low incomes, needs can eat 70% or more however carefully money is managed."
       },
       {
         "question": "What counts as a need versus a want?",
-        "answer": "Needs are the bills you must pay to live and work: rent or mortgage, utilities, basic groceries, transport, insurance and minimum debt payments. Wants improve life but are optional: eating out, travel, streaming, gym memberships and upgraded groceries. The borderline cases decide the result — a basic phone plan is a need, while the premium handset upgrade is a want."
+        "answer": "The test is whether the bill must be paid to live and work. Needs: rent or mortgage, utilities, basic groceries, transport, insurance and minimum debt payments. Wants improve life but are optional: eating out, travel, streaming, gym memberships and upgraded groceries. Borderline cases decide the outcome — a basic phone plan is a need, the premium handset upgrade a want, and the line you draw there matters more than any single category."
       },
       {
         "question": "Where do extra debt payments go in the 50/30/20 split?",
@@ -663,7 +663,7 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       },
       {
         "question": "Do I include retirement accounts at full value?",
-        "answer": "The standard approach is yes, at current balance. A stricter approach discounts pre-tax accounts like a traditional 401(k) by the tax you will pay on withdrawal — at a 20% assumed rate, a $100,000 balance counts as $80,000. Either is defensible; be consistent between updates."
+        "answer": "Either way works — it depends what the number is for. Full balance suits the headline figure, since that is what the account holds. Discounting by the tax due on withdrawal suits the 'what could I spend' view: at a 20% assumed rate, a $100,000 pre-tax balance counts as $80,000. Pick one method and keep it between updates."
       },
       {
         "question": "What is a good net worth by age?",
@@ -675,15 +675,15 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       },
       {
         "question": "How should I value my home and car?",
-        "answer": "Value the home from recent comparable sales rather than a listing site's estimate, and vehicles from a resale guide rather than the purchase price. A car bought for $28,000 may be worth $22,000 within a year, and counting it at cost flatters the balance sheet by $6,000. Other assets belong in the other line only at a value you could actually realise in a sale."
+        "answer": "At what you could actually get in a sale — that is the rule for every line. For the home, use recent comparable sales rather than a listing site's estimate; for vehicles, a resale guide rather than the purchase price. A $28,000 car can be worth $22,000 within a year, so counting it at cost overstates the balance sheet by $6,000."
       },
       {
         "question": "How often should I update my net worth?",
-        "answer": "Quarterly works, using the same valuation rules each time — or the changes will reflect your mood about house prices rather than your actual progress. A home revalued optimistically in a good month and pessimistically in a bad one produces a net worth that jumps for no reason. Consistency between updates matters more than precision on any single line."
+        "answer": "Quarterly — often enough to see the trend, rarely enough that one revaluation cannot hijack the number. The schedule matters less than the rules: use the same valuation method each time, or the change you measure is your mood about house prices, not your progress. A home revalued optimistically one quarter and pessimistically the next makes net worth jump for no reason."
       },
       {
         "question": "What actually makes net worth rise?",
-        "answer": "Three sources: saving and investing, debt principal paid down, and asset appreciation. Only the first two are under your control. A rising net worth driven purely by house prices can reverse; one driven by contributions compounds reliably, and the quarterly change shows which kind of growth you have. Read the change, not the level."
+        "answer": "Three things, and only two are yours to control: saving and investing, debt principal paid down, and asset appreciation. The quarterly change is the diagnostic — it shows which kind you have. In the worked example, $122,000 of the $206,000 net worth is home equity, wealth that rides house prices and can reverse. Growth from contributions compounds reliably; growth from prices does not."
       },
       {
         "question": "What is liquid net worth, and why track it?",
@@ -722,7 +722,7 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       },
       {
         "question": "Should I build the fund before paying off credit cards?",
-        "answer": "Build a small starter fund first — around one month of essentials or $1,000 to $2,000 — then attack high-interest debt, then finish the fund. Without any buffer, the next unexpected bill goes straight back onto the card you just cleared."
+        "answer": "Build the starter fund first, but keep it small. One month of essentials, or roughly $1,000 to $2,000, stops the next unexpected bill landing back on the card you just cleared. The starter fund protects your debt plan rather than competing with it. Attack the high-interest debt, and finish the fund after."
       },
       {
         "question": "Does the fund need to cover my full salary?",
@@ -742,7 +742,7 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       },
       {
         "question": "Should I keep the whole fund in one account?",
-        "answer": "Keep the finished fund in a high-yield savings account, separate from everyday money, but hold one month of expenses in your everyday account for instant access. Transfers out of a high-yield account can take a few days, so the split costs a little interest and buys immediate access when the emergency is same-day. Top high-yield accounts paid about 4.2% to 4.4% APY in November 2026."
+        "answer": "Split it by speed, not by size. One month of expenses stays in your everyday account, because that is the money for a same-day emergency — a tow, a plumber, a flight. The rest sits in the high-yield account earning about 4.2% to 4.4% APY, separate from everyday money so it is not spent by accident. You give up a little interest on one month's expenses; you gain instant access when waiting a few days is not an option."
       },
       {
         "question": "When does 12 months of cover make sense?",
@@ -785,19 +785,19 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       },
       {
         "question": "What is the rule of 72 for inflation?",
-        "answer": "Divide 72 by the inflation rate to get the years for purchasing power to halve. At 3% inflation, money halves in value in about 24 years. At 6%, about 12 years. It is the same rule used for investment doubling, run in reverse."
+        "answer": "The doubling rule run in reverse. Take 72, divide by the inflation rate, and you get the years until purchasing power halves — about 24 years at 3% inflation, about 12 at 6%. Same calculation as investment doubling — except you are asking how fast money shrinks, not how fast it grows."
       },
       {
         "question": "Does inflation change how much I need to retire?",
-        "answer": "Directly. Spending of $60,000 a year today needs to be about $108,367 a year in 20 years at 3% inflation to buy the same life. Retirement calculators that show a large future balance are usually showing nominal dollars; divide by the inflation factor to see the figure in today's terms."
+        "answer": "Directly — and by more than most plans allow for. A $60,000-a-year lifestyle today costs about $108,367 a year in 20 years at 3% inflation. Most retirement calculators show nominal dollars, so divide the headline balance by the inflation factor to judge it in today's terms before calling the plan enough."
       },
       {
         "question": "How much does $50,000 lose to 3% inflation over 20 years?",
-        "answer": "Kept in cash for 20 years at 3% annual inflation, $50,000 buys what $27,684 buys today — and you would need $90,306 in 20 years to match today's $50,000 of purchasing power. Cash under the mattress therefore loses about 45% of its value over the period, and a savings account must earn at least 3% just to stand still in real terms."
+        "answer": "About 45% of its value. In today's money, $50,000 kept in cash for 20 years at 3% inflation is worth about $27,684 — and matching today's $50,000 in 20 years would take $90,306. A savings account needs to earn at least 3% just to hold its real value. At September 2026's 3.7% rate, the same $50,000 would be worth only about $24,177 after 20 years."
       },
       {
         "question": "What is the latest official inflation reading?",
-        "answer": "The latest official annual reading was 3.7% for September 2026. The October 2026 release carried no year-over-year rate because October 2025 prices were never collected during the federal shutdown. For context, US inflation averaged roughly 3% over the very long run, ran above 8% in 2022, and the Federal Reserve targets 2%."
+        "answer": "3.7% for September 2026 — the latest official annual reading. October 2026 has no year-over-year figure at all — October 2025 prices were never collected during the federal shutdown, so September is the freshest comparable figure. For context, the very-long-run average is roughly 3%, 2022 ran above 8%, and the Federal Reserve's target is 2%."
       },
       {
         "question": "Why does one point of inflation matter so much?",
@@ -844,7 +844,7 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       },
       {
         "question": "Can I use the rule for monthly contributions?",
-        "answer": "Not directly — the rule describes a single sum compounding. With monthly contributions your balance doubles faster than the rule suggests because new money keeps arriving. Use it to judge the growth engine, and a savings or investment calculator for the contribution plan itself."
+        "answer": "Only as a floor, not a forecast. The rule times a single sum doubling; with monthly contributions your balance doubles sooner, because new money keeps arriving on top of growth. Treat it as the slowest your money could double — the growth engine alone — and run the contribution plan through a savings or investment calculator instead."
       },
       {
         "question": "What return makes money double in 10 years?",
@@ -856,15 +856,15 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       },
       {
         "question": "Can the rule of 72 price credit-card debt?",
-        "answer": "Yes, and the answer is sobering. A $5,000 card balance at 24% APR doubles to $10,000 in about 3 years if no payments are made — the exact figure is 3.22 years, close enough to the rule's 3.0 that the warning lands either way. The same three-second calculation frames growth, erosion and debt."
+        "answer": "Yes — and the contrast with investing is the point. Money at 8% takes about 9 years to double; a $5,000 balance at 24% APR becomes $10,000 in about 3 years with no payments (the exact figure is 3.22 years). Debt compounds against you roughly three times as fast as investments compound for you."
       },
       {
         "question": "What does three doublings at 8% look like in dollars?",
-        "answer": "Invest $10,000 at a steady 8% and it becomes roughly $20,000 in year 9, $40,000 in year 18 and $80,000 in year 27: three doublings in total. At 4% the same three doublings take about 54 years instead of just 27, which is why starting a decade earlier matters more than most contribution increases."
+        "answer": "Back-loaded. Starting from $10,000 at a steady 8%, the balance is roughly $20,000 after 9 years and $40,000 after 18 — but the third doubling alone adds $40,000, reaching $80,000 in year 27, more than the first 18 years produced together. At 4% those three doublings take about 54 years, which is why the rate and the start date matter more than the deposit size."
       },
       {
         "question": "Does the calculator show the exact answer too?",
-        "answer": "Yes. It shows the approximate years to double alongside the exact logarithmic answer and the percentage error, so you can see how close the shortcut lands. The comparison table runs the rule against the exact answer at 2%, 4%, 6%, 8%, 10%, 12% and 15%, so you can see where the shortcut drifts — the error is smallest in the middle of that range."
+        "answer": "Yes — and the error column is the useful part. The calculator shows the rule's estimate next to the exact logarithmic answer, so a quick check at 8% shows 9 years against 9.01, while at 20% it shows 3.6 against 3.8. The comparison table runs the same check across 2% to 15%, so you learn where the shortcut is trustworthy and where it drifts. For anything going into a contract or a tax return, use the exact formula."
       }
     ],
     "sources": [
@@ -899,7 +899,7 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       },
       {
         "question": "Does the calculator include Social Security?",
-        "answer": "This projection covers your own savings only. Social Security is a separate income stream: the average retired worker received about $2,071 a month in January 2026, and benefits replace roughly 40% of pre-retirement income for a medium earner, claimed between 62 and 70. Add your estimated benefit on top of what the portfolio can sustainably pay."
+        "answer": "No — the projection is your own savings only, so treat Social Security as a second income stream to add on top. The average retired worker's benefit was about $2,071 a month in January 2026, and for a medium earner benefits cover roughly 40% of pre-retirement income. Add your estimated benefit — which depends on claiming at 62 or 70 — to the portfolio payout, and judge the total against your spending."
       },
       {
         "question": "How does retiring five years earlier change the result?",
@@ -911,15 +911,15 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       },
       {
         "question": "How does the calculator judge whether my pot is enough?",
-        "answer": "It sets two targets: simple drawdown (annual spending times years in retirement) and the 4%-rule target (spending times 25). With $40,000 of annual spending and a life expectancy of 90, both targets are $1,000,000 — and the projected pot supports about $5,418 a month of spending over 25 years. Judge the result against spending, not against the headline number."
+        "answer": "By turning the pot into a monthly spending figure. The projected pot works out to about $5,418 a month over 25 years — compare that directly with the retirement spending you expect, and the gap is your shortfall. Behind that figure sit two targets: simple drawdown, which spends the pot to zero by life expectancy, and the 4%-rule target, which aims to last indefinitely. Both come to $1,000,000 at $40,000 of annual spending to age 90."
       },
       {
         "question": "What if my projection falls short of the target?",
-        "answer": "The tool solves for the extra monthly saving that closes the gap. At a 5% return with $60,000 of annual spending, the target is $1,500,000 against a projected $1,023,226 — a $476,774 shortfall that needs about $573 a month extra, starting now. The earlier the extra saving starts, the smaller it needs to be, because each contribution has longer to compound."
+        "answer": "Close the gap with the lever you control. The tool solves for extra monthly saving: with $60,000 of annual spending at a 5% return, the shortfall is $476,774 — about $573 a month extra, starting now. Starting later means a bigger number, because each contribution has less time to compound. The other levers are retiring later — five extra years adds contributions and growth — and planning lower spending, which cuts the target itself."
       },
       {
         "question": "Is the projected pot in today's money or future money?",
-        "answer": "Future money. The $1,625,000 headline is nominal, and its purchasing power at 3% inflation is about $670,000 in today's money — the figure to compare with the retirement spending you have in mind. Taxes are also outside this projection: the pot is your own savings only, before any tax due on withdrawal from pre-tax accounts."
+        "answer": "Future money — and the gap between the two figures is the point. The $1,625,000 headline is nominal; at 3% inflation it buys what about $670,000 buys today. Judge the plan on the $670,000 figure, against retirement spending at today's prices. Taxes sit outside this projection too — the pot is your own savings only, before any tax due on withdrawal from pre-tax accounts."
       }
     ],
     "sources": [
@@ -958,7 +958,7 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       },
       {
         "question": "Is there an income limit for a Roth IRA?",
-        "answer": "Yes for direct contributions — for 2026 the phase-out is $153,000 to $168,000 of modified AGI for single filers and $242,000 to $252,000 for married couples filing jointly. There is no income limit on converting traditional IRA money to a Roth, which is the basis of the so-called backdoor Roth: contribute to a traditional IRA without a deduction, then convert."
+        "answer": "For direct contributions, yes — for conversions, no. For 2026, the phase-out is $153,000–$168,000 of modified AGI for single filers and $242,000–$252,000 for married couples filing jointly. Above that, direct contributions are out, but converting traditional IRA money to a Roth has no income limit at all — that is the basis of the backdoor Roth: contribute to a traditional IRA without a deduction, then convert."
       },
       {
         "question": "Do Roth IRAs have required minimum distributions?",
@@ -966,11 +966,11 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       },
       {
         "question": "How much is the Roth worth versus a taxable account?",
-        "answer": "The tool grows identical after-tax contributions at the same return, then taxes the growth once at your rate at the end. On the worked example, growth of about $386,765 taxed at 15% costs $58,015 — that is the advantage the Roth wrapper buys with the tax you paid up front. In a taxable account the same growth would leave $508,750 instead of $566,765."
+        "answer": "About $58,015 on the worked example — that is the tax the Roth wrapper saves you. The tool grows identical after-tax contributions at the same return in both accounts, then taxes the growth once at your rate at the end. Growth of about $386,765 taxed at 15% costs $58,015 in a taxable account, leaving $508,750 instead of $566,765. That saving is what the tax you paid up front buys."
       },
       {
         "question": "Roth or traditional — which wins for me?",
-        "answer": "It comes down to one question: is your tax rate higher now or in retirement? Paying 12% now to avoid 22% later makes the Roth the clear winner. Paying 24% now to avoid 12% later favours the traditional account. Near-equal rates make the Roth's flexibility the tiebreaker — contributions withdrawable any time, and no required minimum distributions for the owner."
+        "answer": "Ask one question: will your tax rate be higher now or in retirement? A 12% rate today against 22% later makes the Roth the clear winner; a 24% rate today against 12% later favours the traditional account. The rates are a guess either way, so when they look near-equal, the Roth's flexibility decides it — contributions withdrawable any time, and no required minimum distributions for the owner."
       },
       {
         "question": "Why does the tool compound annually instead of monthly?",
@@ -978,7 +978,7 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       },
       {
         "question": "How much of the Roth balance at retirement is growth?",
-        "answer": "$500 a month for 30 years at a 7% return grows to about $567,000, of which $180,000 is contributions and roughly $387,000 is growth you never pay tax on if withdrawals are qualified. That tax-free growth is the whole point of the Roth wrapper: more than two-thirds of the final balance arrives untaxed, because the tax was paid once, up front, on the contributions."
+        "answer": "More than two-thirds of it. Over 30 years, $500 a month at 7% reaches about $567,000 — $180,000 paid in, roughly $387,000 of growth. That growth is the whole point of the Roth wrapper: it arrives tax-free on a qualified withdrawal, because the tax was paid once, up front, on the contributions. The longer the money compounds, the larger the tax-free share becomes."
       }
     ],
     "sources": [
@@ -1025,15 +1025,15 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       },
       {
         "question": "Traditional or Roth — what decides it?",
-        "answer": "One comparison: is your tax rate higher now or in retirement? Because the gross growth is identical, the Roth wins exactly when your retirement tax rate is higher than today's, the traditional wins when it is lower, and they tie when the rates are equal. That single comparison is the whole decision — everything else is flexibility, not math."
+        "answer": "One comparison: is your tax rate higher now or in retirement? The gross growth is identical either way, so the winner depends only on the rate comparison: the Roth wins when your retirement rate is higher than today's, the traditional wins when it is lower, and equal rates mean a tie. That single comparison is the whole decision — everything else is flexibility, not math."
       },
       {
         "question": "How does the equal-cost comparison work?",
-        "answer": "The calculator runs both account types on the same gross pot so the comparison is a pure tax comparison. A traditional IRA is funded with pre-tax money and taxed at withdrawal; a Roth is funded with after-tax money and never taxed again. With a 22% rate today and a 12% rate in retirement, the traditional keeps $389,614 and the Roth $345,340."
+        "answer": "By keeping everything except tax identical. Both account types run on the same gross pot, so tax is the only thing being compared — not two different savings plans. The traditional side is funded pre-tax and taxed when you withdraw; the Roth side is funded after tax and never taxed again. At 22% today and 12% in retirement, the traditional keeps $389,614 and the Roth $345,340."
       },
       {
         "question": "What is tax diversification?",
-        "answer": "Holding some of each account type when your future tax rate is genuinely uncertain. A Roth lets you withdraw contributions at any time without tax or penalty and has no required distributions for the owner; a traditional IRA gives you the deduction now. Tax diversification is the usual answer when the future rate is a guess rather than a forecast."
+        "answer": "Holding some of each account type, as a hedge against a future tax rate you cannot predict. The Roth side lets you take contributions out at any time without tax or penalty, and carries no required distributions for the owner; the traditional side gives you the deduction now. When the future rate is a guess rather than a forecast, owning both means the rate question matters less."
       },
       {
         "question": "When do required minimum distributions start on a traditional IRA?",
@@ -1072,11 +1072,11 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       },
       {
         "question": "Can I undo a Roth conversion?",
-        "answer": "No. Recharacterisation of conversions was removed by the Tax Cuts and Jobs Act — since 2018 a conversion is permanent. Convert in tranches across the year if you want to manage the tax bill against income you can only estimate."
+        "answer": "No — since 2018 a conversion is permanent, so a conversion that lands in a higher bracket than planned cannot be taken back. Stage it: convert in tranches across the year, so an income estimate that proves wrong affects one slice, not the whole amount."
       },
       {
         "question": "Does a conversion affect Medicare premiums or other thresholds?",
-        "answer": "It can. Converted amounts count in modified adjusted gross income, which drives Medicare IRMAA premium surcharges two years later, the taxation of Social Security benefits, and eligibility for various credits. A conversion that is cheap on the income tax line can still be expensive overall — model the full picture, not just the bracket."
+        "answer": "Yes, and the timing is the trap. Converted income counts toward modified adjusted gross income, which sets Medicare premium surcharges two years later — so the bill arrives long after the conversion year. The same income can push more of your Social Security into tax and shrink credits you would otherwise claim. A conversion that looks cheap on the income-tax line can still cost more than it saves."
       },
       {
         "question": "What is the pro-rata rule?",
@@ -1084,11 +1084,11 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       },
       {
         "question": "Why is the net benefit smaller than the headline gap?",
-        "answer": "Because the net-benefit figure charges the conversion for the growth the tax payment would have earned. The $8,800 of tax paid today, invested at 7% for 20 years, would itself have become $34,053. After that charge, converting $40,000 wins by about $3,096 when the retirement rate is 24% — far smaller than the headline gap suggests, and it loses by about $15,479 at 12%."
+        "answer": "Because the headline gap pretends the tax payment was free. The $8,800 you pay today could have grown to $34,053 over 20 years at 7% — that forgone growth is a real cost of converting, and the net-benefit figure charges it. Once charged, converting $40,000 wins by only about $3,096 at a 24% future rate, and loses by about $15,479 at 12%. The margin is thin enough that the rate guess decides it."
       },
       {
         "question": "Should I pay the conversion tax from inside the IRA?",
-        "answer": "No. The comparison assumes the conversion tax is paid from money outside the IRA. Paying the tax out of the converted amount shrinks what lands in the Roth and weakens the case, especially under age 59½, when the withheld portion can also count as an early distribution. If the tax has to come from inside the account, the conversion rarely wins."
+        "answer": "No — it shrinks the very balance you are trying to grow tax-free. On a $40,000 conversion with $8,800 of tax, paying from inside leaves only $31,200 landing in the Roth, and 20 years of tax-free growth on $31,200 is worth far less than on the full $40,000. Under age 59½ it is worse: the withheld portion can also count as an early distribution. If the tax cannot come from savings, the conversion rarely wins."
       },
       {
         "question": "What happens if my retirement tax rate is lower than today's?",
@@ -1096,7 +1096,7 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       },
       {
         "question": "Does the simulator model the whole balance or just the converted amount?",
-        "answer": "Both. It grows the converted amount tax-free and grows the unconverted amount, then taxes it at withdrawal, and shows the whole-balance totals for converting versus leaving everything traditional. Enter your total traditional balance, the amount to convert, your tax rate today, your expected retirement rate, the growth rate and the years until you spend the money."
+        "answer": "The whole balance — and that is the point. Converting $40,000 of a larger traditional balance leaves the rest growing too, and that remainder still gets taxed when you withdraw it. So the simulator shows converting against leaving everything traditional, on the full balance, not just the converted slice. Enter the total balance alongside the conversion amount so both sides of that comparison are real."
       }
     ],
     "sources": [
@@ -1127,7 +1127,7 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
     "faqs": [
       {
         "question": "At what age do RMDs start?",
-        "answer": "Age 73 if you were born between 1951 and 1959, and age 75 if you were born in 1960 or later, under the SECURE 2.0 Act. Your first RMD can be delayed until 1 April of the following year, but that forces two distributions into one tax year, which can push you into a higher bracket."
+        "answer": "It depends on when you were born. Under the SECURE 2.0 Act, the start age follows your birth year: 73 for those born 1951 to 1959, 75 for those born in 1960 or later. Watch the first-year trap: delaying the first RMD until 1 April of the following year means two distributions land in one tax year — and the extra income can push you into a higher bracket."
       },
       {
         "question": "What is the penalty for missing an RMD?",
@@ -1151,7 +1151,7 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       },
       {
         "question": "Why does my balance keep growing even though I take RMDs?",
-        "answer": "Because the required share starts small. It begins at just 3.77% and only reaches 4.95% by age 80, so at a 5% return the balance grows faster than the withdrawals drain it. A $500,000 balance at age 73 pays about $234,557 of RMDs over 10 years and still ends at about $524,760 — the projection shows why the pot often keeps growing despite the distributions."
+        "answer": "Because the withdrawal rate starts below the growth rate. The required share begins at just 3.77% and only reaches 4.95% by age 80, so at a 5% return the balance grows faster than the withdrawals drain it. The projection shows it: a $500,000 balance at 73 paying about $234,557 of RMDs over the decade and still ending at about $524,760. The RMD is a floor on withdrawals, not a plan to spend the account down."
       },
       {
         "question": "Can I withdraw more than the RMD?",
@@ -1202,19 +1202,19 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       },
       {
         "question": "How is my benefit actually calculated?",
-        "answer": "Your highest 35 years of earnings are averaged into average indexed monthly earnings (AIME), and the benefit formula turns that into your primary insurance amount (PIA). The formula replaces 90% of the first slice of AIME, 32% of the next slice and 15% above that. For workers turning 62 in 2026 the bend points are $1,286 and $7,749, which give a $5,000 AIME a PIA of about $2,346."
+        "answer": "In three steps. Your highest 35 years of earnings are averaged into average indexed monthly earnings (AIME) — divide the annual average by 12. The benefit formula then turns AIME into your primary insurance amount (PIA), replacing 90% of the first slice, 32% of the next and 15% above that. With 2026 bend points of $1,286 and $7,749, a $5,000 AIME gives a PIA of about $2,346."
       },
       {
         "question": "How do missing years affect my benefit amount?",
-        "answer": "If you worked fewer than 35 years, the missing years count as $0, so your effective average is scaled down — 20 years at $60,000 counts as about $34,286 a year. That is why extra years of work late in a career can still raise the benefit: each additional year replaces a zero in the 35-year average. Your actual benefit depends on your full earnings record, which only the Social Security Administration holds."
+        "answer": "They drag the average down with zeros. Fewer than 35 years means the missing years count as $0 in the average — 20 years at $60,000 counts as about $34,286 a year, not $60,000. The remedy is late-career work: each additional year replaces a zero in the 35-year average, so extra years can still raise the benefit. Only the Social Security Administration holds your full earnings record, so check your statement at ssa.gov for the exact figure."
       },
       {
         "question": "When does delaying past full retirement age stop paying?",
-        "answer": "At 70. Each year of delay past full retirement age adds 8% in delayed retirement credits, up to age 70, and there is no advantage to waiting beyond it. The break-even ages tell the same story in years: 70 versus 62 breaks even at about 80.4, and 70 versus 67 at about 82.5. Claiming at 62 with a full retirement age of 67 cuts the benefit by 30%."
+        "answer": "At 70 — the credits stop there. Delayed retirement credits add 8% a year past full retirement age, but only up to 70 — waiting longer gains nothing. Whether delaying pays depends on how long you live: 70 versus 62 breaks even at about 80.4, and 70 versus 67 at about 82.5. Claim at 62 instead and the benefit is 30% lower than at full retirement age."
       },
       {
         "question": "How much more does claiming at 70 pay over a lifetime?",
-        "answer": "On a PIA of $2,346, claiming at 62 pays about $453,224 by age 85, claiming at 67 pays about $506,710, and claiming at 70 pays about $523,600. Delaying trades fewer years of payments for a permanently higher, inflation-indexed income — the 2026 cost-of-living adjustment was 2.8%, and the SSA has announced 3.6% for 2027."
+        "answer": "About $70,000 by age 85, on a PIA of $2,346. Claiming at 62 pays about $453,224 by 85; at 67, about $506,710; at 70, about $523,600. The trade is fewer payment years in exchange for a permanently higher income, indexed to inflation, with cost-of-living adjustments of 2.8% in 2026 and 3.6% announced for 2027. The longer you live past the break-even ages, the more delaying pays."
       }
     ],
     "sources": [
@@ -1249,7 +1249,7 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       },
       {
         "question": "How do investment fees affect the projection?",
-        "answer": "Subtract them from the return. A fund charging 1% a year against one charging 0.1% turns an 8% market return into 7% versus 7.9%. On the worked example, compounding at 7% instead of 7.9% cuts the 20-year result from about $353,000 to about $309,000 — roughly $44,000 paid for the fee difference."
+        "answer": "They compound, like the return — which is why a small fee is a large cost over 20 years. At the default 0.5% a year, fees cost $25,766 on the worked example: $358,778 without them against $333,013 with them. Same story for the fund choice: a 1% fund against a 0.1% fund turns an 8% market return into 7% versus 7.9%, worth roughly $44,000 over 20 years."
       },
       {
         "question": "What return should I enter for a 60/40 portfolio?",
@@ -1261,19 +1261,19 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       },
       {
         "question": "What do the Conservative, Base and Aggressive scenarios assume?",
-        "answer": "Conservative assumes a 5% annual return, Base 8% and Aggressive 11%. Net of the default 0.5% fees, the same $25,000 and $400 a month reaches about $216,636 at the Conservative return, $333,013 at Base and $526,500 at Aggressive. The spread between the low and high cases is over $300,000 — that uncertainty is the real content of a 20-year projection."
+        "answer": "Three return assumptions, all net of the default 0.5% fees: Conservative 5%, Base 8%, Aggressive 11%. Use them as a range, not a menu — the same $25,000 and $400 a month lands anywhere from about $216,636 to $526,500, a spread of over $300,000. Plan decisions you cannot undo on the Conservative figure, and treat anything above Base as upside rather than a promise."
       },
       {
         "question": "When do investment returns matter more than my contributions?",
-        "answer": "Later in the horizon. Early on, contributions dominate — your saving rate is the engine. Later, growth dominates — the portfolio's return is the engine. In the worked example, growth supplies about two-thirds of the end value. That crossover is the point at which investment decisions start to matter more than budget decisions."
+        "answer": "Later — and the timing changes what you should work on. Early on, your saving rate is the engine, so the budget matters more than the fund choice. Later, growth dominates: in the worked example it supplies about two-thirds of the end value. That crossover is when fees, allocation and the return assumption start to matter more than the monthly deposit."
       },
       {
         "question": "Does the calculator model market crashes?",
-        "answer": "No. It compounds monthly at a smooth return net of fees, but real returns arrive unevenly, including falls of 30% or more, and the smooth line will never match a real account statement. What it also does not model is tax: in a taxable account, dividends and realized gains are taxed along the way, while in an IRA or 401(k) the balance shown is pre-tax."
+        "answer": "No — and that is the projection's biggest blind spot. The smooth line compounds at a steady return net of fees, but real returns arrive unevenly, including falls of 30% or more, and the smooth line will never match a real account statement. Use the Conservative scenario as the stress test. Tax is not modeled either — in a taxable account, tax takes a bite of dividends and realized gains as they occur."
       },
       {
         "question": "How much of the final balance comes from the initial investment versus contributions?",
-        "answer": "At 8% less 0.5% fees, the initial $25,000 compounds to about $111,500 and the 240 contributions of $400 — $96,000 paid in — grow to about $221,500. Combined future value: roughly $333,013, with growth supplying about two-thirds of the end value. The $121,000 contributed is less than 40% of what the account ends up holding."
+        "answer": "Contributions do most of the work, because there are 240 of them. The initial $25,000 compounds to about $111,500; the $400-a-month stream — $96,000 paid in — grows to about $221,500. Together they reach roughly $333,013, and growth supplies about two-thirds of the end value. The $121,000 contributed is less than 40% of what the account ends up holding, which is the whole case for starting early."
       }
     ],
     "sources": [

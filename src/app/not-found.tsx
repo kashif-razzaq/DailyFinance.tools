@@ -6,7 +6,11 @@ import { Search, Home, Calculator } from "lucide-react"
 export const metadata: Metadata = {
   title: "Page Not Found (404) | DailyFinance",
   description: "That page doesn't exist — but the calculator you need probably does. Browse freelance, creator, e-commerce, real estate and personal wealth tools.",
-  robots: { index: false, follow: true },
+  // No robots field here on purpose: Next.js automatically injects
+  // <meta name="robots" content="noindex"> on every 404 render (see the
+  // not-found docs). Adding robots here emitted a second tag
+  // ("noindex, follow") alongside the framework's "noindex". A bare
+  // noindex implies follow, so the single framework tag is equivalent.
 }
 
 export default function NotFound() {

@@ -4,7 +4,7 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { navigationCategories, getToolUrl } from '@/config/navigation'
-import { GUIDE_HUBS, HUB_DESCRIPTIONS, hubAnchor } from '@/data/guides'
+import { GUIDE_HUBS, HUB_DESCRIPTIONS, hubAnchor } from '@/data/guide-meta'
 import { X, ChevronRight, ArrowRight, User, Globe, BookOpen, MapPin } from 'lucide-react'
 import { ThemeToggle } from '@/components/layout/ThemeToggle'
 import { ActiveLink } from '@/components/layout/ActiveLink'
@@ -65,8 +65,13 @@ export function MobileMenu({ user, isPremium }: { user?: any; isPremium?: boolea
       <div className="flex items-center justify-between p-4 border-b">
         <span className="font-bold text-lg">Menu</span>
         <div className="flex items-center gap-2">
-          <ThemeToggle />
-          <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)} className="rounded-full bg-muted/50">
+          {/* ARB fix round 2 (#6): 48px touch targets in the drawer header.
+              ThemeToggle is shared (the Navbar uses the 32px size), so the
+              drawer grows only its own instance via a child selector. */}
+          <div className="[&>button]:h-12 [&>button]:w-12">
+            <ThemeToggle />
+          </div>
+          <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)} aria-label="Close menu" className="h-12 w-12 rounded-full bg-muted/50">
             <X className="h-5 w-5" />
           </Button>
         </div>

@@ -107,7 +107,7 @@ export const TOOL_CONTENT_B2: Record<string, ToolContentEntry> = {
         "question": "What margin do service upsells carry?"
       },
       {
-        "answer": "No — model them separately, because take rates and refund rates differ between the two placements. Post-purchase upsells, shown after payment, cannot lose the original sale; cart add-ons can. A cart add-on that lifts average order value by $3 while costing 2% of checkouts is a loss on most stores, and mixing the two hides that.",
+        "answer": "No — model them separately: take rates and refund rates differ between the two placements. Post-purchase upsells, shown after payment, cannot lose the original sale; cart add-ons can. A cart add-on lifting AOV by $3 while costing 2% of checkouts loses money on most stores, and mixing the two hides that.",
         "question": "Should I model post-purchase and cart upsells together?"
       },
       {
@@ -162,11 +162,11 @@ export const TOOL_CONTENT_B2: Record<string, ToolContentEntry> = {
         "question": "Why does a 30% discount cut profit by two-thirds at a 45% margin?"
       },
       {
-        "answer": "Extra ad spend to promote the sale, marketplace deal fees, and the margin given up on units that would have sold at full price anyway. That last one — subsidising existing demand — is the hidden cost of store-wide sales, and it is why narrow offers usually beat blanket ones. Add all three to the calculator's result before judging an event.",
+        "answer": "Three: extra ad spend to promote the sale, marketplace deal fees, and margin lost on units that would have sold at full price anyway. Subsidising existing demand is the hidden cost of store-wide sales — the reason narrow offers usually beat blanket ones. Add all three to the calculator's result before judging an event.",
         "question": "What costs sit outside the discount itself?"
       },
       {
-        "answer": "Run each through the same profit comparison. A 20% discount leaves $25 per unit and needs 1,800 units; at an 80% uplift it exactly matches the normal week's $45,000. The 30% discount at the same uplift returns only $27,000. The comparison, not the headline discount, is what decides which offer to run.",
+        "answer": "Run each through the same profit comparison. At 20% off, $25 per unit remains and 1,800 units are needed — an 80% uplift exactly matches the normal week's $45,000. The 30% discount at the same uplift returns only $27,000. The comparison, not the headline discount, is what decides which offer to run.",
         "question": "How do I compare two different offers?"
       }
     ],
@@ -217,7 +217,7 @@ export const TOOL_CONTENT_B2: Record<string, ToolContentEntry> = {
         "question": "What does stretching the term from 36 to 60 months change?"
       },
       {
-        "answer": "Re-run the calculator with revenue down and burn up. If burn rises to $21,600, runway without the loan is 6.9 months and with the loan 10.1 months: the loan still helps, but the deadline moves closer either way. A plan that only works at current revenue is not a plan the loan makes safe.",
+        "answer": "Re-run the calculator with revenue down and burn up. If burn rises to $21,600, runway is 6.9 months without the loan and 10.1 months with it — the loan still helps, but the deadline moves closer either way. A plan that only works at current revenue is not one the loan makes safe.",
         "question": "How do I model a downside case?"
       },
       {
@@ -272,7 +272,7 @@ export const TOOL_CONTENT_B2: Record<string, ToolContentEntry> = {
         "question": "What happens if my customer geography shifts?"
       },
       {
-        "answer": "Because a flat rate that breaks even on average can still lose money on every cross-country parcel — $7.51 each at the defaults. Those are the orders that grow when a post goes viral in a region far from your warehouse. The options are a far-zone surcharge, a higher flat rate, or a free-shipping threshold set where order margin absorbs the shipping.",
+        "answer": "Because breaking even on average can still mean losing on every cross-country parcel — $7.51 each at the defaults. Those are the orders that grow when a post goes viral far from your warehouse. The fixes: a far-zone surcharge, a higher flat rate, or a threshold where order margin absorbs the shipping.",
         "question": "Why check the far zone separately?"
       },
       {
@@ -327,7 +327,7 @@ export const TOOL_CONTENT_B2: Record<string, ToolContentEntry> = {
         "question": "How is customer lifetime value calculated from churn?"
       },
       {
-        "answer": "One point of churn is worth a few hundred dollars of monthly revenue in month one — noticeable but not dramatic. The gap widens every month because retained customers are retained again the next month. By month 12 the two points of churn in the example are worth $10,417 a month, and $60,236 cumulatively — the cumulative figure is where the real money sits.",
+        "answer": "One point of churn is worth a few hundred dollars a month in month one — noticeable but not dramatic. The gap widens every month — retained customers are retained again the next month. By month 12 the two points of churn in the example are worth $10,417 a month, and $60,236 cumulatively — the cumulative figure is where the real money sits.",
         "question": "Why read the 12-month gap, not the first month?"
       },
       {
@@ -426,7 +426,7 @@ export const TOOL_CONTENT_B2: Record<string, ToolContentEntry> = {
       },
       {
         "question": "Why is my RPM less than 55% of my CPM?",
-        "answer": "Because the denominators differ. CPM divides ad revenue by ad impressions; RPM divides your revenue by all views, including views with no ad — YouTube Premium views (paid from a subscription pool instead), ad-blocked views, and views in regions or on content where ads do not run. A monetized-view share of 70 to 85% is typical."
+        "answer": "Because the denominators differ. CPM divides ad revenue by ad impressions; RPM divides your revenue by all views, including views with no ad — Premium views, ad-blocked views, and views where ads do not run, in some regions or on some content. A monetized-view share of 70 to 85% is typical."
       },
       {
         "question": "Does a higher CPM mean a better channel?",
@@ -437,11 +437,11 @@ export const TOOL_CONTENT_B2: Record<string, ToolContentEntry> = {
         "answer": "Shift topic mix toward advertiser-valued subjects, lengthen videos past 8 minutes to allow mid-roll ads, and build audience share in high-CPM countries. Also check for limited-ad flags on individual videos — a video marked as showing limited or no ads earns near zero regardless of its CPM niche."
       },
       {
-        "answer": "It is the gap between 55% of CPM and real RPM. CPM counts ad impressions; RPM counts all views, including YouTube Premium views (paid from a subscription pool instead), ad-blocked views, and views in regions or on content where ads do not run. A monetized-view share of 70 to 85% is typical, so a $13.75 implied RPM often banks closer to $10.",
+        "answer": "It is the gap between 55% of CPM and real RPM: CPM counts ad impressions, RPM counts all views — including Premium views, ad-blocked views, and views where ads do not run, in some regions or on some content. With a monetized-view share of 70 to 85% typical, a $13.75 implied RPM often banks closer to $10.",
         "question": "What is the unmonetized-view effect?"
       },
       {
-        "answer": "Videos over 8 minutes can carry mid-roll ads, which raise ad impressions per view — one of the few levers a creator has on the CPM side of the equation. More ad impressions per view means more revenue from the same audience, though too many mid-rolls can cost watch time. Lengthen videos past 8 minutes only where the content justifies it.",
+        "answer": "Videos past 8 minutes can carry mid-roll ads, raising ad impressions per view — one of the few levers on the CPM side. More ad impressions per view means more revenue from the same audience, though too many mid-rolls can cost watch time. Lengthen videos past 8 minutes only where the content justifies it.",
         "question": "How do mid-roll ads change earnings?"
       },
       {
@@ -492,7 +492,7 @@ export const TOOL_CONTENT_B2: Record<string, ToolContentEntry> = {
         "answer": "For videos over a minute, YouTube's long-form RPM in most niches exceeds TikTok Rewards at comparable views, and YouTube income is more predictable. TikTok's advantage is discovery speed. Most full-time creators treat TikTok as the growth engine and YouTube as the income engine, publishing to both."
       },
       {
-        "answer": "You must be 18 or older, have at least 10,000 followers and 100,000 video views in the last 30 days, hold a personal account in good standing, and be based in one of eight countries: the United States, United Kingdom, Germany, France, Japan, South Korea, Brazil or Mexico. Canada, Spain and Italy are not included.",
+        "answer": "Eligibility is strict. You must be 18 or older, with 10,000 followers and 100,000 views in the last 30 days at minimum, on a personal account in good standing. You must also live in one of eight countries: the United States, the United Kingdom, Germany, France, Japan, South Korea, Brazil and Mexico. Canada, Spain and Italy are not included.",
         "question": "Who can join the Creator Rewards Program?"
       },
       {
@@ -599,7 +599,7 @@ export const TOOL_CONTENT_B2: Record<string, ToolContentEntry> = {
       },
       {
         "question": "Do shares and saves count as engagement?",
-        "answer": "Yes — they are interactions, and for distribution they are stronger signals than likes. The classic public formula uses likes plus comments because those are visible on other people's accounts. For your own account, include saves and shares from your insights: a post with modest likes but heavy saves is performing better than the public formula shows."
+        "answer": "Yes — they count as interactions, and for distribution they are stronger signals than likes. For your own account, pull saves and shares from your insights. Modest likes with heavy saves outperforms what the public formula shows — the classic public formula counts likes plus comments because those are the interactions visible on other people's accounts."
       },
       {
         "question": "How can I raise my engagement rate?",
@@ -665,7 +665,7 @@ export const TOOL_CONTENT_B2: Record<string, ToolContentEntry> = {
         "question": "How do I reach the 60% or 70% Plus Program share?"
       },
       {
-        "answer": "Exactly $0.01 each, whatever your revenue share — viewers buy them at a markup, but the streamer always receives one cent per Bit cheered. Cheers of 25,000 Bits in a month are $250, with no share calculation involved. Channel-point redemptions and hype-train bonuses do not pay cash.",
+        "answer": "Exactly $0.01 each, whatever your revenue share — viewers buy them at a markup, but the streamer always receives one cent per Bit cheered. Cheers of 25,000 Bits in a month are $250 — no share calculation involved. Channel-point redemptions and hype-train bonuses do not pay cash.",
         "question": "How much are Bits worth?"
       },
       {
@@ -728,7 +728,7 @@ export const TOOL_CONTENT_B2: Record<string, ToolContentEntry> = {
         "question": "Why do small pledges lose more to fees?"
       },
       {
-        "answer": "Memberships bought inside the Patreon iOS app run through Apple's in-app purchase system, which takes 30% in the first year and 15% after a year of continuous billing. The calculator models web and Android pledges, so a large iOS share lowers net income further than the calculator shows. Annual memberships reduce processing costs by charging once a year.",
+        "answer": "iOS memberships run through Apple's in-app purchase system: 30% in the first year, 15% after a year of continuous billing. The calculator models web and Android pledges only, so a large iOS share lowers net income further than it shows. Annual memberships reduce processing costs by charging once a year.",
         "question": "How do iOS memberships change what I keep?"
       },
       {
@@ -772,14 +772,14 @@ export const TOOL_CONTENT_B2: Record<string, ToolContentEntry> = {
       },
       {
         "question": "Should I offer discounts for multiple videos?",
-        "answer": "A series discount of 10 to 20% for three or more committed deliverables is standard and usually worth it: it removes your selling time for the next slots and gives the brand performance data to renew. Do not discount the usage and exclusivity lines at the same rate — those are costs you bear per campaign regardless of volume."
+        "answer": "Yes, within limits. A 10 to 20% series discount on three or more committed deliverables is standard and usually worth it: it removes your selling time for the next slots and gives the brand performance data to renew. But keep the usage and exclusivity lines at full price — those are costs you bear per campaign regardless of volume."
       },
       {
         "question": "How do I price when my channel is small?",
         "answer": "Price the audience quality, not the size: a 20,000-view average in a narrow B2B niche at a $40 CPM is an $800 integration, and brands in that niche often cannot buy the same audience anywhere else. Offer a first-campaign rate with a review clause rather than a permanently low rate, and document results so the renewal is priced on evidence."
       },
       {
-        "answer": "The factor is 1 plus (engagement minus 3) times 0.08, floored at 0.6. At 4.5% engagement the factor is 1.12; at 8% it is 1.40; at 1% it is 0.84. Two channels with identical views can price 40% apart on engagement alone, which is why sponsors ask for insights screenshots before they agree a rate.",
+        "answer": "Engagement adjusts the base rate by a factor of 1 + (engagement − 3) × 0.08, floored at 0.6. The factor is 1.12 at 4.5% engagement; 1.40 at 8%; 0.84 at 1%. Identical views can price 40% apart on engagement alone — which is why sponsors ask for insights screenshots first.",
         "question": "How does engagement adjust my rate?"
       },
       {
@@ -823,7 +823,7 @@ export const TOOL_CONTENT_B2: Record<string, ToolContentEntry> = {
     "faqs": [
       {
         "question": "What conversion rate should I expect from a course launch?",
-        "answer": "For an email list and a course priced $100 to $500, 1 to 3% of the list buying at launch is a realistic planning range; creators with practiced sequences reach 3 to 5%. Webinar launches convert attendees at higher rates (10 to 25% of live attendees is common) but attendees are a small subset of the list. Never plan a first launch above 2% without evidence from your own audience."
+        "answer": "For an email list and a course priced $100 to $500, 1 to 3% of the list buying at launch is a realistic planning range; creators with practiced sequences reach 3 to 5%. Webinars convert at higher rates — 10 to 25% of live attendees is common — but only a small subset of the list attends. Never plan a first launch above 2% without evidence from your own audience."
       },
       {
         "question": "What refund rate is normal for online courses?",
@@ -905,7 +905,7 @@ export const TOOL_CONTENT_B2: Record<string, ToolContentEntry> = {
         "question": "Why can a lower commission percentage earn more?"
       },
       {
-        "answer": "Compare your EPC against your cost per click: a program with a $1.35 EPC supports ad clicks up to roughly that figure before margin. Most affiliate programs' EPCs sit between $0.10 and $1.00, which is why paid traffic rarely works and content, email and social reach are the usual channels. Above $1.00, paid acquisition starts to become realistic.",
+        "answer": "Compare EPC against your cost per click: a $1.35 EPC covers ad clicks up to roughly that figure before margin. Most affiliate programs' EPCs sit between $0.10 and $1.00, which is why paid traffic rarely works and content, email and social reach are the usual channels. Above $1.00, paid acquisition starts to become realistic.",
         "question": "What EPC should I aim for?"
       },
       {
@@ -953,7 +953,7 @@ export const TOOL_CONTENT_B2: Record<string, ToolContentEntry> = {
       },
       {
         "question": "When does hiring stop being worth it?",
-        "answer": "When utilisation drops. A hire paid for 160 hours a month who is billable for 90 is being carried at nearly double the planned cost per delivered hour. Track utilisation per role; if a role sits below roughly 65 to 70% billable for two consecutive months, the model says pause hiring and fix sales or scope before adding the next seat."
+        "answer": "When utilisation drops. A hire paid for 160 hours a month but billable for 90 is carried at nearly double the planned cost per delivered hour. Track utilisation per role; if a role sits below roughly 65 to 70% billable for two consecutive months, pause hiring and fix sales or scope before adding the next seat."
       },
       {
         "answer": "At the defaults, the agency model matches solo profit at $15,800 of monthly revenue — a 31.7% increase on $12,000. Below that figure the team costs more than it returns; above it, every extra $1,000 of revenue adds $1,000 to agency profit, because the $4,200 of team and overhead costs are fixed. The crossover is lower than most creators expect.",
@@ -1071,7 +1071,7 @@ export const TOOL_CONTENT_B2: Record<string, ToolContentEntry> = {
       },
       {
         "question": "Should I move my audience to the cheapest platform?",
-        "answer": "Only the part that will actually move. A 35-point fee saving on the 20% of your audience willing to follow you to a new platform loses money against staying. The common pattern is layering: keep discovery on the high-fee platforms, and offer the committed audience a lower-fee home (memberships, your own store) as an additional option."
+        "answer": "Only the part that will actually move. A 35-point fee saving on the 20% of your audience willing to follow you to a new platform loses money against staying. The usual pattern is layering: discovery stays on the high-fee platforms, while the committed audience gets a lower-fee home — memberships, your own store — as an additional option."
       },
       {
         "answer": "Fixed per-transaction fees punish small payments. At a $20 average across 250 transactions, the $0.30 fee costs $75; at a $5 average across 1,000 transactions it costs $300. Stripe's fee on $5,000 rises from $220 to $445 and Patreon's from $620 to $845. Re-run the comparison at your actual transaction size before choosing a platform.",

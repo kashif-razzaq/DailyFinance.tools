@@ -93,11 +93,11 @@ export const TOOL_CONTENT_A3: Record<string, ToolContentEntry> = {
       },
       {
         "question": "What cash-on-cash return does the example actually earn?",
-        "answer": "About 4.9% a year — $53 a month on the $13,000 left in the deal. A small amount left in can still produce a weak return if the cash flow is thin. The strategy's real payoff is the $80,000 of equity retained and the freed capital funding the next deal, not the monthly rent check. Judge BRRRR on the freed capital and the equity, not on the first year's cash flow alone."
+        "answer": "About 4.9% a year — $53 a month on the $13,000 left in the deal. A small amount left in can still produce a weak return when the cash flow is thin. The real payoff is the $80,000 of equity kept and the freed capital for the next deal — not the rent check. Judge BRRRR on the freed capital and the equity, not on the first year's cash flow alone."
       },
       {
         "question": "What happens if the appraisal comes in 10% low?",
-        "answer": "At a $288,000 valuation instead of $320,000, the 75% loan falls to $216,000 and $37,000 of cash stays trapped in the deal instead of $13,000. But the smaller loan also cuts the mortgage payment, so cash flow rises to about $213 a month. A failed refinance is not always a failed investment — it is a different one, with more capital tied up and better monthly income."
+        "answer": "At a $288,000 valuation instead of $320,000, the 75% loan falls to $216,000 and $37,000 of cash stays trapped in the deal instead of $13,000. The smaller loan cuts the mortgage payment too, so cash flow rises to about $213 a month. A disappointing appraisal is not always a failed investment — it is a different one: more capital tied up, better monthly income."
       },
       {
         "question": "Why must the cash flow test come after the refinance?",
@@ -156,7 +156,7 @@ export const TOOL_CONTENT_A3: Record<string, ToolContentEntry> = {
       },
       {
         "question": "What happens if occupancy drops to 55%?",
-        "answer": "The same cost base loses about $182 a month, even at the 3% split fee. Short-term demand is seasonal in most markets; the rent is not. A unit that profits at 70% occupancy and loses at 55% needs either a lower rent, a higher ADR market, or a reserve to survive the weak season. Stress occupancy down 15 points before signing a lease for arbitrage."
+        "answer": "The same cost base loses about $182 a month, even at the 3% split fee. Short-term demand is seasonal in most markets; the rent is not. A unit that profits at 70% and loses at 55% needs a lower rent, a higher ADR market, or a reserve for the weak season. Stress occupancy down 15 points before signing a lease for arbitrage."
       },
       {
         "question": "Does the calculator count cleaning fees I charge guests?",
@@ -211,15 +211,15 @@ export const TOOL_CONTENT_A3: Record<string, ToolContentEntry> = {
       },
       {
         "question": "How do I reserve for a component already halfway through its life?",
-        "answer": "Use its remaining life, not its full lifespan. A roof with 5 years of life left does not need cost ÷ 25 — it needs cost ÷ 5 from you, unless the previous owner funded the reserve (they did not; you bought their unfunded liability, which is why purchase inspections price remaining life). Where the planner allows lifespan inputs, shorten them for mid-life components."
+        "answer": "Reserve on remaining life, not full lifespan. A roof with five years left needs cost ÷ 5 from you, not cost ÷ 25 — unless the previous owner already funded the reserve. They did not — you inherited their unfunded liability, and that is why purchase inspections price remaining life. Where the planner allows lifespan inputs, shorten them for mid-life components."
       },
       {
         "question": "How does the reserve scale across a portfolio?",
-        "answer": "Four similar single-family units need about $985 a month of reserves, not four times a number you rounded down. But shared systems change the math in the other direction: one roof over a fourplex is one roof, not four. Enter the building's actual component list rather than multiplying a single-family schedule blindly — the planner multiplies per unit, so the list must match the building."
+        "answer": "Scale the real number, not a rounded one. Four similar units need about $985 a month of reserves — four times the $246 per-unit figure. Shared systems push the other way: one roof over a fourplex is one roof, not four. Enter the building's actual component list — do not multiply a single-family schedule blindly."
       },
       {
         "question": "Why hold the reserve in a separate account?",
-        "answer": "Because the discipline is the product. Landlords who spend the reserve in good years report excellent returns until two systems fail in the same winter — and then the money is gone. A separate account keeps the reserve visible and untouchable, and stops you counting it as cash flow. The planner's total replacement exposure figure, $44,000 on the default schedule, is the bill it exists to meet."
+        "answer": "Because the discipline is the product. Spend the reserve in good years and the returns look excellent — until two systems fail in the same winter, and then the money is gone. A separate account keeps the reserve visible and untouchable, and stops you counting it as cash flow. The $44,000 total replacement exposure on the default schedule is the bill it exists to meet."
       }
     ],
     "sources": [
@@ -262,7 +262,7 @@ export const TOOL_CONTENT_A3: Record<string, ToolContentEntry> = {
       },
       {
         "question": "How much interest does the repayment phase cost in total?",
-        "answer": "About $108,278 over 20 years on a $100,000 draw at 8.5% — more than the amount borrowed. Shortening the repayment term to 15 years raises the payment to about $985 but cuts the interest to about $77,253, saving roughly $31,000 for $117 more a month. The repayment-phase interest total, not the monthly payment, is the figure that should drive the decision."
+        "answer": "About $108,278 over 20 years on a $100,000 draw at 8.5% — more than the amount borrowed. Shorten the repayment term to 15 years and the payment rises to about $985, but the interest falls to about $77,253 — saving roughly $31,000 for $117 more a month. The repayment-phase interest total, not the monthly payment, is the figure that should drive the decision."
       },
       {
         "question": "What is the largest line I can get in the example?",
@@ -274,7 +274,7 @@ export const TOOL_CONTENT_A3: Record<string, ToolContentEntry> = {
       },
       {
         "question": "What combined loan-to-value does the example draw leave?",
-        "answer": "66.7% — the $300,000 mortgage plus the $100,000 draw against a $600,000 home — which most lenders accept comfortably. A draw that pushes combined LTV toward 90% leaves little room if prices fall, and a lender can freeze or reduce a line if the home's value drops significantly — which is exactly when you would most want the money."
+        "answer": "66.7% — the $300,000 mortgage plus the $100,000 draw against a $600,000 home — which most lenders accept comfortably. A draw pushing combined LTV toward 90% leaves little room if prices fall, and a lender can freeze or reduce a line when the home's value drops significantly — exactly when you would most want the money."
       }
     ],
     "sources": [
@@ -313,7 +313,7 @@ export const TOOL_CONTENT_A3: Record<string, ToolContentEntry> = {
       },
       {
         "question": "Do I have to pay tax on the rental income while house hacking?",
-        "answer": "Yes — rent from the other units is taxable income, against which you can deduct the rental share of expenses: a proportion of mortgage interest, tax, insurance, repairs and depreciation on the rented portion. Owner-occupiers split expenses between Schedule A (personal share) and Schedule E (rental share). The depreciation on the rental portion is a significant shelter — and is recaptured when you sell."
+        "answer": "Yes. Rent from the other units is taxable income, but the rental share of expenses is deductible — mortgage interest, tax, insurance, repairs and depreciation on the rented portion, in proportion, reported on Schedule E. Depreciation shelters income now and is recaptured when you sell; the gain on your own share may qualify for the primary-residence exclusion, while the rental share does not."
       },
       {
         "question": "What are the main risks of house hacking?",
@@ -333,7 +333,7 @@ export const TOOL_CONTENT_A3: Record<string, ToolContentEntry> = {
       },
       {
         "question": "How much cash do I need to start house hacking?",
-        "answer": "In the example, $31,500: a $22,500 down payment (5% of $450,000) plus closing costs of about 2% of the price ($9,000). The owner-occupier advantage is the deposit — as little as 3.5% down on an FHA loan with a credit score of 580 or higher — where an investor would need 20% to 25%. That leverage is the strategy's engine and its risk."
+        "answer": "In the example, $31,500: a $22,500 down payment (5% of $450,000) plus closing costs of about 2% of the price ($9,000). The owner-occupier advantage is the deposit — as little as 3.5% down on FHA with a 580 credit score — where an investor would need 20% to 25%. That leverage is the strategy's engine and its risk."
       }
     ],
     "sources": [
@@ -380,11 +380,11 @@ export const TOOL_CONTENT_A3: Record<string, ToolContentEntry> = {
       },
       {
         "question": "How does leverage make the physical property win?",
-        "answer": "Your $100,000 controls a $400,000 asset, so 4% appreciation is $16,000 in the first year alone — 16% on your money before costs. The mortgage payment and expenses eat most of the rent early on; the end position is mostly leveraged appreciation and forced principal repayment over two decades. The advantage is arithmetic, not magic."
+        "answer": "It multiplies the appreciation. With $100,000 as a 25% deposit on a $400,000 rental, a 4% rise in the first year is $16,000 — 16% on your money before costs. Rent barely covers the mortgage and expenses early on; the end position is mostly leveraged appreciation plus forced principal repayment over two decades. The advantage is arithmetic, not magic."
       },
       {
         "question": "What happens at 0% property appreciation?",
-        "answer": "The physical path loses decisively. At 0% appreciation the physical position ends at about $330,679 — equity of about $237,989 plus the same cumulative cash flow — and the REIT wins by roughly $230,000. The leveraged path's edge is almost entirely a bet that the single property you picked appreciates at or above the rate you typed in. Stress that input before trusting the verdict."
+        "answer": "The physical path loses decisively. With no appreciation the physical position ends at about $330,679 — about $237,989 of equity plus the same cumulative cash flow — and the REIT wins by roughly $230,000. The leveraged edge is almost entirely a bet on the single property you picked appreciating at or above the rate you typed in. Stress that input before trusting the verdict."
       },
       {
         "question": "Is the physical property's first-month cash flow positive?",
@@ -392,7 +392,7 @@ export const TOOL_CONTENT_A3: Record<string, ToolContentEntry> = {
       },
       {
         "question": "What is the REIT path worth after 20 years?",
-        "answer": "$560,441. A 4% dividend yield reinvested plus 5% appreciation is a 9% total return, and $100,000 × 1.09^20 = $560,441. The physical path ends at about $807,128 — ahead by roughly $247,000, driven almost entirely by leveraged appreciation, the input least in your control. Change the appreciation assumption and the winner changes with it."
+        "answer": "$560,441. A 4% dividend yield, reinvested, plus 5% appreciation gives a 9% total return — $100,000 × 1.09^20. The physical path ends at about $807,128 — roughly $247,000 ahead, almost entirely from leveraged appreciation, the input least in your control. Change the appreciation assumption and the winner changes with it."
       }
     ],
     "sources": [
@@ -439,7 +439,7 @@ export const TOOL_CONTENT_A3: Record<string, ToolContentEntry> = {
       },
       {
         "question": "What is the difference between a mill rate and a percentage rate?",
-        "answer": "They are the same rate in two notations. A mill rate is dollars of tax per $1,000 of taxable value — 12.5 mills is the same as 1.25% — and the calculator converts between the two. Total tax is usually the sum of several overlapping levies: county, city, school district (often the largest) and special districts, each with its own rate."
+        "answer": "They are the same rate in two notations. A mill rate is tax per $1,000 of taxable value — so 12.5 mills equals 1.25%, and the calculator converts between the two. Total tax is usually several overlapping levies added up — county, city and school district (often the largest), plus special districts, each with its own rate."
       },
       {
         "question": "How much do effective property tax rates vary by state?",
@@ -451,7 +451,7 @@ export const TOOL_CONTENT_A3: Record<string, ToolContentEntry> = {
       },
       {
         "question": "Why does the assessment ratio matter?",
-        "answer": "Because two identical homes in different states can be assessed very differently. Some jurisdictions assess at 100% of market value; others assess a fraction — 80%, 70% or less — and then apply a higher nominal rate to the smaller base. Only the effective rate, tax divided by true value, lets you compare them, which is why the calculator shows the assessed and taxable values separately."
+        "answer": "Because two identical homes in different states can be assessed very differently. Some assess at 100% of market value; others a fraction — 80%, 70% or less — then apply a higher nominal rate to the smaller base. The effective rate — tax divided by true value — is the only figure that lets you compare them; the calculator shows the assessed and taxable values separately for that reason."
       }
     ],
     "sources": [
@@ -498,11 +498,11 @@ export const TOOL_CONTENT_A3: Record<string, ToolContentEntry> = {
       },
       {
         "question": "How much interest do I pay in the first year?",
-        "answer": "On the example loan, $1,730 of your first year's $6,011 goes to interest and $4,282 to principal — and in month one alone, $156.25 of the $500.95 payment is interest. After the first year the balance is still $20,718. The interest share falls every month as the balance falls, which is why extra payments early in the loan save the most interest."
+        "answer": "$1,730 of the first year's $6,011 — with $4,282 going to principal. In month one alone, $156.25 of the $500.95 payment is interest, and after the first year the balance is still $20,718. The interest share shrinks every month as the balance falls — so extra payments early save the most interest."
       },
       {
         "question": "Is a longer term ever worth it?",
-        "answer": "Only if the lower payment is genuinely needed. Stretching the example loan from 5 to 7 years drops the payment by about $117 a month but adds roughly $2,153 of interest; shortening to 3 years raises the payment to $777.66 but cuts interest to $2,996. Term choice is a price decision, and the price is the interest total — compare that, not the payment."
+        "answer": "Only if the lower payment is genuinely needed. Stretching from 5 to 7 years saves about $117 a month but costs roughly $2,153 more in interest; shortening to 3 years costs $777.66 a month but only $2,996 of interest. Term choice is a price decision — the price is the interest total, so compare that, not the payment."
       },
       {
         "question": "Why do extra payments early save the most interest?",
@@ -510,7 +510,7 @@ export const TOOL_CONTENT_A3: Record<string, ToolContentEntry> = {
       },
       {
         "question": "How do I know if my rate is competitive?",
-        "answer": "Judge it against the market for its type. The Federal Reserve's G.19 release put the average 24-month personal loan at commercial banks at 11.86% in May 2026, and the average credit card account assessed interest at 22.36% in the third quarter of 2026. A loan priced well above the bank average for its type is worth shopping around before you accept it."
+        "answer": "Compare it with the market for its type. The Fed's G.19 release put the average 24-month personal loan at 11.86% in May 2026; card accounts assessed interest averaged 22.36% in the third quarter of 2026. A loan priced well above its type's bank average is worth shopping around before you accept it."
       }
     ],
     "sources": [
@@ -565,7 +565,7 @@ export const TOOL_CONTENT_A3: Record<string, ToolContentEntry> = {
       },
       {
         "question": "Why is the total cost higher than the sticker price?",
-        "answer": "Because the calculator adds everything you hand over: the down payment and trade-in plus every monthly payment. In the example the total cost is $42,807 — the $35,000 car plus $2,030 of sales tax plus $5,777 of interest — before insurance, fuel and maintenance. That is the number to compare against keeping your current car for another year, not the $35,000 on the windscreen."
+        "answer": "Because the calculator adds everything you hand over: the down payment and trade-in plus every monthly payment. In the example, total cost is $42,807: the $35,000 car, $2,030 of sales tax and $5,777 of interest — before insurance, fuel and maintenance. Compare that number against keeping your current car for another year — not the $35,000 on the windscreen."
       },
       {
         "question": "Is a used-car loan cheaper than a new-car loan overall?",
@@ -616,7 +616,7 @@ export const TOOL_CONTENT_A3: Record<string, ToolContentEntry> = {
       },
       {
         "question": "How does the origination fee change what I actually receive?",
-        "answer": "Origination fees are usually deducted from the amount you receive. Borrow $15,000 with a 5% fee and $14,250 arrives — $750 never reaches you — while interest is charged on the full $15,000. To net the full $15,000 you would need to borrow $15,789. The total cost of borrowing (interest plus fee) in the example is $3,557."
+        "answer": "Origination fees are usually deducted from the amount you receive. On a $15,000 loan with a 5% fee, $14,250 arrives — $750 never reaches you — while interest is charged on the full $15,000. To net the full $15,000 you would need to borrow $15,789. The total cost of borrowing (interest plus fee) in the example is $3,557."
       },
       {
         "question": "Why is the effective APR higher than the headline rate?",
@@ -683,7 +683,7 @@ export const TOOL_CONTENT_A3: Record<string, ToolContentEntry> = {
       },
       {
         "question": "What does stretching from 10 to 20 years cost?",
-        "answer": "A much lower payment for more than double the interest. On the example loan, stretching from 10 to 20 years cuts the payment from $401.55 to $254.52 but raises total interest from $11,186 to $24,084. The calculator's standard-versus-extended table makes that trade visible for your own balance, and the chart shows how slowly the extended balance falls."
+        "answer": "A much lower payment for more than double the interest. Stretching from 10 to 20 years cuts the payment from $401.55 to $254.52 — but total interest rises from $11,186 to $24,084. Run your own balance through the calculator's standard-versus-extended table — the chart shows how slowly the extended balance falls."
       },
       {
         "question": "Can I work out payoff from the payment I can afford?",
@@ -734,7 +734,7 @@ export const TOOL_CONTENT_A3: Record<string, ToolContentEntry> = {
       },
       {
         "question": "What does my statement's minimum payment warning tell me?",
-        "answer": "Since the CARD Act of 2009, Regulation Z requires every card statement to show how long the balance would take and what it would cost at minimums only, plus the monthly payment that would clear it in 36 months. On the example balance that 36-month payment is about $231, with $2,501 of interest — the comparison this calculator lets you run for any payment you choose, before you choose it."
+        "answer": "Two things: the time and cost of clearing the balance at minimums only, and the payment that would clear it in 36 months. That warning has been required on every card statement since the CARD Act of 2009, under Regulation Z. On the example balance, clearing it in 36 months takes about $231 a month, with $2,501 of interest."
       },
       {
         "question": "Why is paying 3% of the balance worse than paying the minimum?",
@@ -793,11 +793,11 @@ export const TOOL_CONTENT_A3: Record<string, ToolContentEntry> = {
       },
       {
         "question": "In what order do my debts clear in the example?",
-        "answer": "The 29.99% store card ($2,100) clears first, in month 6, followed by the 24.99% credit card in month 18 and the 11.5% personal loan in month 27. Both methods agree here, which happens whenever the highest-rate debt is also the smallest balance: the store card is the target under avalanche and under snowball alike, so the interest difference between methods is zero."
+        "answer": "The 29.99% store card ($2,100) clears first, in month 6; the 24.99% credit card follows in month 18; the 11.5% personal loan, in month 27. Both methods agree here — the highest-rate debt is also the smallest balance: the store card is the target under avalanche and under snowball alike, so the interest difference between methods is zero."
       },
       {
         "question": "What does the extra $330 a month actually buy?",
-        "answer": "A great deal. The example's $370 of minimums takes 73 months and $11,438 of interest; committing $700 a month clears the same debts in 27 months with $3,089 of interest. The extra $330 a month saves $8,350 and returns three years and ten months of payment-free life, plus a credit profile with no revolving balances in it."
+        "answer": "A great deal. The example's $370 of minimums takes 73 months and $11,438 of interest; committing $700 a month clears the same debts in 27 months with $3,089 of interest. That extra $330 a month saves $8,350 and buys back three years and ten months of payment-free life, plus a credit profile with no revolving balances in it."
       },
       {
         "question": "What if a minimum payment does not cover the monthly interest?",
@@ -852,19 +852,19 @@ export const TOOL_CONTENT_A3: Record<string, ToolContentEntry> = {
       },
       {
         "question": "How does the origination fee change the math?",
-        "answer": "The fee is rolled into the new loan, so you borrow the fee and pay interest on it too. On $16,400, a 4% fee is $656, making the new loan $17,056, and that $656 accrues interest for all 48 months. The calculator's verdict already includes the fee in the new path's total cost — $5,119 of interest plus fees — so the $4,259 saving is net of it."
+        "answer": "It raises the amount you borrow and the interest you pay. The 4% fee on $16,400 is $656, rolled into the new loan — so you borrow $17,056 and pay interest on the fee itself for all 48 months. The calculator's verdict already includes it: the new path costs $5,119 of interest plus fees, so the $4,259 saving is net of the fee, not before it."
       },
       {
         "question": "Why pay the new loan at my old monthly amount?",
-        "answer": "Because the lower payment is a safety net, not a target. Pay the consolidation loan at your old $520 a month instead of its $448.31 payment and it clears in 40 months with about $3,677 of interest — total cost $4,333 including the fee, saving $5,045 against the current path instead of $4,259. You keep the lower payment in reserve for a bad month."
+        "answer": "Because the $448.31 payment is a floor, not a target. Keep paying your old $520 a month and the loan clears in 40 months instead of 48, with about $3,677 of interest. Total cost including the fee is $4,333 — a $5,045 saving against the current path, against $4,259 at the quoted payment. The lower payment stays in reserve for a bad month."
       },
       {
         "question": "When does consolidation cost more than staying put?",
-        "answer": "When the rate gap is small or the term stretches far. A consolidation loan at 18% over 60 months against 23.5% card debt can still cost more in total interest than staying put, because five years of interest at 18% exceeds four years at 23.5% on a shrinking balance. Run the numbers before signing — the calculator's red warning exists for exactly this case."
+        "answer": "When the rate gap is small or the term stretches far. At 18% over 60 months against 23.5% card debt, the consolidation can still cost more in total interest than staying put — five years of interest at 18% beats four years at 23.5% on a shrinking balance. The payment looks lower, but the total is higher — run the numbers before signing, and heed the calculator's red warning."
       },
       {
         "question": "How do I compare consolidation at the same payoff horizon?",
-        "answer": "A consolidation loan can show a lower payment purely by stretching the term — 48 months against debts you were clearing in 50 — which is not a saving, just a slower schedule. The honest check is total interest at a similar end date, and the tool warns you when the new term stretches beyond your current payoff. Compare the paths at equal end dates, not equal payments."
+        "answer": "Compare at equal end dates, not equal payments. A lower payment can come purely from a longer term — 48 months against debts you were clearing in 50 is not a saving, just a slower schedule. Judge by total interest at a similar end date: the tool flags it when the new term stretches beyond your current payoff."
       }
     ],
     "sources": [
@@ -919,11 +919,11 @@ export const TOOL_CONTENT_A3: Record<string, ToolContentEntry> = {
       },
       {
         "question": "Which expenses do lenders ignore in DTI?",
-        "answer": "Utilities, groceries, insurance premiums other than those inside the housing payment, subscriptions — and rent, unless it appears as an obligation while you are applying. Only debts on the credit report and the application count, which is why a $160 card minimum payment matters more to your mortgage than a $400 grocery bill. The ratio measures debt burden, not total spending."
+        "answer": "Utilities, groceries, insurance premiums outside the housing payment, subscriptions — and rent, unless it appears as an obligation while you are applying. Only debts on the credit report and the application count — that is why a $160 card minimum matters more to your mortgage than a $400 grocery bill. The ratio measures debt burden, not total spending."
       },
       {
         "question": "Why should I run DTI on take-home pay too?",
-        "answer": "Because lenders use gross income and your household lives on net. The example's 37.9% of gross is about 50.6% of a typical take-home figure — the share of actual cash committed before food, fuel or anything else. That is the number that decides whether the budget breathes. Use the lender's ratio for the application and the take-home ratio for your own decision."
+        "answer": "Because lenders use gross income and your household lives on net. The example's 37.9% of gross is about 50.6% of typical take-home pay — the share of real cash committed before food, fuel or anything else. That is the number that decides whether the budget breathes. Use the lender's ratio for the application and the take-home ratio for your own decision."
       }
     ],
     "sources": [
@@ -954,7 +954,7 @@ export const TOOL_CONTENT_A3: Record<string, ToolContentEntry> = {
       },
       {
         "question": "Does APR include every cost of the loan?",
-        "answer": "No. It captures lender and broker fees and most prepaid finance charges, but some third-party costs (certain title, appraisal or notary fees, depending on the loan type) sit outside it, and late fees and other contingent charges are excluded by definition. Read the full fee schedule alongside the APR, especially on mortgages where the Loan Estimate separates lender fees from other closing costs."
+        "answer": "No. Lender and broker fees and most prepaid finance charges are in; some third-party costs sit outside APR — certain title, appraisal or notary fees, depending on the loan type — and late fees and other contingent charges are excluded by definition. Read the full fee schedule alongside the APR: on mortgages the Loan Estimate separates lender fees from other closing costs."
       },
       {
         "question": "Why do credit cards quote APR differently?",
@@ -978,7 +978,7 @@ export const TOOL_CONTENT_A3: Record<string, ToolContentEntry> = {
       },
       {
         "question": "Which fees count as finance charges under Regulation Z?",
-        "answer": "Lender and broker fees and most prepaid finance charges count, which is why they push APR above the interest rate. Some third-party costs — certain title, appraisal or notary fees, depending on the loan type — sit outside APR, and late fees and other contingent charges are excluded by definition. Read the full fee schedule alongside the APR, especially on mortgages, where the Loan Estimate separates lender fees from other closing costs."
+        "answer": "Lender and broker fees and most prepaid finance charges count — which is why they push APR above the interest rate. Some third-party costs sit outside APR, and late fees and other contingent charges are excluded by definition. Regulation Z defines which charges count as finance charges; read the full fee schedule alongside the APR, especially on mortgages, where the Loan Estimate separates lender fees from other closing costs."
       }
     ],
     "sources": [
@@ -1009,11 +1009,11 @@ export const TOOL_CONTENT_A3: Record<string, ToolContentEntry> = {
     "faqs": [
       {
         "question": "How much is the VA funding fee?",
-        "answer": "It depends on your down payment and whether you have used a VA loan before. On a purchase, first use costs 2.15% of the base loan with less than 5% down, 1.5% at 5% or more, and 1.25% at 10% or more. Subsequent use costs 3.3% below 5% down, then the same 1.5% and 1.25%. The fee is charged on the loan amount, not the purchase price. These rates come from the VA funding fee table on VA.gov, effective April 7, 2023."
+        "answer": "It depends on the down payment and whether you have used a VA loan before. First use runs 2.15% under 5% down; 1.5% at 5% or more; 1.25% at 10% or more. Subsequent use is 3.3% below 5% down; above that, the same 1.5% and 1.25%. The fee is charged on the loan amount, not the purchase price. These rates come from the VA funding fee table on VA.gov, effective April 7, 2023."
       },
       {
         "question": "Who is exempt from the VA funding fee?",
-        "answer": "You pay no funding fee if you receive VA compensation for a service-connected disability, or would receive it but take retirement or active-duty pay instead; if you are a surviving spouse receiving Dependency and Indemnity Compensation (DIC); or if you are an active-duty service member who received a Purple Heart before closing. If the VA later awards you disability compensation with an effective date before your closing, you can claim a refund of the fee you paid."
+        "answer": "You pay no funding fee if you receive VA compensation for a service-connected disability — or would receive it but take retirement or active-duty pay instead. Surviving spouses receiving Dependency and Indemnity Compensation (DIC) are exempt too, as are active-duty service members who received a Purple Heart before closing. A later disability award backdated to before closing gets the fee refunded."
       },
       {
         "question": "Should I finance the funding fee or pay it in cash?",
@@ -1029,7 +1029,7 @@ export const TOOL_CONTENT_A3: Record<string, ToolContentEntry> = {
       },
       {
         "question": "How much does 5% down save on a subsequent-use fee?",
-        "answer": "A great deal. On a $375,000 purchase, putting 5% down drops a subsequent-use fee from 3.3% to 1.5% — from $12,375 on the full loan to $5,343.75 on a $356,250 loan, a saving of about $7,031. At 10% down the rate is 1.25% for everyone, first use or subsequent. A down payment is optional on a VA loan, but it is the cheapest way to cut the fee."
+        "answer": "About $7,031. On a $375,000 purchase, 5% down cuts a subsequent-use fee from 3.3% to 1.5% — $12,375 on the full loan becomes $5,343.75 on a $356,250 loan. At 10% down the rate is 1.25% for everyone, first use or subsequent. No down payment is required on a VA loan, but a deposit is the cheapest way to cut the fee."
       },
       {
         "question": "What is the funding fee on a VA streamline refinance (IRRRL)?",
@@ -1088,7 +1088,7 @@ export const TOOL_CONTENT_A3: Record<string, ToolContentEntry> = {
       },
       {
         "question": "Why does monthly MIP fall over time?",
-        "answer": "HUD charges each year's premium on the average outstanding balance for that year, not on the original loan amount, so the monthly amount falls as the balance amortises. In the example the year-1 monthly MIP is $157 at 0.55%, and total MIP over 30 years is $37,000 — well under the $55,729 a flat estimate would give. A flat MIP figure overstates the true cost."
+        "answer": "Because HUD charges each year's premium on that year's average outstanding balance, not on the original loan amount — so the monthly amount falls as the balance amortises. Year-1 monthly MIP in the example is $157 at 0.55%; the 30-year total is $37,000, well under the $55,729 a flat estimate would give. A flat MIP figure overstates the true cost."
       },
       {
         "question": "Should I finance the UFMIP or pay it in cash?",

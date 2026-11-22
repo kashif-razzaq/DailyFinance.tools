@@ -23,26 +23,36 @@ export const dynamicParams = false
 
 const getState = (slug: string) => US_STATES.find((s) => s.slug === slug)
 
+// Page title: the full variant fits the 50–60 char band for 48 states;
+// the three longest names (North/South Carolina, District of Columbia)
+// use the shorter variant, also in band.
+function stateTitle(s: USState): string {
+  const long = `${s.name} Tax Guide 2026: Sales, Income & Property Taxes`
+  if (long.length <= 60) return long
+  return `${s.name} Tax Guide 2026: Sales & Property Tax`
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ state: string }> }): Promise<Metadata> {
   const { state } = await params
   const s = getState(state)
   if (!s) return {}
+  const title = stateTitle(s)
   return {
-    title: `${s.name} Tax Guide 2026: Sales, Income & Property Tax`,
+    title,
     description: `${s.name} tax rates with real numbers: ${s.salesTaxBase}% sales tax (${s.salesTaxAvgCombined}% combined), ${s.incomeTax === "none" ? "no income tax" : s.incomeTax === "flat" ? "flat income tax" : "income tax brackets"}, ${s.propertyTaxAvg}% property tax — worked examples and calculators.`,
     alternates: { canonical: `https://www.dailyfinance.tools/guides/states/${s.slug}` },
     openGraph: {
-      title: `${s.name} Tax Guide 2026: Sales, Income & Property Tax`,
+      title,
       description: `${s.name} tax rates with real numbers: ${s.salesTaxBase}% sales tax (${s.salesTaxAvgCombined}% combined), ${s.incomeTax === "none" ? "no income tax" : s.incomeTax === "flat" ? "flat income tax" : "income tax brackets"}, ${s.propertyTaxAvg}% property tax — worked examples and calculators.`,
       url: `https://www.dailyfinance.tools/guides/states/${s.slug}`,
       siteName: "Daily Finance Tools",
       locale: "en_US",
       type: "website",
-      images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: `${s.name} Tax Guide 2026: Sales, Income & Property Tax` }],
+      images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: title }],
     },
     twitter: {
       card: "summary_large_image",
-      title: `${s.name} Tax Guide 2026: Sales, Income & Property Tax`,
+      title,
       description: `${s.name} tax rates with real numbers: ${s.salesTaxBase}% sales tax (${s.salesTaxAvgCombined}% combined), ${s.incomeTax === "none" ? "no income tax" : s.incomeTax === "flat" ? "flat income tax" : "income tax brackets"}, ${s.propertyTaxAvg}% property tax — worked examples and calculators.`,
       images: ["https://www.dailyfinance.tools/images/og-base.jpg"],
     },
@@ -75,7 +85,7 @@ function incomeTaxParagraph(s: USState): string {
 
 function introParagraph(s: USState): string {
   const base = `Three taxes decide most everyday money calculations in ${s.name}: what you pay at the register, what leaves your paycheck, and what your home costs each year.`
-  const verify = `Rates are reviewed against state sources; confirm a specific transaction with the ${s.name} Department of Revenue.`
+  const verify = `Rates are reviewed against state sources; confirm a specific transaction with the ${s.taxAgency}.`
   if (s.incomeTax === "none") {
     if (s.propertyTaxAvg >= 1.5)
       return `Two taxes decide most everyday money calculations in ${s.name}: what you pay at the register and what your home costs each year — the paycheck line drops out, because there is no state income tax, and the property bill carries much of the comparison instead. Each one is set out below with the current figures, with links to the calculators that apply them. ${verify}`
@@ -131,12 +141,12 @@ export default async function StateGuidePage({ params }: { params: Promise<{ sta
     },
     {
       question: `Where can I verify ${s.name} tax rates?`,
-      answer: s.salesTaxBase === 0 ? `The rates in this guide are reviewed averages for planning. ${s.name} has no statewide sales tax; for a filing or a specific address, confirm local rates and property tax with the ${s.name} Department of Revenue or the county assessor.` : `The rates in this guide are reviewed averages for planning. For a filing or a specific address, confirm the current rate with the ${s.name} Department of Revenue (sales and income tax) or the county assessor (property tax).`,
+      answer: s.salesTaxBase === 0 ? `The rates in this guide are reviewed averages for planning. ${s.name} has no statewide sales tax; for a filing or a specific address, confirm local rates and property tax with the ${s.taxAgency} or the county assessor.` : `The rates in this guide are reviewed averages for planning. For a filing or a specific address, confirm the current rate with the ${s.taxAgency} or the county assessor (property tax).`,
     },
   ]
   const faqSchema = faq(faqs)
   const pageSchema = webPage({
-    name: `${s.name} Tax Guide 2026: Sales, Income & Property Tax`,
+    name: stateTitle(s),
     url: `https://www.dailyfinance.tools/guides/states/${s.slug}`,
     datePublished: CONTENT_REVIEWED,
     dateModified: CONTENT_REVIEWED,
@@ -290,7 +300,7 @@ export default async function StateGuidePage({ params }: { params: Promise<{ sta
 <FaqAccordion items={faqs} />
         </section>
 
-        <ReviewLine deptName={`${s.name} Department of Revenue`} />
+        <ReviewLine deptName={s.taxAgency} />
 
         <aside className="mt-12 bg-[#064E3B] text-white rounded-2xl p-6 md:p-8">
           <h2 className="text-lg font-bold mb-1 flex items-center gap-2"><Calculator className="h-5 w-5" /> Calculators for {s.name}</h2>

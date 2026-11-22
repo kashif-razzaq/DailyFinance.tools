@@ -6,21 +6,21 @@ import { breadcrumb, stringifyJsonLd } from "@/lib/schema"
 const PRIVACY_DESCRIPTION = "How DailyFinance collects, uses and protects your information. No analytics, no advertising — calculator inputs stay in your browser unless you save them."
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | DailyFinance",
+  title: "Privacy Policy — How Daily Finance Tools Protects Your Data",
   description: PRIVACY_DESCRIPTION,
   alternates: { canonical: "https://www.dailyfinance.tools/privacy" },
   openGraph: {
-    title: "Privacy Policy | DailyFinance",
+    title: "Privacy Policy — How Daily Finance Tools Protects Your Data",
     description: PRIVACY_DESCRIPTION,
     url: "https://www.dailyfinance.tools/privacy",
     siteName: "Daily Finance Tools",
     locale: "en_US",
     type: "website",
-    images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Privacy Policy | DailyFinance" }],
+    images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Privacy Policy — How Daily Finance Tools Protects Your Data" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Privacy Policy | DailyFinance",
+    title: "Privacy Policy — How Daily Finance Tools Protects Your Data",
     description: PRIVACY_DESCRIPTION,
     images: ["https://www.dailyfinance.tools/images/og-base.jpg"],
   },

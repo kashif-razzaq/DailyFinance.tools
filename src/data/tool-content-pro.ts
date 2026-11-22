@@ -159,7 +159,7 @@ export const TOOL_CONTENT_PRO: Record<string, ToolContentEntry> = {
       },
       {
         "question": "Why is the DCF value so much higher than the market value?",
-        "answer": "The DCF treats every dollar of SDE as cash the buyer receives — but a buyer who must replace the owner starts by subtracting a manager's salary, which is much of why market prices sit below DCF values. Nearly half the example's DCF — 48% — sits in the terminal value, so it also leans heavily on distant years. Treat the DCF as the ceiling for a perfect handover, not the price."
+        "answer": "The DCF treats every dollar of SDE as cash the buyer receives. A buyer replacing the owner must first pay a manager's salary — a big reason market prices sit below DCF values. Nearly half the example's DCF — 48% — sits in the terminal value, so it also leans heavily on distant years. Treat the DCF as the ceiling for a perfect handover, not the price."
       },
       {
         "question": "What is the SDE margin, and why does the tool check it?",
@@ -226,7 +226,7 @@ export const TOOL_CONTENT_PRO: Record<string, ToolContentEntry> = {
       },
       {
         "question": "The IRR is above my hurdle but the NPV is negative. Which do I believe?",
-        "answer": "Believe the NPV. It is denominated in money, at your rate: a negative NPV means the investment destroys value after pricing time and risk. IRR is a percentage of nothing in particular, and on cash-flow patterns that change sign more than once it can have several values or none. For mutually exclusive projects, rank by NPV — a small project with a high IRR can still create less value than a large one."
+        "answer": "Believe the NPV. It is denominated in money, at your rate: a negative NPV means the investment destroys value after pricing time and risk. IRR is a percentage of nothing in particular, and where cash flows change sign more than once it can return several values — or none. For mutually exclusive projects, rank by NPV: a small high-IRR project can still create less value than a large one."
       }
     ],
     "sources": [

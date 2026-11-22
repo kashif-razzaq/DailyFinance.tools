@@ -3,11 +3,11 @@ import { LegalPage } from "@/components/layout/LegalPage"
 import { breadcrumb, stringifyJsonLd } from "@/lib/schema"
 
 export const metadata: Metadata = {
-  title: "Editorial Policy — How DailyFinance Researches, Writes & Reviews",
+  title: "Editorial Policy — How DailyFinance Researches & Writes",
   description: "How DailyFinance chooses topics, researches primary sources, drafts with human-led AI assistance, verifies every figure and corrects errors.",
   alternates: { canonical: "https://www.dailyfinance.tools/editorial-policy" },
   openGraph: {
-    title: "Editorial Policy — How DailyFinance Researches, Writes & Reviews",
+    title: "Editorial Policy — How DailyFinance Researches & Writes",
     description: "How DailyFinance chooses topics, researches primary sources, drafts with human-led AI assistance, verifies every figure and corrects errors.",
     url: "https://www.dailyfinance.tools/editorial-policy",
     siteName: "Daily Finance Tools",
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Editorial Policy — How DailyFinance Researches, Writes & Reviews",
+    title: "Editorial Policy — How DailyFinance Researches & Writes",
     description: "How DailyFinance chooses topics, researches primary sources, drafts with human-led AI assistance, verifies every figure and corrects errors.",
     images: ["https://www.dailyfinance.tools/images/og-base.jpg"],
   },

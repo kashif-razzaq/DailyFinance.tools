@@ -25,7 +25,7 @@ export function CategoryHub({ categorySlug, quickAnswer, intro, decisions, faqs 
   // page carries a Pro — Launching Soon CTA instead (Kashif, 2026-11-21).
   const isProHub = categorySlug === 'pro'
   const trustChips = isProHub
-    ? ["Pro members only — $2.99/mo", "Formula shown for every result", "Reviewed by a qualified finance professional"]
+    ? ["Pro members only — launching soon, planned at $2.99/mo", "Formula shown for every result", "Reviewed by a qualified finance professional"]
     : ["Free, no sign-up required", "Formula shown for every result", "Reviewed by a qualified finance professional"]
 
   return (
@@ -136,7 +136,7 @@ export function CategoryHub({ categorySlug, quickAnswer, intro, decisions, faqs 
               <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-foreground mb-4">Why use DailyFinance for {category.name.toLowerCase()} calculations?</h2>
               <div className="content-prose">
                 {isProHub ? (
-                  <p>Every calculator on this page shows its formula, works through real-number examples, and explains what your result actually means — including the mistakes that make most online estimates wrong. Your inputs are calculated in your browser. The five tools on this page unlock with Pro at $2.99 a month; their guides stay free to read, and every free calculator on the site stays free. All tools are reviewed by Tahir Shehzad, ACMA, and updated for the current tax year and current platform fees where those apply.</p>
+                  <p>Every calculator on this page shows its formula, works through real-number examples, and explains what your result actually means — including the mistakes that make most online estimates wrong. Your inputs are calculated in your browser. The five tools on this page will unlock when Pro launches, planned at $2.99 a month; their guides stay free to read, and every free calculator on the site stays free. All tools are reviewed by Tahir Shehzad, ACMA, and updated for the current tax year and current platform fees where those apply.</p>
                 ) : (
                   <p>Every calculator on this page shows its formula, works through real-number examples, and explains what your result actually means — including the mistakes that make most online estimates wrong. Your inputs are calculated in your browser; if you create a free account you can save scenarios and come back to them, but no tool on this site requires sign-up. All tools are reviewed by Tahir Shehzad, ACMA, and updated for the current tax year and current platform fees where those apply.</p>
                 )}

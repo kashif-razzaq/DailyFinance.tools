@@ -23,7 +23,7 @@ import {
 } from 'lucide-react'
 import { navigationCategories, getToolUrl, TOOL_COUNTS } from '@/config/navigation'
 import { useMyTools, type SearchHit, type ToolWithCategory } from '@/components/home/useMyTools'
-import { GUIDES } from '@/data/guides'
+import type { GuideSummary } from '@/data/guide-meta'
 
 /**
  * Mobile-only homepage (rendered below the md breakpoint by src/app/page.tsx).
@@ -35,7 +35,7 @@ import { GUIDES } from '@/data/guides'
 
 const A2HS_KEY = 'df-a2hs-dismissed'
 
-export function MobileHome() {
+export function MobileHome({ guides }: { guides: GuideSummary[] }) {
   const router = useRouter()
   const [query, setQuery] = useState('')
   const [searchFocused, setSearchFocused] = useState(false)
@@ -438,10 +438,10 @@ export function MobileHome() {
               <Crown className="h-5 w-5" />
             </span>
             <h2 className="text-lg font-extrabold tracking-tight">DailyFinance Pro</h2>
-            <span className="ml-auto rounded-full bg-[#D97706] px-2.5 py-1 text-[12px] font-extrabold">$2.99/mo</span>
+            <span className="ml-auto rounded-full bg-[#D97706] px-2.5 py-1 text-[12px] font-extrabold">Launching soon</span>
           </div>
           <p className="text-sm font-light leading-relaxed text-white/85">
-            Save unlimited calculations in the Scenario Vault, unlock cross-data analytics, CSV and PDF exports.
+            Launching soon, planned at $2.99/mo — unlimited Scenario Vault saves, cross-data analytics, CSV and PDF exports.
           </p>
           <Link
             href="/pricing"
@@ -482,7 +482,7 @@ export function MobileHome() {
           </Link>
         </div>
         <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          {GUIDES.slice(0, 6).map((guide) => (
+          {guides.slice(0, 6).map((guide) => (
             <Link
               key={guide.slug}
               href={`/guides/${guide.slug}`}
@@ -541,7 +541,7 @@ export function MobileHome() {
               type="button"
               onClick={dismissA2hs}
               aria-label="Dismiss home screen tip"
-              className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground transition-transform active:scale-90"
+              className="absolute right-3 top-3 flex h-12 w-12 items-center justify-center rounded-full text-muted-foreground transition-transform active:scale-90"
             >
               <X className="h-4.5 w-4.5" />
             </button>

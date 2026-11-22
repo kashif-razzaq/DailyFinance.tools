@@ -3,7 +3,6 @@
 import React from 'react'
 import Link from 'next/link'
 import { Crown, Lock, Check } from 'lucide-react'
-import { openLoginModal } from '@/lib/auth-modal'
 
 /**
  * ProGuard — the Pro paywall for Pro-only tools.
@@ -11,20 +10,22 @@ import { openLoginModal } from '@/lib/auth-modal'
  * Pro members (isPro, resolved server-side from the Supabase subscription)
  * see the calculator untouched. Everyone else sees the real calculator
  * behind a soft blur with a lock panel: what the tool does, what it
- * computes, and the way in — upgrade. Logged-out visitors also get a
- * log-in button (they may already be Pro); logged-in users never see it,
- * since there is nothing left to log in to. The editorial content below
- * the calculator stays fully readable, so the page still teaches (and
+ * computes, and the way in — Pro, launching soon. There is no Pro
+ * membership to buy or log into yet (no checkout exists), so the panel
+ * frames Pro as launching soon, planned at $2.99/mo, and links to
+ * /pricing for what's included. The editorial content below the
+ * calculator stays fully readable, so the page still teaches (and
  * ranks) while the interactive tool stays Pro.
  */
 export function ProGuard({
   isPro,
-  isLoggedIn = false,
   toolTitle,
   features,
   children,
 }: {
   isPro: boolean
+  // Retained for the callers (all five /pro/* pages pass it); unused until
+  // Pro launches and there is a membership to log into.
   isLoggedIn?: boolean
   toolTitle: string
   features: string[]
@@ -49,7 +50,7 @@ export function ProGuard({
           <p className="mt-3 text-xl font-extrabold tracking-tight text-[#1F2937]">{toolTitle}</p>
           <p className="mt-2 text-sm font-light leading-relaxed text-neutral-500">
             This is one of the advanced tools reserved for Pro members. The full guide below is free to read —
-            the interactive tool unlocks with Pro.
+            the interactive tool unlocks when Pro launches.
           </p>
 
           <ul className="mt-5 space-y-2 text-left">
@@ -67,20 +68,11 @@ export function ProGuard({
             href="/pricing"
             className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-[#064E3B] px-6 py-3 text-sm font-bold text-white shadow transition-all hover:bg-[#043327]"
           >
-            <Crown className="h-4 w-4" /> Unlock with Pro — $2.99/mo
+            <Crown className="h-4 w-4" /> See what&apos;s coming in Pro
           </Link>
-          {!isLoggedIn && (
-            <button
-              type="button"
-              onClick={() => openLoginModal()}
-              className="mt-3 w-full rounded-full border border-neutral-200 bg-white px-6 py-3 text-sm font-bold text-[#1F2937] transition-colors hover:border-[#064E3B] hover:text-[#064E3B]"
-            >
-              Already Pro? Log in
-            </button>
-          )}
           <p className="mt-4 text-xs font-light text-neutral-400">
-            Every free calculator stays free. Pro adds the advanced simulators, unlimited Vault, exports and
-            analytics.
+            Every free calculator stays free. Pro is launching soon — planned at $2.99/mo — and will add the
+            advanced simulators, unlimited Vault, exports and analytics.
           </p>
         </div>
       </div>

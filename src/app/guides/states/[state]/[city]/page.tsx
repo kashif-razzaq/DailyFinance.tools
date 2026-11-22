@@ -14,6 +14,14 @@ export function generateStaticParams() {
   return US_CITIES.map((c) => ({ state: c.stateSlug, city: c.slug }))
 }
 
+// Page title: the full variant fits the 50–60 char band for 19 cities;
+// the 11 longest city names use the shorter variant, also in band.
+function cityTitle(c: { name: string; combinedRate: number }): string {
+  const long = `${c.name} Sales Tax Rate 2026: ${c.combinedRate}% Combined Rate Explained`
+  if (long.length <= 60) return long
+  return `${c.name} Sales Tax Rate 2026: ${c.combinedRate}% Combined Rate`
+}
+
 // Closed param set: every valid state/city is in generateStaticParams, so an
 // unknown state/city must 404 at the routing level. Without this, Next renders
 // unknown state/citys dynamically and notFound() can resolve inside a streamed
@@ -26,22 +34,23 @@ export async function generateMetadata({ params }: { params: Promise<{ state: st
   const c = US_CITIES.find((x) => x.stateSlug === state && x.slug === city)
   const s = US_STATES.find((x) => x.slug === state)
   if (!c || !s) return {}
+  const title = cityTitle(c)
   return {
-    title: `${c.name} Sales Tax Rate 2026: ${c.combinedRate}% Combined Rate Explained`,
+    title,
     description: `${c.name}'s combined sales tax rate is ${c.combinedRate}%. See how the rate is built, what it adds to real purchases, vs the ${s.name} average.`,
     alternates: { canonical: `https://www.dailyfinance.tools/guides/states/${state}/${city}` },
     openGraph: {
-      title: `${c.name} Sales Tax Rate 2026: ${c.combinedRate}% Combined Rate Explained`,
+      title,
       description: `${c.name}'s combined sales tax rate is ${c.combinedRate}%. See how the rate is built, what it adds to real purchases, vs the ${s.name} average.`,
       url: `https://www.dailyfinance.tools/guides/states/${state}/${city}`,
       siteName: "Daily Finance Tools",
       locale: "en_US",
       type: "website",
-      images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: `${c.name} Sales Tax Rate 2026: ${c.combinedRate}% Combined Rate Explained` }],
+      images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: title }],
     },
     twitter: {
       card: "summary_large_image",
-      title: `${c.name} Sales Tax Rate 2026: ${c.combinedRate}% Combined Rate Explained`,
+      title,
       description: `${c.name}'s combined sales tax rate is ${c.combinedRate}%. See how the rate is built, what it adds to real purchases, vs the ${s.name} average.`,
       images: ["https://www.dailyfinance.tools/images/og-base.jpg"],
     },
@@ -85,12 +94,12 @@ export default async function CityGuidePage({ params }: { params: Promise<{ stat
     },
     {
       question: `Where can I verify the exact rate for a ${c.name} address?`,
-      answer: `The ${c.combinedRate}% figure is the typical combined rate inside city limits; district taxes can shift it block by block. Verify the rate for a specific address with the ${s.name} Department of Revenue before a major purchase or a filing.`,
+      answer: `The ${c.combinedRate}% figure is the typical combined rate inside city limits; district taxes can shift it block by block. Verify the rate for a specific address with the ${s.taxAgency} before a major purchase or a filing.`,
     },
   ]
   const faqSchema = faq(faqs)
   const pageSchema = webPage({
-    name: `${c.name} Sales Tax Rate 2026: ${c.combinedRate}% Combined Rate Explained`,
+    name: cityTitle(c),
     url: `https://www.dailyfinance.tools/guides/states/${s.slug}/${c.slug}`,
     datePublished: CONTENT_REVIEWED,
     dateModified: CONTENT_REVIEWED,
@@ -228,7 +237,7 @@ export default async function CityGuidePage({ params }: { params: Promise<{ stat
 <FaqAccordion items={faqs} />
         </section>
 
-        <ReviewLine deptName={`${s.name} Department of Revenue`} />
+        <ReviewLine deptName={s.taxAgency} />
 
         <aside className="mt-12 bg-[#064E3B] text-white rounded-2xl p-6 md:p-8">
           <h2 className="text-lg font-bold mb-1 flex items-center gap-2"><Calculator className="h-5 w-5" /> Calculate {c.name} tax</h2>

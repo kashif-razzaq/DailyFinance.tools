@@ -3,21 +3,21 @@ import { LegalPage } from "@/components/layout/LegalPage"
 import { breadcrumb, stringifyJsonLd } from "@/lib/schema"
 
 export const metadata: Metadata = {
-  title: "Terms of Service | DailyFinance",
+  title: "Terms of Service — The Rules for Using Daily Finance Tools",
   description: "The terms that govern your use of DailyFinance calculators and content: educational estimates, acceptable use, and liability limits.",
   alternates: { canonical: "https://www.dailyfinance.tools/terms" },
   openGraph: {
-    title: "Terms of Service | DailyFinance",
+    title: "Terms of Service — The Rules for Using Daily Finance Tools",
     description: "The terms that govern your use of DailyFinance calculators and content: educational estimates, acceptable use, and liability limits.",
     url: "https://www.dailyfinance.tools/terms",
     siteName: "Daily Finance Tools",
     locale: "en_US",
     type: "website",
-    images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Terms of Service | DailyFinance" }],
+    images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Terms of Service — The Rules for Using Daily Finance Tools" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Terms of Service | DailyFinance",
+    title: "Terms of Service — The Rules for Using Daily Finance Tools",
     description: "The terms that govern your use of DailyFinance calculators and content: educational estimates, acceptable use, and liability limits.",
     images: ["https://www.dailyfinance.tools/images/og-base.jpg"],
   },

@@ -243,6 +243,10 @@ export const GUIDES_TAX_SALARY_RETIREMENT: Guide[] = [
       {
         "label": "IRS — Federal income tax rates and brackets",
         "url": "https://www.irs.gov/filing/federal-income-tax-rates-and-brackets"
+      },
+      {
+        "label": "IRS — Topic No. 551, Standard Deduction",
+        "url": "https://www.irs.gov/taxtopics/tc551"
       }
     ],
     "title": "How Federal Income Tax Brackets Work in 2026 (With Examples)",
@@ -456,6 +460,10 @@ export const GUIDES_TAX_SALARY_RETIREMENT: Guide[] = [
       {
         "label": "IRS — Topic No. 751, Social Security and Medicare withholding rates",
         "url": "https://www.irs.gov/taxtopics/tc751"
+      },
+      {
+        "label": "IRS — About Form W-4, Employee's Withholding Certificate",
+        "url": "https://www.irs.gov/forms-pubs/about-form-w-4"
       }
     ],
     "title": "How to Read Your Paycheck (Pay Stub): Deductions Explained",
@@ -907,6 +915,10 @@ export const GUIDES_TAX_SALARY_RETIREMENT: Guide[] = [
       {
         "label": "SSA — Primary Insurance Amount (bend points)",
         "url": "https://www.ssa.gov/oact/cola/piaformula.html"
+      },
+      {
+        "label": "SSA — Benefits Planner: Retirement Age and Benefit Reduction",
+        "url": "https://www.ssa.gov/benefits/retirement/planner/agereduction.html"
       }
     ],
     "title": "How Social Security Benefits Are Calculated: The Formula",

@@ -4,21 +4,21 @@ import { LegalPage } from "@/components/layout/LegalPage"
 import { breadcrumb, stringifyJsonLd } from "@/lib/schema"
 
 export const metadata: Metadata = {
-  title: "Methodology — How DailyFinance Calculates, Sources & Reviews Numbers",
+  title: "Methodology — How DailyFinance Calculates & Sources Numbers",
   description: "How DailyFinance builds its calculators: formula sources (IRS, SSA, platform fee schedules), ACMA review, update cadence and accuracy limits.",
   alternates: { canonical: "https://www.dailyfinance.tools/methodology" },
   openGraph: {
-    title: "Methodology — How DailyFinance Calculates, Sources & Reviews Numbers",
+    title: "Methodology — How DailyFinance Calculates & Sources Numbers",
     description: "How DailyFinance builds its calculators: formula sources (IRS, SSA, platform fee schedules), ACMA review, update cadence and accuracy limits.",
     url: "https://www.dailyfinance.tools/methodology",
     siteName: "Daily Finance Tools",
     locale: "en_US",
     type: "website",
-    images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Methodology — How DailyFinance Calculates, Sources & Reviews Numbers" }],
+    images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Methodology — How DailyFinance Calculates & Sources Numbers" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Methodology — How DailyFinance Calculates, Sources & Reviews Numbers",
+    title: "Methodology — How DailyFinance Calculates & Sources Numbers",
     description: "How DailyFinance builds its calculators: formula sources (IRS, SSA, platform fee schedules), ACMA review, update cadence and accuracy limits.",
     images: ["https://www.dailyfinance.tools/images/og-base.jpg"],
   },
@@ -34,7 +34,7 @@ export default function MethodologyPage() {
       intro="Every number on DailyFinance comes from a published formula, an official schedule or a documented assumption — never a guess dressed up as precision. This page explains where our inputs come from, who reviews them, how location data is handled, and how often everything is re-checked."
       sections={[
         { heading: "Formula sources", paragraphs: [
-          "Tax calculators implement the published mechanics of the relevant authority: IRS publications and revenue procedures for federal tax, self-employment tax (15.3% on 92.35% of net earnings), estimated-tax safe harbours and retirement contribution limits; Social Security Administration figures for wage bases; and state Departments of Revenue for state rates.",
+          "Tax calculators implement the published mechanics of the relevant authority: IRS publications and revenue procedures for federal tax, self-employment tax (15.3% on 92.35% of net earnings), estimated-tax safe harbours and retirement contribution limits; Social Security Administration figures for wage bases; and state tax agencies for state rates.",
           "Platform tools implement the platforms' own published schedules: YouTube's revenue-share and typical RPM ranges by niche, TikTok's Creator Rewards Program rules (the Creator Fund closed in December 2023), Amazon's referral and FBA fee tables by category and size tier, Shopify/Stripe/PayPal/Etsy/Patreon fee schedules, and lender-standard amortization math (PMT = P·r(1+r)ⁿ/((1+r)ⁿ−1)) for loan tools.",
           "Where a number is a market estimate rather than a rule — RPM bands, cap-rate norms, average combined sales-tax rates — the page says so and shows a range or labels the figure an approximation.",
         ]},
@@ -43,7 +43,7 @@ export default function MethodologyPage() {
           "DailyFinance is built and maintained by Kashif (wpkashif), a professional web developer. Reader error reports via the Contact page are triaged ahead of feature requests.",
         ]},
         { heading: "Location (state) data", paragraphs: [
-          "State pages (for example our sales-tax-by-state guides) are generated from a single dataset so a correction lands everywhere at once. State base sales-tax rates are the statutory statewide rates. 'Average combined' rates are Tax Foundation-style averages across county, city and district layers — they are approximations for orientation and examples, and every location page states that your exact rate depends on your specific address and directs you to your state Department of Revenue.",
+          "State pages (for example our sales-tax-by-state guides) are generated from a single dataset so a correction lands everywhere at once. State base sales-tax rates are the statutory statewide rates. 'Average combined' rates are Tax Foundation-style averages across county, city and district layers — they are approximations for orientation and examples, and every location page states that your exact rate depends on your specific address and directs you to your state tax agency.",
           "Average effective property-tax rates are Census/Tax Foundation-style state averages for owner-occupied homes; individual bills depend on county assessment, exemptions and millage. Income-tax descriptions summarize structure (none / flat / progressive) and headline rates; they are not filing guidance.",
         ]},
         { heading: "Update cadence", paragraphs: [

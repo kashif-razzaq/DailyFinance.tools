@@ -92,7 +92,7 @@ export function CookieConsent() {
             type="button"
             size="sm"
             onClick={() => choose('accepted')}
-            className="flex-1 rounded-xl font-semibold bg-primary hover:bg-primary/90"
+            className="flex-1 rounded-xl font-semibold bg-primary hover:bg-primary/90 h-12"
           >
             Accept
           </Button>
@@ -101,7 +101,7 @@ export function CookieConsent() {
             size="sm"
             variant="outline"
             onClick={() => choose('declined')}
-            className="flex-1 rounded-xl font-semibold"
+            className="flex-1 rounded-xl font-semibold h-12"
           >
             Decline
           </Button>

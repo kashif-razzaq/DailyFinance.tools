@@ -20,13 +20,24 @@ export function generateStaticParams() {
 // soft-404) instead of a real 404 (ARB TH14, 2026-11-22).
 export const dynamicParams = false
 
+// Title band is 50–60 chars (ARB). Hub titles run 25–48 chars, so no single
+// fixed suffix lands all six in band: the brand suffix fits most, a
+// descriptive suffix lifts the shortest, and the longest takes a short
+// suffix instead of the brand.
+function hubMetaTitle(hubTitle: string): string {
+  const branded = `${hubTitle} | Daily Finance Tools`
+  if (branded.length >= 50 && branded.length <= 60) return branded
+  if (branded.length < 50) return `${hubTitle} | Free Financial Calculators`
+  return `${hubTitle} — Free`
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ hub: string }> }): Promise<Metadata> {
   const { hub } = await params
   const h = getHub(hub)
   if (!h) return {}
   const url = `https://www.dailyfinance.tools/hubs/${h.slug}`
   return {
-    title: `${h.title} | DailyFinance.tools`,
+    title: hubMetaTitle(h.title),
     description: h.description,
     alternates: { canonical: url },
     openGraph: {

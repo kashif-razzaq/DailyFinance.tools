@@ -9,25 +9,25 @@ import { cookies } from "next/headers"
 import { safeGetUser } from "@/utils/supabase/safe-user"
 import { TOOL_COUNTS } from "@/config/navigation"
 
-const PRICING_DESCRIPTION = `Free: ${TOOL_COUNTS.free} calculators and a 3-scenario Vault. Pro is launching soon — planned at $2.99/mo: unlimited saves, comparison, ${TOOL_COUNTS.pro} Pro tools, full analytics and premium PDFs.`
+const PRICING_DESCRIPTION = `Free: ${TOOL_COUNTS.free} calculators and a 3-scenario Vault. Pro launching soon — planned at $2.99/mo: unlimited saves, comparison, ${TOOL_COUNTS.pro} Pro tools, analytics and premium PDFs.`
 const PRICING_DESCRIPTION_SOCIAL = `Free: ${TOOL_COUNTS.free} calculators and a 3-scenario Vault. Pro is launching soon — planned at $2.99/mo: unlimited saves, comparison, ${TOOL_COUNTS.pro} Pro tools, full analytics, exports and live sharing.`
 
 export const metadata: Metadata = {
-  title: "Pricing — Free Calculators Forever, Pro Launching Soon | DailyFinance",
+  title: "Pricing — Free Tools, Pro Launching Soon | DailyFinance",
   description: PRICING_DESCRIPTION,
   alternates: { canonical: "https://www.dailyfinance.tools/pricing" },
   openGraph: {
-    title: "Pricing — Free Calculators Forever, Pro Launching Soon | DailyFinance",
+    title: "Pricing — Free Tools, Pro Launching Soon | DailyFinance",
     description: PRICING_DESCRIPTION_SOCIAL,
     url: "https://www.dailyfinance.tools/pricing",
     siteName: "Daily Finance Tools",
     locale: "en_US",
     type: "website",
-    images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Pricing — Free Calculators Forever, Pro Launching Soon | DailyFinance" }],
+    images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Pricing — Free Tools, Pro Launching Soon | DailyFinance" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Pricing — Free Calculators Forever, Pro Launching Soon | DailyFinance",
+    title: "Pricing — Free Tools, Pro Launching Soon | DailyFinance",
     description: PRICING_DESCRIPTION_SOCIAL,
     images: ["https://www.dailyfinance.tools/images/og-base.jpg"],
   },
@@ -159,9 +159,9 @@ export default async function PricingPage() {
               }`}
             >
               <div className="flex items-center justify-between gap-x-4">
-                <h3 className={`text-lg font-semibold leading-8 ${tier.mostPopular ? 'text-primary' : 'text-foreground'}`}>
+                <h2 className={`text-lg font-semibold leading-8 ${tier.mostPopular ? 'text-primary' : 'text-foreground'}`}>
                   {tier.name}
-                </h3>
+                </h2>
                 {tier.mostPopular && (
                   <p className="rounded-full bg-primary/10 px-2.5 py-1 text-xs font-semibold leading-5 text-primary">
                     Launching soon

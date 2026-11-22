@@ -69,21 +69,14 @@ export const GUIDES: Guide[] = [
   ...GUIDES_FREELANCE_CREATOR_BUSINESS,
 ]
 
-export const GUIDE_HUBS = [...new Set(GUIDES.map((g) => g.hub))]
-
 /**
- * One-line description per hub, shown in the Guides menus instead of the
- * guide count. The counts were honestly 20 in every hub (the 5×20
- * framework), but a uniform "20 guides" on every row looked templated
- * (Kashif, 2026-11-21) — a description says what the hub is actually about.
+ * Hub names, hub descriptions, the hub slugifier and the date formatter
+ * live in ./guide-meta (no guide data) so client components can import
+ * them without dragging the ~2.1 MB dataset into a JS chunk (ARB round 2,
+ * issue 1). Server importers keep importing from here — these re-exports
+ * keep every existing import path working.
  */
-export const HUB_DESCRIPTIONS: Record<string, string> = {
-  "Personal Finance": "Budgets, savings, credit and everyday money",
-  "Mortgage & Real Estate": "Buying, selling and paying off a home",
-  "Loans & Debt": "Borrowing, payoff plans and interest",
-  "Salary, Tax, Retirement & Investing": "Pay, taxes, retirement and growing wealth",
-  "Freelance, Creator & Business": "Rates, invoicing and running your own work",
-}
+export { GUIDE_HUBS, HUB_DESCRIPTIONS, hubAnchor, formatGuideDate } from "./guide-meta"
 
 /**
  * Intro copy for the hub category pages (/guides/category/[hub]). Two
@@ -115,16 +108,6 @@ export const HUB_INTRO: Record<string, string[]> = {
   ],
 }
 
-/** "2026-11-06" -> "Nov 6, 2026". Shared by guide cards and hub pages. */
-const GUIDE_MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-export function formatGuideDate(iso: string): string {
-  const [y, m, d] = iso.split("-").map(Number)
-  if (!y || !m || !d) return iso
-  return `${GUIDE_MONTHS[m - 1]} ${d}, ${y}`
-}
-/** Anchor id for a hub's section on /guides — powers the Guides submenu category links. */
-export const hubAnchor = (hub: string) =>
-  hub.toLowerCase().replace(/[^a-z0-9 ]/g, "").replace(/\s+/g, "-")
 export const getGuide = (slug: string) => GUIDES.find((g) => g.slug === slug)
 /** Reverse lookup: guides that link to a given tool page — powers the tool → guide card in ToolLayout. */
 export const getGuidesForTool = (toolUrl: string) =>

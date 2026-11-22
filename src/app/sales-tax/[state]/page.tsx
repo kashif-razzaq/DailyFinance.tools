@@ -14,6 +14,16 @@ export function generateStaticParams() {
   return US_STATES.map((s) => ({ state: s.slug }))
 }
 
+// Page title: the long variant fits the 50–60 char band for 48 states;
+// the three longest names (Massachusetts, North Carolina, District of
+// Columbia) use the compact variant, which also lands in band. Note the
+// rate renders from a number, so a whole rate prints as "6", not "6.0".
+function stateTitle(s: { name: string; salesTaxBase: number }): string {
+  const long = `${s.name} Sales Tax Calculator and 2026 Rate Guide (${s.salesTaxBase}%)`
+  if (long.length <= 60) return long
+  return `${s.name} Sales Tax Calculator & Rates (${s.salesTaxBase}%)`
+}
+
 // Closed param set: every valid state is in generateStaticParams, so an
 // unknown state must 404 at the routing level. Without this, Next renders
 // unknown states dynamically and notFound() resolves inside the streamed
@@ -29,22 +39,23 @@ export async function generateMetadata({ params }: { params: Promise<{ state: st
   // never drift): 132–146 chars across all 51 states, inside the 120–158
   // band. Figures identical to the page; only wording was added.
   const description = `Sales tax in ${s.name}: ${s.salesTaxBase}% state rate, ~${s.salesTaxAvgCombined}% combined with local taxes. Grocery rules, worked examples, city rates and a free calculator.`
+  const title = stateTitle(s)
   return {
-    title: `${s.name} Sales Tax Calculator & 2026 Rates (${s.salesTaxBase}%)`,
+    title,
     description,
     alternates: { canonical: `https://www.dailyfinance.tools/sales-tax/${s.slug}` },
     openGraph: {
-      title: `${s.name} Sales Tax Calculator & 2026 Rates (${s.salesTaxBase}%)`,
+      title,
       description,
       url: `https://www.dailyfinance.tools/sales-tax/${s.slug}`,
       siteName: "Daily Finance Tools",
       locale: "en_US",
       type: "website",
-      images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: `${s.name} Sales Tax Calculator & 2026 Rates (${s.salesTaxBase}%)` }],
+      images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: title }],
     },
     twitter: {
       card: "summary_large_image",
-      title: `${s.name} Sales Tax Calculator & 2026 Rates (${s.salesTaxBase}%)`,
+      title,
       description,
       images: ["https://www.dailyfinance.tools/images/og-base.jpg"],
     },
@@ -70,7 +81,7 @@ export default async function StateSalesTaxPage({ params }: { params: Promise<{ 
     { question: `Are groceries taxed in ${s.name}?`, answer: s.groceriesNote },
     { question: `Do online purchases get taxed in ${s.name}?`, answer: s.salesTaxBase === 0 ? `${s.name} has no statewide sales tax to collect on online orders shipped there, though sellers follow the rules of the delivery state.` : `Yes — since the Wayfair decision, remote sellers with economic nexus in ${s.name} (commonly $100,000+ of sales) must collect ${s.name} sales tax at the rate for the delivery address.` },
     { question: `How does ${s.name}'s sales tax compare with other states?`, answer: `${s.name}'s average combined rate of ${s.salesTaxAvgCombined}% ranks ${rank} of 51 states and DC (1 = highest), ${vsAvg > 0 ? `${vsAvg} points above` : vsAvg < 0 ? `${Math.abs(vsAvg)} points below` : "equal to"} the all-state average of ${AVG_COMBINED}%. The highest average combined rate in the dataset is ${highestCombined(1)[0].name} at ${highestCombined(1)[0].salesTaxAvgCombined}%; the lowest is ${lowestCombined(1)[0].name} at ${lowestCombined(1)[0].salesTaxAvgCombined}%. That puts ${s.name} ${rank <= 10 ? "near the top of the national range" : rank >= 42 ? "near the bottom of the national range" : "in the middle of the national range"}.` },
-    { question: `Where can I verify the exact sales tax rate for a ${s.name} address?`, answer: localGap === 0 ? `Rates on this page are reviewed averages; ${s.name} charges a uniform statewide rate, so the combined rate is the same at every address in the state. Confirm the exact rate with the ${s.name} Department of Revenue's rate lookup before a major purchase or a filing. This page's worked examples use the ${s.salesTaxAvgCombined}% rate.` : `Rates on this page are reviewed averages; the combined rate at a specific address can differ${localGap >= 2 ? " by a point or more" : ""} because of county, city and district layers. Confirm the exact rate with the ${s.name} Department of Revenue's rate lookup before a major purchase or a filing. This page's worked examples use the ${s.salesTaxAvgCombined}% average combined rate.` },
+    { question: `Where can I verify the exact sales tax rate for a ${s.name} address?`, answer: localGap === 0 ? `Rates on this page are reviewed averages; ${s.name} charges a uniform statewide rate, so the combined rate is the same at every address in the state. Confirm the exact rate with the ${s.taxAgencyShort} rate lookup before a major purchase or a filing. This page's worked examples use the ${s.salesTaxAvgCombined}% rate.` : `Rates on this page are reviewed averages; the combined rate at a specific address can differ${localGap >= 2 ? " by a point or more" : ""} because of county, city and district layers. Confirm the exact rate with the ${s.taxAgencyShort} rate lookup before a major purchase or a filing. This page's worked examples use the ${s.salesTaxAvgCombined}% average combined rate.` },
   ]
   const faqSchema = faq(faqs)
   const howToSchema = howTo({
@@ -87,7 +98,7 @@ export default async function StateSalesTaxPage({ params }: { params: Promise<{ 
     { name: `${s.name} Sales Tax`, url: `https://www.dailyfinance.tools/sales-tax/${s.slug}` },
   ])
   const pageSchema = webPage({
-    name: `${s.name} Sales Tax Calculator & 2026 Rates (${s.salesTaxBase}%)`,
+    name: stateTitle(s),
     url: `https://www.dailyfinance.tools/sales-tax/${s.slug}`,
     datePublished: CONTENT_REVIEWED,
     dateModified: CONTENT_REVIEWED,
@@ -171,7 +182,7 @@ export default async function StateSalesTaxPage({ params }: { params: Promise<{ 
               <li><strong>Add (or extract).</strong> Total = price + tax. Working backwards from a tax-inclusive price: pre-tax price = total ÷ (1 + rate ÷ 100). Our calculator does both directions instantly.</li>
             </ol>
             <h2>Groceries and exemptions in {s.name}</h2>
-            <p>{s.groceriesNote} Prescription medicines are exempt in almost every state; {s.groceries === "exempt" ? <>groceries are one of the clearer exemptions here — but clothing, services and digital goods follow state-specific rules, so check the {s.name} Department of Revenue for category detail before assuming an item is tax-free.</> : s.groceries === "reduced" ? <>groceries get a reduced rate rather than a full exemption — and clothing, services and digital goods follow state-specific rules, so check the {s.name} Department of Revenue for category detail before assuming an item is tax-free.</> : <>groceries are taxed at the full rate here, unlike in many states — and clothing, services and digital goods follow state-specific rules, so check the {s.name} Department of Revenue for category detail before assuming an item is tax-free.</>}</p>
+            <p>{s.groceriesNote} Prescription medicines are exempt in almost every state; {s.groceries === "exempt" ? <>groceries are one of the clearer exemptions here — but clothing, services and digital goods follow state-specific rules, so check the {s.taxAgency} for category detail before assuming an item is tax-free.</> : s.groceries === "reduced" ? <>groceries get a reduced rate rather than a full exemption — and clothing, services and digital goods follow state-specific rules, so check the {s.taxAgency} for category detail before assuming an item is tax-free.</> : <>groceries are taxed at the full rate here, unlike in many states — and clothing, services and digital goods follow state-specific rules, so check the {s.taxAgency} for category detail before assuming an item is tax-free.</>}</p>
             {getCitiesByState(s.slug).length > 0 && (
               <>
                 <h2>Sales tax in major {s.name} cities</h2>
@@ -192,7 +203,7 @@ export default async function StateSalesTaxPage({ params }: { params: Promise<{ 
           <aside className="lg:col-span-4 bg-card border rounded-3xl p-6">
             <h3 className="font-bold text-lg mb-4">{s.name} Sales Tax FAQs</h3>
 <FaqAccordion items={faqs} variant="compact" />
-            <ReviewLine compact deptName={`${s.name} Department of Revenue`} />
+            <ReviewLine compact deptName={s.taxAgency} />
             <div className="mt-6 pt-5 border-t border-border/40">
               <h4 className="font-semibold text-sm mb-2">More for {s.name}</h4>
               <Link href={`/locations/${s.slug}`} className="block text-sm text-primary font-semibold">Full {s.name} tax &amp; finance guide →</Link>

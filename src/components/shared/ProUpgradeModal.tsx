@@ -19,7 +19,7 @@ export function ProUpgradeModal({ isOpen, onClose }: ProUpgradeModalProps) {
         
         {/* Hidden title/desc for accessibility */}
         <DialogHeader className="sr-only">
-          <DialogTitle>Unlock Pro Features</DialogTitle>
+          <DialogTitle>Pro Features — Launching Soon</DialogTitle>
           <DialogDescription>Pro is launching soon — premium calculator tools, planned at $2.99/mo.</DialogDescription>
         </DialogHeader>
 

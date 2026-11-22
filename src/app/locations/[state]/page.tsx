@@ -13,6 +13,16 @@ export function generateStaticParams() {
   return US_STATES.map((s) => ({ state: s.slug }))
 }
 
+// Page title: longest of three variants that fits the 50–60 char band.
+// State names run 4–22 chars, so no single template fits all 51.
+function stateTitle(s: { name: string; salesTaxBase: number }): string {
+  const full = `${s.name} Tax Guide: Sales Tax ${s.salesTaxBase}%, Property & Income Tax`
+  if (full.length <= 60) return full
+  const mid = `${s.name} Tax Guide: Sales ${s.salesTaxBase}%, Property & Income Tax`
+  if (mid.length <= 60) return mid
+  return `${s.name} Taxes: Sales ${s.salesTaxBase}%, Property & Income`
+}
+
 // Closed param set: every valid state is in generateStaticParams, so an
 // unknown state must 404 at the routing level. Without this, Next renders
 // unknown states dynamically and notFound() can resolve inside a streamed
@@ -24,22 +34,23 @@ export async function generateMetadata({ params }: { params: Promise<{ state: st
   const { state } = await params
   const s = getStateBySlug(state)
   if (!s) return { title: "State Not Found" }
+  const title = stateTitle(s)
   return {
-    title: `${s.name} Tax Guide: Sales Tax ${s.salesTaxBase}%, Property & Income Tax`,
+    title,
     description: `${s.name} finance guide: ${s.salesTaxBase}% state sales tax (~${s.salesTaxAvgCombined}% combined), ${s.propertyTaxAvg}% average property tax, ${s.incomeTax === "none" ? "no tax on wage income" : s.incomeTax + " income tax"} — with calculators.`,
     alternates: { canonical: `https://www.dailyfinance.tools/locations/${s.slug}` },
     openGraph: {
-      title: `${s.name} Tax Guide: Sales Tax ${s.salesTaxBase}%, Property & Income Tax`,
+      title,
       description: `${s.name} finance guide: ${s.salesTaxBase}% state sales tax (~${s.salesTaxAvgCombined}% combined), ${s.propertyTaxAvg}% average property tax, ${s.incomeTax === "none" ? "no tax on wage income" : s.incomeTax + " income tax"} — with calculators.`,
       url: `https://www.dailyfinance.tools/locations/${s.slug}`,
       siteName: "Daily Finance Tools",
       locale: "en_US",
       type: "website",
-      images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: `${s.name} Tax Guide: Sales Tax ${s.salesTaxBase}%, Property & Income Tax` }],
+      images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: title }],
     },
     twitter: {
       card: "summary_large_image",
-      title: `${s.name} Tax Guide: Sales Tax ${s.salesTaxBase}%, Property & Income Tax`,
+      title,
       description: `${s.name} finance guide: ${s.salesTaxBase}% state sales tax (~${s.salesTaxAvgCombined}% combined), ${s.propertyTaxAvg}% average property tax, ${s.incomeTax === "none" ? "no tax on wage income" : s.incomeTax + " income tax"} — with calculators.`,
       images: ["https://www.dailyfinance.tools/images/og-base.jpg"],
     },
@@ -83,7 +94,7 @@ export default async function StateHubPage({ params }: { params: Promise<{ state
     },
     {
       question: `Where can I verify ${s.name} tax rates before filing or buying?`,
-      answer: s.salesTaxBase === 0 ? `${s.name} has no statewide sales tax, so the figures to verify are property tax with the county assessor and any local sales taxes with the ${s.name} Department of Revenue before filing, pricing or a major purchase.` : `The figures here are reviewed averages for planning. ${localGap >= 1.5 ? `Combined sales tax varies by exact address, with about ${localGap} points of local tax on average, and property tax bills are set by the county.` : `Combined sales tax varies by exact address, and property tax bills are set by the county.`} Verify a specific rate or bill with the ${s.name} Department of Revenue or the county assessor before filing, pricing or a major purchase.`,
+      answer: s.salesTaxBase === 0 ? `${s.name} has no statewide sales tax, so the figures to verify are property tax with the county assessor and any local sales taxes with the ${s.taxAgency} before filing, pricing or a major purchase.` : `The figures here are reviewed averages for planning. ${localGap >= 1.5 ? `Combined sales tax varies by exact address, with about ${localGap} points of local tax on average, and property tax bills are set by the county.` : `Combined sales tax varies by exact address, and property tax bills are set by the county.`} Verify a specific rate or bill with the ${s.taxAgency} or the county assessor before filing, pricing or a major purchase.`,
     },
   ]
   const faqSchema = faq(faqs)
@@ -93,7 +104,7 @@ export default async function StateHubPage({ params }: { params: Promise<{ state
     { name: s.name, url: `https://www.dailyfinance.tools/locations/${s.slug}` },
   ])
   const pageSchema = webPage({
-    name: `${s.name} Tax Guide: Sales Tax ${s.salesTaxBase}%, Property & Income Tax`,
+    name: stateTitle(s),
     url: `https://www.dailyfinance.tools/locations/${s.slug}`,
     datePublished: CONTENT_REVIEWED,
     dateModified: CONTENT_REVIEWED,
@@ -196,7 +207,7 @@ export default async function StateHubPage({ params }: { params: Promise<{ state
           </aside>
         </div>
 
-        <ReviewLine deptName={`${s.name} Department of Revenue`} />
+        <ReviewLine deptName={s.taxAgency} />
 
         <h2 className="text-xl font-bold tracking-tight mt-14 mb-4">Other states</h2>
         <div className="flex flex-wrap gap-2">

@@ -8,6 +8,21 @@ import { GuideImage } from "@/components/shared/GuideImage"
 import { GuideShare } from "@/components/shared/GuideShare"
 import { AuthorCard } from "@/components/shared/AuthorCard"
 
+/** Renders `**bold**` markers in guide body text as semantic <strong>
+ * (ARB fix round 2, #21). Guide body strings carry no emphasis markers
+ * today, so this is a no-op on current data — but any emphasis added to
+ * the data later renders as <strong>, never as a presentational bold
+ * span. The .content-prose strong rule supplies the visual weight. */
+function renderInline(text: string) {
+  return text.split(/(\*\*[^*]+\*\*)/g).map((part, i) =>
+    part.startsWith("**") && part.endsWith("**") && part.length > 4 ? (
+      <strong key={i}>{part.slice(2, -2)}</strong>
+    ) : (
+      part
+    ),
+  )
+}
+
 /** Renders an editorial guide: hero, TOC, prose body, related tools, FAQs, sources, author box, schema. */
 function slugify(heading: string): string {
   return heading.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "")
@@ -19,21 +34,23 @@ function GuideTocLinks({ guide }: { guide: Guide }) {
     <ol className="m-0 list-none space-y-2 p-0">
       {guide.sections.map((s, i) => (
         <li key={s.heading} className="text-sm">
-          <a href={`#${slugify(s.heading)}`} className="text-muted-foreground hover:text-primary hover:underline underline-offset-2">
+          {/* ARB fix round 2 (#15): 48px tap rows — text size unchanged, the
+              hit area grows via min-height. */}
+          <a href={`#${slugify(s.heading)}`} className="flex min-h-12 items-center text-muted-foreground hover:text-primary hover:underline underline-offset-2">
             <span className="mr-2 font-mono text-xs text-muted-foreground/70">{String(i + 1).padStart(2, "0")}</span>
             {s.heading}
           </a>
         </li>
       ))}
       <li className="text-sm">
-        <a href="#questions-answered" className="text-muted-foreground hover:text-primary hover:underline underline-offset-2">
+        <a href="#questions-answered" className="flex min-h-12 items-center text-muted-foreground hover:text-primary hover:underline underline-offset-2">
           <span className="mr-2 font-mono text-xs text-muted-foreground/70">{String(guide.sections.length + 1).padStart(2, "0")}</span>
           Questions, answered
         </a>
       </li>
       {guide.sources.length > 0 && (
         <li className="text-sm">
-          <a href="#sources" className="text-muted-foreground hover:text-primary hover:underline underline-offset-2">
+          <a href="#sources" className="flex min-h-12 items-center text-muted-foreground hover:text-primary hover:underline underline-offset-2">
             <span className="mr-2 font-mono text-xs text-muted-foreground/70">{String(guide.sections.length + 2).padStart(2, "0")}</span>
             Sources
           </a>
@@ -83,9 +100,10 @@ export function GuideArticle({ guide }: { guide: Guide }) {
       ])) }} />
       <article className="mx-auto w-full max-w-7xl px-6 py-12 lg:px-8">
         <nav className="flex items-center gap-1.5 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider flex-nowrap overflow-x-auto whitespace-nowrap [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden mb-6">
-          <Link href="/" className="shrink-0 hover:text-foreground">Home</Link><span aria-hidden="true" className="text-border shrink-0 select-none">›</span>
-          <Link href="/guides" className="shrink-0 hover:text-foreground">Guides</Link><span aria-hidden="true" className="text-border shrink-0 select-none">›</span>
-          <Link href={`/guides/category/${hubAnchor(guide.hub)}`} className="shrink-0 hover:text-foreground">{guide.hub}</Link><span aria-hidden="true" className="text-border shrink-0 select-none">›</span>
+          {/* ARB fix round 2 (#15): 48px breadcrumb tap targets. */}
+          <Link href="/" className="inline-flex min-h-12 shrink-0 items-center hover:text-foreground">Home</Link><span aria-hidden="true" className="text-border shrink-0 select-none">›</span>
+          <Link href="/guides" className="inline-flex min-h-12 shrink-0 items-center hover:text-foreground">Guides</Link><span aria-hidden="true" className="text-border shrink-0 select-none">›</span>
+          <Link href={`/guides/category/${hubAnchor(guide.hub)}`} className="inline-flex min-h-12 shrink-0 items-center hover:text-foreground">{guide.hub}</Link><span aria-hidden="true" className="text-border shrink-0 select-none">›</span>
           <span className="text-foreground truncate max-w-[220px] md:max-w-none">{guide.title}</span>
         </nav>
         <div className="mb-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-[13px] text-muted-foreground">
@@ -105,7 +123,7 @@ export function GuideArticle({ guide }: { guide: Guide }) {
           )}
         </div>
         <h1 className="text-3xl md:text-[2.6rem] font-extrabold tracking-tight leading-tight mb-5">{guide.title}</h1>
-        <p className="text-lg text-muted-foreground leading-relaxed mb-6">{guide.intro}</p>
+        <p className="text-lg text-muted-foreground leading-relaxed mb-6">{renderInline(guide.intro)}</p>
 
         {/* Share row on narrow screens — on xl+ the sticky rail (left) takes over. */}
         <GuideShare url={guideUrl} title={guide.title} layout="row" className="mb-8 xl:hidden print:hidden" />
@@ -135,17 +153,17 @@ export function GuideArticle({ guide }: { guide: Guide }) {
               <div key={s.heading}>
                 <section id={slugify(s.heading)} className="scroll-mt-24">
                   <h2>{s.heading}</h2>
-                  {s.paragraphs.map((p, i) => <p key={i}>{p}</p>)}
+                  {s.paragraphs.map((p, i) => <p key={i}>{renderInline(p)}</p>)}
                   {s.bullets && (
                     <ul>
-                      {s.bullets.map((b, i) => <li key={i}>{b}</li>)}
+                      {s.bullets.map((b, i) => <li key={i}>{renderInline(b)}</li>)}
                     </ul>
                   )}
                   {s.table && (
                     <table>
-                      <thead><tr>{s.table.head.map((h) => <th key={h}>{h}</th>)}</tr></thead>
+                      <thead><tr>{s.table.head.map((h) => <th key={h}>{renderInline(h)}</th>)}</tr></thead>
                       <tbody>
-                        {s.table.rows.map((r, i) => <tr key={i}>{r.map((c, j) => <td key={j}>{c}</td>)}</tr>)}
+                        {s.table.rows.map((r, i) => <tr key={i}>{r.map((c, j) => <td key={j}>{renderInline(c)}</td>)}</tr>)}
                       </tbody>
                     </table>
                   )}
@@ -179,7 +197,9 @@ export function GuideArticle({ guide }: { guide: Guide }) {
 
           <section id="questions-answered" className="mt-12 scroll-mt-24">
             <h2 className="text-2xl font-extrabold tracking-tight mb-6">Questions, answered</h2>
-            <FaqAccordion items={guide.faqs} />
+            {/* ARB fix round 2 (#15): 48px FAQ summary rows, via the
+                accordion's className (FaqAccordion itself is shared). */}
+            <FaqAccordion items={guide.faqs} className="[&>details>summary]:min-h-12 [&>details>summary]:items-center" />
           </section>
 
           {guide.sources.length > 0 && (

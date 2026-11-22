@@ -44,11 +44,11 @@ export const TOOL_CONTENT_FREELANCE: Record<string, ToolContentEntry> = {
         "question": "How many billable hours do freelancers actually work per year?"
       },
       {
-        "answer": "Use a combined rate for self-employment tax plus income tax — the default is 25%. Self-employment tax alone is 15.3% of 92.35% of net profit, so the slider should sit above 15.3% for almost every US freelancer. If you have last year's return, set it from your actual effective rate; the 20% QBI deduction can push the real figure lower.",
+        "answer": "Use a combined rate for self-employment tax plus income tax — the default is 25%. Self-employment tax alone runs 15.3% of 92.35% of net profit — set the slider above 15.3%, as almost every US freelancer should. If you have last year's return, set it from your actual effective rate; the 20% QBI deduction can push the real figure lower.",
         "question": "What tax rate should I use in the freelance rate calculator?"
       },
       {
-        "answer": "Yes. The 10% default buffer turns a survival rate into a sustainable one: it funds equipment replacement, slow months, retirement contributions and reinvestment. It is applied after tax and expenses, so the gross revenue target is (pre-tax income + expenses) × (1 + buffer). With a 0% buffer, one bad month eats directly into your take-home pay.",
+        "answer": "Yes. The 10% default buffer turns a survival rate into a sustainable one: it funds equipment replacement, slow months, retirement contributions and reinvestment. It applies after tax and expenses, so gross revenue target is (pre-tax income + expenses) × (1 + buffer). With a 0% buffer, one bad month eats directly into your take-home pay.",
         "question": "Should I include a profit buffer in my hourly rate?"
       },
       {
@@ -272,11 +272,11 @@ export const TOOL_CONTENT_FREELANCE: Record<string, ToolContentEntry> = {
         "answer": "Define what is out of scope in the statement of work before you start, and price extra work through a change order when a request falls outside it. The calculator prices an extra revision round at 15% of estimated hours — $600 on the defaults — so you can quote the addition immediately instead of absorbing it."
       },
       {
-        "answer": "The communication buffer prices the hours a project consumes beyond execution: emails, calls, status updates, revision rounds and admin. A 20% buffer turns 40 estimated hours into 48 billed hours. It is a percentage of execution hours, not a fixed number, so it scales — a 200-hour engagement at 20% prices 40 hours of communication, which is realistic for a project with several stakeholders.",
+        "answer": "A 20% buffer turns 40 estimated hours into 48 billed hours. The communication buffer prices the hours beyond execution — emails, calls, status updates, revision rounds and admin — as a percentage of execution hours, not a fixed number, so it scales. A 200-hour engagement at 20% adds 40 hours of communication, realistic for a project with several stakeholders.",
         "question": "What is a communication buffer in project pricing?"
       },
       {
-        "answer": "The ROI anchor prices the project on what it earns the client, not what it costs you: the client's expected return multiplied by your share of it, 10% by default. If the project makes the client $250,000, a 10% share prices it at $25,000 regardless of your hours. The calculator quotes the larger of the cost-plus price and the ROI anchor.",
+        "answer": "The ROI anchor prices the project on what it earns the client, not what it costs you: the client's expected return times your share of it, 10% by default. If the project makes the client $250,000, a 10% share is $25,000 regardless of your hours. The calculator quotes the larger of the cost-plus price and the ROI anchor.",
         "question": "How does the ROI anchor change a flat-fee quote?"
       },
       {
@@ -430,7 +430,7 @@ export const TOOL_CONTENT_FREELANCE: Record<string, ToolContentEntry> = {
     "faqs": [
       {
         "question": "At what income level should a freelancer switch to an S-corp?",
-        "answer": "The break-even point is typically around $80,000 to $100,000 of net business income. Below it, payroll service, the Form 1120-S return and extra bookkeeping — roughly $1,500 a year — usually outweigh the FICA savings. This calculator flags the election as worthwhile when gross payroll-tax savings exceed $2,000 a year."
+        "answer": "Break-even is typically around $80,000 to $100,000 of net business income. Below it, payroll service, the Form 1120-S return and extra bookkeeping — roughly $1,500 a year — usually outweigh the FICA savings. This calculator flags the election as worthwhile once gross payroll-tax savings exceed $2,000 a year."
       },
       {
         "question": "What is reasonable compensation?",
@@ -559,7 +559,7 @@ export const TOOL_CONTENT_FREELANCE: Record<string, ToolContentEntry> = {
         "answer": "You lose employer-subsidized health insurance, the 401(k) employer match, paid vacation and sick leave, unemployment insurance eligibility and workers' compensation coverage. You must fund all of them yourself, which is why the calculator adds the value of your W-2 benefits — $15,000 at the defaults — to the employee side of the comparison."
       },
       {
-        "answer": "The rate at which contracting matches the W-2 package's total value — about $67 an hour at the defaults ($66.63). Below it, the W-2 job pays more for the same hours; above it, contracting wins. It is a rough gross-up rather than a precise inversion of the tax math, so treat it as a guide when comparing an offer with a contract, not an exact figure.",
+        "answer": "The rate where contracting matches the W-2 package's total value — $66.63 an hour on the default numbers, about $67. Under it, the W-2 job pays more for the same hours; over it, contracting wins. It is a rough gross-up, not a precise inversion of the tax math — treat it as a guide when comparing an offer with a contract, not an exact figure.",
         "question": "What is the break-even hourly rate for contracting?"
       },
       {
@@ -618,7 +618,7 @@ export const TOOL_CONTENT_FREELANCE: Record<string, ToolContentEntry> = {
         "answer": "You cannot deduct a lease down payment in the year you pay it. It must be spread evenly over the lease term: a $3,600 down payment on a 36-month lease adds $100 a month, or $1,200 a year, to your deductible costs. The calculator amortizes it automatically, then applies your business-use percentage to the total."
       },
       {
-        "answer": "2026 has two rates: 72.5 cents a mile for January to June, and 76 cents a mile for July to December. The rate is designed to cover the full cost of running a car, including depreciation, so it suits economical cars with low running costs. At the 76-cent rate, 12,000 business miles deduct $9,120.",
+        "answer": "2026 has two rates: 72.5 cents a mile for January to June, and 76 cents a mile for July to December. The rate is meant to cover the full cost of running a car, depreciation included — so it suits economical cars with low running costs. At the 76-cent rate, 12,000 business miles deduct $9,120.",
         "question": "What is the 2026 standard mileage rate?"
       },
       {
@@ -677,7 +677,7 @@ export const TOOL_CONTENT_FREELANCE: Record<string, ToolContentEntry> = {
         "answer": "Yes. US citizens must file US taxes wherever they live, and leaving the country does not end your tax residency. You may qualify for the foreign earned income exclusion — up to $132,900 of foreign earned income for 2026 — by spending 330 full days abroad in 12 months, but it does not reduce self-employment tax. Consult an expat tax professional."
       },
       {
-        "answer": "Verify it against real rents and food prices for the city you have in mind — do not trust a single headline figure. A city that looks 55% cheaper on rent alone may be only 35% cheaper once food, transport and insurance are counted. The reduction percentage decides everything in this calculation, and it is also the easiest input to get wrong.",
+        "answer": "Check it against real rents and food prices in the city you have in mind — do not trust a single headline figure. A city 55% cheaper on rent alone may be only 35% cheaper all-in, once food, transport and insurance are counted. The reduction percentage decides everything in this calculation, and it is also the easiest input to get wrong.",
         "question": "How do I estimate the cost reduction for a destination?"
       },
       {
@@ -685,7 +685,7 @@ export const TOOL_CONTENT_FREELANCE: Record<string, ToolContentEntry> = {
         "question": "What costs does the calculator not include?"
       },
       {
-        "answer": "No — it works through costs, not extra work. The same $6,000 of monthly freelance income leaves $1,000 a month after $5,000 of expenses, but $3,750 after $2,250. Nothing about the work changed: no new clients, no higher rates, no extra hours. The profit rises purely because the money is spent somewhere cheaper.",
+        "answer": "No — it works through costs, not extra work. The same $6,000 a month of freelance income leaves $1,000 after $5,000 of expenses, and $3,750 after $2,250. Nothing about the work changed: no new clients, no higher rates, no extra hours. The profit rises purely because the money is spent somewhere cheaper.",
         "question": "Does geo-arbitrage require earning more?"
       },
       {

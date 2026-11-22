@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useRef, useState } from 'react'
+import Image from 'next/image'
 import { GuideImage } from "@/components/shared/GuideImage"
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -23,7 +24,7 @@ import {
   Zap,
 } from 'lucide-react'
 import { navigationCategories, getToolUrl, TOOL_COUNTS } from '@/config/navigation'
-import { GUIDES } from '@/data/guides'
+import type { GuideSummary } from '@/data/guide-meta'
 import { CalcWord } from '@/components/home/CalcWord'
 import { useMyTools, type SearchHit, type ToolWithCategory } from '@/components/home/useMyTools'
 
@@ -35,7 +36,7 @@ import { useMyTools, type SearchHit, type ToolWithCategory } from '@/components/
  * cards, Pro banner, embed band, hubs, guides and the trust row. All counts and links
  * come from the live navigation/guide data — nothing is hard-coded.
  */
-export function DesktopHome() {
+export function DesktopHome({ guides }: { guides: GuideSummary[] }) {
   const router = useRouter()
   const [query, setQuery] = useState('')
   const [searchFocused, setSearchFocused] = useState(false)
@@ -164,10 +165,15 @@ export function DesktopHome() {
             the bottom so it melts into the section below. Light mode only —
             dark mode keeps the glow blobs. */}
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 dark:hidden">
-          <img
+          {/* next/image (AVIF/WebP, preload): this is the home LCP element at
+              768px — same src, same cover crop, same opacity/mask as before. */}
+          <Image
             src="/images/hero-bg.jpg"
             alt=""
-            className="h-full w-full object-cover opacity-40 [mask-image:linear-gradient(to_bottom,black_45%,transparent_96%)]"
+            fill
+            preload
+            sizes="100vw"
+            className="object-cover opacity-40 [mask-image:linear-gradient(to_bottom,black_45%,transparent_96%)]"
           />
         </div>
         <div aria-hidden="true" className="pointer-events-none absolute -top-32 left-1/2 h-80 w-[52rem] -translate-x-1/2 rounded-full bg-emerald-500/[0.07] blur-3xl" />
@@ -438,9 +444,10 @@ export function DesktopHome() {
                     <Crown className="h-5 w-5" />
                   </span>
                   <h2 className="text-2xl font-extrabold tracking-tight">DailyFinance Pro</h2>
+                  <span className="rounded-full bg-[#D97706] px-2.5 py-1 text-[11px] font-extrabold uppercase tracking-wider">Launching soon</span>
                 </div>
                 <p className="max-w-xl font-light leading-relaxed text-white/85">
-                  {TOOL_COUNTS.free} calculators stay free forever. Pro turns DailyFinance into your personal financial drive:
+                  {TOOL_COUNTS.free} calculators stay free forever. Pro — launching soon, planned at $2.99/mo — will turn DailyFinance into your personal financial drive:
                   unlimited Scenario Vault, CSV and Excel exports, premium PDF reports and cross-data
                   analytics.
                 </p>
@@ -453,7 +460,7 @@ export function DesktopHome() {
                 </ul>
               </div>
               <div className="rounded-3xl bg-white/10 p-8 text-center backdrop-blur">
-                <p className="text-sm font-semibold uppercase tracking-wider text-white/70">From</p>
+                <p className="text-sm font-semibold uppercase tracking-wider text-white/70">Planned at</p>
                 <p className="mt-1 text-5xl font-extrabold tracking-tight">
                   $2.99<span className="text-xl font-semibold text-white/70">/mo</span>
                 </p>
@@ -525,7 +532,7 @@ export function DesktopHome() {
             </div>
           </div>
           <div className="grid grid-cols-2 gap-4 xl:grid-cols-4">
-            {GUIDES.slice(0, 8).map((g) => (
+            {guides.map((g) => (
               <Link
                 key={g.slug}
                 href={`/guides/${g.slug}`}
@@ -563,7 +570,7 @@ export function DesktopHome() {
                 { icon: Zap, title: 'Instant in your browser', text: 'Every calculation runs on your device. No server round-trips, no loading spinners.' },
                 { icon: Globe2, title: 'Six currencies', text: 'Switch currency in the header. Nomad costs and localized scenarios included.' },
                 { icon: Lock, title: 'Private by design', text: 'Only scenarios you choose to save ever leave your device.' },
-                { icon: Crown, title: 'Pro when you need it', text: 'Unlock the Vault, comparisons and PDF reports at $2.99 a month.' },
+                { icon: Crown, title: 'Pro when you need it', text: 'Launching soon — the Vault, comparisons and PDF reports, planned at $2.99 a month.' },
               ].map((item) => {
                 const Icon = item.icon
                 return (

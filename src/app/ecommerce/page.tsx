@@ -3,7 +3,7 @@ import { CategoryHub } from "@/components/layout/CategoryHub"
 import { generateCalculatorMetadata } from "@/config/metadata"
 
 export const metadata: Metadata = generateCalculatorMetadata({
-  title: "E-Commerce Profit Calculators — Margins, ROAS, FBA Fees & CAC Tools",
+  title: "E-Commerce Profit Calculators — Margins, ROAS & FBA Fees",
   description: "Free e-commerce calculators: Shopify margins, Amazon FBA fees, break-even ROAS, CAC, LTV:CAC, inventory reorder points, sales tax and business loans.",
   keywords: ["ecommerce calculators", "shopify margin calculator", "amazon fba calculator", "break even roas calculator", "cac calculator", "sales tax calculator"],
   slug: "ecommerce",

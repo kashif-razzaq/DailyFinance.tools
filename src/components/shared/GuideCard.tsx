@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { ArrowRight, CalendarDays, Clock } from "lucide-react"
 import type { Guide } from "@/data/guides"
-import { formatGuideDate } from "@/data/guides"
+import { formatGuideDate } from "@/data/guide-meta"
 import { GuideImage } from "@/components/shared/GuideImage"
 
 /**

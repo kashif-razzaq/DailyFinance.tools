@@ -3,21 +3,21 @@ import { LegalPage } from "@/components/layout/LegalPage"
 import { breadcrumb, stringifyJsonLd } from "@/lib/schema"
 
 export const metadata: Metadata = {
-  title: "Cookie Policy | DailyFinance",
+  title: "Cookie Policy — What Cookies Daily Finance Tools Uses",
   description: "What cookies DailyFinance uses and how to control them — one essential sign-in cookie, preferences in local storage, and no analytics or advertising cookies.",
   alternates: { canonical: "https://www.dailyfinance.tools/cookies" },
   openGraph: {
-    title: "Cookie Policy | DailyFinance",
+    title: "Cookie Policy — What Cookies Daily Finance Tools Uses",
     description: "What cookies DailyFinance uses and how to control them — one essential sign-in cookie, preferences in local storage, and no analytics or advertising cookies.",
     url: "https://www.dailyfinance.tools/cookies",
     siteName: "Daily Finance Tools",
     locale: "en_US",
     type: "website",
-    images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Cookie Policy | DailyFinance" }],
+    images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Cookie Policy — What Cookies Daily Finance Tools Uses" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Cookie Policy | DailyFinance",
+    title: "Cookie Policy — What Cookies Daily Finance Tools Uses",
     description: "What cookies DailyFinance uses and how to control them — one essential sign-in cookie, preferences in local storage, and no analytics or advertising cookies.",
     images: ["https://www.dailyfinance.tools/images/og-base.jpg"],
   },

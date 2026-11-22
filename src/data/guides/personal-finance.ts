@@ -256,6 +256,10 @@ export const GUIDES_PERSONAL_FINANCE: Guide[] = [
       {
         "label": "TreasuryDirect — I bonds",
         "url": "https://www.treasurydirect.gov/savings-bonds/i-bonds/"
+      },
+      {
+        "label": "IRS — Topic No. 403, Interest Received",
+        "url": "https://www.irs.gov/taxtopics/tc403"
       }
     ],
     "title": "How Compound Interest Works (With Real Number Examples)",
@@ -468,6 +472,10 @@ export const GUIDES_PERSONAL_FINANCE: Guide[] = [
       {
         "label": "FDIC — Deposit Insurance at a Glance",
         "url": "https://www.fdic.gov/consumer-resource-center/deposit-insurance-glance"
+      },
+      {
+        "label": "Federal Reserve — Report on the Economic Well-Being of U.S. Households in 2025 (SHED, May 2026)",
+        "url": "https://www.federalreserve.gov/publications/2026-economic-well-being-of-us-households-in-2025-executive-summary.htm"
       }
     ],
     "title": "How to Build an Emergency Fund (How Much You Actually Need)",
@@ -713,6 +721,10 @@ export const GUIDES_PERSONAL_FINANCE: Guide[] = [
       {
         "label": "U.S. Bureau of Labor Statistics — Consumer Expenditures (household spending by category)",
         "url": "https://www.bls.gov/news.release/cesan.htm"
+      },
+      {
+        "label": "FDIC — Money Smart (financial education, including budgeting)",
+        "url": "https://www.fdic.gov/resources/consumers/money-smart"
       }
     ],
     "title": "What Is the 50/30/20 Rule? Budget Breakdown With Examples",
@@ -1916,7 +1928,7 @@ export const GUIDES_PERSONAL_FINANCE: Guide[] = [
           "The standard target is 20% of your take-home pay. On $4,000 a month, that is $800. On $6,000 a month, it is $1,200. On $2,500 a month, it is $500. The number comes from the 50/30/20 budget rule, which splits take-home pay into needs, wants, and saving. Twenty percent is the saving share.",
           "Treat 20% as a target, not a pass mark. Saving 10% every month for years beats planning 20% and saving nothing. Start where you are, and raise the rate when your income rises.",
           "Saving means money that increases your net worth: cash into an emergency fund, contributions to a retirement account, extra payments above the minimum on a debt, and money set aside for a specific goal such as a house deposit. Minimum debt payments are not saving. They are bills, and they belong in the needs category of your budget.",
-          "Your savings rate is the share of take-home pay you save. Add up everything you saved in a month, divide it by your take-home pay, and multiply by 100. Saving $800 on $4,000 of take-home pay is a 20% savings rate ($800 / $4,000 = 20%). Saving $200 on the same pay is 5%. One number, calculated the same way every month, tells you whether you are moving forward."
+          "Measure the result as a savings rate: the percentage of take-home pay that went to saving in a month. Total everything you saved, divide by take-home pay, and multiply by 100. Saving $800 from $4,000 of take-home pay is a 20% rate ($800 / $4,000 = 20%). Saving $200 from the same pay is 5%. Tracked the same way each month, that one figure shows whether your saving is growing or slipping."
         ]
       },
       {
@@ -1931,30 +1943,30 @@ export const GUIDES_PERSONAL_FINANCE: Guide[] = [
       {
         "heading": "The 50/30/20 split, worked out",
         "paragraphs": [
-          "The 50/30/20 rule splits take-home pay three ways: 50% for needs, 30% for wants, and 20% for saving and extra debt payments. It is a starting point, not a law, and its value is that saving gets a fixed share of income instead of whatever happens to be left at the end of the month. What is left at the end of the month is usually nothing.",
-          "Needs are the costs of staying housed, fed, healthy, and able to work: rent or mortgage, utilities, groceries, transport, insurance, and minimum debt payments. Wants are everything that improves life but is not required: eating out, streaming, holidays, and hobbies. Saving gets its own category because it is the part of the budget that changes your future.",
-          "The table below works the split out on $4,000 a month of take-home pay. If your numbers do not fit, move money between categories deliberately. In a high-rent city, needs may take 60%, and the honest response is to shrink wants and accept a lower savings rate for now, not to pretend the rule still fits. A budget that is 80% accurate and actually followed beats a perfect one that lasts a week.",
+          "The 50/30/20 rule divides take-home pay into three shares: 50% for needs, 30% for wants, and 20% for saving plus extra debt payments. Treat those percentages as a rough guide rather than a rule carved in stone. Their real value is giving saving a fixed slice of income instead of whatever remains when the month runs out — which, in most households, is nothing.",
+          "Needs cover the bills that keep a household running: rent or mortgage, utilities, groceries, transport, insurance, and the minimum payment on every debt. Wants cover the spending that makes life better without being essential — meals out, streaming, holidays, hobbies. Saving earns a category of its own because it is the only part of the budget that builds your future rather than paying for your present.",
+          "The table below runs the split on $4,000 a month of take-home pay. When your own figures do not line up with those shares, shift money between categories on purpose rather than by accident. Where rent is high, needs can swallow 60%, and the realistic move is to trim wants and live with a smaller savings rate for a while instead of forcing numbers that do not fit. A plan that is roughly right and still in use beats a flawless plan abandoned after seven days.",
           "Check the split monthly for the first three months, then quarterly. The categories that drift are almost always food outside the home and small recurring subscriptions."
         ],
         "table": {
           "head": [
             "Category",
             "Share",
-            "On $4,000/month"
+            "On $4,000 take-home"
           ],
           "rows": [
             [
-              "Needs: rent, utilities, groceries, transport, insurance, minimum payments",
+              "Needs — housing, utilities, groceries, transport, insurance, minimum debt payments",
               "50%",
               "$2,000"
             ],
             [
-              "Wants: eating out, subscriptions, holidays, hobbies, new clothes",
+              "Wants — eating out, streaming and subscriptions, holidays, hobbies, clothes",
               "30%",
               "$1,200"
             ],
             [
-              "Saving and extra debt payments",
+              "Saving plus extra debt payments",
               "20%",
               "$800"
             ]
@@ -1991,7 +2003,7 @@ export const GUIDES_PERSONAL_FINANCE: Guide[] = [
             ],
             [
               "2",
-              "Contribute enough to your 401(k) to capture the full employer match",
+              "Put enough into your 401(k) to get the full employer match",
               "An immediate return you cannot get anywhere else"
             ],
             [
@@ -2020,7 +2032,7 @@ export const GUIDES_PERSONAL_FINANCE: Guide[] = [
       {
         "heading": "Size your emergency fund in stages",
         "paragraphs": [
-          "The standard target is three to six months of essential expenses, not three to six months of income. Essential expenses are the needs from your budget: housing, utilities, groceries, transport, insurance, and minimum debt payments. If your essentials run $2,500 a month, three months is $7,500 and six months is $15,000.",
+          "Size the fund from your essential spending, not your salary: three to six months of the costs you cannot avoid. Those are the needs in your budget — housing, utilities, groceries, transport, insurance, and minimum debt payments. On essentials of $2,500 a month, three months comes to $7,500 and six months to $15,000.",
           "If that target feels out of reach, start smaller. The Consumer Financial Protection Bureau does not set a single dollar figure for everyone, and its savings booklet suggests $500 as a starting goal in its Rainy Day Fund tool. Five hundred dollars covers many common surprises, and reaching it breaks the habit of reaching for a card. Build the $500 first, then one month of essentials, then three, then six.",
           "Aim toward the six-month end if you are self-employed, on a single income, supporting dependents, or in a job that would be slow to replace. Aim toward three months if your household has two stable incomes, low fixed costs, and benefits that would cushion a layoff. The right number depends on how fast your income could stop and how fast you could replace it.",
           "Keep the fund in a separate high-yield savings account, so it earns interest and stays out of everyday spending. Do not invest it: it must be available within days, and it must not lose value the week you need it."
@@ -2058,33 +2070,33 @@ export const GUIDES_PERSONAL_FINANCE: Guide[] = [
       {
         "heading": "High-interest debt changes the answer",
         "paragraphs": [
-          "Debt changes how much you should save, because money sent to a savings account while a credit card charges 22% is money working against you. The Federal Reserve's G.19 release put the average interest rate on credit card accounts assessed interest at 22.15% in the second quarter of 2026. The average across all accounts, including cards paid off in full each month, was 20.94%. The 22.15% figure is the one that applies to people carrying a balance.",
+          "Debt changes the saving answer, because cash parked in a savings account while a card charges 22% is working against you. In the second quarter of 2026, the Federal Reserve's G.19 release recorded 22.15% as the average interest rate on credit card accounts assessed interest. Across all accounts, including cards paid in full every month, the average was 20.94%. The 22.15% number is the one that matters for anyone carrying a balance.",
           "The cost is easy to miss because it arrives monthly. On a $5,000 balance at 22.15%, the first month's interest alone is $92.29 ($5,000 x 22.15% / 12 = $92.29). Pay only that interest and the balance never falls. Pay $150 a month and most of the early payments still go to interest, not to the balance.",
           "Paying off a card at 22.15% is a guaranteed return of 22.15%. No savings account and no investment offers that with certainty. That is why the order of operations puts high-interest debt ahead of everything except a starter emergency fund and the employer match. Every dollar of card debt you clear earns you 22.15% a year, tax-free, with no risk.",
-          "Two methods work for multiple debts. The avalanche method sends every spare dollar to the highest-interest debt first and costs the least in total interest. The snowball method pays the smallest balance first for a quick win. The best method is the one you will actually follow for months. Either way, stop adding new charges to the cards you are paying down.",
+          "Two approaches work when several debts compete. With the avalanche approach, every spare dollar goes to the highest-interest debt first, which keeps total interest lowest. With the snowball approach, the smallest balance goes first, for an early win that keeps motivation up. Pick the approach you will stick with month after month — and whichever you choose, stop putting new charges on the cards you are paying down.",
           "Low-rate debt is a different problem. A mortgage at a low fixed rate costs far less than a credit card, so keep its minimum payments and run investing alongside it. Above roughly 8% to 10%, paying the debt off usually wins; below it, the answer depends on your goals."
         ]
       },
       {
         "bullets": [
-          "Employer contributions do not count against your $24,500 employee limit for 2026.",
-          "The $7,500 IRA limit covers all your traditional and Roth IRAs combined, not $7,500 in each.",
-          "Contribution limits are adjusted annually, so check the current IRS figures each year rather than relying on last year's numbers."
+          "What your employer adds sits outside your $24,500 employee limit for 2026 — the cap covers your own contributions only.",
+          "The $7,500 IRA cap is a combined total across every traditional and Roth IRA you hold, not $7,500 per account.",
+          "The IRS revises the caps each year, so confirm the current figures before planning around last year's numbers."
         ],
         "heading": "Retirement: capture the match, then the limits",
         "paragraphs": [
           "If your employer matches 401(k) contributions, that match is the first retirement money to capture. A common match is 50% of the first 6% of pay. On a $72,000 salary, contributing 6% means $4,320 a year from you, and the employer adds $2,160. That is $6,480 a year going into retirement on a $4,320 contribution, an immediate 50% return before any investment growth. Turning down a match is turning down part of your pay.",
-          "For 2026, the IRS sets the employee 401(k) contribution limit at $24,500, with an additional $8,000 catch-up for those aged 50 and over. The IRA limit is $7,500, with a $1,100 catch-up at 50 and over. Maxing an IRA takes $625 a month ($7,500 / 12 = $625). Maxing a 401(k) takes $2,041.67 a month ($24,500 / 12 = $2,041.67). Few beginners reach either limit. The limits are ceilings, not expectations.",
-          "The two main account types differ in when you pay tax. A traditional 401(k) or IRA is funded with pre-tax money, which lowers your taxable income now, and withdrawals in retirement are taxed as income. A Roth IRA or Roth 401(k) is funded with after-tax money, and qualified withdrawals in retirement are tax-free. Neither is better in every case. The traditional version usually suits people who expect a lower tax rate in retirement, and the Roth usually suits people who expect a higher one. Many savers hold both."
+          "The IRS caps for 2026 put the employee 401(k) limit at $24,500, plus $8,000 extra for savers aged 50 and over. For IRAs, the cap is $7,500, plus a $1,100 catch-up from age 50. Filling an IRA takes $625 a month ($7,500 / 12 = $625); filling a 401(k) takes $2,041.67 a month ($24,500 / 12 = $2,041.67). Most people starting out reach neither cap. Treat the caps as ceilings, not expectations.",
+          "The choice between the two account types is a choice about timing: pay tax now, or pay it later. A traditional 401(k) or IRA takes pre-tax contributions, so the money cuts your taxable income in the year you contribute, and you pay income tax on withdrawals in retirement. A Roth IRA or Roth 401(k) takes money you have already paid tax on, and qualified withdrawals in retirement come out tax-free. Which wins depends on your tax rate now versus your tax rate in retirement: traditional usually fits people who expect to be in a lower bracket later, Roth usually fits people who expect a higher one. Plenty of savers keep a foot in both."
         ]
       },
       {
         "heading": "What the amounts build over time",
         "paragraphs": [
-          "Saving feels slow in the first years because it is. The engine that changes that is compound growth: your returns earn returns of their own, so growth accelerates over time. The effect is small early and large later, which is why starting early matters more than starting big.",
-          "The table below shows $300 a month invested at an assumed steady 7% annual return, compounded monthly. After 10 years the balance is $51,925 on $36,000 contributed. After 20 years it is $156,278 on $72,000 contributed. After 30 years it is $365,991 on $108,000 contributed, with $257,991 of that total coming from growth rather than from your own deposits. The last decade adds $209,713, more than the first two decades combined. That is compounding at work.",
-          "Read those numbers as an illustration, not a promise. The 7% figure is an assumption: no investment guarantees a steady return, markets fall as well as rise, and inflation reduces what the final balance buys.",
-          "A useful shortcut is the rule of 72: divide 72 by your annual return to estimate how long money takes to double. At 7%, that is about 10.3 years (72 / 7 = 10.3). At 4%, it is 18 years. The rule shows why the return matters and why time matters more. You cannot control the return. You can control how early you start and how steadily you contribute."
+          "The first years of saving feel slow because they are. What changes the picture is compounding: returns that earn returns of their own, so the balance grows faster as it grows bigger. The effect barely shows at first and dominates later, which is why an early start beats a bigger start.",
+          "Take $300 a month at an assumed steady 7% a year, compounded monthly, as the table below does. Ten years in, the balance reaches $51,925 from $36,000 of contributions. At 20 years it is $156,278 on $72,000 contributed. At 30 years it is $365,991 on $108,000 contributed — $257,991 of it growth, not deposits. The final decade alone adds $209,713, more than the first two decades put together. That is compounding at work.",
+          "Treat those balances as an illustration, not a forecast. The 7% return is assumed, not promised: no investment holds a steady rate, markets drop as well as climb, and inflation shrinks what the final balance will buy.",
+          "The rule of 72 gives a quick doubling estimate: divide 72 by the annual return. At 7%, money doubles in about 10.3 years (72 / 7 = 10.3); at 4%, it takes 18 years. The shortcut shows what matters most: the return helps, but time helps more. You cannot pick the return. You can pick how early you start and how regularly you contribute."
         ],
         "table": {
           "head": [
@@ -2122,7 +2134,7 @@ export const GUIDES_PERSONAL_FINANCE: Guide[] = [
         "paragraphs": [
           "If your budget has no room for 20%, start at 5%, or even 1%. On $4,000 of take-home pay, 5% is $200 a month and 1% is $40. A small automatic transfer that actually happens beats an ambitious target that never starts. The habit matters more than the opening amount, because the habit is what you scale up later.",
           "Automate the transfer for payday, not month-end, so saving happens before spending starts. Treat it as a bill that is not optional: if the money never sits in checking, you never have to decide to save it.",
-          "Raise the rate with every pay rise. The simplest rule is to save half of every raise: a $200-a-month raise becomes $100 more in savings and $100 more in your pocket. Your lifestyle improves and your savings rate climbs at the same time, and you never feel the sacrifice because the extra saving comes from money you did not have before.",
+          "Raise the rate with every pay rise. The simplest rule is to save half of every raise: a $200-a-month raise becomes $100 more in savings and $100 more in your pocket. Spending rises and the savings rate rises together, and the sacrifice never stings because the extra saving comes from money you did not have before.",
           "Use windfalls the same way. Tax refunds and bonuses arrive outside your monthly budget, so send a fixed share, such as half, to savings before you spend any of it. A $2,000 tax refund becomes $1,000 toward your emergency fund and $1,000 to enjoy.",
           "Review the rate once a year, in the same month you review your budget. Has your income changed? Has a debt been cleared? Has your emergency fund reached its target? Each review should end with the rate holding or rising, never quietly falling."
         ]

@@ -3,21 +3,21 @@ import { LegalPage } from "@/components/layout/LegalPage"
 import { breadcrumb, stringifyJsonLd } from "@/lib/schema"
 
 export const metadata: Metadata = {
-  title: "Corrections Policy | DailyFinance",
+  title: "Corrections Policy — How We Fix Errors | DailyFinance",
   description: "How DailyFinance handles errors in its calculators and guides: what we correct, how to report a mistake, and how corrections are marked on the page.",
   alternates: { canonical: "https://www.dailyfinance.tools/corrections-policy" },
   openGraph: {
-    title: "Corrections Policy | DailyFinance",
+    title: "Corrections Policy — How We Fix Errors | DailyFinance",
     description: "How DailyFinance handles errors in its calculators and guides: what we correct, how to report a mistake, and how corrections are marked on the page.",
     url: "https://www.dailyfinance.tools/corrections-policy",
     siteName: "Daily Finance Tools",
     locale: "en_US",
     type: "website",
-    images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Corrections Policy | DailyFinance" }],
+    images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Corrections Policy — How We Fix Errors | DailyFinance" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Corrections Policy | DailyFinance",
+    title: "Corrections Policy — How We Fix Errors | DailyFinance",
     description: "How DailyFinance handles errors in its calculators and guides: what we correct, how to report a mistake, and how corrections are marked on the page.",
     images: ["https://www.dailyfinance.tools/images/og-base.jpg"],
   },

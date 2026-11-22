@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { GUIDE_HUBS, HUB_DESCRIPTIONS, hubAnchor } from '@/data/guides'
+import { GUIDE_HUBS, HUB_DESCRIPTIONS, hubAnchor } from '@/data/guide-meta'
 import { ChevronDown, BookOpen, MapPin, ArrowRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
 

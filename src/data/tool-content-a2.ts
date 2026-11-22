@@ -33,19 +33,19 @@ export const TOOL_CONTENT_A2: Record<string, ToolContentEntry> = {
         "answer": "Usually, yes, mainly through utilisation: balances relative to credit limits are a major scoring factor, and keeping reported utilisation below about 30% — lower is better — helps. Keep paid-off cards open unless there is an annual fee problem, because closing them cuts your total limit and raises utilisation on the rest."
       },
       {
-        "answer": "The balance grows while you pay. On $6,500 at 24.99%, one month of interest is about $135, so a $125 payment leaves you $10 deeper in debt every month and the debt never clears. Any workable plan starts above that line — and the further above it, the faster the principal share of each payment grows.",
+        "answer": "The balance grows while you pay. One month of interest on $6,500 at 24.99% is about $135, so a $125 payment leaves you $10 deeper in debt every month and the debt never clears. So the first rule of any payoff plan is to pay above that line — and the further above it, the faster each payment's principal share grows.",
         "question": "What happens if my monthly payment is smaller than the interest charged?"
       },
       {
-        "answer": "A lot: the debt clears in 24 months instead of 38, and interest falls from $2,957 to $1,804 — the extra $100 a month buys $1,153 of avoided interest and 14 months of freedom. That is the return on every spare dollar at a 24.99% APR: a guaranteed 24.99%, which no savings account or investment matches with certainty.",
+        "answer": "A lot: the debt clears in 24 months instead of 38, and interest falls from $2,957 to $1,804 — $1,153 of avoided interest and 14 months of freedom for $100 more a month. Every spare dollar earns that 24.99% back, guaranteed — a return no savings account or investment matches with certainty.",
         "question": "How much does raising my payment from $250 to $350 save?"
       },
       {
-        "answer": "It is above average but normal. The Federal Reserve's G.19 release put the average rate on card accounts actually charged interest at 22.36% in the third quarter of 2026. A 24.99% card sits above that average but well inside the normal range for store and rewards cards. Card APRs are usually variable, tied to the prime rate, so the rate on your statement can move.",
+        "answer": "It is above average but normal. The Fed's G.19 release put the average rate on cards actually charged interest at 22.36% in the third quarter of 2026 — so a 24.99% card sits a few points above the average, but well inside the normal range for store and rewards cards. Card APRs usually float with the prime rate, so the rate on your statement can move; the calculator's answer assumes today's rate holds.",
         "question": "Is a 24.99% APR unusually high?"
       },
       {
-        "answer": "Because the minimum shrinks as the balance shrinks, so most of each payment keeps going to interest. On this balance the first minimum is about $200, but it falls every month. Freezing the payment at $250 — only $50 above that first minimum — clears the debt in 38 months instead of 262 and costs $2,957 of interest rather than $12,402.",
+        "answer": "Because the minimum shrinks as the balance shrinks, so most of each payment keeps going to interest. The first minimum on this balance is about $200, and it falls every month as the balance falls. Hold the payment at $250 instead — only $50 above that first minimum — and the debt clears in 38 months instead of 262, costing $2,957 of interest rather than $12,402.",
         "question": "Why does the minimum-payment path take 262 months?"
       }
     ],
@@ -92,15 +92,15 @@ export const TOOL_CONTENT_A2: Record<string, ToolContentEntry> = {
         "answer": "Capture any employer 401(k) match first — that is an immediate 50% to 100% return no debt can beat. Beyond the match, paying a 28% APR is a guaranteed 28% return, which no investment reliably offers. Once expensive debt is gone, redirect the entire payoff budget into investing."
       },
       {
-        "answer": "Then the two methods are identical, and the calculator will tell you so. Both orders attack the same debt first. That is the case with the tool's default example: the $2,200 store card is both the smallest balance and the highest APR at 29.99%, so avalanche and snowball agree exactly — 44 months and $5,621 of interest either way.",
+        "answer": "Then there is no decision to make — the two methods agree exactly. Both orders attack the same debt first, so the payoff schedule and the interest are identical. The tool's default example is exactly this case: a $2,200 store card that is the smallest balance and also the highest APR, at 29.99% — so both methods give the same result, 44 months and $5,621 of interest either way. The calculator will tell you so.",
         "question": "What if my smallest debt is also my highest-rate debt?"
       },
       {
-        "answer": "In the worked example, snowball clears the store card in month 9, while avalanche does not clear its first debt — the credit card — until month 18. That nine-month gap is what snowball buys you: a closed account, one fewer payment, and visible progress while the expensive debt is still being worked down.",
+        "answer": "Snowball clears the store card in month 9; avalanche's first clear — the credit card — comes in month 18. That nine-month gap is the whole trade: snowball gives you an early closed account and one fewer monthly payment while the expensive debt is still being worked down. Avalanche buys $671 instead — the interest saved by attacking the 28% card first.",
         "question": "When does the first debt clear under each method?"
       },
       {
-        "answer": "In the worked example it is $671 and three extra months: avalanche costs $1,511 of interest over 24 months, snowball $2,182 over 27. The gap grows with the spread between the APRs and with the size of the high-rate balance. On small balances with similar rates it is often under $100, and the choice barely matters.",
+        "answer": "In the worked example, $671 and three extra months: avalanche costs $1,511 of interest over 24 months, snowball $2,182 over 27. The gap grows with the spread between the APRs and the size of the high-rate balance — on small balances with similar rates it is often under $100, but with a large 28% balance against a small 12% one, it runs to hundreds of dollars and several months.",
         "question": "How big is the interest gap between the two methods?"
       },
       {
@@ -151,7 +151,7 @@ export const TOOL_CONTENT_A2: Record<string, ToolContentEntry> = {
         "answer": "After capturing any employer retirement match and holding a starter emergency fund, compare rates. Above roughly 7%, paying the loan down is hard to beat on a risk-adjusted basis. At 4% to 5%, investing the surplus is defensible, especially inside tax-advantaged accounts whose annual contribution room expires."
       },
       {
-        "answer": "It is $420.13 a month, with $13,415 of interest over the term. A $400 payment is below that standard figure, which is why the base case runs 129 months instead of 120. The calculator exposes a payment that is quietly too small, as well as one that is generous.",
+        "answer": "$420.13 a month, with $13,415 of interest over the term. That is the benchmark the base case quietly misses: a $400 payment falls short of that standard, stretching the base case to 129 months instead of 120. Check your payment against the $420.13 standard — the calculator exposes a payment that is too small, as well as one that is generous.",
         "question": "What is the standard 10-year payment on $37,000 at 6.5%?"
       },
       {
@@ -159,11 +159,11 @@ export const TOOL_CONTENT_A2: Record<string, ToolContentEntry> = {
         "question": "How much does $100 extra a month save on the example loan?"
       },
       {
-        "answer": "Not always. Confirm your servicer applies extra payments to principal rather than as advance payments on future bills. The two treatments look identical on a statement, but only the first shortens the loan. Extra payments go entirely to principal in the calculator, which is why they punch above their weight: each extra dollar removes the interest that dollar would have attracted for the rest of the term.",
+        "answer": "Not always — and the difference is invisible on your statement. Ask your servicer whether extra payments cut principal or simply prepay future bills — on a statement the two look the same, but only principal payments shorten the loan. The calculator assumes the principal treatment, which is why extra payments punch above their weight: every extra dollar wipes out the interest it would have attracted for the rest of the term.",
         "question": "Do extra payments automatically go to principal?"
       },
       {
-        "answer": "No. Unlike an investment, a paid-off loan cannot be re-borrowed in an emergency, so keep your cash buffer intact first. At 6.5%, an extra dollar earns a guaranteed 6.5% by avoiding interest, which beats a savings account and carries no market risk — but it is below the long-run return investors hope for from equities.",
+        "answer": "No — once it is paid off, the money cannot be borrowed back in an emergency, the way an investment can be sold. That is why the cash buffer comes first, before extra payments. An extra dollar at 6.5% earns a guaranteed 6.5% by avoiding interest — better than a savings account, with no market risk, though below the long-run return investors hope for from equities.",
         "question": "Can I re-borrow a student loan I have paid off?"
       }
     ],
@@ -210,7 +210,7 @@ export const TOOL_CONTENT_A2: Record<string, ToolContentEntry> = {
         "answer": "At the same income, the Solo 401(k) usually allows more, because the SEP only has the employer side (up to 25% of compensation). At $60,000 of self-employment compensation, a SEP allows about $12,000 (the effective 20% for sole proprietors), while a Solo 401(k) allows that plus the full employee deferral. The Solo 401(k) also permits Roth contributions and loans, which a SEP does not."
       },
       {
-        "answer": "On $120,000 of compensation with a $15,000 employee contribution, the W-2 side adds a 4% match of $4,800 for $19,800 a year; the Solo side adds $15,000 of profit-sharing for $30,000. Over 30 years at 7%, that $10,200 annual gap compounds to $3,138,314 versus $2,174,814 — a $963,500 difference at retirement.",
+        "answer": "With $120,000 of compensation and a $15,000 employee contribution, the W-2 side gets a 4% match ($4,800) for $19,800 a year; the Solo side gets $15,000 of profit-sharing for $30,000. That $10,200 annual gap becomes $3,138,314 versus $2,174,814 over 30 years at 7% — a $963,500 difference at retirement.",
         "question": "How much more goes in under a Solo 401(k) at $120,000 of income?"
       },
       {
@@ -222,7 +222,7 @@ export const TOOL_CONTENT_A2: Record<string, ToolContentEntry> = {
         "question": "Can I defer $24,500 in a W-2 401(k) and another $24,500 in a Solo 401(k)?"
       },
       {
-        "answer": "From 2026, catch-up contributions must be Roth for participants whose prior-year FICA wages from that employer exceeded $150,000, under SECURE 2.0. The catch-up itself is $8,000 at age 50 or older ($32,500 total deferral), and $11,250 for ages 60 to 63 ($35,750 total). The combined employee-plus-employer limit for 2026 is $72,000, with catch-ups on top.",
+        "answer": "From 2026, high earners must make catch-up contributions as Roth — anyone whose FICA wages from that employer topped $150,000 the year before, under SECURE 2.0. The catch-up itself is $8,000 at age 50 or older ($32,500 total deferral), and $11,250 for ages 60 to 63 ($35,750 total). The combined employee-plus-employer limit for 2026 is $72,000, with catch-ups on top.",
         "question": "What changes for catch-up contributions in 2026?"
       }
     ],
@@ -269,19 +269,19 @@ export const TOOL_CONTENT_A2: Record<string, ToolContentEntry> = {
         "answer": "A real (after-inflation) return keeps the math in today's money: roughly 4% to 5% for a stock-heavy portfolio if you expect 7% nominal returns and 2% to 3% inflation. Using the nominal return against today's spending target overstates your progress — the most common Coast FIRE error."
       },
       {
-        "answer": "The full pot is $50,000 × 25 = $1,250,000. Discounted at 7% over 35 years, the coast number is $1,250,000 ÷ 1.07^35 = $117,079. Invest roughly $117,000 by age 30 and, if 7% materialises, the pot reaches $1,250,000 at 65 with no further contributions.",
+        "answer": "About $117,000. The full pot is $50,000 × 25 = $1,250,000, and discounting it at 7% over 35 years gives $117,079. Invest that by 30 and, if 7% happens, the pot reaches $1,250,000 at 65 with no further contributions. The number is only as good as the return — at 5% it nearly doubles to about $227,000.",
         "question": "What is the coast number at 30 if I need $50,000 a year in retirement?"
       },
       {
-        "answer": "On the default figures — $50,000 invested and $500 a month — the gap to the $117,079 coast number is $67,079, closed in about 70 months, or just under six years. Your $50,000 alone, left untouched, would reach only about $533,829 by 65, well short of the $1,250,000 target.",
+        "answer": "About 70 months — just under six years — on the default figures. You hold $50,000 against a $117,079 coast number, so the gap is $67,079, and $500 a month closes it in roughly 70 months. Left untouched, your $50,000 would reach only about $533,829 by 65, well short of the $1,250,000 target — the contributions are what buy the coast date.",
         "question": "How long does it take to reach the coast number from $50,000 invested?"
       },
       {
-        "answer": "Acutely. At 5% instead of 7%, the 30-year-old's target rises from about $117,000 to about $227,000; at 6% it is about $163,000. A coast plan built on an optimistic return is a plan to return to full saving later, so test the 5% case before treating the coast number as a promise.",
+        "answer": "Acutely — the return is the whole coast number. At 7% the 30-year-old's target is about $117,000; at 6% it is about $163,000; at 5% it is about $227,000, nearly double. Build the plan on an optimistic return and you will be back to full saving later — so stress-test it at 5% before trusting the number.",
         "question": "How sensitive is the coast number to the return I assume?"
       },
       {
-        "answer": "The calculator first sizes the full retirement pot using the 25× spending rule — spending divided by a 4% withdrawal rate — then discounts it back to today at your return: coast number = full pot ÷ (1 + return)^years until retirement. Months to coast are simulated month by month, with the balance growing at return ÷ 12 plus your monthly contribution.",
+        "answer": "In two steps. First it sizes the full retirement pot: 25 times your annual spending, the inverse of a 4% withdrawal rate. Then it discounts that pot back to today at your return: coast number = full pot ÷ (1 + return)^years until retirement. The months to coast are simulated month by month, with the balance growing at return ÷ 12 plus your monthly contribution until it crosses the coast number.",
         "question": "How is the coast number calculated?"
       }
     ],
@@ -332,15 +332,15 @@ export const TOOL_CONTENT_A2: Record<string, ToolContentEntry> = {
         "question": "How many years apart are lean and fat FIRE in the worked example?"
       },
       {
-        "answer": "Planning on $6,000 a month sets a $1,800,000 target and lands in about 25.9 years on the default inputs — roughly 8 years after lean and 6.6 years before fat. The calculator's amber panel states the gap explicitly so you can see what the middle ground costs in years, not just in dollars.",
+        "answer": "A $6,000-a-month plan means a $1,800,000 target, reached in about 25.9 years — roughly 8 years after lean and 6.6 years before fat. The middle ground costs years, not just dollars: the calculator's amber panel states the gap explicitly, so you can see what the extra spending buys in time.",
         "question": "What does the middle ground between lean and fat FIRE cost?"
       },
       {
-        "answer": "$300,000 of required pot — $1,000 × 12 × 25 — which is several years of saving for most households. Test the spending inputs before anything else: knowing which expenses actually drive your quality of life is worth more than any return assumption, and it is the input only you can set.",
+        "answer": "$300,000 of required pot — $1,000 × 12 × 25 — which is several years of saving for most households. Test the spending inputs before anything else — knowing which expenses actually matter to your quality of life is worth more than any return assumption, and only you can set them.",
         "question": "How much does $1,000 more monthly spending add to the target?"
       },
       {
-        "answer": "Because the pot is bigger and your contributions are a smaller share of its growth. By then the portfolio's own growth rivals your contributions, so each additional year of work buys more than it did at the start. On the default figures the fat target is $2,100,000 larger than lean but takes 14.8 extra years.",
+        "answer": "The pot is bigger, so your contributions are a smaller share of its growth — and by then the portfolio's own growth rivals your contributions, so each extra year of work buys more than the early years did. On the default figures the fat target is $2,100,000 larger than lean but takes 14.8 extra years.",
         "question": "Why is the last stretch to fat FIRE so long?"
       }
     ],
@@ -376,7 +376,7 @@ export const TOOL_CONTENT_A2: Record<string, ToolContentEntry> = {
       },
       {
         "question": "Can I invest HSA money or must it sit in cash?",
-        "answer": "You can invest it. Most providers require a minimum cash balance (often $1,000 to $2,000) and let you invest the rest in mutual funds or ETFs. The long-horizon strategy only works if the money is invested; an HSA left in a low-interest sweep account for 20 years forfeits most of the advantage the calculator shows."
+        "answer": "You can invest it. Most providers ask you to keep a cash minimum — often $1,000 to $2,000 — and let you invest the rest in mutual funds or ETFs. The long-horizon strategy only works if the money is invested: an HSA parked in a low-interest sweep account for 20 years gives up most of the growth the calculator shows, and the growth line is where the largest tax saving sits."
       },
       {
         "question": "What happens to an HSA at age 65?",
@@ -387,11 +387,11 @@ export const TOOL_CONTENT_A2: Record<string, ToolContentEntry> = {
         "answer": "No. Unlike a flexible spending account, an HSA is yours permanently, rolls over every year, and moves with you between employers. There is no use-it-or-lose-it rule and no deadline on reimbursing eligible expenses you paid out of pocket, provided the expense came after the HSA was established."
       },
       {
-        "answer": "On a $4,400 annual contribution in the 22% bracket, the payroll route saves about $1,305 of tax in the first year alone. Contributions through payroll also escape Social Security and Medicare tax (7.65%), which even a 401(k) contribution does not — that is one leg of the triple advantage.",
+        "answer": "About $1,305 of tax in the first year alone, on a $4,400 annual contribution in the 22% bracket. The payroll route is the extra leg: payroll contributions also escape the 7.65% Social Security and Medicare tax — a saving even a 401(k) contribution does not get. That payroll-tax saving is on top of the income tax the contribution avoids.",
         "question": "How much tax does the payroll route save in the first year?"
       },
       {
-        "answer": "About $49,572: $19,360 of income tax on the contributions, $6,732 of payroll tax (7.65% on $88,000), and $23,480 of income tax on the growth. The account itself reaches about $199,729 from $93,000 paid in. The growth line is where the largest single tax saving sits — which is why the money must be invested, not left in cash.",
+        "answer": "About $49,572. Income tax on the contributions saves $19,360, payroll tax saves $6,732 (7.65% on $88,000), and income tax on the growth saves $23,480. The account itself reaches about $199,729 from $93,000 paid in. The growth line is the largest single tax saving — which is why the money must be invested, not left in cash, for the full advantage to materialise.",
         "question": "What is the total tax saving over 20 years in the worked example?"
       },
       {
@@ -439,7 +439,7 @@ export const TOOL_CONTENT_A2: Record<string, ToolContentEntry> = {
       },
       {
         "question": "15-year or 30-year mortgage — how big is the difference?",
-        "answer": "On $340,000 at the same 6.75%, a 15-year payment is about $3,009 but total interest falls from $453,884 to about $201,565. In practice 15-year rates are usually lower than 30-year rates, widening the saving further. The trade is flexibility: the 30-year's lower required payment can be voluntarily overpaid, while the 15-year's higher payment is compulsory in a bad month too."
+        "answer": "On $340,000 at the same 6.75%, a 15-year payment is about $3,009 but total interest falls from $453,884 to about $201,565 — a saving of roughly $252,000 for about $800 more a month. The 15-year rate is usually lower than the 30-year rate, which widens the saving. The trade is flexibility: with a 30-year loan you can overpay the lower required payment when times are good, while the 15-year payment is compulsory even in a bad month."
       },
       {
         "question": "Are taxes and insurance the same everywhere?",
@@ -450,15 +450,15 @@ export const TOOL_CONTENT_A2: Record<string, ToolContentEntry> = {
         "question": "What does PITI include?"
       },
       {
-        "answer": "$453,884 over 30 years. The $340,000 loan at 6.75% totals $793,884 in payments — the $340,000 borrowed plus $453,884 of interest, which is the real price of a 30-year term. In month one, $1,912.50 of the $2,205.23 payment is interest and only $292.73 is principal.",
+        "answer": "$453,884 over 30 years — more than the loan itself. The $340,000 loan at 6.75% totals $793,884 in payments: the $340,000 borrowed plus $453,884 of interest, which is the real price of a 30-year term. Month one shows the front-loading: $1,912.50 of the $2,205.23 payment is interest, only $292.73 principal.",
         "question": "How much interest does the example loan cost in total?"
       },
       {
-        "answer": "The loan rises to $382,500, the principal-and-interest payment rises to $2,481, and PMI adds about $159 a month at 0.5% of the loan a year. PMI typically costs 0.3% to 1.5% of the loan per year, priced by credit score and loan-to-value, and applies below 20% down on a conventional loan.",
+        "answer": "Three things change. The loan becomes $382,500, principal and interest rise to $2,481, and PMI adds about $159 a month at 0.5% of the loan a year. PMI usually runs 0.3% to 1.5% of the loan a year, with the exact rate set by credit score and loan-to-value, and applies below 20% down on a conventional loan.",
         "question": "What does putting 10% down do to the payment?"
       },
       {
-        "answer": "The principal-and-interest part cannot, but the payment you write can. Tax follows your local assessment and insurance premiums have risen sharply in many states, so the escrow portion of PITI moves over time. A payment quoted at purchase is not fixed for 30 years even on a fixed-rate loan.",
+        "answer": "The principal-and-interest part cannot, but the payment you write can. Your local assessment sets the tax, and insurance premiums have risen sharply in many states, so the escrow portion of PITI moves over time. The payment quoted at purchase is not locked for 30 years, even on a fixed-rate loan — only the loan part is.",
         "question": "Can my payment change on a fixed-rate mortgage?"
       }
     ],
@@ -502,10 +502,10 @@ export const TOOL_CONTENT_A2: Record<string, ToolContentEntry> = {
       },
       {
         "question": "Can I see how much interest I will pay this tax year?",
-        "answer": "Yes — sum the interest column for the 12 payments falling in the calendar year. That is the figure your lender reports on Form 1098. Mortgage interest is deductible if you itemise, on acquisition debt up to $750,000 for loans taken out after December 2017, but for 2026 the standard deduction is $16,100 single and $32,200 married filing jointly, so most households take the standard deduction instead."
+        "answer": "Yes — sum the interest column for the 12 payments falling in the calendar year. That is the figure your lender reports on Form 1098. Whether it saves you tax is another question: mortgage interest is deductible only if you itemise, and only on the first $750,000 of acquisition debt for loans taken out after December 2017. But with the 2026 standard deduction at $16,100 single and $32,200 joint, most households take the standard deduction instead."
       },
       {
-        "answer": "In month 240 — 20 years into the example loan. Halfway through the term you have not repaid half the money: after 15 years the balance is still about $264,911 of the original $360,000. Early payments are mostly interest because the balance is at its largest; the principal share grows every month as the balance falls.",
+        "answer": "In month 240 — 20 years into the example loan. At the halfway mark you have not repaid half the money — the balance after 15 years is still about $264,911 of the original $360,000. The first payments are mostly interest — the balance is at its largest then — and the principal share grows every month as the balance falls.",
         "question": "When does principal first exceed interest in a monthly payment?"
       },
       {
@@ -557,7 +557,7 @@ export const TOOL_CONTENT_A2: Record<string, ToolContentEntry> = {
       },
       {
         "question": "Does my mortgage have a prepayment penalty?",
-        "answer": "Most modern US residential mortgages do not, and federal rules restrict prepayment penalties on most loans made after 2014. Check your closing disclosure to be sure, and tell your servicer explicitly that extra funds go to principal — otherwise they may be applied to future payments, which does not reduce interest the same way."
+        "answer": "Most modern US residential mortgages do not, and federal rules restrict prepayment penalties on most loans made after 2014. Check your closing disclosure to be sure. The more common trap is not a penalty but misapplied money: tell your servicer in writing that extra funds cut principal — otherwise they may be applied to future payments, which does not cut interest the same way."
       },
       {
         "question": "Is a lump sum or monthly extra better?",
@@ -568,15 +568,15 @@ export const TOOL_CONTENT_A2: Record<string, ToolContentEntry> = {
         "question": "How much does $200 extra a month save on the example loan?"
       },
       {
-        "answer": "Every extra dollar has a double effect: it removes that dollar of debt and all the interest that dollar would have attracted for the rest of the term. Extra payments made early, with decades of interest ahead of them, are worth several times their face value by the end — which is why the $200-a-month example saves $107,244 on $56,800 of extra payments.",
+        "answer": "Because each extra dollar works twice: it cuts the debt by a dollar and wipes out all the interest that dollar would have attracted for the rest of the term. Early in the loan, 'the rest of the term' is decades long, so early extra payments are worth several times their face value by the end. That is why $200 a month saves $107,244 on $56,800 of extra payments.",
         "question": "Why are extra payments worth more early in the loan?"
       },
       {
-        "answer": "Exactly your mortgage rate, guaranteed. Paying extra on a 6.5% mortgage earns a certain 6.5%. If your rate is 3%, the same logic makes extra payments a poor use of money next to almost any alternative. The calculator gives you the interest saved; whether to chase it depends on your rate, your liquidity and your other debts — a 24% credit card balance always comes first.",
+        "answer": "Exactly your mortgage rate, guaranteed. Paying extra on a 6.5% mortgage earns a certain 6.5% — a return no savings account matches with certainty. At 3%, the same logic points the other way — extra payments lose to almost any alternative. The decision turns on your rate, your liquidity and your other debts — a 24% credit card balance always comes first.",
         "question": "What return do I earn by paying extra on my mortgage?"
       },
       {
-        "answer": "No. The required payment stays the same; the extra goes entirely to principal, and the loan ends when the balance hits zero instead of at the scheduled date. The baseline and accelerated schedules are simulated side by side, so the months and dollars saved are exact. If you want a lower required payment, that is a recast or a refinance, not an overpayment.",
+        "answer": "No — the required payment does not change. Extra money goes entirely to principal, so the loan ends when the balance hits zero rather than at the scheduled date. You are buying time and interest saved, not a lower bill. If you want a lower required payment, that is a recast or a refinance, not an overpayment.",
         "question": "Does paying extra lower my required monthly payment?"
       }
     ],
@@ -631,11 +631,11 @@ export const TOOL_CONTENT_A2: Record<string, ToolContentEntry> = {
         "question": "What home price does a $95,000 income support in the example?"
       },
       {
-        "answer": "No. The default result is a $271,750 loan on a $331,750 home — a loan-to-value of about 82%, above the 80% line where private mortgage insurance applies on a conventional loan. The real monthly cost at this price would be higher than the $2,217 budget by the PMI premium, roughly $113 a month at 0.5% of the loan.",
+        "answer": "No — PMI is not in the payment. The default result puts a $271,750 loan on a $331,750 home, a loan-to-value of about 82%, over the 80% line, where PMI applies on a conventional loan. So the real monthly cost runs higher than the $2,217 budget by the PMI premium — roughly $113 a month at 0.5% of the loan.",
         "question": "Does the calculator include PMI in the payment?"
       },
       {
-        "answer": "No — it is a ceiling, not a target. Lenders approve against gross income and ignore childcare, savings goals and the rest of your actual life. Many buyers are comfortable only at 80% or so of the maximum a lender would allow; your own budget, run on take-home pay, is the binding test.",
+        "answer": "No — it is a ceiling, not a target. Lenders judge on gross income and ignore childcare, savings goals and the rest of your actual life, so their maximum is usually more than you should spend. Most buyers are comfortable only around 80% of what a lender would allow. The binding test is your own budget, run on take-home pay.",
         "question": "Is the lender's maximum a safe target to aim for?"
       }
     ],
@@ -667,7 +667,7 @@ export const TOOL_CONTENT_A2: Record<string, ToolContentEntry> = {
     "faqs": [
       {
         "question": "How much rate drop justifies a refinance?",
-        "answer": "The old rule of 1% is too crude — what matters is the dollar saving against the costs and how long you will keep the loan. On a $320,000 balance, even 0.5% saves about $105 a month and can break even in under five years. On a $120,000 balance the same half point saves about $40 a month and may never repay $6,000 of costs. Run your own numbers."
+        "answer": "There is no fixed rate drop that justifies it — the balance decides. Half a point on $320,000 is worth about $105 a month, enough to repay $6,000 of costs in under five years; the same half point on $120,000 is worth about $40 a month and may never repay those costs. What matters is the dollar saving each month, set against the costs and how long you will keep the loan — the old 1% rule is too crude to use."
       },
       {
         "question": "What do refinance closing costs typically include?",
@@ -682,15 +682,15 @@ export const TOOL_CONTENT_A2: Record<string, ToolContentEntry> = {
         "answer": "You borrow more than the current balance and take the difference in cash. It can be rational for consolidating much more expensive debt or funding home improvements, because mortgage rates are usually the cheapest borrowing available. It converts unsecured debt into debt secured on your home, however, and cash-out pricing is slightly worse than rate-and-term pricing — the discipline to not re-run the cards is the real cost."
       },
       {
-        "answer": "Closing costs divided by the monthly saving. Refinancing $320,000 from 7.5% to 6.0% saves $388 a month, so $6,000 of closing costs are recovered in 16 months. Stay longer than that and the refinance pays; move sooner and it loses money. The calculator also totals the remaining interest on each loan, so you can see the lifetime picture alongside the monthly one.",
+        "answer": "Closing costs divided by the monthly saving. On the worked example the monthly saving is $388, so $6,000 of closing costs are recovered in 16 months. Stay longer than that and the refinance pays; move sooner and it loses money. Break-even is only the monthly picture — the calculator also adds up the remaining interest on each loan, so the lifetime picture sits next to the monthly one.",
         "question": "How is the break-even point calculated?"
       },
       {
-        "answer": "The term reset stretches the debt: refinancing 27 remaining years into a new 30-year loan lowers the payment partly by stretching it, not only by cutting the rate. The new loan's total interest is about $370,682 against $427,257 remaining on the current loan — a genuine lifetime saving of $50,575, but smaller than the monthly saving suggests.",
+        "answer": "Because the payment falls partly by stretching the debt, not only by cutting the rate. Swapping 27 remaining years for a new 30-year loan lowers the payment, but total interest on the new loan is about $370,682, against $427,257 left on the current one — a genuine lifetime saving of $50,575, but smaller than the monthly saving suggests. Match the 27-year term instead and the lifetime saving is $94,309.",
         "question": "Why does refinancing into a new 30-year loan cost more than it looks?"
       },
       {
-        "answer": "The balance rises and the saving shrinks. Rolling $6,000 into the example loan raises the balance to $326,000 and the payment to about $1,955 — the saving falls to $352 a month, and the lifetime cost rises because you pay interest on the costs too. The math only works if you count the costs, however they are paid.",
+        "answer": "The balance rises and the saving shrinks. Adding $6,000 to the example loan takes the balance to $326,000, and the payment rises to about $1,955 — the saving falls to $352 a month, and the lifetime cost rises, since you pay interest on the costs as well. The math only works if you count the costs, however they are paid: cash, rolled in, or covered by a higher rate in a 'no-cost' refinance.",
         "question": "What happens if I roll closing costs into the loan?"
       },
       {
@@ -734,22 +734,22 @@ export const TOOL_CONTENT_A2: Record<string, ToolContentEntry> = {
       },
       {
         "question": "How much does home price appreciation change the answer?",
-        "answer": "More than any other assumption. At 3% a year the example home gains about $97,700 over 7 years; at 0% it gains nothing and buying's net cost rises by roughly that amount, making renting the clear winner; at 5% buying wins comfortably. Appreciation is the one input nobody can forecast, so run the 0% case before deciding."
+        "answer": "More than any other assumption. At 3% a year, the example home lifts from $425,000 to $522,696 over 7 years, a $97,696 gain that buying keeps. At 0% the gain disappears and buying's net cost rises by roughly the same amount, so renting wins clearly; at 5% the picture flips and buying wins comfortably. Run the 0% case before deciding — appreciation is the one input nobody can forecast."
       },
       {
         "question": "How long do I need to stay for buying to pay off?",
         "answer": "At current rates and typical transaction costs, the break-even horizon is commonly 5 to 7 years, longer when rates are high or rent is cheap relative to prices, shorter when rent is high. On these figures it is year 8. If there is a realistic chance of moving within 3 years — job, family, city — renting is usually the financially safer choice."
       },
       {
-        "answer": "Year 8. Renting is ahead through year 7, by $4,388, and buying pulls ahead by $5,714 in year 8, widening every year after. The result flips with the horizon because buying's heavy fixed costs — about 2% to buy and 6% to sell — are paid once, while its running costs are partly offset by principal repayment and appreciation.",
+        "answer": "Year 8. Renting is ahead through year 7, by $4,388, and buying takes the lead by $5,714 in year 8 and widens the gap every year after. The flip happens because the transaction costs — about 2% to buy and 6% to sell — are paid once, while principal repayment and appreciation keep offsetting the running costs. Short stays cannot amortise those transaction costs; long stays can.",
         "question": "What is the break-even year in the worked example?"
       },
       {
-        "answer": "Buying costs $3,098.98 a month all-in on these figures — $2,205.23 of principal and interest plus $389.58 of tax, $150 of insurance and $354.17 of maintenance — against $1,800 of rent. The monthly cash outflow of buying is far higher even when the net cost is close, because much of the mortgage payment builds equity you recover at sale.",
+        "answer": "Because the monthly payment and the monthly cost are different things. The all-in monthly figure is $3,098.98: principal and interest of $2,205.23, tax of $389.58, insurance of $150 and maintenance of $354.17, against $1,800 of rent. But much of the mortgage payment builds equity you recover at sale, so the cash outflow is far higher than the net cost. Rent has no recovery at the end; a mortgage payment partly does.",
         "question": "Why is buying's monthly outflow higher even when the net costs are close?"
       },
       {
-        "answer": "Two things. It does not assign an opportunity cost to the $85,000 down payment sitting in the house instead of invested, and it does not count mortgage interest tax deductions — for 2026 the standard deduction is $16,100 single and $32,200 joint, so most buyers get no deduction benefit anyway. Both omissions tilt the comparison slightly toward buying.",
+        "answer": "Two things, and both tilt the comparison slightly toward buying. First, what the $85,000 down payment could have earned invested instead of sitting in the house — the tool counts the cash, not what it could have earned. Second, mortgage interest tax deductions: the 2026 standard deduction is $16,100 for single filers and $32,200 joint, so most buyers get no deduction benefit anyway.",
         "question": "What does the calculator not count?"
       },
       {
@@ -804,7 +804,7 @@ export const TOOL_CONTENT_A2: Record<string, ToolContentEntry> = {
         "question": "How long does saving for 20% down take in the example?"
       },
       {
-        "answer": "For 2026 the FHA loan limit runs from $541,287 in most counties to $1,249,125 in high-cost areas, and the conforming loan limit is $832,750. The limits matter because they cap the loan a program will back: a loan above the conforming limit is a jumbo loan, priced differently and underwritten more strictly.",
+        "answer": "For 2026, the FHA ceiling is $541,287 in most counties and $1,249,125 in high-cost areas; the conforming ceiling is $832,750. The limits matter because they cap the loan a program will back: above the conforming limit, a loan is a jumbo loan, priced differently and underwritten more strictly.",
         "question": "What are the 2026 FHA and conforming loan limits?"
       },
       {
@@ -812,7 +812,7 @@ export const TOOL_CONTENT_A2: Record<string, ToolContentEntry> = {
         "question": "How much is FHA mortgage insurance?"
       },
       {
-        "answer": "Closing costs add 2% to 5% of the price on top of the deposit, and you need a cash reserve after moving in. Do not empty yourself to reach 20%: moving into a home with no cash reserve left is how a routine repair becomes credit card debt. For many buyers, 10% down with a plan to remove PMI beats 20% down with empty accounts.",
+        "answer": "Closing costs and a reserve. Closing costs run another 2% to 5% of the price on top of the deposit, and you need cash left after moving in — a home with no reserve turns a routine repair into credit card debt. Do not empty yourself to reach 20%: for many buyers, buying at 10% down with a PMI-removal plan beats reaching 20% with empty accounts.",
         "question": "What else do I need in cash besides the down payment?"
       }
     ],
@@ -848,7 +848,7 @@ export const TOOL_CONTENT_A2: Record<string, ToolContentEntry> = {
       },
       {
         "question": "Can closing costs be rolled into the loan?",
-        "answer": "Effectively, in three ways: a larger loan amount (needs sufficient equity and appraisal value), a lender credit in exchange for a slightly higher rate, or a seller concession. All three trade a higher ongoing cost for lower cash today. Compare the lender-credit option's rate increase against the fee it covers — on a long-held loan, a quarter-point higher rate usually costs far more than the fee."
+        "answer": "Effectively, in three ways: a larger loan amount, a lender credit in exchange for a slightly higher rate, or a seller concession — the seller crediting part of your closing costs. All three trade a higher ongoing cost for lower cash today. The lender-credit trade deserves a hard look: over a long-held loan, a quarter-point rate rise usually costs far more than the fee it covers, so compare the rate increase against the fee before taking it."
       },
       {
         "question": "What is the Loan Estimate and why does it matter?",
@@ -867,11 +867,11 @@ export const TOOL_CONTENT_A2: Record<string, ToolContentEntry> = {
         "question": "What is the difference between fees and prepaids?"
       },
       {
-        "answer": "Your state and city move the total more than any other factor. Transfer taxes range from zero in many states to several percent of the price in some cities, and title insurance is rate-regulated in some states and shopped in others. A purchase in a high-transfer-tax city can total twice the figure shown here, and your Loan Estimate is the authoritative number.",
+        "answer": "Because the two biggest location-driven lines are transfer taxes and title insurance. Transfer taxes are zero in many states and several percent of the price in some cities, while title insurance is rate-regulated in some states and shopped in others. In a high-transfer-tax city the total can run to twice the figure shown here — your Loan Estimate is the authoritative number.",
         "question": "Why do closing costs vary so much by location?"
       },
       {
-        "answer": "Origination is modelled at 0.5% of the loan ($1,700 here) and title insurance at 0.5% of the price ($2,125), while the appraisal ($450) and recording charges ($275) are flat. Prepaid interest covers 15 days at the loan's per-diem rate — $943 on this loan at 6.75%. That mix is why the total lands in a 2% to 5% band rather than at a single percentage.",
+        "answer": "Three buckets. Origination scales with the loan — 0.5% of it, $1,700 here — and title insurance scales with the price — 0.5% of it, $2,125. The appraisal ($450) and recording charges ($275) are flat, whatever the price. Prepaid interest is 15 days at the loan's per-diem rate — $943 on this loan at 6.75%. That mix of scaled and flat charges is why the total sits in a 2% to 5% band instead of a single percentage.",
         "question": "Which closing costs scale with the loan or price, and which are flat?"
       }
     ],
@@ -907,7 +907,7 @@ export const TOOL_CONTENT_A2: Record<string, ToolContentEntry> = {
       },
       {
         "question": "HELOC or home equity loan — what is the difference?",
-        "answer": "A home equity loan is a fixed lump sum with a fixed rate and payment, disbursed once. A HELOC is a revolving credit line, usually with a variable rate, a draw period (often 10 years, interest-only) and then a repayment period. HELOC rates move with the prime rate, so a line opened at 8% can be at 10% within a year; the loan's fixed rate cannot."
+        "answer": "The loan is a fixed lump sum: one disbursement, one fixed rate, one fixed payment. The HELOC is a revolving credit line with a variable rate: you draw during a draw period — often 10 years, interest-only — then repay over a repayment period. The rate risk is the real difference: HELOC rates track the prime rate, so a line opened at 8% can reach 10% within a year; the loan's fixed rate cannot move."
       },
       {
         "question": "Is home equity loan interest tax-deductible?",
@@ -922,11 +922,11 @@ export const TOOL_CONTENT_A2: Record<string, ToolContentEntry> = {
         "question": "How much equity is in the worked example?"
       },
       {
-        "answer": "Less than the full figure. The accessible amount is (cap × value) − existing balances: at an 80% combined loan-to-value cap it is $75,000 here, at 85% it is $97,500, and at 90% it is $120,000. The higher the cap, the more you can borrow — and the higher the rate a lender usually charges for the privilege.",
+        "answer": "Less than the full figure. The accessible amount is (cap × value) − existing balances: at an 80% combined loan-to-value cap it is $75,000 here, at 85% it is $97,500, and at 90% it is $120,000. Bigger caps mean more borrowing — and a higher rate, since the lender charges for the privilege.",
         "question": "How much of my equity can I actually borrow?"
       },
       {
-        "answer": "Equity changes from three directions: principal repayment (slow, reliable), appreciation (fast, unreliable) and new borrowing (instant, negative). Equity built by appreciation can vanish in a downturn, which is why borrowing against the full appraised value at a market peak is how households end up owing more than the home is worth.",
+        "answer": "Because it can vanish in a downturn. Equity moves three ways — slow, reliable principal repayment; fast, unreliable appreciation; and instant, negative new borrowing. Equity built by appreciation is the fast, unreliable kind: borrow against the full appraised value at a market peak and a downturn leaves you owing more than the home is worth.",
         "question": "Why is equity from appreciation risky to borrow against?"
       },
       {
@@ -966,7 +966,7 @@ export const TOOL_CONTENT_A2: Record<string, ToolContentEntry> = {
       },
       {
         "question": "What expenses do sellers leave out of advertised cap rates?",
-        "answer": "Vacancy, management (even if you self-manage — your time has a value and a buyer will charge it), and realistic maintenance and capital reserves are the usual omissions. A listing showing a 7% cap rate on rent minus tax and insurance alone can be a 4.5% cap rate once the missing lines are restored. Rebuild NOI from your own expense estimates before trusting any advertised figure."
+        "answer": "Vacancy, management and realistic maintenance and capital reserves are the usual omissions. Management counts even when you do it yourself — your time has a value, and any buyer will charge for it. A listing advertised at 7% on rent minus tax and insurance alone can be 4.5% once the missing lines are restored. Rebuild NOI from your own expense estimates before trusting any advertised figure."
       },
       {
         "question": "Is a higher cap rate always better?",
@@ -981,11 +981,11 @@ export const TOOL_CONTENT_A2: Record<string, ToolContentEntry> = {
         "question": "How is the cap rate calculated in the worked example?"
       },
       {
-        "answer": "That is the point of the measure: it prices the building, not your loan. Two investors with different financing can compare the same property, and one investor can compare properties across cities. Depreciation is excluded for the same reason. Financing is handled separately, in the cash-flow section below the cap rate.",
+        "answer": "That is the point of the measure: it prices the building, not your loan — so two buyers with different financing can judge the same property, and one buyer can judge properties across cities, impossible if each NOI carried a different mortgage. Depreciation is excluded for the same reason; financing is handled separately, in the cash-flow section below the cap rate.",
         "question": "Why is the mortgage payment excluded from net operating income?"
       },
       {
-        "answer": "Yes. This property's cap rate is 4.56%, but with 25% down at 7% over 30 years, annual debt service is $20,957 — more than the $15,948 of NOI. Cash flow is negative $5,009 a year and cash-on-cash return is −5.3% on $94,500 invested. When the mortgage rate exceeds the cap rate, leverage works against you.",
+        "answer": "Yes. This property's cap rate is 4.56%, but with 25% down at 7% over 30 years, annual debt service of $20,957 runs higher than the $15,948 of NOI. Cash flow runs negative $5,009 a year, a −5.3% cash-on-cash return on $94,500 invested. When the mortgage rate exceeds the cap rate, leverage works against you.",
         "question": "Can a property have a positive cap rate and still lose money?"
       },
       {
@@ -1021,7 +1021,7 @@ export const TOOL_CONTENT_A2: Record<string, ToolContentEntry> = {
     "faqs": [
       {
         "question": "What is the 1% rule in rental property?",
-        "answer": "A screening heuristic: monthly rent should be at least 1% of the purchase price for a property to have a chance of cash-flowing. The example property rents at 0.91% of price ($2,950 ÷ $325,000) and produces only thin cash flow. In high-price coastal markets few properties pass 0.7%; in parts of the Midwest 1% or better is achievable. It screens deals in seconds and replaces none of the detailed math."
+        "answer": "A screening heuristic, not a verdict: monthly rent should be at least 1% of what you pay for the property, or it is unlikely to cash-flow. The example property rents at 0.91% of price ($2,950 ÷ $325,000) and produces only thin cash flow — the rule called it. Few coastal properties in high-price markets pass 0.7%, while in parts of the Midwest 1% or better is achievable. It screens deals in seconds and replaces none of the detailed math."
       },
       {
         "question": "How much should I reserve for maintenance and capital expenses?",
@@ -1033,10 +1033,10 @@ export const TOOL_CONTENT_A2: Record<string, ToolContentEntry> = {
       },
       {
         "question": "Why is cash flow low when the cap rate looks decent?",
-        "answer": "Because the mortgage rate (7%) exceeds the cap rate (6.90%). When borrowing costs more than the property yields, leverage works against you — negative leverage. Cash flow then depends on rent growth and appreciation rather than current income, which is a speculation the calculator makes visible rather than hiding."
+        "answer": "Because the mortgage rate (7%) exceeds the cap rate (6.90%) — negative leverage. Borrowing costs more than the property yields, so leverage drags rather than lifts the return, and cash-on-cash (3.38%) sits below the cap rate. Cash flow then leans on rent growth and appreciation instead of current income — a speculation the calculator shows rather than hides."
       },
       {
-        "answer": "Rent of $2,950 minus the mortgage payment of $1,621.67 and expenses of $1,081: tax $325, insurance $125, vacancy at 5% of rent $147.50, maintenance at 5% $147.50, management at 8% $236, and other costs $100. The result is $247.33 a month, or $2,968 a year.",
+        "answer": "Rent minus everything. Rent of $2,950, less the mortgage payment of $1,621.67 and expenses of $1,081 — tax $325, insurance $125, management at 8% $236, vacancy and maintenance at 5% each $147.50, and other costs $100. The result is $247.33 a month, or $2,968 a year.",
         "question": "How is the $247 monthly cash flow calculated?"
       },
       {
@@ -1044,7 +1044,7 @@ export const TOOL_CONTENT_A2: Record<string, ToolContentEntry> = {
         "question": "What return does the example property pay on cash invested?"
       },
       {
-        "answer": "Very. The $247 already absorbs a 5% vacancy allowance, but a rent drop of 5% would remove about $148 a month, and a single $8,000 roof erases more than two years of this property's cash flow. A deal that only works with full occupancy and zero repairs is not a deal; it is a hope. The vacancy, maintenance and management sliders are there to be moved.",
+        "answer": "Very. The $247 already absorbs a 5% vacancy allowance, but a 5% rent drop takes about $148 a month off it, and one $8,000 roof wipes out more than two years of cash flow. A deal that only works at full occupancy with zero repairs is not a deal — it is a hope. Stress the inputs before believing the output: the vacancy, maintenance and management sliders are there to be moved.",
         "question": "How fragile is the $247 monthly margin?"
       },
       {

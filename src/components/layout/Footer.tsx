@@ -51,7 +51,7 @@ export function Footer() {
             </p>
             {/* Social Icons — Facebook only (Kashif, 2026-11-22). */}
             <div className="flex items-center gap-4">
-              <a href="https://www.facebook.com/dailyfinancetools" target="_blank" rel="noopener noreferrer" aria-label="Daily Finance Tools on Facebook" className="text-muted-foreground hover:text-[#1877F2] transition-colors p-2 -ml-2 rounded-full hover:bg-primary/5">
+              <a href="https://www.facebook.com/dailyfinancetools" target="_blank" rel="noopener noreferrer" aria-label="Daily Finance Tools on Facebook" className="text-muted-foreground hover:text-[#1877F2] transition-colors -ml-3.5 flex h-12 w-12 items-center justify-center rounded-full hover:bg-primary/5">
                 <FacebookIcon className="h-5 w-5" />
               </a>
             </div>
@@ -59,10 +59,14 @@ export function Footer() {
 
           {/* Newsletter Subscribe */}
           <div className="w-full lg:max-w-md bg-muted/30 p-6 rounded-2xl border backdrop-blur-sm">
-            <h4 className="font-semibold text-foreground mb-2 flex items-center gap-2">
+            {/* ARB fix round 2 (#7): the newsletter heading was an H4 following
+                the last content H2 (H2→H4 skip on every page). It is an H2
+                now; the column headings below are H3s, so the footer no
+                longer skips a level. Same styling, same look. */}
+            <h2 className="font-semibold text-foreground mb-2 flex items-center gap-2">
               <Mail className="h-4 w-4 text-primary" />
               Join the Weekly Compound
-            </h4>
+            </h2>
             <p className="text-xs text-muted-foreground mb-4">
               Get one actionable financial model or calculator breakdown sent to your inbox every Sunday. No fluff.
             </p>
@@ -70,9 +74,9 @@ export function Footer() {
               <Input 
                 type="email" 
                 placeholder="name@example.com" 
-                className="bg-background h-10 rounded-xl"
+                className="bg-background h-12 rounded-xl"
               />
-              <Button type="button" className="h-10 rounded-xl font-semibold px-6 bg-primary hover:bg-primary/90">
+              <Button type="button" className="h-12 rounded-xl font-semibold px-6 bg-primary hover:bg-primary/90">
                 Subscribe
               </Button>
             </div>
@@ -91,7 +95,7 @@ export function Footer() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
               <div className="flex flex-col gap-4">
                 <div>
-                  <h4 className="font-semibold text-sm text-foreground">Categories</h4>
+                  <h3 className="font-semibold text-sm text-foreground">Categories</h3>
                   <span aria-hidden="true" className="mt-2 block h-0.5 w-6 rounded bg-[#D97706]" />
                 </div>
                 <ul className="flex flex-col gap-2.5">
@@ -107,7 +111,7 @@ export function Footer() {
 
               <div className="flex flex-col gap-4">
                 <div>
-                  <h4 className="font-semibold text-sm text-foreground">Important</h4>
+                  <h3 className="font-semibold text-sm text-foreground">Important</h3>
                   <span aria-hidden="true" className="mt-2 block h-0.5 w-6 rounded bg-[#D97706]" />
                 </div>
                 <ul className="flex flex-col gap-2.5">
@@ -123,7 +127,7 @@ export function Footer() {
 
               <div className="flex flex-col gap-4">
                 <div>
-                  <h4 className="font-semibold text-sm text-foreground">Legal</h4>
+                  <h3 className="font-semibold text-sm text-foreground">Legal</h3>
                   <span aria-hidden="true" className="mt-2 block h-0.5 w-6 rounded bg-[#D97706]" />
                 </div>
                 <ul className="flex flex-col gap-2.5">
@@ -144,7 +148,7 @@ export function Footer() {
 
           <div className="w-full shrink-0 rounded-3xl border border-[#064E3B]/15 bg-[#064E3B]/5 p-6 md:p-8 lg:w-[28rem]">
             <div className="mb-4">
-              <h4 className="font-semibold text-sm text-foreground">Guides</h4>
+              <h3 className="font-semibold text-sm text-foreground">Guides</h3>
               <span aria-hidden="true" className="mt-2 block h-0.5 w-6 rounded bg-[#D97706]" />
             </div>
             <ul className="mb-5 flex flex-col gap-3">

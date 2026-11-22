@@ -280,7 +280,7 @@ export const TOOL_CONTENT_B1: Record<string, ToolContentEntry> = {
       },
       {
         "question": "What is the HSA contribution limit for 2026?",
-        "answer": "For 2026 the HSA limit is $4,400 for self-only coverage and $8,750 for family coverage, plus $1,000 from age 55. Contributions made through payroll escape federal income tax and payroll tax alike, which makes the HSA the most tax-efficient deduction on this page. You need a high-deductible health plan to contribute."
+        "answer": "For 2026, the HSA limit is $4,400 self-only and $8,750 family, plus $1,000 from age 55. Payroll contributions escape federal income tax and payroll tax alike, which makes the HSA the most tax-efficient deduction on this page. You need a high-deductible health plan to contribute."
       },
       {
         "question": "How much tax does a 401(k) contribution save?",
@@ -343,11 +343,11 @@ export const TOOL_CONTENT_B1: Record<string, ToolContentEntry> = {
       },
       {
         "question": "Am I exempt from overtime because I am salaried?",
-        "answer": "Not automatically. The federal exemption needs both a salary of at least $684 a week, $35,568 a year, and duties that qualify as executive, administrative or professional. Below that salary, the job cannot be exempt however senior the title sounds, and overtime is owed. The $684 figure was formally restored in 2026 after a court vacated the higher 2024 threshold."
+        "answer": "Not automatically. The federal exemption needs two things: pay of at least $684 a week ($35,568 a year), and executive, administrative or professional duties. Under that salary the job cannot be exempt — the title does not matter, however senior it sounds, and overtime is owed. The $684 figure was formally restored in 2026 after a court vacated the higher 2024 threshold."
       },
       {
         "question": "What is double time and when is it paid?",
-        "answer": "Double time pays twice your regular rate instead of 1.5 times. Federal law does not require it, so it comes from state law, union contracts or employer policy. California requires double time for hours past 12 in a day. Enter those hours in the double-time field so they are priced at twice your rate instead of time-and-a-half."
+        "answer": "Double time pays twice your regular rate instead of 1.5 times. Federal law does not require it, so it comes from state law, union contracts or employer policy. California requires double time for hours past 12 in a day. Put those hours in the double-time field so they are priced at twice your rate instead of time-and-a-half."
       },
       {
         "question": "How much is 8 hours of overtime at $30 an hour?",
@@ -465,7 +465,7 @@ export const TOOL_CONTENT_B1: Record<string, ToolContentEntry> = {
       },
       {
         "question": "Does this calculator include benefits?",
-        "answer": "No. It converts gross pay only. A salaried job usually includes health insurance, paid leave and retirement matching that an hourly or freelance rate must cover out of pocket. Compare the hourly figures first, then value the benefits separately before choosing between offers, because a salary with strong benefits can beat a higher hourly rate."
+        "answer": "No. It converts gross pay only. A salaried job usually bundles health insurance, paid leave and retirement matching — costs an hourly or freelance rate must cover out of pocket. Compare the hourly figures first, then value the benefits separately before choosing between offers, because a salary with strong benefits can beat a higher hourly rate."
       },
       {
         "question": "What is $45 an hour annually?",
@@ -516,11 +516,11 @@ export const TOOL_CONTENT_B1: Record<string, ToolContentEntry> = {
       },
       {
         "question": "When are quarterly estimated tax payments due?",
-        "answer": "For 2026 the due dates are April 15, June 15 and September 15, 2026, then January 15, 2027. The IRS expects a payment each quarter because nobody withholds from a 1099 check. The calculator divides your total by four for the quarterly figure. Miss a date and the underpayment penalty is figured separately for each quarter."
+        "answer": "For 2026 the due dates are April 15, June 15 and September 15, then January 15, 2027. The IRS expects a payment each quarter because nobody withholds from a 1099 check. The calculator divides your total by four for the quarterly figure. Miss a date and the underpayment penalty is worked out separately for each quarter."
       },
       {
         "question": "What is the self-employment tax rate?",
-        "answer": "Self-employment tax is 15.3% of 92.35% of net profit: 12.4% for Social Security and 2.9% for Medicare. Below the wage base that works out to 14.13% of net profit. The Social Security part stops once combined wages and self-employment earnings reach $184,500 in 2026. You must file Schedule SE once net earnings reach $400."
+        "answer": "It is 15.3% of 92.35% of net profit — 12.4% Social Security and 2.9% Medicare. Below the wage base that works out to 14.13% of net profit. The Social Security part stops at the 2026 wage base of $184,500, counting combined wages and self-employment earnings. You must file Schedule SE once net earnings reach $400."
       },
       {
         "question": "What expenses can I deduct as a freelancer?",
@@ -701,7 +701,7 @@ export const TOOL_CONTENT_B1: Record<string, ToolContentEntry> = {
       },
       {
         "question": "Do platform fees change my markup?",
-        "answer": "No, but they change what your margin is worth. Both figures here are gross, before platform fees, payment processing, shipping and ads. A 40% gross margin on a marketplace that takes 15% leaves 25% before ads. Run the fee calculators for your channel after pricing, and treat the margin here as the starting point."
+        "answer": "No, but they change what your margin is worth. Both figures here are gross, before platform fees, payment processing, shipping and ads. A 40% gross margin on a marketplace taking 15% leaves 25% before ads. Run your channel's fee calculators after pricing, and treat the margin here as the starting point."
       }
     ],
     "sources": [
@@ -756,7 +756,7 @@ export const TOOL_CONTENT_B1: Record<string, ToolContentEntry> = {
       },
       {
         "question": "How do I price to keep a 30% margin after Etsy fees?",
-        "answer": "Use the reverse solver: enter your target margin and it works out the listing price that leaves that margin after every fee and your costs. On the example item, a 30% target needs a $29.63 price with $5 shipping. Anything below that, and the fees eat the margin you planned. Price from the margin, not from a round number."
+        "answer": "Use the reverse solver: it works out the listing price that leaves your target margin after fees and costs. On the example item, a 30% target needs a $29.63 price with $5 shipping. Anything below that, and the fees eat the margin you planned. Price from the margin, not from a round number."
       },
       {
         "question": "Does Etsy charge fees on gift wrap?",
@@ -791,7 +791,7 @@ export const TOOL_CONTENT_B1: Record<string, ToolContentEntry> = {
     "faqs": [
       {
         "question": "What is eBay's final value fee in 2026?",
-        "answer": "For most categories it is 13.6% of the total amount of the sale up to $7,500 per item, then 2.35% on the portion above $7,500, plus a $0.30 or $0.40 per-order fee. Coins and select trading cards pay 13.25%, books, movies and music pay 15.3%, guitars and basses pay 6.7%, and athletic shoes over $150 pay 8% with no per-order fee. The rate field in the calculator is editable for your category."
+        "answer": "For most categories, 13.6% of the total sale up to $7,500 per item, then 2.35% above that, plus a $0.30 or $0.40 per-order fee. Category rates differ: coins and select trading cards 13.25%, books, movies and music 15.3%, guitars and basses 6.7%, athletic shoes over $150 8% with no per-order fee. The rate field in the calculator is editable for your category."
       },
       {
         "question": "Does eBay charge fees on shipping and tax?",
@@ -850,7 +850,7 @@ export const TOOL_CONTENT_B1: Record<string, ToolContentEntry> = {
       },
       {
         "question": "Do I pay extra for using PayPal or Stripe on Shopify?",
-        "answer": "Yes, unless you use Shopify Payments as your primary provider. Shopify adds a transaction fee on top of a third-party gateway's own fee: 2% on Basic, 1% on Grow, 0.6% on Advanced and 0.2% on Plus. That is why the calculator assumes Shopify Payments."
+        "answer": "Yes, unless you use Shopify Payments as your primary provider. Shopify adds a transaction fee on top of a third-party gateway's own fee: 2% Basic, 1% Grow, 0.6% Advanced, 0.2% Plus. That is why the calculator assumes Shopify Payments."
       },
       {
         "question": "Does the calculator include the monthly plan cost?",
@@ -1153,11 +1153,11 @@ export const TOOL_CONTENT_B1: Record<string, ToolContentEntry> = {
       },
       {
         "question": "What is break-even ROAS at a 30% margin?",
-        "answer": "It is 3.33x: one divided by 0.30. At a 50% margin it is 2.0x, at 25% it is 4.0x and at 20% it is 5.0x. The relationship is not linear, so a small margin cut has a large effect: dropping from 50% to 40% margin pushes break-even ROAS from 2.0x to 2.5x. Thin margins need much stronger ads."
+        "answer": "It is 3.33x: one divided by 0.30. At a 50% margin it is 2.0x; at 25%, 4.0x; at 20%, 5.0x. The relationship is not linear — a small margin cut has a large effect. A drop from 50% to 40% margin moves break-even ROAS from 2.0x to 2.5x. Thin margins need much stronger ads."
       },
       {
         "question": "How does a discount change my break-even ROAS?",
-        "answer": "A 10% discount on the $80 example cuts the price to $72 and the margin from 50% to 44.4%, pushing break-even ROAS from 2.0x to 2.25x. The discount looks small on the price tag and large on the ad account: the ROAS the business needs rises by an eighth. Discounting to win sales can quietly make the ad account unprofitable."
+        "answer": "A 10% discount on the $80 example cuts the price to $72 and the margin from 50% to 44.4%, pushing break-even ROAS from 2.0x to 2.25x. A small cut on the price tag is a large one on the ad account: the ROAS the business needs rises by an eighth. Discounting to win sales can quietly make the ad account unprofitable."
       },
       {
         "question": "How do I calculate ROAS from my store data?",

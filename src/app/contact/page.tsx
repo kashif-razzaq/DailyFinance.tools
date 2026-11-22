@@ -5,21 +5,21 @@ import { isValidContactType, type ContactInquiryType } from "@/lib/contact"
 import { ContactForm } from "./ContactForm"
 
 export const metadata: Metadata = {
-  title: "Contact DailyFinance — Corrections, Tool Requests & Inquiries",
+  title: "Contact DailyFinance — Corrections & Tool Requests",
   description: "Contact the DailyFinance team: report a calculator error, request a new tool, or ask about partnerships and embeds. We read every message.",
   alternates: { canonical: "https://www.dailyfinance.tools/contact" },
   openGraph: {
-    title: "Contact DailyFinance — Corrections, Tool Requests & Inquiries",
+    title: "Contact DailyFinance — Corrections & Tool Requests",
     description: "Contact the DailyFinance team: report a calculator error, request a new tool, or ask about partnerships and embeds. We read every message.",
     url: "https://www.dailyfinance.tools/contact",
     siteName: "Daily Finance Tools",
     locale: "en_US",
     type: "website",
-    images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Contact DailyFinance — Corrections, Tool Requests & Inquiries" }],
+    images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Contact DailyFinance — Corrections & Tool Requests" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Contact DailyFinance — Corrections, Tool Requests & Inquiries",
+    title: "Contact DailyFinance — Corrections & Tool Requests",
     description: "Contact the DailyFinance team: report a calculator error, request a new tool, or ask about partnerships and embeds. We read every message.",
     images: ["https://www.dailyfinance.tools/images/og-base.jpg"],
   },

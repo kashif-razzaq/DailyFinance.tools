@@ -40,7 +40,7 @@ export function MoneyInput({
           type="number"
           value={value === 0 ? '' : value}
           onChange={(e) => onChange(num(e.target.value))}
-          className="pl-7 font-mono"
+          className="h-12 pl-7 font-mono"
         />
       </div>
       {hint && <p className="text-xs text-muted-foreground">{hint}</p>}

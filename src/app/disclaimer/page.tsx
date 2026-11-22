@@ -3,21 +3,21 @@ import { LegalPage } from "@/components/layout/LegalPage"
 import { breadcrumb, stringifyJsonLd } from "@/lib/schema"
 
 export const metadata: Metadata = {
-  title: "Disclaimer | DailyFinance",
+  title: "Disclaimer — Educational Estimates, Not Financial Advice",
   description: "DailyFinance calculators provide educational estimates, not financial, tax or investment advice. Read the limits before relying on any result.",
   alternates: { canonical: "https://www.dailyfinance.tools/disclaimer" },
   openGraph: {
-    title: "Disclaimer | DailyFinance",
+    title: "Disclaimer — Educational Estimates, Not Financial Advice",
     description: "DailyFinance calculators provide educational estimates, not financial, tax or investment advice. Read the limits before relying on any result.",
     url: "https://www.dailyfinance.tools/disclaimer",
     siteName: "Daily Finance Tools",
     locale: "en_US",
     type: "website",
-    images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Disclaimer | DailyFinance" }],
+    images: [{ url: "https://www.dailyfinance.tools/images/og-base.jpg", width: 1376, height: 768, alt: "Disclaimer — Educational Estimates, Not Financial Advice" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Disclaimer | DailyFinance",
+    title: "Disclaimer — Educational Estimates, Not Financial Advice",
     description: "DailyFinance calculators provide educational estimates, not financial, tax or investment advice. Read the limits before relying on any result.",
     images: ["https://www.dailyfinance.tools/images/og-base.jpg"],
   },

@@ -135,7 +135,7 @@ export function FloatingConsultationBubble() {
               e.stopPropagation()
               dismiss()
             }}
-            className="absolute -top-2.5 -right-2.5 bg-background border shadow-md rounded-full p-2 z-10 hover:bg-muted transition-colors"
+            className="absolute -top-2.5 -right-2.5 flex h-12 w-12 items-center justify-center bg-background border shadow-md rounded-full z-10 hover:bg-muted transition-colors"
           >
             <X className="h-4 w-4 text-muted-foreground" />
           </button>

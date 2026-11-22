@@ -209,7 +209,7 @@ export function HeaderSearch() {
                 type="button"
                 onClick={close}
                 aria-label="Close search"
-                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
               >
                 <X className="h-5 w-5" />
               </button>

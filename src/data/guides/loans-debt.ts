@@ -687,6 +687,10 @@ export const GUIDES_LOANS_DEBT: Guide[] = [
       {
         "label": "CFPB — What Is a Qualified Mortgage?",
         "url": "https://www.consumerfinance.gov/ask-cfpb/what-is-a-qualified-mortgage-en-1789/"
+      },
+      {
+        "label": "eCFR — 38 CFR § 36.4340, VA underwriting standards (41% DTI and residual income)",
+        "url": "https://www.ecfr.gov/current/title-38/section-36.4340"
       }
     ],
     "cornerstone": false,

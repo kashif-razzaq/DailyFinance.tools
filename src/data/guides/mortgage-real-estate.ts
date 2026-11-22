@@ -513,6 +513,10 @@ export const GUIDES_MORTGAGE_REAL_ESTATE: Guide[] = [
       {
         "label": "CFPB — What is a debt-to-income ratio?",
         "url": "https://www.consumerfinance.gov/ask-cfpb/what-is-a-debt-to-income-ratio-en-1791/"
+      },
+      {
+        "label": "Freddie Mac — How Much Home Can I Afford?",
+        "url": "https://myhome.freddiemac.com/blog/homebuying/how-much-can-you-afford"
       }
     ],
     "title": "How Much House Can You Actually Afford? (28/36 Rule Explained)",
@@ -720,6 +724,10 @@ export const GUIDES_MORTGAGE_REAL_ESTATE: Guide[] = [
       {
         "label": "CFPB — Consider whether it's the right time for you to buy",
         "url": "https://www.consumerfinance.gov/owning-a-home/prepare/consider-whether-its-the-right-time-for-you-to-buy/"
+      },
+      {
+        "label": "FHFA — House Price Index",
+        "url": "https://www.fhfa.gov/data/house-price-index"
       }
     ],
     "title": "Renting vs Buying a Home: The Real Costs Compared (2026)",
@@ -1486,6 +1494,10 @@ export const GUIDES_MORTGAGE_REAL_ESTATE: Guide[] = [
       {
         "label": "CFPB — Mortgage key terms (bi-weekly payment)",
         "url": "https://www.consumerfinance.gov/consumer-tools/mortgages/answers/key-terms/"
+      },
+      {
+        "label": "Freddie Mac — Is There a Faster Way to Be Mortgage-Free?",
+        "url": "https://myhome.freddiemac.com/blog/homeownership/pay-off-mortgage-faster"
       }
     ],
     "title": "How Biweekly Mortgage Payments Work (and the Free Way to Copy Them)",
@@ -1497,11 +1509,11 @@ export const GUIDES_MORTGAGE_REAL_ESTATE: Guide[] = [
     "description": "Buy your first home step by step: affordability, down payment, pre-approval, offers, inspection, and closing — with worked examples on a $350,000 home.",
     "faqs": [
       {
-        "answer": "More than the down payment. On a $350,000 home with 10% down, expect $35,000 for the down payment plus closing costs of roughly $6,300 to $15,750 (the CFPB's typical 2% to 5% of the loan), plus moving costs and an emergency reserve. A realistic cash target is $45,000 to $55,000, and you should still have savings left over after closing.",
+        "answer": "Budget beyond the down payment. A $350,000 purchase with 10% down means $35,000 at closing, and closing costs typically add another $6,300 to $15,750 — the CFPB's usual 2% to 5% of the loan. Add moving costs and a reserve for the first repairs, and the cash you need lands around $45,000 to $55,000. Plan to still have savings left when the keys change hands.",
         "question": "How much money do I need to buy my first home?"
       },
       {
-        "answer": "There is no single minimum. FHA loans accept a 580 score with 3.5% down, or 500 to 579 with 10% down. Conventional lenders commonly look for 620 or higher. Scores in the mid-700s and above get the best rates. Whatever your score, check your credit reports for errors months before you apply — a correction can change your rate.",
+        "answer": "No one number applies to every loan. With an FHA loan, a 580 score qualifies for 3.5% down; scores of 500 to 579 need 10% down. Conventional loans generally want 620 or higher, and the lowest rates go to borrowers in the mid-700s and above. Pull your credit reports months before applying and dispute any errors — a corrected report can move your rate.",
         "question": "What credit score do I need to buy a house?"
       },
       {
