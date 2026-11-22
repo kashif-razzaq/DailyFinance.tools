@@ -8,12 +8,15 @@ import { ChevronDown, ArrowRight, Crown } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 /**
- * Featured tools per category — the six flagships a visitor is most likely
- * looking for. The menu shows these and links to the category page for the
- * rest, so the panel stays the same compact height no matter how many tools
- * a category holds (Personal Wealth has 29). Slugs resolve against the
- * registry; a missing slug is skipped, never rendered broken. A category
- * with no entry here falls back to its first six registry tools.
+ * Featured tools per category — the eight flagships a visitor is most likely
+ * looking for, shown 2 columns × 4 rows. The menu shows these and links to
+ * the category page for the rest, so the panel stays the same compact height
+ * no matter how many tools a category holds (Personal Wealth has 29). Slugs
+ * resolve against the registry; a missing slug is skipped, never rendered
+ * broken. A category with no entry here falls back to its first eight
+ * registry tools. Categories with fewer than eight tools (Tax has 7, Pro
+ * has 5) simply show what they have — Pro fills its sixth cell with the
+ * launching-soon card.
  */
 const FEATURED: Record<string, string[]> = {
   freelance: [
@@ -23,6 +26,8 @@ const FEATURED: Record<string, string[]> = {
     '1099-tax-calculator',
     'w2-vs-1099-calculator',
     'stripe-paypal-fee-calculator',
+    'freelance-emergency-fund-calculator',
+    'freelance-project-pricing-calculator',
   ],
   creator: [
     'youtube-adsense-estimator',
@@ -31,6 +36,8 @@ const FEATURED: Record<string, string[]> = {
     'youtube-cpm-calculator',
     'tiktok-creator-fund-calculator',
     'platform-fee-visualizer',
+    'patreon-tier-optimization',
+    'course-launch-revenue-calculator',
   ],
   ecommerce: [
     'profit-margin-calculator',
@@ -39,6 +46,8 @@ const FEATURED: Record<string, string[]> = {
     'shopify-margin-calculator',
     'ebay-fee-calculator',
     'etsy-fee-calculator',
+    'target-roas-break-even-calculator',
+    'customer-acquisition-cost-calculator',
   ],
   'real-estate': [
     'mortgage-payment-calculator',
@@ -47,6 +56,8 @@ const FEATURED: Record<string, string[]> = {
     'rent-vs-buy-calculator',
     'mortgage-payoff-calculator',
     'down-payment-calculator',
+    'closing-cost-calculator',
+    'home-equity-calculator',
   ],
   'personal-wealth': [
     'compound-interest-scaler-calculator',
@@ -55,6 +66,8 @@ const FEATURED: Record<string, string[]> = {
     'savings-calculator',
     'social-security-calculator',
     'investment-calculator',
+    'credit-card-payoff-calculator',
+    'emergency-fund-visualizer',
   ],
   loans: [
     'loan-calculator',
@@ -63,6 +76,8 @@ const FEATURED: Record<string, string[]> = {
     'credit-card-calculator',
     'debt-to-income-ratio-calculator',
     'apr-calculator',
+    'personal-loan-calculator',
+    'student-loan-calculator',
   ],
   tax: [
     'paycheck-calculator',
@@ -71,6 +86,7 @@ const FEATURED: Record<string, string[]> = {
     'salary-calculator',
     'take-home-pay-calculator',
     'overtime-calculator',
+    'capital-gains-tax-calculator',
   ],
   pro: [
     'monte-carlo-retirement-simulator',
@@ -94,7 +110,7 @@ export function MegaMenu() {
 
   // Featured tools for the active category, resolved against the registry.
   const bySlug = new Map(activeCategory.calculators.map((c) => [c.slug, c]))
-  const featuredSlugs = FEATURED[activeCategory.slug] ?? activeCategory.calculators.slice(0, 6).map((c) => c.slug)
+  const featuredSlugs = FEATURED[activeCategory.slug] ?? activeCategory.calculators.slice(0, 8).map((c) => c.slug)
   const featured = featuredSlugs
     .map((slug) => bySlug.get(slug))
     .filter((c): c is NonNullable<typeof c> => c !== undefined)
@@ -149,12 +165,12 @@ export function MegaMenu() {
         <ChevronDown className={cn("h-4 w-4 transition-transform duration-300", isOpen && "rotate-180")} />
       </button>
 
-      {/* Full-width brand panel: emerald rail + six featured tools.
+      {/* Full-width brand panel: emerald rail + eight featured tools.
           Fixed height for every category — the full list lives on the
           category page, linked from the header. */}
       {isRendered && (
         <div className={cn(
-          "absolute top-16 left-4 right-4 md:left-8 md:right-8 bg-background border border-border/60 shadow-[0_24px_48px_-16px_rgba(6,78,59,0.18)] rounded-2xl overflow-hidden duration-100 z-50 flex origin-top",
+          "absolute top-16 left-4 right-4 md:left-8 md:right-8 bg-background border border-border/60 shadow-[0_24px_48px_-16px_rgba(6,78,59,0.18)] rounded-2xl overflow-hidden duration-100 z-50 flex min-h-[636px] origin-top",
           isOpen
             ? "animate-in fade-in-0 zoom-in-95"
             : "animate-out fade-out-0 zoom-out-95 fill-mode-forwards"
@@ -207,7 +223,7 @@ export function MegaMenu() {
             </div>
           </div>
 
-          {/* Right content: six featured tools + view-all link */}
+          {/* Right content: eight featured tools + view-all link */}
           <div className="flex-1 p-8 flex flex-col bg-background">
             <div className="mb-7 flex items-start justify-between gap-6">
               <div>
@@ -225,7 +241,7 @@ export function MegaMenu() {
             {/* Grid is vertically centred in the remaining space so the panel
                 never shows a void under the two rows. */}
             <div className="flex flex-1 flex-col justify-center">
-            <div className="grid grid-cols-3 gap-x-6 gap-y-2">
+            <div className="grid grid-cols-2 gap-x-6 gap-y-2">
               {featured.map((calc) => {
                 const CalcIcon = calc.icon
                 return (
@@ -253,7 +269,8 @@ export function MegaMenu() {
                 )
               })}
 
-              {/* Pro has five tools — the sixth cell is an honest Pro card. */}
+              {/* Pro has five tools — the launching-soon card takes the sixth
+                  cell, beside the fifth tool. */}
               {activeCategory.slug === 'pro' && (
                 <Link
                   href="/pricing"
