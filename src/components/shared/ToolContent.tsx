@@ -15,6 +15,8 @@ import { navigationCategories } from "@/config/navigation"
  *   2. "How the <Tool> works, step by step" — numbered step cards
  *   3. The formula — dark banner (when the tool has one)
  *   4. Worked example — worksheet-style dashed card, with real numbers
+ *   5. Assumptions & limitations — what the model assumes and does not
+ *      cover (entry.assumptions; rendered only when the entry carries it)
  *
  * FAQs are NOT rendered here: ToolLayout renders them from its faqs prop
  * (and emits the FAQ schema), so pages pass entry.faqs to ToolLayout.
@@ -123,6 +125,23 @@ export function ToolContent({ contentKey }: { contentKey: string }) {
           </p>
         </div>
       </section>
+
+      {entry.assumptions && entry.assumptions.length > 0 && (
+        <section id="assumptions" aria-label="Assumptions and limitations" className="mt-12 scroll-mt-24">
+          <div className="content-prose">
+            <h2>Assumptions &amp; limitations</h2>
+          </div>
+          <div className="not-prose mt-6 rounded-2xl border border-neutral-200 bg-white p-5 dark:border-neutral-800 dark:bg-neutral-950 md:p-6">
+            <ul className="m-0 list-disc space-y-2.5 pl-5">
+              {entry.assumptions.map((assumption, i) => (
+                <li key={i} className="text-base leading-relaxed text-neutral-700 dark:text-neutral-300">
+                  {assumption}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      )}
     </div>
   )
 }

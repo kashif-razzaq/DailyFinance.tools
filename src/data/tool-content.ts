@@ -15,6 +15,15 @@ export interface ToolContentEntry {
   faqs: { question: string; answer: string }[];
   /** 1–2 verified primary-source URLs (framework: every page cites sources). */
   sources?: { label: string; url: string }[];
+  /**
+   * 2–4 tool-specific assumptions & limitations — what the model assumes
+   * and does NOT cover, grounded in the tool's own calculation code.
+   * Rendered after the worked example in ToolContent. NOT counted in the
+   * 500–600 word band (check-wordcount.mjs counts only
+   * quickAnswer/howItWorks/formula/example). Required: every entry must
+   * carry it (verified by the assumptions coverage check, Nov 2026).
+   */
+  assumptions: string[];
 }
 
 export const TOOL_CONTENT: Record<string, ToolContentEntry> = {

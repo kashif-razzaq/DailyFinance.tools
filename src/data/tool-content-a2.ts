@@ -15,6 +15,12 @@ export const TOOL_CONTENT_A2: Record<string, ToolContentEntry> = {
       "title": "Worked example: $6,500 at 24.99% APR, $250 a month",
       "body": "Month one: interest is $6,500 × 24.99% ÷ 12, about $135, so $115 of the $250 reduces the balance. As the balance falls, the interest share shrinks and the principal share grows. The debt clears in month 38, and total interest is $2,957 — about 46 cents of interest per dollar borrowed. The minimum-payment path on the same balance takes 262 months, nearly 22 years, and costs $12,402 of interest. Raise the payment to $350 and the debt clears in about 24 months with roughly $1,804 of interest, saving $1,153 for $100 more a month. The calculator also shows the debt-free date, so the 38 months become a calendar month you can plan around."
     },
+    "assumptions": [
+      "The APR stays fixed for the whole payoff period. Card APRs are usually variable and move with the prime rate, so a rate rise would lengthen the payoff and raise total interest.",
+      "No new charges, fees, late payments or cash advances are added. The simulation charges interest on the starting balance only and subtracts the same payment each month until it reaches zero.",
+      "The minimum-payment path is a model, not your issuer's formula: interest plus 1% of the balance, with a $25 floor. Issuers differ, so your actual minimums may be higher or lower.",
+      "Payments are assumed on time and in full every month. A missed payment would add fees and could trigger a penalty APR, neither of which the calculator includes."
+    ],
     "faqs": [
       {
         "question": "How are credit card minimum payments calculated?",
@@ -74,6 +80,12 @@ export const TOOL_CONTENT_A2: Record<string, ToolContentEntry> = {
       "title": "Worked example: two cards, $400 a month total",
       "body": "Store card: $2,400 at 12% APR, $60 minimum. Credit card: $4,800 at 28% APR, $110 minimum. Minimums total $170, leaving $230 of attack money on a $400 monthly budget. Avalanche sends the $230 to the 28% card: all debt gone in 24 months, interest $1,511. Snowball sends it to the store card, clearing it in month 9 for motivation: debt-free in 27 months, interest $2,182. Same payments, same debts — the order costs $671 and three extra months, and the price of the early win is exactly $671."
     },
+    "assumptions": [
+      "Each debt's minimum payment stays at the dollar amount you enter for the whole simulation. Real card minimums usually shrink as the balance falls, which would stretch the payoff.",
+      "The extra monthly amount stays fixed, and a cleared debt's minimum is not redirected to the next target — the total monthly outlay falls as debts clear. A plan that keeps paying the same total every month would finish sooner.",
+      "APRs stay fixed and no new charges, fees or rate changes occur during the payoff. A promotional rate ending or a penalty APR would change both timelines.",
+      "The comparison covers up to three debts. Debts you leave out — or minimums you cannot actually pay — are not in either result."
+    ],
     "faqs": [
       {
         "question": "Is the avalanche method always cheaper?",
@@ -133,6 +145,12 @@ export const TOOL_CONTENT_A2: Record<string, ToolContentEntry> = {
       "title": "Worked example: $37,000 at 6.5%, $400 a month plus $100 extra",
       "body": "Month one: interest is $37,000 × 6.5% ÷ 12, about $200, so $200 of the $400 payment reduces principal. At $400 a month the balance clears in month 129 — 10 years and 9 months — with total interest of $14,479. Pay $500 instead and the balance clears in month 95, just under 8 years, with $10,410 of interest. The extra $100 a month, $9,500 in total, removes $4,070 of interest and 34 payments. The standard 10-year payment on this loan would be $420.13, so even the $500 payment is only $80 above standard — a modest overpayment with a large effect."
     },
+    "assumptions": [
+      "The interest rate stays fixed for the life of the loan and every payment is made on time. Federal loan rates are fixed, but a variable-rate private loan could move.",
+      "Extra payments go entirely to principal. Some servicers apply extra money to future bills instead, which does not shorten the loan the same way — confirm the treatment with yours.",
+      "No fees, forbearance, deferment or income-driven repayment are modeled. The calculator assumes a standard amortizing loan with one fixed payment and no missed months.",
+      "The student loan interest tax deduction is not counted. Up to $2,500 of interest a year may be deductible, which slightly reduces the effective cost of the interest shown."
+    ],
     "faqs": [
       {
         "question": "What is the standard federal student loan repayment term?",
@@ -192,6 +210,12 @@ export const TOOL_CONTENT_A2: Record<string, ToolContentEntry> = {
       "title": "Worked example: $120,000 of income, $15,000 employee contribution, age 35 to 65",
       "body": "Starting balance $40,000, return 7%, 30 years. W-2 scenario: you defer $15,000 and your employer matches 4% of salary — $4,800 — for $19,800 a year going in, projecting to $2,174,814 at 65. Solo scenario: you defer the same $15,000 as employee, then your business adds $15,000 of profit-sharing, for $30,000 a year, projecting to $3,138,314. The $10,200 annual contribution gap becomes a $963,500 gap at retirement. Maxing the Solo side — a $24,500 deferral plus $30,000 of profit-sharing — puts $54,500 a year in, still inside the $72,000 combined limit."
     },
+    "assumptions": [
+      "Both scenarios earn the same constant return every year, with no market ups and downs. Real returns vary year to year, and the order of good and bad years changes the outcome.",
+      "Contributions stay flat in dollar terms for the whole projection — no salary growth, no inflation, and no annual increase in the IRS limits. The 2026 limits ($24,500 employee deferral, $72,000 combined) are applied to every year, with an $8,000 catch-up from age 50; the $11,250 catch-up for ages 60 to 63 is not modeled.",
+      "The profit-sharing figure is taken as entered; the calculator does not check it against the 25%-of-compensation rule or the roughly 20% effective limit for sole proprietors. Your tax adviser computes the exact maximum.",
+      "Results are pre-tax balances with no fees. Withdrawals from a traditional 401(k) are taxed as ordinary income, and plan fees reduce the return — neither is modeled."
+    ],
     "faqs": [
       {
         "question": "What is the 401(k) contribution limit for 2026?",
@@ -251,6 +275,12 @@ export const TOOL_CONTENT_A2: Record<string, ToolContentEntry> = {
       "title": "Worked example: coast number at 30 for retirement at 65",
       "body": "Planned retirement spending: $50,000 a year, so the full pot target is $50,000 × 25 = $1,250,000. Discount at 7% over 35 years: $1,250,000 ÷ 1.07^35 = $117,079. Invest roughly $117,000 by age 30 and, if 7% materialises, the pot reaches $1,250,000 at 65 with no further contributions. Already holding $50,000 at 30 leaves a gap of about $67,000 — at $500 a month, roughly 70 months of contributing before you can coast. Already past the number? The calculator reports 'Already Coasting' and the gap shows as zero."
     },
+    "assumptions": [
+      "The full retirement pot is 25 times annual spending, the inverse of a 4% withdrawal rate. That guideline was derived for roughly 30-year retirements from US market data, not for a 40- or 50-year retirement.",
+      "The return is constant every year and is taken exactly as entered. Enter a real (after-inflation) return if your spending target is in today's dollars; a nominal return overstates your progress.",
+      "Social Security, pensions, taxes and investment fees are not in the model. Any benefit income would shrink the target pot, while taxes and fees would raise it.",
+      "The monthly contribution stays the same until the coast number is reached, and no withdrawals happen before retirement age."
+    ],
     "faqs": [
       {
         "question": "Where does the 25× spending figure come from?",
@@ -310,6 +340,12 @@ export const TOOL_CONTENT_A2: Record<string, ToolContentEntry> = {
       "title": "Worked example: $80,000 invested, $1,500 a month saved, 7% return",
       "body": "Lean FIRE at $3,000 a month: target $900,000, reached in about 17.8 years. Fat FIRE at $10,000 a month: target $3,000,000, reached in about 32.5 years. The fat lifestyle costs roughly 14.8 extra years of saving on this plan. The middle ground — $6,000 a month, a $1,800,000 target — lands in about 25.9 years. Raising the monthly saving from $1,500 to $3,000 would cut the fat timeline from 32.5 years to about 25.5, which is why income growth directed entirely to saving is the lever that moves these dates most."
     },
+    "assumptions": [
+      "Both targets are 25 times annual spending, the inverse of the 4% withdrawal guideline. For a retirement starting in your 30s or 40s, a 3.25% to 3.5% withdrawal rate — a 29× to 31× pot — is a more common planning choice.",
+      "The return is the same every year, with no market crashes or booms. A bad sequence of returns early on would push both dates out, even if the average return matched.",
+      "Monthly saving stays flat in dollar terms for the entire timeline. No raises, no contribution increases, and no inflation adjustment to either the saving or the spending targets.",
+      "Taxes, fees and Social Security are excluded. Withdrawals from pre-tax accounts are taxed, fees drag the return, and benefit income would lower the target."
+    ],
     "faqs": [
       {
         "question": "What spending levels count as lean and fat FIRE?",
@@ -369,6 +405,12 @@ export const TOOL_CONTENT_A2: Record<string, ToolContentEntry> = {
       "title": "Worked example: $4,400 a year for 20 years at 7%, 22% bracket",
       "body": "Starting balance $5,000. Contributions total $88,000 over 20 years, so $93,000 goes in. Compounded annually at 7%, the account reaches about $199,729 — growth of roughly $106,729. Tax saved: $19,360 of income tax on the contributions, $6,732 of payroll tax (7.65% on $88,000), and $23,480 of income tax on the growth, for a total of about $49,572. The same growth in a brokerage account would owe capital gains tax, and in a traditional 401(k) full income tax on withdrawal. A family contributing the $8,750 maximum on the same terms reaches about $378,059."
     },
+    "assumptions": [
+      "The payroll-tax saving assumes every contribution goes through an employer payroll plan, which is the only route that escapes the 7.65% Social Security and Medicare tax. Contributions made directly from a bank account save income tax only.",
+      "The tax bracket stays the same for the whole period, and the growth tax saving is priced at that same marginal rate. A different bracket in retirement, or capital-gains treatment in a brokerage account, would change the total.",
+      "The same contribution is made every year, with no increase in the IRS limits and no catch-up at 55. The 2026 limits ($4,400 self-only, $8,750 family) are a note, not a cap the calculator enforces.",
+      "No withdrawals are made during the projection and the full balance is invested at the stated return. Money left in a low-interest sweep account, or spent on current medical bills, would grow far less."
+    ],
     "faqs": [
       {
         "question": "What are the HSA contribution limits for 2026?",
@@ -428,6 +470,12 @@ export const TOOL_CONTENT_A2: Record<string, ToolContentEntry> = {
       "title": "Worked example: $425,000 home, $340,000 loan at 6.75%",
       "body": "Principal and interest on $340,000 at 6.75% over 360 payments: $2,205.23. Property tax of $4,675 a year: $389.58 a month. Insurance of $1,800 a year: $150 a month. Total PITI = $2,744.82. Over the full term, the loan part alone totals $793,884 — $453,884 of interest on top of the $340,000 borrowed, which is the real price of a 30-year term. In month one, $1,912.50 of the $2,205.23 payment is interest and only $292.73 is principal."
     },
+    "assumptions": [
+      "The rate is fixed for the full term and every payment is made on time. An adjustable-rate loan would reprice, and a missed payment would add fees and interest the model does not include.",
+      "Property tax and insurance stay at the yearly figures you enter for all 30 years. In reality both rise over time, so the escrow part of the payment will grow even on a fixed-rate loan.",
+      "PMI, when it applies below 20% down, is charged at the entered rate for the whole term. The calculator does not cancel it at 80% or 78% loan-to-value, so the long-run total overstates the PMI you would actually pay.",
+      "Closing costs, maintenance and repairs are not in the payment. The figure covers principal, interest, tax, insurance, HOA and PMI only."
+    ],
     "faqs": [
       {
         "question": "How much of my first payment is interest?",
@@ -487,6 +535,12 @@ export const TOOL_CONTENT_A2: Record<string, ToolContentEntry> = {
       "title": "Worked example: $360,000 at 6.85% for 30 years",
       "body": "Payment: $2,358.93. Month one: interest $2,055, principal $303.93, balance $359,696.07. In year one you pay $28,307 and reduce the debt by only about $3,764, while $24,543 goes to interest. Total paid over 360 months: $849,216, of which $489,216 is interest. Add $200 a month and the loan clears in month 286 — 74 months early — with $370,490 of interest, saving $118,726. The crossover point where principal first exceeds interest in a monthly payment arrives in month 240 — 20 years in."
     },
+    "assumptions": [
+      "The rate is fixed and the payment never changes for the full term. The schedule assumes a fully amortizing fixed-rate loan — it does not model adjustable rates, interest-only periods or balloon payments.",
+      "The extra payment is a fixed monthly amount that cuts principal from the first month — if your servicer instead holds extra money against future bills, the payoff comes later than shown.",
+      "PMI is charged at a flat 0.5% of the loan per year whenever the down payment is under 20%, for the whole term. It is never canceled at 80% or 78% loan-to-value, so the total payment overstates the later years.",
+      "Property tax is calculated on the original purchase price at the entered rate and never rises. Tax, insurance and HOA affect the monthly payment shown, not the amortization schedule itself."
+    ],
     "faqs": [
       {
         "question": "Why is so much interest charged at the start?",
@@ -546,6 +600,12 @@ export const TOOL_CONTENT_A2: Record<string, ToolContentEntry> = {
       "title": "Worked example: $340,000 at 6.5%, 30 years, plus $200 a month",
       "body": "Scheduled payment on $340,000 at 6.5% over 360 months: $2,149.03, with $433,651 of interest over the term. Add $200 a month (total $2,349.03) and the loan clears in 284 months — 76 payments early — with $326,407 of interest. Saving: $107,244. The extra contributions total $56,800 over the period, so each extra dollar saved about $1.89 of interest. A single $10,000 lump sum instead would clear the loan in 330 months and save $54,571 — the same money, earlier, works harder."
     },
+    "assumptions": [
+      "The required payment is recalculated from the balance and remaining term you enter, as if the loan were fresh. If your actual contractual payment differs — for example, after a recast — the baseline will differ too.",
+      "Extra payments are constant every month and go entirely to principal, and any lump sum is applied immediately. The model assumes your servicer treats extra money that way and charges no prepayment penalty.",
+      "The rate stays fixed for the remaining term. An adjustable-rate mortgage would reprice, and the interest saved would change with it.",
+      "Only principal and interest are modeled. Tax, insurance, HOA and PMI continue on their own schedules and are not part of the payoff date or the interest saved."
+    ],
     "faqs": [
       {
         "question": "Is one extra payment a year as good as it sounds?",
@@ -605,6 +665,12 @@ export const TOOL_CONTENT_A2: Record<string, ToolContentEntry> = {
       "title": "Worked example: $95,000 income, $450 a month of debts, $60,000 down",
       "body": "Gross monthly income is $7,916.67. Front-end limit: 28% = $2,216.67 for housing. Back-end limit: 36% = $2,850, minus $450 of debts = $2,400 — so the front-end figure binds at $2,216.67. Assuming tax at 1.1% of value and insurance of $1,800 a year, that payment supports a price of about $331,750 with $60,000 down and a loan near $271,750 at 6.75%. The principal-and-interest share is $1,762.56 and tax is $304.10 a month. Total debt-to-income at this price is 33.7%, inside the 36% back-end cap."
     },
+    "assumptions": [
+      "The 28/36 ratios are fixed. Many lenders approve back-end ratios of 43% to 50% for strong borrowers, which would raise the ceiling — the calculator shows the conservative line.",
+      "PMI is not included in the payment, even when the result implies a loan-to-value above 80%. The real monthly cost at that price would be higher by the PMI premium.",
+      "Income, debts, tax rate and insurance are all held constant. The model does not account for raises, paying debts off, tax reassessments or premium increases over time.",
+      "Closing costs, maintenance, utilities and childcare are not counted. The ceiling is a lender's maximum on gross income, not a budget on take-home pay."
+    ],
     "faqs": [
       {
         "question": "What do lenders actually count as debts in the back-end ratio?",
@@ -664,6 +730,12 @@ export const TOOL_CONTENT_A2: Record<string, ToolContentEntry> = {
       "title": "Worked example: $320,000 from 7.5% to 6.0%",
       "body": "Current: $320,000 at 7.5% with 27 years (324 payments) left — payment $2,306.35, remaining interest about $427,257. New: $320,000 at 6.0% over 30 years — payment $1,918.56. Monthly saving $387.79; closing costs of $6,000 break even at 16 months. Lifetime saving after costs: $50,575. Refinance instead into 27 years at 6.0% (payment $1,996.75) and total interest falls to about $326,948 — a lifetime saving of $94,309 on a smaller monthly saving of $309.60, with break-even at 20 months."
     },
+    "assumptions": [
+      "Closing costs are paid in cash up front. The new loan balance equals the current balance — rolling the costs into the loan would raise the balance and shrink the monthly saving.",
+      "Both rates are fixed for their full terms, and the current payment is recalculated from the balance and years remaining rather than taken from your statement. An adjustable current rate would change the comparison.",
+      "Break-even is simple division — costs divided by monthly saving — with no time value of money. A dollar saved in year 10 is counted the same as a dollar saved next month.",
+      "Tax, insurance, PMI and any prepayment penalty on the old loan are excluded. Both payments are principal and interest only, and the lifetime saving assumes you keep the new loan to term."
+    ],
     "faqs": [
       {
         "question": "How much rate drop justifies a refinance?",
@@ -723,6 +795,12 @@ export const TOOL_CONTENT_A2: Record<string, ToolContentEntry> = {
       "title": "Worked example: $425,000 home vs $1,800 a month rent, 7 years",
       "body": "Buy: $85,000 down, $340,000 loan at 6.75% (payment $2,205.23), $8,500 of buying costs, and $3,098.98 a month all-in. Over 7 years you pay $260,314 in monthly costs; the home appreciates to $522,696 at 3% a year, and after 6% selling costs and clearing the $308,677 remaining balance you recover $182,657. Net cost of buying: $171,157. Rent at $1,800 a month rising 3% a year, plus $15 a month of renters insurance, totals $166,769. Verdict for this horizon: effectively even, with renting ahead by $4,388 — extend the stay to 8 years and buying takes the lead."
     },
+    "assumptions": [
+      "Buying and selling costs are fixed at 2% and 6% of price, and the mortgage is a 30-year fixed loan. A different term, a higher transfer tax or a lower commission would move the break-even year.",
+      "Appreciation is one constant rate applied every year, and tax, insurance and maintenance are charged on the original price. At 0% appreciation the gain vanishes and renting wins clearly.",
+      "The down payment earns nothing while it sits in the house — the comparison ignores what that cash could have earned invested, which tilts the result slightly toward buying.",
+      "No PMI is charged below 20% down and no mortgage interest deduction is counted. Most buyers take the standard deduction anyway, so the deduction omission matters less than the PMI one."
+    ],
     "faqs": [
       {
         "question": "What is the 5% rule for rent vs buy?",
@@ -782,6 +860,12 @@ export const TOOL_CONTENT_A2: Record<string, ToolContentEntry> = {
       "title": "Worked example: $425,000 home, $15,000 saved, $600 a month at 3%",
       "body": "20% down: $85,000 deposit, loan $340,000, payment at 6.75% about $2,205 a month, no PMI. 10% down: $42,500, loan $382,500, payment about $2,481 plus PMI until equity builds. 3.5% down (FHA): $14,875, loan $410,125, payment about $2,660 plus FHA mortgage insurance — 1.75% upfront and 0.55% a year on most 30-year loans. Saving for the 20% target at $600 a month earning 3% takes about 98 months — 8 years and 2 months — with $58,800 contributed and $11,200 of growth. The 10% target takes 42 months."
     },
+    "assumptions": [
+      "The home price never moves. The goal is a fixed percentage of today's price, so price growth during the saving period — about $12,750 a year at 3% on this home — is not in the timeline.",
+      "The monthly contribution and the savings return stay constant, with growth compounded monthly. A lower return, a missed month or a withdrawal would push the date out.",
+      "The goal is the down payment alone. Closing costs of 2% to 5% of the price and a cash reserve for moving in are not in the target, so the real cash needed is higher.",
+      "PMI is shown only as a note below 20% down. It is not priced into any figure — the calculator measures the saving timeline, not the cost of the loan that follows."
+    ],
     "faqs": [
       {
         "question": "What is the minimum down payment in the US?",
@@ -841,6 +925,12 @@ export const TOOL_CONTENT_A2: Record<string, ToolContentEntry> = {
       "title": "Worked example: $425,000 purchase, $340,000 loan",
       "body": "Lender and third-party fees: origination 0.5% of the loan $1,700, application and processing $500, appraisal $450, credit report and flood certificate $85, title search and settlement $1,200, title insurance 0.5% of the price $2,125, recording and transfer charges $275, prepaid interest for 15 days $943 — subtotal $7,278. Prepaids and escrow: 12 months of homeowners insurance $1,800, a 2-month insurance reserve $300, and 3 months of property tax at 1.1% of the price ($1,169) — subtotal $3,269. Total: $10,547, about 2.5% of the price. Add the $85,000 down payment and cash to close is $95,547."
     },
+    "assumptions": [
+      "Every line is a national typical estimate, not a quote for your state or lender. Transfer taxes are modeled as a flat $275, but in some cities they run to several percent of the price.",
+      "Origination is 0.5% of the loan and title insurance 0.5% of the price, with prepaid interest for exactly 15 days. Your Loan Estimate replaces all of these with actual figures.",
+      "Escrow reserves are fixed at 2 months of insurance and 3 months of property tax, and the list has no line for inspection, survey or HOA transfer fees. Lenders vary the escrow cushion they require.",
+      "Seller concessions, lender credits and discount points are not modeled. A lender credit would lower the cash to close in exchange for a higher rate, and points would raise it in exchange for a lower one."
+    ],
     "faqs": [
       {
         "question": "Who pays closing costs — buyer or seller?",
@@ -900,6 +990,12 @@ export const TOOL_CONTENT_A2: Record<string, ToolContentEntry> = {
       "title": "Worked example: $450,000 home, $285,000 mortgage",
       "body": "Equity = $450,000 − $285,000 = $165,000, which is 36.7% of the value (combined LTV 63.3%). At an 80% CLTV cap, total borrowing against the home may reach $360,000, so accessible equity is $360,000 − $285,000 = $75,000. At an 85% cap the accessible figure is $97,500, and at a 90% cap — offered by some lenders at higher rates — it rises to $120,000, but the payment and risk rise with it. None of these figures is the full $165,000: lenders keep a buffer between what you owe and what the home is worth."
     },
+    "assumptions": [
+      "The home value is your estimate, not an appraisal. A lender's valuation can come in lower, and a lower value shrinks the borrowable figure dollar for dollar at each cap.",
+      "Only two balances are counted: the first mortgage and one second loan or HELOC. Other liens or debts secured on the home would reduce the equity shown.",
+      "The borrowable amounts are arithmetic room under a loan-to-value cap, not a lender offer. Credit score, income and debt-to-income still decide whether a loan is approved and at what rate.",
+      "The figures are a snapshot at today's value. They do not project appreciation, principal repayment or the payment and rate on any new borrowing."
+    ],
     "faqs": [
       {
         "question": "How can I build equity faster?",
@@ -959,6 +1055,12 @@ export const TOOL_CONTENT_A2: Record<string, ToolContentEntry> = {
       "title": "Worked example: $2,200 a month rent, $350,000 price",
       "body": "Gross rent: $26,400 a year. Vacancy at 5%: $1,320, leaving effective gross income of $25,080. Expenses: property tax $4,200, insurance $1,500, maintenance at 5% of rent $1,320, management at 8% $2,112 — total $9,132. NOI = $25,080 − $9,132 = $15,948. Cap rate = $15,948 ÷ $350,000 = 4.56%. Finance it with 25% down at 7% and the mortgage payment is $1,746.42 a month — $20,957 a year, more than the NOI — so the property loses $5,009 a year of cash flow despite a positive cap rate."
     },
+    "assumptions": [
+      "The cap rate is a single-year snapshot. Rent, tax, insurance and expenses are held flat — no rent growth, no expense inflation and no appreciation over time.",
+      "Net operating income excludes the mortgage payment, depreciation and income tax by design. The cap rate prices the building; financing is layered on separately in the cash-on-cash figure.",
+      "Maintenance is a percentage of gross scheduled rent and management a percentage of effective gross income. There is no separate capital reserve for big items like a roof or HVAC — the maintenance line is the only reserve.",
+      "The financing overlay assumes a fixed-rate amortizing loan and a single closing-cost figure. An adjustable rate, a balloon term or higher closing costs would change the cash-on-cash return."
+    ],
     "faqs": [
       {
         "question": "What is a good cap rate?",
@@ -1018,6 +1120,12 @@ export const TOOL_CONTENT_A2: Record<string, ToolContentEntry> = {
       "title": "Worked example: $325,000 purchase, $2,950 monthly rent",
       "body": "25% down is $81,250; the $243,750 loan at 7% over 30 years costs $1,621.67 a month. Expenses: tax $325, insurance $125, vacancy at 5% of rent $147.50, maintenance at 5% $147.50, management at 8% $236, other costs $100 — total $1,081. Cash flow = $2,950 − $1,621.67 − $1,081 = $247.33 a month, $2,968 a year. NOI is $22,428 (rent minus operating expenses), a cap rate of 6.90%. Cash invested is $87,750 including 2% closing costs, so cash-on-cash return is about 3.38% — the honest summary of leverage at a 7% mortgage rate."
     },
+    "assumptions": [
+      "The result is one month, frozen in time. Rent, tax, insurance and expenses never rise, so the $247 margin does not reflect rent growth — or the cost growth that usually comes with it.",
+      "The loan is a 30-year fixed mortgage at the entered rate, with closing costs fixed at 2% of the price. A shorter term, an adjustable rate or different closing costs would change the payment and the return.",
+      "Vacancy, maintenance and management are all percentages of rent — 5%, 5% and 8% by default. A month empty, a turnover or a single large repair falls outside those smooth averages.",
+      "Income tax and depreciation are not counted, and there is no capital reserve beyond the maintenance percentage. The cash flow is pre-tax and assumes the reserves cover what breaks."
+    ],
     "faqs": [
       {
         "question": "What is the 1% rule in rental property?",

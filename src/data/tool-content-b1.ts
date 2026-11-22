@@ -25,6 +25,12 @@ export const TOOL_CONTENT_B1: Record<string, ToolContentEntry> = {
       "title": "Worked example: $60,000 salary, single filer, tax year 2026",
       "body": "Gross income is $60,000. Subtract the $16,100 standard deduction and taxable income is $43,900. The first $12,400 is taxed at 10%, giving $1,240. The remaining $31,500 falls in the 12% bracket, giving $3,780. Total federal tax is $5,020, an effective rate of 8.4%. The marginal rate is 12%, so an extra $100 of income would add $12 of tax. A $1,000 credit would cut the bill to $4,020 directly. If $6,000 had been withheld during the year, the refund would be $980. If only $4,500 had been withheld, $520 would be due at filing. The calculator shows this comparison automatically once you enter your withholding."
     },
+    "assumptions": [
+      "Federal income tax only: state income tax, Social Security and Medicare tax are not part of this estimate.",
+      "Uses the IRS-published 2026 brackets and the standard deduction of $16,100 single or $32,200 joint, unless you enter itemized deductions instead.",
+      "Credits are entered as a single lump sum and are subtracted from the tax dollar for dollar, with the result floored at zero.",
+      "Assumes all income is ordinary income taxed at the standard rates; capital gains and other preferentially taxed income are not modeled."
+    ],
     "faqs": [
       {
         "question": "What is the standard deduction for 2026?",
@@ -84,6 +90,12 @@ export const TOOL_CONTENT_B1: Record<string, ToolContentEntry> = {
       "title": "Worked example: $80,000 salary, biweekly pay, single, 2026",
       "body": "A single filer earns $80,000, is paid every two weeks, and has no state tax or pre-tax deductions. Federal tax on $63,900 of taxable income is $8,770. Social Security takes $4,960 and Medicare takes $1,160, for $6,120 of payroll tax. Total tax is $14,890, leaving $65,110 a year, or $2,504.23 per paycheck. Federal withholding is $337.31 per check and payroll tax is $235.38. Adding a 5% state tax would take another $153.85 per check. A $3,000 annual 401(k) contribution would cut federal taxable wages to $77,000, saving about $660 of federal tax and nothing on payroll tax, so net pay would fall by about $2,340 a year while $3,000 went into retirement."
     },
+    "assumptions": [
+      "Federal withholding is estimated by annualizing your pay and applying the 2026 brackets directly, not by the IRS Publication 15-T withholding tables your employer uses.",
+      "State tax is a flat percentage you choose, applied to the full salary, because state withholding tables vary too much for one formula.",
+      "401(k) contributions reduce federal income tax only; Social Security and Medicare still apply to those dollars, while HSA and pre-tax health premiums reduce both.",
+      "Assumes steady pay across all periods, with no bonuses, overtime, or W-4 adjustments in the period."
+    ],
     "faqs": [
       {
         "question": "How much tax is taken out of a biweekly paycheck?",
@@ -143,6 +155,12 @@ export const TOOL_CONTENT_B1: Record<string, ToolContentEntry> = {
       "title": "Worked example: $75,000 a year at 40 hours a week",
       "body": "A $75,000 salary at 40 hours a week for 52 weeks is 2,080 hours a year, so the hourly rate is $36.06. Weekly pay is $1,442.31, biweekly pay is $2,884.62, monthly pay is $6,250 and a single day is $288.46. After tax, a single filer keeps about $61,593 a year: federal tax is $7,670 and payroll tax is $5,738, an effective rate of 17.9%. At 50 hours a week the same salary is only $28.85 an hour. That gap is why two offers with similar salaries can feel very different: the 50-hour job pays $7.21 less for every hour worked, or about $361 less for each 50-hour week worked."
     },
+    "assumptions": [
+      "The after-tax estimate is for a single filer taking the $16,100 standard deduction, with no state tax, benefits, or pre-tax deductions.",
+      "Every period is derived from one annual figure using the hours and weeks you enter, so the hourly rate reflects your actual schedule rather than a fixed 2,080-hour year.",
+      "Daily pay assumes a five-day week, and biweekly pay divides the annual salary by 26 periods.",
+      "Overtime is not included: the conversion prices every hour at the same straight-time rate."
+    ],
     "faqs": [
       {
         "question": "How many hours are in a full-time work year?",
@@ -202,6 +220,12 @@ export const TOOL_CONTENT_B1: Record<string, ToolContentEntry> = {
       "title": "Worked example: $95,000 income, single filer, California, 2026",
       "body": "A single filer earns $95,000 and lives in California. Taxable income is $78,900 after the $16,100 standard deduction, and federal tax on it is $12,070, an effective federal rate of 12.7%. Social Security takes $5,890 and Medicare takes $1,378, for $7,268 of payroll tax. State tax at the 9.3% typical effective rate is $8,835. Total tax is $28,173, a combined effective rate of 29.7%, leaving $66,828. In Texas, with no state income tax, the same filer would keep $75,663. The $8,835 gap is the whole state layer: moving states changes nothing about the federal or payroll lines, which is why the state picker is the most consequential input after income."
     },
+    "assumptions": [
+      "State tax uses a typical effective rate for middle incomes, applied to your full gross income, not your state's bracket schedule.",
+      "Everything you enter counts as wage income — the calculator has no separate treatment for capital gains or rental income, and no deduction beyond the standard amount.",
+      "Payroll tax is figured on the full income, with Social Security stopping at the 2026 wage base of $184,500 and Medicare uncapped.",
+      "Local income taxes, such as New York City's, are not included; the state rate covers the state layer only."
+    ],
     "faqs": [
       {
         "question": "Which states have no income tax?",
@@ -261,6 +285,12 @@ export const TOOL_CONTENT_B1: Record<string, ToolContentEntry> = {
       "title": "Worked example: $90,000 salary with 401(k), HSA and health cover",
       "body": "A single filer earns $90,000, contributes 6% ($5,400) to a 401(k), puts $1,200 into an HSA, and pays $85 per biweekly check ($2,210 a year) for health insurance. Taxable wages fall to $81,190, but FICA wages fall only to $86,590, because the 401(k) deferral stays subject to payroll tax. Federal tax is $9,032, Social Security is $5,369, Medicare is $1,256 and state tax at 5% is $4,060, for a total of $19,715. Net pay is $61,475 a year, or $2,364.41 per check. With no deductions at all, federal and payroll tax would total $17,855, so the deductions save $2,199 a year; state tax falls by $441. Doubling the 401(k) to 12% would cut net pay by about $3,942 a year while adding $5,400 to retirement, because the extra deferral saves about $1,458 of tax — federal and state tax only."
     },
+    "assumptions": [
+      "State tax is a flat percentage applied to wages after pre-tax deductions, not your state's bracket schedule.",
+      "The 401(k) slider is a percentage of gross pay and is not capped at the $24,500 annual limit, so check the limit yourself if you contribute heavily.",
+      "The tax-saved figure compares federal and payroll tax with and without deductions, and excludes the state tax saving.",
+      "Health premiums are entered per paycheck and annualized by pay frequency, so the figure assumes the same premium on every check."
+    ],
     "faqs": [
       {
         "question": "What counts as a pre-tax deduction?",
@@ -320,6 +350,12 @@ export const TOOL_CONTENT_B1: Record<string, ToolContentEntry> = {
       "title": "Worked example: $25 an hour, 40 regular hours, 8 overtime hours",
       "body": "A worker earns $25 an hour and works 48 hours in a week: 40 regular hours and 8 overtime hours. Regular pay is $25 times 40, or $1,000. Overtime pays $37.50 an hour, so 8 overtime hours add $300. Total gross pay for the week is $1,300. The overtime premium is $12.50 an hour times 8 hours, or $100: that is the only part that qualifies for the federal overtime deduction. If 2 of those overtime hours had been double time instead, they would pay $100 rather than $75, and the weekly total would be $1,325. Over a full year at this pace, the premium alone would be $5,200, well inside the $12,500 annual deduction cap for single filers."
     },
+    "assumptions": [
+      "Overtime hours are priced at 1.5 times your rate and double-time hours at 2 times, using the hours you enter rather than a 40-hour threshold the calculator enforces.",
+      "The result is gross pay only: no income tax, Social Security, or Medicare is withheld from it.",
+      "The premium shown is the extra above straight time, 0.5 times the rate per overtime hour and the full rate per double-time hour, which is the part the federal overtime deduction covers.",
+      "Monthly and annual figures assume the same hours every week, 52 weeks a year."
+    ],
     "faqs": [
       {
         "question": "Is overtime pay tax-free now?",
@@ -379,6 +415,12 @@ export const TOOL_CONTENT_B1: Record<string, ToolContentEntry> = {
       "title": "Worked example: $35,000 gain after 18 months, single filer",
       "body": "You buy shares for $40,000 and sell them 18 months later for $75,000, a $35,000 gain. Your other income is $90,000, so your taxable income before the gain is $73,900 after the $16,100 standard deduction. That already passes the $49,450 ceiling for the 0% rate, so the whole gain is taxed at 15%, giving $5,250. Net proceeds are $69,750. Had you sold within a year, the gain would have been taxed at ordinary rates, costing $7,764, so holding past 12 months saves $2,514. Your modified AGI of $125,000 is below the $200,000 threshold, so no net investment income tax applies."
     },
+    "assumptions": [
+      "The gain stacks on top of your other income after the standard deduction, so your other income fills the 0% and 15% bands first.",
+      "Long-term treatment starts at more than 12 months; the calculator treats 12 months or less as short-term.",
+      "The 3.8% net investment income tax is estimated from a rebuilt MAGI of taxable income plus the standard deduction plus the gain, not from your actual MAGI.",
+      "State tax, the home-sale exclusion, the wash-sale rule, and collectibles rates are not modeled."
+    ],
     "faqs": [
       {
         "question": "How long do I have to hold an asset for the long-term rate?",
@@ -438,6 +480,12 @@ export const TOOL_CONTENT_B1: Record<string, ToolContentEntry> = {
       "title": "Worked example: $80,000 salary, 40 hours, 4 unpaid weeks",
       "body": "An $80,000 salary at 40 hours a week for 52 weeks is 2,080 paid hours, so the hourly rate is $38.46. Weekly pay is $1,538.46 and monthly pay is $6,666.67. If the job actually takes 50 hours a week, the same salary is only $30.77 an hour. With 4 unpaid weeks, the hours actually worked fall to 1,920, so the true rate is $41.67 an hour. A freelancer matching this salary while billing 44 weeks a year needs $1,818 per billed week, or about $45.45 an hour at 40 billed hours a week. That $7-an-hour gap between the salary rate and the freelance rate is the cost of unpaid time, before tax or benefits are even considered."
     },
+    "assumptions": [
+      "The conversion is gross only: no tax, benefits, or employer costs are subtracted from either figure.",
+      "The true rate divides the salary by hours actually worked, so unpaid weeks raise it while paid vacation leaves both rates unchanged.",
+      "Weekly pay divides the annual salary by the weeks you enter, and monthly pay divides it by 12, regardless of how many weeks fall in a month.",
+      "Hourly-to-salary mode assumes every paid hour is billed at the same rate, with no overtime premium."
+    ],
     "faqs": [
       {
         "question": "How do I convert a salary to an hourly rate?",
@@ -497,6 +545,12 @@ export const TOOL_CONTENT_B1: Record<string, ToolContentEntry> = {
       "title": "Worked example: $95,000 of 1099 income, $12,000 of expenses",
       "body": "A single freelancer earns $95,000 and spends $12,000 on business expenses, leaving $83,000 of net income. The self-employment tax base is 92.35% of that, or $76,651. Self-employment tax is $11,728: $9,505 of Social Security and $2,223 of Medicare. Half of it, $5,864, is deductible, so taxable income is $61,036 after the $16,100 standard deduction, and federal tax is $8,140. State tax at 5% of net income is $4,150. The total bill is $24,018, or 28.9% of net income, leaving $58,983. The quarterly payment is about $6,004. Note that the 20% QBI deduction could cut the federal part further: on $77,136 of qualified business income it would be worth up to $15,427 of extra deductions, saving roughly $3,394 of federal tax at a 22% marginal rate."
     },
+    "assumptions": [
+      "Self-employment tax is 15.3% of 92.35% of net profit, with the Social Security part stopping at the $184,500 wage base after any W-2 wages use up room first.",
+      "Half of the self-employment tax is deducted before the federal brackets, but the 20% qualified business income deduction is not applied, so the federal figure is a ceiling.",
+      "The state tax line multiplies your net self-employment income by one flat rate you enter — it does not run your state's actual brackets.",
+      "The quarterly figure is the annual total divided by four, and the federal figure counts only the extra tax the 1099 income causes when you also have W-2 wages."
+    ],
     "faqs": [
       {
         "question": "Do I owe tax if I never received a 1099 form?",
@@ -556,6 +610,12 @@ export const TOOL_CONTENT_B1: Record<string, ToolContentEntry> = {
       "title": "Worked example: $24 cost, $49.99 price, 100 units sold",
       "body": "A product costs $24 landed and sells for $49.99. Profit per unit is $25.99. Gross margin is $25.99 divided by $49.99, or 52.0%. Markup is $25.99 divided by $24, or 108.3%. Over 100 units, revenue is $4,999 and total profit is $2,599. If the target were a 40% margin instead, the price would need to be $24 divided by 0.60, or $40.00, giving $16.00 of profit per unit. Adding 40% to the cost would only price it at $33.60, a 28.6% margin. Before spending on ads, subtract the marketplace fee from that $25.99: at a 15% referral fee the real profit is $18.49, a 37.0% net margin."
     },
+    "assumptions": [
+      "The margin is gross only: platform fees, payment processing, shipping, and ad spend are not subtracted unless you include them in the cost.",
+      "Cost is treated as the full landed cost per unit, so the result is only as complete as the cost figure you enter.",
+      "Total profit scales linearly with units, assuming the same cost and price for every unit, with no volume discounts or fixed costs.",
+      "In reverse mode the price is cost divided by one minus the target margin, which only works for margins below 100%."
+    ],
     "faqs": [
       {
         "question": "What is a good profit margin for e-commerce?",
@@ -615,6 +675,12 @@ export const TOOL_CONTENT_B1: Record<string, ToolContentEntry> = {
       "title": "Worked example: $10,000 invested, $14,500 back, 3 years",
       "body": "$10,000 invested returns $14,500 after 3 years. Profit is $4,500 and ROI is 45%. The annualized return is the cube root of 1.45 minus 1, or 13.2% a year. At 13.2% a year the investment would double in about 5.6 years, and every $1 invested returns $1.45. The same $4,500 profit over 5 years instead of 3 would still be a 45% ROI, but only 7.7% a year, which shows why the time period matters more than the headline percentage. After tax at a 15% long-term capital gains rate, the $4,500 profit would keep $3,825, an after-tax ROI of 38.3%."
     },
+    "assumptions": [
+      "The return is gross, before tax, inflation, and any fee not already included in the amount invested.",
+      "The annualized figure assumes the gain compounded steadily at one constant rate, which smooths out the ups and downs a real investment would show.",
+      "Only the start and end values matter: the timing of any cash flows in between is ignored, so uneven returns are not captured.",
+      "The annualized figure and doubling time are not shown for a loss, because the compounding formula needs a positive final value."
+    ],
     "faqs": [
       {
         "question": "What is a good ROI?",
@@ -670,6 +736,11 @@ export const TOOL_CONTENT_B1: Record<string, ToolContentEntry> = {
       "title": "Worked example: $30 cost, 66.7% markup, 40% margin",
       "body": "A product costs $30 and you apply a 66.7% markup. The price is $30 times 1.667, or $50.01. Profit is $20.01 per unit. Margin is $20.01 divided by $50.01, or 40.0%. The same price comes from the margin side: $30 divided by 0.60 is $50.00. The conversion table shows the pattern: a 50% markup is a 33.3% margin, a 100% markup is a 50% margin, and a 200% markup is a 66.7% margin. Each doubling of the markup buys less and less extra margin. That is why a supplier offering to raise your markup from 100% to 200% is offering 16.7 points of margin, not a doubling of profit."
     },
+    "assumptions": [
+      "Both figures are gross, before platform fees, payment processing, shipping, and ads, which all come out of the margin afterwards.",
+      "The price is worked out from a single unit cost, so the result assumes the same cost for every unit sold.",
+      "Margin mode cannot accept a target of 100% or more, because the cost is always part of the price; the slider caps at 95%."
+    ],
     "faqs": [
       {
         "question": "What is the difference between markup and margin?",
@@ -729,6 +800,12 @@ export const TOOL_CONTENT_B1: Record<string, ToolContentEntry> = {
       "title": "Worked example: $45 item, $5 shipping, US seller, no ads",
       "body": "A US seller lists an item at $45 with $5 shipping, so the buyer pays $50. The listing fee is $0.20. The transaction fee is 6.5% of $50, or $3.25. Payment processing is 3% of $50 plus $0.25, or $1.75. There is no regulatory fee for a US seller. Total Etsy fees are $5.20, or 10.4% of the sale. The item costs $14 and shipping costs $6.50, so net profit is $24.30, a 48.6% margin. If the sale came through Offsite Ads at 12%, Etsy would take another $6.00 and net profit would fall to $18.30. To keep a 30% margin after fees and costs, the reverse solver prices this item at $29.63 with the same $5 shipping."
     },
+    "assumptions": [
+      "Fees use the published US schedule: a $0.20 listing fee, a 6.5% transaction fee, and 3% plus $0.25 payment processing, all charged on the price plus shipping the buyer pays.",
+      "The regulatory operating fee defaults to 0% for US sellers; sellers in other countries must set their own rate.",
+      "Offsite Ads is charged at 12% only when the toggle is on, which assumes the shop is over the $10,000 annual threshold and the sale was attributed to an ad; the $100 per-order cap is not applied.",
+      "Sales tax is not in the fee base here, so on orders where Etsy collects tax the payment processing fee is slightly higher than shown."
+    ],
     "faqs": [
       {
         "question": "How much does Etsy take from each sale?",
@@ -788,6 +865,12 @@ export const TOOL_CONTENT_B1: Record<string, ToolContentEntry> = {
       "title": "Worked example: $120 sale, 13.6% fee, $55 item cost",
       "body": "An item sells for $120 with no shipping charged. The final value fee at 13.6% is $16.32, and the per-order fee is $0.40, so total fees are $16.72 and the payout is $103.28. The item cost $55 and shipping cost $9, so profit is $39.28, a 32.7% margin. A 5% promoted rate would add $6.00 of fees and cut profit to $33.28. The break-even price is $74.54: below that, fees and costs exceed the sale price. Note that eBay also charges the fee on sales tax collected, so where tax applies the fee is slightly higher than this calculator shows."
     },
+    "assumptions": [
+      "The final value fee percentage applies to the whole sale total, price plus shipping charged, at the rate you enter; the 13.6% default is the non-store rate for most categories.",
+      "eBay collects sales tax on many orders, but this calculator leaves tax out of the fee base — the fee it shows sits slightly below what eBay actually charges on a taxed order.",
+      "The per-order fee is $0.30 or $0.40 by order size, and insertion fees and any Store subscription cost are not included.",
+      "Promoted Listings is charged on the same total whenever the rate is set, assuming the sale was attributed to the promoted listing."
+    ],
     "faqs": [
       {
         "question": "What is eBay's final value fee in 2026?",
@@ -843,6 +926,12 @@ export const TOOL_CONTENT_B1: Record<string, ToolContentEntry> = {
       "title": "Worked example: $60 price, $22 cost, 300 orders a month",
       "body": "A store sells a product for $60 with no shipping charged. Product cost is $22, shipping costs $6 and other costs are $2. The Shopify Payments fee is 2.9% of $60 plus $0.30, or $2.04. Profit per order is $60 minus $22 minus $6 minus $2 minus $2.04, which is $27.96, a 46.6% true margin. At 300 orders a month, monthly profit is $8,388 before the subscription and ad spend. Break-even ROAS is 1 divided by 0.466, or 2.15x: ads returning less than $2.15 per $1 spent lose money on this product. On the Advanced plan the payment fee would be $1.80 instead of $2.04, adding $0.24 of profit to every order, or $72 a month at this volume."
     },
+    "assumptions": [
+      "The payment fee is fixed at the Basic plan online card rate of 2.9% plus $0.30, applied to the price plus shipping charged; higher plans and in-person sales pay less.",
+      "The calculation assumes Shopify Payments. A third-party gateway would add Shopify's transaction fee on top of the gateway's own fee.",
+      "The monthly plan subscription and ad spend are not subtracted; monthly profit is per-order profit times orders.",
+      "Every order is assumed identical, so the monthly figure scales linearly with order count."
+    ],
     "faqs": [
       {
         "question": "What does Shopify charge per sale?",
@@ -902,6 +991,12 @@ export const TOOL_CONTENT_B1: Record<string, ToolContentEntry> = {
       "title": "Worked example: $39.99 Home and Kitchen item, large standard",
       "body": "A Home and Kitchen product sells for $39.99 with a landed cost of $11. The referral fee at 15% is $6.00. The fulfillment fee for a large standard item around 1 lb in the $10 to $50 band is $4.60, plus the 3.5% surcharge, giving $4.76. Storage is $0.45 and inbound shipping is $0.80, so total fees are $12.01. Profit is $39.99 minus $11 minus $12.01, or $16.98, a 42.5% margin. Across 500 units that is $8,490 of profit. In the October to January peak season the fulfillment fee is higher, so the same sale would net less. Shrinking the package into the small standard tier would cut the fulfillment fee to about $3.66 including the surcharge, adding about $1.10 of profit to every unit."
     },
+    "assumptions": [
+      "Fulfillment fees use 2026 US non-peak rates for the size tier and price band you pick, plus the 3.5% fuel and logistics surcharge; peak-season rates from October 15 to January 14 run higher.",
+      "The referral fee applies one rate to the whole price, with a $0.30 minimum per item except in Grocery, which has no minimum.",
+      "Storage and inbound shipping are per-unit figures you supply, so spread your real monthly bills across the units you expect to sell.",
+      "The Professional plan fee of $39.99 a month and any PPC spend are not included in the per-unit profit."
+    ],
     "faqs": [
       {
         "question": "What is the Amazon referral fee in 2026?",
@@ -961,6 +1056,12 @@ export const TOOL_CONTENT_B1: Record<string, ToolContentEntry> = {
       "title": "Worked example: $100 in California, £120 under UK VAT",
       "body": "A $100 item in California at the 7.25% state rate plus a 1.5% local add-on is taxed at 8.75%, so the tax is $8.75 and the total is $108.75. The same $100 item in Chicago at 10.25% costs $110.25. Under UK VAT at 20%, a £120 shelf price contains £20 of tax: divide £120 by 1.20 to get the £100 net price, then subtract. Calculating it as £120 times 20% would wrongly give £24. A $100 item in Oregon, with no sales tax, costs exactly $100. The gap between the cheapest and dearest US checkout on the same $100 item is more than $10, which is why the state picker matters more than the arithmetic."
     },
+    "assumptions": [
+      "US rates are statewide base rates only; the local add-on slider, capped at 5%, is your estimate of county and city tax.",
+      "The calculator applies the general rate to the whole amount, with no exemptions for groceries, clothing, or other categories.",
+      "VAT extract mode divides the gross price by one plus the rate, which assumes the shelf price already includes the tax at the standard rate.",
+      "Rates are the published 2026 figures and change over time, so confirm the exact rate for your ZIP code or country before filing."
+    ],
     "faqs": [
       {
         "question": "Which states have no sales tax?",
@@ -1020,6 +1121,12 @@ export const TOOL_CONTENT_B1: Record<string, ToolContentEntry> = {
       "title": "Worked example: $6,500 of spend, 400 new customers",
       "body": "A store spends $5,000 on ads and $1,500 on content, tools and team time in one month, for $6,500 of total acquisition spend. It wins 400 new customers, of whom 250 came from paid ads and 150 arrived organically. Blended CAC is $6,500 divided by 400, or $16.25. Paid CAC is $5,000 divided by 250, or $20.00. The average first order is $65, so blended CAC is 25% of the first sale. If the ad budget doubled but only added 100 more paid customers, paid CAC would rise to $28.57. That is the shape of diminishing returns: the next customer always costs more than the last one did."
     },
+    "assumptions": [
+      "All inputs must cover the same period; mixing a month of spend with a quarter of customers produces a misleading CAC.",
+      "Blended CAC divides all acquisition spend by all new customers, so organic customers are treated as carrying a share of the content and tool spend.",
+      "Paid CAC divides ad spend by customers from ads only, which assumes every paid customer is correctly attributed to an ad.",
+      "The CAC-to-AOV line compares CAC with first-order revenue, not gross profit, so it overstates how much room the first order leaves."
+    ],
     "faqs": [
       {
         "question": "What is a good CAC?",
@@ -1075,6 +1182,12 @@ export const TOOL_CONTENT_B1: Record<string, ToolContentEntry> = {
       "title": "Worked example: $70 orders, 3 a year, 3-year lifespan",
       "body": "A customer orders $70 three times a year for three years, spending $630 in total. At a 60% gross margin the profit lifetime value is $378. Acquisition costs $45, so the LTV to CAC ratio is 8.4 to 1, above the healthy 3 to 5 band, and the verdict is possibly underspending: the business could afford to pay more for customers and still profit. Monthly profit per customer is $10.50, so the $45 acquisition cost is paid back in 4.3 months. Halving the lifespan to 1.5 years would still leave a 4.2 to 1 ratio. That resilience is the point of the stress test: the model holds even if customers leave twice as fast as expected."
     },
+    "assumptions": [
+      "Lifetime value is gross profit, not revenue: the margin slider converts the customer's total spend into the profit it leaves.",
+      "Order value, frequency, and margin are held constant across the whole lifespan, with no growth, decline, or discounting of future profit.",
+      "Lifespan is a single average applied to every customer, so the result describes a typical customer rather than any real one.",
+      "Payback assumes profit arrives evenly each month, dividing the annual profit per customer by 12."
+    ],
     "faqs": [
       {
         "question": "What is a good LTV to CAC ratio?",
@@ -1134,6 +1247,12 @@ export const TOOL_CONTENT_B1: Record<string, ToolContentEntry> = {
       "title": "Worked example: $80 order, $40 gross profit, 3.0x ROAS",
       "body": "An $80 order carries $28 of product cost, $7 of shipping and $5 of other costs, leaving $40 of gross profit, a 50% margin. Break-even ROAS is 1 divided by 0.50, or 2.0x. At a current ROAS of 3.0x, ad cost per order is $80 divided by 3, or $26.67, and net profit per order is $40 minus $26.67, or $13.33. At a ROAS of 1.5x, ad cost would be $53.33 and each order would lose $13.33. A 10% discount would cut the price to $72 and the margin to 44.4%, pushing break-even ROAS to 2.25x. The discount looks small on the price tag and large on the ad account: the ROAS the business needs rises by an eighth."
     },
+    "assumptions": [
+      "Break-even ROAS is one divided by the margin, so it is set entirely by your per-order economics and does not depend on ad volume.",
+      "Ad cost per order is the price divided by the ROAS you enter, which assumes every order comes from ads at that rate.",
+      "The ROAS you enter is taken as given; platform-reported ROAS usually overstates the real figure, so use blended store revenue divided by total ad spend.",
+      "Fixed overheads and repeat purchases are not included: the verdict judges each order on its own, before overheads."
+    ],
     "faqs": [
       {
         "question": "What is a good ROAS?",

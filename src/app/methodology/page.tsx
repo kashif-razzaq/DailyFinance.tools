@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { LegalPage } from "@/components/layout/LegalPage"
-import { breadcrumb, stringifyJsonLd } from "@/lib/schema"
+import { breadcrumb, CONTENT_REVIEWED_DISPLAY, stringifyJsonLd } from "@/lib/schema"
 
 export const metadata: Metadata = {
   title: "Methodology — How DailyFinance Calculates & Sources Numbers",
@@ -31,6 +31,7 @@ export default function MethodologyPage() {
       <LegalPage
       title="Our Methodology"
       updated="6 November 2026"
+      auditNote={`Last audited: ${CONTENT_REVIEWED_DISPLAY}`}
       intro="Every number on DailyFinance comes from a published formula, an official schedule or a documented assumption — never a guess dressed up as precision. This page explains where our inputs come from, who reviews them, how location data is handled, and how often everything is re-checked."
       sections={[
         { heading: "Formula sources", paragraphs: [

@@ -22,6 +22,11 @@ export const TOOL_CONTENT_FREELANCE: Record<string, ToolContentEntry> = {
       "title": "Worked example: $75,000 target income at 60% utilization",
       "body": "Target take-home pay is $75,000, expenses are $5,000, the tax rate is 25%, with 4 weeks off, a 40-hour week, 60% utilization and a 10% profit buffer. Grossing up for tax gives $75,000 ÷ 0.75 = $100,000; adding expenses makes $105,000, and the buffer lifts gross revenue to $115,500. Billable hours are 48 × 40 × 60% = 1,152, so the minimum acceptable rate is $115,500 ÷ 1,152 = $100.26 an hour. The day rate is $802 and the monthly retainer is $9,625. At 100% utilization the same inputs would give $60.16 an hour — the utilization assumption, not the salary target, is what sets the rate."
     },
+    "assumptions": [
+      "Tax is a single flat combined rate applied to the whole gross-up — progressive brackets, the QBI deduction and state tax are all folded into the one slider, not calculated.",
+      "Billable hours assume every working week looks the same: (52 − weeks off) × weekly hours × utilization, with no allowance for seasonal slowdowns or gaps between clients.",
+      "The profit buffer is applied after tax and expenses, so it is funded by clients on top of your salary — a 0% buffer leaves nothing for equipment replacement, slow months or retirement."
+    ],
     "faqs": [
       {
         "question": "How do you calculate a freelance hourly rate?",
@@ -81,6 +86,11 @@ export const TOOL_CONTENT_FREELANCE: Record<string, ToolContentEntry> = {
       "title": "Worked example: $85,000 net income, single filer, 2026",
       "body": "Net income is $85,000 and the state rate is 4.5%, with the QBI deduction claimed. Self-employment earnings are $85,000 × 92.35% = $78,497.50; Social Security tax is $9,733.69 and Medicare is $2,276.43, for $12,010.12 of self-employment tax. Adjusted gross income is $78,994.94, the QBI deduction is $15,798.99, and taxable income after the $16,100 standard deduction is $47,095.95. Federal income tax is $5,403.51 and state tax is $3,554.77, so the total is $20,968.40 — a quarterly payment of $5,242.10 and an effective rate of 24.7%. The Social Security portion stays below the $184,500 wage base, so the cap does not bind at this income; it starts to matter above roughly $200,000 of net income."
     },
+    "assumptions": [
+      "The model is a single filer for tax year 2026, with the $16,100 standard deduction and no credits, other income or withholding — a second income or a spouse changes the result.",
+      "The additional 0.9% Medicare tax above $200,000 of earnings is not modeled, so the estimate understates tax at high incomes.",
+      "State tax is a flat rate applied to adjusted gross income, not to state taxable income, and the annual total is split into four equal installments even if income arrives unevenly through the year."
+    ],
     "faqs": [
       {
         "question": "How do you calculate 1099 quarterly estimated taxes?",
@@ -140,6 +150,11 @@ export const TOOL_CONTENT_FREELANCE: Record<string, ToolContentEntry> = {
       "title": "Worked example: $4,000 monthly burn and volatile income",
       "body": "Essential living costs are $3,500 and business overhead is $500, so the baseline is $4,000 a month. Six months of income — $5,000, $3,200, $7,500, $2,800, $6,000 and $4,100 — average $4,767 with a volatility index of 37%, which counts as medium and adds 1.5 months. The top client is 35% of income, below the 40% trigger, and 30-day payment terms add 0.5 months, so 5 months are required: 5 × $4,000 = $20,000. The lean-month check uses the $3,200 low month: 3 × $4,000 + 4 × $800 = $15,200, so the volatility method stands. With $4,000 saved, the gap is $16,000 — $2,667 a month over six months."
     },
+    "assumptions": [
+      "Volatility is measured from the income history you enter — with fewer than three months of history the calculator defaults to low volatility, which understates the buffer a new freelancer needs.",
+      "The recommended buffer is the larger of two methods, so a single lean month can set the target even when average income looks comfortable.",
+      "Monthly expenses are treated as fixed and savings earn no interest, so the fund does not grow on its own and the monthly savings figure assumes you hit it every month."
+    ],
     "faqs": [
       {
         "question": "How many months of emergency fund does a freelancer need?",
@@ -195,6 +210,11 @@ export const TOOL_CONTENT_FREELANCE: Record<string, ToolContentEntry> = {
       "title": "Worked example: $2,500 invoice, USD to EUR, 12 a year",
       "body": "A $2,500 invoice at a 0.92 mid-market rate is truly worth €2,300. Stripe takes 4.4% plus $0.30 ($110.30), then converts the remaining $2,389.70 at a rate 1% below mid-market, paying out €2,176.54 — a 5.37% drag. PayPal takes 4.49% plus $0.49 ($112.74), then converts at a rate 3.5% below mid-market, paying out €2,119.41 — a 7.85% drag. Wise takes 0.43% plus $0.45 ($11.20) and converts at the mid-market rate, paying out €2,289.70 — a 0.45% drag. Over 12 invoices a year, Wise saves €1,357.89 against Stripe and €2,043.44 against PayPal."
     },
+    "assumptions": [
+      "All three fee schedules are fixed defaults from the calculator, not live quotes: Stripe 4.4% + $0.30 plus a 1% conversion fee, PayPal 4.49% + $0.49 plus a 3.5% spread, Wise 0.43% + $0.45 at the mid-market rate.",
+      "PayPal's conversion cost is modeled as a flat 3.5% spread — the middle of its 3–4% range — but the real spread varies by currency pair and is never itemized on the statement.",
+      "The comparison covers one invoice shape repeated all year: the same amount, the same currency pair and the same mid-market rate, with no account fees, chargebacks or payout delays."
+    ],
     "faqs": [
       {
         "question": "What is an FX spread?",
@@ -254,6 +274,11 @@ export const TOOL_CONTENT_FREELANCE: Record<string, ToolContentEntry> = {
       "title": "Worked example: 40-hour project at $100 an hour",
       "body": "A 40-hour project at $100 an hour starts at $4,000 of execution cost. A 20% communication buffer lifts it to 48 hours, and the medium risk multiplier of 1.30 gives a cost-plus floor of $6,240. The 1.25 value multiplier raises that to $7,800. The ROI anchor is $25,000 × 10% = $2,500, so the cost-plus price stands and the flat fee is $7,800 — an effective $195 an hour. The deposit and final milestone are $3,900 each, and an extra revision round is priced at $600 (15% of 40 hours at $100)."
     },
+    "assumptions": [
+      "The communication buffer is a percentage of execution hours, so it assumes admin grows with project size — a short project with heavy stakeholder management may need more than the percentage allows.",
+      "The quote is the larger of the cost-plus price (with a fixed 1.25 value multiplier) and the ROI anchor, so a high-value project is priced on the client's return, not on your hours.",
+      "The flat fee covers the project as scoped: taxes, subcontractor costs and out-of-pocket expenses are not in the quote, and extra work is priced separately at 15% of estimated hours per revision round."
+    ],
     "faqs": [
       {
         "question": "How do you calculate a flat fee for a project?",
@@ -313,6 +338,11 @@ export const TOOL_CONTENT_FREELANCE: Record<string, ToolContentEntry> = {
       "title": "Worked example: $2,500 retainer, 5% monthly churn",
       "body": "A $2,500 monthly retainer with 5% monthly churn gives a lifespan of 1 ÷ 0.05 = 20 months. Gross lifetime value is $2,500 × 20 × 1.10 (10% expansion) = $55,000, and at 80% gross margin the net lifetime value is $44,000. On a 4:1 target ratio, the maximum acquisition cost is $44,000 ÷ 4 = $11,000. Monthly gross profit is $2,500 × 80% = $2,000, so the payback period is $11,000 ÷ $2,000 = 5.5 months, rated Fair. If churn doubled to 10%, lifespan would halve to 10 months and net lifetime value would fall to $22,000."
     },
+    "assumptions": [
+      "Lifetime value is not discounted: a dollar of profit in month 20 counts the same as a dollar today, which overstates value for long-lived clients.",
+      "Churn is treated as constant every month and lifespan is capped at 60 months, so a client base that stabilizes over time is worth more than the model credits.",
+      "Expansion is applied as a flat uplift to the whole lifespan rather than phased in, and the margin is assumed to hold steady as the retainer grows."
+    ],
     "faqs": [
       {
         "question": "What is client LTV?",
@@ -368,6 +398,11 @@ export const TOOL_CONTENT_FREELANCE: Record<string, ToolContentEntry> = {
       "title": "Worked example: $100,000 net earnings, single filer, 2026",
       "body": "Net earnings are $100,000 with no home-office deduction. The SE-tax base is $100,000 × 92.35% = $92,350. Social Security tax is 12.4% of the base, $11,451.40, and Medicare tax is 2.9%, $2,678.15. Total SE tax is $14,129.55, an effective rate of 14.13% on net earnings, leaving $85,870.45 after SE tax. The one-half deduction is $7,064.78, worth about $1,554 of income-tax saving at a 22% marginal rate. The base is well below the $200,000 additional-Medicare threshold, so no 0.9% tax applies. Claiming a $2,760 home-office deduction would cut the base to $89,801 and the tax to $13,740."
     },
+    "assumptions": [
+      "The calculation follows Schedule SE for 2026: the 92.35% step, the $184,500 Social Security wage base, and the additional 0.9% Medicare tax above $200,000 for single filers or $250,000 for joint filers.",
+      "The home-office deduction reduces net earnings before the SE-tax calculation, so it lowers both halves of the tax — enter only a deduction you actually claim.",
+      "No income tax is computed here: the only income-tax figure is the value of the one-half SE-tax deduction at your marginal rate, and the 20% QBI deduction is not modeled."
+    ],
     "faqs": [
       {
         "question": "What is the self-employment tax rate?",
@@ -427,6 +462,11 @@ export const TOOL_CONTENT_FREELANCE: Record<string, ToolContentEntry> = {
       "title": "Worked example: $120,000 net income, 40% salary",
       "body": "Net business income is $120,000 and the salary ratio is 40%, so the W-2 salary is $48,000 and distributions are $72,000. As a sole proprietor, self-employment earnings are $120,000 × 92.35% = $110,820, and the 15.3% tax is $16,955.46. As an S-corp, FICA on the $48,000 salary is $7,344, plus $342 of unemployment tax, for $7,686 of payroll tax. Gross saving is $16,955.46 − $7,686 = $9,269.46. After roughly $1,500 of admin costs, about $7,769 remains — provided the $48,000 salary is defensible as reasonable compensation for the work done."
     },
+    "assumptions": [
+      "The saving shown is gross payroll-tax saving only: the roughly $1,500 a year of payroll, bookkeeping and Form 1120-S costs is not subtracted.",
+      "Unemployment tax is a flat $342 estimate — $42 of FUTA plus about $300 of state unemployment — not your state's actual rate, which varies widely.",
+      "The model ignores the QBI trade-off: a higher salary shrinks the 20% QBI deduction, so the true saving is smaller than the payroll-tax gap alone suggests. It also omits the additional 0.9% Medicare tax and any state S-corp taxes."
+    ],
     "faqs": [
       {
         "question": "At what income level should a freelancer switch to an S-corp?",
@@ -486,6 +526,11 @@ export const TOOL_CONTENT_FREELANCE: Record<string, ToolContentEntry> = {
       "title": "Worked example: 4 lost hours a week at $100 an hour",
       "body": "A freelancer loses 4 hours a week to unbilled scope creep, spends 2 hours a week on manual time tracking, charges $100 an hour and pays $12 a month for tracking software. Lost revenue is 4 × $100 × 48 = $19,200 a year. Admin time saved is 2 × 75% = 1.5 hours a week, worth 1.5 × $100 × 48 = $7,200 a year. The software costs $12 × 12 = $144 a year, so net ROI is $19,200 + $7,200 − $144 = $26,256 — 182 times the subscription. Recovering a single $100 hour a month would still cover the $144 annual cost more than eight times over."
     },
+    "assumptions": [
+      "Every recovered scope-creep hour is valued at your full hourly rate, which assumes clients agree to pay for the extra work rather than disputing it or expecting it free.",
+      "Saved admin time is valued the same way — the model assumes each hour freed by software becomes a billable hour, not leisure or more admin.",
+      "The 75% admin-time saving is a fixed assumption, and the annual figures use 48 working weeks, so four weeks of holidays and gaps are already excluded."
+    ],
     "faqs": [
       {
         "question": "What is the true cost of scope creep?",
@@ -541,6 +586,11 @@ export const TOOL_CONTENT_FREELANCE: Record<string, ToolContentEntry> = {
       "title": "Worked example: $100,000 salary vs $75 an hour contracting",
       "body": "The W-2 side: a $100,000 salary loses $7,650 of FICA and $20,000 of income tax at a 20% effective rate, leaving $72,350; adding $15,000 of benefits gives a total value of $87,350. The 1099 side: $75 × 40 hours × 48 weeks is $144,000 gross, minus $10,000 of expenses is $134,000 of net business income. Self-employment tax is $18,933.60, the QBI deduction is $24,906.64, taxable income is $99,626.56 and income tax is $19,925.31 — leaving take-home pay of $95,141.09. The contractor comes out $7,791.09 ahead, and the break-even hourly rate is about $66.63."
     },
+    "assumptions": [
+      "One flat effective tax rate applies to both sides, so the comparison isolates the employment structure — real tax bills differ by bracket, state and deductions.",
+      "FICA and self-employment tax are charged on the full amount with no Social Security wage-base cap, which overstates tax at high incomes on both sides.",
+      "The break-even hourly rate is a rough gross-up — the W-2 package's total value times 1.35 plus expenses, divided by hours — not a precise inversion of the tax math, so treat it as a guide."
+    ],
     "faqs": [
       {
         "question": "How much more should I charge as a 1099 contractor vs W-2?",
@@ -600,6 +650,11 @@ export const TOOL_CONTENT_FREELANCE: Record<string, ToolContentEntry> = {
       "title": "Worked example: leased car, 12,000 business miles",
       "body": "A leased car is driven 12,000 business miles and 3,000 personal miles, so business use is 12,000 ÷ 15,000 = 80%. The lease is $600 a month with a $3,600 down payment on a 36-month term; gas is $1,800, insurance $1,200 and repairs $500 a year. The standard mileage method gives 12,000 × $0.76 = $9,120. The actual method gives ($7,200 lease + $1,200 amortized down payment + $1,800 gas + $1,200 insurance + $500 repairs) × 80% = $11,900 × 80% = $9,520. Actual expenses win by $400, and at a 24% tax bracket the deduction saves $2,284.80."
     },
+    "assumptions": [
+      "Standard mileage uses the 76¢ rate for July–December 2026 for the whole year — the 72.5¢ rate for January–June is not blended in.",
+      "The down payment is spread evenly over the lease term and only the business-use share of every cost is deductible, so the result depends on an accurate mileage log.",
+      "The leased luxury vehicle inclusion amount is not modeled, so the deduction is overstated for expensive leased cars, and the calculator covers leases only — an owned vehicle with depreciation needs a different calculation."
+    ],
     "faqs": [
       {
         "question": "Can I write off a leased car as a 1099 contractor?",
@@ -659,6 +714,11 @@ export const TOOL_CONTENT_FREELANCE: Record<string, ToolContentEntry> = {
       "title": "Worked example: $5,000 a month to a 55% cheaper city",
       "body": "Monthly expenses are $5,000, the destination is 55% cheaper, relocation costs $2,500, savings are $20,000 and monthly income is $6,000. New expenses are $5,000 × 45% = $2,250, saving $2,750 a month, so the $2,500 relocation pays back in 0.9 months. Current runway is $20,000 ÷ $5,000 = 4 months. After the move, savings are $17,500 and the new runway is $17,500 ÷ $2,250 = 7.8 months — an extension of 3.8 months. Monthly profit rises from $6,000 − $5,000 = $1,000 to $6,000 − $2,250 = $3,750."
     },
+    "assumptions": [
+      "Income is assumed unchanged by the move — the profit gain comes entirely from lower expenses, so any client loss or rate cut from relocating is not in the numbers.",
+      "The cost reduction is a single percentage applied to all expenses at once, which hides the mix: a city 55% cheaper on rent may be only slightly cheaper on food, transport and insurance.",
+      "Visas, global health insurance, coworking, foreign transaction fees and taxes — including the foreign earned income exclusion — all sit outside the calculation, and savings earn no interest while they fund the runway."
+    ],
     "faqs": [
       {
         "question": "What is geo-arbitrage?",

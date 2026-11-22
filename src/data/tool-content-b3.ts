@@ -22,6 +22,11 @@ export const TOOL_CONTENT_B3: Record<string, ToolContentEntry> = {
       "title": "Worked example: 12-month projection for a growing newsletter",
       "body": "Start: 5,000 free subscribers, growing 8% a month; conversion 5%; price $8 a month; paid churn 3% a month. Month 1: the free list reaches 5,400 and paid subscribers reach 270, grossing $2,160 and netting about $1,785 after Substack's $216, Stripe's $62.64, a $15.12 billing fee and $81 of fixed per-charge fees. By month 12 the free list reaches 12,591, paid subscribers reach about 630 and net monthly revenue is about $4,163. Cumulative net revenue across the year totals about $33,879, against about $19,800 if the list had not grown at all."
     },
+    "assumptions": [
+      "Growth, conversion and churn all stay constant for the whole projection: the free list compounds at the same monthly rate with no saturation, and paid subscribers are always topped back up to the conversion share of the free list.",
+      "Annual plans are modeled at their monthly equivalent, so the cash-timing advantage of annual billing and the single $0.30 fee are not reflected in the projection.",
+      "Free-list unsubscribes are not modeled separately — enter a net growth rate that already subtracts them — and the figures are before income tax."
+    ],
     "faqs": [
       {
         "question": "How much does Substack take from paid subscriptions?",
@@ -81,6 +86,11 @@ export const TOOL_CONTENT_B3: Record<string, ToolContentEntry> = {
       "title": "Worked example: $300,000 at 6.5% over 30 years",
       "body": "The monthly principal-and-interest payment is $1,896.20. Paying $948.10 every two weeks, the loan takes 628 biweekly payments to clear — 24 years 2 months instead of 30 — because 26 half-payments a year equal 13 monthly payments. Total interest on the monthly schedule is $382,633; on the biweekly schedule it is $294,512, a saving of $88,122, and the final payment is only $51.71. Adding one-twelfth of the payment ($158.02) to each monthly payment instead clears the loan in 290 months and saves $87,256 — nearly the same result, with no biweekly program fee."
     },
+    "assumptions": [
+      "The rate stays fixed for the life of the loan, and interest is charged at the annual rate divided by 26 for each 14-day period.",
+      "Every half-payment is applied to the balance the day it arrives — servicers that hold half-payments until a full payment accumulates wipe out the benefit the calculator shows.",
+      "The figures cover principal and interest only: property tax, insurance, HOA dues and PMI are excluded, and no enrollment fee or prepayment penalty is modeled."
+    ],
     "faqs": [
       {
         "question": "How much does a biweekly mortgage payment save?",

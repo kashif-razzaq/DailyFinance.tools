@@ -22,6 +22,12 @@ export const TOOL_CONTENT_B2: Record<string, ToolContentEntry> = {
       "title": "Worked example: 20 units a day, 14-day lead time",
       "body": "Daily sales of 20 units and a 14-day lead time give lead-time demand of 280 units. Seven days of safety cover adds 140 units, so the reorder point is 420. With 500 units on hand you have 25 days of stock and reach the reorder point in 4 days, so the order goes in this week. For 30 days of cover per order, the suggested quantity is 600 + 420 - 500 = 520 units. Cut safety cover to 3 days and the reorder point falls to 340, freeing 80 units of cash — a fair trade only if demand is steady and the supplier delivers on time."
     },
+    "assumptions": [
+      "Daily sales are treated as a flat average: the reorder point assumes the same number of units sell every day, with no seasonality, weekday pattern, or growth trend built in.",
+      "Lead time is a single fixed number of days, so the model does not cover supplier delays beyond the safety-stock buffer — a late delivery longer than your safety days still stocks you out.",
+      "Safety stock is sized in days of cover, not from demand variability, so it uses no statistical service level and does not account for how spiky demand actually is.",
+      "No minimum order quantities, supplier discounts, or warehouse capacity limits are modeled — the suggested order is purely the cover-days arithmetic."
+    ],
     "faqs": [
       {
         "question": "What is safety stock and how much do I need?",
@@ -81,6 +87,11 @@ export const TOOL_CONTENT_B2: Record<string, ToolContentEntry> = {
       "title": "Worked example: warranty upsell on an electronics store",
       "body": "Average order value is $120. A $15 extended-warranty upsell carries a 90% margin because it is a service. At a 12% take rate, uplift per order = $15 x 12% = $1.80, of which $1.62 is profit. On 25,000 orders a year that is $40,500 of profit from a single checkout element. Moving the take rate to 18% with clearer copy raises it to $60,750 — a bigger gain than raising the warranty price to $20 at the old take rate, which returns $54,000. The same store testing a $29 bundle instead, at a 15% take rate and 65% margin, would add $4.35 per order and $2.83 of profit — $70,688 a year on 25,000 orders, beating the warranty on profit despite the lower take rate."
     },
+    "assumptions": [
+      "Order volume is assumed unchanged: the model adds upsell revenue to every order without modeling any checkout drop-off the extra offer might cause.",
+      "The take rate applies evenly to all orders — the model does not distinguish new buyers from repeat buyers, or high-value carts from low ones.",
+      "Profit is the upsell margin applied to extra revenue only; it excludes the cost of building the offer, refunds on the upsell, and payment fees on the added revenue."
+    ],
     "faqs": [
       {
         "question": "What is a realistic upsell take rate?",
@@ -136,6 +147,11 @@ export const TOOL_CONTENT_B2: Record<string, ToolContentEntry> = {
       "title": "Worked example: 30% off at a 45% margin",
       "body": "Normal: price $100, cost $55, profit $45 per unit, 1,000 units = $45,000 profit. Sale: price $70, profit $15 per unit. Required volume to match: $45,000 / $15 = 3,000 units — a 200% increase. If the event lifts volume 50% to 1,500 units, profit = 1,500 x $15 = $22,500. Revenue rises from $100,000 to $105,000 and the event still destroys $22,500 of profit. A 20% discount leaves $25 per unit and needs 1,800 units; at an 80% uplift it exactly matches the normal week, while the 30% discount at the same uplift returns only $27,000. The break-even formula tells the same story another way: at a 45% margin, the required extra volume is 0.45 / (0.45 - 0.30) - 1 = 200%. A store that cannot plausibly triple its volume in a week should not run a 30% store-wide discount at this margin."
     },
+    "assumptions": [
+      "Unit cost is held flat at the figure you enter — the model assumes no volume discount from suppliers and no extra fulfillment cost per unit during the sale.",
+      "The expected uplift is a single input, not a forecast: the calculator tests your uplift against the break-even volume but does not estimate how much volume a given discount actually produces.",
+      "Extra ad spend, marketplace deal fees, and margin lost on units that would have sold at full price sit outside the profit comparison; add them separately before judging an event."
+    ],
     "faqs": [
       {
         "question": "How much extra volume does a discount need to break even?",
@@ -191,6 +207,12 @@ export const TOOL_CONTENT_B2: Record<string, ToolContentEntry> = {
       "title": "Worked example: $100,000 loan at 9% over 36 months",
       "body": "The monthly payment on $100,000 at 9% APR over 36 months is $3,179.97, with total interest of $14,479 over the term. Cash rises to $250,000 but monthly burn rises to $21,179.97. Runway = $250,000 / $21,179.97 = 11.8 months, versus 8.3 months without the loan. The loan buys 3.5 months of runway, not the 5.6 months the cash alone implies. Cutting $5,000 of monthly burn instead would extend runway to 11.5 months with no interest — nearly the same time, bought without debt. If revenue fell and burn rose to $21,600, runway without the loan would be 6.9 months and with the loan 10.1 months: the loan still helps, but the deadline moves closer either way."
     },
+    "assumptions": [
+      "The payment is a fixed amortizing installment at a fixed APR, with monthly compounding — variable rates, interest-only periods, and balloon payments are not modeled.",
+      "Burn is assumed constant for the whole runway, so the result does not reflect revenue growth, seasonal costs, or one-off expenses like a tax bill.",
+      "The full loan amount is assumed to land in cash on day one, with no origination fee, closing costs, or drawdown schedule reducing what reaches the bank.",
+      "Runway measures when cash runs out, not when the loan is repaid — a loan term longer than the runway still leaves a balance owed after the cash is gone."
+    ],
     "faqs": [
       {
         "question": "How much runway should a business keep?",
@@ -246,6 +268,11 @@ export const TOOL_CONTENT_B2: Record<string, ToolContentEntry> = {
       "title": "Worked example: a $5.99 flat rate against a $9.25 average cost",
       "body": "A store ships 800 parcels a month: 25% local at $5.50, 45% regional at $8.50, 30% national at $13.50. Weighted average cost = $1.38 + $3.83 + $4.05 = $9.25 a parcel. The $5.99 flat rate loses $3.26 per order, or $2,608 a month, and each national parcel loses $7.51. Raising the flat rate to $9.95 flips the result to +$0.70 per order, or +$560 a month. If the national share rises to 50%, the average cost becomes $10.25 and the $5.99 rate loses $4.26 per order — the mix moves the answer more than any single rate does."
     },
+    "assumptions": [
+      "Each zone's cost is a single average per parcel, so the model does not account for weight or dimensional-weight bands within a zone — a heavy parcel and a light one cost the same here.",
+      "The free-shipping threshold is recorded but does not change the math: the calculator assumes every order pays the flat charge, so orders above the threshold are not modeled as free.",
+      "Calculated shipping is modeled as a zero baseline — the customer pays the exact carrier cost — so it ignores any conversion loss from showing a higher shipping charge at checkout."
+    ],
     "faqs": [
       {
         "question": "What are shipping zones and why do they decide cost?",
@@ -305,6 +332,11 @@ export const TOOL_CONTENT_B2: Record<string, ToolContentEntry> = {
       "title": "Worked example: 12 months at 6% versus 4% churn",
       "body": "Start: 1,000 subscribers, $49 a month, adding 80 new subscribers a month. At 6% churn the base after 12 months is about 1,175 subscribers and monthly revenue about $57,560. At 4% churn the base reaches about 1,387 and monthly revenue about $67,977. The two points of churn are worth $10,417 a month by month 12 — about $60,236 of cumulative revenue across the year — with no change to acquisition spend. Lifetime value tells the same story from the customer's side: at $49 a month, a customer at 6% churn is worth $49 / 0.06 = $817 over their lifetime, while at 4% churn the same customer is worth $49 / 0.04 = $1,225 — a 50% increase from two points of churn."
     },
+    "assumptions": [
+      "Churn, new subscribers, and ARPU are all held constant across the projection, so the model does not reflect seasonality, price changes, or new cohorts churning faster than established customers.",
+      "Revenue counts every subscriber at the same average price — plan mix, annual prepayments, and expansion revenue from upgrades are not modeled.",
+      "The comparison isolates churn only: it assumes the same acquisition spend and the same number of new subscribers on both paths, and it does not price the retention work itself."
+    ],
     "faqs": [
       {
         "question": "What is a good monthly churn rate for subscriptions?",
@@ -364,6 +396,12 @@ export const TOOL_CONTENT_B2: Record<string, ToolContentEntry> = {
       "title": "Worked example: two channels, same views, different niches",
       "body": "Channel A (gaming) gets 1,000,000 views a month at a $3.50 RPM: earnings = 1,000 x $3.50 = $3,500. Channel B (personal finance) gets 250,000 views at a $22 RPM: earnings = 250 x $22 = $5,500. Channel B earns 57% more from a quarter of the views, because finance advertisers pay for viewers with money decisions to make. View counts rank channels; RPM explains their income. At the calculator's finance preset of $15, Channel B would earn $3,750 — still more than Channel A on a quarter of the views."
     },
+    "assumptions": [
+      "Earnings scale linearly with views at one fixed RPM, so the model ignores seasonal CPM swings — Q4 peaks and January drops — and treats every view as equally valuable.",
+      "The niche RPM presets are typical starting points, not your channel's actual rate; your own Studio RPM reflects your real audience geography and ad fill and should replace the preset.",
+      "In Shorts mode the RPM is capped at $0.12, reflecting the pooled revenue model — the estimate does not model music-licensing deductions or view-share allocation.",
+      "Only ad revenue is estimated: memberships, Supers, affiliate income, and sponsorships sit outside this figure."
+    ],
     "faqs": [
       {
         "question": "How much does YouTube pay per 1,000 views?",
@@ -419,6 +457,12 @@ export const TOOL_CONTENT_B2: Record<string, ToolContentEntry> = {
       "title": "Worked example: $24 CPM channel, 800,000 views",
       "body": "Upper-bound RPM: $24 x 55% = $13.20, implying earnings of 800 x $13.20 = $10,560. The channel's Studio shows actual revenue of $8,000, so actual RPM is $8,000 / 800 = $10.00. The $3.20 gap is the unmonetized-view effect: roughly a quarter of views carried no paid ad. Planning a hire against the $10,560 figure would overcommit by $2,560 a month. The same channel posting a video that reaches 10,000 views earns $137.50 at the upper-bound RPM and $100 at the actual RPM — the per-video figure the calculator reports, and the one that makes a single video's value easy to judge. The finance niche in the calculator's chart, at a $42 CPM, implies a $23.10 RPM — and a music channel at a $7 CPM implies just $3.85."
     },
+    "assumptions": [
+      "The 55% creator share is applied to the full CPM, so the converted RPM is an upper bound — it assumes every view is monetized and ignores Premium views, ad-blocked views, and views where ads do not run.",
+      "The niche CPM presets assume a US-heavy audience; viewers in lower-ad-spend regions pay materially less, and the calculator does not adjust for your audience geography.",
+      "Daily views are assumed constant, so the monthly figure is daily earnings times 30 and the yearly figure times 365 — growth, seasonality, and upload gaps are not modeled.",
+      "The conversion applies to long-form video only; Shorts revenue comes from a pooled model with a 45% creator share and does not map to CPM."
+    ],
     "faqs": [
       {
         "question": "What CPM do advertisers pay on YouTube?",
@@ -474,6 +518,11 @@ export const TOOL_CONTENT_B2: Record<string, ToolContentEntry> = {
       "title": "Worked example: 1 million views at a $0.70 RPM",
       "body": "A creator's videos collect 1,000,000 views in a month, of which 70% qualify: 700,000 qualified views. At $0.70 per 1,000 qualified views, earnings = 700 x $0.70 = $490, or $24.50 per video across 20 videos. Under the old Creator Fund at $0.03 per 1,000, the same views paid $30 — the Rewards Program pays about 16 times more. The range matters: at a $0.40 RPM the month pays $280, and at $1.00 it pays $700, so the rate assumption moves the answer more than the view count. Raising the qualified share from 70% to 85% at the same RPM would pay $595 instead of $490, which is why longer videos with strong watch time matter more than raw view counts."
     },
+    "assumptions": [
+      "The RPM is a creator-reported range ($0.40-$1.00), not a published rate — TikTok discloses no fixed Rewards rate, so the estimate moves with the rate you choose.",
+      "The qualified share is a single percentage you set; the calculator does not judge which views qualify — only original videos over one minute, watched at least 5 seconds on the For You feed, count, and a video earns nothing below 1,000 qualified For You views.",
+      "Eligibility is assumed, not checked: the estimate applies whether or not you meet the 10,000-follower, 100,000-view, and eligible-country requirements."
+    ],
     "faqs": [
       {
         "question": "How much does TikTok pay per 1,000 views now?",
@@ -533,6 +582,12 @@ export const TOOL_CONTENT_B2: Record<string, ToolContentEntry> = {
       "title": "Worked example: 100,000 followers, 3% engagement, fitness niche",
       "body": "Baseline: 100 x $24 per 1,000 followers = $2,400 per post. Engagement at 3% gives a factor of exactly 1.0, so no adjustment. A reel prices at $2,400 x 1.15 = $2,760 and a story at $2,400 x 0.35 = $840. A typical monthly package — two posts, two reels and six stories — totals $4,800 + $5,520 + $5,040 = $15,360, usually offered at a round $14,000 to $15,000 as a bundle. The same account at 6% engagement would price the post at $4,800, because the engagement factor doubles. The same account in finance, at $38 per 1,000 followers, would price the post at $3,800 and the package at $24,320 — niche alone moves the month by nearly $9,000."
     },
+    "assumptions": [
+      "Rates are built from commonly reported US/UK brand-deal norms by niche — Instagram publishes no rate card, so these are negotiation starting points, not quoted prices.",
+      "The engagement factor is linear around a 3% benchmark and clamped between 0.4 and 2, so engagement above 6% adds nothing further and engagement below 1.2% cannot discount the rate any lower.",
+      "Format pricing is fixed by ratio — a reel at 1.15 times a post and a story at 0.35 times — regardless of how your own reels actually perform against your posts.",
+      "Usage rights, exclusivity, and contract length are not in the per-format rates; the monthly range of 70% to 140% of the midpoint is where those terms are meant to land."
+    ],
     "faqs": [
       {
         "question": "How much should I charge for a sponsored post?",
@@ -588,6 +643,11 @@ export const TOOL_CONTENT_B2: Record<string, ToolContentEntry> = {
       "title": "Worked example: comparing two accounts for a brand deal",
       "body": "Account A: 200,000 followers, posts average 3,000 likes and 150 comments. Rate = 3,150 / 200,000 = 1.58% — below the 2.4% mid-tier average. Account B: 60,000 followers, posts average 2,400 likes and 300 comments. Rate = 2,700 / 60,000 = 4.5% — above the 3.5% micro-tier average. Account B delivers nearly the same interactions per post with under a third of the audience, so a brand paying A a follower-based premium is buying reach A does not actually produce. B can justify rates close to A's with this arithmetic. B is above average, not exceptional: the Exceptional bar for its tier is 1.5 times the 3.5% micro average, or 5.25%."
     },
+    "assumptions": [
+      "The grade compares your full engagement rate — likes, comments, shares, and saves — against tier averages built on likes and comments only, so including shares and saves can flatter the grade.",
+      "Tier benchmarks are widely reported industry averages, not Instagram data, and they vary by study and method — brand-account studies report much lower figures than creator studies.",
+      "The rate is a per-post average from the numbers you enter: one viral post or one flop in the inputs moves the result, so average your last 10 to 20 posts for a stable figure."
+    ],
     "faqs": [
       {
         "question": "What is a good engagement rate on Instagram?",
@@ -643,6 +703,12 @@ export const TOOL_CONTENT_B2: Record<string, ToolContentEntry> = {
       "title": "Worked example: a mid-size Affiliate's month",
       "body": "Subscribers: 320 Tier 1, 45 Tier 2, 12 Tier 3. Subscription revenue at 50% share: (320 x $5.99 + 45 x $9.99 + 12 x $24.99) x 50% = ($1,916.80 + $449.55 + $299.88) x 50% = $2,666.23 x 50% = $1,333.12. Bits: 25,000 Bits = $250. Ads: $180. Donations: $120. Total for the month: $1,883.12 before tax. The same subscriber counts at a 70% Plus Program share would pay $1,866.36 from subs and $2,416.36 in total — $533.24 more a month for the same audience. Gifted subs pay the same share as regular subs, and a Prime sub pays a fixed $2.25 in the US rather than a share of the tier price."
     },
+    "assumptions": [
+      "Subscription revenue uses US web tier prices ($5.99 / $9.99 / $24.99), so subs bought at regional prices or on mobile pay out less than the model shows.",
+      "Prime subs are priced as full Tier 1 subs here, although they pay a fixed $2.25 in the US — a large Prime share overstates sub income.",
+      "The revenue share is applied to gross tier prices, while Twitch splits net revenue after taxes and payment fees, so actual payouts run lower than the estimate.",
+      "Ads and donations are entered as flat monthly figures, not estimated: ad income varies by impressions and region, and the calculator does not model it."
+    ],
     "faqs": [
       {
         "question": "How much does a Twitch streamer get per sub?",
@@ -702,6 +768,12 @@ export const TOOL_CONTENT_B2: Record<string, ToolContentEntry> = {
       "title": "Worked example: 350 patrons at an average $8 pledge, 8% plan",
       "body": "Gross: 350 x $8 = $2,800. Platform fee at 8%: $224. Processing per pledge: 2.9% of $8 = $0.232 plus $0.30 = $0.532; across 350 pledges = $186.20. After fees: $2,800 - $224 - $186.20 = $2,389.80. Payout fee at 1%: $23.90. Net: $2,365.90, an effective take rate of 84.5%. On the standard 10% plan for new pages, the same 350 patrons would net $2,310.46 — $55.44 less a month — because the platform fee rises from $224 to $280. The same page with 350 patrons on a $3 tier would gross $1,050 and keep only about $822 (78.3%) at the standard processing rate — or about $870 with the legacy micropayment rate — because the fixed fee takes a far larger share of each small pledge."
     },
+    "assumptions": [
+      "Every patron is assumed to pay the same average pledge, so the model does not reflect a real tier mix — a page split across $3 and $25 tiers loses more to the fixed $0.30 fee on the small pledges than the average suggests.",
+      "Processing uses the standard 2.9% plus $0.30 per pledge; the legacy micropayment rate for pledges of $3 or less (5% plus $0.10) is not applied automatically.",
+      "The payout fee is modeled as a percentage of the after-fee balance — the PayPal 1% model — so US direct deposit at a flat $0.25 per payout is cheaper than the default shows.",
+      "iOS memberships are not modeled: purchases through Apple's in-app system lose 30% in the first year and 15% after, so a large iOS share lowers net income further than this shows."
+    ],
     "faqs": [
       {
         "question": "How much does Patreon take from creators?",
@@ -761,6 +833,12 @@ export const TOOL_CONTENT_B2: Record<string, ToolContentEntry> = {
       "title": "Worked example: tech channel, 250,000 average views",
       "body": "Base: 250 x $35 CPM = $8,750 for a 60 to 90 second integration. Engagement of 5% gives a factor of 1.16, so the adjusted rate is $10,150. The brand wants 90 days of paid usage rights: +50% = $15,225. Category exclusivity for 60 days: +40% = $21,315 per deliverable. Two deliverables bring the package to $42,630. The integration itself is barely a fifth of the invoice — creators who quote the base rate alone leave the rest uncharged, and brands negotiate against line items they can see."
     },
+    "assumptions": [
+      "The base rate prices average views at a niche CPM, so it assumes every deliverable draws the same audience — a series of videos with declining views is overpriced on the later ones.",
+      "The engagement adjustment is linear around a 3% benchmark with a 0.6 floor, so engagement below about 1% cannot discount the rate any further, while very high engagement keeps adding 8% per point with no cap.",
+      "Usage rights and exclusivity stack multiplicatively, so entering both compounds them — a 50% usage uplift plus 40% exclusivity multiplies the rate by 2.1, not 1.9.",
+      "The model prices a 60 to 90 second integration; a dedicated video, which carries the whole video's performance risk, is not priced separately and should cost more."
+    ],
     "faqs": [
       {
         "question": "What CPM should I use to price sponsorships?",
@@ -820,6 +898,12 @@ export const TOOL_CONTENT_B2: Record<string, ToolContentEntry> = {
       "title": "Worked example: 8,000-subscriber list, $299 course",
       "body": "At a 2.5% conversion rate, buyers = 8,000 x 2.5% = 200. Gross revenue = 200 x $299 = $59,800. Refunds at 5% remove $2,990, leaving kept sales of $56,810. Platform fees at 5% remove $2,840.50. Processing is 2.9% of $56,810 ($1,647.49) plus $0.30 for each of the 190 kept buyers ($57), totalling $1,704.49. Net launch revenue = $52,265.01 — $6.53 per subscriber and $261.33 per buyer. If affiliates drove sales worth 10% of kept revenue, subtract a further $5,681 and the launch nets $46,584. Raising conversion to 3.5% would produce 280 buyers and $73,171 of net revenue — a 40% increase from one point of conversion, which is why list quality beats list size."
     },
+    "assumptions": [
+      "Refunds come off gross first, and platform fees, processing, and affiliate commissions all apply to kept sales only — refunded buyers are assumed to cost nothing in fees.",
+      "The conversion rate applies to the whole list at one price, so the model does not distinguish warm buyers from cold subscribers or price-sensitive segments.",
+      "Payment plans are not modeled: the full price is counted at launch, so installment conversion lifts and failed-payment losses (typically 5 to 15% of installments) are both excluded.",
+      "Ad spend and launch costs are not deducted — net revenue is after fees only, not after the cost of growing or mailing the list."
+    ],
     "faqs": [
       {
         "question": "What conversion rate should I expect from a course launch?",
@@ -879,6 +963,11 @@ export const TOOL_CONTENT_B2: Record<string, ToolContentEntry> = {
       "title": "Worked example: two programs on the same review page",
       "body": "Program A pays 8% on a $250 product = $20 per sale, converting at 4%: EPC = $20 x 4% = $0.80. Program B pays 30% on a $60 product = $18 per sale, converting at 6%: EPC = $18 x 6% = $1.08. On 10,000 clicks, A earns $8,000 and B earns $10,800. The lower commission percentage wins because conversion and basket size beat the headline rate — the standard outcome when programs are compared on EPC instead of percentage. If the page cost $800 to promote, B's profit is $10,000 against A's $7,200. The break-even cost per click for Program B is its $1.08 EPC: paying $1.00 a click for 10,000 clicks would cost $10,000 and return $10,800, a thin $800 profit before tracking loss."
     },
+    "assumptions": [
+      "Conversion is a single rate applied to all clicks, so the model does not distinguish warm review traffic from cold traffic or account for cookie windows — a 24-hour cookie credits fewer sales than a 30 to 90 day one at the same rate.",
+      "Commission is a flat dollar amount per sale, so varying basket sizes, returns, and clawbacks on refunded orders are not modeled.",
+      "Tracking loss is not modeled: clicks that ad blockers or broken links strip from attribution still count as clicks here, so real EPC can run lower than the model shows."
+    ],
     "faqs": [
       {
         "question": "What is EPC and why does it matter?",
@@ -938,6 +1027,12 @@ export const TOOL_CONTENT_B2: Record<string, ToolContentEntry> = {
       "title": "Worked example: a creator hiring an editor",
       "body": "Solo today: $12,000 revenue, $400 overhead, profit $11,600 (96.7% margin), 120 hours a month — $97 an hour. Hiring an editor at $2,500 plus $800 of other support and $900 of overhead cuts profit to $7,800 (65% margin) but drops your hours to 45, lifting your effective rate to $173 an hour. If the freed time grows revenue 40% to $16,800, agency profit becomes $12,600 — $1,000 more than solo, in 75 fewer hours. Below $15,800 of revenue the team costs more than it returns; above it, the hire pays."
     },
+    "assumptions": [
+      "Team costs are fixed monthly amounts, so the model assumes no hiring ramp, no utilization gaps, and no extra cost as revenue grows — every dollar above the crossover goes straight to agency profit.",
+      "The verdict compares profit per hour of your time, not total profit: the agency model can win the comparison while earning less money in absolute terms.",
+      "The capacity gain is a single percentage you set, not a forecast — the model assumes freed hours convert into revenue at that rate with no lag.",
+      "Taxes are not modeled: profit is before income tax and self-employment tax, and the two models may be taxed differently in practice."
+    ],
     "faqs": [
       {
         "question": "What margin should a creator business target?",
@@ -997,6 +1092,12 @@ export const TOOL_CONTENT_B2: Record<string, ToolContentEntry> = {
       "title": "Worked example: a $35 tee, 300 units a month",
       "body": "Price $35, blank $13, printing $4, no platform fee, transaction fee $35 x 2.9% + $0.30 = $1.32, shipping charged $4.99 against a $4.50 cost = +$0.49. Profit per unit = $35 - $13 - $4 - $1.32 + $0.49 = $17.17, a 49.1% margin and a 105.9% markup on the $17 production cost. After a 2% return rate, adjusted profit is $16.83 a unit and 300 units net $5,049.45 a month. Add a 10% platform fee and profit per unit falls to $13.68 — the monthly total drops to $4,020.45 on identical sales."
     },
+    "assumptions": [
+      "Returns are modeled as a straight reduction in profit — adjusted profit is base profit times one minus the return rate — so the model does not add return shipping, reprint costs, or lost inventory on returned units.",
+      "The base cost is assumed to bundle the blank, printing, and fulfillment as one print-on-demand figure; bulk buying, storage, and unsold sizes are not modeled.",
+      "Platform and payment fees are charged on the retail price only — the shipping you charge the customer is excluded from the fee base, although processors normally charge on the full amount paid.",
+      "The model covers one design at one price and volume; it does not spread design, setup, or promotion costs across the range."
+    ],
     "faqs": [
       {
         "question": "What margin should merch aim for?",
@@ -1056,6 +1157,12 @@ export const TOOL_CONTENT_B2: Record<string, ToolContentEntry> = {
       "title": "Worked example: $5,000 of monthly audience income, eight ways",
       "body": "Stripe alone: $220 of fees, net $4,780. Gumroad: $845 of fees ($500 platform, $125 per-sale, $220 card processing), net $4,155. Etsy: $587.50, net $4,412.50. Patreon Pro: $620, net $4,380. Substack: $755, net $4,245. YouTube long-form ads at 45%: $2,250, net $2,750. Twitch subscriptions at 50%: $2,500, net $2,500. YouTube Shorts at 55% deductions: $2,750, net $2,250. The spread between the best and worst is $2,530 a month on identical gross audience spending — the audience's $5,000 does not change; the toll does. Cut the average transaction to $5, with 1,000 transactions for the same $5,000, and Stripe's fee rises to $445 while Patreon's rises to $845 — the fixed fee reshuffles the middle of the ranking."
     },
+    "assumptions": [
+      "Each platform's fee is a headline schedule verified in November 2026 — Gumroad Discover sales at a flat 30% and Etsy Offsite Ads at 12 to 15% are not modeled, so heavy Discover or Offsite Ads traffic keeps less than the row shows.",
+      "YouTube and Twitch rows apply a flat share to the whole gross figure, so the comparison assumes the same audience spending on every platform — in practice the audience size each platform delivers differs, and that is what the fee buys.",
+      "Fixed per-transaction fees scale with the transaction count you enter, so the ranking changes with average transaction size — small payments punish Patreon, Substack, and Stripe more than the flat-percentage platforms.",
+      "Fees are capped at the gross amount, so a fee schedule that would exceed gross on tiny transactions is shown as keeping zero rather than going negative."
+    ],
     "faqs": [
       {
         "question": "Which platform takes the smallest cut?",

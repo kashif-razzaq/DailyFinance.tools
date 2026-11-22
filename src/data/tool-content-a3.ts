@@ -15,6 +15,12 @@ export const TOOL_CONTENT_A3: Record<string, ToolContentEntry> = {
       "title": "Worked example: $230,000 purchase, $400,000 ARV",
       "body": "Costs: purchase $230,000; rehab $50,000; holding 6 months × $1,200 = $7,200; buying costs at 2% = $4,600; selling costs at 8% of ARV = $32,000. Total cash in: $291,800. Sale at $400,000 leaves a projected profit of $76,200, a 19.1% margin on the sale price and a 26.1% return on the cash invested, over roughly 7 months. The purchase price equals the 70% rule ceiling exactly, so the deal has no price cushion: a slower sale that adds two months of holding costs takes another $2,400 straight off the profit."
     },
+    "assumptions": [
+      "Buying closing costs are fixed at 2% of the purchase price, and holding costs are a flat monthly figure you enter — loan points, rate moves and rehab overruns are not modeled separately.",
+      "The after-repair value is treated as the certain sale price, with no discount for an appraisal shortfall or a slow market.",
+      "Profit is shown before tax. Flip profit is typically ordinary income plus self-employment tax, which the calculator does not deduct.",
+      "The rehab budget is a single fixed figure with no contingency allowance, so any overrun comes straight off the projected profit."
+    ],
     "faqs": [
       {
         "question": "What profit margin should a flip target?",
@@ -74,6 +80,12 @@ export const TOOL_CONTENT_A3: Record<string, ToolContentEntry> = {
       "title": "Worked example: $180,000 buy to $320,000 value",
       "body": "All-in basis: $180,000 purchase + $60,000 rehab + $8,000 holding and buying costs = $248,000. Refinance at 75% of the $320,000 ARV gives a $240,000 loan; refinance closing costs are $5,000. Cash left in the deal: $248,000 + $5,000 − $240,000 = $13,000. Equity retained: $80,000. The new payment at 7% over 30 years is $1,596.73. Rent of $2,250 minus that payment and $600 of monthly expenses leaves cash flow of about $53 a month — positive, but with no room for a major repair in year one."
     },
+    "assumptions": [
+      "The refinance is modeled at the full appraised value and loan-to-value you enter, with no appraisal haircut, seasoning delay or lender condition applied.",
+      "The new loan is a 30-year fixed mortgage at the rate you enter; a rate rise between purchase and refinance is not modeled.",
+      "Rent and monthly expenses are held flat for the cash-flow test, with no vacancy, rent growth or major repair allowance beyond the single expense figure.",
+      "Cash-on-cash return divides annual cash flow by the cash left in the deal; taxes, depreciation and the value of your time are not included."
+    ],
     "faqs": [
       {
         "question": "What does 'cash left in the deal' need to be for BRRRR to work?",
@@ -129,6 +141,12 @@ export const TOOL_CONTENT_A3: Record<string, ToolContentEntry> = {
       "title": "Worked example: $150 ADR, 70% occupancy, 3-night average stay",
       "body": "Booked nights: 21 a month. Gross revenue: $150 × 21 = $3,150. Platform fee at 3%: $94.50. Turnovers: 21 ÷ 3 = 7 cleans × $75 = $525. Supplies and restocking: $120. Housing: rent $1,800 and utilities $250. Profit = $3,150 − $1,800 − $250 − $94.50 − $525 − $120 = $360.50, an 11.4% margin. Switch the platform fee to Airbnb's 15.5% host-only rate and the fee becomes $488.25 — the month turns into a $33.25 loss. Drop occupancy to 55% at the 3% fee and the same cost base loses about $182."
     },
+    "assumptions": [
+      "Every month is modeled as 30 nights at one average daily rate and occupancy, so seasonal swings in rate and demand are not captured.",
+      "Cleaning fees charged to guests are not counted as income — cleaning appears only as a cost, so add any guest cleaning fee to the profit yourself.",
+      "Furnishing and setup costs are not amortized into the margin; the result is an operating margin, not a return on the full investment.",
+      "Taxes, short-term rental insurance and your management time sit outside the model, and the platform fee is charged on gross revenue only."
+    ],
     "faqs": [
       {
         "question": "Is rental arbitrage legal?",
@@ -188,6 +206,12 @@ export const TOOL_CONTENT_A3: Record<string, ToolContentEntry> = {
       "title": "Worked example: one single-family rental, default schedule",
       "body": "Roof $12,000 ÷ 25 years = $480 a year. HVAC $8,000 ÷ 15 = $533. Water heater $1,500 ÷ 10 = $150. Appliances $4,000 ÷ 12 = $333. Exterior paint $5,000 ÷ 7 = $714. Flooring $6,000 ÷ 15 = $400. Plumbing $3,000 ÷ 25 = $120. Driveway $4,500 ÷ 20 = $225. Total replacement exposure: $44,000. Annual reserve: $2,956, which is $246.33 a month per unit. Own four similar units and the portfolio reserve is about $985 a month — a real line in the budget, which is precisely the planner's point."
     },
+    "assumptions": [
+      "Each component is reserved straight-line — replacement cost divided by full lifespan — with no inflation in future replacement costs.",
+      "The reserve earns no interest in the model; a funded reserve held in a savings account would grow slightly in reality.",
+      "Lifespans are full expected lives, not remaining lives, so a mid-life component needs a catch-up reserve the straight-line figure understates.",
+      "Multiplying by unit count assumes every unit carries its own full component list; shared systems such as one roof over a fourplex must be entered as a single building list."
+    ],
     "faqs": [
       {
         "question": "What lifespans should I use for major components?",
@@ -243,6 +267,12 @@ export const TOOL_CONTENT_A3: Record<string, ToolContentEntry> = {
       "title": "Worked example: $600,000 home, $300,000 mortgage, $100,000 draw",
       "body": "At an 85% max combined LTV, the credit ceiling is $510,000; minus the $300,000 mortgage, the largest line is $210,000. Draw $100,000 at 8.5%: the interest-only payment is $100,000 × 8.5% ÷ 12 = $708.33 a month, and the balance stays $100,000. When the draw period ends and the balance amortises over 20 years at the same rate, the payment becomes $867.82 and the interest over the repayment phase totals about $108,278. Ten years of interest-only payments ($85,000 if the balance never moved) bought no equity at all."
     },
+    "assumptions": [
+      "The rate is held constant across both phases, although most HELOCs are variable and priced off prime plus a margin.",
+      "The full draw is assumed to be taken at once and held through the draw period on interest-only payments, so no principal is repaid before the repayment phase.",
+      "The interest total covers only the repayment phase; interest paid during the draw period is not included in that figure.",
+      "Origination and annual fees are not modeled, and no tax deduction is assumed for the interest."
+    ],
     "faqs": [
       {
         "question": "What is the current typical HELOC rate?",
@@ -302,6 +332,12 @@ export const TOOL_CONTENT_A3: Record<string, ToolContentEntry> = {
       "title": "Worked example: $450,000 duplex, 5% down, one unit rented at $1,800",
       "body": "Down payment: $22,500. Loan: $427,500 at 6.5% over 30 years — principal and interest $2,702.09. Tax $5,400 a year ($450 a month) and insurance $1,800 a year ($150) bring PITI to $3,302.09. Add $150 of utilities and subtract the other unit's $1,800 rent, and your effective housing cost is $1,652.09 a month, against $2,100 to rent elsewhere — a saving of about $448 a month. Cash invested is $31,500 (deposit plus 2% closing). Move out and rent your unit at $1,600: total rent $3,400 against PITI of $3,302.09 plus $150 of utilities leaves about minus $52 a month — this deal works as subsidised housing first and as an investment only with rent growth."
     },
+    "assumptions": [
+      "Rents, tax, insurance and utilities are held flat, with no vacancy, maintenance or capital-repair allowance in either the live-in or move-out case.",
+      "Closing costs are fixed at 2% of the purchase price, and no mortgage insurance is modeled even though a low down payment usually requires it.",
+      "The move-out case assumes your unit rents immediately at the market rent you enter, with no turnover gap between tenants.",
+      "Tax effects — rental income, deductible expenses and depreciation on the rented share — are not included in the return."
+    ],
     "faqs": [
       {
         "question": "How many units can I buy with an owner-occupied loan?",
@@ -361,6 +397,12 @@ export const TOOL_CONTENT_A3: Record<string, ToolContentEntry> = {
       "title": "Worked example: $100,000 over 20 years",
       "body": "REIT path: 4% dividend yield reinvested plus 5% appreciation is a 9% total return. $100,000 × 1.09^20 = $560,441. Physical path: $100,000 is 25% down on a $400,000 property; the $300,000 mortgage at 6% costs $1,798.65 a month. Rent starts at $3,400 and grows 2% a year; after expenses at 35% of rent, tax and insurance of $500 a month and the mortgage payment, cumulative cash flow over 20 years is about $92,690. At 4% appreciation the property is worth about $876,449 in 20 years and the loan balance has fallen to about $162,011, leaving equity of about $714,439. Physical ends at about $807,128 — ahead by roughly $247,000, driven almost entirely by leveraged appreciation, the input least in your control."
     },
+    "assumptions": [
+      "Both paths compound smoothly at constant rates, so market volatility, drawdowns and sequence risk do not appear in either projection.",
+      "The physical model grows rent 2% a year, estimates tax and insurance at 1.5% of the purchase price a year, and assumes no vacancy or major repairs.",
+      "Rental cash flow is accumulated, not reinvested, while REIT dividends are reinvested — an asymmetry that favors the REIT side of the comparison.",
+      "Buying and selling costs, taxes on dividends, rental income and capital gains, and the landlord's time are all left out."
+    ],
     "faqs": [
       {
         "question": "How are REIT dividends taxed?",
@@ -420,6 +462,12 @@ export const TOOL_CONTENT_A3: Record<string, ToolContentEntry> = {
       "title": "Worked example: $500,000 market value, 100% assessment ratio",
       "body": "Assessed value: $500,000 × 100% = $500,000. Less the $50,000 homestead exemption: taxable value $450,000. At a 1.25% combined rate (12.5 mills): $450,000 × 1.25% = $5,625 a year, which a lender escrows at $468.75 a month. Effective rate on the true value: $5,625 ÷ $500,000 = 1.13%. Remove the exemption and the bill rises by $625 — exemptions are worth filing for. The same home at New Jersey's 2.23% effective rate would cost $11,150 a year; at Hawaii's 0.27%, $1,350."
     },
+    "assumptions": [
+      "A single combined rate is applied to the whole taxable value; the county, city and school levies that make up a real bill are not broken out.",
+      "Assessment caps and sale-triggered reassessments are not modeled — the assessed value is the market value times the ratio you enter, every year.",
+      "Exemptions are a single flat dollar figure you enter; the calculator does not check which exemptions you qualify for or their local rules.",
+      "The result is the tax bill only; it does not estimate any income-tax deduction, which depends on whether you itemize and the SALT cap."
+    ],
     "faqs": [
       {
         "question": "What is a homestead exemption and who gets one?",
@@ -479,6 +527,11 @@ export const TOOL_CONTENT_A3: Record<string, ToolContentEntry> = {
       "title": "Worked example: $25,000 at 7.5% over 5 years",
       "body": "Payment: $25,000 × [0.00625 × (1.00625)^60] ÷ [(1.00625)^60 − 1] = $500.95. Over 60 payments you hand over $30,056.92, so interest is $5,056.92 — about 20 cents per dollar borrowed, and 16.8% of everything you pay. The same loan over 3 years costs $777.66 a month but only $2,996 of interest; over 7 years, $383.46 a month and $7,210 of interest. After the first year the balance is still $20,718 — term choice is a price decision, and the price is the interest total."
     },
+    "assumptions": [
+      "The rate is fixed for the whole term and interest is charged monthly on the outstanding balance; variable rates and rate changes are not modeled.",
+      "No fees are included — origination, documentation or late fees would raise the true cost above the interest total shown.",
+      "Payments are assumed on time every month for the full term, with no extra payments, skipped payments or prepayment penalties."
+    ],
     "faqs": [
       {
         "question": "What is the difference between the interest rate and APR?",
@@ -538,6 +591,12 @@ export const TOOL_CONTENT_A3: Record<string, ToolContentEntry> = {
       "title": "Worked example: $35,000 car, $6,000 trade-in, 60 months at 7.9%",
       "body": "Taxable amount: $35,000 − $6,000 = $29,000. Sales tax at 7%: $2,030. Amount financed: $35,000 − $6,000 + $2,030 − $4,000 = $27,030. Payment: $546.78 a month. Total paid over 60 months: $32,806.69, so interest is $5,776.69. Stretch the same loan to 84 months and the payment falls to $419.95 — but interest climbs to $8,246, and after three years you still owe about $17,235 on a car that may well have depreciated below that figure."
     },
+    "assumptions": [
+      "Sales tax is calculated on the price minus the trade-in, which matches most states; a few states tax the full price, where the financed amount would be higher.",
+      "Dealer documentation fees, registration, title and gap insurance are not included in the amount financed.",
+      "The rate is fixed for the term and payments are assumed on time; no depreciation curve is modeled, so negative equity is described in the text rather than computed.",
+      "Total cost counts the down payment, the trade-in value and every monthly payment, but not insurance, fuel or maintenance."
+    ],
     "faqs": [
       {
         "question": "How long a term should I choose for a car loan?",
@@ -597,6 +656,11 @@ export const TOOL_CONTENT_A3: Record<string, ToolContentEntry> = {
       "title": "Worked example: $15,000 at 11.5% over 3 years, 5% fee",
       "body": "Payment: $494.64 a month. Total repaid: $17,807.04, so interest is $2,807.04. The 5% origination fee is $750, deducted from the proceeds, so you receive $14,250 while repaying interest on the full $15,000 — total cost of borrowing $3,557.04, effective APR 15.09%. The same $15,000 on a credit card at 22.36% APR, paid at the same $494.64 a month, would take about 46 months and cost roughly $7,306 of interest — the personal loan saves about $4,499 and finishes ten months sooner."
     },
+    "assumptions": [
+      "The origination fee is deducted from the amount you receive while interest is charged on the full loan amount — the standard lender practice the effective APR captures.",
+      "The effective APR is solved by iteration against the net proceeds and assumes every payment is made on time for the full term.",
+      "Late fees, prepayment penalties and any lender charges outside the origination fee are not in the APR or the total cost."
+    ],
     "faqs": [
       {
         "question": "What credit score do I need for a personal loan?",
@@ -656,6 +720,12 @@ export const TOOL_CONTENT_A3: Record<string, ToolContentEntry> = {
       "title": "Worked example: $37,000 at 5.5% on the standard plan",
       "body": "Payment: $401.55 a month for 120 months. Total repaid: $48,186, of which interest is $11,186 — you repay about $1.30 for every $1 borrowed. If $6,000 of interest had capitalised during school (a realistic figure for four years of unsubsidised borrowing), the starting balance is really $43,000 and the same plan costs $466.66 a month with about $13,000 of further interest. Paying a flat $400 a month instead of the exact plan payment stretches payoff to 121 months with $11,248 of interest — a $1.55 shortfall costs a month and $62."
     },
+    "assumptions": [
+      "One balance at one fixed rate is modeled; multiple loans with different rates need a balance-weighted average rate or separate runs.",
+      "Interest that capitalizes during school or a grace period is not simulated — enter the balance as it stands when repayment begins.",
+      "Income-driven plans and forgiveness are not calculated; the tool prices fixed standard and extended schedules only.",
+      "The federal loan fee is not added to the balance, and payments are assumed on time every month."
+    ],
     "faqs": [
       {
         "question": "What are the current federal student loan rates?",
@@ -715,6 +785,12 @@ export const TOOL_CONTENT_A3: Record<string, ToolContentEntry> = {
       "title": "Worked example: $5,800 at 24.99% APR, minimum payments only",
       "body": "Month one: interest $120.79, minimum payment $178.79 (interest plus 1% of the balance), so principal falls by just $58. The balance halves only after about 6 years. Final payment arrives in month 251, and total interest is $10,944 — you repay about $16,744 for $5,800 of spending. A fixed $200 a month clears the same balance in 45 months with $3,187 of interest, saving $7,757 and more than 17 years. Federal rules require your statement to print this comparison; this calculator lets you run it for any payment you choose, before you choose it."
     },
+    "assumptions": [
+      "Interest is charged monthly at APR divided by 12 on the balance; issuers actually use average daily balance, so the figures are close rather than exact.",
+      "Minimums are modeled as monthly interest plus 1% of the balance, never below $25 — your issuer's own minimum formula may work differently.",
+      "No new purchases, cash advances, fees or penalty rates are added; the simulation pays down the starting balance only.",
+      "The grace period is not modeled: once a balance is carried, new purchases accrue interest from the day they post."
+    ],
     "faqs": [
       {
         "question": "How is credit card interest actually calculated?",
@@ -774,6 +850,12 @@ export const TOOL_CONTENT_A3: Record<string, ToolContentEntry> = {
       "title": "Worked example: $15,400 across three debts, $700 a month",
       "body": "Credit card: $5,800 at 24.99%, minimum $145. Store card: $2,100 at 29.99%, minimum $60. Personal loan: $7,500 at 11.5%, minimum $165. Minimums total $370; the plan commits $700, so $330 attacks the 29.99% store card first. Result: debt-free in 27 months, total interest $3,089, with the store card gone in month 6 and the credit card in month 18. Pay minimums only and the same debts take 73 months and $11,438 of interest. The extra $330 a month saves $8,350 and returns three years and ten months of payment-free life."
     },
+    "assumptions": [
+      "Minimum payments are the fixed dollar amounts you enter, not the shrinking percentage formulas most card issuers use — actual minimums would fall as balances fall.",
+      "Every APR is held fixed for the whole plan; rate rises, penalty APRs and promotional-rate expiries are not modeled.",
+      "No new spending is added to any balance; the plan assumes all debts shrink from the day it starts.",
+      "The budget is the total paid every month without fail — a missed or reduced month pushes the debt-free date out."
+    ],
     "faqs": [
       {
         "question": "Avalanche or snowball — which should I pick here?",
@@ -833,6 +915,12 @@ export const TOOL_CONTENT_A3: Record<string, ToolContentEntry> = {
       "title": "Worked example: $16,400 of cards into one loan",
       "body": "Current: $16,400 at a blended 23.5% APR, paying $520 a month — debt-free in 50 months, interest $9,378. Consolidation: a 4% fee ($656) is rolled in, so the loan is $17,056 at 11.9% APR over 48 months — payment $448.31, total interest $4,463, total cost including the fee $5,119. Headline saving: $4,259, plus a payment $72 a month lower. Pay the loan at the old $520 a month instead and it clears in 40 months with about $3,677 of interest — the best version of the deal, saving $5,045."
     },
+    "assumptions": [
+      "Current debts are collapsed into one balance at a single blended APR paid at a fixed monthly amount, rather than simulated debt by debt.",
+      "The origination fee is rolled into the new loan, so you pay interest on the fee itself for the full term.",
+      "The saving assumes the paid-off cards stay at zero; new card spending after consolidation is not modeled and would erase it.",
+      "Both paths assume fixed rates and on-time payments for the whole term, and credit-score effects are outside the model."
+    ],
     "faqs": [
       {
         "question": "What rate do I need for consolidation to be worth it?",
@@ -892,6 +980,12 @@ export const TOOL_CONTENT_A3: Record<string, ToolContentEntry> = {
       "title": "Worked example: $86,400 salary, applying for a mortgage",
       "body": "Gross monthly income: $7,200. Payments: housing $1,850, car loan $430, credit card minimums $160, student loan $290 — total $2,730. Back-end DTI = $2,730 ÷ $7,200 = 37.9%. Front-end = $1,850 ÷ $7,200 = 25.7%. The calculator bands 37.9% as acceptable but above the 36% comfort line, with $366 a month of headroom to 43%. Paying off the car loan before applying removes $430 and drops the back-end ratio to 31.9% — comfortably inside the zone most lenders prefer, and worth considerably more to the application than the same cash added to the deposit."
     },
+    "assumptions": [
+      "Income is gross monthly pay, before tax, following the lender convention — the ratio against take-home pay would be higher.",
+      "Only the debt payments you enter are counted; utilities, groceries, subscriptions and other living costs are excluded by design.",
+      "The 36% and 43% bands are planning guides, not approval guarantees; individual lenders apply their own overlays and program rules.",
+      "Deferred student loans may be counted differently by lenders — some use a percentage of the balance instead of the actual payment."
+    ],
     "faqs": [
       {
         "question": "What DTI do I need to qualify for a mortgage?",
@@ -947,6 +1041,12 @@ export const TOOL_CONTENT_A3: Record<string, ToolContentEntry> = {
       "title": "Worked example: $20,000 at 9% with $800 of fees, 60 months",
       "body": "Payment on $20,000 at 9% over 60 months: $415.17. Fees of $800 are withheld, so the amount you effectively borrow is $19,200 while the payments are unchanged. Solving for the rate that discounts 60 payments of $415.17 back to $19,200 gives a monthly rate of about 0.90%, an APR of 10.76%. The same $800 of fees on a 24-month loan would push the APR to 13.10%, and on a 12-month loan to 16.77%. A competing loan at 10% with no fees would be cheaper despite the higher headline rate — the comparison APR exists to catch."
     },
+    "assumptions": [
+      "Every dollar of fees you enter is treated as withheld from the proceeds; the calculator does not separate finance charges from third-party costs the way Regulation Z does.",
+      "The APR assumes the loan runs to full term with every payment on time — paying off early changes the effective cost of the fees.",
+      "Contingent charges such as late fees are excluded by definition and are not in the APR.",
+      "APR is a rate, not a price: two loans with the same APR over different terms cost different amounts in total interest."
+    ],
     "faqs": [
       {
         "question": "Why is APR higher than the interest rate?",
@@ -1006,6 +1106,12 @@ export const TOOL_CONTENT_A3: Record<string, ToolContentEntry> = {
       "title": "Worked example: $375,000 home, 0% down, first use at 6.5%",
       "body": "With no down payment, the base loan is $375,000. The first-use fee at 2.15% is $8,062.50, and financing it makes the loan $383,062.50. Principal and interest on that amount at 6.5% over 360 payments is $2,421.22 a month. Property tax of $4,125 a year adds $343.75 and insurance of $1,875 a year adds $156.25, so the total payment is $2,921.22. Total interest over the term is $488,576.70. Paying the fee in cash instead would cut the payment to $2,370.26 and save $10,283.10 of interest."
     },
+    "assumptions": [
+      "The funding fee follows the VA table effective April 7, 2023 — 2.15% first use under 5% down, 3.3% subsequent use — and is charged on the loan amount, not the price.",
+      "Tax and insurance are entered as flat annual figures divided by 12; escrow changes and annual increases are not projected.",
+      "No PMI is charged on a VA loan, so the payment has no mortgage insurance line; the funding fee replaces it.",
+      "Entitlement limits, county loan limits and seller concessions are not modeled; the calculator prices the loan you describe."
+    ],
     "faqs": [
       {
         "question": "How much is the VA funding fee?",
@@ -1065,6 +1171,12 @@ export const TOOL_CONTENT_A3: Record<string, ToolContentEntry> = {
       "title": "Worked example: $350,000 home, 3.5% down at 6.5% for 30 years",
       "body": "Down payment: 3.5% of $350,000 = $12,250; base loan $337,750 at 96.5% loan-to-value. UFMIP: 1.75% of $337,750 = $5,910.63, financed for a total loan of $343,660.63. Principal and interest at 6.5% over 360 payments: $2,172.17 a month. Annual MIP at 0.55% on the year-1 average balance of $341,740.04: $1,879.57 a year, or $156.63 a month. Tax of $3,850 a year adds $320.83, insurance of $1,750 adds $145.83. Total monthly payment: $2,795.47. Over the loan, total MIP is $36,999.74 and total interest $438,320.57. Paying the UFMIP in cash would cut principal and interest to $2,134.81, saving $37.36 a month."
     },
+    "assumptions": [
+      "Monthly MIP is charged on each year's average outstanding balance, so it falls as the loan amortizes — the headline payment shows the year-1 figure.",
+      "MIP duration follows the down payment: for the life of the loan under 10% down, 11 years at 10% or more, with no early cancellation modeled.",
+      "The upfront premium is 1.75% of the base loan and is financed by default; paying it in cash lowers the payment but costs liquidity.",
+      "The monthly tax and insurance slice comes from the annual figures you enter, split evenly across 12 months — the calculator does not model escrow increases or a rate that changes over time."
+    ],
     "faqs": [
       {
         "question": "How long do I pay FHA mortgage insurance?",

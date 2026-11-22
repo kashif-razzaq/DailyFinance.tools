@@ -22,6 +22,12 @@ export const TOOL_CONTENT_PRO: Record<string, ToolContentEntry> = {
       "title": "Worked example: $150,000 saved, $1,500 a month, retire in 30 years",
       "body": "Start with $150,000, contribute $1,500 a month for 30 years, assume a 7% average return with 12% volatility and 2.5% inflation, then spend $50,000 a year (in today's dollars) for 30 years of retirement. A smooth projection at the 4.39% real return reaches about $1,675,000 by retirement. The simulator's median outcome is lower — about $1,456,000 — and the middle 80% of outcomes at retirement spans roughly $794,000 to $2,777,000. The plan succeeds in 79.7% of futures; the median path ends with roughly $1,475,000 still invested, while in the worst tenth of futures the money runs out before the 30 retirement years are up. That gap is exactly what this tool exists to show."
     },
+    "assumptions": [
+      "Monthly returns are drawn from a normal distribution around the assumed mean, so fat-tail crashes and multi-year bear markets are rarer in the simulation than in real markets.",
+      "Contributions and spending are fixed in real terms for the whole plan: no salary growth, no spending cuts in bad years, and no Social Security or pension income unless you subtract it from the spending figure.",
+      "Taxes, fund fees and adviser fees are not modeled — the return you enter should be net of whatever you pay to invest.",
+      "A path fails the moment the balance hits zero, so the success rate counts a plan that runs dry in the final year as a failure even if it lasted nearly the whole retirement."
+    ],
     "faqs": [
       {
         "question": "Why is the simulated median lower than a normal projection?",
@@ -81,6 +87,11 @@ export const TOOL_CONTENT_PRO: Record<string, ToolContentEntry> = {
       "title": "Worked example: $320,000 duplex, $2,600 a month rent",
       "body": "Buy at $320,000 with 25% down ($80,000) plus 2% closing costs ($6,400): $86,400 of cash in, a $240,000 loan at 6% over 30 years, and a payment of $1,438.92. Rent is $2,600. Monthly costs: tax $293.33, insurance $150, maintenance $130, vacancy $130 and management $208 — $911.33 of running costs, $2,350.25 all-in with the mortgage. NOI is $20,264 a year, a cap rate of 6.33%. Cash flow is $249.75 a month ($2,996.94 a year), a cash-on-cash return of 3.47%, and the DSCR is 1.17 with a GRM of 10.3. The deal pays, but the margin is thin: at a 7% rate cash flow shrinks to about $92 a month, and at $2,400 rent to about $86."
     },
+    "assumptions": [
+      "This is a first-year snapshot: rent, tax, insurance and every expense line stay flat, so rent growth, appreciation and loan paydown add nothing to the returns shown.",
+      "Maintenance, vacancy and management are charged as flat percentages of rent, which smooths lumpy reality — a roof or a three-month vacancy arrives all at once, not spread evenly across the year.",
+      "Income tax is not modeled: depreciation, mortgage-interest deductibility and the QBI deduction all sit outside the cash flow, cap rate and cash-on-cash figures."
+    ],
     "faqs": [
       {
         "question": "What cap rate is a good deal?",
@@ -140,6 +151,11 @@ export const TOOL_CONTENT_PRO: Record<string, ToolContentEntry> = {
       "title": "Worked example: services firm, $850,000 revenue, $210,000 SDE",
       "body": "A professional-services firm turns over $850,000 and produces $210,000 of SDE — a 24.7% margin. At 2.5× to 3.5×, the market value is $525,000 to $735,000, midpoint $630,000 (an implied 0.74× revenue). The DCF, projecting SDE growing at 8% for five years, discounted at 20% with 2.5% terminal growth, sums to about $1,500,000 — more than double the market midpoint. Year-five earnings reach $308,559; the terminal value of $1,807,274 is worth $726,303 today. The gap is the lesson: the DCF assumes every dollar of SDE transfers to a buyer, and the market knows it does not. If you are selling, the work that closes the gap — systems, a second-in-command, recurring contracts — raises the multiple itself."
     },
+    "assumptions": [
+      "The DCF treats every dollar of SDE as cash a buyer receives, with no deduction for the salary of a manager to replace the owner — the main reason it runs above the market multiple.",
+      "Growth is a single constant rate for the whole projection and the terminal value assumes SDE grows at the terminal rate forever, so nearly half the DCF value rests on years beyond the projection.",
+      "The valuation is an earnings-only figure: net debt, working capital, asset values and transaction taxes are not adjusted for."
+    ],
     "faqs": [
       {
         "question": "What is the difference between SDE and EBITDA?",
@@ -195,6 +211,11 @@ export const TOOL_CONTENT_PRO: Record<string, ToolContentEntry> = {
       "title": "Worked example: $50,000 in, five uneven years back",
       "body": "Invest $50,000 today and receive $8,000, $12,000, $15,000, $18,000 and $22,000 in years one to five — $75,000 in total. At a 10% required return the flows are worth $54,414 today, so NPV is +$4,414: the deal beats the hurdle by that much in today's money. The IRR is 12.90% — the break-even rate in present-value terms. Payback lands at 3.83 years (the cumulative flow turns positive during year four: $35,000 back by the end of year three, then $15,000 of year four's $18,000 completes it). The profitability index is 1.09. Verdict: accept at a 10% hurdle; at a 15% hurdle the same deal's NPV turns negative (−$2,878) and the answer flips."
     },
+    "assumptions": [
+      "Cash flows are treated as arriving once a year, at year end, and discounted at a single flat rate for the whole horizon — mid-year timing and a changing cost of capital are not modeled.",
+      "IRR assumes interim cash flows reinvest at the IRR itself, which flatters high-return projects; NPV reinvests them at your required return instead.",
+      "Payback is the simple version — cumulative undiscounted cash — so it measures how long capital is at risk, not value; taxes and any salvage value are only in the result if you build them into the cash flows."
+    ],
     "faqs": [
       {
         "question": "Which should I use, NPV or IRR?",
@@ -254,6 +275,11 @@ export const TOOL_CONTENT_PRO: Record<string, ToolContentEntry> = {
       "title": "Worked example: a $100,000 portfolio that drifted in a bull market",
       "body": "Holdings today: US stocks $48,000 (48%), international stocks $18,000 (18%), bonds $24,000 (24%), cash $10,000 (10%). Targets: 60 / 20 / 15 / 5. Target values at $100,000 are $60,000, $20,000, $15,000 and $5,000, so the trade list reads: buy $12,000 of US stocks, buy $2,000 of international, sell $9,000 of bonds, sell $5,000 of cash. Total trading is $14,000 (turnover), the largest drift is the 12-point gap in US stocks, and the plan needs no new money. Note what happened here: stocks fell behind target because bonds and cash were added during the year while stocks were left alone — drift is usually your own deposits, not the market."
     },
+    "assumptions": [
+      "The rebalance is self-funding: sells exactly pay for buys, so no new cash enters or leaves the portfolio and the total stays unchanged.",
+      "Trading costs, bid-ask spreads and capital-gains tax on the sells are not modeled — the trade list is the gross target, not the net result after costs.",
+      "Trades assume any dollar amount can be bought or sold, with no minimum order sizes, fractional-share limits or whole-share rounding."
+    ],
     "faqs": [
       {
         "question": "How often should I rebalance?",

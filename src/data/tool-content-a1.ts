@@ -15,6 +15,12 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       "title": "Worked example: $10,000 plus $300 a month for 10 years",
       "body": "Start with $10,000 and deposit $300 a month into an account paying 4.5% APY, compounded monthly, for 10 years. Your deposits total $46,000 ($10,000 plus 120 deposits of $300). The end balance is $61,029, so interest contributes about $15,029 — roughly a quarter of the final amount, earned without any extra deposits. Run the same plan at the 0.38% national average rate and the balance reaches only $47,074, with barely $1,074 of interest: the rate choice alone is worth about $13,955 over the decade. The interest share also grows with time: the account earns about $540 of interest in its first year, but roughly $2,600 in its tenth, because the balance doing the earning is far larger by then."
     },
+    "assumptions": [
+      "The APY stays fixed for the whole horizon, and the monthly deposit never changes. Real savings rates move with the Fed, and most savers change their deposit over the years.",
+      "Interest is credited on the balance at the start of each month, and each deposit is added at month-end, so a deposit starts earning the month after it lands.",
+      "The result is pre-tax and in nominal dollars. Interest is taxed as ordinary income in the year it is credited, and inflation is not deducted anywhere.",
+      "No withdrawals are modeled. Any money taken out early earns nothing after it leaves."
+    ],
     "faqs": [
       {
         "question": "What APY should I enter?",
@@ -74,6 +80,11 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       "title": "Worked example: $5,000 and $250 a month at 7% for 20 years",
       "body": "Invest $5,000, add $250 a month, and earn a steady 7% a year for 20 years. Total contributions are $65,000. The final value is about $150,425, which means compounding added $85,425 — more than you put in. Stop after 10 years instead and the balance is only about $53,320, which is why the second decade matters so much: it contributes roughly $97,105 of growth on the same $30,000 of deposits. Extend the plan five more years, to 25, and the balance reaches about $231,145."
     },
+    "assumptions": [
+      "The return is a smooth, constant rate for the full horizon. Real markets rise and fall, and a poor run early on leaves a smaller base for later growth.",
+      "The compounding frequency you pick applies only to the starting amount. Monthly contributions are always compounded monthly, regardless of that setting.",
+      "No tax, fees, or inflation are deducted. The growth shown is pre-tax, and the final figure is in nominal dollars."
+    ],
     "faqs": [
       {
         "question": "What return should I assume for investments?",
@@ -133,6 +144,12 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       "title": "Worked example: $20,000 at 6% for 5 years",
       "body": "Simple interest: $20,000 × 6% × 5 = $6,000 of interest, final amount $26,000. Compound interest, credited monthly: $20,000 × (1 + 0.06/12)^60 = $26,977, so interest is $6,977. Over 5 years the methods differ by $977. Stretch the term to 20 years and simple interest pays $24,000 while monthly compounding pays about $46,204 — the gap widens from under $1,000 to more than $22,000, which is why the method matters far more over decades than over months."
     },
+    "assumptions": [
+      "Both sides run at one fixed rate for the full term, with the same monthly contribution. Nothing in the model lets the rate or the deposit change.",
+      "Under simple interest, each contribution joins the principal and earns interest, but the interest itself never earns interest. That is why the simple column rises by the same amount every year.",
+      "The compound side converts your chosen frequency into an equivalent monthly rate, so the comparison holds rate and timing constant and isolates the method.",
+      "Fees and tax are not modeled. On a loan, APR captures fees the interest rate misses; on a deposit, tax takes a share of the interest shown."
+    ],
     "faqs": [
       {
         "question": "Which bank accounts pay compound interest?",
@@ -192,6 +209,12 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       "title": "Worked example: $8,000 at 5% for 3 years",
       "body": "Interest = $8,000 × 0.05 × 3 = $1,200. The final amount is $8,000 + $1,200 = $9,200, with $400 of interest landing each year and $33.33 each month. If the same money compounded monthly, the final amount would be $9,292 — only $92 more over 3 years. Stretch the term to 20 years and the picture changes: simple interest pays $8,000 in total, while monthly compounding pays about $13,701. Time, not the rate, is what turns the compounding gap from a footnote into the main event."
     },
+    "assumptions": [
+      "Interest is charged on the original principal only, for the entire term. The principal never grows, so the interest charge is identical every year.",
+      "The term converts months into a fraction of a year (18 months is 1.5 years), and the rate is held constant throughout. There is no compounding step at any point.",
+      "The compound comparison uses monthly compounding at the same nominal rate, on the same principal, with no added deposits.",
+      "Fees, late payments, and tax are not modeled. A loan with fees costs more than this interest figure, and a deposit's interest is taxed as income."
+    ],
     "faqs": [
       {
         "question": "Where is simple interest actually used?",
@@ -251,6 +274,11 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       "title": "Worked example: 4.8% nominal, compounded monthly",
       "body": "Divide 4.8% by 12 to get 0.4% per month. Compound it 12 times: (1.004)^12 − 1 = 4.907%, so the APY is 4.91%. On a $25,000 balance held a full year, that is about $1,227 of interest rather than the $1,200 the nominal rate suggests. Run the reverse mode on a 4.91% APY and you get back an equivalent 4.80% nominal rate. Hold the full $25,000 for 5 years at that APY and the balance reaches about $31,766, with monthly compounding adding roughly $766 beyond what simple interest at 4.8% would pay."
     },
+    "assumptions": [
+      "The APY assumes the full balance stays in the account for a complete year and every cent of interest stays and compounds. Withdrawals, partial-year balances, or tiered rates all reduce the actual yield.",
+      "The growth projection holds the APY constant for the full holding period. A variable-rate account can change its rate at any time, so the figure is a snapshot, not a guarantee.",
+      "The conversion treats the nominal rate and compounding frequency as fixed inputs. It does not model fees, minimum-balance requirements, or tax on the interest earned."
+    ],
     "faqs": [
       {
         "question": "What is the difference between APR and APY?",
@@ -310,6 +338,12 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       "title": "Worked example: $25,000 for 3 years, CD at 5.0% vs savings at 4.6%",
       "body": "With monthly compounding, the CD reaches $25,000 × (1 + 0.05/12)^36 = $29,037 and the savings account reaches $25,000 × (1 + 0.046/12)^36 = $28,692. The CD's edge is $345 over 3 years. At a 22% marginal tax rate, the CD's $4,037 of interest keeps $3,149 after tax and the savings account's $3,692 keeps $2,880 — the ranking does not change. Against a regular 0.5% account, which reaches only $25,378, the better option earns an extra $3,659, which is the real prize in this comparison."
     },
+    "assumptions": [
+      "Both products are grown at the same compounding frequency, with the same deposit and term, so the gap between them is rate advantage alone.",
+      "The savings rate is held constant for the whole term, which is a simplification: high-yield rates are variable and can move while a CD's rate is locked.",
+      "Tax is applied as a flat reduction on total interest at your marginal rate. In reality tax is due year by year, which slightly reduces compounding, so the after-tax figures are close estimates rather than exact.",
+      "No early-withdrawal penalty is modeled. Breaking a CD early commonly costs 3 to 12 months of interest, which can erase the CD's advantage entirely."
+    ],
     "faqs": [
       {
         "question": "What is the penalty for breaking a CD early?",
@@ -369,6 +403,12 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       "title": "Worked example: $15,000 for 3 years at 4.5% vs 1.0%",
       "body": "With monthly compounding, $15,000 at 4.5% APY becomes $15,000 × (1 + 0.045/12)^36 = $17,164, so interest is $2,164. At 1.0% the same deposit becomes $15,457, so interest is $457. Same deposit, same insurance, same access — the higher APY pays $1,707 more over the 3 years. At the 0.38% national average the balance would reach only about $15,172, which is why the comparison that matters is against your current account's actual rate, not against 1.0%."
     },
+    "assumptions": [
+      "Both accounts compound monthly with the same deposit and the same monthly contribution, so the gap is pure rate advantage and nothing else.",
+      "Each APY is held constant for the full horizon. High-yield rates are variable and follow the federal funds rate, so the projection needs re-running when rates move.",
+      "Balances are shown before tax and before inflation: the interest is taxable as ordinary income in the year it lands, and the ending figure buys less than its face value once prices rise.",
+      "No withdrawals are modeled, and no account fees or withdrawal limits are included. The model assumes every deposit stays put and earns for the full period."
+    ],
     "faqs": [
       {
         "question": "Why can online banks pay higher APYs?",
@@ -428,6 +468,12 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       "title": "Worked example: $30,000 house deposit in 5 years",
       "body": "You have $5,000 saved and the money earns 4% a year. The $5,000 grows to about $6,105 in 5 years, leaving $23,895 to come from deposits and their earnings. The required deposit is $360.41 a month — call it $361. Total deposits come to $21,625, and interest supplies the remaining $3,375 of the target. Switch to time mode with $500 a month instead and the goal is reached in just 45 months, a year and a quarter early."
     },
+    "assumptions": [
+      "The return is a single fixed rate, compounded monthly, for the whole plan. A savings rate that falls, or a market return that swings, changes both the deposit needed and the arrival date.",
+      "The target is a fixed nominal amount. If the price of the goal rises while you save, the target in the calculator should rise too, or the plan lands short.",
+      "Deposits are assumed to arrive at month-end and earn from the following month, with no missed months and no withdrawals along the way.",
+      "Time mode simulates up to 50 years and reports the goal as unreachable beyond that. Tax on interest is not deducted anywhere in either mode."
+    ],
     "faqs": [
       {
         "question": "What if I save weekly or every payday instead of monthly?",
@@ -487,6 +533,12 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       "title": "Worked example: $12,000 at 8% for 15 years",
       "body": "FV = $12,000 × 1.08^15 = $12,000 × 3.172 = $38,066 with annual compounding. The growth of $26,066 is more than double the amount invested. With monthly compounding, the tool's default, the same inputs give $39,683. At 6% instead, the annual-compounded result is $28,759 — a reminder that the assumed rate, which no saver can guarantee, moves the answer more than most other inputs. Add $500 every single month and the 15-year total reaches about $212,702."
     },
+    "assumptions": [
+      "One constant growth rate is applied for the whole horizon, with no year-to-year variation. Real investment returns arrive unevenly, and the smooth path here is a planning line, not a forecast.",
+      "Payments are assumed to arrive on schedule every period, at the end of the period (ordinary annuity) or the start (annuity due). The timing choice changes the result by one period of growth on every payment.",
+      "The inflation-adjusted figure discounts the result at a single constant inflation rate. It is a purchasing-power guide, not a model of how prices actually move.",
+      "Fees and tax are not deducted. A 1% annual fee compounds against the result exactly like a 1% lower return, and tax takes a further share in a taxable account."
+    ],
     "faqs": [
       {
         "question": "What is the difference between future value and present value?",
@@ -542,6 +594,12 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       "title": "Worked example: $6,200 take-home pay",
       "body": "Monthly spending: housing $1,850, utilities $320, food $780, transport $540, insurance $460, entertainment $200, dining $300, subscriptions $80, other $370. The categories total $4,900. Add $800 of planned savings and the total outflow is $5,700, leaving $500 unallocated — a cushion for the month something breaks, not money to spend. The savings rate is $800 ÷ $6,200 = 12.9%, or $9,600 a year directed to an emergency fund, investing or extra debt payments."
     },
+    "assumptions": [
+      "Every figure is one month's snapshot, assumed to repeat. A month with a bonus, a holiday, or an annual premium in it will not match the plan.",
+      "Income is take-home pay, after tax and payroll deductions. The tool does not calculate tax, so entering gross pay overstates capacity by roughly 20% to 30%.",
+      "Savings is treated as a planned line item, not whatever happens to be left over. The leftover shown is unallocated money, and a negative leftover means the budget is funded by borrowing.",
+      "Irregular costs are not spread automatically. Annual bills and one-off repairs must be converted to a monthly amount and entered in a category, or the plan understates real spending."
+    ],
     "faqs": [
       {
         "question": "What savings rate should I aim for?",
@@ -597,6 +655,12 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       "title": "Worked example: $5,400 monthly take-home pay",
       "body": "Needs: $5,400 × 50% = $2,700. Wants: $5,400 × 30% = $1,620. Savings and extra debt payments: $5,400 × 20% = $1,080. If your actual needs are $3,100 (57%) and wants are $1,500 (28%), the gap to close is the $400 of needs overspend — savings are being squeezed to $800 (15%) even though wants are inside their limit. The fix is on the needs side: $400 of housing, transport or insurance cost, not $400 of canceled fun."
     },
+    "assumptions": [
+      "The percentages apply to take-home pay, not gross pay. Running the split on gross pay inflates every target and hides the real squeeze.",
+      "The tool takes your word for which spending is a need and which is a want. The borderline calls — a basic phone plan versus a premium upgrade — decide the result more than any single category.",
+      "The 50/30/20 split is a rule of thumb, not a personal optimum. High earners can often save far more than 20%, and at low incomes needs alone can consume 70% or more.",
+      "Only minimum debt payments count as needs. Extra payments above the minimum belong in the 20% line, because they build net worth rather than fund consumption."
+    ],
     "faqs": [
       {
         "question": "Is a mortgage payment a need or a want?",
@@ -656,6 +720,12 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       "title": "Worked example: a household balance sheet",
       "body": "Assets: home $420,000, investments and retirement accounts $85,000, bank and cash $18,000, vehicles $22,000 — total $545,000. Debts: mortgage $298,000, auto loan $14,000, credit cards $6,000, student loans $21,000 — total $339,000. Net worth = $545,000 − $339,000 = $206,000. Note the mortgage is 88% of all debt, which is normal for a homeowner, and home equity of $122,000 is more than half the net worth — a reminder that this household's wealth is mostly bricks, not cash."
     },
+    "assumptions": [
+      "Every figure is exactly what you enter. The tool does not value anything, so a home or car entered at its purchase price flatters the result; resale value is the honest number.",
+      "Retirement accounts are counted at their full balance. Pre-tax accounts owe tax on withdrawal, so the headline figure overstates what you could actually spend.",
+      "The liquid net worth figure excludes the home and vehicles entirely, since home equity cannot pay a bill without selling or borrowing.",
+      "This is a single point in time. The useful number is the change between updates, measured with the same valuation rules each time."
+    ],
     "faqs": [
       {
         "question": "Should I include my home in net worth?",
@@ -715,6 +785,12 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       "title": "Worked example: $3,300 a month of essentials",
       "body": "Essentials: rent $1,650, food $620, transport $340, insurance $410, other $280 — total $3,300 a month. Three months of cover is $9,900; six months is $19,800. With $7,500 already saved, you hold 2.3 months of cover. Saving $500 a month closes the gap to the six-month target in about 25 months. A single earner in the same position might reasonably target 9 months, $29,700, which takes about 45 months at the same saving rate."
     },
+    "assumptions": [
+      "The target is built from essential spending only. Discretionary costs are assumed to stop in an emergency, so including them inflates the target and the time to reach it.",
+      "Monthly essentials are assumed to stay flat. The model does not adjust for rent rises or inflation while the fund is being built.",
+      "The time-to-fund figure divides the gap by your monthly saving with no interest credited. Interest on the fund would shorten the wait slightly, so the estimate is conservative.",
+      "The fund is sized for income loss, not one-off bills. A single car repair or medical bill is a different problem, and a one-month starter buffer is the usual first step before the full target."
+    ],
     "faqs": [
       {
         "question": "How many months of expenses do I really need?",
@@ -774,6 +850,11 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       "title": "Worked example: $50,000 over 20 years at 3% inflation",
       "body": "Purchasing power in today's terms: $50,000 ÷ 1.03^20 = $50,000 ÷ 1.806 = $27,684. Working the other way, matching today's $50,000 in 20 years takes $50,000 × 1.03^20 = $90,306. Cash under the mattress therefore loses about 45% of its value over the period; a savings account must earn at least 3% just to stand still in real terms. At the September 2026 inflation rate of 3.7%, the same $50,000 would be worth only about $24,177 in today's money after 20 years."
     },
+    "assumptions": [
+      "A single inflation rate is applied evenly for the whole period. Real inflation varies year to year, and the long-run average hides spikes like the above-8% reading in 2022.",
+      "The amount earns nothing in this model. The figures describe cash sitting idle; money in a savings account or investment offsets part or all of the erosion.",
+      "The rate you enter is assumed to match your own spending. Housing, healthcare, and education have often risen faster than the headline rate, so a household heavy on those faces higher personal inflation."
+    ],
     "faqs": [
       {
         "question": "What inflation rate should I use for planning?",
@@ -833,6 +914,11 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       "title": "Worked example: doubling at 8%",
       "body": "72 ÷ 8 = 9 years. The exact calculation, ln(2) ÷ ln(1.08), gives 9.01 years — the rule is off by about four days. Invest $10,000 at a steady 8% and it becomes roughly $20,000 in year 9, $40,000 in year 18 and $80,000 in year 27: three doublings in total, which is why starting a decade earlier matters more than most contribution increases. At 4% the same three doublings take about 54 years instead of just 27."
     },
+    "assumptions": [
+      "The rule times a single lump sum compounding at one constant rate. With monthly contributions, your balance doubles sooner, because new money keeps arriving on top of growth.",
+      "72 is an approximation tuned for rates near 5% to 12%. At 2% it overshoots by about a year; at 20% it undershoots by about 0.2 years, which the exact figure alongside exposes.",
+      "The return is assumed to compound annually at the same rate every year. Fees, tax, and inflation are not deducted, so the doubling shown is nominal and pre-tax."
+    ],
     "faqs": [
       {
         "question": "Why 72 and not 70 or 69?",
@@ -888,6 +974,12 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       "title": "Worked example: saving from 35 to 65 at 7%",
       "body": "Current savings $80,000, contributions $800 a month, return 7%, horizon 30 years. The existing pot grows to about $649,320 and the contributions — $288,000 paid in — grow to about $975,977. Total: roughly $1,625,297. A 4% first-year withdrawal implies about $65,012 a year of portfolio income, before Social Security and taxes. Discounted at 3% inflation, the pot is about $670,000 in today's money, which is the figure to compare with the retirement spending you have in mind."
     },
+    "assumptions": [
+      "The return is a smooth monthly rate for the whole saving period, with no market falls. A bad sequence of returns near retirement would leave a smaller pot than this line shows.",
+      "The drawdown target assumes the pot earns nothing after retirement and is spent to zero by life expectancy. The 25x target alongside assumes the opposite: withdrawals of 4% a year with the pot lasting indefinitely.",
+      "Social Security is not included. The projection is your own savings only, and benefits — about $2,071 a month for the average retired worker in January 2026 — arrive as a separate income stream.",
+      "The headline pot is in nominal future dollars, before tax. At 3% inflation its purchasing power is far lower, and withdrawals from pre-tax accounts are taxed as income."
+    ],
     "faqs": [
       {
         "question": "How much should I have saved by each age?",
@@ -947,6 +1039,12 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       "title": "Worked example: $500 a month for 30 years at 7%",
       "body": "Contributions total $500 × 360 = $180,000, or $6,000 a year. Compounded annually at 7%, they reach about $566,765. The growth of roughly $386,765 is tax-free on a qualified withdrawal. In a taxable account, that same growth taxed once at a 15% capital gains rate would cost about $58,015, leaving $508,750. Note the tool compounds annually: monthly compounding of the same $500 a month would give about $609,985, so the annual figure is the conservative one."
     },
+    "assumptions": [
+      "Growth compounds annually, with each year's contribution added at year-end. Monthly contributions would end higher, so the annual figure is the conservative one.",
+      "Contributions are clamped to the 2026 IRS limit: $7,500 under 50, $8,600 at 50 or older. Any amount entered above the limit is projected at the limit.",
+      "The taxable-account comparison taxes the growth once, at the end, at a single rate. Real taxable accounts are taxed on dividends and realized gains along the way, which drags compounding down.",
+      "The tax-free result assumes qualified withdrawals: age 59½ or older and the account open at least five tax years. Early withdrawals of earnings are taxed and usually penalized."
+    ],
     "faqs": [
       {
         "question": "What is the Roth IRA contribution limit for 2026?",
@@ -1006,6 +1104,12 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       "title": "Worked example: $7,000 a year for 25 years at 7%",
       "body": "Contributing $7,000 a year for 25 years at a 7% return produces a gross pot of about $442,743, from $175,000 of contributions. With a 22% rate today and a 12% rate in retirement, the traditional IRA keeps $389,614 and the Roth keeps $345,340 — the traditional wins by $44,274. Flip the rates (12% now, 22% later) and the Roth wins by the same margin. Add a $50,000 starting balance and the gross pot becomes $714,115, with the same logic deciding the winner."
     },
+    "assumptions": [
+      "Both accounts grow from the same gross pot at the same return, so the comparison isolates tax and nothing else. The winner is decided entirely by whether your retirement rate is higher or lower than today's.",
+      "The comparison is built on equal out-of-pocket cost: the Roth is funded with after-tax money, so only the gross amount minus today's tax is actually invested.",
+      "Each tax rate is a single flat figure, held constant for decades. Real tax brackets, state tax, and future law changes are not modeled.",
+      "Contribution limits, penalties, required minimum distributions, and the Roth's withdrawal flexibility are not modeled. The tool prices the tax math, not the rules around it."
+    ],
     "faqs": [
       {
         "question": "What is the IRA contribution limit for 2026?",
@@ -1065,6 +1169,12 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       "title": "Worked example: converting $40,000 with 20 years to grow",
       "body": "Convert $40,000 at a 22% rate today: the tax bill is $8,800, paid from savings. At 7% for 20 years, the Roth holds $40,000 × 1.07^20 ≈ $154,787, all withdrawable tax-free. Left in the traditional IRA, the same growth gives $154,787 before tax: keep $117,638 if taxed at 24% in retirement, or $136,213 if taxed at 12%. After charging the $8,800 tax payment for its lost growth ($34,053), the conversion wins by about $3,096 at a 24% future rate and loses by about $15,479 at 12%."
     },
+    "assumptions": [
+      "The conversion tax is assumed to be paid from cash outside the IRA. Paying it from the converted amount shrinks what lands in the Roth and weakens the case, especially under 59½.",
+      "The net-benefit figure charges the tax payment for the growth it would have earned. The $8,800 paid today at 7% for 20 years would itself have become $34,053, which is why the margin is far thinner than the headline gap.",
+      "Both tax rates are single flat figures. The model does not account for the conversion pushing you into a higher bracket, or for Medicare IRMAA surcharges and Social Security taxation driven by the extra income.",
+      "The pro-rata rule is not modeled. If you hold pre-tax money across other traditional IRAs, part of any conversion is taxed in proportion to that pre-tax share."
+    ],
     "faqs": [
       {
         "question": "When is the best time to do a Roth conversion?",
@@ -1124,6 +1234,12 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       "title": "Worked example: age 75 with a $480,000 IRA",
       "body": "Your traditional IRA held $480,000 on 31 December last year and you turn 75 this year. The Uniform Lifetime Table factor for 75 is 24.6. RMD = $480,000 ÷ 24.6 = $19,512.20. That amount is added to your taxable income for the year. At age 80 the same $480,000 balance would require $480,000 ÷ 20.2 = $23,762, and at age 73 it would have required $480,000 ÷ 26.5 = $18,113 — the required share rises every year even if the balance does not."
     },
+    "assumptions": [
+      "The calculation uses the IRS Uniform Lifetime Table, which assumes your beneficiary is not a spouse more than 10 years younger. That case uses a different table with smaller required distributions.",
+      "The balance used is the prior December 31 figure, not today's balance. Market moves between year-end and the withdrawal date do not change the required amount.",
+      "The 10-year projection grows the balance at one constant return and withdraws exactly the minimum each year. Extra withdrawals, contributions, and market swings are not modeled.",
+      "Tax is not calculated. Every distribution is added to taxable income for the year, and qualified charitable distributions, inherited IRA rules, and the still-working exception are not modeled."
+    ],
     "faqs": [
       {
         "question": "At what age do RMDs start?",
@@ -1183,6 +1299,12 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       "title": "Worked example: $60,000 a year for 35 years, full retirement age 67",
       "body": "Thirty-five years at $60,000 gives an AIME of $5,000. PIA = 0.90 × $1,286 + 0.32 × ($5,000 − $1,286) = $1,157.40 + $1,188.48 = $2,345.88, so about $2,346 a month at 67. Claim at 62 and it falls by 30% to about $1,642. Delay to 70 and it rises by 24% to about $2,909. Check the current-year figures at ssa.gov before deciding, since the bend points are updated annually."
     },
+    "assumptions": [
+      "The estimate uses the 2026 bend points ($1,286 and $7,749) and a full retirement age of 67. Bend points rise with average wages each year, so a worker turning 62 later will have slightly higher ones.",
+      "Earnings are averaged as a single flat annual figure over your best 35 years, with missing years counted as $0. The SSA's actual wage indexing, which adjusts each year's earnings for wage growth, is not modeled.",
+      "Lifetime totals run to age 85 with no cost-of-living adjustments. COLA raises real benefits every year, so the totals understate what a long-lived retiree actually receives.",
+      "Spousal and survivor benefits, benefit taxation, and the earnings test are not modeled. The SSA holds your full earnings record, so the statement at ssa.gov is the authoritative figure."
+    ],
     "faqs": [
       {
         "question": "What is full retirement age?",
@@ -1242,6 +1364,12 @@ export const TOOL_CONTENT_A1: Record<string, ToolContentEntry> = {
       "title": "Worked example: $25,000 plus $400 a month at 8% for 20 years",
       "body": "At 8% less 0.5% fees, the net return is 7.5%. The initial $25,000 compounds to about $111,500 and the 240 contributions of $400 — $96,000 paid in — grow to about $221,500. Combined future value: roughly $333,013, with growth supplying about two-thirds of the end value. Without fees the same plan reaches $358,778. Cut the gross return to 6% and it ends near $267,571 before fees, which is the sensitivity to keep in mind before treating any projection as a promise."
     },
+    "assumptions": [
+      "The return is a smooth monthly rate, net of fees, for the full horizon. Real returns arrive unevenly, including falls of 30% or more, and the smooth line will never match a real account statement.",
+      "Fees are modeled as a flat annual percentage subtracted from the return. The fee cost shown includes both the fees paid and the growth those fees would have earned.",
+      "Real value is shown by deflating the final balance at one steady inflation rate you enter — prices in practice rise unevenly, so treat it as a rough purchasing-power guide.",
+      "Tax is not modeled. In a taxable account, dividends and realized gains are taxed along the way; in a traditional IRA or 401(k), the balance shown is pre-tax and withdrawals may be taxed."
+    ],
     "faqs": [
       {
         "question": "Should I use pre-tax or after-tax returns?",

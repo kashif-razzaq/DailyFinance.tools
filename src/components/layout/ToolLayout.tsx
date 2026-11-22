@@ -12,6 +12,7 @@ import { ProDashboardWidget } from "@/components/shared/ProDashboardWidget"
 import { AdSlot } from "@/components/shared/AdSlot"
 import { PreferredSourceButton } from "@/components/shared/PreferredSourceButton"
 import { FaqAccordion } from "@/components/shared/FaqAccordion"
+import { VerifiedLine } from "@/components/shared/VerifiedLine"
 import { getCategoryForTool } from "@/config/navigation"
 import { safeGetUser } from "@/utils/supabase/safe-user"
 import { webApp, faq, article, breadcrumb, howTo, webPage, stringifyJsonLd, CONTENT_REVIEWED } from "@/lib/schema"
@@ -86,6 +87,23 @@ export async function ToolLayout({
   const entry = category ? TOOL_CONTENT[`${category.slug}/${slug}`] : undefined
   const steps = entry?.howItWorks
 
+  // "On this page" items, numbered at render time so adding a section can
+  // never leave the numbers wrong (previously hardcoded per branch).
+  const tocItems: { href: string; label: React.ReactNode }[] = entry
+    ? [
+        { href: "#quick-answer", label: "Quick answer" },
+        { href: "#how-it-works", label: <>How the {title} works, step by step</> },
+        ...(entry.formula ? [{ href: "#formula", label: "The formula" }] : []),
+        { href: "#worked-example", label: "Worked example" },
+        ...(entry.assumptions && entry.assumptions.length > 0
+          ? [{ href: "#assumptions", label: "Assumptions & limitations" }]
+          : []),
+        ...(faqs.length > 0 ? [{ href: "#faq", label: "Frequently asked questions" }] : []),
+        ...(entry.sources && entry.sources.length > 0 ? [{ href: "#sources", label: "Sources" }] : []),
+        ...(relatedGuides.length > 0 ? [{ href: "#learn-more", label: "Learn more" }] : []),
+      ]
+    : []
+
   return (
     <main className="w-full bg-background min-h-screen">
       <script id="schema-software" type="application/ld+json" dangerouslySetInnerHTML={{ __html: stringifyJsonLd(webApp({ name: title, url: toolUrl, description })) }} />
@@ -127,7 +145,7 @@ export async function ToolLayout({
             </p> 
             <br/>
             {/* EEAT Trust Badge - Scandinavian Premium */}
-            <div className="flex items-center gap-4 mb-8 pt-4 border-t border-border/30 w-fit">
+            <div className="flex items-center gap-4 mb-2 pt-4 border-t border-border/30 w-fit">
               <div className="flex items-center gap-3">
                 <div className="relative w-8 h-8 rounded-full overflow-hidden border border-border/50">
                   <Image src="/team/tahir-shehzad.jpg" alt="Tahir Shehzad" fill sizes="32px" className="object-cover" />
@@ -141,6 +159,9 @@ export async function ToolLayout({
                 </div>
               </div>
             </div>
+            {/* Formula-verification stamp — sits with the reviewer badge,
+                directly under the heading/intro, on every tool page. */}
+            <VerifiedLine />
             {/* Google Preferred Sources ask — under title, description and the Reviewed-by badge */}
             <PreferredSourceButton />
           </div>
@@ -175,21 +196,14 @@ export async function ToolLayout({
               </p>
               <ol className="m-0 list-none space-y-2 p-0">
                 {/* ARB fix round 2 (#15): 48px TOC tap rows — text size unchanged. */}
-                <li className="text-sm"><a href="#quick-answer" className="flex min-h-12 items-center text-muted-foreground hover:text-primary hover:underline underline-offset-2"><span className="mr-2 font-mono text-xs text-muted-foreground/70">01</span>Quick answer</a></li>
-                <li className="text-sm"><a href="#how-it-works" className="flex min-h-12 items-center text-muted-foreground hover:text-primary hover:underline underline-offset-2"><span className="mr-2 font-mono text-xs text-muted-foreground/70">02</span>How the {title} works, step by step</a></li>
-                {entry.formula && (
-                  <li className="text-sm"><a href="#formula" className="flex min-h-12 items-center text-muted-foreground hover:text-primary hover:underline underline-offset-2"><span className="mr-2 font-mono text-xs text-muted-foreground/70">03</span>The formula</a></li>
-                )}
-                <li className="text-sm"><a href="#worked-example" className="flex min-h-12 items-center text-muted-foreground hover:text-primary hover:underline underline-offset-2"><span className="mr-2 font-mono text-xs text-muted-foreground/70">{entry.formula ? "04" : "03"}</span>Worked example</a></li>
-                {faqs.length > 0 && (
-                  <li className="text-sm"><a href="#faq" className="flex min-h-12 items-center text-muted-foreground hover:text-primary hover:underline underline-offset-2"><span className="mr-2 font-mono text-xs text-muted-foreground/70">{entry.formula ? "05" : "04"}</span>Frequently asked questions</a></li>
-                )}
-                {entry.sources && entry.sources.length > 0 && (
-                  <li className="text-sm"><a href="#sources" className="flex min-h-12 items-center text-muted-foreground hover:text-primary hover:underline underline-offset-2"><span className="mr-2 font-mono text-xs text-muted-foreground/70">{entry.formula ? "06" : "05"}</span>Sources</a></li>
-                )}
-                {relatedGuides.length > 0 && (
-                  <li className="text-sm"><a href="#learn-more" className="flex min-h-12 items-center text-muted-foreground hover:text-primary hover:underline underline-offset-2"><span className="mr-2 font-mono text-xs text-muted-foreground/70">{entry.formula ? "07" : "06"}</span>Learn more</a></li>
-                )}
+                {tocItems.map((item, i) => (
+                  <li key={item.href} className="text-sm">
+                    <a href={item.href} className="flex min-h-12 items-center text-muted-foreground hover:text-primary hover:underline underline-offset-2">
+                      <span className="mr-2 font-mono text-xs text-muted-foreground/70">{String(i + 1).padStart(2, "0")}</span>
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
               </ol>
             </nav>
           )}

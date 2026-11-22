@@ -25,6 +25,19 @@ export const WEBSITE_ID = "https://www.dailyfinance.tools/#website"
 export const LOGO_URL = "https://www.dailyfinance.tools/logo.svg"
 export const CONTENT_REVIEWED = "2026-11-12"
 
+/**
+ * "November 2026" — the visible display form of CONTENT_REVIEWED, used by
+ * the formula-verification stamp on tool pages (VerifiedLine) and the
+ * audit stamp on /methodology. Derived from CONTENT_REVIEWED, not
+ * duplicated, so the next review round updates every stamp by changing
+ * one date. Parsed as UTC so the month never shifts with server timezone.
+ */
+export const CONTENT_REVIEWED_DISPLAY = new Date(`${CONTENT_REVIEWED}T00:00:00Z`).toLocaleDateString("en-US", {
+  month: "long",
+  year: "numeric",
+  timeZone: "UTC",
+})
+
 /** The site's display name, as Google shows it in search results. */
 export const SITE_NAME = "Daily Finance Tools"
 
