@@ -59,6 +59,7 @@ export const EMBED_CALCULATORS = {
   'home-equity-calculator': dynamic(() => import('@/app/real-estate/home-equity-calculator/CalculatorClient').then((m) => m.CalculatorClient)),
   'house-hacking-roi-calculator': dynamic(() => import('@/app/real-estate/house-hacking-roi-calculator/CalculatorClient').then((m) => m.CalculatorClient)),
   'hsa-triple-tax-advantage-calculator': dynamic(() => import('@/app/personal-wealth/hsa-triple-tax-advantage-calculator/CalculatorClient').then((m) => m.CalculatorClient)),
+  'i-bond-calculator': dynamic(() => import('@/app/personal-wealth/i-bond-calculator/CalculatorClient').then((m) => m.CalculatorClient)),
   'income-tax-calculator': dynamic(() => import('@/app/tax/income-tax-calculator/CalculatorClient').then((m) => m.CalculatorClient)),
   'inflation-purchasing-power-calculator': dynamic(() => import('@/app/personal-wealth/inflation-purchasing-power-calculator/CalculatorClient').then((m) => m.CalculatorClient)),
   'instagram-engagement-rate-calculator': dynamic(() => import('@/app/creator/instagram-engagement-rate-calculator/CalculatorClient').then((m) => m.CalculatorClient)),

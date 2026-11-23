@@ -135,5 +135,69 @@ export const TOOL_CONTENT_B3: Record<string, ToolContentEntry> = {
         "url": "https://www.consumerfinance.gov/enforcement/actions/nationwide-biweekly-administration/"
       }
     ]
+  },
+  "personal-wealth/i-bond-calculator": {
+    "quickAnswer": "A $10,000 I bond bought at the November 2026 rate of 5.51% is worth $10,275.50 after six months and $13,122.89 after five years — $3,122.89 of interest, with no penalty at five years. The rate combines a 1.40% fixed rate, locked for the bond's 30-year life, with a 2.04% semiannual inflation rate that resets every six months.",
+    "howItWorks": [
+      "Enter your purchase amount, fixed rate, current semiannual inflation rate, assumed future inflation rate, and holding period. The defaults are TreasuryDirect's November 1, 2026 rates — 1.40% fixed, 2.04% inflation — and a $10,000 purchase, the most one person can buy electronically in a year.",
+      "Treasury builds the composite rate from two parts: fixed rate plus twice the semiannual inflation rate plus the fixed rate times the inflation rate. With the November 2026 figures that is 1.40% + (2 × 2.04%) + (1.40% × 2.04%) = 5.51%. The fixed rate never changes; the inflation part resets every May 1 and November 1 from the CPI-U, so only the first six months are certain.",
+      "Interest compounds semiannually: every six months Treasury adds the interest earned to the bond's value, and the next period earns interest on that larger balance. A $10,000 bond earns $275.50 in its first six months at 5.51%; in the second six months it earns interest on $10,275.50, not $10,000. That is why the effective annual return, 5.59%, is slightly higher than the 5.51% headline rate.",
+      "Two rules shape the result: you cannot cash an I bond at all in its first 12 months, and cashing in before five years forfeits the last three months of interest — on a $10,000 bond held one year, that penalty is $141.55, leaving $10,417.05 instead of $10,558.59. The calculator shows both the bond value and the cash-in value, which meet at five years when the penalty disappears. Purchases cap at $10,000 of electronic bonds per person per year, with a $25 minimum.",
+      "I bond interest is exempt from state and local income tax, and federal tax is deferred until you cash in — or excluded entirely if the bond pays for qualified higher-education expenses. The projection holds your future inflation rate steady; in reality Treasury resets it every six months, so treat any figure past the first year as a scenario, not a promise. Verify the current rate on TreasuryDirect before buying."
+    ],
+    "formula": "Composite rate = fixed rate + (2 × semiannual inflation rate) + (fixed rate × semiannual inflation rate), rounded to the nearest 0.01%. Each six-month period adds value × composite rate ÷ 2 to the bond. Cash-in value before 5 years = bond value − (balance at the start of the final six-month period × composite rate ÷ 4). Source: TreasuryDirect, 31 CFR 359.14.",
+    "example": {
+      "title": "Worked example: $10,000 at the November 2026 rate for 5 years",
+      "body": "Buy a $10,000 I bond at the November 1, 2026 rates: 1.40% fixed, 2.04% semiannual inflation. The composite rate is 1.40% + 4.08% + 0.02856% = 5.51%. After six months the bond is worth $10,000 × (1 + 5.51% ÷ 2) = $10,275.50. After one year it is worth $10,558.59, and after five years — ten semiannual periods at the same composite rate — it is worth $13,122.89, a gain of $3,122.89. Because five years have passed, there is no early-redemption penalty. Held one year instead, the same bond would be worth $10,558.59 but cash in at $10,417.05 after the $141.55 penalty. At 30 years the bond stops earning interest, worth $51,071.41 if the 5.51% composite held the whole time — it will not, because the inflation part resets every six months."
+    },
+    "assumptions": [
+      "The fixed rate and the first six months' inflation rate are the TreasuryDirect rates announced November 1, 2026; later periods use your assumed inflation rate, which Treasury will replace with actual CPI-U figures every May and November.",
+      "The composite rate is rounded to the nearest 0.01% exactly as Treasury publishes it, and interest is applied as composite ÷ 2 each six-month period.",
+      "The projection ignores tax: federal tax is deferred until redemption and state and local tax do not apply. The $10,000 annual purchase limit is not enforced in the calculator — enter any amount to model a household or multi-year purchase."
+    ],
+    "faqs": [
+      {
+        "question": "What is the current I bond rate?",
+        "answer": "5.51% for I bonds issued November 1, 2026 to April 30, 2027: a 1.40% fixed rate plus a 2.04% semiannual inflation rate. The fixed rate is the highest Treasury has set since November 2006 and stays with the bond for its 30-year life; the inflation part resets every May 1 and November 1. Treasury announces the next rates on May 1, 2027."
+      },
+      {
+        "question": "How is the I bond rate calculated?",
+        "answer": "Composite rate = fixed rate + (2 × semiannual inflation rate) + (fixed rate × semiannual inflation rate). With the November 2026 figures: 1.40% + 4.08% + 0.02856% = 5.51%. The formula checks out against TreasuryDirect's own table: a bond with a 0.90% fixed rate earns 5.00% with the same 2.04% inflation rate, and a 0.00% fixed rate earns 4.08%."
+      },
+      {
+        "question": "How much can I buy in I bonds each year?",
+        "answer": "$10,000 of electronic I bonds per person per calendar year through TreasuryDirect, with a $25 minimum and purchases to the penny above that. The limit applies per Social Security number, so a couple can buy $20,000 a year between them. Since January 1, 2025, I bonds are sold electronically only."
+      },
+      {
+        "question": "When can I cash in an I bond?",
+        "answer": "Not at all in the first 12 months — the money is locked for a year. After that you can redeem any time, but cashing in before five years forfeits the last three months of interest: on a $10,000 bond held one year, that is $141.55. After five years there is no penalty, and the bond stops earning interest at 30 years."
+      },
+      {
+        "question": "Are I bonds taxed?",
+        "answer": "Federal income tax applies, but it is deferred until you cash in — you choose whether to report the interest each year or all at once at redemption. I bond interest is exempt from state and local income tax entirely. If the bond pays for qualified higher-education expenses, the interest may be excluded from federal tax too, subject to income limits."
+      },
+      {
+        "question": "I bond or high-yield savings account — which is better?",
+        "answer": "It depends on when you need the money. An I bond at 5.51% currently pays far more than the national average savings rate, and the rate adjusts with inflation — but the money is locked for 12 months, penalised before five years, and capped at $10,000 a year per person. A high-yield savings account pays less but lets you withdraw any time with no cap. Money you might need within a year belongs in savings; money you can lock away for years can earn more in I bonds."
+      },
+      {
+        "question": "What happens to my I bond's rate after six months?",
+        "answer": "The fixed rate never changes — a bond bought at 1.40% keeps 1.40% for 30 years. The inflation part changes every six months, on dates keyed to your issue month rather than Treasury's May and November announcements. A bond issued in November gets its new rate each May 1 and November 1; a bond issued in March gets its new rate each September 1 and March 1. Your bond's next rate is its own fixed rate combined with the newest inflation rate."
+      },
+      {
+        "question": "Do I bonds keep up with inflation?",
+        "answer": "By design, yes. The inflation part of the rate tracks the CPI-U, so when inflation rises the composite rate rises with it, and the composite never falls below zero even in deflation. The fixed rate is your real return above inflation: at 1.40% fixed, the bond beats inflation by about 1.40% a year before tax, whatever inflation does. That is the point of the bond — it protects purchasing power rather than chasing the highest yield."
+      }
+    ],
+    "sources": [
+      {
+        "label": "TreasuryDirect — I bonds interest rates",
+        "url": "https://www.treasurydirect.gov/savings-bonds/i-bonds/i-bonds-interest-rates/"
+      },
+      {
+        "label": "TreasuryDirect — I bonds",
+        "url": "https://www.treasurydirect.gov/savings-bonds/i-bonds/"
+      }
+    ]
   }
 }

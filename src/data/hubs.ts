@@ -52,7 +52,7 @@ export const HUBS: HubContent[] = [
       { question: "How much should I keep in savings versus investing?", answer: "Hold the emergency fund (three to six months of essentials) in savings. Money needed within about three years usually belongs in savings too. Longer horizons are where investing's higher expected return has time to absorb its swings." },
       { question: "What APY should I expect from a savings account?", answer: "High-yield accounts have recently paid around 4–5% while traditional bank savings often pay under 0.5%. Rates move with the Federal Reserve's rate, so recheck rather than assume." },
     ],
-    guideSlugs: ["how-compound-interest-works", "how-to-build-an-emergency-fund", "50-30-20-rule-explained"],
+    guideSlugs: ["how-compound-interest-works", "how-to-build-an-emergency-fund", "50-30-20-rule-explained", "how-i-bonds-work"],
   },
   {
     slug: "mortgage-and-real-estate",

@@ -175,6 +175,7 @@ export const navigationCategories: Category[] = [
       { title: "Social Security Calculator", slug: "social-security-calculator", description: "Estimated benefit at 62, 67 and 70.", icon: Award },
       { title: "RMD Calculator", slug: "rmd-calculator", description: "Required minimum distributions, IRS table.", icon: FileText },
       { title: "Investment Calculator", slug: "investment-calculator", description: "Growth scenarios with fee drag included.", icon: Activity },
+      { title: "I Bond Calculator", slug: "i-bond-calculator", description: "Bond value, interest and the 5.51% rate.", icon: Calculator },
     ]
   },
   {

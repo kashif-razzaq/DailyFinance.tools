@@ -4836,5 +4836,337 @@ export const GUIDES_PERSONAL_FINANCE: Guide[] = [
     "title": "Why Your Savings Account Pays Almost Nothing",
     "type": "Troubleshooting",
     "updated": "2026-11-17"
+  },
+  {
+    "cornerstone": false,
+    "description": "I bonds pay 5.51% until April 2027 — a 1.40% fixed rate plus 2.04% inflation. How the rate is built, what $10,000 earns, the $10,000 limit, the 12-month lockup, the 3-month penalty and the tax rules.",
+    "faqs": [
+      {
+        "answer": "5.51% for I bonds issued November 1, 2026 to April 30, 2027 — a 1.40% fixed rate plus a 2.04% semiannual inflation rate. The fixed rate is the highest Treasury has set since November 2006 and stays with the bond for its 30-year life. The inflation part resets every May 1 and November 1, and Treasury announces the next rates on May 1, 2027.",
+        "question": "What is the current I bond rate?"
+      },
+      {
+        "answer": "$10,000 of electronic I bonds per person per calendar year through TreasuryDirect, with a $25 minimum. The limit applies per Social Security number, so a couple can buy $20,000 a year between them. Buying in December and again in January puts $20,000 to work at the same fixed rate within two months, because the limit resets with the calendar year.",
+        "question": "How much can I buy in I bonds each year?"
+      },
+      {
+        "answer": "No. An I bond's value never falls: the composite rate never goes below zero even in deflation, and the bond is backed by the US Treasury. The risks are different ones — inflation could fall and pull the rate down, your money is locked for 12 months, and cashing in before five years costs three months of interest. You cannot lose principal, but you can earn very little in a low-inflation period.",
+        "question": "Can I lose money on an I bond?"
+      },
+      {
+        "answer": "No. An emergency fund must be available the day the emergency happens, and an I bond cannot be cashed at all in its first 12 months. Keep one to three months of spending in a savings account for immediate access. I bonds suit money you are sure you will not need for at least a year — a house deposit a year out, a tax bill you are pre-funding, or a slice of a long-term cash reserve.",
+        "question": "Should I put my emergency fund in I bonds?"
+      },
+      {
+        "answer": "It stops earning interest at 30 years. Electronic bonds are paid automatically at maturity — TreasuryDirect deposits the value into your linked bank account — while paper bonds must be submitted for payment. There is no reason to hold past maturity: the money earns nothing after year 30, and the federal tax deferred for three decades comes due.",
+        "question": "What happens when my I bond matures at 30 years?"
+      }
+    ],
+    "hub": "Personal Finance",
+    "image": "/images/guides/how-i-bonds-work.jpg",
+    "imageAlt": "Flat-vector illustration of a US savings bond certificate with a gold seal beside a stack of gold coins with a seedling growing from the top coin",
+    "inlineImage": "/images/how-i-bonds-work-inline.jpg",
+    "inlineImageAlt": "Flat-vector illustration of a calendar page with a brass padlock and a stack of gold coins beside a small clock",
+    "intro": "I bonds pay 5.51% until April 30, 2027 — a 1.40% fixed rate locked for 30 years plus a 2.04% inflation rate that resets every six months. A $10,000 bond is worth $10,275.50 after six months and $13,122.89 after five years. The catches: your money is locked for 12 months, cashing in before five years costs three months of interest, and one person can buy only $10,000 a year.",
+    "published": "2026-11-23",
+    "readMinutes": 12,
+    "relatedTools": [
+      {
+        "name": "I Bond Calculator",
+        "url": "/personal-wealth/i-bond-calculator"
+      },
+      {
+        "name": "APY Calculator",
+        "url": "/personal-wealth/apy-calculator"
+      },
+      {
+        "name": "Compound Interest Scaler",
+        "url": "/personal-wealth/compound-interest-scaler-calculator"
+      },
+      {
+        "name": "High-Yield Savings Calculator",
+        "url": "/personal-wealth/high-yield-savings-calculator"
+      }
+    ],
+    "sections": [
+      {
+        "heading": "The rate in one paragraph",
+        "paragraphs": [
+          "A Series I savings bond bought between November 1, 2026 and April 30, 2027 earns 5.51% a year for its first six months. That rate has two parts: a fixed rate of 1.40% that stays with the bond for its full 30-year life, and a semiannual inflation rate of 2.04% that Treasury resets every six months. The 1.40% fixed rate is the highest Treasury has set since November 2006 — the last time it reached 1.40% was the bond issued in November 2006 — and it is the part of the rate that makes this window worth paying attention to.",
+          "The 5.51% is a composite, an annual rate that applies for six months. After that, the fixed rate stays at 1.40% and the inflation part is replaced by whatever Treasury announces next, on May 1, 2027. The rate your bond earns after its first six months is therefore unknown today, and any projection past a year is a scenario built on an assumption, not a promise. This guide works with the published figures and shows exactly which parts are certain and which are not."
+        ]
+      },
+      {
+        "heading": "How the composite rate is built",
+        "paragraphs": [
+          "Treasury publishes the formula in its regulations: composite rate = fixed rate + (2 × semiannual inflation rate) + (fixed rate × semiannual inflation rate). With the November 2026 figures that is 0.0140 + (2 × 0.0204) + (0.0140 × 0.0204) = 0.0550856, which Treasury rounds to 5.51%. The cross term — fixed rate times inflation rate — adds only 0.029 percentage points; the inflation part contributes 4.08 points and the fixed rate 1.40.",
+          "The inflation rate comes from the Consumer Price Index for All Urban Consumers (CPI-U), not seasonally adjusted. The 2.04% is the change in the CPI-U from March 2026 (330.213) to September 2026 (336.940), as published by the Bureau of Labor Statistics. The fixed rate, by contrast, follows no published formula: Treasury sets it at its discretion each May and November, which is why it can jump from 0.90% to 1.40% in a single announcement.",
+          "The formula also explains what older bonds earn now. Every I bond gets the same 2.04% inflation rate at its next six-month reset; only the fixed rate differs. A bond with a 0.90% fixed rate — issued between May and October 2026, or between November 2025 and April 2026 — earns 5.00% for its next six months. A bond with a 0.00% fixed rate earns 4.08%. Your bond's fixed rate is set at purchase and never changes, so the rate you lock in by buying now is the rate you keep for 30 years."
+        ],
+        "table": {
+          "head": [
+            "Fixed rate",
+            "Inflation rate",
+            "Composite rate"
+          ],
+          "rows": [
+            [
+              "1.40% (Nov 2026–Apr 2027)",
+              "2.04%",
+              "5.51%"
+            ],
+            [
+              "0.90% (May 2026–Oct 2026)",
+              "2.04%",
+              "5.00%"
+            ],
+            [
+              "0.00% (older bonds)",
+              "2.04%",
+              "4.08%"
+            ]
+          ]
+        }
+      },
+      {
+        "heading": "What $10,000 actually earns",
+        "paragraphs": [
+          "I bonds earn interest monthly and compound semiannually: every six months Treasury adds the interest earned to the bond's value, and the next six months earn interest on that larger balance. At the current 5.51% composite rate, each six-month period adds 2.755% to the value. The table below assumes the composite rate stays at 5.51% for the whole period — it will not, because the inflation part resets every six months — but it shows the shape of the growth and the power of the fixed rate compounding over decades.",
+          "The first year is the least impressive: $558.59 of interest on $10,000, and the 3-month penalty (below) takes $141.55 of it if you cash in. The numbers improve with time because the fixed rate keeps compounding on an ever-larger balance. At 5.59% effective annual return — the 5.51% composite compounded twice a year — $10,000 becomes $13,122.89 in five years, $17,221.04 in ten, and $51,071.41 in thirty. A $5,000 purchase follows the same path at half scale: $5,279.30 after a year, $6,561.45 after five.",
+          "Run your own figures in the I Bond Calculator, including a different assumption for future inflation. The honest way to read any long projection is as a range: the fixed 1.40% is guaranteed, so even if inflation fell to zero tomorrow, a bond bought now would still earn 1.40% a year for 30 years. The inflation part is the variable, and it is also the protection — it is what keeps the bond's purchasing power intact when prices rise."
+        ],
+        "table": {
+          "head": [
+            "Held",
+            "Bond value",
+            "Interest earned"
+          ],
+          "rows": [
+            [
+              "6 months",
+              "$10,275.50",
+              "$275.50"
+            ],
+            [
+              "1 year",
+              "$10,558.59",
+              "$558.59"
+            ],
+            [
+              "2 years",
+              "$11,148.38",
+              "$1,148.38"
+            ],
+            [
+              "3 years",
+              "$11,771.12",
+              "$1,771.12"
+            ],
+            [
+              "5 years",
+              "$13,122.89",
+              "$3,122.89"
+            ],
+            [
+              "10 years",
+              "$17,221.04",
+              "$7,221.04"
+            ],
+            [
+              "20 years",
+              "$29,656.41",
+              "$19,656.41"
+            ],
+            [
+              "30 years",
+              "$51,071.41",
+              "$41,071.41"
+            ]
+          ]
+        }
+      },
+      {
+        "heading": "The 12-month lockup",
+        "paragraphs": [
+          "You cannot cash an I bond at all in its first 12 months. There is no exception, no hardship withdrawal, no secondary market — the bond is non-marketable, so the only buyer is the Treasury, and the Treasury will not buy it back before a year has passed. Money you might need within a year does not belong in I bonds, however attractive the rate looks. That single rule is the reason I bonds are a poor emergency fund and a good home for money with a known date more than a year out.",
+          "One timing detail works in your favour: I bonds earn interest from the first day of the month you buy them. A bond bought on November 28 earns a full month of November interest, exactly like one bought on November 1. If you are buying near the end of a month, there is no reason to wait for the 1st — buy before the month ends and the whole month counts. The same rule applies at the other end of the window: a bond bought on April 30, 2027 still locks in the 1.40% fixed rate, because the issue month, not the day, decides which rate applies."
+        ]
+      },
+      {
+        "heading": "The 3-month penalty, in dollars",
+        "paragraphs": [
+          "Cash in before five years and Treasury keeps the last three months of interest. TreasuryDirect's own example: cash in after 18 months and you keep the first 15 months of interest. The penalty is small in dollars because it is only three months — but it is worth seeing in numbers before you decide when to sell, because the penalty is charged on the balance at the time, which grows every six months.",
+          "After five years there is no penalty at all, and the bond value and the cash-in value are the same number. That five-year mark is the natural holding horizon for an I bond: the rate is attractive, the penalty is gone, and the tax deferral has had time to matter. Before five years, the question is whether the money is needed badly enough to pay the penalty — and the answer is usually to leave the bond alone and find the cash elsewhere."
+        ],
+        "table": {
+          "head": [
+            "Held",
+            "Bond value",
+            "Penalty",
+            "Cash-in value"
+          ],
+          "rows": [
+            [
+              "1 year",
+              "$10,558.59",
+              "$141.55",
+              "$10,417.05"
+            ],
+            [
+              "18 months",
+              "$10,849.48",
+              "$145.44",
+              "$10,704.03"
+            ],
+            [
+              "2 years",
+              "$11,148.38",
+              "$149.45",
+              "$10,998.93"
+            ],
+            [
+              "5 years",
+              "$13,122.89",
+              "$0",
+              "$13,122.89"
+            ]
+          ]
+        }
+      },
+      {
+        "heading": "The $10,000 annual limit",
+        "paragraphs": [
+          "In a calendar year, one Social Security number can buy up to $10,000 in electronic I bonds. The minimum is $25, and above that you can buy to the penny — $36.73, if that is the amount you have. Since January 1, 2025, I bonds are sold electronically only, through a TreasuryDirect account. The limit is the binding constraint on the whole product: however good the rate, one person cannot put more than $10,000 a year into it.",
+          "The limit resets with the calendar year, which creates one useful window. Someone who buys $10,000 in November or December 2026 can buy another $10,000 in January 2027 — and because the rate window runs to April 30, 2027, the January purchase locks in the same 1.40% fixed rate. Two purchases, two months apart, put $20,000 to work at the highest fixed rate in twenty years. A couple, with two Social Security numbers, can buy $20,000 in a single calendar year and $40,000 across the December–January turn.",
+          "That is also the limit's lesson: I bonds are a slice of a savings plan, not the whole of it. At $10,000 a year, even a decade of purchases is $100,000 of principal — meaningful, but not a retirement plan on its own. Use them for the cash-reserve slice that benefits most from inflation protection and tax deferral, and put the rest where the caps do not apply."
+        ]
+      },
+      {
+        "heading": "When your rate changes: the issue-month calendar",
+        "paragraphs": [
+          "Treasury announces new rates every May 1 and November 1, but your bond's rate changes every six months from its own issue date — not on the announcement dates. A bond issued in November gets its new rate each May 1 and November 1; a bond issued in March gets its new rate each September 1 and March 1. The inflation rate that applies to your bond is always the newest one, but the date it starts depends on when you bought.",
+          "This matters most in the month you buy. A bond bought in April 2027 earns the November 2026 rates — 1.40% fixed, 2.04% inflation — for its first six months, then picks up the May 2027 inflation rate in October. A bond bought in May 2027 gets the new fixed rate, whatever Treasury sets, and the new inflation rate from the start. If the fixed rate falls in May, April buyers keep 1.40% for 30 years and May buyers do not — which is why the last weeks of a rate window see a rush of purchases."
+        ],
+        "table": {
+          "head": [
+            "Bond issued in",
+            "Rate changes every"
+          ],
+          "rows": [
+            [
+              "January",
+              "July 1 and January 1"
+            ],
+            [
+              "March",
+              "September 1 and March 1"
+            ],
+            [
+              "May",
+              "November 1 and May 1"
+            ],
+            [
+              "November",
+              "May 1 and November 1"
+            ]
+          ]
+        }
+      },
+      {
+        "heading": "Taxes: the three rules",
+        "paragraphs": [
+          "First, federal income tax is deferred. You choose whether to report each year's interest as it accrues or wait and report all of it when you cash in — most people wait, which lets the interest compound untaxed for years. The tax comes due at redemption, or at 30-year maturity, whichever comes first. There is no way to avoid it, only to choose when it lands.",
+          "Second, I bond interest is exempt from state and local income tax entirely. In a high-tax state that exemption is worth real money: on $3,122.89 of five-year interest, a 5% state rate would take $156.14 from a bank account's interest and nothing from an I bond's. The exemption is one reason I bonds compare better than their headline rate suggests against a savings account in states with an income tax.",
+          "Third, the interest may be excluded from federal tax entirely if the bond pays for qualified higher-education expenses — tuition and fees at an eligible institution, for you, your spouse, or a dependent. The exclusion has income limits and conditions, including that the bond must be registered in the taxpayer's name, so check the IRS rules before counting on it. Federal estate, gift, and excise taxes still apply, as do state estate and inheritance taxes."
+        ]
+      },
+      {
+        "heading": "I bonds vs a high-yield savings account",
+        "paragraphs": [
+          "The comparison most buyers actually make is against a high-yield savings account, and the numbers favour the bond today: 5.51% against a national average savings rate of 0.39% APY (FDIC, November 16, 2026). Even the best high-yield accounts pay less than the I bond's current composite, and the I bond's rate adjusts with inflation while a savings rate can fall at any time. But the savings account wins on everything else — access, capacity, and simplicity — which is why the two are complements, not substitutes.",
+          "A savings account lets you withdraw any amount at any time with no penalty and no annual cap. An I bond locks the money for a year, penalises early withdrawal for five, and caps purchases at $10,000 a year. The practical split: keep one to three months of spending in savings for immediate access, and move money you will not need for a year or more into I bonds while the fixed rate is high. When the fixed rate falls again — and it will, the next announcement is May 1, 2027 — the case for new purchases weakens, and the savings account takes the new money."
+        ],
+        "table": {
+          "head": [
+            "",
+            "I bond",
+            "High-yield savings"
+          ],
+          "rows": [
+            [
+              "Rate now",
+              "5.51% composite",
+              "Above the 0.39% national average"
+            ],
+            [
+              "Access",
+              "Locked 12 months",
+              "Anytime"
+            ],
+            [
+              "Early withdrawal",
+              "Lose 3 months' interest before 5 years",
+              "None"
+            ],
+            [
+              "Annual cap",
+              "$10,000 per person",
+              "None"
+            ],
+            [
+              "Tax",
+              "Federal deferred; state exempt",
+              "Taxed yearly as ordinary income"
+            ],
+            [
+              "Backing",
+              "US Treasury",
+              "FDIC insurance to $250,000"
+            ]
+          ]
+        }
+      },
+      {
+        "heading": "I bonds vs TIPS and Treasury bills",
+        "paragraphs": [
+          "Treasury Inflation-Protected Securities (TIPS) are the I bond's closest relative: their principal adjusts with the CPI, so they also protect purchasing power. The differences are structural. TIPS are marketable — you buy and sell them on the secondary market, so their price can fall if you sell before maturity — and they carry no purchase cap and no lockup. Their interest is taxed every year as it accrues, including tax on the inflation adjustment you have not received in cash, which makes them less tax-friendly in a taxable account than an I bond's deferred interest.",
+          "Treasury bills are the other comparison: short-term government debt, from 4 to 52 weeks, sold at a discount and exempt from state tax like I bonds. A bill's yield is whatever the auction sets, it does not adjust with inflation, and there is no cap and no lockup — you can sell a bill any time. Bills suit money needed in weeks or months; I bonds suit money that can wait a year and should keep its purchasing power for years. The three instruments answer three different questions: bills for timing, TIPS for an inflation-protected portfolio holding, I bonds for tax-deferred, capped, inflation-protected cash."
+        ]
+      },
+      {
+        "heading": "Who I bonds suit — and who they don't",
+        "paragraphs": [
+          "I bonds suit money with a date more than a year away and a job that inflation threatens: a house deposit a year out, a tax bill being pre-funded, a child's education fund, or the cash-reserve slice of a portfolio that should hold its value while it waits. They suit savers in high-tax states, who gain most from the state exemption, and savers who value a guaranteed real return — the 1.40% fixed rate is a return above inflation, locked for 30 years, with no market risk.",
+          "They do not suit money needed within a year, an emergency fund, or any sum above $10,000 a year per person. They do not suit anyone who needs income now — the interest is paid only at redemption, not monthly — or anyone who wants to trade in and out as rates move. And they do not suit a buyer who expects the 5.51% to last: the inflation part resets in six months, and a bond bought for the headline rate alone will disappoint when the next announcement lands. Buy for the fixed rate and the inflation protection, not for a single six-month number."
+        ],
+        "bullets": [
+          "Suits: cash not needed for 12+ months, inflation protection, tax-deferred savings, education funds.",
+          "Does not suit: emergency funds, money needed within a year, income needs, amounts above $10,000 a year.",
+          "Buy for the 1.40% fixed rate locked for 30 years — not for the 5.51% headline, which lasts six months."
+        ]
+      },
+      {
+        "heading": "How to buy, step by step",
+        "paragraphs": [
+          "Open a TreasuryDirect account at treasurydirect.gov and link your bank account. The account is free; there are no fees to buy, hold, or redeem I bonds. Choose the amount — $25 minimum, to the penny above that, up to $10,000 in the calendar year — and the purchase is made at face value: a $10,000 purchase buys a $10,000 bond, with no commission and no spread.",
+          "Buy before the month ends to earn a full month's interest from the 1st, and buy before April 30, 2027 to lock in the 1.40% fixed rate for the bond's life. After buying, the bond appears in your TreasuryDirect account, where its value updates as interest accrues — though for bonds under five years old, the value shown excludes the last three months of interest, because that is the amount you would forfeit by cashing in. Check the current rate on TreasuryDirect before every purchase: new rates are set every May 1 and November 1, and the next announcement, on May 1, 2027, will set both the fixed rate and the inflation rate for the following six months."
+        ]
+      }
+    ],
+    "seoTitle": "How I Bonds Work: Rates, Limits & Taxes (2026)",
+    "slug": "how-i-bonds-work",
+    "sources": [
+      {
+        "label": "TreasuryDirect — I bonds interest rates",
+        "url": "https://www.treasurydirect.gov/savings-bonds/i-bonds/i-bonds-interest-rates/"
+      },
+      {
+        "label": "TreasuryDirect — I bonds",
+        "url": "https://www.treasurydirect.gov/savings-bonds/i-bonds/"
+      }
+    ],
+    "title": "How I Bonds Work: the 5.51% Rate, Limits, Taxes and the Penalty",
+    "type": "How-to",
+    "updated": "2026-11-23"
   }
 ]
