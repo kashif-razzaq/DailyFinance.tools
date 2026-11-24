@@ -706,7 +706,7 @@ export const GUIDES_LOANS_DEBT: Guide[] = [
         "question": "Should I pay off debt or save first?"
       },
       {
-        "answer": "Avalanche costs less interest because it targets the highest rate first; snowball clears the first debt sooner, which keeps motivation up. In the worked example in this guide, avalanche saved $226 over 21 months while snowball cleared its first debt five months sooner. Pick the method you will actually finish — the difference is small compared with the cost of quitting.",
+        "answer": "Avalanche costs less interest because it targets the highest rate first; snowball clears the first debt sooner, which keeps motivation up. In the worked example in this guide, avalanche saved $263 over 20 months while snowball cleared its first debt five months sooner. Pick the method you will actually finish — the difference is small compared with the cost of quitting.",
         "question": "Is the avalanche or snowball method better?"
       },
       {
@@ -714,7 +714,7 @@ export const GUIDES_LOANS_DEBT: Guide[] = [
         "question": "Will paying off debt hurt my credit score?"
       },
       {
-        "answer": "Yes. A consolidation loan is optional. The core plan — pay minimums on everything, throw every extra dollar at one target debt, and roll each freed payment into the next — clears debt without any new borrowing. In the worked example, the avalanche method alone cleared $11,400 in 21 months. Consolidation helps mainly when it cuts your rate or simplifies many payments into one.",
+        "answer": "Yes. A consolidation loan is optional. The core plan — pay minimums on everything, throw every extra dollar at one target debt, and roll each freed payment into the next — clears debt without any new borrowing. In the worked example, the avalanche method alone cleared $11,400 in 20 months. Consolidation helps mainly when it cuts your rate or simplifies many payments into one.",
         "question": "Can I get out of debt without a consolidation loan?"
       },
       {
@@ -792,9 +792,9 @@ export const GUIDES_LOANS_DEBT: Guide[] = [
         "heading": "Why minimum payments keep you in debt",
         "paragraphs": [
           "A minimum payment is designed to keep the account current, not to clear it. On a credit card it typically covers that month's interest plus a small slice of principal — often around 1% of the balance plus the interest charge. Most of your money services the debt instead of shrinking it, and the balance barely moves.",
-          "Take the example household: $11,400 owed, $335 a month in minimums. Pay only those minimums — and assume the minimums never fall as balances drop, which is generous, because card minimums usually shrink with the balance — and the debts take 118 months, nearly ten years, to clear. Total interest: $12,407, more than the original $11,400 borrowed. The household would pay back $23,807 for $11,400 of debt.",
+          "Take the example household: $11,400 owed, $335 a month in minimums. Pay only those minimums — and assume the minimums never fall as balances drop, which is generous, because card minimums usually shrink with the balance — and the debts take 57 months, just under five years, to clear. Total interest: $7,676. The household would pay back $19,076 for $11,400 of debt.",
           "The warning is printed on your statement. Since the CARD Act of 2009, card issuers must show how long it takes to pay off the balance by making only minimum payments, and how much interest that costs, next to the monthly payment that would clear the balance in three years. That disclosure is the most honest number your issuer ever gives you. If the minimum-payment timeline on your statement runs into years, that is the issuer telling you, in its own required disclosure, that the minimum is not a plan.",
-          "The same household, paying $700 a month with a plan, clears everything in 21 months and pays about $2,277 in interest. The difference is $10,130 and eight years of payments. The extra $365 a month does almost all of the work — which is why finding extra money matters more than picking the perfect payoff order.",
+          "The same household, paying $700 a month with a plan, clears everything in 20 months and pays about $2,215 in interest. The difference is $5,461 and 37 months of payments. The extra $365 a month does almost all of the work — which is why finding extra money matters more than picking the perfect payoff order.",
           "The mechanism is simple: interest is charged monthly on the outstanding balance, so every extra dollar paid this month reduces next month's interest charge. Early extra payments are worth more than late ones. A dollar of principal paid off in month one saves roughly the APR divided by 12 in interest every month until the debt is gone — on a 27.99% card, about 2.3 cents a month, every month, for each dollar. Small amounts compound in your favor once the direction reverses."
         ]
       },
@@ -819,8 +819,8 @@ export const GUIDES_LOANS_DEBT: Guide[] = [
         "paragraphs": [
           "With minimums covered, every extra dollar goes to one target debt. The avalanche targets the highest APR first. The snowball targets the smallest balance first. Both roll the freed payment into the next debt when one is cleared — that rollover is what makes either method work, and it is the step people most often skip.",
           "Run the example household's three debts through both methods at $700 a month. Avalanche attacks Card A first (27.99%), then Card B (22.99%), then the loan (9.99%). Snowball attacks the loan first ($1,800), then Card A ($3,400), then Card B ($6,200). The results are close — and the differences are instructive.",
-          "Avalanche saves $226 and finishes in the same 21 months. Snowball clears its first debt in month 4 instead of month 9 — five months sooner — which is the whole point of the method: an early win keeps people going. In this example the cost of that motivation is $226, about $11 a month over the life of the plan. When the smallest debt is also the most expensive, the two methods agree and the choice disappears entirely.",
-          "Which should you choose? If you trust yourself to stick with a plan for two years without early wins, avalanche is the cheaper arithmetic. If you have quit payoff plans before, snowball's early wins are worth more than $226. A hybrid works too: clear one small debt for momentum, then switch to avalanche for the rest. The expensive mistake is not picking the wrong method — it is picking neither and paying minimums for another decade. Run your own balances through a debt payoff calculator before committing; the gap between methods depends entirely on your rates and balances.",
+          "Avalanche saves $263 and finishes in the same 20 months. Snowball clears its first debt in month 4 instead of month 9 — five months sooner — which is the whole point of the method: an early win keeps people going. In this example the cost of that motivation is $263, about $13 a month over the life of the plan. When the smallest debt is also the most expensive, the two methods agree and the choice disappears entirely.",
+          "Which should you choose? If you trust yourself to stick with a plan for two years without early wins, avalanche is the cheaper arithmetic. If you have quit payoff plans before, snowball's early wins are worth more than $263. A hybrid works too: clear one small debt for momentum, then switch to avalanche for the rest. The expensive mistake is not picking the wrong method — it is picking neither and paying minimums for another decade. These figures are the Debt Payoff Calculator's output for these exact debts — run your own balances through it before committing; the gap between methods depends entirely on your rates and balances.",
           "One rule applies to both methods: stop adding to the cards while you pay them off. New charges on a card you are attacking refill the hole as fast as you empty it. If a card must stay in use for a recurring bill, pay that bill's amount off the same week so the balance still falls every month."
         ],
         "table": {
@@ -835,23 +835,23 @@ export const GUIDES_LOANS_DEBT: Guide[] = [
             [
               "Avalanche (highest APR first)",
               "Card A, month 9",
-              "Card A, Card B, loan",
-              "21",
-              "$2,277"
+              "Card A, loan, Card B",
+              "20",
+              "$2,215"
             ],
             [
               "Snowball (smallest balance first)",
               "Loan, month 4",
               "Loan, Card A, Card B",
-              "21",
-              "$2,503"
+              "20",
+              "$2,478"
             ],
             [
               "Minimums only",
               "Loan, month 21",
               "Loan, Card A, Card B",
-              "118",
-              "$12,407"
+              "57",
+              "$7,676"
             ]
           ]
         }
@@ -870,8 +870,8 @@ export const GUIDES_LOANS_DEBT: Guide[] = [
         "heading": "Consolidation loans: what they fix and what they don't",
         "paragraphs": [
           "A debt consolidation loan replaces several debts with one fixed-rate personal loan: one payment, one rate, one end date. It helps when the new rate beats your weighted average rate and the payment is one you can actually make every month. It does not reduce what you owe — it reorganizes it.",
-          "The example household's three debts carry a weighted average APR of 22.43%. A $11,400 consolidation loan at 12% over 36 months costs $378.64 a month and $2,231 in total interest — about the same interest as the avalanche plan's $2,277, because the lower rate is offset by the longer term. The monthly payment drops from $700 to $379, which is real relief if cash flow is the problem, but it is not a saving.",
-          "The saving appears when you keep paying $700. The same 12% loan at $700 a month clears in 18 months with $1,106 of interest — $1,171 less than the avalanche plan and three months sooner. The loan did not save the money; the payment did. Consolidation lowers the rate; only the payment size shortens the timeline.",
+          "The example household's three debts carry a weighted average APR of 22.43%. A $11,400 consolidation loan at 12% over 36 months costs $378.64 a month and $2,231 in total interest — $16 more than the avalanche plan's $2,215, because the lower rate is offset by the longer term. The monthly payment drops from $700 to $379, which is real relief if cash flow is the problem, but it is not a saving.",
+          "The saving appears when you keep paying $700. The same 12% loan at $700 a month clears in 18 months with $1,106 of interest — $1,109 less than the avalanche plan and two months sooner. The loan did not save the money; the payment did. Consolidation lowers the rate; only the payment size shortens the timeline.",
           "The risk is behavioral. Consolidation frees up the old cards, and if spending refills them, you end up with the loan and the cards — more debt than you started with. Cut up or freeze the paid-off cards, keep one for genuine emergencies, and do not consolidate until the budget that caused the debt is fixed. A consolidation loan without a fixed budget is a reset button on a problem that will return.",
           "Compare offers on APR and total cost, not the monthly payment — a longer term always lowers the payment while raising total interest. Watch origination fees, which add to the cost before interest starts: a 5% origination fee on $11,400 is $570. And never secure a consolidation loan against your home unless you have weighed the risk directly: it converts unsecured debt into debt that can cost you the house."
         ]
@@ -948,7 +948,7 @@ export const GUIDES_LOANS_DEBT: Guide[] = [
     ],
     "title": "How to Get Out of Debt: The Complete Guide",
     "type": "How-to",
-    "updated": "2026-09-20"
+    "updated": "2026-11-24"
   },
   {
     "cornerstone": false,
@@ -4532,5 +4532,284 @@ export const GUIDES_LOANS_DEBT: Guide[] = [
     "title": "Why Your Loan Application Was Rejected",
     "type": "Troubleshooting",
     "updated": "2026-11-14"
+  },
+  {
+    "cornerstone": false,
+    "description": "How much car can you afford? The 20/4/10 rule caps total car costs at 10% of gross income — worked out by salary, with November 2026 market numbers.",
+    "faqs": [
+      {
+        "answer": "About $19,200 before tax and fees, under the 20/4/10 rule. Your gross pay is $6,250 a month, so the 10% ceiling is $625; after $250 a month for insurance, fuel and maintenance, $375 is left for the payment, which supports a $15,390 loan over 48 months at 7.9% — and with 20% down, that buys a $19,238 car. Replace the $250 running-cost figure with your own quotes for an exact answer.",
+        "question": "How much car can I afford on $75,000 a year?"
+      },
+      {
+        "answer": "It is strict by design, and most buyers break it — the average new-car loan in late 2026 was about $44,000 over 69 months, which breaks all three parts at once. The rule is a guardrail, not a law: if you cannot meet it, buy a cheaper or older car, save a bigger down payment, or wait. Breaking it knowingly, for a car you have priced honestly, is different from breaking it because the payment looked small.",
+        "question": "Is the 20/4/10 rule realistic?"
+      },
+      {
+        "answer": "You can still buy, but the trade-offs are real: a bigger loan, more interest, and a longer stretch owing more than the car is worth. Avoid combining a small down payment with a long term — that is the combination behind 133% loan-to-value ratios. If the down payment is small, consider GAP insurance, keep the term as short as you can, and run the numbers through the Auto Loan Calculator before signing.",
+        "question": "What if I can't put 20% down?"
+      },
+      {
+        "answer": "Through the rate. Experian's second-quarter 2026 averages were 6.35% for new cars and 11.19% for used ones, and scores below prime pay considerably more. A higher rate shrinks the loan the same payment supports, so the same $375 a month buys less car. Check your score and reports before shopping — the CFPB notes that checking your own credit never lowers your score.",
+        "question": "How does my credit score change what I can afford?"
+      },
+      {
+        "answer": "Under the rule, most salaries point to used: a $75,000 salary affords about $19,200, against a $51,109 average new price and a roughly $27,000 average used price. Used cars skip the steepest depreciation, while new cars bring a warranty and lower rates. Whichever you choose, get a pre-purchase inspection on a used car and compare the total cost, not the monthly payment.",
+        "question": "Should I buy new or used?"
+      }
+    ],
+    "hub": "Loans & Debt",
+    "image": "/images/how-much-car-can-i-afford.jpg",
+    "imageAlt": "Flat-vector illustration of a deep green car beside a tall stack of gold coins, a gauge, a wallet and a key, on a cream background",
+    "inlineImage": "/images/how-much-car-can-i-afford-inline.jpg",
+    "inlineImageAlt": "Flat-vector illustration of a car key fob beside shrinking stacks of coins and a potted plant growing coins",
+    "intro": "How much car can you afford? Use the 20/4/10 rule: put at least 20% down, finance for no more than four years, and keep all car costs — payment, insurance, fuel and maintenance — inside 10% of your gross monthly income. On a $75,000 salary that caps the car at about $19,200 before tax. Here is the maths.",
+    "published": "2026-11-24",
+    "readMinutes": 15,
+    "relatedTools": [
+      {
+        "name": "Auto Loan Calculator",
+        "url": "/loans/auto-loan-calculator"
+      },
+      {
+        "name": "Loan Calculator",
+        "url": "/loans/loan-calculator"
+      },
+      {
+        "name": "Debt-to-Income Ratio Calculator",
+        "url": "/loans/debt-to-income-ratio-calculator"
+      }
+    ],
+    "sections": [
+      {
+        "heading": "The short answer: the 20/4/10 rule",
+        "paragraphs": [
+          "The 20/4/10 rule is the simplest honest answer to “how much car can I afford”, and it has three parts. Put at least 20% of the price down. Finance the rest for no more than four years — 48 months. And keep everything the car costs each month — the loan payment, insurance, fuel and maintenance — inside 10% of your gross monthly income, the pay before tax.",
+          "The rule is a guideline, not a law. No lender requires it and no government agency publishes it. It is stated the same way by J.D. Power, Chase, LendingTree and other car-buying guides because it is easy to remember and it errs on the side of caution. Treat it as a guardrail: a car that fits inside it will not crowd out the rest of your budget, and a car that breaks it needs a reason, not a shrug.",
+          "The part almost everyone gets wrong is the 10. It is not 10% for the loan payment. It is 10% for the payment plus insurance plus fuel plus maintenance, together. A $500 payment on a $5,000 monthly income already uses the whole 10% before a litre of fuel or a month of insurance — which is why the rule feels strict. It is meant to.",
+          "The other number people misread is the income. The rule uses gross income — pay before tax, retirement contributions and health premiums — which makes it more generous than it looks: 10% of gross is a bigger share of what actually reaches your bank account. Some planners apply the same 10% to take-home pay instead, which is stricter and leaves a bigger cushion. This guide uses gross income throughout, and says so wherever a number depends on it."
+        ]
+      },
+      {
+        "heading": "What cars actually cost in November 2026",
+        "paragraphs": [
+          "The rule only helps if you know what cars cost now, so here is the market as it stood in November 2026. Kelley Blue Book put the average price paid for a new vehicle at $51,109 — a record, about $500 above the previous record from December 2025, and 2.1% higher than a year earlier. The average used car costs close to $27,000, up 6% on the year, according to Cox Automotive.",
+          "What buyers actually finance is lower than the sticker price, because of trade-ins and down payments — but not by much. Edmunds found buyers took out loans averaging $44,664 in the third quarter of 2026, and more than a quarter of them stretched the term to 84 months or longer. Experian's preliminary third-quarter figures tell the same story from the payment side: the average new-car payment was $773 a month and the average used-car payment $548, with average terms of 69 months for new cars and 68 for used ones. Nearly one in five new-car loans — 19% — carried a payment above $1,000 a month.",
+          "Rates are part of the price too. Edmunds put average rates at over 7% for new cars and about 11% for used ones in late 2026; Experian's second-quarter averages were 6.35% for new and 11.19% for used. Your own rate depends mostly on your credit score, which is why the same car costs two different buyers two different totals — covered below.",
+          "Stack those numbers against the rule and the gap is the story of this guide. A $51,109 car with 20% down leaves a loan near $41,000; at 7.9% over 48 months the payment alone is about $1,000 a month, which needs a $10,000 monthly income — a $120,000 salary — before insurance and fuel. The average buyer is not following the rule. The average buyer is financing about $44,000 over nearly six years. That is exactly what the rule exists to prevent."
+        ],
+        "table": {
+          "head": [
+            "Market figure, late 2026",
+            "Value",
+            "Source"
+          ],
+          "rows": [
+            [
+              "Average new-car transaction price",
+              "$51,109",
+              "Kelley Blue Book, Oct 2026"
+            ],
+            [
+              "Average used-car price",
+              "About $27,000",
+              "Cox Automotive"
+            ],
+            [
+              "Average amount financed",
+              "$44,664",
+              "Edmunds, Q3 2026"
+            ],
+            [
+              "Average new-car payment",
+              "$773 a month",
+              "Experian, Q3 2026"
+            ],
+            [
+              "Average used-car payment",
+              "$548 a month",
+              "Experian, Q3 2026"
+            ],
+            [
+              "Average loan term",
+              "69 months new, 68 used",
+              "Experian, Q3 2026"
+            ],
+            [
+              "New loans over $1,000 a month",
+              "19%",
+              "Experian, Q3 2026"
+            ],
+            [
+              "Loans at 84 months or longer",
+              "Over 25%",
+              "Edmunds, Q3 2026"
+            ],
+            [
+              "Average APR",
+              "About 7% new, 11% used",
+              "Edmunds"
+            ]
+          ]
+        }
+      },
+      {
+        "heading": "The worked example: the calculator's own numbers",
+        "paragraphs": [
+          "The Auto Loan Calculator on this site opens with a $35,000 car, a $6,000 trade-in, 7% sales tax, a $4,000 down payment, a 7.9% rate and a 60-month term. Run those numbers and the maths is: the taxable amount is the price minus the trade-in, $29,000, so the tax is $2,030; the amount financed is $29,000 plus $2,030 minus the $4,000 down payment — $27,030. At 7.9% over 60 months the payment is $546.78 a month.",
+          "The interest over the five years is $5,776.69, and the total cost of the loan — down payment plus trade-in plus every monthly payment — is $42,806.80. That is $7,806.80 more than the $35,000 sticker price, and the gap is the cost of borrowing plus the tax. Note what the total excludes: insurance, fuel and maintenance, which the 10% in the rule has to cover on top.",
+          "The term is where the money hides. The calculator compares 36, 48, 60, 72 and 84 months on the same $27,030, and stretching from 36 to 84 months cuts the payment from $845.78 to $419.95 — nearly in half — but adds $4,827.88 of interest for the same car. The 84-month loan also outlasts the car's trouble-free years: you can still be paying for a car that needs real repairs, and owing more than it is worth.",
+          "The same pattern shows in the Consumer Financial Protection Bureau's own example: a $20,000 loan at 4.75% costs $597 a month over three years and $1,498 in interest, but $320 a month over six years and $3,024 in interest — more than double the interest for a payment that looks $277 cheaper. The CFPB's advice is blunt: look beyond the monthly payment, because a longer loan means more interest and a real risk of owing more than the vehicle is worth."
+        ],
+        "table": {
+          "head": [
+            "Loan term",
+            "Monthly payment",
+            "Total interest"
+          ],
+          "rows": [
+            [
+              "36 months",
+              "$845.78",
+              "$3,417.92"
+            ],
+            [
+              "48 months",
+              "$658.61",
+              "$4,583.44"
+            ],
+            [
+              "60 months",
+              "$546.78",
+              "$5,776.69"
+            ],
+            [
+              "72 months",
+              "$472.60",
+              "$6,997.54"
+            ],
+            [
+              "84 months",
+              "$419.95",
+              "$8,245.80"
+            ]
+          ]
+        }
+      },
+      {
+        "bullets": [
+          "20% down: at least a fifth of the price in cash or trade-in equity, so the loan starts below the car's value.",
+          "4 years: 48 months maximum. Shorter is better; the rule's ceiling is not a target.",
+          "10% of gross: payment, insurance, fuel and maintenance together — not the payment alone."
+        ],
+        "heading": "The 20/4/10 rule, step by step",
+        "paragraphs": [
+          "Work the rule backwards from your pay, not forwards from a car you like. Start with gross monthly income — annual salary divided by 12. Take 10% of it. That is the ceiling for everything the car costs in a month. Subtract what the car costs to run: insurance, fuel and maintenance. What is left is the room for a loan payment. Then ask what loan that payment supports over 48 months at your rate, and what price that loan buys with 20% down.",
+          "Take a $75,000 salary. Gross monthly income is $6,250, so the 10% ceiling is $625. Running costs are the honest variable: this example budgets $250 a month for insurance, fuel and maintenance combined — a modest figure for a used car, and one you should replace with your own quotes before deciding. That leaves $375 a month for the loan payment.",
+          "A $375 payment over 48 months at 7.9% supports a loan of $15,390.29. With 20% down, the loan is 80% of the price, so the price is $15,390.29 divided by 0.8 — $19,237.87, about $19,200. That is the rule's answer on a $75,000 salary: a car around $19,200, before sales tax and fees, which push the out-the-door figure higher. The calculator adds sales tax to the financed amount, so run your own price through it with your state's rate.",
+          "The formula behind the loan step is the present value of an annuity: the loan equals the monthly payment multiplied by (1 − (1 + r)^−n) / r, where r is the monthly rate and n is 48. You do not need to work it by hand — the Auto Loan Calculator runs the same calculation — but knowing it exists stops the dealership from doing it for you."
+        ]
+      },
+      {
+        "heading": "What you can afford at your salary",
+        "paragraphs": [
+          "The same arithmetic at three salaries, using the same assumptions throughout — $250 a month of running costs, a 48-month term, a 7.9% rate, and the price before tax and fees. Change any assumption and the price moves; the running-cost figure matters most, because every dollar of it comes straight off the payment room.",
+          "Read the $50,000 row honestly: the rule buys a car around $8,550 — a well-used car, bought outright or with a small loan, not a new one. That is the rule working as designed. A $27,000 average used car on that salary needs a $526.31 payment over 48 months at 7.9% after 20% down — plus $250 of running costs, that is $776.31 a month, or 18.6% of gross income. The rule says no; the lender will still say yes, which is the next section.",
+          "Two warnings about the table. First, it ignores sales tax and fees, which add roughly 7–10% to the out-the-door price in most states — the calculator includes the tax, so use it for the final number. Second, the $250 running-cost figure is an assumption for a modest used car: a new car's insurance alone can exceed it, and a thirsty truck's fuel will too. Get an insurance quote for the actual car before you sign — it is the running cost most buyers guess worst."
+        ],
+        "table": {
+          "head": [
+            "Annual salary",
+            "Gross monthly",
+            "10% ceiling",
+            "Room for payment",
+            "Largest loan (48 mo)",
+            "Largest price (20% down)"
+          ],
+          "rows": [
+            [
+              "$50,000",
+              "$4,167",
+              "$417",
+              "$167",
+              "$6,840",
+              "$8,550"
+            ],
+            [
+              "$75,000",
+              "$6,250",
+              "$625",
+              "$375",
+              "$15,390",
+              "$19,238"
+            ],
+            [
+              "$100,000",
+              "$8,333",
+              "$833",
+              "$583",
+              "$23,940",
+              "$29,926"
+            ]
+          ]
+        }
+      },
+      {
+        "heading": "Why lenders will offer you far more",
+        "paragraphs": [
+          "The rule and the lender answer different questions. The rule asks what keeps your budget safe. The lender asks what you can probably repay, and the answer is much larger. Lenders check your debt-to-income ratio — the DTI guide works through the limits — and approve car payments the 20/4/10 rule would reject outright. A $44,664 loan, the third-quarter average, at 7.9% over 69 months costs about $808 a month. On a $75,000 salary that payment alone is nearly 13% of gross income, before insurance, fuel or maintenance. The lender approves it. The rule does not.",
+          "Dealers know this, which is why the negotiation is about the monthly payment, not the price. A longer term and a smaller down payment can put almost any car at almost any monthly number — the average buyer in 2026 proved it, with more than a quarter of loans running 84 months or longer. The payment looks affordable because the total is hidden: an 84-month loan on the calculator's example costs $8,245.80 in interest, against $3,417.92 over 36 months.",
+          "The protection is to decide your number before you shop. Work the rule, get pre-approved for a loan at your own bank or credit union first, and treat the dealer's financing as something to beat, not something to accept. The CFPB's guidance is to shop for the loan the way you shop for the car — several offers, compared on APR, term, amount financed and total of payments, not on the monthly figure alone.",
+          "One more lender-side trap: negative equity. A small down payment plus a long term means the loan balance falls slower than the car's value, so for years you owe more than the car would sell for. Experian's symposium noted 85-month loans carrying loan-to-value ratios averaging about 133% — the borrower owed a third more than the car was worth. The 20% down in the rule exists precisely to keep you on the right side of that line."
+        ]
+      },
+      {
+        "heading": "New or used — which fits the rule better?",
+        "paragraphs": [
+          "On most salaries, the rule points at a used car, and that is not a compromise — it is the arithmetic. The average new car costs $51,109; the average used car costs close to $27,000. A $75,000 salary affords about $19,200 under the rule, which in late 2026 buys a three-to-five-year-old car in good shape, not a new one. A $100,000 salary affords about $29,900, which reaches the average used car and the cheapest new ones.",
+          "The case for used is depreciation. A new car loses value fastest in its first year, which is why the rule demands 20% down: the down payment absorbs the first year's drop so the loan never sits above the car's value. Buy a three-year-old car and someone else has already paid for that drop — your 20% down buys a bigger cushion instead.",
+          "The case for new is narrower: a full warranty, a lower rate (new-car rates run about 4 points below used-car rates on Experian's averages — 6.35% against 11.19%), and no unknown history. But a lower rate on a much bigger loan is still a bigger total: a $41,000 new-car loan at 6.35% over 48 months costs about $969 a month, against about $526 for the $21,600 used-car loan above. The rate helps; the price decides.",
+          "If you buy used, protect the purchase the way the rule protects the budget: a pre-purchase inspection by an independent mechanic, a vehicle-history report, and a check that the title is clean. The Auto Loans guide on this site covers how rates, terms and dealer add-ons work — read it before you negotiate, whichever age of car you buy."
+        ]
+      },
+      {
+        "bullets": [
+          "Look beyond the monthly payment — compare the total of payments, not the monthly figure.",
+          "Decide your budget, down payment and add-ons before you reach the dealership.",
+          "Shop the loan at your bank or credit union as well as the dealer, and compare APR, term and amount financed.",
+          "Read the contract's APR, amount financed, finance charge and total of payments before signing."
+        ],
+        "heading": "Before you sign: the CFPB checklist",
+        "paragraphs": [
+          "The Consumer Financial Protection Bureau's auto-loan guidance comes down to six habits: look beyond the monthly payment; make your choices in advance; shop around for financing; examine the documents before signing; finalise the deal only when the numbers match what you agreed; and remember you can say no. The one that saves the most money is the first — compare offers on the total cost, not the payment.",
+          "When you compare offers, line up four numbers for each: the amount financed, the APR, the length of the loan, and the total of all payments. The total of payments is the number that decides between two offers on the same car. A lower payment over a longer term is not a better deal; it is the same car with more interest attached.",
+          "Watch the add-ons. Extended warranties, GAP insurance, paint protection and similar extras are often rolled into the loan, where they accrue interest for years and are hard to cancel later. Decide in advance which, if any, you want — GAP insurance is the one worth considering when the down payment is small — and price them separately from the car.",
+          "Finally, check your credit before you shop. Your score decides your rate band, and a better band buys a bigger car for the same payment — or the same car for less. The CFPB notes that checking your own reports never hurts your score, and that rate-shopping for one auto loan within a short window counts as a single inquiry under most scoring models. Fix errors first; the rate you are quoted assumes the report is right."
+        ]
+      }
+    ],
+    "seoTitle": "How Much Car Can I Afford? 20/4/10 Rule (2026)",
+    "slug": "how-much-car-can-i-afford",
+    "sources": [
+      {
+        "label": "Consumer Financial Protection Bureau — How do I compare auto loan offers?",
+        "url": "https://www.consumerfinance.gov/ask-cfpb/how-do-i-compare-auto-loan-offers-what-should-i-look-at-besides-the-monthly-payment-en-753/"
+      },
+      {
+        "label": "J.D. Power — What Is the 20/4/10 Rule of Buying and Financing a Car?",
+        "url": "https://www.jdpower.com/cars/shopping-guides/what-is-the-20-4-10-rule-of-buying-and-financing-a-car"
+      },
+      {
+        "label": "Experian — State of the Automotive Finance Market, Q3 2026 (preliminary, via Nasdaq)",
+        "url": "https://www.nasdaq.com/articles/experian-conference-highlights-auto-affordability-crunch-aging-used-cars"
+      },
+      {
+        "label": "Kelley Blue Book — Average new-vehicle transaction price, October 2026 (reported by NPR)",
+        "url": "https://www.whro.org/2026-11-10/the-average-cost-for-a-new-vehicle-in-the-u-s-hits-a-record-high-over-51-000"
+      }
+    ],
+    "title": "How Much Car Can I Afford? The 20/4/10 Rule, Worked Out",
+    "type": "How-to",
+    "updated": "2026-11-24"
   }
 ]
