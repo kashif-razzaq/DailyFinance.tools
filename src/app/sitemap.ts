@@ -5,7 +5,6 @@ import type { MetadataRoute } from 'next';
  *   public/sitemap.xml            the index (styled by public/sitemap.xsl)
  *   public/sitemap/pages.xml      static + trust pages and section indexes
  *   public/sitemap/calculators.xml
- *   public/sitemap/hubs.xml
  *   public/sitemap/guides.xml
  *   public/sitemap/states.xml     per state: state pages, then its cities
  * Static files let every sitemap carry the xml-stylesheet instruction that

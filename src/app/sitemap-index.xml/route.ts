@@ -17,9 +17,6 @@ const INDEX_XML = `<?xml version="1.0" encoding="UTF-8"?>
     <loc>https://www.dailyfinance.tools/sitemap/calculators.xml</loc>
   </sitemap>
   <sitemap>
-    <loc>https://www.dailyfinance.tools/sitemap/hubs.xml</loc>
-  </sitemap>
-  <sitemap>
     <loc>https://www.dailyfinance.tools/sitemap/guides.xml</loc>
   </sitemap>
   <sitemap>
