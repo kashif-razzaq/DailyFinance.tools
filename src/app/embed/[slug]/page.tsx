@@ -12,6 +12,18 @@ import { EmbedShell } from './EmbedShell'
  * reports the live height to the parent for auto-sized iframes.
  * Attribution + backlink bar is part of the widget and always renders.
  */
+
+// Closed param set: every embed slug is a key of the static registry.
+// Without this, every embed hit rendered server-side on every request
+// with no caching — the main Fluid CPU burn on the site. The page
+// content is fully static, so pre-render all 114 at build time; an
+// unknown slug 404s at the routing level instead of rendering.
+export function generateStaticParams() {
+  return Object.keys(EMBED_CALCULATORS).map((slug) => ({ slug }))
+}
+
+export const dynamicParams = false
+
 export default async function EmbeddedCalculatorPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
 

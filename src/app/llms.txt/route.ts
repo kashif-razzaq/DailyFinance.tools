@@ -13,6 +13,12 @@ const BASE = "https://www.dailyfinance.tools"
  * systems can cite the right page. Generated from the same data as the
  * navigation and the sitemap.
  */
+
+// Static: content is generated from the repo's own data at build time and
+// only changes on deploy. Without this, every AI-crawler fetch rebuilt the
+// whole file per request with no caching.
+export const dynamic = 'force-static'
+
 export async function GET() {
   const lines: string[] = []
   lines.push("# Daily Finance Tools")

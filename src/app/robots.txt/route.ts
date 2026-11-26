@@ -35,6 +35,11 @@ function section(comment: string, userAgents: string[]): string {
   return `# ${comment}\n\n${userAgents.map((ua) => group(ua)).join("\n\n")}`
 }
 
+// Static: the body is built from constants and only changes on deploy.
+// The handler already sets a Cache-Control header; force-static makes the
+// route build-time generated instead of executing per request.
+export const dynamic = 'force-static'
+
 export async function GET() {
   const body = [
     "# DailyFinance.tools (www.dailyfinance.tools) robots.txt",
