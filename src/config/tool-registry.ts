@@ -134,4 +134,5 @@ export const EXTRA_LIVE_TOOLS: { name: string; hub: string; status: "live"; url:
   {"name": "Fat FIRE vs Lean FIRE", "hub": "Personal Finance", "status": "live", "url": "/personal-wealth/fat-fire-vs-lean-fire-calculator"},
   {"name": "Biweekly Mortgage Calculator", "hub": "Mortgage & Real Estate", "status": "live", "url": "/real-estate/biweekly-mortgage-calculator"},
   {"name": "I Bond Calculator", "hub": "Personal Finance", "status": "live", "url": "/personal-wealth/i-bond-calculator"},
+  {"name": "Mortgage Recast Calculator", "hub": "Mortgage & Real Estate", "status": "live", "url": "/real-estate/mortgage-recast-calculator"},
 ]

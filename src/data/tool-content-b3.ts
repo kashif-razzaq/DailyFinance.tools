@@ -136,6 +136,74 @@ export const TOOL_CONTENT_B3: Record<string, ToolContentEntry> = {
       }
     ]
   },
+  "real-estate/mortgage-recast-calculator": {
+    "quickAnswer": "A $50,000 lump sum on a $300,000 mortgage at 6.5% with 27 years left cuts the payment from $1,966.66 to $1,638.89 a month — $327.78 less — and saves $56,200 of interest over the remaining term, after a $250 recast fee. The rate and payoff date stay the same; only the payment changes.",
+    "howItWorks": [
+      "A recast — also called re-amortization — starts with a lump sum paid toward your principal: home-sale proceeds, a bonus, an inheritance. Your servicer recalculates your monthly payment on the smaller balance over the months left. The rate and payoff date never change, and there is no new loan: no credit check, no appraisal, no closing costs, a small fee.",
+      "The calculator works out your current payment from the amortization formula, then subtracts the lump sum and runs the same formula again on the smaller balance over the same term. The payment is proportional to the balance when rate and term are fixed, so a $50,000 payment on a $300,000 balance cuts the payment by exactly one-sixth. Interest is simulated month by month, so the final partial payment is exact.",
+      "The same lump sum buys two different things. Recasting lowers the payment and keeps the payoff date. Keeping the old payment on the smaller balance pays the loan off years early instead — on the example loan, 18 years rather than 27 — and saves far more interest, $162,507 against $56,200. The calculator shows both: the cheaper payment is not always the better deal.",
+      "Recasting is not a right: your servicer decides, and the rules come from whoever owns the loan. Fannie Mae's guide lets the servicer cut the payment after a substantial principal curtailment; Freddie Mac's allows the same on a current loan with rate and maturity unchanged. Most servicers want $5,000 to $10,000 minimum, charge $150 to $500 ($250 is typical), and take 30 to 60 days. FHA, VA and USDA loans are generally ineligible — their loans sit in Ginnie Mae pools that bar re-amortization.",
+      "A recast pays when you want a lower bill and will stay put — the saving is spread over the remaining term, so a short horizon captures little of it. Before sending money, get the minimum, fee and new payment in writing, then check your next statement to confirm the lump sum went to principal. If your servicer will not recast, the lump sum still helps: keep paying the old amount and the loan clears years early, fee-free."
+    ],
+    "formula": "Monthly principal and interest M = P × [r(1 + r)^n] ÷ [(1 + r)^n − 1], where P is the balance, r is the annual rate ÷ 12, and n is the months left. After the lump sum the balance is P′ = P − lump sum, and the recast payment is the same formula with P′ and the same r and n. Interest saved = (old payment × n − P) − (new payment × n − P′), minus the recast fee.",
+    "example": {
+      "title": "Worked example: $300,000 at 6.5%, 27 years left",
+      "body": "The current payment is $1,966.66 a month. A $50,000 lump sum cuts the balance to $250,000, and re-amortizing that balance over the same 324 months at 6.5% gives a new payment of $1,638.89 — $327.78 less each month, 16.7% lower. Interest over the remaining term falls from $337,199 to $281,000, a saving of $56,200, or $55,950 after the $250 fee, which the lower payment covers in under a month. Keeping the $1,966.66 payment on the $250,000 balance instead clears the loan in 216 months — 18 years, nine years early — and saves $162,507, $106,307 more than recasting."
+    },
+    "assumptions": [
+      "The rate stays fixed for the life of the loan, and the remaining term does not change — a recast re-amortizes the balance over the months left, nothing else.",
+      "The lump sum is applied to principal in full on the day it is paid, and the recast fee is paid separately, never added to the balance.",
+      "The figures cover principal and interest only: property tax, insurance, HOA dues and PMI are excluded, and no prepayment penalty is modeled."
+    ],
+    "faqs": [
+      {
+        "question": "How much does a mortgage recast lower my payment?",
+        "answer": "It depends on the lump sum relative to the balance: the payment falls by the same proportion as the balance. A $50,000 payment on a $300,000 loan at 6.5% with 27 years left cuts the payment from $1,966.66 to $1,638.89, $327.78 less a month. A $25,000 payment on the same loan would cut it by half that, about $163.89. Enter your own numbers in the calculator — the drop scales exactly with the lump sum."
+      },
+      {
+        "question": "Is a mortgage recast worth it?",
+        "answer": "It is worth it when you want a permanently lower monthly payment and will stay in the home long enough to collect the saving. On the example loan the recast saves $56,200 of interest, $55,950 after the $250 fee, and the fee is covered in under a month of lower payments. It is not worth it if you plan to sell or refinance soon — the saving is spread over the remaining term — or if the same lump sum kept at the old payment would serve you better: that path saves $162,507 and clears the loan nine years early."
+      },
+      {
+        "question": "Can I recast an FHA, VA or USDA loan?",
+        "answer": "Generally no. Government-backed loans sit in Ginnie Mae mortgage-backed securities pools, and the Ginnie Mae guide bars re-amortization while a loan is in a pool. Recasting is a conventional-loan option: Fannie Mae and Freddie Mac both have servicing procedures for it, and most servicers offer it on conventional loans. If your loan is FHA, VA or USDA, the lump sum still helps — keep paying the old amount and the balance falls faster — but the payment itself will not drop."
+      },
+      {
+        "question": "How much does a recast cost?",
+        "answer": "Most servicers charge $150 to $500, and $250 is the most common figure: PennyMac, U.S. Bank and Rocket Mortgage all list $250. Some charge nothing — Wells Fargo lists no fee on its jumbo recast option. There is no appraisal, no credit check and no closing costs, which is the whole point against refinancing. Get the fee in writing before you send the lump sum, and check it against the monthly saving: on the example loan the $250 fee is covered in under a month."
+      },
+      {
+        "question": "How much lump sum do I need to recast?",
+        "answer": "There is no regulator-set minimum: Fannie Mae's guide speaks of a 'substantial' curtailment and sets no dollar figure. Servicers set their own, commonly $5,000 to $10,000; Chase lists no minimum. The minimum is only the entry ticket — the payment cut scales with the lump sum, so a $10,000 payment on a $300,000 loan cuts the payment by about $65.56 a month, while $50,000 cuts it by $327.78."
+      },
+      {
+        "question": "Recast vs refinance — which is better?",
+        "answer": "Recast when you like your rate and only want a lower payment: it costs $250, keeps your rate and payoff date, and needs no appraisal or credit check. Refinance when your rate is the problem — a lower rate cuts both the payment and the total interest, but closing costs run 0.5% to 1.5% of the loan and the clock restarts. If you refinance, the same lump sum can go toward the new loan instead. Run both in the refinance calculator before you choose."
+      },
+      {
+        "question": "Recast or keep paying the same amount — which saves more?",
+        "answer": "Keeping the payment saves far more. On the $300,000 example, recasting saves $56,200 of interest and keeps the 27-year payoff date; keeping the $1,966.66 payment on the $250,000 balance clears the loan in 18 years and saves $162,507 — $106,307 more. Recasting buys a smaller monthly bill; keeping the payment buys nine years of freedom. Choose the lower payment if cash flow is the problem, and the old payment if the total cost is."
+      },
+      {
+        "question": "How long does a recast take?",
+        "answer": "Most servicers take 30 to 60 days from request to the new payment, and PennyMac quotes up to six weeks. The lump sum is applied to principal first, then the servicer re-amortizes and sends a new payment schedule — on a Fannie Mae loan the agreement is Form 181. Do not expect the lower payment on the next statement: budget for at least one more payment at the old amount, and check the statement after that to confirm the new figure."
+      }
+    ],
+    "sources": [
+      {
+        "label": "Fannie Mae — Servicing Guide (re-amortization, C-1.2-01 / F-1-09)",
+        "url": "https://servicing-guide.fanniemae.com/"
+      },
+      {
+        "label": "Freddie Mac — Is There a Faster Way to Be Mortgage-Free?",
+        "url": "https://myhome.freddiemac.com/blog/homeownership/pay-off-mortgage-faster"
+      },
+      {
+        "label": "CFPB — Mortgage key terms",
+        "url": "https://www.consumerfinance.gov/consumer-tools/mortgages/answers/key-terms/"
+      }
+    ]
+  },
   "personal-wealth/i-bond-calculator": {
     "quickAnswer": "A $10,000 I bond bought at the November 2026 rate of 5.51% is worth $10,275.50 after six months and $13,122.89 after five years — $3,122.89 of interest, with no penalty at five years. The rate combines a 1.40% fixed rate, locked for the bond's 30-year life, with a 2.04% semiannual inflation rate that resets every six months.",
     "howItWorks": [

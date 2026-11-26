@@ -86,7 +86,7 @@ export const HUBS: HubContent[] = [
       { question: "How much down payment do I need?", answer: "20% avoids PMI and lowers the payment, but many loans allow 3–5% down. The right answer weighs PMI cost against years spent saving while prices and rents move." },
       { question: "Is a 15-year mortgage worth the higher payment?", answer: "It carries a lower rate and builds equity far faster, saving six figures of interest on typical loans. It is worth it if the payment still fits the budget with an emergency fund intact; otherwise, a 30-year loan with voluntary extra payments keeps the flexibility." },
     ],
-    guideSlugs: ["how-mortgage-amortization-works", "how-much-house-can-i-afford", "rent-vs-buy-guide", "how-biweekly-mortgage-payments-work"],
+    guideSlugs: ["how-mortgage-amortization-works", "how-much-house-can-i-afford", "rent-vs-buy-guide", "how-biweekly-mortgage-payments-work", "how-mortgage-recast-works"],
   },
   {
     slug: "loans-and-debt",

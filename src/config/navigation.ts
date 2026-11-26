@@ -136,6 +136,7 @@ export const navigationCategories: Category[] = [
       { title: "VA Loan Calculator", slug: "va-loan-calculator", description: "Monthly payment with the VA funding fee.", icon: Shield },
       { title: "FHA Loan Calculator", slug: "fha-loan-calculator", description: "Monthly payment with FHA MIP and limits.", icon: Scale },
       { title: "Biweekly Mortgage Calculator", slug: "biweekly-mortgage-calculator", description: "Half-payments every two weeks: interest saved and payoff date.", icon: Calculator },
+      { title: "Mortgage Recast Calculator", slug: "mortgage-recast-calculator", description: "Lower payment after a lump sum: new payment, interest saved, recast vs prepay.", icon: Calculator },
     ]
   },
   {

@@ -75,6 +75,7 @@ export const EMBED_CALCULATORS = {
   'mortgage-amortization-calculator': dynamic(() => import('@/app/real-estate/mortgage-amortization-calculator/CalculatorClient').then((m) => m.CalculatorClient)),
   'mortgage-payment-calculator': dynamic(() => import('@/app/real-estate/mortgage-payment-calculator/CalculatorClient').then((m) => m.CalculatorClient)),
   'mortgage-payoff-calculator': dynamic(() => import('@/app/real-estate/mortgage-payoff-calculator/CalculatorClient').then((m) => m.CalculatorClient)),
+  'mortgage-recast-calculator': dynamic(() => import('@/app/real-estate/mortgage-recast-calculator/CalculatorClient').then((m) => m.CalculatorClient)),
   'net-worth-tracker': dynamic(() => import('@/app/personal-wealth/net-worth-tracker/CalculatorClient').then((m) => m.CalculatorClient)),
   'overtime-calculator': dynamic(() => import('@/app/tax/overtime-calculator/CalculatorClient').then((m) => m.CalculatorClient)),
   'patreon-tier-optimization': dynamic(() => import('@/app/creator/patreon-tier-optimization/CalculatorClient').then((m) => m.CalculatorClient)),
